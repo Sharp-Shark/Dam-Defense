@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Afflictions>
+
+  <!-- husk infection overriden to increase lethality and make it use immune afflictions -->
+  <Override>
+  <AfflictionHusk
+    name="Husk infection"
+    identifier="huskinfection"
+    description="Something dark and unpleasant moves in the mouth. They are rendered completely mute, save for occasional clicking sounds apparently emanating from deep within the throat."
+    type="alieninfection"
+    targets="human,crawler"
+    huskedspeciesname="husk"
+    causeofdeathdescription="Taken over by a husk parasite"
+    selfcauseofdeathdescription="You have been taken over by the husk parasite."
+    limbspecific="false"
+    indicatorlimb="Torso"
+    activationthreshold="0"
+    showiconthreshold="75"
+    showicontoothersthreshold="75"
+    showinhealthscannerthreshold="50"
+    karmachangeonapplied="-1"
+    maxstrength="100"
+    transferbuffs="true"
+    achievementonremoved="healhusk"
+    dormantthreshold="50"
+    activethreshold="75"
+    transformthresholdondeath="0"
+    transitionthreshold="100"
+    IgnoreTreatmentIfAfflictedBy="husktransformimmunity,husktransformimmunitytemporary"
+    healcostmultiplier="2.5"
+    basehealcost="200"
+    iconcolors="60,140,195,255;60,107,195,255;60,0,195,255">
+     <Description
+      textidentifier="afflictiondescription.huskinfection.dormant.self"
+      target="Self"
+      minstrength="0"
+      maxstrength="50"/>
+    <Description
+      textidentifier="afflictiondescription.huskinfection.transition.self"
+      target="Self"
+      minstrength="50"
+      maxstrength="75"/>
+    <Description
+      textidentifier="afflictiondescription.huskinfection.active.self"
+      target="Self"
+      minstrength="75"
+      maxstrength="99"/>
+    <Description
+      textidentifier="afflictiondescription.huskinfection.dormant.other"
+      target="OtherCharacter"
+      minstrength="0"
+      maxstrength="50"/>
+    <Description
+      textidentifier="afflictiondescription.huskinfection.transition.other"
+      target="OtherCharacter"
+      minstrength="50"
+      maxstrength="75"/>
+    <Description
+      textidentifier="afflictiondescription.huskinfection.active.other"
+      target="OtherCharacter"
+      minstrength="75"
+      maxstrength="99"/>
+    <Description
+      textidentifier="afflictiondescription.huskinfection.final"
+      minstrength="99"
+      maxstrength="101"/>
+    <Effect minstrength="0" maxstrength="65"
+      maxvitalitydecrease="0"
+      strengthchange="0.5"
+      minbodytint="195,195,195,0"
+      maxbodytint="195,195,195,150"/>
+    <Effect minstrength="65" maxstrength="100"
+      maxvitalitydecrease="0"
+      strengthchange="1"
+      minbodytint="195,195,195,150"
+      maxbodytint="195,195,195,200"
+      tag="huskinfected"/>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,640,128,128" color="60,107,195,255" origin="0,0"/>
+  </AfflictionHusk>
+  </Override>
+
+  <!-- captain is invulnerable to pulmonary emphysema -->
+  <Affliction
+    name="Avid Smoker"
+    identifier="avidsmoker"
+    type="talentbuff"
+    isbuff="true"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="1"
+    showiconthreshold="999"
+    showicontoothersthreshold="999"
+    showinhealthscannerthreshold="999"
+    treatmentthreshold="1000"
+    iconcolors="255,255,255"
+    MedicalSkillGain="0.005">
+    <Effect>
+      <StatusEffect target="Character" interval="0.1" disabledeltatime="true">
+        <ReduceAffliction identifier="pulmonaryemphysema" strength="15.0"/>
+      </StatusEffect>
+    </Effect>
+    <Icon texture="Content/UI/TalentsIcons2.png" sheetindex="7,5" sheetelementsize="128,128"/>
+  </Affliction>
+
+  <!-- event -->
+  <Affliction
+    name="Bloodlust"
+    identifier="bloodlust"
+    type="talentbuff"
+    isbuff="true"
+    limbspecific="false" indicatorlimb="Head"
+    maxstrength="1"
+    showiconthreshold="0"
+    showicontoothersthreshold="999"
+    showinhealthscannerthreshold="999"
+    treatmentthreshold="1000"
+    iconcolors="255,155,55"
+    MedicalSkillGain="0.005">
+    <Effect strengthchange="0"
+	  minspeedmultiplier="1"
+	  maxspeedmultiplier="1.5"
+      resistancefor="stun"
+      minresistance="1.0"
+      maxresistance="1.0">
+      <StatusEffect target="Character" interval="0.1" disabledeltatime="true">
+        <ReduceAffliction type="damage" strength="0.5"/>
+        <ReduceAffliction type="burn" strength="0.5"/>
+        <ReduceAffliction type="poison" strength="1"/>
+        <ReduceAffliction type="infection" strength="1"/>
+        <ReduceAffliction identifier="drunk" strength="0.5"/>
+        <ReduceAffliction identifier="bacterialgangrene" strength="0.5"/>
+        <ReduceAffliction identifier="bloodloss" strength="0.5"/>
+        <ReduceAffliction identifier="bleeding" strength="0.5"/>
+        <ReduceAffliction identifier="stun" strength="1.0"/>
+        <ReduceAffliction identifier="oxygenlow" strength="15.0"/>
+      </StatusEffect>
+      <StatValue stattype="MeleeAttackMultiplier" value="2.0" />
+    </Effect>
+    <Effect strengthchange="0"
+      resistancefor="damage"
+      minresistance="0.5"
+      maxresistance="0.5">
+    </Effect>
+    <Icon texture="Content/UI/TalentsIcons2.png" sheetindex="7,5" sheetelementsize="128,128"/>
+  </Affliction>
+  
+  <!-- immune -->
+  <Affliction
+    name="Immune-boost"
+    identifier="immuneboost"
+    type="immune"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="100"
+    showiconthreshold="1"
+    showinhealthscannerthreshold="1"
+    treatmentthreshold="1000"
+    iconcolors="100,100,155,255;100,100,255,255"
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="100" strengthchange="-2" />
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="384,0,128,128" color="114,193,193,255" origin="0,0"/>
+  </Affliction>
+  
+  <Affliction
+    name="Immune-response"
+    identifier="immuneresponse"
+    type="immune"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="100"
+    showiconthreshold="15"
+    showinhealthscannerthreshold="1"
+    treatmentthreshold="1000"
+    iconcolors="114,114,114,255;114,193,193,255"
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="100" >
+    </Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="384,0,128,128" color="114,193,193,255" origin="0,0"/>
+  </Affliction>
+  
+  <Affliction
+    name="Fever"
+    identifier="fever"
+    type="immune"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="100"
+    showiconthreshold="15"
+    showinhealthscannerthreshold="1"
+    treatmentthreshold="90"
+    iconcolors="114,114,114,255;114,193,193,255"
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="45" multiplybymaxvitality="true" />
+    <Effect minstrength="45" maxstrength="90" multiplybymaxvitality="true" minspeedmultiplier="1" maxspeedmultiplier="0.0" minvitalitydecrease="0.0" maxvitalitydecrease="0.5" />
+    <Effect minstrength="90" maxstrength="100" multiplybymaxvitality="true" minvitalitydecrease="0.5" maxvitalitydecrease="1.0">
+      <StatusEffect target="Character">
+        <Affliction identifier="stun" strength="0.1"/>
+      </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="384,128,128,128" color="114,193,193,255" origin="0,0"/>
+  </Affliction>
+  
+  <!-- flu -->
+  <Affliction
+    name="Flu Hidden"
+    identifier="fluhidden"
+    type="infectionhidden"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="200"
+    showiconthreshold="999"
+    showinhealthscannerthreshold="1"
+    treatmentthreshold="1000"
+    iconcolors="155,155,100,255;255,255,100,255"
+    causeofdeathdescription="Rot to death"
+    selfcauseofdeathdescription="You have rotted to death."
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="200" strengthchange="1" />
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
+  </Affliction>
+  
+  <Affliction
+    name="Flu Payload"
+    identifier="flupayload"
+    type="infectionpayload"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="200"
+    showiconthreshold="999"
+    showinhealthscannerthreshold="999"
+    treatmentthreshold="1000"
+    iconcolors="155,155,100,255;255,255,100,255"
+    causeofdeathdescription="Rot to death"
+    selfcauseofdeathdescription="You have rotted to death."
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="200" strengthchange="-2" >
+      <StatusEffect target="Character" disabledeltatime="false">
+	    <Affliction identifier="fluinfection" strength="2"/>
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
+  </Affliction>
+  
+  <Affliction
+    name="Flu Infection"
+    identifier="fluinfection"
+    type="infection"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="200"
+    showiconthreshold="30"
+    showinhealthscannerthreshold="1"
+    treatmentthreshold="0"
+    iconcolors="155,155,100,255;255,255,100,255"
+    causeofdeathdescription="Rot to death"
+    selfcauseofdeathdescription="You have rotted to death."
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="200" strengthchange="2"
+      multiplybymaxvitality="true"
+      minvitalitydecrease="0"
+      maxvitalitydecrease="1.0">
+      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
+        <Affliction identifier="oxygenlow" amount="2" />
+      </StatusEffect>
+    </Effect>
+    <PeriodicEffect mininterval="12" maxinterval="16">
+      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character">
+		<LuaHook name="DD.afflictions.spread" />
+        <Affliction identifier="oxygenlow" amount="20" />
+        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Misc/cough2.ogg" />
+        <Sound file="%ModDir%/Misc/cough3.ogg" />
+        <Sound file="%ModDir%/Misc/cough4.ogg" />
+		<Conditional InWater="eq False" />
+      </StatusEffect>
+    </PeriodicEffect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
+  </Affliction>
+  
+  <!-- bacterial -->
+  <Affliction
+    name="Bacterial Hidden"
+    identifier="bacterialhidden"
+    type="infectionhidden"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="200"
+    showiconthreshold="999"
+    showinhealthscannerthreshold="1"
+    treatmentthreshold="1000"
+    iconcolors="100,155,100,255;100,255,100,255"
+    causeofdeathdescription="Rot to death"
+    selfcauseofdeathdescription="You have rotted to death."
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="200" strengthchange="1" />
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
+  </Affliction>
+  
+  <Affliction
+    name="Bacterial Payload"
+    identifier="bacterialpayload"
+    type="infectionpayload"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="200"
+    showiconthreshold="999"
+    showinhealthscannerthreshold="999"
+    treatmentthreshold="1000"
+    iconcolors="100,155,100,255;100,255,100,255"
+    causeofdeathdescription="Rot to death"
+    selfcauseofdeathdescription="You have rotted to death."
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="200" strengthchange="-1" >
+      <StatusEffect target="Character" disabledeltatime="false">
+	    <Affliction identifier="bacterialinfection" strength="1"/>
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
+  </Affliction>
+  
+  <Affliction
+    name="Bacterial Infection"
+    identifier="bacterialinfection"
+    type="infection"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="200"
+    showiconthreshold="30"
+    showinhealthscannerthreshold="1"
+    treatmentthreshold="0"
+    iconcolors="100,155,100,255;100,255,100,255"
+    causeofdeathdescription="Rot to death"
+    selfcauseofdeathdescription="You have rotted to death."
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="200" strengthchange="2"
+      multiplybymaxvitality="true"
+      minvitalitydecrease="0"
+      maxvitalitydecrease="2">
+      <StatusEffect target="Character" interval="0.1" disabledeltatime="true">
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
+  </Affliction>
+  
+  <!-- bacterial gangrene -->
+  <Affliction
+    name="Bacterial Gangrene"
+    identifier="bacterialgangrene"
+    type="infectionpayload"
+    targets="human"
+    limbspecific="true"
+    maxstrength="200"
+    showiconthreshold="1"
+    showinhealthscannerthreshold="1"
+    treatmentthreshold="0"
+    iconcolors="155,100,155,255;255,100,255,255"
+    causeofdeathdescription="Rot to death"
+    selfcauseofdeathdescription="You have rotted to death."
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="200" strengthchange="0.1"
+      multiplybymaxvitality="true"
+      minvitalitydecrease="0"
+      maxvitalitydecrease="2">
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
+  </Affliction>
+  
+  <!-- it seems I am not the only spy -->
+  <Affliction
+    name="Pulmonary Emphysema"
+    identifier="pulmonaryemphysema"
+    type="immunedebuff"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="100"
+    showiconthreshold="95"
+    showinhealthscannerthreshold="35"
+    treatmentthreshold="0"
+    iconcolors="100,100,155,255;100,100,255,255"
+    MedicalSkillGain="0.005">
+    <Effect minstrength="75" maxstrength="95" strengthchange="-0.01" />
+    <Effect minstrength="95" maxstrength="101" strengthchange="-0.01">
+      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
+        <Affliction identifier="oxygenlow" amount="10" />
+      </StatusEffect>
+    </Effect>
+    <PeriodicEffect minstrength="35" maxstrength="55" mininterval="16" maxinterval="64">
+      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character">
+		<LuaHook name="DD.afflictions.spread" />
+        <Affliction identifier="oxygenlow" amount="20" />
+        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Misc/cough2.ogg" />
+        <Sound file="%ModDir%/Misc/cough3.ogg" />
+        <Sound file="%ModDir%/Misc/cough4.ogg" />
+		<Conditional InWater="eq False" />
+      </StatusEffect>
+    </PeriodicEffect>
+    <PeriodicEffect minstrength="55" maxstrength="75" mininterval="8" maxinterval="32">
+      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character">
+		<LuaHook name="DD.afflictions.spread" />
+        <Affliction identifier="oxygenlow" amount="20" />
+        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Misc/cough2.ogg" />
+        <Sound file="%ModDir%/Misc/cough3.ogg" />
+        <Sound file="%ModDir%/Misc/cough4.ogg" />
+		<Conditional InWater="eq False" />
+      </StatusEffect>
+    </PeriodicEffect>
+    <PeriodicEffect minstrength="75" maxstrength="95" mininterval="4" maxinterval="16">
+      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character">
+		<LuaHook name="DD.afflictions.spread" />
+        <Affliction identifier="oxygenlow" amount="20" />
+        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Misc/cough2.ogg" />
+        <Sound file="%ModDir%/Misc/cough3.ogg" />
+        <Sound file="%ModDir%/Misc/cough4.ogg" />
+		<Conditional InWater="eq False" />
+      </StatusEffect>
+    </PeriodicEffect>
+    <PeriodicEffect minstrength="95" maxstrength="100" mininterval="2" maxinterval="8">
+      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character">
+		<LuaHook name="DD.afflictions.spread" />
+        <Affliction identifier="oxygenlow" amount="20" />
+        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Misc/cough2.ogg" />
+        <Sound file="%ModDir%/Misc/cough3.ogg" />
+        <Sound file="%ModDir%/Misc/cough4.ogg" />
+		<Conditional InWater="eq False" />
+      </StatusEffect>
+    </PeriodicEffect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,0,128,128" color="255,255,255,255" origin="0,0"/>
+  </Affliction>
+
+</Afflictions>
