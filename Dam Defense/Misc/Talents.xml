@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Talents>
+
+  <!-- drunken sailor alse gives invulnerability to pulmonary emphysema -->
+  <Override>
+  <Talent identifier="drunkensailor">
+    <Description tag="talentdescription.drunkensailor">
+      <Replace tag="[stunresistance]" value="75" color="gui.green"/>
+    </Description>
+    <Description tag="talentdescription.unlockrecipe">
+      <Replace tag="[itemname]" value="entityname.rum" color="gui.orange"/>
+    </Description>
+    <Icon texture="Content/UI/TalentsIcons1.png" sheetindex="3,0" sheetelementsize="128,128"/>
+    <AbilityGroupInterval interval="1.0">
+      <Conditions>
+        <AbilityConditionHasAffliction afflictionidentifier="drunknodebuffs"/>
+      </Conditions>
+      <Abilities>
+        <CharacterAbilityModifyResistance resistanceid="stun" multiplier="0.25"/>
+        <CharacterAbilityModifyResistance resistanceid="nausea" multiplier="0"/>
+      </Abilities>
+    </AbilityGroupInterval>
+    <AbilityGroupInterval interval="1.0">
+      <Abilities>
+        <CharacterAbilityReplaceAffliction affliction="drunk" newaffliction="drunknodebuffs"/>
+      </Abilities>
+    </AbilityGroupInterval>
+    <AbilityGroupInterval interval="0.9">
+      <Abilities>
+        <CharacterAbilityApplyStatusEffects>
+          <StatusEffects>
+            <StatusEffect type="OnAbility" target="Character" disabledeltatime="true" multiplyafflictionsbymaxvitality="true">
+              <Affliction identifier="avidsmoker" amount="1.0"/>
+            </StatusEffect>
+          </StatusEffects>
+        </CharacterAbilityApplyStatusEffects>
+      </Abilities>
+    </AbilityGroupInterval>
+    <AddedRecipe itemidentifier="rum"/>
+  </Talent>
+  </Override>
+
+  <Talent identifier="unlockallrecipes">
+    <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
+	
+	<!-- assistant unlocks -->
+    <AddedRecipe itemidentifier="makeshiftshelf"/>
+    <AddedRecipe itemidentifier="handhelditemfinder"/>
+    <AddedRecipe itemidentifier="petraptoregg"/>
+    <AddedRecipe itemidentifier="backpack"/>
+    <AddedRecipe itemidentifier="ceremonialsword"/>
+    <AddedRecipe itemidentifier="clowncrate"/>
+    <AddedRecipe itemidentifier="clowndivingmask"/>
+    <AddedRecipe itemidentifier="clownexosuit"/>
+	
+	<!-- captain unlocks -->
+    <AddedRecipe itemidentifier="handcannon"/>
+    <AddedRecipe itemidentifier="handcannonround"/>
+    <AddedRecipe itemidentifier="revolver"/>
+    <AddedRecipe itemidentifier="revolverround"/>
+    <AddedRecipe itemidentifier="cigar"/>
+    <AddedRecipe itemidentifier="rum"/>
+	
+	<!-- doctor unlocks -->
+    <AddedRecipe itemidentifier="endocrinebooster"/>
+    <AddedRecipe itemidentifier="advancedsyringegun"/>
+    <AddedRecipe itemidentifier="autoinjectorheadset"/>
+    <AddedRecipe itemidentifier="combatstimulantsyringe"/>
+    <AddedRecipe itemidentifier="chemgrenade"/>
+    <AddedRecipe itemidentifier="40mmchemgrenade"/>
+    <AddedRecipe itemidentifier="pressurestabilizer"/>
+    <AddedRecipe itemidentifier="advancedgenesplicer"/>
+    <AddedRecipe itemidentifier="europabrew"/>
+    <AddedRecipe itemidentifier="sulphuricacidsyringe"/>
+	
+	<!-- engineer unlocks -->
+    <AddedRecipe itemidentifier="flamer"/>
+    <AddedRecipe itemidentifier="arcemitter" />
+    <AddedRecipe itemidentifier="fpgacircuit"/>
+    <AddedRecipe itemidentifier="circuitbox"/>
+    <AddedRecipe itemidentifier="cargoscooter"/>
+    <AddedRecipe itemidentifier="depletedfuel"/>
+    <AddedRecipe itemidentifier="coilgunammoboxdepletedfuel"/>
+    <AddedRecipe itemidentifier="wrenchhardened" />
+    <AddedRecipe itemidentifier="screwdriverhardened" />
+    <AddedRecipe itemidentifier="crowbarhardened" />
+    <AddedRecipe itemidentifier="divingknifehardened" />
+    <AddedRecipe itemidentifier="smgmagazinedepletedfuel" />
+    <AddedRecipe itemidentifier="revolverrounddepletedfuel" />
+    <AddedRecipe itemidentifier="nucleargun" />
+    <AddedRecipe itemidentifier="nuclearshellcheap" />
+    <AddedRecipe itemidentifier="nucleardepthchargecheap" />
+    <AddedRecipe itemidentifier="handheldelectricalmonitor"/>
+    <AddedRecipe itemidentifier="pucs"/>
+    <AddedRecipe itemidentifier="reactorpda"/>
+    <AddedRecipe itemidentifier="fulguriumfuelrodvolatile"/>
+	
+	<!-- mechanic unlocks -->
+    <AddedRecipe itemidentifier="exosuit"/>
+    <AddedRecipe itemidentifier="heavywrench"/>
+    <AddedRecipe itemidentifier="defensebotspawner"/>
+    <AddedRecipe itemidentifier="defensebotammobox"/>
+    <AddedRecipe itemidentifier="scrapcannon"/>
+    <AddedRecipe itemidentifier="ironhelmet"/>
+    <AddedRecipe itemidentifier="makeshiftarmor"/>
+    <AddedRecipe itemidentifier="repairpack"/>
+    <AddedRecipe itemidentifier="fixfoamgrenade"/>
+    <AddedRecipe itemidentifier="handheldstatusmonitor"/>
+    <AddedRecipe itemidentifier="portablepump"/>
+    <AddedRecipe itemidentifier="safetyharness"/>
+	
+	<!-- security unlocks -->
+    <AddedRecipe itemidentifier="assaultrifle"/>
+    <AddedRecipe itemidentifier="assaultriflemagazine"/>
+    <AddedRecipe itemidentifier="rifle"/>
+    <AddedRecipe itemidentifier="riflebullet"/>
+    <AddedRecipe itemidentifier="autoshotgun"/>
+    <AddedRecipe itemidentifier="thermalgoggles"/>
+    <AddedRecipe itemidentifier="stungundartfulgurium"/>
+    <AddedRecipe itemidentifier="riotshield"/>
+    <AddedRecipe itemidentifier="boardingaxe"/>
+    <AddedRecipe itemidentifier="slipsuit"/>
+    <AddedRecipe itemidentifier="harpooncoilrifle"/>
+    <AddedRecipe itemidentifier="bandolier"/>
+    <AddedRecipe itemidentifier="shotgunslugexplosive"/>
+    <AddedRecipe itemidentifier="shotgun"/>
+    <AddedRecipe itemidentifier="smg"/>
+    <AddedRecipe itemidentifier="smgmagazine"/>
+    <AddedRecipe itemidentifier="shotgunshell"/>
+    <AddedRecipe itemidentifier="hmg"/>
+    <AddedRecipe itemidentifier="hmgmagazine"/>
+	
+	<!-- for some reason dirty bomb is not an unlockable recipe? Now it is! -->
+    <AddedRecipe itemidentifier="dirtybomb"/>
+	
+  </Talent>
+
+</Talents>

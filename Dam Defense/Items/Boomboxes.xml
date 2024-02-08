@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  
+  <!-- sweet home alabama -->
+  <Item name="Boombox" identifier="boombox1" category="Misc" Tags="smallitemitem,instrument" scale="0.5" description="" price="300" isshootable="true">
+    <Upgrade gameversion="0.9.2.0" scale="0.5"/>
+    <Price baseprice="50">
+      <Price storeidentifier="merchantoutpost" minavailable="1"/>
+      <Price storeidentifier="merchantcity" minavailable="1"/>
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+    </Price>
+    <Sprite texture="boombox.png" sourcerect="0,0,100,64" depth="0.6" origin="0.5,0.5" />
+    <Body radius="30" height="30" width="60" density="12" />
+    <RangedWeapon reload="1" />
+    <Holdable slots="RightHand,LeftHand" controlpose="false" aimable="false" aimpos="0, -120" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
+        <RequiredItem items="mobilebattery" type="Contained" />
+        <sound file="%ModDir%/Items/sweethomealabama.ogg" volume="1.5" selectionmode="CharacterSpecific" range="1200" loop="true" />
+		<Conditional condition="gt 0.0" />
+      </StatusEffect>
+    </Holdable>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <Containable items="mobilebattery">
+        <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
+      </Containable>
+    </ItemContainer>
+  </Item>
+  
+  <!-- virtual insanity -->
+  <Item name="Boombox" identifier="boombox2" category="Misc" Tags="smallitemitem,instrument" scale="0.5" description="" price="300" isshootable="true">
+    <Upgrade gameversion="0.9.2.0" scale="0.5"/>
+    <Price baseprice="50">
+      <Price storeidentifier="merchantoutpost" minavailable="1"/>
+      <Price storeidentifier="merchantcity" minavailable="1"/>
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+    </Price>
+    <Sprite texture="boombox.png" sourcerect="100,0,100,64" depth="0.6" origin="0.5,0.5" />
+    <Body radius="30" height="30" width="60" density="12" />
+    <RangedWeapon reload="1" />
+    <Holdable slots="RightHand,LeftHand" controlpose="false" aimable="false" aimpos="0, -120" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
+        <RequiredItem items="mobilebattery" type="Contained" />
+        <sound file="%ModDir%/Items/virtualinsanity.ogg" volume="1.5" selectionmode="CharacterSpecific" range="1200" loop="true" />
+        <Conditional condition="gt 0.0" />
+      </StatusEffect>
+    </Holdable>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <Containable items="mobilebattery">
+        <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
+      </Containable>
+    </ItemContainer>
+  </Item>
+  
+  <!-- enter sandman -->
+  <Item name="Boombox" identifier="boombox3" category="Misc" Tags="smallitemitem,instrument" scale="0.5" description="" price="300" isshootable="true">
+    <Upgrade gameversion="0.9.2.0" scale="0.5"/>
+    <Price baseprice="50">
+      <Price storeidentifier="merchantoutpost" minavailable="1"/>
+      <Price storeidentifier="merchantcity" minavailable="1"/>
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+    </Price>
+    <Sprite texture="boombox.png" sourcerect="200,0,100,64" depth="0.6" origin="0.5,0.5" />
+    <Body radius="30" height="30" width="60" density="12" />
+    <RangedWeapon reload="1" />
+    <Holdable slots="RightHand,LeftHand" controlpose="false" aimable="false" aimpos="0, -120" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
+        <RequiredItem items="mobilebattery" type="Contained" />
+        <sound file="%ModDir%/Items/entersandman.ogg" volume="1.5" selectionmode="CharacterSpecific" range="1200" loop="true" />
+		<Conditional condition="gt 0.0" />
+      </StatusEffect>
+    </Holdable>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <Containable items="mobilebattery">
+        <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
+      </Containable>
+    </ItemContainer>
+  </Item>
+  
+  <!-- bandit radio -->
+  <Item name="Boombox" identifier="boombox4" category="Misc" Tags="smallitemitem,instrument" scale="0.5" description="" price="300" isshootable="true">
+    <Upgrade gameversion="0.9.2.0" scale="0.5"/>
+    <Price baseprice="50">
+      <Price storeidentifier="merchantoutpost" minavailable="1"/>
+      <Price storeidentifier="merchantcity" minavailable="1"/>
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+    </Price>
+    <Sprite texture="boombox.png" sourcerect="300,0,100,64" depth="0.6" origin="0.5,0.5" />
+    <Body radius="30" height="30" width="60" density="12" />
+    <RangedWeapon reload="1" />
+    <Holdable slots="RightHand,LeftHand" controlpose="false" aimable="false" aimpos="0, -120" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
+        <RequiredItem items="mobilebattery" type="Contained" />
+        <sound file="%ModDir%/Items/banditradio.ogg" volume="1.5" selectionmode="CharacterSpecific" range="1200" loop="true" />
+		<Conditional condition="gt 0.0" />
+      </StatusEffect>
+    </Holdable>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <Containable items="mobilebattery">
+        <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
+      </Containable>
+    </ItemContainer>
+  </Item>
+  
+  <!-- title3 -->
+  <Item name="Boombox" identifier="boombox5" category="Misc" Tags="smallitemitem,instrument" scale="0.5" description="" price="300" isshootable="true">
+    <Upgrade gameversion="0.9.2.0" scale="0.5"/>
+    <Price baseprice="50">
+      <Price storeidentifier="merchantoutpost" minavailable="1"/>
+      <Price storeidentifier="merchantcity" minavailable="1"/>
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+    </Price>
+    <Sprite texture="boombox.png" sourcerect="400,0,100,64" depth="0.6" origin="0.5,0.5" />
+    <Body radius="30" height="30" width="60" density="12" />
+    <RangedWeapon reload="1" />
+    <Holdable slots="RightHand,LeftHand" controlpose="false" aimable="false" aimpos="0, -120" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
+        <RequiredItem items="mobilebattery" type="Contained" />
+        <sound file="%ModDir%/Items/title3.ogg" volume="1.5" selectionmode="CharacterSpecific" range="1200" loop="true" />
+		<Conditional condition="gt 0.0" />
+      </StatusEffect>
+    </Holdable>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <Containable items="mobilebattery">
+        <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
+      </Containable>
+    </ItemContainer>
+  </Item>
+  
+</Items>
