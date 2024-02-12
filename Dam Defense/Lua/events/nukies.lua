@@ -1,5 +1,12 @@
 -- Spawn heavily armed fellas whose objective is to explode the reactor and kill anyone who dares stand in their way
-DD.eventNukies = DD.class(DD.eventBase, nil, {
+DD.eventNukies = DD.class(DD.eventBase, function (self, nukies)
+	self.nukies = nukies
+	if type(self.nukies) == 'table' then
+		self.nukiesSet = DD.toSet(self.nukies)
+	end
+end, {
+	paramType = {'clientList'},
+	
 	name = 'nukies',
 	isMainEvent = true,
 	cooldown = 60 * 3,
@@ -18,12 +25,14 @@ DD.eventNukies = DD.class(DD.eventBase, nil, {
 		end
 		
 		-- Pick nukies
-		self.nukiesSet = {}
-		self.nukies = {}
-		for client in DD.arrShuffle(Client.ClientList) do
-			if not DD.isClientCharacterAlive(client) then
-				table.insert(self.nukies, client)
-				self.nukiesSet[client] = true
+		if self.nukies == nil then
+			self.nukiesSet = {}
+			self.nukies = {}
+			for client in DD.arrShuffle(Client.ClientList) do
+				if not DD.isClientCharacterAlive(client) then
+					table.insert(self.nukies, client)
+					self.nukiesSet[client] = true
+				end
 			end
 		end
 		
@@ -63,6 +72,7 @@ DD.eventNukies = DD.class(DD.eventBase, nil, {
 			else
 				DD.messageClient(nukie, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
 				self.nukies[key] = nil
+				self.nukiesSet[nukie] = nil
 			end
 		end
 		
@@ -74,6 +84,20 @@ DD.eventNukies = DD.class(DD.eventBase, nil, {
 		end
 		if not anyNukieIsAlive then
 			self.finish()
+		end
+	end,
+	
+	onCharacterDeath = function (self, character)
+		local client = DD.findClientByCharacter(character)
+		if client == nil then return end
+		if self.nukiesSet[client] then
+			for key, nukie in pairs(self.nukies) do
+				if not DD.isClientCharacterAlive(nukie) then
+					DD.messageClient(nukie, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+					self.nukies[key] = nil
+					self.nukiesSet[nukie] = nil
+				end
+			end	
 		end
 	end,
 	

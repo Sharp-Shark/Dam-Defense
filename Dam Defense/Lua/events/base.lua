@@ -2,27 +2,50 @@
 DD.eventBase = DD.class(nil, function (self)
 	self.seed = tostring(math.floor(math.random() * 10^8))
 end, {
+	paramType = {},
+
 	started = false,
 	start = function (self)
 		if DD.debugMode then print('start: ' .. self.name .. self.seed) end
+		
+		-- Flags
 		self.started = true
 		self.failed = false
 		self.finished = false
-		DD.thinkFunctions[self.name .. self.seed] = function () self.onThink() end
+		
+		-- Create hooks
+		DD.newThinkFunctions[self.name .. self.seed] = function () self.onThink() end
+		DD.characterDeathFunctions[self.name .. self.seed] = function (character) self.onCharacterDeath(character) end
+		DD.chatMessageFunctions[self.name .. self.seed] = function (message, sender) self.onChatMessage(message, sender) end
 		DD.roundEndFunctions[self.name .. self.seed] = function () self.finish() end
+		
+		-- onStart
 		self.onStart()
+		
+		-- Add self to eventDirector events list
 		if not self.failed then table.insert(DD.eventDirector.events, self) end
+		
 		return self
 	end,
 	
 	finished = false,
 	finish = function (self)
 		if DD.debugMode then print('finish: ' .. self.name .. self.seed) end
+		
+		-- Delete hooks
+		DD.newThinkFunctions[self.name .. self.seed] = nil
 		DD.thinkFunctions[self.name .. self.seed] = nil
+		DD.characterDeathFunctions[self.name .. self.seed] = nil
+		DD.chatMessageFunctions[self.name .. self.seed] = nil
 		DD.roundEndFunctions[self.name .. self.seed] = nil
+		
+		-- onFinish
 		if not (self.failed or DD.roundEnding) then self.onFinish() end
 		self.onFinishAlways()
+		
+		-- Flags
 		self.finished = true
+		
 		return self
 	end,
 	
@@ -42,6 +65,10 @@ end, {
 	onStart = function (self) return end,
 	
 	onThink = function (self) self.finish() end,
+	
+	onCharacterDeath = function (self, character) end,
+	
+	onChatMessage = function (self, message, sender) end,
 	
 	onFinish = function (self) return end,
 	

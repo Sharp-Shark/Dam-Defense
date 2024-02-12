@@ -10,7 +10,7 @@ DD.eventAffliction = DD.class(DD.eventBase, nil, {
 	minamount = 0,
 	maxamount = 0,
 	ratio = 0,
-	message = '',
+	message = 'It is suspected there may be a outbreak in the region. However, it is not yet known what the disease is.',
 	
 	onStart = function (self)
 		local infected = 0
@@ -25,7 +25,7 @@ DD.eventAffliction = DD.class(DD.eventBase, nil, {
 })
 
 -- Flu event
-DD.eventFlu = DD.class(DD.eventAffliction, nil, {
+DD.eventAfflictionFlu = DD.class(DD.eventAffliction, nil, {
 	name = 'afflictionFlu',
 	isMainEvent = false,
 	cooldown = 60 * 2,
@@ -35,12 +35,11 @@ DD.eventFlu = DD.class(DD.eventAffliction, nil, {
 	identifier = 'fluhidden',
 	minamount = 5,
 	maxamount = 50,
-	ratio = 1/3,
-	message = 'It is suspected there may be a flu outbreak in the region.'
+	ratio = 1/3
 })
 
 -- Husk event
-DD.eventHusk = DD.class(DD.eventAffliction, nil, {
+DD.eventAfflictionHusk = DD.class(DD.eventAffliction, nil, {
 	name = 'afflictionHusk',
 	isMainEvent = false,
 	cooldown = 60 * 3,
@@ -50,6 +49,5 @@ DD.eventHusk = DD.class(DD.eventAffliction, nil, {
 	identifier = 'huskinfection',
 	minamount = 1,
 	maxamount = 1,
-	ratio = 1/4,
-	message = 'It is suspected there may be a husk outbreak in the region.'
+	ratio = 1/4
 })

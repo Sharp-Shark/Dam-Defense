@@ -1,6 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
   <Override>
+  <!-- handcuff slows down wearer (25% slower) and degrades over time (lasts ~1 minute) -->
+  <Item name="" identifier="handcuffs" category="Equipment" maxstacksize="8" cargocontaineridentifier="metalcrate" tags="smallitem,handlocker" scale="0.5" impactsoundtag="impact_metal_light" equipconfirmationtext="handcuffequipconfirmation">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+    <Price baseprice="30">
+      <Price storeidentifier="merchantoutpost" minavailable="1" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="2" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="5" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="weapons" level="20" />
+      <RequiredItem identifier="steel" />
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Jobgear/Mechanic/safetyharness.png" sourcerect="405,0,56,49" depth="0.6" origin="0.5,0.5" />
+    <Body width="50" height="34" density="30" />
+    <Wearable slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" autoequipwhenfull="false">
+      <sprite texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="RightHand" sourcerect="462,1,25,16" origin="0.5,0.8" depth="0.09" inheritlimbdepth="false" inherittexturescale="true" />
+      <sprite texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="LeftHand" sourcerect="487,1,25,16" origin="0.5,0.8" depth="0.09" inheritlimbdepth="true" inherittexturescale="true" />
+      <StatusEffect type="OnWearing" target="Character" lockhands="true" SpeedMultiplier="0.75" setvalue="true" />
+	  <StatusEffect type="OnWearing" target="This" Condition="-1.65" />
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Wearable>
+  </Item>
   <!-- rubber is now craftable -->
   <Item name="" identifier="rubber" category="Material" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem" canbepicked="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft">
     <PreferredContainer primary="storagecab" />
@@ -497,15 +528,16 @@
       <Price storeidentifier="merchantmilitary" multiplier="0.9" />
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
-    <Fabricate suitablefabricators="fabricator" requiredtime="75" requiresrecipe="true">
-      <RequiredSkill identifier="weapons" level="50" />
-      <RequiredItem identifier="physicorium" amount="2" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="80" requiresrecipe="true">
+      <RequiredSkill identifier="weapons" level="60" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="3" />
+      <RequiredItem identifier="plastic" />
       <RequiredItem identifier="rubber" />
     </Fabricate>
-    <Deconstruct time="35">
+    <Deconstruct time="40">
       <Item identifier="physicorium" amount="2" />
       <Item identifier="titaniumaluminiumalloy" amount="2" />
+      <Item identifier="plastic" />
       <Item identifier="rubber" />
     </Deconstruct>
     <InventoryIcon texture="mercsriflefolded.png" sourcerect="52,0,172,80" depth="0.55" origin="0.5,0.5" />
@@ -740,7 +772,7 @@
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
       <RequiredSkill identifier="mechanical" level="35" />
-      <Item identifier="divingmask" />
+      <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -799,7 +831,7 @@
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
       <RequiredSkill identifier="mechanical" level="35" />
-      <Item identifier="divingmask" />
+      <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -853,7 +885,7 @@
     </Price>
     <Deconstruct time="10">
       <Item identifier="ballisticfiber" />
-	  <RequiredItem identifier="divingmask" />
+	  <Item identifier="divingmask" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="30" />
@@ -890,6 +922,27 @@
         </StatusEffect>
       </Containable>
     </ItemContainer>
+  </Item>
+  
+  <!-- emegerncy oxygen mask for cases where the spawn is flooded -->
+  <Item name="Emergency Mask" identifier="disposabledivingmask" category="Diving,Equipment" tags="lightdiving,diving,smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
+    <Upgrade gameversion="0.9.6.0" scale="0.325" />
+    <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer secondary="armcab" />
+    <Sprite name="Oxygen Mask" texture="headgears.png" sourcerect="336,46,72,62" depth="0.6" origin="0.45,0.5" />
+    <Body radius="45" density="25" />
+    <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnWearing" target="Character" OxygenAvailable="10.0">
+        <Conditional IsDead="false" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="This" Condition="-1.65" />
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+      <sprite name="Oxygen Mask" texture="headgears.png" sourcerect="288,0,120,108" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidewearablesoftype="Hair,moustache,beard" origin="0.384,0.553" />
+    </Wearable>
   </Item>
   
   <!-- storage container with a revolver thus turning a weak melee into a concealed firearm (you can still use it as a storage container) -->

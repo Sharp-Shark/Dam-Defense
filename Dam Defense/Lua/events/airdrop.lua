@@ -24,8 +24,8 @@ DD.eventAirdrop = DD.class(DD.eventBase, nil, {
 		{identifier = 'organicfiber', amount = '1'},
 		{identifier = 'ethanol', amount = '1'}
 	},
-	minAmount = 12,
-	maxAmount = 16,
+	minAmount = 16,
+	maxAmount = 20,
 	message = 'Airdrop with {amount} items for crafting arrived at the radio tower above the factory. Crate despawns in {minutes} minutes!',
 	
 	onStart = function (self)
@@ -98,6 +98,30 @@ DD.eventAirdropMedical = DD.class(DD.eventAirdrop, nil, {
 	message = 'Airdrop with {amount} items for crafting arrived at hospital rooftops. Crate despawns in {minutes} minutes!'
 })
 
+-- Security airdrop with guns and ammo
+DD.eventAirdropSecurity = DD.class(DD.eventAirdrop, nil, {
+	name = 'airdropSecurity',
+	isMainEvent = false,
+	cooldown = 60 * 2,
+	weight = 1.5,
+	goodness = 1.5,
+	
+	spawnPosition = 'dd_airdropsecurity',
+	crateIdentifier = 'securemetalcrate',
+	items = {
+		{identifier = 'stungundart', amount = '2'},
+		{identifier = 'revolverround', amount = '6'},
+		{identifier = 'pistolmagazine', amount = '1'},
+		{identifier = 'shotgunshell', amount = '5'},
+		{identifier = 'riflebullet', amount = '3'},
+		{identifier = 'shotgunshellblunt', amount = '3'},
+		{identifier = 'handcannonround', amount = '3'}
+	},
+	minAmount = 16,
+	maxAmount = 20,
+	message = 'Airdrop with {amount} items worth of ammo arrived at the prison rooftops. Crate despawns in {minutes} minutes!'
+})
+
 -- Separatist airdrop with guns
 DD.eventAirdropSeparatist = DD.class(DD.eventAirdrop, nil, {
 	name = 'airdropSeparatist',
@@ -111,9 +135,9 @@ DD.eventAirdropSeparatist = DD.class(DD.eventAirdrop, nil, {
 	items = {
 		{identifier = 'clownmask', amount = '1'},
 		{identifier = 'piratebodyarmor', amount = '1'},
-		{identifier = 'smg', amount = '1', script = function (spawnedItem) Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smgmagazine'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end},
+		{identifier = 'separatistrifle', amount = '1', script = function (spawnedItem) Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('762magazine'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end},
 		{identifier = 'antiquerevolver', amount = '1', script = function (spawnedItem) for x = 1, 6 do  Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcannonround'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end end},
-		{identifier = 'smgmagazine', amount = '1'},
+		{identifier = '762magazine', amount = '1'},
 		{identifier = 'handcannonround', amount = '6'},
 		{identifier = 'fraggrenade', amount = '1'}
 	},

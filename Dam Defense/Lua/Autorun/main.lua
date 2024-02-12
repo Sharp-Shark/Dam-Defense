@@ -42,10 +42,36 @@ DD.roundEndFunctions.main = function ()
 end
 
 -- Functions executed 60 times a second
+--[[
+newThinkFunctions is a queue of functions to be added to thinkFunctions
+The functions on the queue are all added to thinkFunctions right before the functions in thinkFunctions are executed
+It was added to solve a bug where creating a new event inside another event's onFinish() caused an error in doThinkFunctions()
+--]]
 DD.thinkFunctions = {}
+DD.newThinkFunctions = {}
 local doThinkFunctions = function ()
+	for name, func in pairs(DD.newThinkFunctions) do
+		DD.thinkFunctions[name] = func
+		DD.newThinkFunctions[name] = nil
+	end
 	for name, func in pairs(DD.thinkFunctions) do
 		func()
+	end
+end
+
+-- Functions executed whenever a character dies
+DD.characterDeathFunctions = {}
+local doCharacterDeathFunctions = function (character)
+	for name, func in pairs(DD.characterDeathFunctions) do
+		func(character)
+	end
+end
+
+-- Functions executed whenever a chat message is sent
+DD.chatMessageFunctions = {}
+local doChatMessageFunctions = function (message, sender)
+	for name, func in pairs(DD.chatMessageFunctions) do
+		func(message, sender)
 	end
 end
 
@@ -84,11 +110,27 @@ Hook.Add("think", "DD.think", function ()
 	return true
 end)
 
+-- Executes whenever someone dies
+Hook.Add("character.death", "DD.characterDeath", function (character)
+	
+	doCharacterDeathFunctions(character)
+	
+	return true
+end)
+
+-- Executes cwhenever a chat message is sent
+Hook.Add("chatMessage", "DD.chatMessage", function (message, sender)
+	
+	doChatMessageFunctions(message, sender)
+	
+	return
+end)
+
 -- Give talents
 Hook.Add("character.giveJobItems", "DD.giveTalent", function (character)
 	if character.SpeciesName == 'human' then
 		Timer.Wait(function ()
-			if (character.JobIdentifier == 'mechanic') or (character.JobIdentifier == 'laborer') or (character.JobIdentifier == 'assistant') or (character.JobIdentifier == 'clown') then
+			if (character.JobIdentifier == 'mechanic') or (character.JobIdentifier == 'laborer') or (character.JobIdentifier == 'clown') then
 				character.GiveTalent('unlockallrecipes', true)
 			end
 			if (character.JobIdentifier == 'captain') then
@@ -105,7 +147,7 @@ Hook.Add("character.giveJobItems", "DD.giveTalent", function (character)
 	end
 end)
 
--- Execute when a character dies
+-- Cleans up non-human bodies after 1 minute to prevent performance issues
 Hook.Add("character.death", "DD.bodyCleanup", function (character)
 	DD.roundData.creatureGrowthTimer[character] = nil
 	DD.roundData.creatureBreedTimer[character] = nil
@@ -113,8 +155,17 @@ Hook.Add("character.death", "DD.bodyCleanup", function (character)
 	if character.SpeciesName ~= 'human' then
 		Timer.Wait(function ()
 			Entity.Spawner.AddEntityToRemoveQueue(character)
-		end, 15*1000)
+		end, 60*1000)
 	end
+
+	return true
+end)
+
+-- Sends a message to husks telling them about their objective
+Hook.Add("husk.clientControl", "DD.huskMessage", function (client, husk)
+	print('test')
+	
+	DD.messageClient(client, 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk.', {preset = 'crit'})
 
 	return true
 end)

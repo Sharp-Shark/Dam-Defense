@@ -83,24 +83,69 @@ Game.AddCommand('dd_toggleeventdirector', 'dd_toggleeventdirector: Toggles the e
 local func = function (args)
 	if CLIENT then print('Server-side only!') return end
 	
-	local eventArgs = {}
-	for n = 2, #args do table.insert(eventArgs, args[n]) end
-	local eventName = args[1]
+	local eventName = table.remove(args, 1)
+	local eventClass = DD[eventName]
 	
-	local event = DD[eventName].new(unpack(eventArgs))
+	local convertFunctions = {
+		string = function (str)
+			return str
+		end,
+		client = function (str)
+			return DD.findClient('Name', str)
+		end,
+		clientList = function (str)
+			local clientNames = DD.stringSplit(str, ',')
+			local clientList = {}
+			for name in clientNames do table.insert(clientList, DD.findClient('Name', name)) end
+			return clientList
+		end,
+		boolean = function (str)
+			if str == 'true' then
+				return true
+			elseif str == 'false' then
+				return false
+			end
+			return
+		end,
+		event = function (str)
+			return DD[str]
+		end
+	}
+	
+	local eventArgs = {}
+	for n = 1, #args do
+		local convertFunction = convertFunctions[eventClass.tbl.paramType[n]]
+		convertFunction = convertFunction or convertFunctions.string
+		table.insert(eventArgs, convertFunction(args[n]))
+	end
+	
+	local event = eventClass.new(unpack(eventArgs))
 	event.start()
 	if event.failed then print('Event failed. This is usually happens because the conditions necessary for it to occur were not met.') end
 end
-local validArgs = function ()
-	local tbl = {}
+local validArgs = function (...)
+	local eventNames = {}
 	for event in DD.eventDirector.eventPool do
 		for key, value in pairs(DD) do
 			if value == event then
-				table.insert(tbl, key)
+				table.insert(eventNames, key)
 			end
 		end
 	end
-	return {tbl}
+
+	-- 1st argument will be an eventName
+	local tbl = {eventNames}
+	-- other arguments will be valid arguments to events
+	local validEventArgs = {}
+	table.insert(validEventArgs, 'true')
+	table.insert(validEventArgs, 'false')
+	for client in Client.ClientList do table.insert(validEventArgs, client.Name) end
+	for eventName in eventNames do table.insert(validEventArgs, eventName) end
+	for n = 1, 8 do
+		table.insert(tbl, validEventArgs)
+	end
+	
+	return tbl
 end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end

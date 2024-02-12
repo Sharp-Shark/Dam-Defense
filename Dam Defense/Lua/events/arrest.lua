@@ -5,6 +5,8 @@ DD.eventArrest = DD.class(DD.eventBase, function (self, target, charge, isTarget
 	self.isTargetKnown = isTargetKnown
 	if self.isTargetKnown == nil then self.isTargetKnown = false end
 end, {
+	paramType = {'client', 'string', 'boolean'},
+	
 	name = 'arrest',
 	isMainEvent = false,
 	cooldown = 60 * 2,
@@ -25,7 +27,7 @@ end, {
 		for client in Client.ClientList do
 			if client ~= self.target then
 				local preset = 'info'
-				if DD.isCharacterSecurity(client.Character) then preset = 'crit' end
+				if (client.Character ~= nil) and DD.isCharacterSecurity(client.Character) then preset = 'crit' end
 				if self.isTargetKnown then
 					DD.messageClient(client, self.target.Name .. ' has been charged with ' .. self.charge .. ' and must be lawfully arrested!', {preset = preset})
 				else
@@ -46,6 +48,10 @@ end, {
 		if (not DD.isClientCharacterAlive(self.target)) or self.target.Character.IsArrested then
 			self.finish()
 		end
+	end,
+	
+	onCharacterDeath = function (self, character)
+		if (self.target.Character ~= nil) and (self.target.Character == character) then self.finish() end
 	end,
 	
 	onFinish = function (self)

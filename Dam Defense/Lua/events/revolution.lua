@@ -1,5 +1,9 @@
 -- Pick some players to be part of a revolution tasked with killing the captain (and also trigger a eventAirdropSeparatist)
-DD.eventRevolution = DD.class(DD.eventBase, nil, {
+DD.eventRevolution = DD.class(DD.eventBase, function (self, rebels)
+	self.rebels = rebels
+end, {
+	paramType = {'clientList'},
+	
 	name = 'revolution',
 	isMainEvent = true,
 	cooldown = 60 * 3,
@@ -18,8 +22,9 @@ DD.eventRevolution = DD.class(DD.eventBase, nil, {
 			medicaldoctor = 0.5,
 			researcher = 0.5
 		}
+		local pickRebels = self.rebels == nil -- if a list of rebels was already given in the constructor then do mess with it
 		self.captain = nil
-		self.rebels = {}
+		if pickRebels then self.rebels = {} end
 		for client in DD.arrShuffle(Client.ClientList) do
 			local chance = 0
 			if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) then
@@ -27,7 +32,7 @@ DD.eventRevolution = DD.class(DD.eventBase, nil, {
 			end
 			if client.Character.HasJob('captain') then
 				self.captain = client
-			elseif math.random() < chance then
+			elseif (math.random() < chance) and pickRebels then
 				table.insert(self.rebels, client)
 			end
 		end
@@ -71,7 +76,9 @@ DD.eventRevolution = DD.class(DD.eventBase, nil, {
 					DD.messageClient(client, "There have been rumours of freedom fighters and terrorists. You may ally yourself with the rebels or the captain and his security team. Neutrality does not seem like a viable option...", {preset = 'info'})
 				end
 			end
-			-- Spawn separatist airdrop
+			-- Spawn airdrops for security and rebels
+			local event = DD.eventAirdropSecurity.new()
+			event.start()
 			local event = DD.eventAirdropSeparatist.new()
 			event.start()
 		end
@@ -101,6 +108,17 @@ DD.eventRevolution = DD.class(DD.eventBase, nil, {
 		end
 		if not anyRebelIsAlive then
 			self.finish()
+		end
+	end,
+	
+	onCharacterDeath = function (self, character)
+		local client = DD.findClientByCharacter(character)
+		if client == nil then return end
+		for key, rebel in pairs(self.rebels) do
+			if not DD.isClientCharacterAlive(rebel) then
+				DD.messageClient(rebel, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+				self.rebels[key] = nil
+			end
 		end
 	end,
 	

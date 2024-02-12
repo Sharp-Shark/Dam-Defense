@@ -1,5 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
+
+  <!-- tool kit from BTE is a mobile crafting station -->
+  <Item
+	  name="Tool Kit"
+	  identifier="toolkit"
+	  description="A portable kit containing the necessary tools to repair items or manufacture items in case of emergency."
+	  category="Equipment,Machine"
+	  Tags="fabricator,crate,donttakeitems,dontsellitems"
+	  Scale="0.9"
+	  GrabWhenSelected="true"
+	  price="2500">
+	  
+	<Deconstruct time="20">
+	  <Item identifier="weldingtool"/>
+	  <Item identifier="weldingfueltank"/>
+	  <Item identifier="wrench"/>
+	  <Item identifier="screwdriver"/>
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+	  <Item identifier="steel"/>
+	  <Item identifier="weldingtool"/>
+	  <Item identifier="weldingfueltank"/>
+	  <Item identifier="wrench"/>
+	  <Item identifier="screwdriver"/>
+    </Fabricate>
+    
+	<InventoryIcon texture="toolkit.png" depth="0.54" sourcerect="0,0,80,40"/>
+    <Sprite texture="toolkit.png" depth="0.54" sourcerect="80,0,80,60" origin="0.5,0.67"/>
+	<BrokenSprite texture="toolkit.png" depth="0.54" sourcerect="0,0,80,40"/>
+	
+	<Body width="80" height="40" density="50"/>
+	
+	<Fabricator msg="ItemMsgInteractSelect" minvoltage="0.0" powerconsumption="0.0" canbeselected="true" allowuioverlap="false" hideitems="true" drawhudwhenequipped="false" keepopenwhenequipped="false" ShowContainedStateIndicator="false">
+      <GuiFrame relativesize="0.4,0.45" style="ItemUI" anchor="Center" />
+      <sound file="Content/Items/Fabricators/Fabricator.ogg" type="OnActive" range="1000.0" volumeproperty="RelativeVoltage" loop="true"/>
+	  <StatusEffect type="OnContained" target="This" setvalue="true" drawinventory="false" />
+	  <StatusEffect type="OnNotContained" target="This" setvalue="true" drawinventory="true" />
+    </Fabricator>
+	<Holdable msg="ItemMsgDetach" pickkey="Action" slots="RightHand+LeftHand" holdpos="0,-80" aimpos="20,-40" handle1="-30,14" handle2="30,14" aimable="false">
+      <StatusEffect type="OnContained" target="This" condition="-100" disabledeltatime="true" setvalue="true" />
+      <StatusEffect type="OnNotContained" target="This" condition="100" disabledeltatime="true" setvalue="true" />
+	</Holdable>
+
+    <ItemContainer capacity="5" slotsperrow="5" uilabel="Input" canbeselected="true" allowuioverlap="false" hideitems="true" drawhudwhenequipped="false" keepopenwhenequipped="false" ShowContainedStateIndicator="false">
+      <Containable items="smallitem,mediumitem" excludeditems="toolkit" />
+	  <StatusEffect type="OnContained" target="This" setvalue="true" drawinventory="false" />
+	  <StatusEffect type="OnNotContained" target="This" setvalue="true" drawinventory="true" />
+	</ItemContainer>
+    <ItemContainer capacity="1" slotsperrow="1" uilabel="Output" canbeselected="true" allowuioverlap="false" hideitems="true" drawhudwhenequipped="false" keepopenwhenequipped="false" ShowContainedStateIndicator="false">
+      <Containable items="smallitem,mediumitem" excludeditems="toolkit" />
+	  <StatusEffect type="OnContained" target="This" setvalue="true" drawinventory="false" />
+	  <StatusEffect type="OnNotContained" target="This" setvalue="true" drawinventory="true" />
+	</ItemContainer>
+  </Item>
+
+  <!-- crate shelf now goes from bottom to top (instead of the other way around) -->
+  <Override>
+  <Item name="" identifier="crateshelf" tags="container,cargocontainer" linkable="true" canflipx="false" pickdistance="150" scale="0.5">
+    <Sprite texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="1,657,185,366" origin="0.5,0.5" />
+    <ItemContainer capacity="4" maxstacksize="1" canbeselected="true" hideitems="false" itempos="92,-320" iteminterval="0,92" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.15,0.2" anchor="Center" style="ItemUI" />
+      <Containable items="crate" />
+    </ItemContainer>
+  </Item>
+  </Override>
+
   <!-- Location -->
   <Item name="DD Location" identifier="dd_location" spritecolor="255,255,255" tags="dd_location" category="Miscellaneous" scale="1" noninteractable="true">
     <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="768,128,128,128" origin="0.5,0.5" depth="0.1" />

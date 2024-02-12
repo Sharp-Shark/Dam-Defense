@@ -412,7 +412,7 @@ DD.isCharacterSecurity = function (character)
 end
 
 DD.isCharacterProletariat = function (character)
-	local jobs = {'engineer', 'mechanic', 'assistant', 'clown', 'laborer'}
+	local jobs = {'engineer', 'mechanic', 'clown', 'laborer'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 
@@ -423,6 +423,41 @@ end
 
 DD.isClientCharacterAlive = function (client)
 	return (client.Character ~= nil) and (not client.Character.IsDead)
+end
+
+-- Turns a number (represents seconds) into a formatted string for hours, minutes and seconds
+DD.numberToTime = function (n, data)
+	local data = data or {}
+	local spacing = data.spacing or 1
+	local unitSpacing = data.unitSpacing or spacing
+	local showNonRelevant
+	if data.showNonRelevant or (data.showNonRelevant == nil) then showNonRelevant = 1 else showNonRelevant = 0 end
+	if not data.allowNegative then n = math.max(0, n) end
+	
+	local text = ''
+	if n < 0 then text = '-' .. string.rep(' ', spacing) end
+	
+	n = math.abs(n)
+	local seconds = n
+	local minutes = math.floor(seconds / 60)
+	local hours = math.floor(minutes / 60)
+	seconds = seconds - minutes * 60
+	minutes = minutes - hours * 60
+	seconds = math.floor(seconds + 0.5)
+	
+	if hours > 0 then
+		text = text .. tostring(hours) .. string.rep(' ', unitSpacing) .. 'h' .. string.rep(' ', spacing)
+	end
+	if minutes + hours * showNonRelevant > 0 then
+		text = text .. tostring(minutes) .. string.rep(' ', unitSpacing) .. 'min' .. string.rep(' ', spacing)
+	end
+	if seconds + (minutes + hours) * showNonRelevant > 0 then
+		text = text .. tostring(seconds) .. string.rep(' ', unitSpacing) .. 's'
+	end
+	
+	if text == '' then text = '0' .. string.rep(' ', unitSpacing) .. 's' end
+	
+	return text
 end
 
 -- Spawns a human with a job somewhere
@@ -510,6 +545,13 @@ DD.messageClient = function (client, text, data)
 		sender = '[Crit Info]'
 		color = Color(255, 55, 55)
 		messageType = 'MessageBox'
+		icon = 'WorkshopMenu.InfoButton'
+		sendAnother = true
+	end
+	if data.preset == 'ghostRole' then
+		sender = '[Ghost Role]'
+		color = Color(155, 100, 200)
+		messageType = 'ServerMessageBoxInGame'
 		icon = 'WorkshopMenu.InfoButton'
 		sendAnother = true
 	end

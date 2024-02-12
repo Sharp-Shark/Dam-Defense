@@ -3,6 +3,8 @@ DD.eventMurder = DD.class(DD.eventBase, function (self, murderer, victim)
 	self.murderer = murderer
 	self.victim = victim
 end, {
+	paramType = {'client', 'client'},
+	
 	name = 'murder',
 	isMainEvent = false,
 	cooldown = 60 * 3,
@@ -73,10 +75,24 @@ end, {
 		end
 	end,
 	
+	onCharacterDeath = function (self, character)
+		if (self.murderer.Character ~= nil) and (self.murderer.Character == character) then
+			self.murdererDied = true
+		end
+		if (self.victim.Character ~= nil) and (self.victim.Character == character) then
+			self.victimDied = true
+			if (not self.murdererDied) and (self.victim.Character.LastAttacker == self.murderer.Character) then
+				self.murdererWon = true
+			end
+		end
+		
+		if self.murdererDied or self.victimDied then self.finish() end
+	end,
+	
 	onFinish = function (self)
 		if self.murdererWon then
 			DD.messageAllClients('The murderer has succeeded and ' .. self.victim.Name .. ' is now dead! They must be brought to justice!', {preset = 'badinfo'})
-			D.messageClient(self.murderer, 'You hear voices in your head... joyful voices thanking you for killing ' .. self.victim.Name .. '. Well done.', {preset = 'goodinfo'})
+			DD.messageClient(self.murderer, 'You hear voices in your head... joyful voices thanking you for killing ' .. self.victim.Name .. '. Well done.', {preset = 'goodinfo'})
 			-- Start event for security to arrest murderer
 			local event = DD.eventArrest.new(self.murderer, 'manslaughter', false)
 			event.start()

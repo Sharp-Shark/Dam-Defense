@@ -49,19 +49,29 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		local infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		local hidden = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
+		if diseaseName == 'husk' then
+			amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
+			infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
+			hidden = 0
+		end
 		if (infection + hidden <= 0) and (math.random() <= chance) then
-			DD.giveAfflictionCharacter(toCharacter, diseaseName .. 'hidden', amount * math.random())
+			if diseaseName == 'husk' then
+				DD.giveAfflictionCharacter(toCharacter, 'huskinfection', amount * math.random())
+			else
+				DD.giveAfflictionCharacter(toCharacter, diseaseName .. 'hidden', amount * math.random())
+			end
 		end
 	end
 	
 	local hull = character.CurrentHull
 	if hull == nil then return end
 	
-	local characterFluinfection = character.CharacterHealth.GetAfflictionStrengthByIdentifier('fluinfection', true)
+	local characterHusk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
 	local characterBacterialInfection = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialinfection', true)
 	for other in Character.CharacterList do
 		if (other.SpeciesName == 'human') and (not other.IsDead) and (character.CurrentHull == other.CurrentHull) and DD.isCharacterUsingHullOxygen(other) and
 		(Vector2.Distance(character.WorldPosition, other.WorldPosition) < 1000) then
+			spreadDiseaseToCharacter(other, character, 'husk', 0.25)
 			spreadDiseaseToCharacter(other, character, 'flu', 0.35)
 			spreadDiseaseToCharacter(other, character, 'bacterial', 0.35)
 		end
@@ -95,10 +105,16 @@ DD.thinkFunctions.afflictions = function ()
 	if not Game.RoundStarted then return end
 
 	for character in Character.CharacterList do
+		if (character.SpeciesName == 'humanhusk') and (not character.IsDead) then
+			if character.Vitality < 0 then
+				DD.giveAfflictionCharacter(character, 'huskvulnerability', 999)
+			end
+		end
 		if (character.SpeciesName == 'human') and (not character.IsDead) then
 			local characterBacterialInfection = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialinfection', true)
 			local characterBacterialGangrene = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialgangrene', true)
 			local characterInfection = character.CharacterHealth.GetAfflictionStrengthByType('infection', true)
+			characterInfection = characterInfection + math.max(0, character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true) - 35)
 			local characterImmune = character.CharacterHealth.GetAfflictionStrengthByType('immune', true) - character.CharacterHealth.GetAfflictionStrengthByType('immunedebuff', true)
 			characterImmune = math.max(0, characterImmune)
 			-- Broad Bacterial Infection from bacterial gangrene (septic shock)

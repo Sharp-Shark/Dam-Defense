@@ -2,6 +2,8 @@
 DD.eventSerialKiller = DD.class(DD.eventBase, function (self, killer)
 	self.killer = killer
 end, {
+	paramType = {'client'},
+	
 	name = 'serialKiller',
 	isMainEvent = true,
 	cooldown = 60 * 3,
@@ -107,9 +109,13 @@ end, {
 			self.finish()
 			return
 		end
-		if (not DD.isClientCharacterAlive(self.killer)) or self.killer.Character.IsArrested then
+		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and self.killer.Character.IsArrested) then
 			self.finish()
 		end
+	end,
+	
+	onCharacterDeath = function (self, character)
+		if (self.killer.Character ~= nil) and (self.killer.Character == character) then self.finish() end
 	end,
 	
 	onFinish = function (self)
@@ -124,7 +130,7 @@ end, {
 			if not DD.isClientCharacterAlive(self.killer) then
 				DD.messageAllClients('The serial killer has been eliminated.', {preset = 'goodinfo'})
 				DD.messageClient(self.killer, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
-			elseif self.killer.IsArrested then
+			elseif self.killer.Character.IsArrested then
 				DD.messageAllClients('The serial killer has been arrested.', {preset = 'goodinfo'})
 				DD.messageClient(self.killer, 'You been arrested and are not an antagonist anymore!', {preset = 'crit'})
 			end

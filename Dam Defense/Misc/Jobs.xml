@@ -57,6 +57,7 @@
       <Item identifier="captainspipe">
 	    <Item identifier="pipetobacco"/>
 	  </Item>
+      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Captain/captain_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Captain/captain_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -98,6 +99,7 @@
       <Item identifier="captainspipe">
 	    <Item identifier="pipetobacco"/>
 	  </Item>
+      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Captain/captain_torso_[GENDER]_3.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Captain/captain_torso_[GENDER]_3.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -241,7 +243,7 @@
     </JobiconSmall>
     <Skills>
       <Skill identifier="mechanical" level="55,65" primary="true"/>
-      <Skill identifier="weapons" level="25,35"/>
+      <Skill identifier="weapons" level="35,45"/>
       <Skill identifier="electrical" level="25,35"/>
       <Skill identifier="medical" level="15,25"/>
       <Skill identifier="helm" level="15,25"/>
@@ -259,6 +261,7 @@
       <Item identifier="flashlight" >
 		<Item identifier="batterycell"/>
 	  </Item>
+      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -277,6 +280,7 @@
       <Item identifier="flashlight" >
 		<Item identifier="batterycell"/>
 	  </Item>
+      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -356,6 +360,7 @@
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
+      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -424,6 +429,7 @@
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
+      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_3.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_3.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -443,7 +449,7 @@
   </Job>
 
   <Job identifier="medicaldoctor"
-       minkarma="0" maxnumber="1" initialcount="1"
+       minkarma="0" maxnumber="2" initialcount="2"
        uicolor="0.75,0.35,0.25"
        vitalitymodifier="0"
        pricemultiplier="1.15"
@@ -484,6 +490,7 @@
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
+      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Medic/medic_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Medic/medic_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -527,6 +534,7 @@
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
+      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Medic/medic_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Medic/medic_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -543,9 +551,45 @@
       <Order identifier="requestfirstaid"/>
     </AppropriateOrders>
   </Job>
+  
+  <Job identifier="assistant"
+       minkarma="0" maxnumber="0"
+       vitalitymodifier="0"
+       pricemultiplier="0.8"
+       idlebehavior="Active">
+    <Jobicon>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="640,256,128,128" origin="0.5,0.5"/>
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,669,28,28" origin="0.5,0.5"/>
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="weapons" level="20,30"/>
+      <Skill identifier="mechanical" level="20,30"/>
+      <Skill identifier="electrical" level="20,30"/>
+      <Skill identifier="medical" level="20,30"/>
+      <Skill identifier="helm" level="17.5,20"/>
+    </Skills>
+    <ItemSet>
+      <Item identifier="clownmask" equip="true"/>
+      <Item identifier="assistantclothes" equip="true" outfit="true"/>
+	  <Item identifier="handcuffs" equip="true"/>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="extinguishfires" prioritymodifier ="1"/>
+      <Order identifier="pumpwater" option="pumpout" prioritymodifier="1"/>
+      <Order identifier="rescue" prioritymodifier="1"/>
+      <Order identifier="repairsystems" prioritymodifier="0.5"/>
+      <Order identifier="fixleaks" prioritymodifier="0.5"/>
+      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.4"/>
+    </AutonomousObjectives>
+  </Job>
 
   <Job identifier="mechanic" uicolor="0.8,0.8,0.8" vitalitymodifier="0" pricemultiplier="1.0" maxnumber="0" idlebehavior="Active"></Job>
-  <Job identifier="assistant" uicolor="0.8,0.8,0.8" vitalitymodifier="0" pricemultiplier="1.0" maxnumber="0" idlebehavior="Active"></Job>
   </Override>
   
   <Job identifier="clown"
@@ -577,6 +621,7 @@
       <Item identifier="batterycell"/>
       <Item identifier="meth"/>
       <Item identifier="meth"/>
+      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -592,6 +637,7 @@
 	    <Item identifier="handcannonround"/>
 	  </Item>
       <Item identifier="crowbar"/>
+      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -664,6 +710,7 @@
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
+      <Item identifier="disposabledivingmask"/>
     </ItemSet>
     <ItemSet>
       <Item identifier="idcard" equip="true"/>
@@ -701,6 +748,7 @@
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
+      <Item identifier="disposabledivingmask"/>
     </ItemSet>
     <AutonomousObjectives>
       <Order identifier="extinguishfires" prioritymodifier ="1"/>
@@ -842,13 +890,11 @@
       <Item identifier="oxygentank"/>
     </ItemSet>
     <AutonomousObjectives>
-      <Order identifier="extinguishfires" prioritymodifier ="1"/>
-      <Order identifier="repairelectrical" prioritymodifier="1"/>
+      <Order identifier="fightintruders" prioritymodifier="1"/>
       <Order identifier="rescue" prioritymodifier="1"/>
-      <Order identifier="fixleaks" prioritymodifier="0.75"/>
-      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.5"/>
-      <Order identifier="repairsystems" prioritymodifier="0.5"/>
-      <Order identifier="pumpwater" option="pumpout" prioritymodifier="0.1"/>
+      <Order identifier="extinguishfires" prioritymodifier ="0.75"/>
+      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.2"/>
+      <Order identifier="fixleaks" prioritymodifier="0.1"/>
     </AutonomousObjectives>
     <AppropriateOrders>
       <Order identifier="operatereactor"/>

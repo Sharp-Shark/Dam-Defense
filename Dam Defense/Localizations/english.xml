@@ -47,6 +47,17 @@
   <!-- Blood Sampler -->
   <entityname.bloodsampler>Blood Sampler</entityname.bloodsampler>
   <entitydescription.bloodsampler>Can be used on infected people to extract a live sample of their infection. Live disease samples can be turned into their antidotes in a medical fabricator.</entitydescription.bloodsampler>
+  <!-- Boomboxes -->
+  <entityname.boombox1>Country Boombox</entityname.boombox1>
+  <entitydescription.boombox1>"Sweet Home Alabama" by Lynyrd Skynyrd.</entitydescription.boombox1>
+  <entityname.boombox2>Virtual Boombox</entityname.boombox2>
+  <entitydescription.boombox2>"Virtual Insanity" by Jamiroquai.</entitydescription.boombox2>
+  <entityname.boombox3>Metal Boombox</entityname.boombox3>
+  <entitydescription.boombox3>"Enter Sandman" by Metallica.</entitydescription.boombox3>
+  <entityname.boombox4>Bandit Boombox</entityname.boombox4>
+  <entitydescription.boombox4>Bandit Radio from "S.T.A.L.K.E.R.: Clear Sky".</entitydescription.boombox4>
+  <entityname.boombox5>Clown Boombox</entityname.boombox5>
+  <entitydescription.boombox5>"Tintin on the Moon" by Jeroen Tel.</entitydescription.boombox5>
   <!-- Nukie Mask -->
   <entityname.jetmask>Nukie Mask</entityname.jetmask>
   <entitydescription.jetmask>A diving mask and a helmet! How convenient.</entitydescription.jetmask>
@@ -56,6 +67,9 @@
   <!-- Hard Hat -->
   <entityname.hardhat>Hard Hat</entityname.hardhat>
   <entitydescription.hardhat>Crucial to maintain a safe working environment. Keeps your head safe!</entitydescription.hardhat>
+  <!-- Emergency Mask -->
+  <entityname.disposabledivingmask>Emergency Mask</entityname.disposabledivingmask>
+  <entitydescription.disposabledivingmask>Disposable emergency oxygen mask.</entitydescription.disposabledivingmask>
   <!-- Storage Guntainer -->
   <entityname.toolboxgun>Storage Guntainer</entityname.toolboxgun>
   <entitydescription.toolboxgun>A portable guntainer for storing tools and supplies.</entitydescription.toolboxgun>

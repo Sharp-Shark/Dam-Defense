@@ -1,5 +1,7 @@
 -- Base event class all events inherit from
 require 'events/base'
+-- Ghost role event
+require 'events/ghostRole'
 -- Load the files with the events
 require 'events/airdrop'
 require 'events/fish'
@@ -21,11 +23,12 @@ DD.eventDirector.eventPool = {
 	DD.eventFish,
 	DD.eventAirdrop,
 	DD.eventAirdropMedical,
+	DD.eventAirdropSecurity,
 	DD.eventAirdropSeparatist,
 	DD.eventMurder,
 	DD.eventArrest1984,
-	DD.eventFlu,
-	DD.eventHusk
+	DD.eventAfflictionFlu,
+	DD.eventAfflictionHusk
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.mainEvent = nil
@@ -76,8 +79,30 @@ DD.eventDirector.getClientRelations = function (client)
 		end
 	end
 	
+	local clowns = {}
+	for client in Client.ClientList do
+		if (client.Character ~= nil) and (client.Character.JobIdentifier == 'clown') then
+			clowns[client] = true
+		end
+	end
+	
+	if DD.isClientCharacterAlive(client) then
+		if client.Character.SpeciesName == 'human' then
+			if DD.isCharacterProletariat(client.Character) then
+				targets = DD.setUnion(targets, security)
+			end
+			if client.Character.JobIdentifier == 'clown' then
+				local nonclowns = DD.setSubtract(clients, clowns)
+				targets = DD.setUnion(targets, nonclowns)
+			else
+				targets = DD.setUnion(targets, clowns)
+			end
+		else
+			targets = DD.setUnion(targets, clients)
+		end
+	end
+	
 	for	event in DD.eventDirector.events do
-		print(event.name)
 		if event.name == 'nukie' then
 			local nukies = DD.toSet(event.nukies)
 			local nonnukies = DD.setSubtract(clients, nukies)
@@ -104,7 +129,7 @@ DD.eventDirector.getClientRelations = function (client)
 			if event.target == client then
 				targets = DD.setUnion(targets, security)
 			else
-				targets = DD.setUnion(targets, others)
+				targets = DD.setUnion(targets, {[event.target] = true})
 			end
 		elseif event.name == 'serialKiller' then
 			if event.killer == client then
@@ -120,7 +145,8 @@ end
 
 -- Death
 DD.eventDirector.unfairKillCounter = {}
-Hook.Add("character.death", "DD.death", function(character)
+Hook.Add("character.death", "DD.friendlyFireDetector", function(character)
+	if CLIENT and Game.IsMultiplayer then return end
 	local killed = DD.findClientByCharacter(character)
 	if killed == nil then return end
 	if character.LastAttacker == nil then return end
@@ -129,7 +155,7 @@ Hook.Add("character.death", "DD.death", function(character)
 	if (character.SpeciesName ~= 'human') or (character.LastAttacker.SpeciesName ~= 'human') then return end
 	
 	if not DD.eventDirector.getClientRelations(killer)[killed] then
-		if DD.eventDirector.unfairKillCounter == nil then
+		if DD.eventDirector.unfairKillCounter[killer] == nil then
 			DD.eventDirector.unfairKillCounter[killer] = 1
 		else
 			DD.eventDirector.unfairKillCounter[killer] = DD.eventDirector.unfairKillCounter[killer] + 1
@@ -174,18 +200,18 @@ DD.thinkFunctions.eventDirector = function ()
 	if DD.tableSize(DD.eventDirector.events) > 0 then
 		for key, event in pairs(DD.eventDirector.events) do
 			if event.finished then
-				DD.eventDirector.events[key] = nil
+				table.remove(DD.eventDirector.events, key)
 			end
 		end
 	end
-	if not DD.eventDirector.enabled then return end
-	if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) then return end
-	
 	if (DD.eventDirector.mainEvent ~= nil) and DD.eventDirector.mainEvent.finished then
 		DD.eventDirector.cooldown = DD.eventDirector.mainEvent.cooldown / 2
 		DD.eventDirector.mainEventCooldown = DD.eventDirector.mainEvent.cooldown
 		DD.eventDirector.mainEvent = nil
 	end
+	
+	if not DD.eventDirector.enabled then return end
+	if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) then return end
 	
 	if (DD.eventDirector.mainEvent == nil) and (DD.eventDirector.mainEventCooldown <= 0) then
 		DD.eventDirector.startNewEvent(true)
