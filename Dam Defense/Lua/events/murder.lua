@@ -4,6 +4,7 @@ DD.eventMurder = DD.class(DD.eventBase, function (self, murderer, victim)
 	self.victim = victim
 end, {
 	paramType = {'client', 'client'},
+	clientKeys = {'murderer', 'victim'},
 	
 	name = 'murder',
 	isMainEvent = false,
@@ -20,7 +21,7 @@ end, {
 		-- Pick murderer (can't be security)
 		if self.murderer == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
-				if DD.isClientCharacterAlive(client) and (not DD.isCharacterSecurity(client.Character)) and (client ~= self.victim) then
+				if DD.isClientCharacterAlive(client) and (not DD.isCharacterSecurity(client.Character)) and (client ~= self.victim) and DD.eventDirector.isClientBelowEventCap(client) then
 					self.murderer = client
 					break
 				end
@@ -30,7 +31,7 @@ end, {
 		-- Pick victim (can't be security) (also can't be the murderer cuz otherwise suicide???)
 		if self.victim == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
-				if DD.isClientCharacterAlive(client) and (not DD.isCharacterSecurity(client.Character)) and (client ~= self.murderer) then
+				if DD.isClientCharacterAlive(client) and (not DD.isCharacterSecurity(client.Character)) and (client ~= self.murderer) and DD.eventDirector.isClientBelowEventCap(client) then
 					self.victim = client
 					break
 				end

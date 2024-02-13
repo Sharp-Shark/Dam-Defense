@@ -34,6 +34,8 @@
   <afflictiondescription.fluinfection>Vry contagious pulmonary infection. Usually not lethal on its own. Causes vulnerability to opportunistic bacterial infections and shortness of air.</afflictiondescription.fluinfection>
   <afflictionname.bacterialinfection>Bacterial Infection</afflictionname.bacterialinfection>
   <afflictiondescription.bacterialinfection>A broad unspecific bacterial infection. Usually not lethal on its own. Treatable with Broad-spectrum Antibiotics</afflictiondescription.bacterialinfection>
+  <afflictionname.tbinfection>Tuberculosis Infection</afflictionname.tbinfection>
+  <afflictiondescription.tbinfection>A very lethal bacterial lung infection, also highly transmissible. If untreated, will very likely result in death. Treatable with Broad-spectrum Antibiotics</afflictiondescription.tbinfection>
   
   <!-- Live Influenza -->
   <entityname.flusyringe>Live Influenza</entityname.flusyringe>
@@ -44,6 +46,9 @@
   <!-- Live Bacteria -->
   <entityname.bacterialsyringe>Live Bacteria</entityname.bacterialsyringe>
   <entitydescription.bacterialsyringe>A syringe containing a live sample of bacteria that was taken from someone using a blood sampler. Can be made into Broad-spectrum Antibiotics in a medical fabricator.</entitydescription.bacterialsyringe>
+  <!-- Live Tuberculosis -->
+  <entityname.tbsyringe>Live Tuberculosis</entityname.tbsyringe>
+  <entitydescription.tbsyringe>A syringe containing a live sample of tuberculosis that was taken from someone using a blood sampler. Can be made into Broad-spectrum Antibiotics in a medical fabricator.</entitydescription.tbsyringe>
   <!-- Blood Sampler -->
   <entityname.bloodsampler>Blood Sampler</entityname.bloodsampler>
   <entitydescription.bloodsampler>Can be used on infected people to extract a live sample of their infection. Live disease samples can be turned into their antidotes in a medical fabricator.</entitydescription.bloodsampler>
@@ -69,7 +74,7 @@
   <entitydescription.hardhat>Crucial to maintain a safe working environment. Keeps your head safe!</entitydescription.hardhat>
   <!-- Emergency Mask -->
   <entityname.disposabledivingmask>Emergency Mask</entityname.disposabledivingmask>
-  <entitydescription.disposabledivingmask>Disposable emergency oxygen mask.</entitydescription.disposabledivingmask>
+  <entitydescription.disposabledivingmask>Disposable emergency oxygen mask. Also serves a medical purpose since it lowers oxygen low, helping keep patients with a critical status alive.</entitydescription.disposabledivingmask>
   <!-- Storage Guntainer -->
   <entityname.toolboxgun>Storage Guntainer</entityname.toolboxgun>
   <entitydescription.toolboxgun>A portable guntainer for storing tools and supplies.</entitydescription.toolboxgun>

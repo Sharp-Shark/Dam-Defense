@@ -3,6 +3,7 @@ DD.eventGhostRole = DD.class(DD.eventBase, function (self, eventClass)
 	self.eventClass = eventClass
 end, {
 	paramType = {'event'},
+	clientKeys = {'volunteers'},
 	
 	name = 'ghostRole',
 	isMainEvent = false,
@@ -10,10 +11,11 @@ end, {
 	weight = 1,
 	goodness = 0,
 	
-	informSpectators = function (self, clients)
+	informSpectators = function (self, clients, text)
 		local clients = clients or Client.ClientList
 		local tbl = {seed = self.seed, eventName = self.eventClass.tbl.name, timer = DD.numberToTime(self.timer)}
-		local text = DD.stringReplace('Type in /{seed} into chat to join the "{eventName}" event! You have {timer} to join before it starts.', tbl)
+		local text = text or 'Type in /join{seed} into chat to join the "{eventName}" event! You have {timer} to join before it starts.'
+		text = DD.stringReplace(text, tbl)
 		for client in clients do
 			if not DD.isClientCharacterAlive(client) then
 				DD.messageClient(client, text, {preset = 'ghostRole'})
@@ -50,6 +52,7 @@ end, {
 				end
 			end
 			if not anyoneDead then
+				self.volunteers = {}
 				self.timer = Game.ServerSettings.RespawnInterval - 30
 				self.timerStarted = false
 				return
@@ -77,21 +80,36 @@ end, {
 	end,
 	
 	onChatMessage = function (self, message, sender)
-		if (message ~= '/' .. self.seed) or DD.isClientCharacterAlive(sender) then return end
-		if DD.tableHas(self.volunteers, sender) then
-			DD.messageClient(sender, 'You have already volunteered for that event.', {preset = 'ghostRole'})
+		if ((message ~= '/join' .. self.seed) and (message ~= '/exit' .. self.seed)) or DD.isClientCharacterAlive(sender) then return end
+		if message == '/join' .. self.seed then
+			if DD.tableHas(self.volunteers, sender) then
+				DD.messageClient(sender, DD.stringReplace('You have already volunteered for that event. Do /exit{seed} to undo.', {seed = self.seed}), {preset = 'ghostRole'})
+			elseif #DD.eventDirector.getClientEvents(sender) > 0 then
+				DD.messageClient(sender, 'You are already part of another event and cannot join this one.', {preset = 'ghostRole'})
+			else
+				table.insert(self.volunteers, sender)
+				DD.messageClient(sender, DD.stringReplace('You have joined the "{eventName}" event! Do /exit{seed} to undo.', {eventName = self.eventClass.tbl.name, seed = self.seed}), {preset = 'ghostRole'})
+			end
 		else
-			table.insert(self.volunteers, sender)
-			DD.messageClient(sender, DD.stringReplace('You have joined the "{eventName}" event!', {eventName = self.eventClass.tbl.name}), {preset = 'ghostRole'})
+			if DD.tableHas(self.volunteers, sender) then
+				for key, volunteer in pairs(self.volunteers) do
+					if volunteer == sender then table.remove(self.volunteers, key) end
+				end
+				DD.messageClient(sender, DD.stringReplace('You have exited the "{eventName}" event! Do /join{seed} to undo.', {eventName = self.eventClass.tbl.name, seed = self.seed}), {preset = 'ghostRole'})
+			else
+				DD.messageClient(sender, 'You have not volunteered for that event.', {preset = 'ghostRole'})
+			end
 		end
+		return true
 	end,
 	
 	onFinish = function (self)
 		for key, volunteer in pairs(self.volunteers) do
-			if DD.isClientCharacterAlive(volunteer) then table.remove(self.volunteers, key) end
+			if DD.isClientCharacterAlive(volunteer) or (DD.eventDirector.getClientEvents(sender) > 1) then table.remove(self.volunteers, key) end
 		end
 		
 		if DD.tableSize(self.volunteers) == 0 then
+			self.informSpectators(nil, 'The "{eventName}" event countdown has finished but no one joined it, so it has been cancelled.')
 			self.fail()
 			return
 		end

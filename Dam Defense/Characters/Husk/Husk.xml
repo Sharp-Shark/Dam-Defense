@@ -8,7 +8,8 @@
   <gibemitter particle="blackgib" particleamount="10" velocitymin="200" velocitymax="500" anglemin="0" anglemax="360" scalemin="0.3" scalemax="0.6" emitinterval="0" particlespersecond="0" highqualitycollisiondetection="False" copyentityangle="False" />
   <!-- vitality changed from 200 to 300 -->
   <!-- bleedingreduction changed from 10 to 5 -->
-  <health vitality="300" doesbleed="True" bleedingreduction="5" crushdepth="Infinity" usehealthwindow="False" burnreduction="0" constanthealthregeneration="0.5" healthregenerationwheneating="0" poisonvulnerability="0.5">
+  <!-- constanthealthregeneration changed from 0.5 to 1 -->
+  <health vitality="300" doesbleed="True" bleedingreduction="5" crushdepth="Infinity" usehealthwindow="False" burnreduction="0" constanthealthregeneration="1" healthregenerationwheneating="0" poisonvulnerability="0.5">
     <Limb name="Head">
       <VitalityMultiplier type="damage" multiplier="2.0" />
     </Limb>

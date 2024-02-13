@@ -3,6 +3,7 @@ DD.eventSerialKiller = DD.class(DD.eventBase, function (self, killer)
 	self.killer = killer
 end, {
 	paramType = {'client'},
+	clientKeys = {'killer'},
 	
 	name = 'serialKiller',
 	isMainEvent = true,
@@ -15,7 +16,7 @@ end, {
 		
 		local anyoneAlive = false
 		for client in DD.arrShuffle(Client.ClientList) do
-			if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (not DD.isCharacterSecurity(client.Character)) and (self.killer == nil) then
+			if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (not DD.isCharacterSecurity(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
 				self.killer = client
 			elseif DD.isClientCharacterAlive(client) then
 				if DD.isClientCharacterAlive(client) then

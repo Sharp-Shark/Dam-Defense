@@ -500,10 +500,13 @@ end
 
 -- Test message client colors
 DD.messageAllClientsTest = function ()
-	DD.messageAllClients('You have receveid 1000$ dollars for free!', {preset = 'goodinfo'})
+	DD.messageAllClients('You have received 1000$ dollars for free!', {preset = 'goodinfo'})
 	DD.messageAllClients('Idk pretty meh news it seems.', {preset = 'info'})
 	DD.messageAllClients('Oh shit the aurora borealis? Entirely within my kitchen?! SHIT', {preset = 'badinfo'})
 	DD.messageAllClients('OH MY GOD EVERYONE IS FUCKING DEAD JESUS CHRIST', {preset = 'crit'})
+	DD.messageAllClients('Booooo spooky ghost stuff! Are you scared?', {preset = 'ghostRole'})
+	DD.messageAllClients('Self-destruction initiated. Explosion in T-60 seconds.', {preset = 'command'})
+	DD.messageAllClients('Yknow, it could be a debug message...', {preset = 'debug'})
 end
 
 -- Messages a message to a client
@@ -519,6 +522,8 @@ DD.messageClient = function (client, text, data)
 	local senderCharacter = data.senderCharacter
 	local sendAnother = data.sendAnother
 	if sendAnother == nil then sendAnother = false end
+	local sendMain = data.sendMain
+	if sendMain == nil then sendMain = true end
 	
 	if data.preset == 'goodinfo' then
 		sender = '[Good Info]'
@@ -551,9 +556,16 @@ DD.messageClient = function (client, text, data)
 	if data.preset == 'ghostRole' then
 		sender = '[Ghost Role]'
 		color = Color(155, 100, 200)
-		messageType = 'ServerMessageBoxInGame'
-		icon = 'WorkshopMenu.InfoButton'
+		messageType = 'Dead'
+	end
+	if data.preset == 'command' then
+		sender = '[Command]'
+		color = Color(190, 215, 255)
+		sendMain = false
 		sendAnother = true
+	end
+	if data.preset == 'debug' then
+		messageType = 'Console'
 	end
 	
 	local chatMessage = ChatMessage.Create(sender, text, ChatMessageType.Default, nil, nil)
@@ -564,7 +576,9 @@ DD.messageClient = function (client, text, data)
 		Game.SendDirectChatMessage(chatMessage, client)
 	end
 	
-	Game.SendDirectChatMessage(sender, text, senderCharacter, ChatMessageType[messageType], client, icon)
+	if sendMain then
+		Game.SendDirectChatMessage(sender, text, senderCharacter, ChatMessageType[messageType], client, icon)
+	end
 end
 
 -- Messages clients

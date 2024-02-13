@@ -70,9 +70,26 @@ end
 -- Functions executed whenever a chat message is sent
 DD.chatMessageFunctions = {}
 local doChatMessageFunctions = function (message, sender)
+	local returnValue
 	for name, func in pairs(DD.chatMessageFunctions) do
-		func(message, sender)
+		if returnValue == nil then returnValue = func(message, sender) end
 	end
+	return returnValue
+end
+DD.chatMessageFunctions.help = function (message, sender)
+	if message ~= '/help' then return end
+	
+	commands = {'help', 'myevents'}
+	
+	local list = ''
+	for command in commands do
+		list = list .. ' - /' .. command .. '\n'
+	end
+	list = string.sub(list, 1, #list - 1)
+	
+	DD.messageClient(sender, DD.stringReplace('List of chat commands:\n{list}.', {list = list}), {preset = 'command'})
+	
+	return true
 end
 
 -- Load dependencies
@@ -120,10 +137,7 @@ end)
 
 -- Executes cwhenever a chat message is sent
 Hook.Add("chatMessage", "DD.chatMessage", function (message, sender)
-	
-	doChatMessageFunctions(message, sender)
-	
-	return
+	return doChatMessageFunctions(message, sender)
 end)
 
 -- Give talents
@@ -152,7 +166,7 @@ Hook.Add("character.death", "DD.bodyCleanup", function (character)
 	DD.roundData.creatureGrowthTimer[character] = nil
 	DD.roundData.creatureBreedTimer[character] = nil
 
-	if character.SpeciesName ~= 'human' then
+	if (character.SpeciesName ~= 'human') and (character.SpeciesName ~= 'humanhusk') then
 		Timer.Wait(function ()
 			Entity.Spawner.AddEntityToRemoveQueue(character)
 		end, 60*1000)

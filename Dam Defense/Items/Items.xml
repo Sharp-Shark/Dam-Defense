@@ -925,19 +925,26 @@
   </Item>
   
   <!-- emegerncy oxygen mask for cases where the spawn is flooded -->
-  <Item name="Emergency Mask" identifier="disposabledivingmask" category="Diving,Equipment" tags="lightdiving,diving,smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
+  <Item name="Emergency Mask" identifier="disposabledivingmask" category="Diving,Equipment,Medical" tags="lightdiving,diving,smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
     <Upgrade gameversion="0.9.6.0" scale="0.325" />
     <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
     <PreferredContainer secondary="armcab" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="20">
+      <RequiredSkill identifier="medical" level="30" />
+      <Item identifier="rubber" />
+      <Item identifier="oxygentank" />
+    </Fabricate>
     <Sprite name="Oxygen Mask" texture="headgears.png" sourcerect="336,46,72,62" depth="0.6" origin="0.45,0.5" />
-    <Body radius="45" density="25" />
+    <Body radius="25" density="25" />
     <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnWearing" target="Character" OxygenAvailable="10.0">
+        <ReduceAffliction identifier="oxygenlow" amount="5" />
         <Conditional IsDead="false" />
       </StatusEffect>
-      <StatusEffect type="Always" target="This" Condition="-1.65" />
+      <StatusEffect type="OnWearing" target="This" Condition="-1.65" />
+      <StatusEffect type="OnNotContained" target="This" Condition="-1.65" />
       <StatusEffect type="OnBroken" target="This">
         <Remove />
       </StatusEffect>

@@ -6,6 +6,7 @@ DD.eventNukies = DD.class(DD.eventBase, function (self, nukies)
 	end
 end, {
 	paramType = {'clientList'},
+	clientKeys = {'nukies'},
 	
 	name = 'nukies',
 	isMainEvent = true,
@@ -29,7 +30,7 @@ end, {
 			self.nukiesSet = {}
 			self.nukies = {}
 			for client in DD.arrShuffle(Client.ClientList) do
-				if not DD.isClientCharacterAlive(client) then
+				if (not DD.isClientCharacterAlive(client)) and DD.eventDirector.isClientBelowEventCap(client) then
 					table.insert(self.nukies, client)
 					self.nukiesSet[client] = true
 				end

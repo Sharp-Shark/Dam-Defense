@@ -3,6 +3,7 @@ DD.eventRevolution = DD.class(DD.eventBase, function (self, rebels)
 	self.rebels = rebels
 end, {
 	paramType = {'clientList'},
+	clientKeys = {'rebels'},
 	
 	name = 'revolution',
 	isMainEvent = true,
@@ -27,7 +28,7 @@ end, {
 		if pickRebels then self.rebels = {} end
 		for client in DD.arrShuffle(Client.ClientList) do
 			local chance = 0
-			if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) then
+			if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
 				chance = jobChances[client.Character.JobIdentifier] or 0
 			end
 			if client.Character.HasJob('captain') then
@@ -39,7 +40,7 @@ end, {
 		if DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3) then
 			for client in DD.arrShuffle(Client.ClientList) do
 				local chance = 0
-				if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) then
+				if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
 					chance = jobChances[client.Character.JobIdentifier] or 0
 					if chance ~= 0 then chance = 1 end
 				end

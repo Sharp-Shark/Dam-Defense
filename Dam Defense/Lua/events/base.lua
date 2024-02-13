@@ -1,8 +1,9 @@
 -- Base event code
 DD.eventBase = DD.class(nil, function (self)
-	self.seed = tostring(math.floor(math.random() * 10^8))
+	self.seed = tostring(math.floor(math.random() * 10^8)) -- is also often used as a function's unique identifier
 end, {
-	paramType = {},
+	paramType = {}, -- correct type for each parameter of the constructor function of this class
+	clientKeys = {}, -- keys of properties of this event that are a client or a client list (useful for finding what clients are participanting in an event)
 
 	started = false,
 	start = function (self)
@@ -16,7 +17,7 @@ end, {
 		-- Create hooks
 		DD.newThinkFunctions[self.name .. self.seed] = function () self.onThink() end
 		DD.characterDeathFunctions[self.name .. self.seed] = function (character) self.onCharacterDeath(character) end
-		DD.chatMessageFunctions[self.name .. self.seed] = function (message, sender) self.onChatMessage(message, sender) end
+		DD.chatMessageFunctions[self.name .. self.seed] = function (message, sender) return self.onChatMessage(message, sender) end
 		DD.roundEndFunctions[self.name .. self.seed] = function () self.finish() end
 		
 		-- onStart
@@ -57,10 +58,10 @@ end, {
 	end,
 	
 	name = 'name',
-	isMainEvent = false,
-	cooldown = 60 * 1,
-	weight = 1,
-	goodness = 0,
+	isMainEvent = false, -- for eventDirector
+	cooldown = 60 * 1, -- for eventDirector
+	weight = 1, -- for eventDirector
+	goodness = 0, -- for eventDirector
 	
 	onStart = function (self) return end,
 	
@@ -72,5 +73,5 @@ end, {
 	
 	onFinish = function (self) return end,
 	
-	onFinishAlways = function (self) return end -- Use this if you have some code that ALWAYS must be executed upon event end no matter what
+	onFinishAlways = function (self) return end -- use this if you have some code that ALWAYS must be executed upon event end no matter what
 })

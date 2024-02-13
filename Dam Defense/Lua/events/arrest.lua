@@ -6,6 +6,7 @@ DD.eventArrest = DD.class(DD.eventBase, function (self, target, charge, isTarget
 	if self.isTargetKnown == nil then self.isTargetKnown = false end
 end, {
 	paramType = {'client', 'string', 'boolean'},
+	clientKeys = {'target'},
 	
 	name = 'arrest',
 	isMainEvent = false,
@@ -66,7 +67,7 @@ end, {
 -- Tasks security with (ideally) arresting a player for a silly reason
 DD.eventArrest1984 = DD.class(DD.eventArrest, function (self)
 	for client in DD.arrShuffle(Client.ClientList) do
-		if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (not DD.isCharacterSecurity(client.Character)) then
+		if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (not DD.isCharacterSecurity(client.Character)) and DD.eventDirector.isClientBelowEventCap(client) then
 			self.target = client
 			break
 		end

@@ -104,7 +104,7 @@
     showiconthreshold="999"
     showicontoothersthreshold="999"
     showinhealthscannerthreshold="999">
-    <Effect minstrength="0" maxstrength="1" strengthchange="-0.35" resistancefor="damage" minresistance="0.0" maxresistance="-2.0" />
+    <Effect minstrength="0" maxstrength="1" strengthchange="-0.35" resistancefor="damage" minresistance="0.0" maxresistance="-3.0" />
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="128,896,128,128" color="10,193,114,255" origin="0,0"/>
   </Affliction>
   
@@ -128,8 +128,8 @@
   
   <!-- Husk stun -->
   <Affliction name="Husk stun" identifier="huskstun" description="" type="stun" targets="human" limbspecific="false" indicatorlimb="Torso" showiconthreshold="1" showinhealthscannerthreshold="1" karmachangeonapplied="-10" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="155,155,100,255;255,100,100,255">
-    <Effect minstrength="0" maxstrength="95" strengthchange="-5" minspeedmultiplier="1.0" maxspeedmultiplier="0.0" />
-    <Effect minstrength="95" maxstrength="101" strengthchange="-0.5">
+    <Effect minstrength="0" maxstrength="99" strengthchange="-5" minspeedmultiplier="1.0" maxspeedmultiplier="0.0" />
+    <Effect minstrength="99" maxstrength="101" strengthchange="0.5">
       <StatusEffect target="Character" setvalue="true">
         <Affliction identifier="stun" amount="1" />
       </StatusEffect>
@@ -404,6 +404,92 @@
       <StatusEffect target="Character" interval="0.1" disabledeltatime="true">
       </StatusEffect>
     </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
+  </Affliction>
+  
+  <!-- tuberculosis -->
+  <Affliction
+    name="Tuberculosis Hidden"
+    identifier="tbhidden"
+    type="infectionhidden"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="200"
+    showiconthreshold="999"
+    showinhealthscannerthreshold="1"
+    treatmentthreshold="1000"
+    iconcolors="100,155,100,255;100,255,100,255"
+    causeofdeathdescription="Rot to death"
+    selfcauseofdeathdescription="You have rotted to death."
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="200" strengthchange="1" />
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
+  </Affliction>
+  
+  <Affliction
+    name="Tuberculosis Payload"
+    identifier="tbpayload"
+    type="infectionpayload"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="200"
+    showiconthreshold="999"
+    showinhealthscannerthreshold="999"
+    treatmentthreshold="1000"
+    iconcolors="100,155,100,255;100,255,100,255"
+    causeofdeathdescription="Rot to death"
+    selfcauseofdeathdescription="You have rotted to death."
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="200" strengthchange="-1" >
+      <StatusEffect target="Character" disabledeltatime="false">
+	    <Affliction identifier="tbinfection" strength="1"/>
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
+  </Affliction>
+  
+  <Affliction
+    name="Tuberculosis Infection"
+    identifier="tbinfection"
+    type="infection"
+    targets="human"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="200"
+    showiconthreshold="30"
+    showinhealthscannerthreshold="1"
+    treatmentthreshold="0"
+    iconcolors="100,155,125,255;100,255,175,255"
+    causeofdeathdescription="Rot to death"
+    selfcauseofdeathdescription="You have rotted to death."
+    MedicalSkillGain="0.005">
+    <Effect minstrength="0" maxstrength="50" strengthchange="2"
+      multiplybymaxvitality="true"
+      minvitalitydecrease="0"
+      maxvitalitydecrease="1.0">
+      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
+        <Affliction identifier="oxygenlow" amount="2" />
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="50" maxstrength="200" strengthchange="2"
+      multiplybymaxvitality="true"
+      minvitalitydecrease="1.0"
+      maxvitalitydecrease="2.0">
+      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
+        <Affliction identifier="oxygenlow" amount="2" />
+      </StatusEffect>
+    </Effect>
+    <PeriodicEffect mininterval="12" maxinterval="16">
+      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character">
+		<LuaHook name="DD.afflictions.spread" />
+        <Affliction identifier="oxygenlow" amount="20" />
+        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Misc/cough2.ogg" />
+        <Sound file="%ModDir%/Misc/cough3.ogg" />
+        <Sound file="%ModDir%/Misc/cough4.ogg" />
+		<Conditional InWater="eq False" />
+      </StatusEffect>
+    </PeriodicEffect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
   </Affliction>
   

@@ -18,9 +18,10 @@ Hook.Add("DD.afflictions.bloodsample", "DD.afflictions.bloodsample", function(ef
 	local inventory = item.ParentInventory
 	
 	local characterInfections = {}
+	characterInfections.husk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
 	characterInfections.flu = getCharacterInfection(character, 'flu')
 	characterInfections.bacterial = getCharacterInfection(character, 'bacterial')
-	characterInfections.husk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
+	characterInfections.tb = getCharacterInfection(character, 'tb')
 	
 	local winnerName = ''
 	local winnerStrength = 0
@@ -71,9 +72,10 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 	for other in Character.CharacterList do
 		if (other.SpeciesName == 'human') and (not other.IsDead) and (character.CurrentHull == other.CurrentHull) and DD.isCharacterUsingHullOxygen(other) and
 		(Vector2.Distance(character.WorldPosition, other.WorldPosition) < 1000) then
-			spreadDiseaseToCharacter(other, character, 'husk', 0.25)
-			spreadDiseaseToCharacter(other, character, 'flu', 0.35)
-			spreadDiseaseToCharacter(other, character, 'bacterial', 0.35)
+			spreadDiseaseToCharacter(other, character, 'husk', 0.2)
+			spreadDiseaseToCharacter(other, character, 'flu', 0.4)
+			spreadDiseaseToCharacter(other, character, 'bacterial', 0.2)
+			spreadDiseaseToCharacter(other, character, 'tb', 0.4)
 		end
 	end
 end)
@@ -115,7 +117,9 @@ DD.thinkFunctions.afflictions = function ()
 			local characterBacterialGangrene = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialgangrene', true)
 			local characterInfection = character.CharacterHealth.GetAfflictionStrengthByType('infection', true)
 			characterInfection = characterInfection + math.max(0, character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true) - 35)
-			local characterImmune = character.CharacterHealth.GetAfflictionStrengthByType('immune', true) - character.CharacterHealth.GetAfflictionStrengthByType('immunedebuff', true)
+			local characterImmune = character.CharacterHealth.GetAfflictionStrengthByType('immune', true)
+			characterImmune = characterImmune - character.CharacterHealth.GetAfflictionStrengthByType('immunedebuff', true)
+			characterImmune = characterImmune - math.min(50, characterInfection / 2)
 			characterImmune = math.max(0, characterImmune)
 			-- Broad Bacterial Infection from bacterial gangrene (septic shock)
 			if characterBacterialGangrene > 5 and
@@ -133,7 +137,9 @@ DD.thinkFunctions.afflictions = function ()
 				amount = amount + amount * character.CharacterHealth.GetAfflictionStrengthByIdentifier('immuneboost', true) / 100
 				DD.giveAfflictionCharacter(character, 'immuneresponse', 4 * amount)
 				DD.giveAfflictionCharacter(character, 'fever', 3 * amount)
-				character.CharacterHealth.ReduceAfflictionOnAllLimbs('infection', characterImmune * (3 / 100) * (1/60), nil)
+				character.CharacterHealth.ReduceAfflictionOnAllLimbs('fluinfection', characterImmune * (3 / 100) * (1/60), nil)
+				character.CharacterHealth.ReduceAfflictionOnAllLimbs('bacterialinfection', characterImmune * (3 / 100) * (1/60), nil)
+				character.CharacterHealth.ReduceAfflictionOnAllLimbs('tbinfection', characterImmune * (1.5 / 100) * (1/60), nil)
 			else
 				character.CharacterHealth.ReduceAfflictionOnAllLimbs('immuneresponse', 1 / 60, nil)
 				character.CharacterHealth.ReduceAfflictionOnAllLimbs('fever', 8 / 60, nil)
@@ -141,3 +147,21 @@ DD.thinkFunctions.afflictions = function ()
 		end
 	end
 end
+
+--[[
+-- If someone gives in as husk, instead they will be set to spectator and the husk will continue alive but as a NPC
+Hook.Patch("Barotrauma.Character", "Kill", function(instance, ptable)
+	if (instance.SpeciesName == 'humanhusk') and (instance.Vitality > 0 - instance.MaxVitality) then
+		if CLIENT and Game.IsSingleplayer then
+			if Character.Controlled ~= instance then return end
+			Character.Controlled = nil
+			ptable.PreventExecution = true
+		else
+			local client = DD.findClientByCharacter(instance)
+			if client == nil then return end
+			client.SetClientCharacter(nil)
+			ptable.PreventExecution = true
+		end
+	end
+end, Hook.HookMethodType.Before)
+-]]

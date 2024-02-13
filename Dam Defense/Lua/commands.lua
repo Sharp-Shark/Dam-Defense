@@ -86,31 +86,36 @@ local func = function (args)
 	local eventName = table.remove(args, 1)
 	local eventClass = DD[eventName]
 	
-	local convertFunctions = {
-		string = function (str)
-			return str
-		end,
-		client = function (str)
-			return DD.findClient('Name', str)
-		end,
-		clientList = function (str)
-			local clientNames = DD.stringSplit(str, ',')
-			local clientList = {}
-			for name in clientNames do table.insert(clientList, DD.findClient('Name', name)) end
-			return clientList
-		end,
-		boolean = function (str)
-			if str == 'true' then
-				return true
-			elseif str == 'false' then
-				return false
-			end
-			return
-		end,
-		event = function (str)
-			return DD[str]
+	local convertFunctions = {}
+	convertFunctions.string = function (str)
+		return str
+	end
+	convertFunctions.stringList = function (str)
+		return DD.stringSplit(str, ',')
+	end
+	convertFunctions.number = function (str)
+		return tonumber(str)
+	end
+	convertFunctions.boolean = function (str)
+		if str == 'true' then
+			return true
+		elseif str == 'false' then
+			return false
 		end
-	}
+		return
+	end
+	convertFunctions.event = function (str)
+		return DD[str]
+	end
+	convertFunctions.client = function (str)
+		return DD.findClient('Name', str)
+	end
+	convertFunctions.clientList = function (str)
+		local split = DD.stringSplit(str, ',')
+		local list = {}
+		for value in split do table.insert(list, convertFunctions.client(value)) end
+		return list
+	end
 	
 	local eventArgs = {}
 	for n = 1, #args do
@@ -121,7 +126,7 @@ local func = function (args)
 	
 	local event = eventClass.new(unpack(eventArgs))
 	event.start()
-	if event.failed then print('Event failed. This is usually happens because the conditions necessary for it to occur were not met.') end
+	if event.failed then print('Event failed. This usually happens because the conditions necessary for it to occur were not met.') end
 end
 local validArgs = function (...)
 	local eventNames = {}

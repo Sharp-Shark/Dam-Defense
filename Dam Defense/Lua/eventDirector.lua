@@ -14,6 +14,7 @@ require 'events/serialKiller'
 
 -- Event director table
 DD.eventDirector = {}
+DD.eventDirector.enabled = true
 DD.eventDirector.eventPool = {
 	-- Main events
 	DD.eventNukies,
@@ -31,11 +32,11 @@ DD.eventDirector.eventPool = {
 	DD.eventAfflictionHusk
 }
 DD.eventDirector.goodness = 0
-DD.eventDirector.mainEvent = nil
 DD.eventDirector.events = {}
-DD.eventDirector.mainEventCooldown = nil
 DD.eventDirector.cooldown = nil
-DD.eventDirector.enabled = true
+DD.eventDirector.mainEvent = nil
+DD.eventDirector.mainEventCooldown = nil
+DD.eventDirector.eventsPerClientCap = 2 -- how many events a single client can be a participant of
 
 -- Debug function
 DD.eventDirector.debug = function (list)
@@ -62,6 +63,39 @@ DD.eventDirector.listEvents = function ()
 		print(value.name)
 	end
 	if DD.tableSize(DD.eventDirector.events) <= 0 then print('No events!') end
+end
+
+-- Get a list of the events a client is a participant of
+DD.eventDirector.getClientEvents = function (client)
+	local events = {}
+	local clientIsInEvent = false
+	for event in DD.eventDirector.events do
+		clientIsInEvent = false
+		for eventClientKey in event.clientKeys do
+			if type(event[eventClientKey]) == 'table' then
+				for other in event[eventClientKey] do
+					if other == client then clientIsInEvent = true break end
+				end
+				if clientIsInEvent then break end
+			else
+				if event[eventClientKey] == client then clientIsInEvent = true break end
+			end
+		end
+		if clientIsInEvent then
+			table.insert(events, event)
+		end
+	end
+	
+	return events
+end
+DD.eventDirector.isClientBelowEventCap = function (client)
+	if DD.eventDirector.eventsPerClientCap <= 0 then return true end
+	
+	if #DD.eventDirector.getClientEvents(client) < DD.eventDirector.eventsPerClientCap then
+		return true
+	else
+		return false
+	end
 end
 
 -- Returns a set of the people that would be considered as enemies to the client
@@ -234,6 +268,25 @@ DD.roundStartFunctions.eventDirector = function ()
 	DD.eventDirector.events = {}
 	DD.eventDirector.mainEventCooldown = 30
 	DD.eventDirector.cooldown = DD.eventDirector.mainEventCooldown
+end
+
+-- Lists to the message sender the events they're a participant of
+DD.chatMessageFunctions.myEvents = function (message, sender)
+	if message ~= '/myevents' then return end
+	
+	local list = ''
+	for event in DD.eventDirector.getClientEvents(sender) do
+		list = list .. event.name .. ', '
+	end
+	list = string.sub(list, 1, #list - 2)
+	
+	if list == '' then
+		list = 'none (you are in no events)'
+	end
+	
+	DD.messageClient(sender, DD.stringReplace('The events you are currently in are: {list}.', {list = list}), {preset = 'command'})
+	
+	return true
 end
 
 -- If it's a client then do run the event director
