@@ -388,13 +388,6 @@ DD.findRandomWaypointByJob = function (job)
 	return waypoints[math.random(#waypoints)]
 end
 
-DD.characterGetItemAt = function (character, slot)
-	local slot = slot
-	if type(slot) == 'string' then slot = tbl[string.lower(slot)] end
-	
-	return character.Inventory.GetItemAt(slot)
-end
-
 DD.isCharacterUsingHullOxygen = function (character)
 	if character.Inventory == nil then return end
 	local headslot = character.Inventory.GetItemAt(DD.invSlots.head)

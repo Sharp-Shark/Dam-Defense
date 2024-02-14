@@ -38,6 +38,20 @@ DD.eventAfflictionFlu = DD.class(DD.eventAffliction, nil, {
 	ratio = 1/3
 })
 
+-- TB event
+DD.eventAfflictionTB = DD.class(DD.eventAffliction, nil, {
+	name = 'afflictionTB',
+	isMainEvent = false,
+	cooldown = 60 * 2,
+	weight = 0.75,
+	goodness = -0.75,
+	
+	identifier = 'tbhidden',
+	minamount = 5,
+	maxamount = 50,
+	ratio = 1/4
+})
+
 -- Husk event
 DD.eventAfflictionHusk = DD.class(DD.eventAffliction, nil, {
 	name = 'afflictionHusk',

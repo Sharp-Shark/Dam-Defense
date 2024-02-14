@@ -5,12 +5,15 @@ Hook.Add("DD.afflictions.bloodsample", "DD.afflictions.bloodsample", function(ef
 	local character = targets[1]
 	
 	local characterInfection = character.CharacterHealth.GetAfflictionStrengthByType('infection', true)
+	local characterInfectionHidden = character.CharacterHealth.GetAfflictionStrengthByType('infectionhidden', true)
 	local characterHusk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
 	if characterHusk < 20 then characterHusk = 0 end
-	if characterInfection + characterHusk <= 0 then return end
+	if characterInfection + characterHusk + characterInfectionHidden <= 0 then return end
 	
 	local getCharacterInfection = function (character, diseaseName)
 		local total = 0
+		total = total + character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
+		total = total + character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'payload', true)
 		total = total + character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		return total
 	end
@@ -47,7 +50,9 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 	if character.AnimController.HeadInWater or not DD.isCharacterUsingHullOxygen(character) then return end
 	
 	local spreadDiseaseToCharacter = function (toCharacter, fromCharacter, diseaseName, chance)
-		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
+		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
+		amount = amount + fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'payload', true)
+		amount = amount + fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		local infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		local hidden = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
 		if diseaseName == 'husk' then
@@ -67,15 +72,18 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 	local hull = character.CurrentHull
 	if hull == nil then return end
 	
+	local affectedHulls = {hull = true}
+	for otherHull in character.CurrentHull.GetConnectedHulls(false, 3, true) do affectedHulls[otherHull] = true end
+	
 	local characterHusk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
 	local characterBacterialInfection = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialinfection', true)
 	for other in Character.CharacterList do
-		if (other.SpeciesName == 'human') and (not other.IsDead) and (character.CurrentHull == other.CurrentHull) and DD.isCharacterUsingHullOxygen(other) and
-		(Vector2.Distance(character.WorldPosition, other.WorldPosition) < 1000) then
-			spreadDiseaseToCharacter(other, character, 'husk', 0.2)
-			spreadDiseaseToCharacter(other, character, 'flu', 0.4)
-			spreadDiseaseToCharacter(other, character, 'bacterial', 0.2)
-			spreadDiseaseToCharacter(other, character, 'tb', 0.4)
+		if (other.SpeciesName == 'human') and (not other.AnimController.HeadInWater) and (not other.IsDead) and affectedHulls[other.CurrentHull] and DD.isCharacterUsingHullOxygen(other) and
+		(Vector2.Distance(character.WorldPosition, other.WorldPosition) < 750) then
+			spreadDiseaseToCharacter(other, character, 'husk', 0.15)
+			spreadDiseaseToCharacter(other, character, 'flu', 0.3)
+			spreadDiseaseToCharacter(other, character, 'bacterial', 0.15)
+			spreadDiseaseToCharacter(other, character, 'tb', 0.3)
 		end
 	end
 end)
@@ -86,7 +94,7 @@ Hook.Add("afflictionUpdate", "DD.bacterialgangrene", function (affliction, chara
 	
 	-- End infection incubation and give payload
 	if affliction.Prefab.AfflictionType == 'infectionhidden' then
-		if (math.random() * 10^3 < 1) or (affliction.Strength >= affliction.Prefab.MaxStrength) then
+		if (math.random() * 2 * 10^3 < 1) or (affliction.Strength >= affliction.Prefab.MaxStrength) then
 			local name = DD.stringSplit(tostring(affliction.Prefab.Identifier), 'hidden')[1]
 			DD.giveAfflictionCharacter(character, name .. 'payload', affliction.Strength * (1 + math.random()))
 			affliction.SetStrength(0)
@@ -134,15 +142,15 @@ DD.thinkFunctions.afflictions = function ()
 			-- Immunu-response
 			if characterInfection > 0 then
 				local amount = math.random() * (0.5 + math.max(0, character.Vitality / character.MaxVitality)) * (0.5 + (characterInfection / 200)) * (1/60)
-				amount = amount + amount * character.CharacterHealth.GetAfflictionStrengthByIdentifier('immuneboost', true) / 100
-				DD.giveAfflictionCharacter(character, 'immuneresponse', 4 * amount)
-				DD.giveAfflictionCharacter(character, 'fever', 3 * amount)
-				character.CharacterHealth.ReduceAfflictionOnAllLimbs('fluinfection', characterImmune * (3 / 100) * (1/60), nil)
-				character.CharacterHealth.ReduceAfflictionOnAllLimbs('bacterialinfection', characterImmune * (3 / 100) * (1/60), nil)
-				character.CharacterHealth.ReduceAfflictionOnAllLimbs('tbinfection', characterImmune * (1.5 / 100) * (1/60), nil)
+				amount = amount + amount * character.CharacterHealth.GetAfflictionStrengthByIdentifier('immuneboost', true) / 50
+				DD.giveAfflictionCharacter(character, 'immuneresponse', 5 * amount)
+				DD.giveAfflictionCharacter(character, 'fever', 2.5 * amount)
+				character.CharacterHealth.ReduceAfflictionOnAllLimbs('fluinfection', characterImmune * (2.5 / 100) * (1/60), nil)
+				character.CharacterHealth.ReduceAfflictionOnAllLimbs('bacterialinfection', characterImmune * (2.5 / 100) * (1/60), nil)
+				character.CharacterHealth.ReduceAfflictionOnAllLimbs('tbinfection', characterImmune * (1 / 100) * (1/60), nil)
 			else
-				character.CharacterHealth.ReduceAfflictionOnAllLimbs('immuneresponse', 1 / 60, nil)
-				character.CharacterHealth.ReduceAfflictionOnAllLimbs('fever', 8 / 60, nil)
+				character.CharacterHealth.ReduceAfflictionOnAllLimbs('immuneresponse', 5 / 60, nil)
+				character.CharacterHealth.ReduceAfflictionOnAllLimbs('fever', 10 / 60, nil)
 			end
 		end
 	end

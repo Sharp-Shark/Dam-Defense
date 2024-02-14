@@ -22,7 +22,12 @@
       <Skill identifier="medical" level="55,65"/>
     </Skills>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+		
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="captainscap1" equip="true"/>
       <Item identifier="captainsuniform1" equip="true" outfit="true"/>
       <Item identifier="bodyarmor" equip="true">
@@ -64,7 +69,12 @@
       </PreviewSprites>
     </ItemSet>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+		
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="captainscap3" equip="true"/>
       <Item identifier="captainsuniform3" equip="true" outfit="true"/>
       <Item identifier="bodyarmor" equip="true">
@@ -138,7 +148,9 @@
       <Skill identifier="helm" level="5,10"/>
     </Skills>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="orangejumpsuit1" equip="true" outfit="true"/>
       <Item identifier="headset" equip="true"/>
       <Item identifier="hardhat" equip="true"/>
@@ -168,7 +180,9 @@
       </PreviewSprites>
     </ItemSet>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="orangejumpsuit2" equip="true" outfit="true"/>
       <Item identifier="headset" equip="true"/>
       <Item identifier="hardhat" equip="true"/>
@@ -249,7 +263,9 @@
       <Skill identifier="helm" level="15,25"/>
     </Skills>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="bluejumpsuit1" equip="true" outfit="true"/>
       <Item identifier="baseballcap" equip="true" />
       <Item identifier="toolbelt" equip="true"/>
@@ -261,6 +277,7 @@
       <Item identifier="flashlight" >
 		<Item identifier="batterycell"/>
 	  </Item>
+      <Item identifier="proteinbar"/>
       <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
@@ -268,18 +285,22 @@
       </PreviewSprites>
     </ItemSet>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	  </Item>
       <Item identifier="bluejumpsuit2" equip="true" outfit="true"/>
       <Item identifier="baseballcap" equip="true" />
       <Item identifier="toolbelt" equip="true"/>
       <Item identifier="crowbar"/>
       <Item identifier="screwdriver"/>
-      <Item identifier="steel"/>
-      <Item identifier="steel"/>
-      <Item identifier="plastic"/>
+      <Item identifier="divingmask" >
+		<Item identifier="oxygentank"/>
+	  </Item>
       <Item identifier="flashlight" >
 		<Item identifier="batterycell"/>
 	  </Item>
+      <Item identifier="energydrink"/>
       <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
@@ -329,7 +350,12 @@
         <Item identifier="pistolmagazine" />
         <Item identifier="pistolmagazine" />
 	  </Item>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+		
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="headset" equip="true"/>
       <Item identifier="ballistichelmet3" equip="true"/>
       <Item identifier="rifle" equip="true">
@@ -383,7 +409,12 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
 	  </Item>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+		
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="headset" equip="true"/>
       <Item identifier="ballistichelmet3" equip="true"/>
       <Item identifier="rifle" equip="true">
@@ -468,7 +499,10 @@
       <Skill identifier="helm" level="15,25"/>
     </Skills>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="doctorsuniform1" equip="true" outfit="true"/>
       <Item identifier="healthscanner" equip="true"/>
       <Item identifier="headset" equip="true"/>
@@ -497,7 +531,10 @@
       </PreviewSprites>
     </ItemSet>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="doctorsuniform2" equip="true" outfit="true"/>
       <Item identifier="healthscanner" equip="true"/>
       <Item identifier="headset" equip="true"/>
@@ -612,7 +649,9 @@
       <Skill identifier="helm" level="25,35"/>
     </Skills>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="clownmask" equip="true"/>
       <Item identifier="clowncostume" equip="true" outfit="true"/>
       <Item identifier="toyhammer"/>
@@ -628,7 +667,10 @@
       </PreviewSprites>
     </ItemSet>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	  </Item>
       <Item identifier="clownmask" equip="true"/>
       <Item identifier="clowncostume" equip="true" outfit="true"/>
       <Item identifier="toyhammer"/>
@@ -788,7 +830,12 @@
       <Skill identifier="helm" level="15,25"/>
     </Skills>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+		
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="divinghelmet" equip="true" />
       <Item identifier="securityuniform2" equip="true" outfit="true"/>
       <Item identifier="bodyarmor" equip="true">
@@ -831,7 +878,12 @@
       <Item identifier="antibleeding1"/>
     </ItemSet>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+		
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="divinghelmet" equip="true" />
       <Item identifier="securityuniform2" equip="true" outfit="true"/>
       <Item identifier="bodyarmor" equip="true">
@@ -887,7 +939,6 @@
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-      <Item identifier="oxygentank"/>
     </ItemSet>
     <AutonomousObjectives>
       <Order identifier="fightintruders" prioritymodifier="1"/>
@@ -925,7 +976,10 @@
       <Skill identifier="helm" level="15,25"/>
     </Skills>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="researcherclothes" equip="true" outfit="true"/>
       <Item identifier="headset" equip="true"/>
       <Item identifier="divingmask" equip="true"/>
@@ -936,7 +990,6 @@
 		  <Item identifier="batterycell"/>
 	    </Item>
 	    <Item identifier="oxygentank"/>
-	    <Item identifier="handcuffs" />
 	  </Item>
       <Item identifier="pistol" equip="false">
         <Item identifier="pistolmagazine" />
@@ -955,7 +1008,10 @@
       <Item identifier="antibleeding1"/>
     </ItemSet>
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <!--<Item identifier="medicalofficerclothes" equip="true" outfit="true"/>-->
       <Item identifier="researcherclothes" equip="true" outfit="true"/>
       <Item identifier="headset" equip="true"/>
@@ -977,7 +1033,6 @@
 		  <Item identifier="batterycell"/>
 	    </Item>
 	    <Item identifier="oxygentank"/>
-	    <Item identifier="handcuffs" />
 	  </Item>
       <Item identifier="revolver" equip="false">
         <Item identifier="revolverround" />
@@ -1029,7 +1084,9 @@
     </Skills>
 	<!-- Riflemen -->
     <ItemSet>
-      <Item identifier="idcard" equip="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
       <Item identifier="pirateclothes" equip="true" outfit="true" />
       <Item identifier="autoinjectorheadset" equip="true">
         <Item identifier="combatstimulantsyringe" />

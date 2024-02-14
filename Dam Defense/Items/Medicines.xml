@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
   <Override>
-  <!-- protein bar has a 1 in 16 chance to give a bacterial infection -->
+  <!-- protein bar has a chance to give a random bacterial infection -->
   <ProteinBar name="" identifier="proteinbar" category="Medical,Material" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,medical" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer secondary="wreckmedcab,abandonedmedcab" amount="1" spawnprobability="0.1" />
     <PreferredContainer secondary="abandonedcrewcab" minamount="1" maxamount="2" spawnprobability="0.15" />
     <PreferredContainer primary="crewcab"/>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="40" fabricationlimitmin="5" fabricationlimitmax="10"/>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="1" />
+	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="0,768,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="285,452,30,57" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="65" density="10.1" />
@@ -23,20 +26,24 @@
       <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
         <ReduceAffliction type="damage" amount="7.5" />
         <ReduceAffliction type="burn" amount="7.5" />
-        <Affliction identifier="bacterialhidden" amount="0.1" probability="0.0625" />
+        <Affliction identifier="bacterialhidden" amount="0.1" probability="0.0625" /> <!-- 1 in 16 chance -->
+        <Affliction identifier="tbhidden" amount="0.1" probability="0.01" /> <!-- 1 in 100 chance -->
       </StatusEffect>  
       <StatusEffect type="OnBroken" target="This">
         <Remove />
       </StatusEffect>
     </Holdable>
   </ProteinBar>
-  <!-- energy drink gives 100 haste and 50 psychosis resistance and no nausea -->
+  <!-- energy drink gives 100 haste and 50 psychosis resistance and no nausea (also has a chance to give a random bacterial infection) -->
   <EnergyDrink name="" identifier="energydrink" category="Medical,Material" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,chem,medical" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer secondary="wreckmedcab,abandonedmedcab" amount="1" spawnprobability="0.1" />
     <PreferredContainer secondary="abandonedcrewcab" minamount="1" maxamount="2" spawnprobability="0.15" />
     <PreferredContainer primary="crewcab"/>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="40" fabricationlimitmin="5" fabricationlimitmax="10"/>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="1" />
+	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="64,768,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="315,452,30,57" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="65" density="20" />
@@ -52,13 +59,49 @@
       <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
         <Affliction identifier="psychosisresistance" amount="50" />
         <Affliction identifier="haste" amount="100" />
+        <Affliction identifier="bacterialhidden" amount="0.1" probability="0.0625" /> <!-- 1 in 16 chance -->
+        <Affliction identifier="tbhidden" amount="0.1" probability="0.01" /> <!-- 1 in 100 chance -->
       </StatusEffect>
       <StatusEffect type="OnBroken" target="This">
         <Remove />
       </StatusEffect>
     </Holdable>
   </EnergyDrink>
-  <!-- pipe gives you a huge amount of pulmonary emphysema (100 per item) and heals bloodloss and damage -->
+  <!-- pipe tabacco for captain's pipe can now be bought at nexshops -->
+  <Item name="" identifier="pipetobacco" category="Misc" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,pipetobacco" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
+    <PreferredContainer primary="captainspipe" spawnprobability="1"/>
+    <PreferredContainer primary="crewcab" spawnprobability="0.05" notcampaign="true"/>
+    <PreferredContainer secondary="wreckcrewcab,abandonedcrewcab" spawnprobability="0.1"/>  
+    <Price baseprice="120">
+      <Price storeidentifier="merchantoutpost" multiplier="1.1" minavailable="1"/>
+      <Price storeidentifier="merchantcity" multiplier="0.9"  minavailable="2"/>
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+    </Price>
+    <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="190" fabricationlimitmin="0" fabricationlimitmax="10"/>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="2" />
+	</Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="helm" level="30" />
+      <Item identifier="tobaccobud" />
+      <Item identifier="tobaccobud" />
+      <Item identifier="tobaccobud" />
+    </Fabricate>
+    <Deconstruct time="20">
+      <Item identifier="tobaccobud" />
+    </Deconstruct>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="192,320,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Gardening/GrowablePlants_Temp.png" sourcerect="848,774,44,58" depth="0.55" origin="0.5,0.5" />
+    <Body width="40" height="50" density="10.5"/>
+    <Holdable slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <!-- pipe gives you a huge amount of pulmonary emphysema (80 per item) and heals bloodloss and damage -->
   <Item name="" identifier="captainspipe" category="Misc" Tags="smallitem" scale="0.5" cargocontaineridentifier="metalcrate" impactsoundtag="impact_metal_light" isshootable="true" requireaimtouse="true">
     <PreferredContainer primary="crewcab" spawnprobability="0.05" notcampaign="true"/>
     <PreferredContainer secondary="wreckcrewcab,abandonedcrewcab" spawnprobability="0.1"/>
@@ -69,6 +112,9 @@
       <Price storeidentifier="merchantmilitary"/>
       <Price storeidentifier="merchantmine"/>
     </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="8" />
+	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="511,957,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Misc/Misc.png" sourcerect="105,73,50,30" depth="0.55" origin="0.5,0.5" />
     <Body width="58" height="20" density="15" />
@@ -87,7 +133,7 @@
         <RequiredItem items="pipetobacco" type="Contained" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnSecondaryUse" target="Character">
-	    <Affliction identifier="pulmonaryemphysema" amount="4" />
+	    <Affliction identifier="pulmonaryemphysema" amount="3.2" />
         <Affliction identifier="psychosisresistance" amount="15" />
         <ReduceAffliction identifier="damage" amount="10" />
         <ReduceAffliction identifier="bloodloss" amount="5" />
@@ -101,13 +147,16 @@
       <Containable items="pipetobacco" />
     </ItemContainer>
   </Item>
-  <!-- cigar gives you a small amount of pulmonary emphysema (25 per item) and slightly heals bloodloss and damage -->
+  <!-- cigar gives you a small amount of pulmonary emphysema (20 per item) and slightly heals bloodloss and damage -->
   <Item name="" identifier="cigar" category="Misc" Tags="smallitem" scale="0.5" cargocontaineridentifier="metalcrate" allowasextracargo="true" impactsoundtag="impact_soft" isshootable="true" requireaimtouse="true">
     <PreferredContainer primary="crewcab"/>
     <Price baseprice="130" sold="false" />
     <Fabricate suitablefabricators="fabricator" requiredtime="5" requiresrecipe="true">
       <RequiredItem identifier="pipetobacco" />
     </Fabricate>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="1" />
+	</Fabricate>
     <InventoryIcon texture="Content/Items/JobGear/TalentGear.png" sourcerect="174,234,42,50" origin="0.5,0.5" />
     <Sprite texture="Content/Items/JobGear/TalentGear.png" sourcerect="0,60,50,12" depth="0.55" origin="0.5,0.5" />
     <Body width="45" height="10" density="9.9"/>
@@ -122,7 +171,7 @@
         <ParticleEmitter particle="bubbles" particlespersecond="3" scalemin="0.3" scalemax="0.5" anglemin="0" anglemax="360" velocitymin="0" velocitymax="10"/>
       </StatusEffect>
       <StatusEffect tags="medical" type="OnSecondaryUse" target="Character">
-        <Affliction identifier="pulmonaryemphysema" amount="1" />
+        <Affliction identifier="pulmonaryemphysema" amount="0.8" />
         <Affliction identifier="psychosisresistance" amount="20" />
         <ReduceAffliction identifier="damage" amount="2" />
         <ReduceAffliction identifier="bloodloss" amount="1" />
@@ -149,6 +198,9 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
       <Price storeidentifier="merchantmedical" multiplier="0.9" minavailable="4" />
     </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="5" />
+	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="384,768,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="379,452,27,58" depth="0.6" origin="0.5,0.5" />
     <SuitableTreatment type="infection" suitability="30" />
@@ -188,6 +240,9 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
       <Price storeidentifier="merchantmedical" multiplier="0.9" minavailable="15" />
     </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="2" />
+	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="384,640,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="112,139,37,70" depth="0.6" origin="0.5,0.5" />
     <SuitableTreatment type="poison" suitability="10" />
@@ -297,6 +352,9 @@
       <Price storeidentifier="merchantclown" minavailable="0" maxavailable="2" />
     </Price>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="80" fabricationlimitmin="5" fabricationlimitmax="10"/>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="1" />
+	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="256,768,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="435,452,30,57" depth="0.6" origin="0.5,0.5" />
     <SuitableTreatment identifier="bacterialgangrene" suitability="30" />
@@ -345,6 +403,9 @@
       <Price storeidentifier="merchanthusk" minavailable="0" maxavailable="2"/>
     </Price>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="60" fabricationlimitmin="5" fabricationlimitmax="10"/>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="5" />
+	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" >
       <RequiredSkill identifier="medical" level="40" />
       <RequiredItem identifier="bacterialsyringe" />
@@ -370,6 +431,7 @@
     <SuitableTreatment type="damage" suitability="-33" />
     <SuitableTreatment identifier="huskinfection" suitability="30" />
     <SuitableTreatment identifier="bacterialinfection" suitability="50" />
+    <SuitableTreatment identifier="tbinfection" suitability="50" />
     <SuitableTreatment identifier="bacterialgangrene" suitability="50" />
     <Body width="35" height="65" density="10.2" waterdragcoefficient="1"/>
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
@@ -385,7 +447,7 @@
       </StatusEffect>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
         <ReduceAffliction identifier="bacterialinfection" amount="4" />
-        <ReduceAffliction identifier="tbinfection" amount="1.5" />
+        <ReduceAffliction identifier="tbinfection" amount="2" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="10.0">
         <ReduceAffliction identifier="bacterialgangrene" amount="4" />
@@ -402,7 +464,7 @@
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="60.0">
         <ReduceAffliction identifier="bacterialinfection" amount="2" />
-        <ReduceAffliction identifier="tbinfection" amount="0.75" />
+        <ReduceAffliction identifier="tbinfection" amount="1" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="10.0">
         <ReduceAffliction identifier="bacterialgangrene" amount="2" />
@@ -429,6 +491,102 @@
     <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
     <SkillRequirementHint identifier="medical" level="25" />
   </Antibiotics>
+  <!-- rum can now be bought at a nexshop -->
+  <Rum name="" identifier="rum" category="Medical,Misc" maxstacksize="8" cargocontaineridentifier="mediccrate" description="" Tags="smallitem" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
+    <PreferredContainer secondary="wreckmedcab,abandonedmedcab" amount="1" spawnprobability="0.01" />
+    <PreferredContainer secondary="abandonedcrewcab" minamount="1" maxamount="1" spawnprobability="0.01" />
+    <PreferredContainer secondary="crewcab" amount="1" spawnprobability="0.02" notcampaign="true"/>
+    <PreferredContainer primary="medfabcab" secondary="medcab"/>
+    <Price baseprice="130" sold="false">
+      <Price storeidentifier="merchantclown" minavailable="0" maxavailable="3">
+        <Reputation faction="clowns" min="30"/>
+      </Price>
+    </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="5" />
+	</Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="true">
+      <RequiredItem identifier="ethanol" />
+      <RequiredItem identifier="raptorbane" />
+    </Fabricate>
+    <Sprite texture="Content/Items/Jobgear/TalentGear.png" sourcerect="486,212,27,66" depth="0.6" origin="0.5,0.5" />
+    <Body width="27" height="66" density="20" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="32,28" holdangle="30" aimangle="120" aimable="false" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="This" Condition="-30.0"/>
+      <StatusEffect type="OnSecondaryUse" target="This,Character" disabledeltatime="true">
+        <Conditional Condition="lte 1" />
+        <Use/>
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="This" Condition="-100.0" disabledeltatime="true" />
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="psychosisresistance" amount="600" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="UseTarget" duration="30">
+        <Conditional huskinfection="lt 50.0" />
+        <ReduceAffliction identifier="huskinfection" amount="1" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="UseTarget" duration="30">
+        <ReduceAffliction identifier="psychosis" amount="3" />
+        <ReduceAffliction identifier="hallucinating" amount="3" />
+        <Affliction identifier="drunk" amount="3" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Rum>
+  <!-- bandages can now be bought at a nexshop -->
+  <Bandage name="" identifier="antibleeding1" aliases="Bandage" category="Medical" Tags="smallitem,medical" maxstacksize="32" maxstacksizecharacterinventory="8" useinhealthinterface="true" cargocontaineridentifier="mediccrate" description="" scale="0.5" impactsoundtag="impact_soft" RequireAimToUse="True">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer secondary="supplycab" minamount="1" maxamount="2" spawnprobability="0.5" notcampaign="true"/>
+    <PreferredContainer secondary="wrecksupplycab,beaconsupplycab" amount="1" spawnprobability="0.3" />
+    <PreferredContainer secondary="wreckmedcab,abandonedmedcab" minamount="1" maxamount="2" spawnprobability="0.8" />
+    <PreferredContainer secondary="outpostmedcab" minamount="1" maxamount="3" spawnprobability="0.5" />
+    <PreferredContainer secondary="outpostmedcompartment" amount="1" spawnprobability="0.2" />
+    <PreferredContainer secondary="researchcontainer" spawnprobability="0.02"/>
+    <PreferredContainer primary="medcab" secondary="medcontainer"/>
+    <Price baseprice="30" minavailable="25">
+      <Price storeidentifier="merchantoutpost"/>
+      <Price storeidentifier="merchantcity"/>
+      <Price storeidentifier="merchantresearch"/>
+      <Price storeidentifier="merchantmilitary"/>
+      <Price storeidentifier="merchantmine"/>
+      <Price storeidentifier="merchantmedical" multiplier="0.9"/>
+    </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="2" />
+	</Fabricate>
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" amount="2">
+      <RequiredSkill identifier="medical" level="5" />
+      <RequiredItem identifier="organicfiber" />
+    </Fabricate>
+    <Deconstruct time="2"/>
+    <SuitableTreatment type="bleeding" suitability="30" />
+    <SuitableTreatment type="burn" suitability="30" />
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+    <Sprite texture="Medicines.png" sourcerect="310,33,26,42" depth="0.6" origin="0.5,0.5" />
+    <Body width="25" height="40" density="10.05" />
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <RequiredSkill identifier="medical" level="40" />
+      <StatusEffect type="OnUse" target="This" Condition="-100.0" setvalue="true">
+        <Sound file="Content/Items/Medical/Bandage1.ogg" range="500" />
+        <Sound file="Content/Items/Medical/Bandage2.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" target="This, Limb" duration="6.0">
+        <ReduceAffliction type="bleeding" amount="5" />
+        <ReduceAffliction type="burn" amount="5" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="This, Limb" duration="6.0">
+        <ReduceAffliction type="bleeding" amount="3.75" />
+        <ReduceAffliction type="burn" amount="3.75" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </MeleeWeapon>
+    <SkillRequirementHint identifier="medical" level="40" />
+  </Bandage>
   <!-- organic fiber is now craftable -->
   <Item name="" identifier="organicfiber" category="Material" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem" canbepicked="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft">
     <PreferredContainer secondary="wreckstorage,abandonedstoragecab" minamount="1" maxamount="2" spawnprobability="0.05" />
@@ -613,6 +771,9 @@
         <Reputation faction="huskcult" min="30"/>
       </Price>
     </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="8" />
+	</Fabricate>
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="56,0,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="36,0,36,69" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="70" density="20" />
@@ -653,6 +814,9 @@
         <Reputation faction="huskcult" min="30"/>
       </Price>
     </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="12" />
+	</Fabricate>
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="224,0,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="144,0,36,69" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="70" density="20" />

@@ -37,6 +37,12 @@
   <afflictionname.tbinfection>Tuberculosis Infection</afflictionname.tbinfection>
   <afflictiondescription.tbinfection>A very lethal bacterial lung infection, also highly transmissible. If untreated, will very likely result in death. Treatable with Broad-spectrum Antibiotics</afflictiondescription.tbinfection>
   
+  <!-- Nexcredit -->
+  <entityname.money>Nexcredit</entityname.money>
+  <entitydescription.money>Nexcredits (TM) can be exchanged for goods at Nexshops (TM). This message was sponsored by Nexpharma (TM).</entitydescription.money>
+  <!-- Counterfeit Nexcredit -->
+  <entityname.fakemoney>Counterfeit Nexcredit</entityname.fakemoney>
+  <entitydescription.fakemoney>Any human can easily tell these are fake, but they can still spoof Nexshops. Very much illegal!</entitydescription.fakemoney>
   <!-- Live Influenza -->
   <entityname.flusyringe>Live Influenza</entityname.flusyringe>
   <entitydescription.flusyringe>A syringe containing a live sample of influenza that was taken from someone using a blood sampler. Can be made into Influenza Antidote in a medical fabricator.</entitydescription.flusyringe>
