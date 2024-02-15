@@ -2,15 +2,15 @@
 DD.eventAffliction = DD.class(DD.eventBase, nil, {
 	name = 'affliction',
 	isMainEvent = false,
-	cooldown = 60 * 2,
-	weight = 1,
-	goodness = -0.5,
+	cooldown = 0,
+	weight = 0,
+	goodness = 0,
 	
 	identifier = '',
 	minamount = 0,
 	maxamount = 0,
 	ratio = 0,
-	message = 'It is suspected there may be a outbreak in the region. However, it is not yet known what the disease is.',
+	message = 'It is suspected there may be an outbreak in the region. However, it is not yet known what the disease is.',
 	
 	onStart = function (self)
 		local infected = 0

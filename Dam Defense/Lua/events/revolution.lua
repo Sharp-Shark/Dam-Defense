@@ -23,15 +23,15 @@ end, {
 			medicaldoctor = 0.5,
 			researcher = 0.5
 		}
-		local pickRebels = self.rebels == nil -- if a list of rebels was already given in the constructor then do mess with it
+		local pickRebels = self.rebels == nil -- if a list of rebels was already given in the constructor then do not mess with it
 		self.captain = nil
 		if pickRebels then self.rebels = {} end
 		for client in DD.arrShuffle(Client.ClientList) do
 			local chance = 0
 			if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
-				chance = jobChances[client.Character.JobIdentifier] or 0
+				chance = jobChances[tostring(client.Character.JobIdentifier)] or 0
 			end
-			if client.Character.HasJob('captain') then
+			if (client.Character ~= nil) and client.Character.HasJob('captain') then
 				self.captain = client
 			elseif (math.random() < chance) and pickRebels then
 				table.insert(self.rebels, client)
@@ -41,10 +41,10 @@ end, {
 			for client in DD.arrShuffle(Client.ClientList) do
 				local chance = 0
 				if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
-					chance = jobChances[client.Character.JobIdentifier] or 0
-					if chance ~= 0 then chance = 1 end
+					chance = jobChances[tostring(client.Character.JobIdentifier)] or 0
+					if chance ~= 0 then chance = 2 end
 				end
-				if math.random() < chance then
+				if (math.random() < chance) and pickRebels then
 					table.insert(self.rebels, client)
 				end
 			end
@@ -87,6 +87,11 @@ end, {
 	
 	onThink = function (self)
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+		
+		if self.captain == nil then
+			self.fail()
+			return
+		end
 		
 		-- See if any rebel is alive
 		local anyRebelIsAlive = false

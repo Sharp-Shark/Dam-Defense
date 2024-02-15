@@ -1,17 +1,17 @@
 DD.speciesData = {
-	tigerthresher = {initialBreedTimer = 180 * 2, eggIdentifer = 'tigerthresheregg', populationName = 'thresher', populationCap = 6}, -- Time is measured in 1/2 of a second so multiply your time values by 2
-	tigerthresher_hatchling = {initialGrowTimer = 120 * 2, populationName = 'thresher'},
+	tigerthresher = {initialBreedTimer = 180, eggIdentifer = 'tigerthresheregg', populationName = 'thresher', populationCap = 6},
+	tigerthresher_hatchling = {initialGrowTimer = 120, populationName = 'thresher'},
 	
 	crawler_large = {populationName = 'crawler'},
-	crawler = {initialGrowTimer = 210 * 2, grownIdentifier = 'crawler_large', initialBreedTimer = 90 * 2, eggIdentifer = 'crawleregg', populationName = 'crawler', populationCap = 12},
-	crawler_hatchling = {initialGrowTimer = 90 * 2, populationName = 'crawler'},
+	crawler = {initialGrowTimer = 210, grownIdentifier = 'crawler_large', initialBreedTimer = 90, eggIdentifer = 'crawleregg', populationName = 'crawler', populationCap = 12},
+	crawler_hatchling = {initialGrowTimer = 90, populationName = 'crawler'},
 	
 	mudraptor_veteran = {populationName = 'mudraptor'},
-	mudraptor = {initialGrowTimer = 240 * 2, grownIdentifier = 'mudraptor_veteran', initialBreedTimer = 90 * 2, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 6},
-	mudraptor_unarmored = {initialGrowTimer = 120 * 2, grownIdentifier = 'mudraptor', initialBreedTimer = 60 * 2, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 6},
-	mudraptor_hatchling = {initialGrowTimer = 120 * 2, grownIdentifier = 'mudraptor_unarmored', populationName = 'mudraptor'},
+	mudraptor = {initialGrowTimer = 240, grownIdentifier = 'mudraptor_veteran', initialBreedTimer = 90, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 6},
+	mudraptor_unarmored = {initialGrowTimer = 120, grownIdentifier = 'mudraptor', initialBreedTimer = 60, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 6},
+	mudraptor_hatchling = {initialGrowTimer = 120, grownIdentifier = 'mudraptor_unarmored', populationName = 'mudraptor'},
 	
-	hammerheadspawn = {initialBreedTimer = 45 * 2, hatchlingIdentifier = 'hammerheadspawn', populationName = 'hammerhead', populationCap = 60}
+	hammerheadspawn = {initialBreedTimer = 45, hatchlingIdentifier = 'hammerheadspawn', populationName = 'hammerhead', populationCap = 60}
 }
 
 DD.spawnEggWithSaline = function (identifier, pos)
@@ -48,7 +48,7 @@ DD.growCharacter = function (character)
 			return newCharacter
 		end)
 	else
-		DD.roundData.creatureGrowthTimer[character] = DD.roundData.creatureGrowthTimer[character] - 1
+		DD.roundData.creatureGrowthTimer[character] = DD.roundData.creatureGrowthTimer[character] - 0.5
 	end
 	
 	return character
@@ -78,7 +78,7 @@ DD.breedCharacter = function (character)
 			Entity.Spawner.AddCharacterToSpawnQueue(speciesName, character.WorldPosition, function (newCharacter) end)
 		end
 	else
-		DD.roundData.creatureBreedTimer[character] = DD.roundData.creatureBreedTimer[character] - 1
+		DD.roundData.creatureBreedTimer[character] = DD.roundData.creatureBreedTimer[character] - 0.5
 	end
 	
 	return character

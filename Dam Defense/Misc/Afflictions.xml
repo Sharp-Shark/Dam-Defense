@@ -85,6 +85,7 @@
         <Sound file="%ModDir%/Misc/cough3.ogg" />
         <Sound file="%ModDir%/Misc/cough4.ogg" />
 		<Conditional InWater="eq False" />
+		<Conditional IsDead="eq False" />
       </StatusEffect>
     </PeriodicEffect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,640,128,128" color="60,107,195,255" origin="0,0"/>
@@ -289,6 +290,7 @@
         <Sound file="%ModDir%/Misc/cough3.ogg" />
         <Sound file="%ModDir%/Misc/cough4.ogg" />
 		<Conditional InWater="eq False" />
+		<Conditional IsDead="eq False" />
       </StatusEffect>
     </PeriodicEffect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
@@ -349,6 +351,7 @@
         <Sound file="%ModDir%/Misc/cough3.ogg" />
         <Sound file="%ModDir%/Misc/cough4.ogg" />
 		<Conditional InWater="eq False" />
+		<Conditional IsDead="eq False" />
       </StatusEffect>
     </PeriodicEffect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
@@ -445,6 +448,7 @@
         <Sound file="%ModDir%/Misc/cough3.ogg" />
         <Sound file="%ModDir%/Misc/cough4.ogg" />
 		<Conditional InWater="eq False" />
+		<Conditional IsDead="eq False" />
       </StatusEffect>
     </PeriodicEffect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
@@ -505,6 +509,7 @@
         <Sound file="%ModDir%/Misc/cough3.ogg" />
         <Sound file="%ModDir%/Misc/cough4.ogg" />
 		<Conditional InWater="eq False" />
+		<Conditional IsDead="eq False" />
       </StatusEffect>
     </PeriodicEffect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
@@ -563,6 +568,7 @@
         <Sound file="%ModDir%/Misc/cough3.ogg" />
         <Sound file="%ModDir%/Misc/cough4.ogg" />
 		<Conditional InWater="eq False" />
+		<Conditional IsDead="eq False" />
       </StatusEffect>
     </PeriodicEffect>
     <PeriodicEffect minstrength="55" maxstrength="75" mininterval="8" maxinterval="32">
@@ -575,6 +581,7 @@
         <Sound file="%ModDir%/Misc/cough3.ogg" />
         <Sound file="%ModDir%/Misc/cough4.ogg" />
 		<Conditional InWater="eq False" />
+		<Conditional IsDead="eq False" />
       </StatusEffect>
     </PeriodicEffect>
     <PeriodicEffect minstrength="75" maxstrength="95" mininterval="4" maxinterval="16">
@@ -587,6 +594,7 @@
         <Sound file="%ModDir%/Misc/cough3.ogg" />
         <Sound file="%ModDir%/Misc/cough4.ogg" />
 		<Conditional InWater="eq False" />
+		<Conditional IsDead="eq False" />
       </StatusEffect>
     </PeriodicEffect>
     <PeriodicEffect minstrength="95" maxstrength="100" mininterval="2" maxinterval="8">
@@ -599,6 +607,7 @@
         <Sound file="%ModDir%/Misc/cough3.ogg" />
         <Sound file="%ModDir%/Misc/cough4.ogg" />
 		<Conditional InWater="eq False" />
+		<Conditional IsDead="eq False" />
       </StatusEffect>
     </PeriodicEffect>
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,0,128,128" color="255,255,255,255" origin="0,0"/>

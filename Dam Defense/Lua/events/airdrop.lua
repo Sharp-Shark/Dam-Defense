@@ -1,5 +1,10 @@
 -- Crafting materials conveniently airdropped at the radio tower above the factory
-DD.eventAirdrop = DD.class(DD.eventBase, nil, {
+DD.eventAirdrop = DD.class(DD.eventBase, function (self, spawnPosition, items, minAmount, maxAmount)
+	self.spawnPosition = spawnPosition or self.spawnPosition
+	self.items = items or self.items
+	self.minAmount = minAmount or self.minAmount
+	self.maxAmount = maxAmount or self.maxAmount
+end, {
 	name = 'airdrop',
 	isMainEvent = false,
 	cooldown = 60 * 2,
@@ -35,8 +40,14 @@ DD.eventAirdrop = DD.class(DD.eventBase, nil, {
 		local maxAmount = self.maxAmount
 		local minAmount = self.minAmount
 		
-		local position = DD.getLocation(function (item) return item.HasTag(spawnPosition) end).WorldPosition
+		local position
+		if type(spawnPosition) == 'string' then
+			position = DD.getLocation(function (item) return item.HasTag(spawnPosition) end).WorldPosition
+		else
+			position = spawnPosition
+		end
 		local amount = math.random(maxAmount - minAmount) + minAmount
+		if maxAmount <= 0 then amount = 0 end
 		
 		-- Spawn crate at airdrop pos and fill it with items
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(crateIdentifier), position, nil, nil, function (spawnedItem)
@@ -51,7 +62,7 @@ DD.eventAirdrop = DD.class(DD.eventBase, nil, {
 		end)
 		
 		-- Timer until crate deletes itself (to avoid cluttering the map with crates)
-		self.timer = 60 * 5
+		self.timer = 60 * 4
 		
 		-- Warn airdrop has been spawned
 		DD.messageAllClients(DD.stringReplace(self.message, {amount = amount, minutes = self.timer / 60}), {preset = 'goodinfo'})
@@ -74,7 +85,7 @@ DD.eventAirdropMedical = DD.class(DD.eventAirdrop, nil, {
 	name = 'airdropMedical',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 2,
+	weight = 1.5,
 	goodness = 1.5,
 	
 	spawnPosition = 'dd_airdropmedical',
@@ -103,7 +114,7 @@ DD.eventAirdropSecurity = DD.class(DD.eventAirdrop, nil, {
 	name = 'airdropSecurity',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 1.5,
+	weight = 1,
 	goodness = 1.5,
 	
 	spawnPosition = 'dd_airdropsecurity',
@@ -135,11 +146,12 @@ DD.eventAirdropSeparatist = DD.class(DD.eventAirdrop, nil, {
 	items = {
 		{identifier = 'clownmask', amount = '1'},
 		{identifier = 'piratebodyarmor', amount = '1'},
-		{identifier = 'separatistrifle', amount = '1', script = function (spawnedItem) Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('762magazine'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end},
+		{identifier = 'smg', amount = '1', script = function (spawnedItem) Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smgmagazine'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end},
 		{identifier = 'antiquerevolver', amount = '1', script = function (spawnedItem) for x = 1, 6 do  Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcannonround'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end end},
-		{identifier = '762magazine', amount = '1'},
+		{identifier = 'smgmagazine', amount = '1'},
 		{identifier = 'handcannonround', amount = '6'},
-		{identifier = 'fraggrenade', amount = '1'}
+		{identifier = 'fraggrenade', amount = '1'},
+		{identifier = 'fakemoney', amount = '10'}
 	},
 	minAmount = 8,
 	maxAmount = 12,

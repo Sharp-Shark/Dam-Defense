@@ -92,6 +92,7 @@ end, {
 	
 	onFinish = function (self)
 		if self.murdererWon then
+			DD.giveMoneyToClient(self.murderer, 5, true)
 			DD.messageAllClients('The murderer has succeeded and ' .. self.victim.Name .. ' is now dead! They must be brought to justice!', {preset = 'badinfo'})
 			DD.messageClient(self.murderer, 'You hear voices in your head... joyful voices thanking you for killing ' .. self.victim.Name .. '. Well done.', {preset = 'goodinfo'})
 			-- Start event for security to arrest murderer
@@ -101,6 +102,7 @@ end, {
 			DD.messageAllClients(self.murderer.Name .. ' has failed to murder ' .. self.victim.Name ..' and is now dead! Life goes on...', {preset = 'info'})
 			DD.messageClient(self.murderer, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
 		elseif self.murdererArrested then
+			DD.giveMoneyToSecurity(5, true)
 			DD.messageAllClients(self.murderer.Name .. ' has failed to murder ' .. self.victim.Name ..' and has been lawfully arrested! Life goes on...', {preset = 'goodinfo'})
 			DD.messageClient(self.murderer, 'You hear voices in your head... aggressive yet disappointed voices berrating you for your failure. You do not need to murder ' .. self.victim.Name .. ' anymore.', {preset = 'crit'})
 		elseif self.victimDied then

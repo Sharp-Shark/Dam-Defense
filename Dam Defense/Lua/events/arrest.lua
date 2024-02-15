@@ -57,6 +57,7 @@ end, {
 	
 	onFinish = function (self)
 		if DD.isClientCharacterAlive(self.target) and self.target.Character.IsArrested then
+			DD.giveMoneyToSecurity(5, true)
 			DD.messageAllClients('Justice at last! The criminal known as ' .. self.target.Name .. ' who was charged with ' .. self.charge .. ' has been arrested.', {preset = 'goodinfo'})
 		else
 			DD.messageAllClients('Security failed to arrest ' .. self.target.Name .. ' who was charged with ' .. self.charge .. ' and they are now dead.', {preset = 'info'})

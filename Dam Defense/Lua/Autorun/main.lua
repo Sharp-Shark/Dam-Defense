@@ -66,6 +66,18 @@ local doCharacterDeathFunctions = function (character)
 		func(character)
 	end
 end
+DD.characterDeathFunctions.corpseCleanUp = function (character)
+	DD.roundData.creatureGrowthTimer[character] = nil
+	DD.roundData.creatureBreedTimer[character] = nil
+
+	if (character.SpeciesName ~= 'human') and (character.SpeciesName ~= 'humanhusk') then
+		Timer.Wait(function ()
+			Entity.Spawner.AddEntityToRemoveQueue(character)
+		end, 60*1000)
+	end
+
+	return true
+end
 
 -- Functions executed whenever a chat message is sent
 DD.chatMessageFunctions = {}
@@ -79,7 +91,7 @@ end
 DD.chatMessageFunctions.help = function (message, sender)
 	if message ~= '/help' then return end
 	
-	commands = {'help', 'myevents'}
+	commands = {'help', 'myevents', 'credits', 'withdraw'}
 	
 	local list = ''
 	for command in commands do
@@ -96,8 +108,9 @@ end
 require 'utilities'
 require 'class'
 require 'nature'
-require 'eventDirector'
 require 'afflictions'
+require 'eventDirector'
+require 'money'
 require 'saving'
 require 'commands'
 
@@ -195,20 +208,6 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
 		end
 	end
-end)
-
--- Cleans up non-human bodies after 1 minute to prevent performance issues
-Hook.Add("character.death", "DD.bodyCleanup", function (character)
-	DD.roundData.creatureGrowthTimer[character] = nil
-	DD.roundData.creatureBreedTimer[character] = nil
-
-	if (character.SpeciesName ~= 'human') and (character.SpeciesName ~= 'humanhusk') then
-		Timer.Wait(function ()
-			Entity.Spawner.AddEntityToRemoveQueue(character)
-		end, 60*1000)
-	end
-
-	return true
 end)
 
 -- Sends a message to husks telling them about their objective
