@@ -43,8 +43,8 @@ DD.eventAfflictionTB = DD.class(DD.eventAffliction, nil, {
 	name = 'afflictionTB',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 0.75,
-	goodness = -0.75,
+	weight = 0.5,
+	goodness = -1,
 	
 	identifier = 'tbhidden',
 	minamount = 5,
@@ -58,7 +58,7 @@ DD.eventAfflictionHusk = DD.class(DD.eventAffliction, nil, {
 	isMainEvent = false,
 	cooldown = 60 * 3,
 	weight = 0.5,
-	goodness = -1,
+	goodness = -1.5,
 	
 	identifier = 'huskinfection',
 	minamount = 1,

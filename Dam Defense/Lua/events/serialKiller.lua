@@ -25,7 +25,14 @@ end, {
 			end
 		end
 		
-		if (self.killer == nil) or (not anyoneAlive) then
+		local nonSecurity = {}
+		for client in Client.ClientList do
+			if DD.isClientCharacterAlive(client) and not DD.isCharacterSecurity(client.Character) then
+				table.insert(nonSecurity, client)
+			end
+		end
+		
+		if (self.killer == nil) or (not anyoneAlive) or (#nonSecurity < 2) then
 			self.fail()
 			return
 		else

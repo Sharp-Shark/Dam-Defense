@@ -28,6 +28,7 @@ end
 DD.roundStartFunctions.main = function ()
 	DD.roundData = {}
 	DD.roundEnding = false
+	DD.roundTimer = 0
 end
 
 -- Functions executed at round end
@@ -56,6 +57,29 @@ local doThinkFunctions = function ()
 	end
 	for name, func in pairs(DD.thinkFunctions) do
 		func()
+	end
+end
+DD.thinkFunctions.main = function ()
+	if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) or CLIENT then return end
+	
+	DD.roundTimer = DD.roundTimer + 0.5
+	
+	if DD.roundTimer < 10 then return end
+	
+	local anyHumanAlive = false
+	for client in Client.ClientList do
+		if DD.isClientCharacterAlive(client) and client.Character.SpeciesName == 'human' then
+			anyHumanAlive = true
+			break
+		end
+	end
+	
+	if not anyHumanAlive then
+		DD.messageAllClients('All of the crew is dead! Round ending in 10 seconds.', {preset = 'crit'})
+		DD.roundData.roundEnding = true
+		Timer.Wait(function ()
+			Game.EndGame()
+		end, 10 * 1000)
 	end
 end
 

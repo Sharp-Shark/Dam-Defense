@@ -14,6 +14,13 @@ end, {
 		self.failed = false
 		self.finished = false
 		
+		-- Enforce instance cap
+		if self.isMainEvent then self.instanceCap = 1 end
+		if (self.instanceCap >= 0) and (#DD.eventDirector.getEventInstances(self.name) >= self.instanceCap) then
+			self.fail()
+			return
+		end
+		
 		-- Create hooks
 		DD.newThinkFunctions[self.name .. self.seed] = function () self.onThink() end
 		DD.characterDeathFunctions[self.name .. self.seed] = function (character) self.onCharacterDeath(character) end
@@ -44,6 +51,13 @@ end, {
 		if not (self.failed or DD.roundEnding) then self.onFinish() end
 		self.onFinishAlways()
 		
+		-- Remove self from eventDirector events list
+		for key, event in pairs(DD.eventDirector.events) do
+			if event == self then
+				table.remove(DD.eventDirector.events, key)
+			end
+		end
+		
 		-- Flags
 		self.finished = true
 		
@@ -58,6 +72,7 @@ end, {
 	end,
 	
 	name = 'name',
+	instanceCap = -1, -- how many instances of this event can be active at the same time (negative values mean it is uncapped)
 	isMainEvent = false, -- for eventDirector
 	cooldown = 60 * 1, -- for eventDirector
 	weight = 1, -- for eventDirector

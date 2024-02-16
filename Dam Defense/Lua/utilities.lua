@@ -148,6 +148,13 @@ DD.tableKeys = function (t)
 	return build
 end
 
+-- Returns an array of the values of a table
+DD.tableValues = function (t)
+	local build = {}
+	for key, value in pairs(t) do table.insert(build, value) end
+	return build
+end
+
 -- My version of string.format
 DD.stringReplace = function(str, tbl)
 	local formatted = ''
@@ -259,6 +266,11 @@ end
 -- Return difference between 2 sets
 DD.setXor = function (t1, t2)
 	return DD.setSubtract(DD.setUnion(t1, t2), DD.setIntersection(t1, t2))
+end
+
+-- Turns a table into an array
+DD.toArr = function (t)
+	return DD.tableValues(t)
 end
 
 -- Shuffles a table (assumes it has an array-like structure)

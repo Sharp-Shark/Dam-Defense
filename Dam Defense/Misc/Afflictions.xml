@@ -232,12 +232,12 @@
     targets="human"
     limbspecific="false" indicatorlimb="Torso"
     maxstrength="200"
-    showiconthreshold="15"
+    showiconthreshold="1"
     showinhealthscannerthreshold="1"
     treatmentthreshold="1000"
     iconcolors="114,114,114,255;114,193,193,255"
     MedicalSkillGain="0.005">
-    <Effect minstrength="0" maxstrength="100" >
+    <Effect minstrength="0" maxstrength="200" >
     </Effect>
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="384,0,128,128" color="114,193,193,255" origin="0,0"/>
   </Affliction>
@@ -249,7 +249,7 @@
     targets="human"
     limbspecific="false" indicatorlimb="Torso"
     maxstrength="100"
-    showiconthreshold="15"
+    showiconthreshold="1"
     showinhealthscannerthreshold="1"
     treatmentthreshold="90"
     iconcolors="114,114,114,255;114,193,193,255"
@@ -280,7 +280,7 @@
     selfcauseofdeathdescription="You have rotted to death."
     MedicalSkillGain="0.005">
     <Effect minstrength="0" maxstrength="200" strengthchange="1" />
-    <PeriodicEffect mininterval="12" maxinterval="32">
+    <PeriodicEffect mininterval="24" maxinterval="32">
       <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
@@ -310,9 +310,9 @@
     causeofdeathdescription="Rot to death"
     selfcauseofdeathdescription="You have rotted to death."
     MedicalSkillGain="0.005">
-    <Effect minstrength="0" maxstrength="200" strengthchange="-2" >
+    <Effect minstrength="0" maxstrength="200" strengthchange="-1" >
       <StatusEffect target="Character" disabledeltatime="false">
-	    <Affliction identifier="fluinfection" strength="2"/>
+	    <Affliction identifier="fluinfection" strength="1"/>
       </StatusEffect>
     </Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
@@ -325,14 +325,14 @@
     targets="human"
     limbspecific="false" indicatorlimb="Torso"
     maxstrength="200"
-    showiconthreshold="30"
+    showiconthreshold="40"
     showinhealthscannerthreshold="1"
-    treatmentthreshold="30"
+    treatmentthreshold="40"
     iconcolors="155,155,100,255;255,255,100,255"
     causeofdeathdescription="Rot to death"
     selfcauseofdeathdescription="You have rotted to death."
     MedicalSkillGain="0.005">
-    <Effect minstrength="0" maxstrength="200" strengthchange="2"
+    <Effect minstrength="0" maxstrength="200" strengthchange="1"
       multiplybymaxvitality="true"
       minvitalitydecrease="0"
       maxvitalitydecrease="1.0">
@@ -405,14 +405,14 @@
     targets="human"
     limbspecific="false" indicatorlimb="Torso"
     maxstrength="200"
-    showiconthreshold="30"
+    showiconthreshold="40"
     showinhealthscannerthreshold="1"
-    treatmentthreshold="30"
+    treatmentthreshold="40"
     iconcolors="100,155,100,255;100,255,100,255"
     causeofdeathdescription="Rot to death"
     selfcauseofdeathdescription="You have rotted to death."
     MedicalSkillGain="0.005">
-    <Effect minstrength="0" maxstrength="200" strengthchange="2"
+    <Effect minstrength="0" maxstrength="200" strengthchange="1"
       multiplybymaxvitality="true"
       minvitalitydecrease="0"
       maxvitalitydecrease="2">
@@ -438,7 +438,7 @@
     selfcauseofdeathdescription="You have rotted to death."
     MedicalSkillGain="0.005">
     <Effect minstrength="0" maxstrength="200" strengthchange="1" />
-    <PeriodicEffect mininterval="12" maxinterval="32">
+    <PeriodicEffect mininterval="24" maxinterval="32">
       <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
@@ -483,14 +483,14 @@
     targets="human"
     limbspecific="false" indicatorlimb="Torso"
     maxstrength="200"
-    showiconthreshold="30"
+    showiconthreshold="40"
     showinhealthscannerthreshold="1"
-    treatmentthreshold="30"
+    treatmentthreshold="40"
     iconcolors="100,155,125,255;100,255,175,255"
     causeofdeathdescription="Rot to death"
     selfcauseofdeathdescription="You have rotted to death."
     MedicalSkillGain="0.005">
-    <Effect minstrength="0" maxstrength="200" strengthchange="2"
+    <Effect minstrength="0" maxstrength="200" strengthchange="1"
       multiplybymaxvitality="true"
       minvitalitydecrease="0.0"
       maxvitalitydecrease="2.0">

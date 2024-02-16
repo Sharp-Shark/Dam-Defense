@@ -1,9 +1,9 @@
--- Pick some players to be part of a revolution tasked with killing the captain (and also trigger a eventAirdropSeparatist)
+-- Pick some players to be part of a revolution tasked with killing all of security (and also trigger an eventAirdropSeparatist)
 DD.eventRevolution = DD.class(DD.eventBase, function (self, rebels)
 	self.rebels = rebels
 end, {
 	paramType = {'clientList'},
-	clientKeys = {'rebels'},
+	clientKeys = {'rebels', 'security'},
 	
 	name = 'revolution',
 	isMainEvent = true,
@@ -13,6 +13,7 @@ end, {
 	
 	onStart = function (self)
 		self.rebelsWon = false
+		self.rebelsDoxTimer = 60 * 10
 		
 		-- Pick rebels
 		local jobChances = {
@@ -24,33 +25,37 @@ end, {
 			researcher = 0.5
 		}
 		local pickRebels = self.rebels == nil -- if a list of rebels was already given in the constructor then do not mess with it
-		self.captain = nil
+		self.security = {}
 		if pickRebels then self.rebels = {} end
 		for client in DD.arrShuffle(Client.ClientList) do
-			local chance = 0
+			local chance = -1
 			if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
-				chance = jobChances[tostring(client.Character.JobIdentifier)] or 0
+				chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
 			end
-			if (client.Character ~= nil) and client.Character.HasJob('captain') then
-				self.captain = client
+			if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) then
+				table.insert(self.security, client)
 			elseif (math.random() < chance) and pickRebels then
 				table.insert(self.rebels, client)
 			end
 		end
+		-- Incase the rebel cap still hasn't been met ignore RNG and make anyone (who isn't security) into a rebel leader until cap is reached
 		if DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3) then
 			for client in DD.arrShuffle(Client.ClientList) do
-				local chance = 0
-				if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
-					chance = jobChances[tostring(client.Character.JobIdentifier)] or 0
-					if chance ~= 0 then chance = 2 end
+				local chance = -1
+				if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and DD.eventDirector.isClientBelowEventCap(client) then
+					chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
+					if chance ~= -1 then chance = 1 end
 				end
-				if (math.random() < chance) and pickRebels then
+				if (0 < chance) and pickRebels then
 					table.insert(self.rebels, client)
+				end
+				if not (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) then
+					break
 				end
 			end
 		end
 		
-		if (DD.tableSize(self.rebels) <= 0) or (self.captain == nil) then
+		if (DD.tableSize(self.rebels) <= 0) or (DD.tableSize(self.security) <= 0) then
 			self.fail()
 			return
 		else
@@ -68,13 +73,13 @@ end, {
 					rebelsList = string.sub(rebelsList, 1, #rebelsList - 2)
 					if DD.tableSize(self.rebels) > 1 then rebelsList = ' Your comrades are: ' .. rebelsList .. '.' end 
 					-- Rebel message
-					DD.messageClient(client, 'You are a rebel leader! Your objective is to kill the captain, but do kill anyone who tries to stop you, especially security. Try to enlist non-security personnel to your cause.' .. rebelsList, {preset = 'crit'})
+					DD.messageClient(client, 'You are a rebel leader! Your objective is to kill the captain and security. Try to enlist non-security personnel to your cause.' .. rebelsList, {preset = 'crit'})
 				elseif (client.Character ~= nil) and DD.isCharacterSecurity(client.Character) then
 					-- Sec message
-					DD.messageClient(client, "There have been rumours of a conspiracy agaisn't the captain, the security team and you. A revolution comes this way, so be prepared to arrest and even kill any rebels.", {preset = 'badinfo'})
+					DD.messageClient(client, "There have been rumours of a conspiracy agaisn't the captain and security. A revolution comes this way, so be prepared to arrest and even kill any rebels.", {preset = 'badinfo'})
 				else
 					-- Neutral message
-					DD.messageClient(client, "There have been rumours of freedom fighters and terrorists. You may ally yourself with the rebels or the captain and his security team. Neutrality does not seem like a viable option...", {preset = 'info'})
+					DD.messageClient(client, "There have been rumours of a revolution. You should ally yourself with the rebels or security. Has security ever treated you well though?", {preset = 'info'})
 				end
 			end
 			-- Spawn airdrops for security and rebels
@@ -88,9 +93,14 @@ end, {
 	onThink = function (self)
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 		
-		if self.captain == nil then
-			self.fail()
-			return
+		-- See if security is still alivd
+		local anySecurityIsAlive = false
+		self.security = {}
+		for client in Client.ClientList do
+			if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) then
+				table.insert(self.security, client)
+				anySecurityIsAlive = true
+			end
 		end
 		
 		-- See if any rebel is alive
@@ -106,14 +116,34 @@ end, {
 			end
 		end
 		
-		-- End event if captain is dead or all rebels are dead or arrested
-		if not DD.isClientCharacterAlive(self.captain) then
+		-- End event if all of security is dead or if all rebel leaders are dead/arrested
+		if not anySecurityIsAlive then
 			self.rebelsWon = true
 			self.finish()
 			return
 		end
 		if not anyRebelIsAlive then
 			self.finish()
+			return
+		end
+		if anySecurityIsAlive and anyRebelIsAlive then
+			if self.rebelsDoxTimer > 0 then
+				self.rebelsDoxTimer = self.rebelsDoxTimer - 0.5
+			else
+				self.rebelsDoxTimer = 60 * 9999
+				-- Build rebel list
+				local rebelsList = ''
+				for rebel in self.rebels do
+					if rebel ~= client then
+						rebelsList = rebelsList .. rebel.Name .. ', '
+					end
+				end
+				rebelsList = string.sub(rebelsList, 1, #rebelsList - 2)
+				
+				local message = ''
+				message = 'The Nexascanner (TM) has finished its "rebel search algorithm" and found the rebel leaders to be: ' .. rebelsList .. '.'
+				DD.messageAllClients(message, {preset = 'crit'})
+			end
 		end
 	end,
 	

@@ -38,6 +38,7 @@ DD.eventDirector.cooldown = nil
 DD.eventDirector.mainEvent = nil
 DD.eventDirector.mainEventCooldown = nil
 DD.eventDirector.eventsPerClientCap = 2 -- how many events a single client can be a participant of
+DD.eventDirector.canMainEventBeRegularEvent  = true -- can a main event be called when a regular event is to be started
 
 -- Debug function
 DD.eventDirector.debug = function (list)
@@ -99,6 +100,19 @@ DD.eventDirector.isClientBelowEventCap = function (client)
 	end
 end
 
+-- Find the amount of instaces of an event
+DD.eventDirector.getEventInstances = function (eventName)
+	local tbl = {}
+	
+	for event in DD.eventDirector.events do
+		if event.name == eventName then
+			table.insert(tbl, event)
+		end
+	end
+	
+	return tbl
+end
+
 -- Returns a set of the people that would be considered as enemies to the client
 DD.eventDirector.getClientRelations = function (client)
 	local targets = {} -- people client should kill (and thusly may be killed by)
@@ -138,7 +152,7 @@ DD.eventDirector.getClientRelations = function (client)
 	end
 	
 	for	event in DD.eventDirector.events do
-		if event.name == 'nukie' then
+		if event.name == 'nukies' then
 			local nukies = DD.toSet(event.nukies)
 			local nonnukies = DD.setSubtract(clients, nukies)
 			if nukies[client] then
@@ -209,7 +223,7 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 	-- Get weights
 	local weights = {}
 	for key, value in pairs(DD.eventDirector.eventPool) do
-		if value.tbl.isMainEvent == isMainEvent then
+		if (value.tbl.isMainEvent == isMainEvent) or (isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
 			weights[key] = math.max(0, value.tbl.weight - value.tbl.weight * value.tbl.goodness * DD.eventDirector.goodness)
 		end
 	end
@@ -232,13 +246,6 @@ end
 
 -- Called every 1/2 a second
 DD.thinkFunctions.eventDirector = function ()
-	if DD.tableSize(DD.eventDirector.events) > 0 then
-		for key, event in pairs(DD.eventDirector.events) do
-			if event.finished then
-				table.remove(DD.eventDirector.events, key)
-			end
-		end
-	end
 	if (DD.eventDirector.mainEvent ~= nil) and DD.eventDirector.mainEvent.finished then
 		DD.eventDirector.cooldown = DD.eventDirector.mainEvent.cooldown / 2
 		DD.eventDirector.mainEventCooldown = DD.eventDirector.mainEvent.cooldown
@@ -299,6 +306,5 @@ end
 -- Short for DD.eventDirector for live inputting lua commands in debug menu
 if ed == nil then
 	ed = DD.eventDirector
-else
-	DD.ed = DD.eventDirector
 end
+DD.ed = DD.eventDirector

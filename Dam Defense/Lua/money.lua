@@ -33,6 +33,22 @@ end, {
 	goodness = 0,
 	
 	onStart = function (self)
+		if self.client == nil then
+			for client in DD.arrShuffle(Client.ClientList) do
+				if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and DD.eventDirector.isClientBelowEventCap(client) then
+					self.client = client
+					break
+				end
+			end
+		end
+		if self.amount == nil then
+			self.amount = math.ceil(math.random() * 120)
+		end
+		if (self.client == nil) or (self.amount == nil) then
+			self.fail()
+			return
+		end
+	
 		local inventory = self.client.Character.Inventory
 		
 		-- Spawn crate at airdrop pos and fill it with items
@@ -55,10 +71,15 @@ end, {
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 		
 		if self.timer <= 0 then
-			Entity.Spawner.AddEntityToRemoveQueue(self.item)
 			self.finish()
 		else
 			self.timer = self.timer - 0.5
+		end
+	end,
+	
+	onFinishAlways = function (self)
+		if self.item ~= nil then
+			Entity.Spawner.AddEntityToRemoveQueue(self.item)
 		end
 	end
 })

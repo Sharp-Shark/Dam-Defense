@@ -72,10 +72,15 @@ end, {
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 		
 		if self.timer <= 0 then
-			Entity.Spawner.AddEntityToRemoveQueue(self.item)
 			self.finish()
 		else
 			self.timer = self.timer - 0.5
+		end
+	end,
+	
+	onFinishAlways = function (self)
+		if self.item ~= nil then
+			Entity.Spawner.AddEntityToRemoveQueue(self.item)
 		end
 	end
 })
@@ -148,8 +153,7 @@ DD.eventAirdropSeparatist = DD.class(DD.eventAirdrop, nil, {
 		{identifier = 'piratebodyarmor', amount = '1'},
 		{identifier = 'smg', amount = '1', script = function (spawnedItem) Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smgmagazine'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end},
 		{identifier = 'antiquerevolver', amount = '1', script = function (spawnedItem) for x = 1, 6 do  Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcannonround'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end end},
-		{identifier = 'smgmagazine', amount = '1'},
-		{identifier = 'handcannonround', amount = '6'},
+		{identifier = 'smgmagazine', amount = '2'},
 		{identifier = 'fraggrenade', amount = '1'},
 		{identifier = 'fakemoney', amount = '10'}
 	},
