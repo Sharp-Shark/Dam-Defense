@@ -15,6 +15,21 @@ json = dofile(DD.path .. "/Lua/json.lua")
 json.serialize = json.encode
 json.parse = json.decode
 
+-- Load utilities/dependencies
+require 'DD/class'
+require 'DD/utilities'
+require 'DD/saving'
+require 'DD/updater'
+
+-- Mod workshop ID
+local getSteamWorkshopId = function ()
+	local text = File.Read(DD.path .. '/' .. 'filelist.xml')
+	local substr = 'steamworkshopid="'
+	local pos = DD.stringFind(text, substr)[1]
+	return string.sub(text, pos + #substr, pos + #substr + 9) -- the "+ 9" is because steam workshop ids are exactly 9 characters long
+end
+DD.steamWorkshopId = getSteamWorkshopId()
+
 -- Husk Control cuz WHY NOT?!
 Game.EnableControlHusk(true)
 
@@ -128,15 +143,15 @@ DD.chatMessageFunctions.help = function (message, sender)
 	return true
 end
 
--- Load dependencies
-require 'utilities'
-require 'class'
-require 'nature'
-require 'afflictions'
-require 'eventDirector'
-require 'money'
-require 'saving'
-require 'commands'
+-- Load other files
+require 'DD/nature'
+require 'DD/afflictions'
+require 'DD/eventDirector'
+require 'DD/money'
+require 'DD/commands'
+
+-- Save file
+DD.saving.boot()
 
 -- Execute at round start
 Hook.Add("roundStart", "DD.prepareRound", function ()

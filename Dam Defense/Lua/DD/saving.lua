@@ -1,7 +1,7 @@
 DD.saving = {}
 
 -- The path to the save file
-DD.saving.savePath = DD.path .. '/' .. 'save.json'
+DD.saving.savePath = DD.path .. '/save.json'
 
 -- Auto saving
 DD.saving.autoSave = true
@@ -67,10 +67,12 @@ DD.saving.debug = function ()
 end
 
 -- Create save file if none is found
-if not File.Exists(DD.saving.savePath) then
-	table.insert(DD.warnings, 'No save file was found, so one was created at ' .. DD.saving.savePath)
-	DD.saving.save()
-else
-	DD.saving.load()
-	DD.saving.save()
+DD.saving.boot = function ()
+	if not File.Exists(DD.saving.savePath) then
+		table.insert(DD.warnings, 'No save file was found, so one was created at ' .. DD.saving.savePath)
+		DD.saving.save()
+	else
+		DD.saving.load()
+		DD.saving.save()
+	end
 end

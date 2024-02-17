@@ -5,8 +5,8 @@
 	<Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
     <Body width="16" height="12" density="20" />
   </Item>
-  <Item name="Counterfeit Nexcredit" identifier="fakemoney" category="Equipment,Misc" maxstacksize="50" maxstacksizecharacterinventory="10" Tags="smallitem,money,fakemoney" scale="0.35" inventoryiconcolor="255,200,200,255" spritecolor="255,200,200" cargocontaineridentifier="metalcrate">
-    <Sprite texture="wallet.png" depth="0.5" sourcerect="0,0,64,32" origin="0.5,0.5" />
+  <Item name="Counterfeit Nexcredit" identifier="fakemoney" category="Equipment,Misc" maxstacksize="50" maxstacksizecharacterinventory="10" Tags="smallitem,money,fakemoney" scale="0.35" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
+    <Sprite texture="wallet.png" depth="0.5" sourcerect="64,0,64,32" origin="0.5,0.5" />
     <Deconstruct time="2">
       <RequiredItem identifier="carbon" />
     </Deconstruct>
@@ -18,7 +18,7 @@
   </Item>
   <!-- storage container but only for money -->
   <Item name="Nexcase" identifier="moneycase" category="Equipment,Misc" tags="mediumitem,mobilecontainer,tool" cargocontaineridentifier="" showcontentsintooltip="true" Scale="0.5" fireproof="true" description="" impactsoundtag="impact_metal_heavy" RequireAimToUse="True">
-    <Sprite texture="wallet.png" sourcerect="65,0,86,72" origin="0.48,0.5" depth="0.6" />
+    <Sprite texture="wallet.png" sourcerect="65,33,86,71" origin="0.48,0.5" depth="0.6" />
     <Body width="90" height="60" density="20" />
     <MeleeWeapon slots="RightHand,LeftHand" controlpose="true" aimpos="45,10" handle1="0,18" holdangle="90" reload="1" range="50" combatpriority="6" msg="ItemMsgPickUpSelect" DisableWhenRangedWeaponEquipped="true">
       <Attack structuredamage="0" itemdamage="1" targetimpulse="2">

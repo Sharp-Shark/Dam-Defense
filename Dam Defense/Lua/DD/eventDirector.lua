@@ -1,16 +1,16 @@
 -- Base event class all events inherit from
-require 'events/base'
+require 'DD/events/base'
 -- Ghost role event
-require 'events/ghostRole'
+require 'DD/events/ghostRole'
 -- Load the files with the events
-require 'events/airdrop'
-require 'events/fish'
-require 'events/affliction'
-require 'events/arrest'
-require 'events/murder'
-require 'events/revolution'
-require 'events/nukies'
-require 'events/serialKiller'
+require 'DD/events/airdrop'
+require 'DD/events/fish'
+require 'DD/events/affliction'
+require 'DD/events/arrest'
+require 'DD/events/murder'
+require 'DD/events/revolution'
+require 'DD/events/nukies'
+require 'DD/events/serialKiller'
 
 -- Event director table
 DD.eventDirector = {}

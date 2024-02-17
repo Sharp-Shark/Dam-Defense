@@ -127,8 +127,9 @@ Hook.Add("afflictionUpdate", "DD.bacterialgangrene", function (affliction, chara
 
 	-- Bacterial gangrene from burns and bleeding
 	if (affliction.Prefab.AfflictionType ~= 'burn') and (affliction.Prefab.AfflictionType ~= 'bleeding') then return end
-	local characterBurn = character.CharacterHealth.GetAfflictionStrengthByType('burn', true)
-	local characterBleeding = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bleeding', true)
+	--local characterBurn = character.CharacterHealth.GetAfflictionStrengthByType('burn', true)
+	local characterBurn = character.CharacterHealth.GetAfflictionStrengthByIdentifier('burn', true)
+	local characterBleeding = character.CharacterHealth.GetAfflictionStrengthByType('bleeding', true)
 	if (characterBurn + characterBleeding > 5) and
 	(math.random() * 10^4 < 1) then
 		DD.giveAfflictionCharacter(character, 'bacterialgangrene', 0.1, limb)

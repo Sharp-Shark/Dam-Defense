@@ -189,6 +189,30 @@ DD.stringReplace = function(str, tbl)
 	return formatted
 end
 
+-- Search for any instances of a substring in a string and return a table (array) with their start positions
+DD.stringFind = function (str, substr)
+	local tbl = {}
+	local build = ''
+	local start = 0
+	for count = 1, #str do
+		local char = string.sub(str, count, count)
+		if char == string.sub(substr, #build + 1, #build + 1) then
+			if build == '' then start = count end
+			build = build .. char
+		elseif char == string.sub(substr, 1, 1) then
+			start = count
+			build = char
+		else
+			build = ''
+		end
+		if build == substr then
+			table.insert(tbl, start)
+			build = ''
+		end
+	end
+	return tbl
+end
+
 -- Splits a string into a table
 DD.stringSplit = function(str, split)
 	local tbl = {}

@@ -335,7 +335,7 @@
     </MeleeWeapon>
     <SkillRequirementHint identifier="medical" level="55" />
   </AntibioticGlue>
-  <!-- ethanol treats bacterial gangrene -->
+  <!-- ethanol when drunk gives immuneboost and when applied heals gangrene but gives acid burns -->
   <Ethanol name="" identifier="ethanol" category="Medical,Material" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,chem,medical,petfood2" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="sprayer" amount="1" spawnprobability="1"/>
@@ -363,25 +363,28 @@
       <StatusEffect type="OnSecondaryUse" target="This" Condition="-30.0"/>
       <StatusEffect type="OnSecondaryUse" target="This,Character">
         <Conditional Condition="lte 1" />
-        <Use/>
+        <!--<Use/>-->
       </StatusEffect>
       <StatusEffect type="OnUse" target="This" Condition="-100.0" setvalue="true">
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
       </StatusEffect>
-      <StatusEffect type="OnUse" target="UseTarget" delay="10" duration="10">
-        <Affliction identifier="drunk" amount="1.0" />
-        <ReduceAffliction identifier="psychosis" amount="2.0" />
-        <ReduceAffliction identifier="hallucinating" amount="2.0" />
+	  <!-- When Ethanol is drunk -->
+      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10">
+        <Affliction identifier="drunk" amount="12.0" />
+        <Affliction identifier="organdamage" amount="3.0" />
+        <Affliction identifier="immuneboost" amount="12.0" />
+        <ReduceAffliction identifier="psychosis" amount="12.0" />
+        <ReduceAffliction identifier="hallucinating" amount="12.0" />
+        <Affliction identifier="psychosisresistance" amount="185" />
       </StatusEffect>
-      <StatusEffect type="OnUse" target="UseTarget" duration="10">
-        <Affliction identifier="drunk" amount="1.0" />
-      </StatusEffect>
-      <StatusEffect type="OnUse" target="Limb" duration="10">
+      <!-- When Ethanol is used in Health GUI -->
+      <StatusEffect type="OnUse" target="This, Limb" duration="5">
         <ReduceAffliction identifier="bacterialgangrene" amount="1" />
       </StatusEffect>
-      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
-        <Affliction identifier="psychosisresistance" amount="600" />
+      <StatusEffect type="OnUse" target="This, Limb" duration="2">
+        <Affliction identifier="acidburn" amount="3" /> 
       </StatusEffect>
+	  <!-- OnBroken -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
       </StatusEffect>
@@ -491,7 +494,7 @@
     <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
     <SkillRequirementHint identifier="medical" level="25" />
   </Antibiotics>
-  <!-- rum can now be bought at a nexshop -->
+  <!-- rum is ethanol with weaker damage and cures husk infection -->
   <Rum name="" identifier="rum" category="Medical,Misc" maxstacksize="8" cargocontaineridentifier="mediccrate" description="" Tags="smallitem" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer secondary="wreckmedcab,abandonedmedcab" amount="1" spawnprobability="0.01" />
     <PreferredContainer secondary="abandonedcrewcab" minamount="1" maxamount="1" spawnprobability="0.01" />
@@ -503,7 +506,7 @@
       </Price>
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="5" />
+      <RequiredItem tag="money" amount="2" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="true">
       <RequiredItem identifier="ethanol" />
@@ -513,23 +516,31 @@
     <Body width="27" height="66" density="20" />
     <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="32,28" holdangle="30" aimangle="120" aimable="false" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnSecondaryUse" target="This" Condition="-30.0"/>
-      <StatusEffect type="OnSecondaryUse" target="This,Character" disabledeltatime="true">
+      <StatusEffect type="OnSecondaryUse" target="This,Character">
         <Conditional Condition="lte 1" />
-        <Use/>
+        <!--<Use/>-->
       </StatusEffect>
-      <StatusEffect type="OnUse" target="This" Condition="-100.0" disabledeltatime="true" />
-      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
-        <Affliction identifier="psychosisresistance" amount="600" />
+      <StatusEffect type="OnUse" target="This" Condition="-100.0" setvalue="true">
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
       </StatusEffect>
-      <StatusEffect type="OnUse" target="UseTarget" duration="30">
-        <Conditional huskinfection="lt 50.0" />
-        <ReduceAffliction identifier="huskinfection" amount="1" />
+	  <!-- When Rum is drunk -->
+      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10">
+        <Affliction identifier="drunk" amount="8.0" />
+        <Affliction identifier="organdamage" amount="2.0" />
+        <Affliction identifier="immuneboost" amount="12.0" />
+        <ReduceAffliction identifier="psychosis" amount="12.0" />
+        <ReduceAffliction identifier="hallucinating" amount="12.0" />
+        <Affliction identifier="psychosisresistance" amount="185" />
+        <ReduceAffliction identifier="huskinfection" amount="12.0" />
       </StatusEffect>
-      <StatusEffect type="OnUse" target="UseTarget" duration="30">
-        <ReduceAffliction identifier="psychosis" amount="3" />
-        <ReduceAffliction identifier="hallucinating" amount="3" />
-        <Affliction identifier="drunk" amount="3" />
+      <!-- When Rum is used in Health GUI -->
+      <StatusEffect type="OnUse" target="This, Limb" duration="5">
+        <ReduceAffliction identifier="bacterialgangrene" amount="1" />
       </StatusEffect>
+      <StatusEffect type="OnUse" target="This, Limb" duration="2">
+        <Affliction identifier="acidburn" amount="2" /> 
+      </StatusEffect>
+	  <!-- OnBroken -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
       </StatusEffect>
