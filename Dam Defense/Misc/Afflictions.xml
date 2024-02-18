@@ -345,7 +345,7 @@
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
-        <Affliction identifier="pulmonaryemphysema" amount="4" />
+        <Affliction identifier="pulmonaryemphysema" amount="1" />
         <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
         <Sound file="%ModDir%/Misc/cough2.ogg" />
         <Sound file="%ModDir%/Misc/cough3.ogg" />
@@ -503,7 +503,7 @@
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
-        <Affliction identifier="pulmonaryemphysema" amount="8" />
+        <Affliction identifier="pulmonaryemphysema" amount="5" />
         <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
         <Sound file="%ModDir%/Misc/cough2.ogg" />
         <Sound file="%ModDir%/Misc/cough3.ogg" />
@@ -551,8 +551,7 @@
     treatmentthreshold="0"
     iconcolors="100,100,155,255;100,100,255,255"
     MedicalSkillGain="0.005">
-	<!-- 36 instead of 35 as minstrength so the coughing will persist no matter what -->
-    <Effect minstrength="36" maxstrength="95" strengthchange="-0.1" />
+    <Effect minstrength="35" maxstrength="95" strengthchange="-0.1" />
     <Effect minstrength="95" maxstrength="101" strengthchange="-0.05">
       <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
         <Affliction identifier="oxygenlow" amount="10" />
@@ -611,6 +610,24 @@
       </StatusEffect>
     </PeriodicEffect>
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,0,128,128" color="255,255,255,255" origin="0,0"/>
+  </Affliction>
+  
+  <!-- these afflictions do nothing, they are just here to signal something to the player -->
+  <Affliction
+    name="Airborne Protection"
+    identifier="airborneprotection"
+    description="Can't spread airborne infections or have them be spread to you."
+    type="airborneprotection"
+    isbuff="true"
+    targets="human"
+    limbspecific="false"
+    indicatorlimb="Head"
+	showiconthreshold="0"
+    showicontoothersthreshold="0"
+    showinhealthscannerthreshold="1000"
+    maxstrength="1">
+    <Effect minstrength="1" maxstrength="1"/>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="128,0,128,128" color="10,193,114,255" origin="0,0"/>
   </Affliction>
 
 </Afflictions>

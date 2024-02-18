@@ -2,8 +2,8 @@
 
 DD.diseaseData = {
 	flu = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.3},
-	bacterial = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.15},
-	tb = {immune = 1.5, immuneVisibility = 0.5, spreadChance = 0.3}
+	bacterial = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.15, necrotic = true},
+	tb = {immune = 1.5, immuneVisibility = 0.5, spreadChance = 0.3, necrotic = true}
 }
 local getDiseaseStat = function (diseaseName, statName)
 	local stat = DD.diseaseData[diseaseName][statName]
@@ -11,6 +11,7 @@ local getDiseaseStat = function (diseaseName, statName)
 		if statName == 'immune' then return 2.5 end
 		if statName == 'immuneVisibility' then return 1 end
 		if statName == 'spreadChance' then return 0 end
+		if statName == 'necrotic' then return false end
 	else
 		return stat
 	end
@@ -73,7 +74,7 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
     if CLIENT and Game.IsMultiplayer then return end
 	if targets[1] == nil then return end
 	local character = targets[1]
-	if character.AnimController.HeadInWater or not DD.isCharacterUsingHullOxygen(character) then return end
+	if not DD.isCharacterUsingHullOxygen(character) then return end
 	
 	local spreadDiseaseToCharacter = function (toCharacter, fromCharacter, diseaseName, chance)
 		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
@@ -102,7 +103,7 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 	for otherHull in character.CurrentHull.GetConnectedHulls(false, 3, true) do affectedHulls[otherHull] = true end
 	
 	for other in Character.CharacterList do
-		if (other.SpeciesName == 'human') and (not other.AnimController.HeadInWater) and (not other.IsDead) and affectedHulls[other.CurrentHull] and DD.isCharacterUsingHullOxygen(other) and
+		if (other.SpeciesName == 'human') and (not other.IsDead) and affectedHulls[other.CurrentHull] and DD.isCharacterUsingHullOxygen(other) and
 		(Vector2.Distance(character.WorldPosition, other.WorldPosition) < 750) then
 			spreadDiseaseToCharacter(other, character, 'husk', 0.15)
 			for diseaseName, data in pairs(DD.diseaseData) do
@@ -143,6 +144,26 @@ DD.thinkFunctions.afflictions = function ()
 		if (character.SpeciesName == 'humanhusk') and (not character.IsDead) then
 			if character.Vitality < 0 then
 				DD.giveAfflictionCharacter(character, 'huskvulnerability', 999)
+			end
+		end
+		if (character.SpeciesName == 'human') then
+			if DD.isCharacterUsingHullOxygen(character) then
+				if character.CharacterHealth.GetAffliction('airborneprotection', true) ~= nil then
+					character.CharacterHealth.GetAffliction('airborneprotection', true).SetStrength(0)
+				end
+			else
+				if character.CharacterHealth.GetAffliction('airborneprotection', true) == nil then
+					DD.giveAfflictionCharacter(character, 'airborneprotection', 1)
+				else	
+					character.CharacterHealth.GetAffliction('airborneprotection', true).SetStrength(1)
+				end
+			end
+		end
+		if (character.SpeciesName == 'human') and (character.IsDead) then
+			for diseaseName, data in pairs(DD.diseaseData) do
+				if not getDiseaseStat(diseaseName, 'necrotic') then
+					character.CharacterHealth.ReduceAfflictionOnAllLimbs(diseaseName .. 'infection', 5 * (1/60), nil)
+				end
 			end
 		end
 		if (character.SpeciesName == 'human') and (not character.IsDead) then

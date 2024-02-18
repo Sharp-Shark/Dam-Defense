@@ -54,7 +54,7 @@ end, {
 			DD.messageClient(self.killer, 'You are a serial killer! Your mask grants you unnatural resilience and power, but it also makes you insane... only try to kill the person you have been tasked with killing!', {preset = 'crit'})
 			for client in Client.ClientList do
 				if client ~= self.killer then
-					DD.messageClient(client, 'A serial killer is roaming the area, however it is unknown who they are. Be careful!', {preset = 'badinfo'})
+					DD.messageClient(client, 'A serial killer is roaming the area, however it is unknown who they are. Be careful!', {preset = 'crit'})
 				end
 			end
 		end
@@ -128,6 +128,11 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
+		if DD.isClientCharacterAlive(self.killer) then
+			if self.killer.Character.CharacterHealth.GetAffliction('bloodlust', true) ~= nil then
+				self.killer.Character.CharacterHealth.GetAffliction('bloodlust', true).SetStrength(0)
+			end
+		end
 		if self.killerWon then
 			DD.messageAllClients('Serial killer has won this round! Round ending in 10 seconds.', {preset = 'crit'})
 			DD.roundData.roundEnding = true

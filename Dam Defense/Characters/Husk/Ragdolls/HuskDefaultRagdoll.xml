@@ -11,7 +11,7 @@
       <Affliction identifier="bitewounds" strength="5" />
       <Affliction identifier="bleeding" strength="5" />
       <Affliction identifier="huskinfection" strength="5" />
-      <Affliction identifier="huskstun" strength="25" />
+      <Affliction identifier="huskstun" strength="20" />
       <Affliction identifier="stun" strength="0.5" />
     </attack>
   </limb>

@@ -14,9 +14,10 @@ DD.eventAffliction = DD.class(DD.eventBase, nil, {
 	
 	onStart = function (self)
 		local infected = 0
-		for client in Client.ClientList do
+		for client in DD.arrShuffle(Client.ClientList) do
 			if DD.isClientCharacterAlive(client) and infected < math.ceil(#Client.ClientList * self.ratio) then
 				DD.giveAfflictionCharacter(client.Character, self.identifier, self.minamount + math.max(0, self.maxamount - self.minamount) * math.random())
+				infected = infected + 1
 			end
 		end
 		
@@ -29,13 +30,13 @@ DD.eventAfflictionFlu = DD.class(DD.eventAffliction, nil, {
 	name = 'afflictionFlu',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 1,
+	weight = 0.5,
 	goodness = -0.5,
 	
 	identifier = 'fluhidden',
 	minamount = 5,
 	maxamount = 50,
-	ratio = 1/3
+	ratio = 1/4
 })
 
 -- TB event
@@ -43,7 +44,7 @@ DD.eventAfflictionTB = DD.class(DD.eventAffliction, nil, {
 	name = 'afflictionTB',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 0.5,
+	weight = 0.25,
 	goodness = -1,
 	
 	identifier = 'tbhidden',
@@ -53,11 +54,12 @@ DD.eventAfflictionTB = DD.class(DD.eventAffliction, nil, {
 })
 
 -- Husk event
+--[[
 DD.eventAfflictionHusk = DD.class(DD.eventAffliction, nil, {
 	name = 'afflictionHusk',
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 0.5,
+	weight = 0.25,
 	goodness = -1.5,
 	
 	identifier = 'huskinfection',
@@ -65,3 +67,4 @@ DD.eventAfflictionHusk = DD.class(DD.eventAffliction, nil, {
 	maxamount = 1,
 	ratio = 1/4
 })
+--]]

@@ -12,13 +12,14 @@ DD.eventFish = DD.class(DD.eventBase, nil, {
 		local locationTag = locationTags[math.random(#locationTags)]
 		local locationNames = {dd_dambasin = "inside of the dam's basin", dd_wetsewer = 'deep in the underwater section of the sewers'}
 		-- Fish
-		local fishTypes = {'crawler_hatchling', 'mudraptor_hatchling', 'tigerthresher_hatchling'}
+		local fishTypes = {'crawler_hatchling', 'mudraptor_hatchling', 'tigerthresher_hatchling', 'husk'}
 		local fishType = fishTypes[math.random(#fishTypes)]
 		local fishNames = {
 			crawler_hatchling = 'crawler hatchlings',
 			mudraptor_hatchling = 'mudraptor hatchlings',
 			tigerthresher_hatchling = 'thresher hatchlings',
-			hammerheadspawn = 'hammerhead spawn'
+			hammerheadspawn = 'hammerhead spawn',
+			husk = 'husks'
 		}
 		local fishCount = 1 + math.random(3)
 	
@@ -29,6 +30,6 @@ DD.eventFish = DD.class(DD.eventBase, nil, {
 		end
 		
 		-- Warn fish have been spawned
-		DD.messageAllClients('A total of ' .. fishCount .. ' ' .. fishNames[fishType] .. ' have been spotted ' .. locationNames[locationTag] .. '! It is adviced to kill them before they grow and breed.', {preset = 'badinfo'})
+		DD.messageAllClients('A total of ' .. fishCount .. ' ' .. fishNames[fishType] .. ' have been spotted ' .. locationNames[locationTag] .. '! It is adviced to kill them before they grow in numbers.', {preset = 'badinfo'})
 	end
 })

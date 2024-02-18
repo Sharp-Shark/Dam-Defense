@@ -81,6 +81,8 @@ DD.thinkFunctions.main = function ()
 	
 	if DD.roundTimer < 10 then return end
 	
+	if #Client.ClientList == 1 then return end
+	
 	local anyHumanAlive = false
 	for client in Client.ClientList do
 		if DD.isClientCharacterAlive(client) and client.Character.SpeciesName == 'human' then
@@ -130,7 +132,7 @@ end
 DD.chatMessageFunctions.help = function (message, sender)
 	if message ~= '/help' then return end
 	
-	commands = {'help', 'myevents', 'credits', 'withdraw'}
+	commands = {'help', 'myevents', 'credits', 'withdraw', 'possess', 'freecam'}
 	
 	local list = ''
 	for command in commands do
@@ -139,6 +141,52 @@ DD.chatMessageFunctions.help = function (message, sender)
 	list = string.sub(list, 1, #list - 1)
 	
 	DD.messageClient(sender, DD.stringReplace('List of chat commands:\n{list}.', {list = list}), {preset = 'command'})
+	
+	return true
+end
+DD.chatMessageFunctions.ghostRole = function (message, sender)
+	if message ~= '/possess' then return end
+	if DD.isClientCharacterAlive(sender) then
+		local message = 'You have to be dead to use this command.'
+		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		return true
+	end
+	
+	local winner = nil
+	local winnerDistance = 750
+	for character in Character.CharacterList do
+		if (DD.findClientByCharacter(character) == nil) and (not character.IsDead) and (character.SpeciesName ~= 'human') and
+		(Vector2.Distance(sender.SpectatePos, character.WorldPosition) < winnerDistance) then
+			winner = character
+			winnerDistance = Vector2.Distance(sender.SpectatePos, character.WorldPosition)
+		end
+	end
+	
+	if winner ~= nil then
+		local message = 'Do /freecam to go back to spectating. You cannot respawn unless you are spectating.'
+		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		sender.SetClientCharacter(winner)
+	else
+		local message = 'No nearby character fit to be possessed was found.'
+		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+	end
+	
+	return true
+end
+DD.chatMessageFunctions.freecam = function (message, sender)
+	if message ~= '/freecam' then return end
+	if sender.Character == nil then
+		local message = 'You are already spectating.'
+		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		return true
+	end
+	if sender.Character.SpeciesName == 'human' then
+		local message = 'You cannot become a spectator whilst controlling a human.'
+		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		return true
+	end
+	
+	sender.SetClientCharacter(nil)
 	
 	return true
 end
@@ -205,7 +253,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			if (character.JobIdentifier == 'captain') then
 				character.GiveTalent('drunkensailor', true)
 			end
-			if (character.JobIdentifier == 'medicaldoctor') or (character.JobIdentifier == 'researcher') then
+			if (character.JobIdentifier == 'medicaldoctor') or (character.JobIdentifier == 'researcher') or (character.JobIdentifier == 'securityofficer') then
 				character.GiveTalent('firemanscarry', true)
 			end
 			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'jet') then

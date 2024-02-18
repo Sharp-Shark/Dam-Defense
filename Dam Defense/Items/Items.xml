@@ -1055,6 +1055,132 @@
       </StatusEffect>
     </Holdable>
   </Item>
+  <!-- cut the stun from handcannon rounds to a third of what they are/were in vanilla -->
+  <Item name="" identifier="handcannonround" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="12" interactthroughwalls="true" cargocontaineridentifier="metalcrate" allowasextracargo="true" Scale="0.5" tags="smallitem,handcannonammo,pistolammoitem" impactsoundtag="impact_metal_light">
+    <PreferredContainer primary="secarmcab" secondary="armcab"/>
+    <PreferredContainer primary="handcannon" amount="6" spawnprobability="1.0"/>
+    <PreferredContainer secondary="wrecksecarmcab" minamount="1" maxamount="6" spawnprobability="0.02"/>    
+    <Price baseprice="50" sold="false" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" amount="6">
+      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
+      <RequiredItem tag="advmunition_tip" description="fabricationdescription.advmunition_tip" />
+      <RequiredItem tag="advmunition_core" description="fabricationdescription.advmunition_core" />
+      <RequiredItem tag="advmunition_jacket" description="fabricationdescription.advmunition_jacket" />
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/JobGear/TalentGear.png" sourcerect="166,430,40,43" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Jobgear/TalentGear.png" sourcerect="3,118,24,9" depth="0.55" origin="0.5,0.5" />
+    <Body width="34" height="14" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,200,115,200" scalemultiplier="1,1" />
+      <Attack structuredamage="20" targetforce="20" itemdamage="20" severlimbsprobability="1.0" penetration="0.5">
+        <Affliction identifier="gunshotwound" strength="70" />
+        <Affliction identifier="bleeding" strength="50" />
+        <Affliction identifier="stun" strength="0.5" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="6,6" colormultiplier="255,200,115,200" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.75" scalemax="1" />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+  <!-- do not use hull oxygen whilst wearing mask if it has oxygen -->
+  <Item name="" identifier="divingmask" scale="0.5" category="Diving,Equipment" Tags="smallitem,diving,lightdiving" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_light">
+    <Price baseprice="100">
+      <Price storeidentifier="merchantoutpost" multiplier="0.9" minavailable="5" />
+      <Price storeidentifier="merchantcity" multiplier="0.85" minavailable="7" />
+      <Price storeidentifier="merchantresearch" minavailable="5" />
+      <Price storeidentifier="merchantmilitary" minavailable="6" />
+      <Price storeidentifier="merchantmine" multiplier="1.25" minavailable="15" />
+    </Price>
+    <PreferredContainer secondary="respawncontainer" amount="2" notcampaign="true"/>
+    <PreferredContainer primary="divingcab" amount="2" allowtransfershere="false"/>
+    <PreferredContainer primary="supplycab" amount="1" transferonlyonepercontainer="true"/>
+    <PreferredContainer secondary="wrecksupplycab,beaconsupplycab" amount="1" spawnprobability="0.1"/>
+    <PreferredContainer secondary="outpostsupplycab" amount="1" spawnprobability="0.5"/>
+    <Deconstruct time="10">
+      <Item identifier="plastic" />
+      <Item identifier="rubber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="mechanical" level="25" />
+      <RequiredItem identifier="plastic" />
+      <RequiredItem identifier="rubber" />
+      <RequiredItem identifier="rubber" />
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="515,322,57,62" origin="0.5,0.5" />
+    <Sprite name="Diving Mask" texture="Content/Items/Jobgear/headgears.png" depth="0.55" sourcerect="226,326,69,68" origin="0.5,0.5" />
+    <Body width="40" height="35" density="15" />
+    <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
+      <sprite name="Diving Mask Wearable" texture="Content/Items/Jobgear/headgears.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" hideotherwearables="false" sourcerect="226,326,69,68" origin="0.4,0.3" hidewearablesoftype="moustache,beard" />
+      <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" UseHullOxygen="false" Condition="-0.5" comparison="Or">
+        <Conditional IsDead="false" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="-100.0" Oxygen="-5.0" Condition="-5.0">
+        <Conditional IsDead="false" />
+        <RequiredItem items="weldingfueltank" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained,Character" targetlimbs="Torso" OxygenAvailable="-100.0" Oxygen="-7.0" Condition="-5.0">
+        <RequiredItem items="incendiumfueltank" type="Contained" />
+        <Affliction identifier="burn" amount="3.0" />
+      </StatusEffect>
+    </Wearable>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <Containable items="oxygensource,weldingtoolfuel" excludeditems="oxygenitetank" />
+      <Containable items="oxygenitetank">
+        <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="1.2" setvalue="true" targetslot="0">
+          <Conditional IsDead="false" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+  </Item>
+  <!-- do not use hull oxygen whilst wearing mask if it has oxygen -->
+  <Item name="" identifier="clowndivingmask" category="Equipment,Diving" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="smallitem,clownmask,diving,lightdiving" description="" scale="0.5">
+    <PreferredContainer primary="divingcab,supplycab"/>
+    <Price baseprice="150" sold="false" canbespecial="false" />
+    <Sprite name="Clown Mask" texture="Content/Items/JobGear/TalentGear.png" depth="0.6" sourcerect="328,304,51,51" origin="0.5,0.5" scale="0.5" />
+    <Body width="5" radius="25" density="15" />
+    <Deconstruct time="10">
+      <Item identifier="divingmask" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" requiresrecipe="true">
+      <RequiredItem identifier="clownmask" />
+      <RequiredItem identifier="divingmask" />
+    </Fabricate>
+    <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect">
+      <sprite name="Clown Diving Mask Wearable" texture="Content/Items/JobGear/TalentGear.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.65" sourcerect="378,301,80,70" origin="0.45,0.4" />
+      <StatusEffect tags="clown" type="OnWearing" target="Character" HideFace="true" duration="0.1" stackable="false" />
+      <!-- copied from divingmask -->
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" UseHullOxygen="false" Condition="-0.5" comparison="Or">
+        <Conditional IsDead="false" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="-100.0" Oxygen="-5.0" Condition="-5.0">
+        <Conditional IsDead="false" />
+        <RequiredItem items="weldingfueltank" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained,Character" targetlimbs="Torso" OxygenAvailable="-100.0" Oxygen="-7.0" Condition="-5.0">
+        <RequiredItem items="incendiumfueltank" type="Contained" />
+        <Affliction identifier="burn" amount="3.0" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained,Character" SpeedMultiplier="1.2" setvalue="true" comparison="Or">
+        <Conditional IsDead="false" />
+        <RequiredItem items="oxygenitetank" type="Contained" />
+      </StatusEffect>
+    </Wearable>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <Containable items="oxygensource,weldingtoolfuel" />
+    </ItemContainer>
+  </Item>
   </Override>
   <!-- end of overrides -->
   
@@ -1088,7 +1214,7 @@
     <Body radius="45" density="25" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
-      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" Condition="-0.5" comparison="Or">
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" UseHullOxygen="false" Condition="-0.5" comparison="Or">
         <Conditional IsDead="false" />
         <RequiredItem items="oxygensource" type="Contained" />
       </StatusEffect>
@@ -1147,7 +1273,7 @@
     <Body radius="45" density="25" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
-      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" Condition="-0.5" comparison="Or">
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" UseHullOxygen="false" Condition="-0.5" comparison="Or">
         <Conditional IsDead="false" />
         <RequiredItem items="oxygensource" type="Contained" />
       </StatusEffect>
@@ -1203,7 +1329,7 @@
     <Body radius="45" density="25" />
     <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
-      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" Condition="-0.5" comparison="Or">
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" UseHullOxygen="false" Condition="-0.5" comparison="Or">
         <Conditional IsDead="false" />
         <RequiredItem items="oxygensource" type="Contained" />
       </StatusEffect>
@@ -1249,7 +1375,7 @@
     <Body radius="25" density="25" />
     <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
-      <StatusEffect type="OnWearing" target="Character" OxygenAvailable="10.0">
+      <StatusEffect type="OnWearing" target="Character" OxygenAvailable="100.0" UseHullOxygen="false">
         <ReduceAffliction identifier="oxygenlow" amount="5" />
         <Conditional IsDead="false" />
       </StatusEffect>
@@ -1685,8 +1811,8 @@
     <Projectile characterusable="false" hitscan="true" removeonhit="true">
       <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,200,200,175" scalemultiplier="1,0.8" />
       <Attack structuredamage="6" targetforce="7.5" itemdamage="6" severlimbsprobability="0.2" penetration="0.25">
-        <Affliction identifier="gunshotwound" strength="12" />
-        <Affliction identifier="bleeding" strength="12" />
+        <Affliction identifier="gunshotwound" strength="11" />
+        <Affliction identifier="bleeding" strength="11" />
       </Attack>
       <StatusEffect type="OnImpact" target="UseTarget">
         <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />

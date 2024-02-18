@@ -47,7 +47,7 @@ end, {
 					DD.spawnHuman(client, 'jet', DD.findRandomWaypointByJob('jet').WorldPosition, nil, nil)
 					DD.messageClient(client, 'You are a nukie! Work with your fellow nukies to explode the reactor and win the round.', {preset = 'crit'})
 				else
-					DD.messageClient(client, 'Intel reports nukie activity on the area. Keep the reactor safe!', {preset = 'badinfo'})
+					DD.messageClient(client, 'Intel reports nukie activity on the area. Keep the crew, and most importantly the reactor safe from them!', {preset = 'crit'})
 				end
 			end
 		end
@@ -114,4 +114,18 @@ end, {
 			DD.messageAllClients('All nukies have been eliminated.', {preset = 'goodinfo'})
 		end
 	end
+})
+
+-- Nukies ghost role event
+DD.eventGhostRoleNukies = DD.class(DD.eventGhostRole, nil, {
+	paramType = {},
+	clientKeys = {'volunteers'},
+	
+	name = 'ghostRoleNukies',
+	isMainEvent = true,
+	cooldown = 60 * 3,
+	weight = 2,
+	goodness = -1.5,
+	
+	eventClass = DD.eventNukies
 })

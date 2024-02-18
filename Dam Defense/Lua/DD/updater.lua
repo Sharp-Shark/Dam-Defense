@@ -14,7 +14,7 @@ DD.downloadAndApplyUpdate = function ()
 
         Steam.DownloadWorkshopItem(item, path, function (downloadedItem)
             print(string.format("'%s' was successfully downloaded and placed in %s!", downloadedItem.Title, path))
-			print('Reloading lua in 2 seconds to apply lua changes.')
+			print('Reloading lua to apply lua changes.')
 			
 			Timer.Wait(function ()
 				if SERVER then

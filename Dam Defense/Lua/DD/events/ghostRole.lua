@@ -1,12 +1,12 @@
 -- Ghost role event
 DD.eventGhostRole = DD.class(DD.eventBase, function (self, eventClass)
-	self.eventClass = eventClass
+	if self.eventClass == nil then self.eventClass = eventClass end
 end, {
 	paramType = {'event'},
 	clientKeys = {'volunteers'},
 	
 	name = 'ghostRole',
-	isMainEvent = false,
+	isMainEvent = true,
 	cooldown = 60 * 1,
 	weight = 1,
 	goodness = 0,
@@ -14,7 +14,7 @@ end, {
 	informSpectators = function (self, clients, text)
 		local clients = clients or Client.ClientList
 		local tbl = {seed = self.seed, eventName = self.eventClass.tbl.name, timer = DD.numberToTime(self.timer)}
-		local text = text or 'Type in /join{seed} into chat to join the "{eventName}" event! You have {timer} to join before it starts.'
+		local text = text or 'Type in /join {eventName} into chat to join the "{eventName}" event! You have {timer} to join before it starts.'
 		text = DD.stringReplace(text, tbl)
 		for client in clients do
 			if not DD.isClientCharacterAlive(client) then
@@ -80,22 +80,22 @@ end, {
 	end,
 	
 	onChatMessage = function (self, message, sender)
-		if ((message ~= '/join' .. self.seed) and (message ~= '/exit' .. self.seed)) or DD.isClientCharacterAlive(sender) then return end
-		if message == '/join' .. self.seed then
+		if ((message ~= '/join ' .. self.eventClass.tbl.name) and (message ~= '/exit ' .. self.eventClass.tbl.name)) or DD.isClientCharacterAlive(sender) then return end
+		if message == '/join ' .. self.eventClass.tbl.name then
 			if DD.tableHas(self.volunteers, sender) then
-				DD.messageClient(sender, DD.stringReplace('You have already volunteered for that event. Do /exit{seed} to undo.', {seed = self.seed}), {preset = 'ghostRole'})
+				DD.messageClient(sender, DD.stringReplace('You have already volunteered for that event. Do /exit {eventName} to undo.', {eventName = self.eventClass.tbl.name, seed = self.seed}), {preset = 'ghostRole'})
 			elseif #DD.eventDirector.getClientEvents(sender) > 0 then
 				DD.messageClient(sender, 'You are already part of another event and cannot join this one.', {preset = 'ghostRole'})
 			else
 				table.insert(self.volunteers, sender)
-				DD.messageClient(sender, DD.stringReplace('You have joined the "{eventName}" event! Do /exit{seed} to undo.', {eventName = self.eventClass.tbl.name, seed = self.seed}), {preset = 'ghostRole'})
+				DD.messageClient(sender, DD.stringReplace('You have joined the "{eventName}" event! Do /exit {eventName} to undo.', {eventName = self.eventClass.tbl.name, seed = self.seed}), {preset = 'ghostRole'})
 			end
 		else
 			if DD.tableHas(self.volunteers, sender) then
 				for key, volunteer in pairs(self.volunteers) do
 					if volunteer == sender then table.remove(self.volunteers, key) end
 				end
-				DD.messageClient(sender, DD.stringReplace('You have exited the "{eventName}" event! Do /join{seed} to undo.', {eventName = self.eventClass.tbl.name, seed = self.seed}), {preset = 'ghostRole'})
+				DD.messageClient(sender, DD.stringReplace('You have exited the "{eventName}" event! Do /join {eventName} to undo.', {eventName = self.eventClass.tbl.name, seed = self.seed}), {preset = 'ghostRole'})
 			else
 				DD.messageClient(sender, 'You have not volunteered for that event.', {preset = 'ghostRole'})
 			end

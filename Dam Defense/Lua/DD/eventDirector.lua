@@ -30,7 +30,6 @@ DD.eventDirector.eventPool = {
 	DD.eventArrest1984,
 	DD.eventAfflictionFlu,
 	DD.eventAfflictionTB,
-	DD.eventAfflictionHusk
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}
