@@ -424,12 +424,12 @@ DD.findRandomWaypointByJob = function (job)
 	return waypoints[math.random(#waypoints)]
 end
 
-DD.isCharacterUsingHullOxygen = function (character)
+DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 	if character.Inventory == nil then return end
 	local headslot = character.Inventory.GetItemAt(DD.invSlots.head)
 	local suitslot = character.Inventory.GetItemAt(DD.invSlots.suit)
 	
-	if character.AnimController.HeadInWater then return false end
+	if character.AnimController.HeadInWater and not ignoreHeadInWater then return false end
 	if not character.UseHullOxygen then return false end
 	if (suitslot ~= nil) and (suitslot.Prefab.Identifier == 'pucs') then return false end
 	
