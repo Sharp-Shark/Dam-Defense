@@ -181,11 +181,11 @@ end, {
 			local message = ''
 			message = 'The rebel leaders are: ' .. rebelsList .. '.'
 			if not self.rebelsDoxHappened then message = message .. ' The list of rebel leaders will be public in ' .. DD.numberToTime(self.rebelsDoxTimer) .. '.' end
-			DD.messageAllClients(message, {preset = 'command'})
+			DD.messageClient(sender, message, {preset = 'command'})
 		else
 			local message = ''
 			message = 'The list of rebel leaders will be public in ' .. DD.numberToTime(self.rebelsDoxTimer) .. '.'
-			DD.messageAllClients(message, {preset = 'command'})
+			DD.messageClient(sender, message, {preset = 'command'})
 		end
 		
 		return true
