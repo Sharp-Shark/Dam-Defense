@@ -37,6 +37,7 @@ DD.eventDirector.cooldown = nil
 DD.eventDirector.mainEvent = nil
 DD.eventDirector.mainEventCooldown = nil
 DD.eventDirector.eventsPerClientCap = 2 -- how many events a single client can be a participant of
+DD.eventDirector.mainEventCap = 3 -- how many main events can be active at the same time (negative values means it is uncapped)
 DD.eventDirector.canMainEventBeRegularEvent  = true -- can a main event be called when a regular event is to be started
 
 -- Debug function
@@ -105,6 +106,19 @@ DD.eventDirector.getEventInstances = function (eventName)
 	
 	for event in DD.eventDirector.events do
 		if event.name == eventName then
+			table.insert(tbl, event)
+		end
+	end
+	
+	return tbl
+end
+
+-- Get the list of main events
+DD.eventDirector.getMainEvents = function ()
+	local tbl = {}
+	
+	for event in DD.eventDirector.events do
+		if event.isMainEvent then
 			table.insert(tbl, event)
 		end
 	end

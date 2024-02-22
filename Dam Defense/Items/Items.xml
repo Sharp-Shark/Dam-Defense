@@ -132,10 +132,10 @@
       <RequiredItem identifier="phosphorus" />
       <RequiredItem identifier="organicfiber" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="weapons" level="10" />
       <RequiredItem identifier="phosphorus" />
-      <RequiredItem identifier="ethanol" />
+      <RequiredItem identifier="rum" />
       <RequiredItem identifier="organicfiber" />
     </Fabricate>
     <InventoryIcon texture="Content/Map/Outposts/Art/FactionItems.png" sourcerect="271,2,65,68" origin="0.5,0.5" />
@@ -203,7 +203,7 @@
       <RequiredItem identifier="copper" />
     </Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="704,64,64,64" origin="0.5,0.5" />
-    <Sprite texture="weapons_new.png" depth="0.55" sourcerect="215,242,41,21" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" depth="0.55" sourcerect="215,242,41,21" origin="0.5,0.5" />
     <Body width="40" height="22" density="20" />
     <Holdable selectkey="Action" pickkey="Use" slots="Any,RightHand,LeftHand" msg="ItemMsgDetachWrench" aimpos="35,-10" handle1="0,0" attachable="true" aimable="true">
       <RequiredItem items="wrench" type="Equipped" />

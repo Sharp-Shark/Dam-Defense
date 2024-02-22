@@ -137,13 +137,41 @@ Hook.Add("afflictionUpdate", "DD.bacterialgangrene", function (affliction, chara
 	end
 end)
 
+-- Reset husk regen on damage
+Hook.Add("character.applyDamage", "DD.resetHuskRegenOnDamage", function (characterHealth, attackResult, hitLimb, allowStacking)
+	local character = characterHealth.Character
+	if character == nil then return end
+	
+	if (character.SpeciesName == 'humanhusk') and
+	(not character.IsDead) and
+	(attackResult.Damage >= 0.1) and
+	(character.CharacterHealth.GetAffliction('huskregen', true) ~= nil) and
+	(character.CharacterHealth.GetAffliction('huskregen', true).Strength > 5) then
+		character.CharacterHealth.GetAffliction('huskregen', true).SetStrength(5)
+	end
+
+	return
+end)
+
 DD.thinkFunctions.afflictions = function ()
 	if not Game.RoundStarted then return end
 
 	for character in Character.CharacterList do
 		if (character.SpeciesName == 'humanhusk') and (not character.IsDead) then
-			if character.Vitality < 0 then
-				DD.giveAfflictionCharacter(character, 'huskvulnerability', 999)
+			local damage = 0
+			damage = damage + character.CharacterHealth.GetAfflictionStrengthByIdentifier('bloodloss', true)
+			damage = damage + character.CharacterHealth.GetAfflictionStrengthByType('damage', true)
+			if ((character.Vitality < 0) or character.IsRagdolled) and (damage >= 1) then
+				if character.Vitality < 0 then
+					DD.giveAfflictionCharacter(character, 'huskregen', 0.5 * (1/60))
+				else
+					DD.giveAfflictionCharacter(character, 'huskregen', 1 * (1/60))
+				end
+			else
+				local affliction = character.CharacterHealth.GetAffliction('huskregen', true)
+				if (affliction ~= nil) and ((damage < 1) or (affliction.Strength <= 10)) then
+					character.CharacterHealth.GetAffliction('huskregen', true).SetStrength(0)
+				end
 			end
 		end
 		if (character.SpeciesName == 'human') then

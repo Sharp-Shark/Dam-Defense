@@ -1,5 +1,5 @@
 ﻿<HumanhuskSwimFast
-  movementspeed="2.5"
+  movementspeed="3.5"
   steertorque="1"
   headangle="30"
   torsoangle="0"

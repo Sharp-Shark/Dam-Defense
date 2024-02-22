@@ -10,10 +10,10 @@
       <StatusEffect type="OnUse" target="Parent" disabledeltatime="true" setvalue="true">
 		<Affliction identifier="huskgreed" strength="9999" />
       </StatusEffect>
-      <Affliction identifier="bitewounds" strength="5" />
-      <Affliction identifier="bleeding" strength="5" />
+      <Affliction identifier="bitewounds" strength="8" />
+      <Affliction identifier="bleeding" strength="4" />
       <Affliction identifier="huskinfection" strength="5" />
-      <Affliction identifier="huskstun" strength="20" />
+      <Affliction identifier="huskstun" strength="15" />
       <Affliction identifier="stun" strength="0.5" />
     </attack>
   </limb>

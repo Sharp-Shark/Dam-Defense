@@ -1,5 +1,5 @@
 ﻿<HuskSwimSlow
-  movementspeed="2"
+  movementspeed="1"
   steertorque="1"
   headangle="-18"
   torsoangle="0"

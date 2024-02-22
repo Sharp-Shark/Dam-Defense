@@ -69,12 +69,22 @@
       strengthchange="0.5"
       minbodytint="195,195,195,0"
       maxbodytint="195,195,195,150"/>
-    <Effect minstrength="65" maxstrength="100"
+    <Effect minstrength="65" maxstrength="99"
       maxvitalitydecrease="0"
       strengthchange="1"
       minbodytint="195,195,195,150"
       maxbodytint="195,195,195,200"
       tag="huskinfected"/>
+    <Effect minstrength="99" maxstrength="101"
+      maxvitalitydecrease="0"
+      strengthchange="1"
+      minbodytint="195,195,195,150"
+      maxbodytint="195,195,195,200"
+      tag="huskinfected">
+      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
+        <Affliction identifier="internaldamage" amount="2" />
+      </StatusEffect>
+	</Effect>
     <PeriodicEffect minstrength="35" maxstrength="65" mininterval="12" maxinterval="16">
       <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
@@ -92,24 +102,35 @@
   </AfflictionHusk>
   </Override>
   
-  <!-- gives husk damage vulnerability for whenever they are downed so they are easier to kill -->
+  <!-- gives husk damage vulnerability for whenever they are downed so they are easier to kill BUT also regen the husk -->
   <Affliction
-    name="Husk vulnerability"
-    identifier="huskvulnerability"
-    description="Vulnerability do damage."
+    name="Husk regen"
+    identifier="huskregen"
+    description="Vulnerability in exchange for rapid regeneration."
     type="debuff"
     isbuff="false"
     limbspecific="false"
-    maxstrength="1"
+    maxstrength="11"
     MedicalSkillGain="0.01"
-    showiconthreshold="999"
+    showiconthreshold="0"
     showicontoothersthreshold="999"
-    showinhealthscannerthreshold="999">
-    <Effect minstrength="0" maxstrength="1" strengthchange="-0.35" resistancefor="damage" minresistance="0.0" maxresistance="-3.0" />
-    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="128,896,128,128" color="10,193,114,255" origin="0,0"/>
+    showinhealthscannerthreshold="999"
+    iconcolors="60,140,195,255;60,107,195,255;60,0,195,255">
+    <Effect minstrength="0" maxstrength="1" resistancefor="damage" minresistance="0.0" maxresistance="-3.0" />
+    <Effect minstrength="1" maxstrength="10" resistancefor="damage" minresistance="-3.0" maxresistance="-3.0" />
+    <Effect minstrength="10" maxstrength="11" resistancefor="damage" minresistance="-3.0" maxresistance="-3.0">
+      <StatusEffect target="Character" setvalue="true">
+        <Affliction identifier="stun" amount="1" />
+      </StatusEffect>
+      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
+        <ReduceAffliction type="damage" strength="20.0"/>
+        <ReduceAffliction type="bloodloss" strength="10.0"/>
+      </StatusEffect>
+	</Effect>
+    <Icon texture="Content/UI/TalentsIcons3.png" sheetindex="0,1" sheetelementsize="128,128" color="255,255,255,255" origin="0,0"/>
   </Affliction>
   
-  <!-- slow/speed effect whenever husk hits someone -->
+  <!-- slow/speed (+ stun and damage resistance) effect whenever husk hits someone -->
   <Affliction
     name="Husk greed"
     identifier="huskgreed"
@@ -122,13 +143,16 @@
     showiconthreshold="999"
     showicontoothersthreshold="999"
     showinhealthscannerthreshold="999">
-    <Effect minstrength="0" maxstrength="50" strengthchange="-15" minspeedmultiplier="1.0" maxspeedmultiplier="1.5" resistancefor="stun" minresistance="0.0" maxresistance="1.0" />
-    <Effect minstrength="50" maxstrength="100" strengthchange="-15" minspeedmultiplier="1.5" maxspeedmultiplier="0.0" resistancefor="stun" minresistance="1.0" maxresistance="0.0" />
+    <Effect minstrength="0" maxstrength="100" strengthchange="-50" minspeedmultiplier="1.0" maxspeedmultiplier="0.0" resistancefor="stun,damage" minresistance="0.0" maxresistance="1.0" >
+      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
+        <ReduceAffliction type="stun" strength="2.0"/>
+      </StatusEffect>
+	</Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="128,896,128,128" color="10,193,114,255" origin="0,0"/>
   </Affliction>
   
   <!-- Husk stun -->
-  <Affliction name="Husk stun" identifier="huskstun" description="" type="stun" targets="human" limbspecific="false" indicatorlimb="Torso" showiconthreshold="1" showinhealthscannerthreshold="1" karmachangeonapplied="-10" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="155,155,100,255;255,100,100,255">
+  <Affliction name="Husk stun" identifier="huskstun" description="" type="huskstun" targets="human" limbspecific="false" indicatorlimb="Torso" showiconthreshold="1" showinhealthscannerthreshold="1" karmachangeonapplied="-10" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="155,155,100,255;255,100,100,255">
     <Effect minstrength="0" maxstrength="99" strengthchange="-5" minspeedmultiplier="1.0" maxspeedmultiplier="0.0" />
     <Effect minstrength="99" maxstrength="101" strengthchange="0.5">
       <StatusEffect target="Character" setvalue="true">
@@ -624,7 +648,7 @@
     indicatorlimb="Head"
 	showiconthreshold="0"
     showicontoothersthreshold="0"
-    showinhealthscannerthreshold="1000"
+    showinhealthscannerthreshold="0"
     maxstrength="1">
     <Effect minstrength="1" maxstrength="1"/>
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="128,0,128,128" color="10,193,114,255" origin="0,0"/>

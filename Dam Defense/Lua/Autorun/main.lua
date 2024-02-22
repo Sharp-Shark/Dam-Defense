@@ -41,6 +41,8 @@ local doRoundStartFunctions = function ()
 	end
 end
 DD.roundStartFunctions.main = function ()
+	Game.OverrideRespawnSub(false)
+
 	DD.roundData = {}
 	DD.roundEnding = false
 	DD.roundTimer = 0
@@ -303,7 +305,7 @@ Hook.Add("husk.clientControl", "DD.huskMessage", function (client, husk)
 	
 	DD.messageClient(client, 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk.', {preset = 'crit'})
 
-	return true
+	return
 end)
 
 -- Round start functions called at lua script execution just incase reloadlua is called mid-round

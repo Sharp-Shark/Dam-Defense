@@ -14,8 +14,9 @@ end, {
 		self.failed = false
 		self.finished = false
 		
-		-- Enforce instance cap
+		-- Enforce instance cap and main event cap
 		if self.isMainEvent then self.instanceCap = 1 end
+		if (DD.eventDirector.mainEventCap >= 0) and self.isMainEvent and (#DD.eventDirector.getMainEvents() >= DD.eventDirector.mainEventCap) then return end
 		if (self.instanceCap >= 0) and (#DD.eventDirector.getEventInstances(self.name) >= self.instanceCap) then
 			self.fail()
 			return
