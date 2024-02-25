@@ -1,6 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
 
+  <!-- used for Foldable Chair AND HIS NAME IS JOHN CENA -->
+  <Affliction
+    name="John Cena"
+    identifier="johncena"
+    description="AND HIS NAME IS JOHN CENA!"
+    type="debuff"
+    isbuff="false"
+    targets="human"
+    limbspecific="false"
+    indicatorlimb="Torso"
+    MedicalSkillGain="0.01"
+    showiconthreshold="999"
+    showicontoothersthreshold="999"
+    showinhealthscannerthreshold="999"
+    maxstrength="100">
+    <Effect minstrength="0" maxstrength="100" strengthchange="-4" />
+    <Icon texture="Content/UI/TalentsIcons3.png" sourcerect="384,0,128,128" color="10,193,114,255" origin="0,0"/>
+  </Affliction>
+
   <!-- stun vulnerability -->
   <Affliction
     name="Handcuffed"

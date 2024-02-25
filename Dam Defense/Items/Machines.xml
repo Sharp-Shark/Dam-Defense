@@ -1,6 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
 
+  <!-- foldable chair -->
+  <Item name="Foldable Chair" identifier="foldablechair" width="152" height="240" scale="0.5" noninteractable="false" category="Decorative,Misc,Weapon" canflipy="false">
+	<Deconstruct time="20">
+	  <Item identifier="steel"/>
+	  <Item identifier="steel"/>
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+	  <Item identifier="steel"/>
+	  <Item identifier="steel"/>
+	  <Item identifier="steel"/>
+	  <Item identifier="steel"/>
+    </Fabricate>
+	<!-- sprites -->
+	<InventoryIcon texture="foldablechair.png" sourcerect="30,0,200,220" />
+	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="30,0,200,220"/>
+	<BrokenSprite texture="foldablechair.png" depth="0.54" sourcerect="0,0,25,284" mincondition="90" maxcondition="101" fadein="false" />
+    <BrokenSprite texture="foldablechair.png" depth="0.54" sourcerect="30,0,200,220" origin="0.5,0.67" maxcondition="90" fadein="false"/>
+    <Body width="150" height="130" density="25" />
+	<!-- melee -->
+    <MeleeWeapon msg="ItemMsgDetach" pickkey="Action" slots="RightHand+LeftHand" controlpose="true" aimangle="105" aimpos="100,70" holdpos="35,-70" handle1="2,45" handle2="2,30" holdangle="15" reload="1.25" range="75" combatpriority="15">
+      <StatusEffect type="OnContained" target="This" condition="100" disabledeltatime="true" setvalue="true" />
+      <StatusEffect type="OnNotContained" target="This" condition="1" disabledeltatime="true" setvalue="true" />
+	  <Attack structuredamage="2" itemdamage="4" targetimpulse="4">
+        <Affliction identifier="blunttrauma" strength="10" />
+        <Affliction identifier="stun" strength="1" />
+        <Affliction identifier="johncena" strength="999" probability="0.05" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+        <StatusEffect type="OnUse" target="Character" >
+          <Affliction identifier="stun" strength="0.5" />
+        </StatusEffect>
+        <!-- AND HIS NAME IS JOHN CENA -->
+        <StatusEffect type="OnUse" target="UseTarget" comparison="AND" >
+          <Conditional entitytype="eq Character"/>
+		  <Conditional johncena="gte 99.0" />
+		  <Affliction identifier="blunttrauma" strength="30" />
+          <Affliction identifier="stun" strength="3" />
+          <ReduceAffliction identifier="johncena" strength="999" />
+          <sound file="%ModDir%/Items/johncena.ogg" range="800" volume="10.0" />
+        </StatusEffect>
+      </Attack>
+    </MeleeWeapon>
+    <!-- chair -->
+	<Controller UserPos="10,30" direction="Right" issecondaryitem="true" hidehud="false" canbeselected="true" AllowSelectingWhenSelectedByOther="false" drawuserbehind="true" >
+	  <limbposition limb="Head" position="65,100" />
+      <limbposition limb="Torso" position="60,30" />
+      <limbposition limb="Waist" position="75,-25" />
+      <limbposition limb="RightLeg" position="190,-50" />
+      <limbposition limb="LeftLeg" position="190,-50" />
+      <limbposition limb="RightHand" position="145,-25" allowusinglimb="true" />
+      <limbposition limb="LeftHand" position="145,-25" allowusinglimb="true" />
+    </Controller>
+  </Item>
+
   <!-- nexshops -->
   <Item name="Nexshop" identifier="nexshop1" tags="nexshop" width="238" height="396" texturescale="1.0,1.0" scale="0.5" category="Machine,Decorative">
     <sprite texture="shop.png" sourcerect="1,0,238,396" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />

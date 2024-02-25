@@ -48,3 +48,7 @@ Hook.Add("client.disconnected", "DD.discordClientDisconnect", function (disconne
 		end
 	end
 end)
+
+if SERVER and Game.ServerSettings.IsPublic then
+	discordChatMessage('00| Server is up and running!')
+end
