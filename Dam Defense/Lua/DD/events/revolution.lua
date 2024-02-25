@@ -31,10 +31,10 @@ end, {
 		self.rebelsSet = DD.toSet(self.rebels)
 		for client in DD.arrShuffle(Client.ClientList) do
 			local chance = -1
-			if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
 				chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
 			end
-			if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and DD.isCharacterSecurity(client.Character) then
 				table.insert(self.security, client)
 			elseif (math.random() < chance) and pickRebels then
 				table.insert(self.rebels, client)
@@ -45,7 +45,7 @@ end, {
 		if DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3) then
 			for client in DD.arrShuffle(Client.ClientList) do
 				local chance = -1
-				if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and DD.eventDirector.isClientBelowEventCap(client) then
+				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and DD.eventDirector.isClientBelowEventCap(client) then
 					chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
 					if chance ~= -1 then chance = 1 end
 				end
@@ -60,7 +60,8 @@ end, {
 			end
 		end
 		
-		if (DD.tableSize(self.rebels) <= 0) or (DD.tableSize(self.security) <= 0) then
+		-- Event requires 2 (or more) rebel leaders and (1 or more) security personnel
+		if (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0) then
 			self.fail()
 			return
 		else

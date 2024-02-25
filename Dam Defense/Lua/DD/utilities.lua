@@ -189,6 +189,25 @@ DD.stringReplace = function(str, tbl)
 	return formatted
 end
 
+-- Checks if a string has another string
+DD.stringHas = function(strMain, strSub)
+	local build = ''
+	local letter = ''
+	for letterCount = 1, #strMain do
+		letter = string.sub(strMain, letterCount, letterCount)
+		if letter == string.sub(strSub, #build + 1, #build + 1) then
+			build = build .. letter
+		else
+			build = ''
+		end
+		if build == strSub then
+			return true
+		end
+	end
+	return false
+end
+
+
 -- Search for any instances of a substring in a string and return a table (array) with their start positions
 DD.stringFind = function (str, substr)
 	local tbl = {}
@@ -627,4 +646,28 @@ end
 DD.messageAllClients = function (text, data)
 	if CLIENT then return end
 	DD.messageClients(Client.ClientList, text, data)
+end
+
+-- Opens or closes a door
+DD.setDoorState = function (item, state)
+	item.GetComponentString('Door').isOpen = state
+	if SERVER then
+		local prop = item.GetComponentString('Door').SerializableProperties[Identifier("IsOpen")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('Door')))
+	end
+end
+
+-- Enables or disables a light
+DD.setLightState = function (item, state)
+	item.GetComponentString('LightComponent').isOn = state
+	if SERVER then
+		local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("IsOn")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
+	end
+end
+
+-- Enables or disables respawning
+DD.setAllowRespawning = function (state)
+	Game.OverrideRespawnSub(not state)
+	DD.allowRespawning = state
 end

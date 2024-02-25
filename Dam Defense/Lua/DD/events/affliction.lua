@@ -15,7 +15,10 @@ DD.eventAffliction = DD.class(DD.eventBase, nil, {
 	onStart = function (self)
 		local infected = 0
 		for client in DD.arrShuffle(Client.ClientList) do
-			if DD.isClientCharacterAlive(client) and infected < math.ceil(#Client.ClientList * self.ratio) then
+			if DD.isClientCharacterAlive(client) and
+			(client.Character.SpeciesName == 'human') and
+			(infected < math.ceil(#Client.ClientList * self.ratio)) and
+			DD.isCharacterUsingHullOxygen(client.Character) then
 				DD.giveAfflictionCharacter(client.Character, self.identifier, self.minamount + math.max(0, self.maxamount - self.minamount) * math.random())
 				infected = infected + 1
 			end

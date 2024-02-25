@@ -28,7 +28,7 @@ end, {
 		for client in Client.ClientList do
 			if client ~= self.target then
 				local preset = 'info'
-				if (client.Character ~= nil) and DD.isCharacterSecurity(client.Character) then preset = 'crit' end
+				if (client.Character ~= nil) and (client.Character.SpeciesName == 'human') and DD.isCharacterSecurity(client.Character) then preset = 'crit' end
 				if self.isTargetKnown then
 					DD.messageClient(client, self.target.Name .. ' has been charged with ' .. self.charge .. ' and must be lawfully arrested!', {preset = preset})
 				else
@@ -68,7 +68,7 @@ end, {
 -- Tasks security with (ideally) arresting a player for a silly reason
 DD.eventArrest1984 = DD.class(DD.eventArrest, function (self)
 	for client in DD.arrShuffle(Client.ClientList) do
-		if DD.isClientCharacterAlive(client) and (not client.Character.IsArrested) and (not DD.isCharacterSecurity(client.Character)) and DD.eventDirector.isClientBelowEventCap(client) then
+		if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (not DD.isCharacterSecurity(client.Character)) and DD.eventDirector.isClientBelowEventCap(client) then
 			self.target = client
 			break
 		end

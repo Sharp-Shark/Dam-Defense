@@ -1,3 +1,5 @@
+if CLIENT and Game.IsMultiplayer then return end
+
 -- Dam Defense table
 DD = {}
 
@@ -9,6 +11,10 @@ DD.debugMode = false
 
 -- Warnings to be printed once mod finishes loading
 DD.warnings = {}
+
+-- Allow respawing
+DD.allowRespawning = true
+DD.disableRespawningAfter = 60 * 45
 
 -- Json
 json = dofile(DD.path .. "/Lua/json.lua")
@@ -41,7 +47,11 @@ local doRoundStartFunctions = function ()
 	end
 end
 DD.roundStartFunctions.main = function ()
-	Game.OverrideRespawnSub(false)
+	DD.setAllowRespawning(true)
+	if Game.RoundStarted then
+		Submarine.MainSub.LockX = true
+		Submarine.MainSub.LockY = true
+	end
 
 	DD.roundData = {}
 	DD.roundEnding = false
@@ -85,6 +95,12 @@ DD.thinkFunctions.main = function ()
 	
 	if #Client.ClientList == 1 then return end
 	
+	-- After 30 minutes disable respawing
+	if DD.allowRespawning and (DD.roundTimer > DD.disableRespawningAfter) then
+		DD.setAllowRespawning(false)
+	end
+	
+	-- End round if everyone is dead
 	local anyHumanAlive = false
 	for client in Client.ClientList do
 		if DD.isClientCharacterAlive(client) and client.Character.SpeciesName == 'human' then
@@ -92,7 +108,6 @@ DD.thinkFunctions.main = function ()
 			break
 		end
 	end
-	
 	if not anyHumanAlive then
 		DD.messageAllClients('All of the crew is dead! Round ending in 10 seconds.', {preset = 'crit'})
 		DD.roundData.roundEnding = true
@@ -199,6 +214,7 @@ require 'DD/afflictions'
 require 'DD/eventDirector'
 require 'DD/money'
 require 'DD/commands'
+require 'DD/discord'
 
 -- Save file
 DD.saving.boot()

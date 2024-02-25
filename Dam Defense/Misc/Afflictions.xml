@@ -1,6 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
 
+  <!-- stun vulnerability -->
+  <Affliction
+    name="Handcuffed"
+    identifier="handcuffed"
+    description=""
+    type="debuff"
+    isbuff="false"
+    limbspecific="false"
+    maxstrength="1"
+    MedicalSkillGain="0.01"
+    showiconthreshold="999"
+    showicontoothersthreshold="999"
+    showinhealthscannerthreshold="999"
+    iconcolors="60,140,195,255;60,107,195,255;60,0,195,255">
+    <Effect minstrength="0" maxstrength="1" strengthchange="-0.35" resistancefor="stun" minresistance="0.0" maxresistance="-4.0" />
+    <Icon texture="Content/UI/TalentsIcons3.png" sheetindex="0,1" sheetelementsize="128,128" color="255,255,255,255" origin="0,0"/>
+  </Affliction>
+
   <!-- husk infection overriden to increase lethality and make it use immune afflictions -->
   <Override>
   <AfflictionHusk
@@ -143,11 +161,12 @@
     showiconthreshold="999"
     showicontoothersthreshold="999"
     showinhealthscannerthreshold="999">
-    <Effect minstrength="0" maxstrength="100" strengthchange="-50" minspeedmultiplier="1.0" maxspeedmultiplier="0.0" resistancefor="stun,damage" minresistance="0.0" maxresistance="1.0" >
+    <Effect minstrength="0" maxstrength="100" strengthchange="-50" minspeedmultiplier="1.0" maxspeedmultiplier="0.0" resistancefor="stun" minresistance="0.0" maxresistance="1.0" >
       <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
         <ReduceAffliction type="stun" strength="2.0"/>
       </StatusEffect>
 	</Effect>
+    <Effect minstrength="0" maxstrength="100" resistancefor="damage" minresistance="0.0" maxresistance="0.5" />
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="128,896,128,128" color="10,193,114,255" origin="0,0"/>
   </Affliction>
   

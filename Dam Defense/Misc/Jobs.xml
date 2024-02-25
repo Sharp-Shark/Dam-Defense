@@ -153,9 +153,9 @@
       <Item identifier="toolbelt" equip="true">
         <Item identifier="pistolmagazine" />
         <Item identifier="pistolmagazine" />
-        <Item identifier="flashlight" >
-		  <Item identifier="batterycell"/>
-	    </Item>
+        <Item identifier="divingflashlight">
+          <Item identifier="batterycell"/>
+        </Item>
         <Item identifier="crowbar"/>
 	    <Item identifier="oxygentank"/>
 	  </Item>
@@ -195,9 +195,9 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
-        <Item identifier="flashlight" >
-		  <Item identifier="batterycell"/>
-	    </Item>
+        <Item identifier="divingflashlight">
+          <Item identifier="batterycell"/>
+        </Item>
         <Item identifier="crowbar"/>
 	    <Item identifier="oxygentank"/>
 	  </Item>
@@ -343,8 +343,18 @@
       <Item identifier="securityuniform1" equip="true" outfit="true"/>
       <Item identifier="bodyarmor" equip="true">
 	    <Item identifier="handcuffs" />
-        <Item identifier="pistolmagazine" />
-        <Item identifier="pistolmagazine" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
 	  </Item>
       <Item identifier="idcard" equip="true">
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
@@ -369,8 +379,6 @@
         <Item identifier="stungundart" />
         <Item identifier="stungundart" />
       </Item>
-      <Item identifier="stungundart" />
-      <Item identifier="stungundart" />
       <Item identifier="stunbaton">
         <Item identifier="batterycell"/>
       </Item>
@@ -390,18 +398,18 @@
       <Item identifier="securityuniform1" equip="true" outfit="true"/>
       <Item identifier="bodyarmor" equip="true">
 	    <Item identifier="handcuffs" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
-        <Item identifier="revolverround" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
 	  </Item>
       <Item identifier="idcard" equip="true">
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
@@ -441,8 +449,6 @@
         <Item identifier="stungundart" />
         <Item identifier="stungundart" />
       </Item>
-      <Item identifier="stungundart" />
-      <Item identifier="stungundart" />
       <Item identifier="stunbaton">
         <Item identifier="batterycell"/>
       </Item>
@@ -864,6 +870,9 @@
       <Item identifier="underwaterscooter">
         <Item identifier="batterycell"/>
       </Item>
+      <Item identifier="divingflashlight">
+        <Item identifier="batterycell"/>
+      </Item>
       <Item identifier="plasmacutter">
         <Item identifier="oxygentank"/>
       </Item>
@@ -923,6 +932,9 @@
         <Item identifier="revolverround" />
       </Item>
       <Item identifier="underwaterscooter">
+        <Item identifier="batterycell"/>
+      </Item>
+      <Item identifier="divingflashlight">
         <Item identifier="batterycell"/>
       </Item>
       <Item identifier="plasmacutter">
@@ -1077,6 +1089,15 @@
 	<!-- Riflemen -->
     <ItemSet>
       <Item identifier="idcard" equip="true">
+	    <!-- 50 nexcredits -->
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	  </Item>
@@ -1086,13 +1107,8 @@
       </Item>
       <Item identifier="jetmask" equip="true" />
       <Item identifier="piratebodyarmor" equip="true">
-	    <Item identifier="762magazine" />
-	    <Item identifier="762magazine" />
 		<Item identifier="oxygentank"/>
 	  </Item>
-      <Item identifier="separatistrifle">
-	    <Item identifier="762magazine" />
-      </Item>
       <Item identifier="antiquerevolver" equip="false">
         <Item identifier="handcannonround" />
         <Item identifier="handcannonround" />
@@ -1101,13 +1117,7 @@
         <Item identifier="handcannonround" />
         <Item identifier="handcannonround" />
       </Item>
-	  <Item identifier="762magazine" />
-	  <Item identifier="762magazine" />
-      <Item identifier="antibloodloss1" />
       <Item identifier="antidama1" />
-      <Item identifier="antidama1" />
-      <Item identifier="antibleeding1" />
-      <Item identifier="antibleeding1" />
       <Item identifier="antibleeding1" />
       <Item identifier="antibleeding1" />
       <Item identifier="plasmacutter">

@@ -11,16 +11,59 @@
       <Price storeidentifier="merchantmilitary" sold="false" />
       <Price storeidentifier="merchantmine" sold="false" />
     </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="plastic" amount="2" />
+      <RequiredItem identifier="copper" amount="2" />
+      <RequiredItem identifier="fpgacircuit" amount="1" />
+    </Fabricate>
     <Sprite texture="boombox.png" sourcerect="0,0,100,64" depth="0.6" origin="0.5,0.5" />
     <Body radius="30" height="30" width="60" density="12" />
-    <RangedWeapon reload="1" />
-    <Holdable slots="RightHand,LeftHand" controlpose="false" aimable="false" aimpos="0, -120" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect">
-      <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
+    <MeleeWeapon slots="RightHand,LeftHand" controlpose="true" aimpos="45,10" handle1="0,16" holdangle="90" reload="1" range="50" combatpriority="6" msg="ItemMsgPickUpSelect" DisableWhenRangedWeaponEquipped="true">
+      <!-- music -->
+	  <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
-        <sound file="%ModDir%/Items/sweethomealabama.ogg" volume="1.5" selectionmode="CharacterSpecific" range="1200" loop="true" />
+        <sound file="%ModDir%/Items/sweethomealabama.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
 		<Conditional condition="gt 0.0" />
       </StatusEffect>
-    </Holdable>
+	  <!-- boomboxes can be used as a melee (has stun if a battery is inside) -->
+	  <Attack structuredamage="1" itemdamage="2" targetimpulse="2">
+        <Affliction identifier="blunttrauma" strength="6" />
+        <Affliction identifier="stun" strength="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+      <!-- keep weight check in place for now (affect targets with mass < 60) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.4" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="mobilebattery" ExcludedIdentifiers="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.1" shockwave="false" flames="false" smoke="false" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 60" />
+      </StatusEffect>
+      <!-- keep weight check in place for now (affect targets with mass < 150) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.55" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.5" shockwave="false" flames="false" smoke="true" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 150" />
+      </StatusEffect>
+      <!-- 5 usages with normal battery -->
+      <StatusEffect type="OnUse" target="Contained,UseTarget" Condition="-20.0" disabledeltatime="true">
+        <RequiredItem items="mobilebattery" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Conditional entitytype="eq Character" />
+      </StatusEffect>
+    </MeleeWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
       <Containable items="mobilebattery">
@@ -39,16 +82,59 @@
       <Price storeidentifier="merchantmilitary" sold="false" />
       <Price storeidentifier="merchantmine" sold="false" />
     </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="plastic" amount="2" />
+      <RequiredItem identifier="copper" amount="2" />
+      <RequiredItem identifier="fpgacircuit" amount="1" />
+    </Fabricate>
     <Sprite texture="boombox.png" sourcerect="100,0,100,64" depth="0.6" origin="0.5,0.5" />
     <Body radius="30" height="30" width="60" density="12" />
-    <RangedWeapon reload="1" />
-    <Holdable slots="RightHand,LeftHand" controlpose="false" aimable="false" aimpos="0, -120" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon slots="RightHand,LeftHand" controlpose="true" aimpos="45,10" handle1="0,16" holdangle="90" reload="1" range="50" combatpriority="6" msg="ItemMsgPickUpSelect" DisableWhenRangedWeaponEquipped="true">
+      <!-- music -->
       <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
-        <sound file="%ModDir%/Items/virtualinsanity.ogg" volume="1.5" selectionmode="CharacterSpecific" range="1200" loop="true" />
+        <sound file="%ModDir%/Items/virtualinsanity.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
         <Conditional condition="gt 0.0" />
       </StatusEffect>
-    </Holdable>
+	  <!-- boomboxes can be used as a melee (has stun if a battery is inside) -->
+	  <Attack structuredamage="1" itemdamage="2" targetimpulse="2">
+        <Affliction identifier="blunttrauma" strength="6" />
+        <Affliction identifier="stun" strength="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+      <!-- keep weight check in place for now (affect targets with mass < 60) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.4" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="mobilebattery" ExcludedIdentifiers="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.1" shockwave="false" flames="false" smoke="false" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 60" />
+      </StatusEffect>
+      <!-- keep weight check in place for now (affect targets with mass < 150) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.55" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.5" shockwave="false" flames="false" smoke="true" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 150" />
+      </StatusEffect>
+      <!-- 5 usages with normal battery -->
+      <StatusEffect type="OnUse" target="Contained,UseTarget" Condition="-20.0" disabledeltatime="true">
+        <RequiredItem items="mobilebattery" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Conditional entitytype="eq Character" />
+      </StatusEffect>
+    </MeleeWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
       <Containable items="mobilebattery">
@@ -67,16 +153,59 @@
       <Price storeidentifier="merchantmilitary" sold="false" />
       <Price storeidentifier="merchantmine" sold="false" />
     </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="iron" amount="2" />
+      <RequiredItem identifier="copper" amount="2" />
+      <RequiredItem identifier="fpgacircuit" amount="1" />
+    </Fabricate>
     <Sprite texture="boombox.png" sourcerect="200,0,100,64" depth="0.6" origin="0.5,0.5" />
     <Body radius="30" height="30" width="60" density="12" />
-    <RangedWeapon reload="1" />
-    <Holdable slots="RightHand,LeftHand" controlpose="false" aimable="false" aimpos="0, -120" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon slots="RightHand,LeftHand" controlpose="true" aimpos="45,10" handle1="0,16" holdangle="90" reload="1" range="50" combatpriority="6" msg="ItemMsgPickUpSelect" DisableWhenRangedWeaponEquipped="true">
+      <!-- music -->
       <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
-        <sound file="%ModDir%/Items/entersandman.ogg" volume="1.5" selectionmode="CharacterSpecific" range="1200" loop="true" />
+        <sound file="%ModDir%/Items/entersandman.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
 		<Conditional condition="gt 0.0" />
       </StatusEffect>
-    </Holdable>
+	  <!-- boomboxes can be used as a melee (has stun if a battery is inside) -->
+	  <Attack structuredamage="1" itemdamage="2" targetimpulse="2">
+        <Affliction identifier="blunttrauma" strength="6" />
+        <Affliction identifier="stun" strength="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+      <!-- keep weight check in place for now (affect targets with mass < 60) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.4" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="mobilebattery" ExcludedIdentifiers="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.1" shockwave="false" flames="false" smoke="false" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 60" />
+      </StatusEffect>
+      <!-- keep weight check in place for now (affect targets with mass < 150) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.55" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.5" shockwave="false" flames="false" smoke="true" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 150" />
+      </StatusEffect>
+      <!-- 5 usages with normal battery -->
+      <StatusEffect type="OnUse" target="Contained,UseTarget" Condition="-20.0" disabledeltatime="true">
+        <RequiredItem items="mobilebattery" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Conditional entitytype="eq Character" />
+      </StatusEffect>
+    </MeleeWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
       <Containable items="mobilebattery">
@@ -95,16 +224,59 @@
       <Price storeidentifier="merchantmilitary" sold="false" />
       <Price storeidentifier="merchantmine" sold="false" />
     </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="plastic" amount="2" />
+      <RequiredItem identifier="copper" amount="2" />
+      <RequiredItem identifier="rum" amount="1" />
+    </Fabricate>
     <Sprite texture="boombox.png" sourcerect="300,0,100,64" depth="0.6" origin="0.5,0.5" />
     <Body radius="30" height="30" width="60" density="12" />
-    <RangedWeapon reload="1" />
-    <Holdable slots="RightHand,LeftHand" controlpose="false" aimable="false" aimpos="0, -120" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon slots="RightHand,LeftHand" controlpose="true" aimpos="45,10" handle1="0,16" holdangle="90" reload="1" range="50" combatpriority="6" msg="ItemMsgPickUpSelect" DisableWhenRangedWeaponEquipped="true">
+      <!-- music -->
       <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
-        <sound file="%ModDir%/Items/banditradio.ogg" volume="1.5" selectionmode="CharacterSpecific" range="1200" loop="true" />
+        <sound file="%ModDir%/Items/banditradio.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
 		<Conditional condition="gt 0.0" />
       </StatusEffect>
-    </Holdable>
+	  <!-- boomboxes can be used as a melee (has stun if a battery is inside) -->
+	  <Attack structuredamage="1" itemdamage="2" targetimpulse="2">
+        <Affliction identifier="blunttrauma" strength="6" />
+        <Affliction identifier="stun" strength="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+      <!-- keep weight check in place for now (affect targets with mass < 60) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.4" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="mobilebattery" ExcludedIdentifiers="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.1" shockwave="false" flames="false" smoke="false" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 60" />
+      </StatusEffect>
+      <!-- keep weight check in place for now (affect targets with mass < 150) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.55" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.5" shockwave="false" flames="false" smoke="true" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 150" />
+      </StatusEffect>
+      <!-- 5 usages with normal battery -->
+      <StatusEffect type="OnUse" target="Contained,UseTarget" Condition="-20.0" disabledeltatime="true">
+        <RequiredItem items="mobilebattery" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Conditional entitytype="eq Character" />
+      </StatusEffect>
+    </MeleeWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
       <Containable items="mobilebattery">
@@ -123,16 +295,59 @@
       <Price storeidentifier="merchantmilitary" sold="false" />
       <Price storeidentifier="merchantmine" sold="false" />
     </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="plastic" amount="2" />
+      <RequiredItem identifier="copper" amount="2" />
+      <RequiredItem identifier="bikehorn" amount="1" />
+    </Fabricate>
     <Sprite texture="boombox.png" sourcerect="400,0,100,64" depth="0.6" origin="0.5,0.5" />
     <Body radius="30" height="30" width="60" density="12" />
-    <RangedWeapon reload="1" />
-    <Holdable slots="RightHand,LeftHand" controlpose="false" aimable="false" aimpos="0, -120" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon slots="RightHand,LeftHand" controlpose="true" aimpos="45,10" handle1="0,16" holdangle="90" reload="1" range="50" combatpriority="6" msg="ItemMsgPickUpSelect" DisableWhenRangedWeaponEquipped="true">
+      <!-- music -->
       <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
-        <sound file="%ModDir%/Items/title3.ogg" volume="1.5" selectionmode="CharacterSpecific" range="1200" loop="true" />
+        <sound file="%ModDir%/Items/title3.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
 		<Conditional condition="gt 0.0" />
       </StatusEffect>
-    </Holdable>
+	  <!-- boomboxes can be used as a melee (has stun if a battery is inside) -->
+	  <Attack structuredamage="1" itemdamage="2" targetimpulse="2">
+        <Affliction identifier="blunttrauma" strength="6" />
+        <Affliction identifier="stun" strength="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+      <!-- keep weight check in place for now (affect targets with mass < 60) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.4" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="mobilebattery" ExcludedIdentifiers="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.1" shockwave="false" flames="false" smoke="false" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 60" />
+      </StatusEffect>
+      <!-- keep weight check in place for now (affect targets with mass < 150) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.55" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.5" shockwave="false" flames="false" smoke="true" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 150" />
+      </StatusEffect>
+      <!-- 5 usages with normal battery -->
+      <StatusEffect type="OnUse" target="Contained,UseTarget" Condition="-20.0" disabledeltatime="true">
+        <RequiredItem items="mobilebattery" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Conditional entitytype="eq Character" />
+      </StatusEffect>
+    </MeleeWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
       <Containable items="mobilebattery">

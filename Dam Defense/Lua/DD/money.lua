@@ -180,6 +180,11 @@ DD.chatMessageFunctions.withdrawMoney = function (message, sender)
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 		return true
 	end
+	if sender.Character.SpeciesName ~= 'human' then
+		local message = 'Error! Non-human lifeform detected.'
+		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		return true
+	end
 	if (DD.roundData.withdrawCooldown[sender] ~= nil) and (DD.roundData.withdrawCooldown[sender] > 0) then
 		local message = 'You have to wait {timer} before you can withdraw again.'
 		DD.messageClient(sender, DD.stringReplace(message, {timer = DD.numberToTime(DD.roundData.withdrawCooldown[sender])}), {preset = 'command'})

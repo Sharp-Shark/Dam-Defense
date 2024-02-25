@@ -6,6 +6,7 @@ require 'DD/events/ghostRole'
 require 'DD/events/airdrop'
 require 'DD/events/fish'
 require 'DD/events/affliction'
+require 'DD/events/blackout'
 require 'DD/events/arrest'
 require 'DD/events/murder'
 require 'DD/events/revolution'
@@ -30,6 +31,7 @@ DD.eventDirector.eventPool = {
 	DD.eventArrest1984,
 	DD.eventAfflictionFlu,
 	DD.eventAfflictionTB,
+	DD.eventBlackout,
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}
@@ -259,6 +261,13 @@ end
 
 -- Called every 1/2 a second
 DD.thinkFunctions.eventDirector = function ()
+	-- Respawning is disabled if there are ongoing main events
+	if (#DD.eventDirector.getMainEvents() > 0) then
+		DD.setAllowRespawning(false)
+	elseif not (DD.roundTimer > DD.disableRespawningAfter) then
+		DD.setAllowRespawning(true)
+	end
+	
 	if (DD.eventDirector.mainEvent ~= nil) and DD.eventDirector.mainEvent.finished then
 		DD.eventDirector.cooldown = DD.eventDirector.mainEvent.cooldown / 2
 		DD.eventDirector.mainEventCooldown = DD.eventDirector.mainEvent.cooldown

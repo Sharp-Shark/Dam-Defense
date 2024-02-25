@@ -1,9 +1,9 @@
 -- Warning: how the mod interacts with husk is hard-coded since husk infection is different from the mod's diseases in some pretty fundamental ways
 
 DD.diseaseData = {
-	flu = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.3},
-	bacterial = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.15, necrotic = true},
-	tb = {immune = 1.5, immuneVisibility = 0.5, spreadChance = 0.3, necrotic = true}
+	flu = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.3, symptomChance = 0.5},
+	bacterial = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.15, necrotic = true, symptomChance = 0.5},
+	tb = {immune = 1.5, immuneVisibility = 0.5, spreadChance = 0.3, necrotic = true, symptomChance = 0.5}
 }
 local getDiseaseStat = function (diseaseName, statName)
 	local stat = DD.diseaseData[diseaseName][statName]
@@ -12,6 +12,7 @@ local getDiseaseStat = function (diseaseName, statName)
 		if statName == 'immuneVisibility' then return 1 end
 		if statName == 'spreadChance' then return 0 end
 		if statName == 'necrotic' then return false end
+		if statName == 'symptomChance' then return 1.0 end
 	else
 		return stat
 	end
@@ -80,6 +81,7 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
 		amount = amount + fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'payload', true)
 		amount = amount + fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
+		amount = amount * math.random()
 		local infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		local hidden = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
 		if diseaseName == 'husk' then
@@ -87,11 +89,11 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 			infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
 			hidden = 0
 		end
-		if (infection + hidden <= 0) and (math.random() <= chance) then
+		if (infection + hidden <= 0) and (math.random() <= chance) and (amount > 0) then
 			if diseaseName == 'husk' then
-				DD.giveAfflictionCharacter(toCharacter, 'huskinfection', amount * math.random())
+				DD.giveAfflictionCharacter(toCharacter, 'huskinfection', amount)
 			else
-				DD.giveAfflictionCharacter(toCharacter, diseaseName .. 'hidden', amount * math.random())
+				DD.giveAfflictionCharacter(toCharacter, diseaseName .. 'hidden', amount)
 			end
 		end
 	end
@@ -107,7 +109,12 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 		(Vector2.Distance(character.WorldPosition, other.WorldPosition) < 750) then
 			spreadDiseaseToCharacter(other, character, 'husk', 0.15)
 			for diseaseName, data in pairs(DD.diseaseData) do
-				spreadDiseaseToCharacter(other, character, diseaseName, getDiseaseStat(diseaseName, 'spreadChance'))
+				local chance = getDiseaseStat(diseaseName, 'spreadChance')
+				if character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) > 0 then
+					spreadDiseaseToCharacter(other, character, diseaseName, chance)
+				else
+					spreadDiseaseToCharacter(other, character, diseaseName, chance / 2)
+				end
 			end
 		end
 	end
@@ -121,7 +128,9 @@ Hook.Add("afflictionUpdate", "DD.bacterialgangrene", function (affliction, chara
 	if affliction.Prefab.AfflictionType == 'infectionhidden' then
 		if (math.random() * 2 * 10^3 < 1) or (affliction.Strength >= affliction.Prefab.MaxStrength) then
 			local name = DD.stringSplit(tostring(affliction.Prefab.Identifier), 'hidden')[1]
-			DD.giveAfflictionCharacter(character, name .. 'payload', affliction.Strength * (0.5 + math.random()))
+			if math.random() < getDiseaseStat(name, 'symptomChance') then
+				DD.giveAfflictionCharacter(character, name .. 'payload', affliction.Strength * (0.5 + math.random()))
+			end
 			affliction.SetStrength(0)
 		end
 	end

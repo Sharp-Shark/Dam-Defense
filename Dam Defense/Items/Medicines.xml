@@ -1,6 +1,129 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
   <Override>
+  <!-- saline can be bought at nukieshop -->
+  <Saline name="" identifier="antibloodloss1" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,chem,medical,petfood1,petfood2,petfood3" useinhealthinterface="true" description="" scale="0.5" impactsoundtag="impact_soft">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer secondary="wrecksupplycab,beaconsupplycab" amount="1" spawnprobability="0.1" />
+    <PreferredContainer secondary="wreckmedcab,abandonedmedcab" minamount="1" maxamount="3" spawnprobability="0.5" />
+    <PreferredContainer primary="medcab" secondary="medcontainer"/>
+    <Price baseprice="50" minavailable="12">
+      <Price storeidentifier="merchantoutpost"/>
+      <Price storeidentifier="merchantcity"/>
+      <Price storeidentifier="merchantresearch"/>
+      <Price storeidentifier="merchantmilitary"/>
+      <Price storeidentifier="merchantmine"/>
+      <Price storeidentifier="merchantmedical" multiplier="0.9"/>
+    </Price>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="4" />
+	</Fabricate>
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" amount="2" >
+      <RequiredSkill identifier="medical" level="5" />
+      <RequiredItem identifier="sodium"  />
+      <RequiredItem identifier="chlorine" amount="2" />
+    </Fabricate>
+    <Deconstruct time="5"/>
+    <SuitableTreatment type="bloodloss" suitability="30" />
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="960,640,64,64" origin="0.5,0.5" />
+    <Sprite texture="Medicines.png" sourcerect="0,261,83,46" depth="0.6" origin="0.5,0.5" />
+    <Body width="80" height="45" density="11" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect">
+      <RequiredSkill identifier="medical" level="40" />
+      <StatusEffect tags="medical" type="OnUse" target="This" Condition="-100.0" disabledeltatime="true">
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget, This" duration="10">>
+        <ReduceAffliction identifier="bloodloss" amount="2.5" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget, This" duration="10">
+        <ReduceAffliction identifier="bloodloss" amount="1.25" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+    <AiTarget sightrange="1000" static="true" />
+    <SkillRequirementHint identifier="medical" level="40" />
+  </Saline>
+  <!-- morphine can be bought at nukieshop -->
+  <Morphine name="" identifier="antidama1" aliases="Corrigodone" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer secondary="supplycab" minamount="1" maxamount="2" spawnprobability="0.5" notcampaign="true"/>
+    <PreferredContainer secondary="wrecksupplycab,beaconsupplycab" amount="1" spawnprobability="0.3" />
+    <PreferredContainer secondary="wreckmedcab,abandonedmedcab" minamount="1" maxamount="2" spawnprobability="0.8" />
+    <PreferredContainer secondary="outpostmedcab" minamount="1" maxamount="3" spawnprobability="0.5" />
+    <PreferredContainer secondary="outpostmedcompartment" amount="1" spawnprobability="0.2" />
+    <PreferredContainer secondary="outposttrashcan" amount="1" spawnprobability="0.1" />
+    <PreferredContainer secondary="researchcontainer" spawnprobability="0.02"/>
+    <PreferredContainer primary="medcab" secondary="medcontainer"/>
+    <Price baseprice="100" minavailable="12">
+      <Price storeidentifier="merchantoutpost"/>
+      <Price storeidentifier="merchantcity"/>
+      <Price storeidentifier="merchantresearch"/>
+      <Price storeidentifier="merchantmilitary"/>
+      <Price storeidentifier="merchantmine"/>
+      <Price storeidentifier="merchantmedical" multiplier="0.9"/>
+    </Price>
+    <SuitableTreatment type="damage" suitability="50" />
+    <SuitableTreatment identifier="opiatewithdrawal" suitability="30" />
+    <SuitableTreatment type="burn" suitability="1" />
+    <SuitableTreatment identifier="opiateoverdose" suitability="-10" />
+    <SuitableTreatment identifier="opiateaddiction" suitability="-5" />
+    <SuitableTreatment identifier="oxygenlow" suitability="-20" />
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="4" />
+	</Fabricate>
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="18" />
+      <RequiredItem identifier="opium" amount="2" />
+    </Fabricate>
+    <Deconstruct time="20">
+      <Item identifier="opium" />
+    </Deconstruct>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+    <Sprite texture="Medicines.png" sourcerect="0,0,37,69" depth="0.6" origin="0.5,0.5" />
+    <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <RequiredSkill identifier="medical" level="40" />
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="10">
+        <ReduceAffliction type="damage" amount="5" />
+        <ReduceAffliction type="burn" amount="0.1" />
+        <Affliction identifier="oxygenlow" amount="2" /> 
+        <Affliction identifier="opiateaddiction" amount="0.5" />
+        <Affliction identifier="opiateoverdose" amount="1.0" />
+        <ReduceAffliction identifier="opiatewithdrawal" amount="3.0" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="10">
+        <ReduceAffliction type="damage" amount="2.5" />
+        <ReduceAffliction type="burn" amount="0.05" />
+        <Affliction identifier="oxygenlow" amount="3" />
+        <Affliction identifier="opiateaddiction" amount="2.5" />
+        <Affliction identifier="opiateoverdose" amount="2.0" />
+        <ReduceAffliction identifier="opiatewithdrawal" amount="3.0" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnFailure" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+        <Affliction identifier="stun" amount="0.1" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </MeleeWeapon>
+    <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
+    <SkillRequirementHint identifier="medical" level="40" />
+  </Morphine>
   <!-- protein bar has a chance to give a random bacterial infection -->
   <ProteinBar name="" identifier="proteinbar" category="Medical,Material" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,medical" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
@@ -157,6 +280,9 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="1" />
 	</Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="1" />
+	</Fabricate>
     <InventoryIcon texture="Content/Items/JobGear/TalentGear.png" sourcerect="174,234,42,50" origin="0.5,0.5" />
     <Sprite texture="Content/Items/JobGear/TalentGear.png" sourcerect="0,60,50,12" depth="0.55" origin="0.5,0.5" />
     <Body width="45" height="10" density="9.9"/>
@@ -200,6 +326,9 @@
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="5" />
+	</Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="4" />
 	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="384,768,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="379,452,27,58" depth="0.6" origin="0.5,0.5" />
@@ -409,6 +538,9 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="5" />
 	</Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="4" />
+	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" >
       <RequiredSkill identifier="medical" level="40" />
       <RequiredItem identifier="bacterialsyringe" />
@@ -443,7 +575,7 @@
       <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
         <Conditional huskinfection="lt 75.0" />
-        <ReduceAffliction identifier="huskinfection" amount="0.5" />
+        <ReduceAffliction identifier="huskinfection" amount="2" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnSuccess" duration="60.0">
         <Affliction identifier="organdamage" amount="0.55" />
@@ -460,7 +592,7 @@
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="60.0">
         <Conditional huskinfection="lt 75.0" />
-        <ReduceAffliction identifier="huskinfection" amount="0.25" />
+        <ReduceAffliction identifier="huskinfection" amount="1" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="Limb" duration="60.0">
         <Affliction identifier="organdamage" amount="1.0" />
@@ -566,6 +698,9 @@
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="2" />
+	</Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="2" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" amount="2">
       <RequiredSkill identifier="medical" level="5" />

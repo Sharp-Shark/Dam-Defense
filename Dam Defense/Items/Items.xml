@@ -78,12 +78,96 @@
     <Wearable slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" autoequipwhenfull="false">
       <sprite texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="RightHand" sourcerect="462,1,25,16" origin="0.5,0.8" depth="0.09" inheritlimbdepth="false" inherittexturescale="true" />
       <sprite texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="LeftHand" sourcerect="487,1,25,16" origin="0.5,0.8" depth="0.09" inheritlimbdepth="true" inherittexturescale="true" />
-      <StatusEffect type="OnWearing" target="Character" lockhands="true" SpeedMultiplier="0.75" setvalue="true" />
-	  <StatusEffect type="OnWearing" target="This" Condition="-0.8" />
+      <StatusEffect type="OnWearing" target="Character" lockhands="true" SpeedMultiplier="0.75" setvalue="true">
+        <Affliction identifier="handcuffed" amount="1" />
+	  </StatusEffect>
+	  <StatusEffect type="OnWearing" target="This" Condition="-0.65" />
       <StatusEffect type="OnBroken" target="This">
         <Remove />
       </StatusEffect>
     </Wearable>
+  </Item>
+  <!-- stunbaton remains usable without a battery but deals no incremental stun -->
+  <Item name="" identifier="stunbaton" category="Weapon" Tags="smallitem,weapon,stunner,gunsmith,mountableweapon" Scale="0.5" cargocontaineridentifier="metalcrate" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <PreferredContainer secondary="outpostsecarmcab" amount="1" spawnprobability="0.5" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1" spawnprobability="0.1" />
+    <PreferredContainer primary="secarmcab" secondary="armcab" />
+    <Upgrade gameversion="0.9.2.0" scale="0.5" />
+    <Price baseprice="200">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.35" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="2" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="6" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="6" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+      <Item identifier="plastic" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="plastic" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="770,0,58,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,191,63" depth="0.55" origin="0.4954025,0.7936202" />
+    <Body width="170" height="30" density="20" />
+    <MeleeWeapon slots="Any,RightHand,LeftHand" aimpos="40,20" handle1="-30,15" holdangle="20" aimangle="30" reload="0.95" range="100" combatPriority="35" msg="ItemMsgPickUpSelect" preferredcontaineditems="mobilebattery">
+      <Attack targetimpulse="5" itemdamage="1">
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500" />
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+        <Affliction identifier="blunttrauma" strength="4" />
+        <Affliction identifier="stun" strength="0.2" />
+      </Attack>
+	  <!-- give stun if target is handcuffed -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.3" />
+		<Condition isarrested="true" />
+      </StatusEffect>
+      <!-- changed to use incremental stun: normal batteries cause 40 points of incremental stun -> full stun in three consecutive hits -->
+      <!-- keep weight check in place for now (affect targets with mass < 60) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.3" />
+        <Affliction identifier="incrementalstun" strength="40" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="mobilebattery" ExcludedIdentifiers="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.1" shockwave="false" flames="false" smoke="false" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 60" />
+      </StatusEffect>
+      <!-- changed to use incremental stun: fulgurium batteries cause 55 points of incremental stun -> full stun in two consecutive hits -->
+      <!-- keep weight check in place for now (affect targets with mass < 150) -->
+      <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="stun" strength="0.3" />
+        <Affliction identifier="incrementalstun" strength="55" />
+        <sound file="Content/Items/Weapons/StunBaton1.ogg" selectionmode="random" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton2.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton3.ogg" range="500" />
+        <sound file="Content/Items/Weapons/StunBaton4.ogg" range="500" />
+        <RequiredItem items="fulguriumbatterycell" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Explosion range="100.0" force="0.5" shockwave="false" flames="false" smoke="true" underwaterbubble="false" camerashake="6.0" />
+        <Conditional mass="lt 150" />
+      </StatusEffect>
+      <!-- 4 usages with normal battery -->
+      <StatusEffect type="OnUse" target="Contained,UseTarget" Condition="-25.0" disabledeltatime="true">
+        <RequiredItem items="mobilebattery" type="Contained" msg="ItemMsgBatteryCellRequired" />
+        <Conditional entitytype="eq Character" />
+      </StatusEffect>
+    </MeleeWeapon>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <Containable items="mobilebattery" />
+    </ItemContainer>
+    <aitarget sightrange="500" soundrange="500" fadeouttime="1" />
+    <Quality>
+      <QualityStat stattype="StrikingPowerMultiplier" value="0.25" />
+    </Quality>
   </Item>
   <!-- rubber is now craftable -->
   <Item name="" identifier="rubber" category="Material" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem" canbepicked="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft">
@@ -132,6 +216,9 @@
       <RequiredItem identifier="phosphorus" />
       <RequiredItem identifier="organicfiber" />
     </Deconstruct>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="5" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="weapons" level="10" />
       <RequiredItem identifier="phosphorus" />
@@ -196,6 +283,9 @@
       <RequiredItem identifier="steel" />
       <RequiredItem identifier="copper" />
     </Deconstruct>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="4" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="30">
       <RequiredSkill identifier="weapons" level="15" />
       <RequiredItem identifier="fpgacircuit" />
@@ -221,6 +311,176 @@
         </StatusEffect>
       </input>
     </ConnectionPanel>
+  </Item>
+  <!-- button can be bought at a nukieshop -->
+  <Item name="" identifier="button" category="Electrical" tags="smallitem,button" allowedlinks="door" linkable="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" isshootable="true" maxstacksize="8">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer primary="engcab"/>
+    <Price baseprice="125" minavailable="4">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" sold="false" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" />
+    </Price>
+    <Sprite texture="Content/Items/Button/button.png" sourcerect="28,70,34,51" depth="0.8" origin="0.5,0.5" />
+    <Deconstruct time="10">
+      <Item identifier="plastic" amount="2" />
+      <Item identifier="copper" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="1" />
+	</Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="25" />
+      <RequiredItem identifier="fpgacircuit" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <Body width="36" height="40" density="20" />
+    <Controller direction="None" canbepicked="true" msg="ItemMsgPressSelect">
+      <RequiredItem identifier="idcard" type="Picked" msg="ItemMsgUnauthorizedAccess" />
+      <sound file="Content/Items/Button/Button.ogg" type="OnUse" range="500.0" />
+    </Controller>
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem identifier="screwdriver" type="Equipped" />
+      <output name="signal_out" displayname="connection.signalout" />
+    </ConnectionPanel>
+    <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand" msg="ItemMsgDetachWrench" PickingTime="10.0" aimpos="35,-10" handle1="0,0" attachable="true" attachedbydefault="true" aimable="true">
+      <requireditem identifier="wrench" type="Equipped" />
+    </Holdable>
+  </Item>
+  <!-- red wire can be bought at a nukieshop -->
+  <Item name="" identifier="redwire" category="Electrical" Tags="smallitem,wire" maxstacksize="32" maxstacksizecharacterinventory="8" spritecolor="254,23,17,255" InventoryIconColor="254,23,17,255" canbepicked="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light">
+    <Price baseprice="10">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" sold="false"/>
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" />
+    </Price>
+    <PreferredContainer primary="engcab" amount="1" notcampaign="true"/>
+    <PreferredContainer secondary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab" amount="1" spawnprobability="0.1" />
+    <Deconstruct time="1"/>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="8">
+      <RequiredItem tag="fakemoney" amount="1" />
+	</Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="5" amount="5">
+      <RequiredItem identifier="copper" />
+      <RequiredItem identifier="rubber" />
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,64,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Electricity/signalcomp.png" depth="0.8" sourcerect="169,224,84,32" origin="0.5,0.5" />
+    <Body radius="14" width="60" density="15" />
+    <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <Wire />
+  </Item>
+  <!-- uex can be bought at a nukieshop -->
+  <Item name="" identifier="uex" category="Weapon" description="" Scale="0.5" Tags="smallitem,explosive,demolitionsexpert" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="explosivecrate" impactsoundtag="impact_soft">
+    <Upgrade gameversion="0.9.3.0" scale="0.5"/>
+    <PreferredContainer primary="secarmcab" minamount="1" maxamount="2" spawnprobability="0.5" notcampaign="true"/>
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1" spawnprobability="0.1"/>
+    <PreferredContainer secondary="armcab"/>
+    <Price baseprice="95" minavailable="4" minleveldifficulty="5">
+      <Price storeidentifier="merchantoutpost" multiplier="1.4" minavailable="2" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" sold="false"/>
+      <Price storeidentifier="merchantresearch" multiplier="1.25" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minleveldifficulty="0" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="50" />
+      <RequiredItem identifier="sodium" />
+      <RequiredItem identifier="phosphorus" />
+    </Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="4" />
+	</Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="897,896,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" depth="0.55" sourcerect="2,478,47,32" origin="0.5,0.5" />
+    <Body width="45" height="30" density="20" />
+    <Throwable characterusable="false" slots="Any,RightHand,LeftHand" canbecombined="true" removeoncombined="true" throwforce="3.5" aimpos="35,-10" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnUse" target="This" Condition="-100.0" disabledeltatime="true"/>
+      <StatusEffect type="OnBroken" target="This">
+        <sound file="Content/Items/Weapons/ExplosionMedium1.ogg" range="5000" />
+        <sound file="Content/Items/Weapons/ExplosionMedium2.ogg" range="5000" />
+        <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="5000" />
+        <Explosion range="500.0" ballastfloradamage="100" structuredamage="150" itemdamage="500" force="15" severlimbsprobability="0.5" debris="true" decal="explosion" decalsize="0.5" penetration="0.5">
+          <Affliction identifier="explosiondamage" strength="125" dividebylimbcount="true"/>
+          <Affliction identifier="burn" strength="15" probability="0.2" dividebylimbcount="false"/>
+          <Affliction identifier="bleeding" strength="40" probability="0.05" dividebylimbcount="false"/>
+          <Affliction identifier="stun" strength="7" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <sound file="Content/Items/Weapons/ExplosionDebris5.ogg" range="3500" />
+      </StatusEffect>
+    </Throwable>
+    <Quality>
+      <QualityStat stattype="ExplosionRadius" value="0.1"/>
+      <QualityStat stattype="ExplosionDamage" value="0.1"/>
+    </Quality>
+  </Item>
+  <!-- grenade can be bought at a nukieshop -->
+  <Item name="" identifier="fraggrenade" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="explosivecrate" tags="smallitem,weapon,explosive,demolitionsexpert" scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="secarmcab" minamount="1" maxamount="3" spawnprobability="0.75" notcampaign="true" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab" minamount="1" maxamount="2" spawnprobability="0.2" />
+    <PreferredContainer secondary="armcab" />
+    <Upgrade gameversion="0.9.3.0" scale="0.5" />
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.35" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="2" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="iron" />
+      <Item identifier="sodium" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="5" />
+	</Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="60" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="uex" />
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="580,770,54,63" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="217,305,40,61" depth="0.55" origin="0.5,0.5" />
+    <Body radius="20" height="10" density="30" />
+    <ItemComponent characterusable="false">
+      <!-- statuseffect that explodes the grenade when used by something else than a character (e.g. a detonator) -->
+      <StatusEffect type="OnUse" target="This" Condition="-100.0" disabledeltatime="true" />
+      <StatusEffect type="OnBroken" target="This">
+        <sound file="Content/Items/Weapons/ExplosionMedium1.ogg" range="5000" />
+        <sound file="Content/Items/Weapons/ExplosionMedium2.ogg" range="5000" />
+        <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="5000" />
+        <Explosion range="750.0" ballastfloradamage="100" structuredamage="20" levelwalldamage="140" itemdamage="500" force="5" severlimbsprobability="0.5" debris="true" decal="explosion" decalsize="0.5">
+          <Affliction identifier="explosiondamage" strength="150" />
+          <Affliction identifier="bleeding" strength="100" />
+          <Affliction identifier="bleeding" strength="50" probability="0.1" dividebylimbcount="false" />
+          <Affliction identifier="stun" strength="7" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <sound file="Content/Items/Weapons/ExplosionDebris1.ogg" range="3500" />
+        <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="3500" />
+      </StatusEffect>
+    </ItemComponent>
+    <Throwable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" throwforce="3.5" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="This" Condition="-100.0" delay="3.0" disabledeltatime="true" checkconditionalalways="true" />
+    </Throwable>
+    <Quality>
+      <QualityStat stattype="ExplosionRadius" value="0.1" />
+      <QualityStat stattype="ExplosionDamage" value="0.1" />
+    </Quality>
   </Item>
   <!-- riot shotgun goes in back slot -->
   <Item name="" identifier="shotgun" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
@@ -495,6 +755,7 @@
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="0,448,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />   
       <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="divingflashlight" hide="false" itempos="36,2" setactive="true" />
         <Containable items="flashlight" hide="false" itempos="18,12" setactive="true" />
       </SubContainer>
     </ItemContainer>
@@ -562,6 +823,7 @@
         <Containable items="mobilebattery" hide="true" />
       </SubContainer>
       <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="divingflashlight" hide="false" itempos="36,2" setactive="true" />
         <Containable items="flashlight" hide="false" itempos="18,13" setactive="true" />
       </SubContainer>
     </ItemContainer>
@@ -635,7 +897,7 @@
     </Quality>
     <SkillRequirementHint identifier="weapons" level="50" />
   </Item>
-  <!-- increase fix speed (2.5) -->
+  <!-- increase fix speed (2.5) and make buyable at nukieshop -->
   <Item name="" identifier="screwdriver" addedrepairspeedmultiplier="2.5" category="Equipment" Tags="smallitem,simpletool,tool,electricalrepairtool,screwdriveritem" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
     <Preferredcontainer secondary="respawncontainer" amount="1" spawnprobability="1" notcampaign="true"/>
     <PreferredContainer primary="engcab" secondary="reactorcab"/>
@@ -655,6 +917,9 @@
     <Deconstruct time="20">
       <Item identifier="iron" />
     </Deconstruct>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="2" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="10">
       <RequiredSkill identifier="mechanical" level="20" />
       <RequiredItem identifier="iron" amount="2" />
@@ -684,7 +949,7 @@
     </Quality>
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
-  <!-- increase fix speed (2.5) -->
+  <!-- increase fix speed (2.5) and make buyable at nukieshop -->
   <Item name="" identifier="wrench" addedrepairspeedmultiplier="2.5" category="Equipment" Tags="smallitem,tool,simpletool,mechanicalrepairtool,wrenchitem,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
     <Preferredcontainer secondary="respawncontainer" amount="1" spawnprobability="1" notcampaign="true"/>
     <PreferredContainer primary="engcab"/>
@@ -703,6 +968,9 @@
     <Deconstruct time="10">
       <Item identifier="iron" />
     </Deconstruct>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="2" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="10">
       <RequiredSkill identifier="mechanical" level="20" />
       <RequiredItem identifier="iron" amount="2" />
@@ -725,6 +993,89 @@
     <Quality>
       <QualityStat stattype="RepairSpeed" value="0.1"/>
     </Quality>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
+  <!-- increase fix speed (2.5) and make buyable at nukieshop -->
+  <Item name="" identifier="heavywrench" addedrepairspeedmultiplier="2.5" variantof="wrench">
+    <Preferredcontainer secondary="respawncontainer" amount="1"  spawnprobability="0" notcampaign="true"/>
+    <PreferredContainer primary="engcab"  spawnprobability="0"/>
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab"  spawnprobability="0" />
+    <PreferredContainer primary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab"  spawnprobability="0"/>
+    <PreferredContainer secondary="outpostcrewcabinet" spawnprobability="0"/>
+    <PreferredContainer secondary="outposttrashcan" spawnprobability="0" />
+    <Price baseprice="190" sold="false" />
+    <Deconstruct>
+      <Item identifier="steel" />
+      <Item identifier="titanium" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="8" />
+	</Fabricate>
+    <Fabricate requiresrecipe="true">
+      <RequiredItem identifier="titanium" amount="2" />
+      <RequiredItem identifier="steel" />
+    </Fabricate>
+    <!-- disable base inventory icon -->
+    <InventoryIcon />
+    <Sprite texture="Content/Items/Jobgear/TalentGear.png" sourcerect="157,492,114,20" depth="0.55" origin="0.5,0.5" />
+    <Body width="114" height="20" density="30" />
+    <MeleeWeapon slots="RightHand+LeftHand,Any" range="100" reload="1.1" controlpose="true" aimpos="45,10" handle1="-10,0" handle2="0,5" holdangle="60" combatpriority="20">
+      <StatusEffect type="OnFailure" target="This" reload="1.5" setvalue="true" />
+      <StatusEffect type="OnUse" target="This" reload="1.1" setvalue="true" delay="1.4"/>
+      <RequiredSkill identifier="mechanical" level="40" />
+      <Attack targetimpulse="15" structuredamage="9" itemdamage="9">
+        <Affliction identifier="blunttrauma" strength="25" />
+        <Affliction identifier="stun" strength="1" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+        <StatusEffect type="OnUse" target="Character" >
+          <Conditional skillrequirement="true" mechanical="lt 40" />
+          <Affliction identifier="stun" strength="0.3" />
+        </StatusEffect>
+      </Attack>
+      <!-- Use either this or the one above. The effect here has a random factor. The one above is deterministic.
+      <StatusEffect type="OnFailure" target="Character">
+        <Affliction identifier="stun" strength="0.3" />
+      </StatusEffect>
+      -->
+    </MeleeWeapon>
+    <SkillRequirementHint identifier="mechanical" level="40"/>
+  </Item>
+  <!-- toolbelt can be bought at nukieshop -->
+  <Item name="" identifier="toolbelt" category="Equipment" tags="mediumitem,mobilecontainer,tool" showcontentsintooltip="true" Scale="0.5" fireproof="true" description="" impactsoundtag="impact_soft">
+    <PreferredContainer primary="engcab"/>
+    <PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="1" spawnprobability="0.05"/>
+    <PreferredContainer primary="outpostcrewcabinet" amount="1" spawnprobability="0.1"/>
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <Item identifier="organicfiber" amount="2" />
+    </Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="8" />
+	</Fabricate>
+    <Price baseprice="65">
+      <Price storeidentifier="merchantoutpost" minavailable="4" />
+      <Price storeidentifier="merchantcity" minavailable="6" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" multiplier="1.25" minavailable="1" />
+      <Price storeidentifier="merchantmine" multiplier="1.25" minavailable="8" />
+      <Price storeidentifier="merchantengineering" minavailable="4" multiplier="0.9"/>
+    </Price>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="832,576,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="256,102,112,54" depth="0.6" />
+    <Body width="100" height="45" density="15" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="ToolBelt" texture="Content/Items/Tools/tools.png" sourcerect="256,102,112,54" limb="Torso" inherittexturescale="true" origin="0.5,-0.2" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-70" handle1="-5,0" handle2="10,-20" holdangle="0" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" allowswappingwhenpicked="false" />
+    <ItemContainer capacity="6" maxstacksize="32" depth="0.5" >
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier" />
+    </ItemContainer>
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
   <!-- added storage to body armor -->
@@ -867,6 +1218,9 @@
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="5">
       <RequiredItem tag="money" amount="8" />
+	</Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="5">
+      <RequiredItem tag="fakemoney" amount="4" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" amount="6">
       <RequiredSkill identifier="weapons" level="30" />
@@ -1045,6 +1399,9 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="10" />
 	</Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="10" />
+	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="898,192,61,63" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Materials/minerals.png" sourcerect="4,130,49,41" depth="0.55" origin="0.5,0.5" />
     <Body width="45" height="32" density="40" />
@@ -1061,6 +1418,9 @@
     <PreferredContainer primary="handcannon" amount="6" spawnprobability="1.0"/>
     <PreferredContainer secondary="wrecksecarmcab" minamount="1" maxamount="6" spawnprobability="0.02"/>    
     <Price baseprice="50" sold="false" />
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="6">
+      <RequiredItem tag="fakemoney" amount="4" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" amount="6">
       <RequiredSkill identifier="weapons" level="45" />
       <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
@@ -1183,6 +1543,55 @@
   </Item>
   </Override>
   <!-- end of overrides -->
+  
+  <!-- stronger battery that consumes more power -->
+  <Item name="Diving Flashlight" identifier="divingflashlight" category="Diving,Equipment" Tags="smallitem,tool,provocative,flashlight" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+    <PreferredContainer primary="divingcab" minamount="1" maxamount="2" spawnprobability="1" notcampaign="true"/>
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab,wrecksupplycab,beaconsupplycab" amount="1" spawnprobability="0.05"/>
+    <PreferredContainer secondary="outpostcrewcabinet" amount="1" spawnprobability="0.1"/>
+    <Price baseprice="400" minavailable="2">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="1.25" />
+      <Price storeidentifier="merchantmine" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="mechanical" level="25" />
+      <Item identifier="steel" />
+      <Item identifier="steel" />
+      <RequiredItem tag="lightcomponent" />
+    </Fabricate>
+    <Deconstruct time="15">
+      <Item identifier="steel" />
+      <Item identifier="lightcomponent" />
+    </Deconstruct>
+    <InventoryIcon texture="divingflashlight.png" sourcerect="0,0,64,36" origin="0.5,0.5" />
+    <Sprite texture="divingflashlight.png" sourcerect="0,0,64,36" depth="0.55" origin="0.55,0.4" />
+    <Body width="48" height="15" density="15" />
+    <Holdable slots="Any,RightHand,LeftHand,Head" holdpos="30,-50" aimpos="60,0" handle1="-20,0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnActive" targettype="Contained" Condition="-0.4">
+        <RequiredItem items="mobilebattery" type="Contained" />
+      </StatusEffect>
+      <!-- the child LightComponent is only active when the Holdable is active, i.e. when the item is being held -->
+      <LightComponent LightColor="0.75,0.75,0.75,1.0" directional="true" Flicker="0.02" range="800" powerconsumption="20" IsOn="true">
+		<LightTexture texture="%ModDir%/Items/lightcone.png" origin="0, 0.503" size="1.0,1.0" />
+        <IsActive targetcontaineditem="true" condition="gt 1.0"/>
+      </LightComponent>
+      <LightComponent LightColor="0.75,0.75,0.75,1.0" directional="true" range="800" powerconsumption="20" IsOn="true" flicker="0.8" flickerspeed="1.0" pulsefrequency="0.1" pulseamount="0.5">
+		<LightTexture texture="%ModDir%/Items/lightcone.png" origin="0, 0.503" size="1.0,1.0" />
+        <IsActive targetcontaineditem="true" condition="lte 1.0"/>
+      </LightComponent>
+    </Holdable>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <Containable items="mobilebattery">
+        <StatusEffect type="OnContaining" targettype="This" Voltage="2.0" setvalue="true" />
+      </Containable>
+    </ItemContainer>
+    <AiTarget sightrange="3000" />
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
   
   <!-- JET mask from Facility Gamemode for Nukie -->
   <Item name="Nukie Mask" identifier="jetmask" scale="0.5" category="Diving,Equipment" Tags="smallitem,diving,lightdiving" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy">
@@ -1520,6 +1929,9 @@
       <RequiredItem identifier="copper" />
       <RequiredItem identifier="tin" />
     </Deconstruct>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="10" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
@@ -1578,6 +1990,9 @@
       <Price storeidentifier="merchantmilitary" multiplier="0.9" />
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="16" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
@@ -1645,6 +2060,9 @@
       <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.9" minavailable="0" maxavailable="4" />
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="4" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2">
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="phosphorus" />
@@ -1720,6 +2138,9 @@
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="titaniumaluminiumalloy" />
     </Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="5" />
+	</Fabricate>
     <Deconstruct time="10">
       <Item identifier="plastic" />
       <Item identifier="titanium" />
@@ -1727,7 +2148,7 @@
     <Sprite texture="pistol.png" sourcerect="0,0,68,44" depth="0.55" origin="0.5,0.5" />
     <Body width="70" height="30" density="25" />
     <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="70,5" handle1="-22,-4" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon reload="0.25" holdtrigger="true" barrelpos="15,-5" spread="4" unskilledspread="10" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.285" holdtrigger="true" barrelpos="15,-5" spread="4" unskilledspread="10" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -1773,6 +2194,9 @@
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="4" />
+	</Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="2" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2">
       <RequiredSkill identifier="weapons" level="20" />

@@ -61,6 +61,9 @@
   <!-- Blood Sampler -->
   <entityname.bloodsampler>Blood Sampler</entityname.bloodsampler>
   <entitydescription.bloodsampler>Can be used on infected people to extract a live sample of their infection. Live disease samples can be turned into their antidotes in a medical fabricator.</entitydescription.bloodsampler>
+  <!-- Diving Flashlight -->
+  <entityname.divingflashlight>Diving Flashlight</entityname.divingflashlight>
+  <entitydescription.divingflashlight>Double the power... double the power consumption.</entitydescription.divingflashlight>
   <!-- Boomboxes -->
   <entityname.boombox1>Country Boombox</entityname.boombox1>
   <entitydescription.boombox1>"Sweet Home Alabama" by Lynyrd Skynyrd.</entitydescription.boombox1>
