@@ -14,7 +14,7 @@ DD.eventBlackout = DD.class(DD.eventBase, nil, {
 			component = item.GetComponentString('Door')
 			if (math.random() > 0.0) and (component ~= nil) and (not item.NonInteractable) and (component.HasIntegratedButtons) and (not component.IsJammed) and (not component.IsStuck) then
 				self.doors[item] = component.isOpen
-				DD.setDoorState(item, not component.isOpen)
+				DD.setDoorState(item, true)
 				component.IsJammed = true
 			end
 			component = item.GetComponentString('LightComponent')

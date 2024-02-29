@@ -244,26 +244,22 @@
     MedicalSkillGain="0.005">
     <Effect strengthchange="0"
 	  minspeedmultiplier="1"
-	  maxspeedmultiplier="1.5"
-      resistancefor="stun"
-      minresistance="1.0"
-      maxresistance="1.0">
+	  maxspeedmultiplier="1.5">
       <StatusEffect target="Character" interval="0.1" disabledeltatime="true">
-        <ReduceAffliction type="damage" strength="0.5"/>
-        <ReduceAffliction type="burn" strength="0.5"/>
+        <ReduceAffliction type="damage" strength="0.25"/>
+        <ReduceAffliction type="burn" strength="0.25"/>
         <ReduceAffliction type="poison" strength="1"/>
         <ReduceAffliction type="infection" strength="1"/>
-        <ReduceAffliction identifier="drunk" strength="0.5"/>
-        <ReduceAffliction identifier="bacterialgangrene" strength="0.5"/>
-        <ReduceAffliction identifier="bloodloss" strength="0.5"/>
-        <ReduceAffliction identifier="bleeding" strength="0.5"/>
-        <ReduceAffliction identifier="stun" strength="1.0"/>
+        <ReduceAffliction identifier="drunk" strength="0.25"/>
+        <ReduceAffliction identifier="bacterialgangrene" strength="0.25"/>
+        <ReduceAffliction identifier="bloodloss" strength="0.25"/>
+        <ReduceAffliction identifier="bleeding" strength="0.25"/>
         <ReduceAffliction identifier="oxygenlow" strength="15.0"/>
       </StatusEffect>
       <StatValue stattype="MeleeAttackMultiplier" value="2.0" />
     </Effect>
     <Effect strengthchange="0"
-      resistancefor="damage"
+      resistancefor="damage,stun"
       minresistance="0.5"
       maxresistance="0.5">
     </Effect>

@@ -7,7 +7,7 @@ end, {
 	
 	name = 'serialKiller',
 	isMainEvent = true,
-	cooldown = 60 * 3,
+	cooldown = 60 * 5,
 	weight = 1,
 	goodness = -0.5,
 	
@@ -16,18 +16,16 @@ end, {
 		
 		local anyoneAlive = false
 		for client in DD.arrShuffle(Client.ClientList) do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (not DD.isCharacterSecurity(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (not DD.isCharacterAntagSafe(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
 				self.killer = client
 			elseif DD.isClientCharacterAlive(client) then
-				if DD.isClientCharacterAlive(client) then
-					anyoneAlive = true
-				end
+				anyoneAlive = true
 			end
 		end
 		
 		local nonSecurity = {}
 		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and not DD.isCharacterSecurity(client.Character) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterSecurity(client.Character)) then
 				table.insert(nonSecurity, client)
 			end
 		end

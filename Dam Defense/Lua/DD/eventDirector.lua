@@ -41,6 +41,7 @@ DD.eventDirector.mainEventCooldown = nil
 DD.eventDirector.eventsPerClientCap = 2 -- how many events a single client can be a participant of
 DD.eventDirector.mainEventCap = 3 -- how many main events can be active at the same time (negative values means it is uncapped)
 DD.eventDirector.canMainEventBeRegularEvent  = true -- can a main event be called when a regular event is to be started
+DD.eventDirector.mainEventsDisableRespawning = true -- if there is any active main event then respawning will be disabled
 
 -- Debug function
 DD.eventDirector.debug = function (list)
@@ -238,7 +239,7 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 	-- Get weights
 	local weights = {}
 	for key, value in pairs(DD.eventDirector.eventPool) do
-		if (value.tbl.isMainEvent == isMainEvent) or (isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
+		if (value.tbl.isMainEvent == isMainEvent) or (value.tb.isMainEvent and isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
 			weights[key] = math.max(0, value.tbl.weight - value.tbl.weight * value.tbl.goodness * DD.eventDirector.goodness)
 		end
 	end
@@ -251,6 +252,7 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 		DD.eventDirector.cooldown = event.cooldown
 		if isMainEvent then
 			DD.eventDirector.mainEventCooldown = event.cooldown
+		else
 			DD.eventDirector.mainEvent = event
 		end
 		return event
@@ -262,7 +264,7 @@ end
 -- Called every 1/2 a second
 DD.thinkFunctions.eventDirector = function ()
 	-- Respawning is disabled if there are ongoing main events
-	if (#DD.eventDirector.getMainEvents() > 0) then
+	if ((#DD.eventDirector.getMainEvents() > 0) and DD.eventDirector.mainEventsDisableRespawning) then
 		DD.setAllowRespawning(false)
 	elseif not (DD.roundTimer > DD.disableRespawningAfter) then
 		DD.setAllowRespawning(true)

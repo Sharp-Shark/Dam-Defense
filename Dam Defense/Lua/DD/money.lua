@@ -13,11 +13,10 @@ DD.jobSalaryTimer = {
 	researcher = getJobSalaryTimer(7),
 	medicaldoctor = getJobSalaryTimer(5),
 	engineer = getJobSalaryTimer(5),
-	laborer = getJobSalaryTimer(2),
+	mechanic = getJobSalaryTimer(2),
 	clown = getJobSalaryTimer(2),
 	-- removed jobs
 	foreman = getJobSalaryTimer(7),
-	mechanic = getJobSalaryTimer(2),
 	assistant = getJobSalaryTimer(2)
 }
 

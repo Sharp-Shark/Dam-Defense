@@ -7,7 +7,7 @@ end, {
 	
 	name = 'revolution',
 	isMainEvent = true,
-	cooldown = 60 * 3,
+	cooldown = 60 * 6,
 	weight = 2,
 	goodness = -1,
 	
@@ -19,11 +19,9 @@ end, {
 		-- Pick rebels
 		local jobChances = {
 			clown = 1,
-			laborer = 1,
 			mechanic = 1,
 			engineer = 0.5,
-			medicaldoctor = 0.5,
-			researcher = 0.5
+			medicaldoctor = 0.5
 		}
 		local pickRebels = self.rebels == nil -- if a list of rebels was already given in the constructor then do not mess with it
 		self.security = {}
@@ -33,6 +31,9 @@ end, {
 			local chance = -1
 			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
 				chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
+			end
+			if DD.isClientCharacterAlive(client) and DD.isCharacterAntagSafe(client.Character) then
+				chance = -1
 			end
 			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and DD.isCharacterSecurity(client.Character) then
 				table.insert(self.security, client)
@@ -48,6 +49,9 @@ end, {
 				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and DD.eventDirector.isClientBelowEventCap(client) then
 					chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
 					if chance ~= -1 then chance = 1 end
+				end
+				if DD.isClientCharacterAlive(client) and DD.isCharacterAntagSafe(client.Character) then
+					chance = -1
 				end
 				if self.rebelsSet[rebel] then chance = -1 end -- avoid adding a player to the rebel list twice
 				if (0 < chance) and pickRebels then
@@ -80,7 +84,7 @@ end, {
 					if DD.tableSize(self.rebels) > 1 then rebelsList = ' Your comrades are: ' .. rebelsList .. '.' end 
 					-- Rebel message
 					DD.messageClient(client, 'You are a rebel leader! Your objective is to kill the captain and security. Try to enlist non-security personnel to your cause.' .. rebelsList .. ' List of rebels will be public in ' .. DD.numberToTime(self.rebelsDoxTimer) ..'. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
-				elseif (client.Character ~= nil) and DD.isCharacterSecurity(client.Character) then
+				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
 					-- Sec message
 					DD.messageClient(client, "There have been rumours of a conspiracy agaisn't the captain and security. A revolution comes this way, so be prepared to arrest and even kill any rebels. List of rebels will be pubic in " .. DD.numberToTime(self.rebelsDoxTimer) .. '. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
 				else
@@ -103,7 +107,7 @@ end, {
 		local anySecurityIsAlive = false
 		self.security = {}
 		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) then
+			if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) and (client.Character.SpeciesName == 'human') then
 				table.insert(self.security, client)
 				anySecurityIsAlive = true
 			end
@@ -112,10 +116,10 @@ end, {
 		-- See if any rebel is alive
 		local anyRebelIsAlive = false
 		for key, rebel in pairs(self.rebels) do
-			if DD.isClientCharacterAlive(rebel) and (not rebel.Character.IsArrested) then
+			if DD.isClientCharacterAlive(rebel) and (not rebel.Character.IsArrested) and (rebel.Character.SpeciesName == 'human') then
 				anyRebelIsAlive = true
 			else
-				if not DD.isClientCharacterAlive(rebel) then
+				if (not DD.isClientCharacterAlive(rebel)) or (rebel.Character.SpeciesName ~= 'human') then
 					DD.messageClient(rebel, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
 					self.rebels[key] = nil
 					self.rebelsSet[rebel] = nil

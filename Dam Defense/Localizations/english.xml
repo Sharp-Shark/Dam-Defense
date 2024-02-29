@@ -1,20 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <infotexts language="English" nowhitespace="false" translatedname="English">
+  <Override>
+  <!-- Mayor Job -->
+  <jobname.captain>Mayor</jobname.captain>
+  <jobdescription.captain>You are the ruler (probably because of your impervious to damage liver and lungs) of this place, but no one rules alone. You will rely on enforcers to make your word be followed, the divers to keep the local fauna at bay, the medical staff to keep all healthy, the engineers to keep the dam and its reactor working and the laborers with producing crucial supplies.</jobdescription.captain>
+  <!-- Engineer -->
+  <jobname.engineer>Engineer</jobname.engineer>
+  <jobdescription.engineer>A highly trained and valuable professional responsable with maintaining the dam and its reactor. Security will often be busy, so you have been trusted with a handgun, do not be reckless with it, instead use it mainly to keep saboteurs away.</jobdescription.engineer>
+  <!-- Enforcer -->
+  <jobname.securityofficer>Enforcer</jobname.securityofficer>
+  <jobdescription.securityofficer>As the name suggests, your main responsability is enforcing the law of the land. You also have to keep the residents safe, that unfortunately includes the peasents. If someone ever becomes a threat, it is desirable to arrest them if possible, after all, you are not getting paid per kill.</jobdescription.securityofficer>
+  <!-- Medical Doctor -->
+  <jobname.medicaldoctor>Medical Doctor</jobname.medicaldoctor>
+  <jobdescription.medicaldoctor>Although usually taken for granted, doctors play an important role, possessing the required skill to treat injured or unconscious crewmembers. Their skills can also be useful for creating various non-medicinal chemicals.</jobdescription.medicaldoctor>
+  <!-- Assistant -->
+  <jobname.assistant>Subject</jobname.assistant>
+  <jobdescription.assistant>Just a test subject, stripped of all their rights and humanity. As far as the law is concerned, this individual has never existed.</jobdescription.assistant>
   <!-- Laborer Job -->
-  <jobname.laborer>Laborer</jobname.laborer>
-  <jobdescription.laborer>Work at the factory to refine raw materials into equipment, weapons, tools, ammo and armor. From time to time have a drink with the lads and plan an uprising agaisn't your oppressors. We work to earn the right to work to earn the right to give ourselves the right to buy ourselves the right to live to earn the right to die.</jobdescription.laborer>
+  <jobname.mechanic>Laborer</jobname.mechanic>
+  <jobdescription.mechanic>Work at the factory to refine raw materials into equipment, weapons, tools, ammo and armor. From time to time have a drink with the lads and plan an uprising agaisn't your oppressors. We work to earn the right to work to earn the right to give ourselves the right to buy ourselves the right to live to earn the right to die.</jobdescription.mechanic>
+  </Override>
+  
   <!-- Clown Job -->
   <jobname.clown>Clown</jobname.clown>
-  <jobdescription.clown>The only rule is there are no rules! Expect to be arrested or even killed on sight by just about anyone.</jobdescription.clown>
+  <jobdescription.clown>The only rule is there are no rules! Well almost. Do your best at making security hate you and (optionally) make the residents love you.</jobdescription.clown>
   <!-- Foreman Job -->
   <jobname.foreman>Foreman</jobname.foreman>
-  <jobdescription.foreman>A specialization of the Security Officer. Take care of the security and structure of both the dam and its reactor.</jobdescription.foreman>
+  <jobdescription.foreman>The Mayor will often be too busy to watch over the dam. However, your only occupation is watching the dam. You will order the engineers around to make sure the dam and its reactors are working neatly at all times. If the situation calls for it, you can also temporarily work as just an additional security officer.</jobdescription.foreman>
   <!-- Researcher Job -->
   <jobname.researcher>Researcher</jobname.researcher>
-  <jobdescription.researcher>A specialization of the Medical Doctor. Aside from providing healthcare, you will also conduct often unethical research. Try and produce antidotes to infections by using your blood sampler on infected and later refining your live samples into antidotes in a medical fabricator.</jobdescription.researcher>
+  <jobdescription.researcher>Aside from working as a Medical Doctor if the times come, you will also be mainly conducting often unethical research with the aim of producing antidotes to infections by using your blood sampler on infected and later refining your live samples into antidotes in a medical fabricator.</jobdescription.researcher>
   <!-- Diver Job -->
   <jobname.diver>Diver</jobname.diver>
-  <jobdescription.diver>A specialization of the Security Officer. Mine for minerals in the dam and kill local wildlife low as they appear. If there isn't anything to mine or nothing to hunt, you can also just work as an additional security officer.</jobdescription.diver>
+  <jobdescription.diver>Expert in diving and hunting. Your main task is keeping the local fauna in check with your guns and to mine with your plasma cutter. If the situation calls for it, you can also temporarily work as just an additional security officer.</jobdescription.diver>
   <!-- Nukie Job -->
   <jobname.jet>Jovian Elite Trooper</jobname.jet>
   <jobdescription.jet>Jovian Elite Troops. Destroy that dam and kill every single bastard inside who isn't allied with the separatists.</jobdescription.jet>
@@ -37,6 +55,16 @@
   <afflictionname.tbinfection>Tuberculosis Infection</afflictionname.tbinfection>
   <afflictiondescription.tbinfection>A very lethal bacterial lung infection, also highly transmissible. If untreated, will very likely result in death. Treatable with Broad-spectrum Antibiotics</afflictiondescription.tbinfection>
   
+  <Override>
+  <entitydescription.captainspipe>Used for smoking pipe tabacco. Somehow heals damage and bloodloss at an impressive rate. Causes about as much lung damage as an entire pack of cigars.</entitydescription.captainspipe>
+  <entitydescription.cigar>A finely crafted cigar. Somehow heals damage and bloodloss. Intense and frequent use may cause hard to reverse lung damage.</entitydescription.cigar>
+  <entitydescription.rum>A fine liquor made from raptor bane juice. When drunk heals husk infection and boosts the immune system at the cost of minor organ damage. Can be poured on wounds to clear gangrene.</entitydescription.rum>
+  <entitydescription.ethanol>Medical alcohol used as an ingredient in the manufacture of various medicines. Drinking while on duty is not advised. When drunk boosts the immune system at the cost of mild organ damage. Can be poured on wounds to clear gangrene.</entitydescription.ethanol>
+  <entitydescription.stabilozine>Used as an ingredient in the manufacture of various medicines. On its own, can be used to slow down the effects of most toxins and lower fever.</entitydescription.stabilozine>
+  <entitydescription.adrenaline>A naturally occurring hormone. When consumed, temporarily boosts the immune system. Used to manufacture medicine or combat stimulants.</entitydescription.adrenaline>
+  <!--<entitydescription.replaceme></entitydescription.replaceme>-->
+  </Override>
+  
   <!-- Nexcredit -->
   <entityname.money>Nexcredit</entityname.money>
   <entitydescription.money>Nexcredits (TM) can be exchanged for goods at Nexshops (TM). This message was sponsored by Nexpharma (TM).</entitydescription.money>
@@ -46,6 +74,9 @@
   <!-- Nexcase -->
   <entityname.moneycase>Nexcase</entityname.moneycase>
   <entitydescription.moneycase>Money? I love money! Do you love money?</entitydescription.moneycase>
+  <!-- Foldable Chair -->
+  <entityname.foldablechair>Foldable Chair</entityname.foldablechair>
+  <entitydescription.foldablechair>A simple foldable metal chair. Now you can sit almost wherever you want with this! Surprisingly sturdy, sturdy enough to, say, lethally whack someone in the head with.</entitydescription.foldablechair>
   <!-- Live Influenza -->
   <entityname.flusyringe>Live Influenza</entityname.flusyringe>
   <entitydescription.flusyringe>A syringe containing a live sample of influenza that was taken from someone using a blood sampler. Can be made into Influenza Antidote in a medical fabricator.</entitydescription.flusyringe>

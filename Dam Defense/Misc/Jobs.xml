@@ -239,7 +239,7 @@
     </AppropriateOrders>
   </Job>
 
-  <Job identifier="laborer"
+  <Job identifier="mechanic"
        minkarma="0" initialcount="3"
        uicolor="0.65,0.7,0.75"
        vitalitymodifier="0"
@@ -621,8 +621,6 @@
       <Order identifier="operatereactor" option="powerup" prioritymodifier="0.4"/>
     </AutonomousObjectives>
   </Job>
-
-  <Job identifier="mechanic" uicolor="0.8,0.8,0.8" vitalitymodifier="0" pricemultiplier="1.0" maxnumber="0" idlebehavior="Active"></Job>
   </Override>
   
   <Job identifier="clown"

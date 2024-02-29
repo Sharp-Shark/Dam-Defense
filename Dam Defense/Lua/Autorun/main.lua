@@ -262,10 +262,15 @@ end)
 LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.Item"], "set_InventoryIconColor")
 -- Give talents
 Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
+	-- Message
+	local client = DD.findClientByCharacter(character)
+	if client ~= nil then
+		DD.messageClient(client, JobPrefab.Get(character.JobIdentifier).Description, {preset = 'info'})
+	end
 	-- Give Talents
 	if character.SpeciesName == 'human' then
 		Timer.Wait(function ()
-			if (character.JobIdentifier == 'mechanic') or (character.JobIdentifier == 'laborer') or (character.JobIdentifier == 'clown') then
+			if (character.JobIdentifier == 'mechanic') or (character.JobIdentifier == 'clown') then
 				character.GiveTalent('unlockallrecipes', true)
 			end
 			if (character.JobIdentifier == 'captain') then
