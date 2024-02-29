@@ -1,5 +1,3 @@
-if CLIENT and Game.IsMultiplayer then return end
-
 -- Dam Defense table
 DD = {}
 

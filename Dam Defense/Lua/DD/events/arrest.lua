@@ -68,7 +68,7 @@ end, {
 -- Tasks security with (ideally) arresting a player for a silly reason
 DD.eventArrest1984 = DD.class(DD.eventArrest, function (self)
 	for client in DD.arrShuffle(Client.ClientList) do
-		if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (not DD.isCharacterSecurity(client.Character)) and DD.eventDirector.isClientBelowEventCap(client) then
+		if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (not DD.isCharacterAntagSafe(client.Character)) and DD.eventDirector.isClientBelowEventCap(client) then
 			self.target = client
 			break
 		end

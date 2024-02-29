@@ -1,4 +1,5 @@
 -- Warning: how the mod interacts with husk is hard-coded since husk infection is different from the mod's diseases in some pretty fundamental ways
+if CLIENT and Game.IsMultiplayer then return end
 
 DD.diseaseData = {
 	flu = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.3, symptomChance = 0.5},

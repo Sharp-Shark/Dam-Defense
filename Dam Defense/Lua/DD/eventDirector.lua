@@ -239,7 +239,7 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 	-- Get weights
 	local weights = {}
 	for key, value in pairs(DD.eventDirector.eventPool) do
-		if (value.tbl.isMainEvent == isMainEvent) or (value.tb.isMainEvent and isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
+		if (value.tbl.isMainEvent == isMainEvent) or (value.tbl.isMainEvent and isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
 			weights[key] = math.max(0, value.tbl.weight - value.tbl.weight * value.tbl.goodness * DD.eventDirector.goodness)
 		end
 	end
@@ -323,8 +323,9 @@ end
 
 -- If it's a client then do run the event director
 if CLIENT then
-	DD.thinkFunctions.eventDirector = nil
-	DD.roundStartFunctions.eventDirector = nil
+	DD.eventDirector.enabled = false
+	-- DD.thinkFunctions.eventDirector = nil
+	-- DD.roundStartFunctions.eventDirector = nil
 end
 
 -- Short for DD.eventDirector for live inputting lua commands in debug menu

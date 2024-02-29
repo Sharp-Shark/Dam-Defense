@@ -38,6 +38,15 @@ local validArgs = function ()
 end
 Game.AddCommand('dd_save', 'dd_save: manually trigger saving of certain key-values. Useful if autosaving is disabled.', func, validArgs, false)
 
+-- Debug console dd_showsave
+local func = function (args)
+	DD.saving.debug()
+end
+if CLIENT and Game.IsMultiplayer then
+	func = function () return end
+end
+Game.AddCommand('dd_showsave', 'dd_dd_showsave: prints out the value of keys that are saved. Useful for debugging.', func, nil, false)
+
 -- Debug console dd_saveall
 local func = function (args)
 	print(DD.saving.save())

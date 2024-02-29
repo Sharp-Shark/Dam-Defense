@@ -21,7 +21,7 @@ end, {
 		-- Pick murderer (can't be security)
 		if self.murderer == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
-				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterSecurity(client.Character)) and (client ~= self.victim) and DD.eventDirector.isClientBelowEventCap(client) then
+				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterAntagSafe(client.Character)) and (client ~= self.victim) and DD.eventDirector.isClientBelowEventCap(client) then
 					self.murderer = client
 					break
 				end
