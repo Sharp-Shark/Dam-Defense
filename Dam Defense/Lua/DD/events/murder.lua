@@ -5,6 +5,7 @@ DD.eventMurder = DD.class(DD.eventBase, function (self, murderer, victim)
 end, {
 	paramType = {'client', 'client'},
 	clientKeys = {'murderer', 'victim'},
+	public = false,
 	
 	name = 'murder',
 	isMainEvent = false,

@@ -70,13 +70,16 @@
   <entitydescription.money>Nexcredits (TM) can be exchanged for goods at Nexshops (TM). This message was sponsored by Nexpharma (TM).</entitydescription.money>
   <!-- Counterfeit Nexcredit -->
   <entityname.fakemoney>Counterfeit Nexcredit</entityname.fakemoney>
-  <entitydescription.fakemoney>Any human can easily tell these are fake, but they can still spoof Nexshops. Very much illegal!</entitydescription.fakemoney>
+  <entitydescription.fakemoney>Any human can easily tell these are fake, but they can still spoof Nexshops. Very much illegal, do not let security catch you with one of these!</entitydescription.fakemoney>
   <!-- Nexcase -->
   <entityname.moneycase>Nexcase</entityname.moneycase>
-  <entitydescription.moneycase>Money? I love money! Do you love money?</entitydescription.moneycase>
+  <entitydescription.moneycase>Money? I love money! Do you love money? This Nexcase (TM) can be used to temporarily store Nexcredits (TM).</entitydescription.moneycase>
   <!-- Foldable Chair -->
   <entityname.foldablechair>Foldable Chair</entityname.foldablechair>
   <entitydescription.foldablechair>A simple foldable metal chair. Now you can sit almost wherever you want with this! Surprisingly sturdy, sturdy enough to, say, lethally whack someone in the head with.</entitydescription.foldablechair>
+  <!-- Wifi Trigger -->
+  <entityname.wifitrigger>Wifi Trigger</entityname.wifitrigger>
+  <entitydescription.wifitrigger>A handheld device that contains an wifi component, allowing for convenient remote sending of signals.</entitydescription.wifitrigger>
   <!-- Live Influenza -->
   <entityname.flusyringe>Live Influenza</entityname.flusyringe>
   <entitydescription.flusyringe>A syringe containing a live sample of influenza that was taken from someone using a blood sampler. Can be made into Influenza Antidote in a medical fabricator.</entitydescription.flusyringe>
@@ -134,11 +137,27 @@
   <entitydescription.762magazine>A magazine containing 30 rounds of soviet 7.62x39mm.</entitydescription.762magazine>
   <entityname.762round>Separatist Rifle Round</entityname.762round>
   <entitydescription.762round>A round of 7x62x39mm.</entitydescription.762round>
+  <!-- Tommy Gun -->
+  <entityname.tommygun>Tommy Gun</entityname.tommygun>
+  <entitydescription.tommygun>A 9mm convertion of an antique submachine gun usually associated with the mafia or any other lavish criminals. Bolsters an impressive rate of fire and fine finish.</entitydescription.tommygun>
+  <entityname.pistoldrum>Tommy Gun Drum</entityname.pistoldrum>
+  <entitydescription.pistoldrum>A magazine for the tommy gun containing 60 rounds of 9mm.</entitydescription.pistoldrum>
   <!-- Pistol -->
   <entityname.pistol>Pistol</entityname.pistol>
   <entitydescription.pistol>A finely-crafted compact 9mm pistol designed for civilian use.</entitydescription.pistol>
   <entityname.pistolmagazine>Pistol Magazine</entityname.pistolmagazine>
-  <entitydescription.pistolmagazine>A magazine containing 20 rounds of 9mm.</entitydescription.pistolmagazine>
+  <entitydescription.pistolmagazine>A magazine for pistols containing 20 rounds of 9mm.</entitydescription.pistolmagazine>
   <entityname.pistolround>Pistol Round</entityname.pistolround>
   <entitydescription.pistolround>A round of 9mm</entitydescription.pistolround>
+  <!-- Flare Gun -->
+  <entityname.flaregun>Flare Gun</entityname.flaregun>
+  <entitydescription.flaregun>A brass and steel flare pistol with a wood finish of a bygone era. Serves as well in a museum as in the hands of a fighter.</entitydescription.flaregun>
+  <entityname.flaregunround>Flare Gun Round</entityname.flaregunround>
+  <entitydescription.flaregunround>Ammunition for a flare gun. Unusually explosive, great for setting flammable targets on fire.</entitydescription.flaregunround>
+  <!-- Blood Cultist Robes -->
+  <entityname.bloodcultistrobes>Blood Cultist Robes</entityname.bloodcultistrobes>
+  <entitydescription.bloodcultistrobes>A simple hooded garment that grants passive regeneration and immunity to disease when worn by the "enlightened" members of the Blood Cult. The robe also serves to conceal their identity whilst letting other fellows cultists recognize them as their own.</entitydescription.bloodcultistrobes>
+  <!-- The 1998 -->
+  <entityname.the1998>The 1998</entityname.the1998>
+  <entitydescription.the1998>A book containing old forbidden knowledge in an forgotten language. Harmless in the hands of most, but cultists will use these to convert others into one of them.</entitydescription.the1998>
 </infotexts>

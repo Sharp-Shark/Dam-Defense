@@ -4,6 +4,7 @@ DD.eventBase = DD.class(nil, function (self)
 end, {
 	paramType = {}, -- correct type for each parameter of the constructor function of this class
 	clientKeys = {}, -- keys of properties of this event that are a client or a client list (useful for finding what clients are participanting in an event)
+	public = true, -- determines if event will be listed in "/publicevents"
 
 	started = false,
 	start = function (self)

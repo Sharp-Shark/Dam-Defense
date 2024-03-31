@@ -23,7 +23,7 @@
       <!-- music -->
 	  <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
-        <sound file="%ModDir%/Items/sweethomealabama.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
+        <sound file="%ModDir%/Sounds/sweethomealabama.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
 		<Conditional condition="gt 0.0" />
       </StatusEffect>
 	  <!-- boomboxes can be used as a melee (has stun if a battery is inside) -->
@@ -94,7 +94,7 @@
       <!-- music -->
       <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
-        <sound file="%ModDir%/Items/virtualinsanity.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
+        <sound file="%ModDir%/Sounds/virtualinsanity.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
         <Conditional condition="gt 0.0" />
       </StatusEffect>
 	  <!-- boomboxes can be used as a melee (has stun if a battery is inside) -->
@@ -165,7 +165,7 @@
       <!-- music -->
       <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
-        <sound file="%ModDir%/Items/entersandman.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
+        <sound file="%ModDir%/Sounds/entersandman.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
 		<Conditional condition="gt 0.0" />
       </StatusEffect>
 	  <!-- boomboxes can be used as a melee (has stun if a battery is inside) -->
@@ -236,7 +236,7 @@
       <!-- music -->
       <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
-        <sound file="%ModDir%/Items/banditradio.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
+        <sound file="%ModDir%/Sounds/banditradio.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
 		<Conditional condition="gt 0.0" />
       </StatusEffect>
 	  <!-- boomboxes can be used as a melee (has stun if a battery is inside) -->
@@ -307,7 +307,7 @@
       <!-- music -->
       <StatusEffect type="Always" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
-        <sound file="%ModDir%/Items/title3.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
+        <sound file="%ModDir%/Sounds/title3.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
 		<Conditional condition="gt 0.0" />
       </StatusEffect>
 	  <!-- boomboxes can be used as a melee (has stun if a battery is inside) -->

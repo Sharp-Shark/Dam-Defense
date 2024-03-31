@@ -19,59 +19,7 @@ local getDiseaseStat = function (diseaseName, statName)
 	end
 end
 
-Hook.Add("DD.afflictions.bloodsample", "DD.afflictions.bloodsample", function(effect, deltaTime, item, targets, worldPosition)
-    if CLIENT and Game.IsMultiplayer then return end
-	
-	if targets[1] == nil then return end
-	local character = targets[1]
-	
-	local speciesName = string.lower(tostring(character.SpeciesName))
-	if speciesName ~= 'human' then
-		if string.sub(speciesName, #speciesName - 3, #speciesName) == 'husk' then
-			local inventory = item.ParentInventory
-			Entity.Spawner.AddEntityToRemoveQueue(item)
-			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('huskeggs'), inventory, nil, nil, function (spawnedItem) end)
-		end
-		return
-	end
-	
-	local characterInfection = character.CharacterHealth.GetAfflictionStrengthByType('infection', true)
-	local characterHusk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
-	if characterHusk < 35 then characterHusk = 0 end
-	if characterInfection + characterHusk <= 0 then return end
-	
-	local getCharacterInfection = function (character, diseaseName)
-		local total = 0
-		total = total + character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'payload', true)
-		total = total + character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
-		return total
-	end
-	
-	local inventory = item.ParentInventory
-	
-	local characterInfections = {}
-	characterInfections.husk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
-	for diseaseName, data in pairs(DD.diseaseData) do
-		characterInfections[diseaseName] = getCharacterInfection(character, diseaseName)
-	end
-	
-	local winnerName = ''
-	local winnerStrength = 0
-	for infectionName, infectionStrength in pairs(characterInfections) do
-		if infectionStrength > winnerStrength then
-			winnerName = infectionName
-			winnerStrength = infectionStrength
-		end
-	end
-	
-	if winnerName == '' then return end
-	local itemIdentifier = winnerName .. 'syringe'
-	if winnerName == 'husk' then itemIdentifier = 'huskeggs' end
-	
-	Entity.Spawner.AddEntityToRemoveQueue(item)
-	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(itemIdentifier), inventory, nil, nil, function (spawnedItem) end)
-end)
-
+-- Although this is a luahook (<LuaHook name="..." />) I'm keeping it in this file instead of luahooks.lua
 Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, deltaTime, item, targets, worldPosition)
     if CLIENT and Game.IsMultiplayer then return end
 	if targets[1] == nil then return end
@@ -79,17 +27,26 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 	if not DD.isCharacterUsingHullOxygen(character) then return end
 	
 	local spreadDiseaseToCharacter = function (toCharacter, fromCharacter, diseaseName, chance)
+		-- Get fromCharacter infection amount
 		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
 		amount = amount + fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'payload', true)
 		amount = amount + fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		amount = amount * math.random()
+		-- If toCharacter is already infected, do not infect
 		local infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		local hidden = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
+		-- Edge case for husk
 		if diseaseName == 'husk' then
 			amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
 			infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
 			hidden = 0
 		end
+		-- If the infection is hidden lower the chance
+		local chance = chance
+		if (amount - fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)) <= 0 then
+			chance = chance * 0.5
+		end
+		-- Spread
 		if (infection + hidden <= 0) and (math.random() <= chance) and (amount > 0) then
 			if diseaseName == 'husk' then
 				DD.giveAfflictionCharacter(toCharacter, 'huskinfection', amount)
@@ -167,6 +124,13 @@ DD.thinkFunctions.afflictions = function ()
 	if not Game.RoundStarted then return end
 
 	for character in Character.CharacterList do
+		-- Burning affliction reduce if a limb is underwater
+		for limb in character.AnimController.Limbs do
+			if limb.InWater then
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'afterburn', 10)
+			end
+		end
+		-- Husk regen
 		if (character.SpeciesName == 'humanhusk') and (not character.IsDead) then
 			local damage = 0
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByIdentifier('bloodloss', true)
@@ -184,6 +148,7 @@ DD.thinkFunctions.afflictions = function ()
 				end
 			end
 		end
+		-- Airborne protection affliction to show character is immune to giving/getting airborne infections
 		if (character.SpeciesName == 'human') then
 			if DD.isCharacterUsingHullOxygen(character) then
 				if character.CharacterHealth.GetAffliction('airborneprotection', true) ~= nil then
@@ -197,6 +162,7 @@ DD.thinkFunctions.afflictions = function ()
 				end
 			end
 		end
+		-- Disease and immune stuff for dead humans
 		if (character.SpeciesName == 'human') and (character.IsDead) then
 			for diseaseName, data in pairs(DD.diseaseData) do
 				if not getDiseaseStat(diseaseName, 'necrotic') then
@@ -204,6 +170,7 @@ DD.thinkFunctions.afflictions = function ()
 				end
 			end
 		end
+		-- Disease and immune stuff for living humans
 		if (character.SpeciesName == 'human') and (not character.IsDead) then
 			local characterBacterialInfection = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialinfection', true)
 			local characterBacterialGangrene = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialgangrene', true)

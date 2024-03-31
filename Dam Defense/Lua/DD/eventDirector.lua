@@ -12,6 +12,7 @@ require 'DD/events/murder'
 require 'DD/events/revolution'
 require 'DD/events/nukies'
 require 'DD/events/serialKiller'
+require 'DD/events/bloodCult'
 
 -- Event director table
 DD.eventDirector = {}
@@ -21,6 +22,7 @@ DD.eventDirector.eventPool = {
 	DD.eventNukies,
 	DD.eventRevolution,
 	DD.eventSerialKiller,
+	DD.eventBloodCult,
 	-- Side events
 	DD.eventFish,
 	DD.eventAirdrop,
@@ -302,6 +304,27 @@ DD.roundStartFunctions.eventDirector = function ()
 	DD.eventDirector.cooldown = DD.eventDirector.mainEventCooldown
 end
 
+-- Lists to the message sender all of the publicly known events
+DD.chatMessageFunctions.events = function (message, sender)
+	if message ~= '/events' then return end
+	
+	local list = ''
+	for event in DD.eventDirector.events do
+		if event.public then
+			list = list .. event.name .. ', '
+		end
+	end
+	list = string.sub(list, 1, #list - 2)
+	
+	if list == '' then
+		list = 'none (there are no public events)'
+	end
+	
+	DD.messageClient(sender, DD.stringReplace('The public list of events currently is: {list}.', {list = list}), {preset = 'command'})
+	
+	return true
+end
+
 -- Lists to the message sender the events they're a participant of
 DD.chatMessageFunctions.myEvents = function (message, sender)
 	if message ~= '/myevents' then return end
@@ -324,8 +347,8 @@ end
 -- If it's a client then do run the event director
 if CLIENT then
 	DD.eventDirector.enabled = false
-	-- DD.thinkFunctions.eventDirector = nil
-	-- DD.roundStartFunctions.eventDirector = nil
+	DD.thinkFunctions.eventDirector = nil
+	DD.roundStartFunctions.eventDirector = nil
 end
 
 -- Short for DD.eventDirector for live inputting lua commands in debug menu

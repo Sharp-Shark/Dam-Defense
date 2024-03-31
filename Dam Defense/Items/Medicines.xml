@@ -26,7 +26,7 @@
     <Deconstruct time="5"/>
     <SuitableTreatment type="bloodloss" suitability="30" />
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="960,640,64,64" origin="0.5,0.5" />
-    <Sprite texture="Medicines.png" sourcerect="0,261,83,46" depth="0.6" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,261,83,46" depth="0.6" origin="0.5,0.5" />
     <Body width="80" height="45" density="11" />
     <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect">
       <RequiredSkill identifier="medical" level="40" />
@@ -83,7 +83,7 @@
       <Item identifier="opium" />
     </Deconstruct>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
-    <Sprite texture="Medicines.png" sourcerect="0,0,37,69" depth="0.6" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,37,69" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <RequiredSkill identifier="medical" level="40" />
@@ -374,7 +374,7 @@
 	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="384,640,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="112,139,37,70" depth="0.6" origin="0.5,0.5" />
-    <SuitableTreatment type="poison" suitability="10" />
+    <SuitableTreatment type="poison" suitability="20" />
     <SuitableTreatment identifier="fever" suitability="30" />
     <!-- stabilozine only slows down the progress of the poison, and since deliriumine poisoning is non-lethal,
     it doesn't make much sense to waste stabilozine on "stabilizing" it -->
@@ -385,11 +385,11 @@
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="30">
-        <ReduceAffliction type="poison" amount="1" />
+        <ReduceAffliction type="poison" amount="2" />
         <ReduceAffliction type="fever" amount="5" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="30">
-        <ReduceAffliction type="poison" amount="0.5" />
+        <ReduceAffliction type="poison" amount="1" />
         <ReduceAffliction type="fever" amount="4" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
@@ -710,7 +710,7 @@
     <SuitableTreatment type="bleeding" suitability="30" />
     <SuitableTreatment type="burn" suitability="30" />
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
-    <Sprite texture="Medicines.png" sourcerect="310,33,26,42" depth="0.6" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="310,33,26,42" depth="0.6" origin="0.5,0.5" />
     <Body width="25" height="40" density="10.05" />
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <RequiredSkill identifier="medical" level="40" />
@@ -801,7 +801,7 @@
       </Attack>
       <StatusEffect type="OnUse" target="UseTarget">
         <Conditional entitytype="eq Character" />
-		<LuaHook name="DD.afflictions.bloodsample" />
+		<LuaHook name="DD.bloodsampler.bloodsample" />
       </StatusEffect>
     </MeleeWeapon>
     <aitarget sightrange="500" soundrange="250" fadeouttime="1" />

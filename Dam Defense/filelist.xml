@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="0.10.4" corepackage="False" steamworkshopid="3146664815" gameversion="1.2.8.0">
+<contentpackage name="Dam Defense" modversion="0.10.7" corepackage="False" steamworkshopid="3146664815" gameversion="1.2.8.0">
   <Item file="%ModDir%/Items/Machines.xml" />
   <Item file="%ModDir%/Items/Boomboxes.xml" />
   <Item file="%ModDir%/Items/Medicines.xml" />
   <Item file="%ModDir%/Items/Items.xml" />
   <Item file="%ModDir%/Items/growableplants.xml" />
+  <Particles file="%ModDir%/Misc/Particles.xml" />
   <Character file="%ModDir%/Characters/Humanhusk/Humanhusk.xml" />
   <Character file="%ModDir%/Characters/Husk/Husk.xml" />
   <Talents file="%ModDir%/Misc/Talents.xml" />

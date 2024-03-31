@@ -63,7 +63,7 @@
     <sprite texture="shop.png" sourcerect="1,0,238,396" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
     <Fabricator canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect" createbuttontext="campaignstoretab.buy">
       <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
-      <sound file="%ModDir%/Items/shop.ogg" type="OnActive" range="200.0" loop="true"/>
+      <sound file="%ModDir%/Sounds/shop.ogg" type="OnActive" range="200.0" loop="true"/>
     </Fabricator>
     <ItemContainer capacity="5" canbeselected="true" hideitems="true" slotsperrow="5" uilabel="" allowuioverlap="true">
 	  <Containable items="money" />
@@ -77,7 +77,7 @@
     <sprite texture="shop.png" sourcerect="481,0,238,396" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
     <Fabricator canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect" createbuttontext="campaignstoretab.buy">
       <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
-      <sound file="%ModDir%/Items/shop.ogg" type="OnActive" range="200.0" loop="true"/>
+      <sound file="%ModDir%/Sounds/shop.ogg" type="OnActive" range="200.0" loop="true"/>
     </Fabricator>
     <ItemContainer capacity="5" canbeselected="true" hideitems="true" slotsperrow="5" uilabel="" allowuioverlap="true">
 	  <Containable items="money" />
@@ -92,7 +92,7 @@
     <sprite texture="shop.png" sourcerect="1,400,238,396" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
     <Fabricator canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect" createbuttontext="campaignstoretab.buy">
       <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
-      <sound file="%ModDir%/Items/shop.ogg" type="OnActive" range="200.0" loop="true"/>
+      <sound file="%ModDir%/Sounds/shop.ogg" type="OnActive" range="200.0" loop="true"/>
     </Fabricator>
     <ItemContainer capacity="5" canbeselected="true" hideitems="true" slotsperrow="5" uilabel="" allowuioverlap="true">
 	  <Containable items="money" />
@@ -106,7 +106,7 @@
     <sprite texture="shop.png" sourcerect="481,400,238,396" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
     <Fabricator canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect" createbuttontext="campaignstoretab.buy">
       <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
-      <sound file="%ModDir%/Items/shop.ogg" type="OnActive" range="200.0" loop="true"/>
+      <sound file="%ModDir%/Sounds/shop.ogg" type="OnActive" range="200.0" loop="true"/>
     </Fabricator>
     <ItemContainer capacity="5" canbeselected="true" hideitems="true" slotsperrow="5" uilabel="" allowuioverlap="true">
 	  <Containable items="fakemoney" />

@@ -39,6 +39,15 @@
     <AddedRecipe itemidentifier="rum"/>
   </Talent>
   </Override>
+  
+  <!-- cultist talent that unlocks crafting of cultist items (enlightened is affliction, enlightenedmind is talent) -->
+  <Talent identifier="enlightenedmind">
+    <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
+	
+    <AddedRecipe itemidentifier="bloodcultistrobes"/>
+    <AddedRecipe itemidentifier="the1998"/>
+	
+  </Talent>
 
   <Talent identifier="unlockallrecipes">
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>

@@ -147,7 +147,7 @@ end
 DD.chatMessageFunctions.help = function (message, sender)
 	if message ~= '/help' then return end
 	
-	commands = {'help', 'myevents', 'credits', 'withdraw', 'possess', 'freecam'}
+	commands = {'help', 'events', 'myevents', 'credits', 'withdraw', 'possess', 'freecam'}
 	
 	local list = ''
 	for command in commands do
@@ -211,6 +211,7 @@ require 'DD/nature'
 require 'DD/afflictions'
 require 'DD/eventDirector'
 require 'DD/money'
+require 'DD/luahooks'
 require 'DD/commands'
 require 'DD/discord'
 

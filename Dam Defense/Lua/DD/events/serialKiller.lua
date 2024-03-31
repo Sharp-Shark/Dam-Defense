@@ -72,7 +72,7 @@ end, {
 			if self.murderCooldown <= 0 then
 				local victim = nil
 				for client in DD.arrShuffle(Client.ClientList) do
-					if DD.isClientCharacterAlive(client) and (client ~= self.killer) then
+					if DD.isClientCharacterAlive(client) and (client ~= self.killer) and (client.Character.SpeciesName == 'human') then
 						victim = client
 						break
 					end

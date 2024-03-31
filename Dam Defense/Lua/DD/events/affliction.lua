@@ -33,7 +33,7 @@ DD.eventAfflictionFlu = DD.class(DD.eventAffliction, nil, {
 	name = 'afflictionFlu',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 0.5,
+	weight = 0.4,
 	goodness = -0.5,
 	
 	identifier = 'fluhidden',
@@ -47,8 +47,8 @@ DD.eventAfflictionTB = DD.class(DD.eventAffliction, nil, {
 	name = 'afflictionTB',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 0.25,
-	goodness = -1,
+	weight = 0.3,
+	goodness = -1.5,
 	
 	identifier = 'tbhidden',
 	minamount = 5,

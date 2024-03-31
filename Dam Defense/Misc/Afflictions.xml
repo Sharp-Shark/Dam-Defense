@@ -1,6 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
 
+  <!-- taken from Combat Overhaul Legacy with only minor tweaks for this mod -->
+  <Affliction name="Afterburn" identifier="afterburn" description="" type="burn" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="true" activationthreshold="1.0" showiconthreshold="1000" maxstrength="15">
+    <Effect minstrength="1" maxstrength="10" minvitalitydecrease="0" maxvitalitydecrease="0" strengthchange="-0.5">
+      <StatusEffect target="Limb">
+        <Affliction identifier="burn" amount="0.5" />
+      </StatusEffect>
+      <StatusEffect target="Limb">
+        <ParticleEmitter particle="flamethrower_co" particlespersecond="4" scalemin="0.5" scalemax="0.7" distancemin="0" distancemax="30" />
+        <ParticleEmitter particle="smoke" particlespersecond="4" scalemin="2" scalemax="2.5" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
+  </Affliction>
+  
+  <!-- cultist affliction gained from book 1998 by Jerry Peterson (enlightened is affliction, enlightenedmind is talent) -->
+  <Affliction name="Enlightened" identifier="enlightened" description="You have been enlightened by the light of truth. You must enlighten others, so all may know it." type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" maxstrength="100">
+    <Effect minstrength="0" maxstrength="99" strengthchange="-2.5" />
+	<Effect minstrength="99" maxstrength="100" strengthchange="1.0">
+	  <StatusEffect target="character">
+	    <LuaHook name="DD.enlightened.givetalent" />
+	  </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+
   <!-- used for Foldable Chair AND HIS NAME IS JOHN CENA -->
   <Affliction
     name="John Cena"
@@ -127,10 +152,10 @@
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
-        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
-        <Sound file="%ModDir%/Misc/cough2.ogg" />
-        <Sound file="%ModDir%/Misc/cough3.ogg" />
-        <Sound file="%ModDir%/Misc/cough4.ogg" />
+        <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/cough2.ogg" />
+        <Sound file="%ModDir%/Sounds/cough3.ogg" />
+        <Sound file="%ModDir%/Sounds/cough4.ogg" />
 		<Conditional InWater="eq False" />
 		<Conditional IsDead="eq False" />
       </StatusEffect>
@@ -180,12 +205,11 @@
     showiconthreshold="999"
     showicontoothersthreshold="999"
     showinhealthscannerthreshold="999">
-    <Effect minstrength="0" maxstrength="100" strengthchange="-50" minspeedmultiplier="1.0" maxspeedmultiplier="0.0" resistancefor="stun" minresistance="0.0" maxresistance="1.0" >
+    <Effect minstrength="0" maxstrength="100" strengthchange="-40" minspeedmultiplier="1.0" maxspeedmultiplier="0.0" resistancefor="stun,damage" minresistance="0.0" maxresistance="0.5" >
       <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
         <ReduceAffliction type="stun" strength="2.0"/>
       </StatusEffect>
 	</Effect>
-    <Effect minstrength="0" maxstrength="100" resistancefor="damage" minresistance="0.0" maxresistance="0.5" />
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="128,896,128,128" color="10,193,114,255" origin="0,0"/>
   </Affliction>
   
@@ -343,10 +367,10 @@
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
-        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
-        <Sound file="%ModDir%/Misc/cough2.ogg" />
-        <Sound file="%ModDir%/Misc/cough3.ogg" />
-        <Sound file="%ModDir%/Misc/cough4.ogg" />
+        <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/cough2.ogg" />
+        <Sound file="%ModDir%/Sounds/cough3.ogg" />
+        <Sound file="%ModDir%/Sounds/cough4.ogg" />
 		<Conditional InWater="eq False" />
 		<Conditional IsDead="eq False" />
       </StatusEffect>
@@ -404,10 +428,10 @@
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
         <Affliction identifier="pulmonaryemphysema" amount="1" />
-        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
-        <Sound file="%ModDir%/Misc/cough2.ogg" />
-        <Sound file="%ModDir%/Misc/cough3.ogg" />
-        <Sound file="%ModDir%/Misc/cough4.ogg" />
+        <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/cough2.ogg" />
+        <Sound file="%ModDir%/Sounds/cough3.ogg" />
+        <Sound file="%ModDir%/Sounds/cough4.ogg" />
 		<Conditional InWater="eq False" />
 		<Conditional IsDead="eq False" />
       </StatusEffect>
@@ -501,10 +525,10 @@
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
-        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
-        <Sound file="%ModDir%/Misc/cough2.ogg" />
-        <Sound file="%ModDir%/Misc/cough3.ogg" />
-        <Sound file="%ModDir%/Misc/cough4.ogg" />
+        <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/cough2.ogg" />
+        <Sound file="%ModDir%/Sounds/cough3.ogg" />
+        <Sound file="%ModDir%/Sounds/cough4.ogg" />
 		<Conditional InWater="eq False" />
 		<Conditional IsDead="eq False" />
       </StatusEffect>
@@ -562,10 +586,10 @@
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
         <Affliction identifier="pulmonaryemphysema" amount="5" />
-        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
-        <Sound file="%ModDir%/Misc/cough2.ogg" />
-        <Sound file="%ModDir%/Misc/cough3.ogg" />
-        <Sound file="%ModDir%/Misc/cough4.ogg" />
+        <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/cough2.ogg" />
+        <Sound file="%ModDir%/Sounds/cough3.ogg" />
+        <Sound file="%ModDir%/Sounds/cough4.ogg" />
 		<Conditional InWater="eq False" />
 		<Conditional IsDead="eq False" />
       </StatusEffect>
@@ -620,10 +644,10 @@
       <StatusEffect target="Character">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
-        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
-        <Sound file="%ModDir%/Misc/cough2.ogg" />
-        <Sound file="%ModDir%/Misc/cough3.ogg" />
-        <Sound file="%ModDir%/Misc/cough4.ogg" />
+        <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/cough2.ogg" />
+        <Sound file="%ModDir%/Sounds/cough3.ogg" />
+        <Sound file="%ModDir%/Sounds/cough4.ogg" />
 		<Conditional InWater="eq False" />
 		<Conditional IsDead="eq False" />
       </StatusEffect>
@@ -633,10 +657,10 @@
       <StatusEffect target="Character">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
-        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
-        <Sound file="%ModDir%/Misc/cough2.ogg" />
-        <Sound file="%ModDir%/Misc/cough3.ogg" />
-        <Sound file="%ModDir%/Misc/cough4.ogg" />
+        <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/cough2.ogg" />
+        <Sound file="%ModDir%/Sounds/cough3.ogg" />
+        <Sound file="%ModDir%/Sounds/cough4.ogg" />
 		<Conditional InWater="eq False" />
 		<Conditional IsDead="eq False" />
       </StatusEffect>
@@ -646,10 +670,10 @@
       <StatusEffect target="Character">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
-        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
-        <Sound file="%ModDir%/Misc/cough2.ogg" />
-        <Sound file="%ModDir%/Misc/cough3.ogg" />
-        <Sound file="%ModDir%/Misc/cough4.ogg" />
+        <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/cough2.ogg" />
+        <Sound file="%ModDir%/Sounds/cough3.ogg" />
+        <Sound file="%ModDir%/Sounds/cough4.ogg" />
 		<Conditional InWater="eq False" />
 		<Conditional IsDead="eq False" />
       </StatusEffect>
@@ -659,10 +683,10 @@
       <StatusEffect target="Character">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
-        <Sound file="%ModDir%/Misc/cough1.ogg" selectionmode="Random" />
-        <Sound file="%ModDir%/Misc/cough2.ogg" />
-        <Sound file="%ModDir%/Misc/cough3.ogg" />
-        <Sound file="%ModDir%/Misc/cough4.ogg" />
+        <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/cough2.ogg" />
+        <Sound file="%ModDir%/Sounds/cough3.ogg" />
+        <Sound file="%ModDir%/Sounds/cough4.ogg" />
 		<Conditional InWater="eq False" />
 		<Conditional IsDead="eq False" />
       </StatusEffect>
