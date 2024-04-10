@@ -2,9 +2,9 @@
 if CLIENT and Game.IsMultiplayer then return end
 
 DD.diseaseData = {
-	flu = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.3, symptomChance = 0.5},
-	bacterial = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.15, necrotic = true, symptomChance = 0.5},
-	tb = {immune = 1.5, immuneVisibility = 0.5, spreadChance = 0.3, necrotic = true, symptomChance = 0.5}
+	flu = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.3, symptomChance = 1.0},
+	bacterial = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.15, necrotic = true, symptomChance = 1.0},
+	tb = {immune = 1.5, immuneVisibility = 0.5, spreadChance = 0.3, necrotic = true, symptomChance = 1.0}
 }
 local getDiseaseStat = function (diseaseName, statName)
 	local stat = DD.diseaseData[diseaseName][statName]
@@ -168,6 +168,10 @@ DD.thinkFunctions.afflictions = function ()
 				if not getDiseaseStat(diseaseName, 'necrotic') then
 					character.CharacterHealth.ReduceAfflictionOnAllLimbs(diseaseName .. 'infection', 5 * (1/60), nil)
 				end
+			end
+			-- after 10s of being dead, cardiac arrest will reach maxstrength
+			if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) < 1 then
+				DD.giveAfflictionCharacter(character, 'cardiacarrest', 1/60/10)
 			end
 		end
 		-- Disease and immune stuff for living humans

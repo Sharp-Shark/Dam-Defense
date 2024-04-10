@@ -101,7 +101,7 @@ end, {
 			event.start()
 		elseif self.murdererDied then
 			DD.messageAllClients(self.murderer.Name .. ' has failed to murder ' .. self.victim.Name ..' and is now dead! Life goes on...', {preset = 'info'})
-			DD.messageClient(self.murderer, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+			DD.messageClient(self.murderer, 'You have died and are not tasked with murdering ' .. self.victim.Name .. ' anymore!', {preset = 'crit'})
 		elseif self.murdererArrested then
 			DD.giveMoneyToSecurity(5, true)
 			DD.messageAllClients(self.murderer.Name .. ' has failed to murder ' .. self.victim.Name ..' and has been lawfully arrested! Life goes on...', {preset = 'goodinfo'})

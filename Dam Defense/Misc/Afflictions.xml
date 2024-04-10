@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
 
+  <!-- character cannot have sacrificial dagger used on them if this affliction is at maxstrength -->
+  <Affliction name="Cardiac Arrest" identifier="cardiacarrest" description="There is no pulse, the heart has stopped beating." type="cardiacarrest" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="false" indicatorlimb="Torso" activationthreshold="1.0" showiconthreshold="1" maxstrength="1">
+    <Effect minstrength="0.99" maxstrength="1" minvitalitydecrease="1.9" maxvitalitydecrease="2" multiplybymaxvitality="true" />
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,256,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+
   <!-- taken from Combat Overhaul Legacy with only minor tweaks for this mod -->
   <Affliction name="Afterburn" identifier="afterburn" description="" type="burn" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="true" activationthreshold="1.0" showiconthreshold="1000" maxstrength="15">
     <Effect minstrength="1" maxstrength="10" minvitalitydecrease="0" maxvitalitydecrease="0" strengthchange="-0.5">
@@ -17,7 +23,7 @@
   
   <!-- cultist affliction gained from book 1998 by Jerry Peterson (enlightened is affliction, enlightenedmind is talent) -->
   <Affliction name="Enlightened" identifier="enlightened" description="You have been enlightened by the light of truth. You must enlighten others, so all may know it." type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" maxstrength="100">
-    <Effect minstrength="0" maxstrength="99" strengthchange="-2.5" />
+    <Effect minstrength="0" maxstrength="99" strengthchange="-5" />
 	<Effect minstrength="99" maxstrength="100" strengthchange="1.0">
 	  <StatusEffect target="character">
 	    <LuaHook name="DD.enlightened.givetalent" />

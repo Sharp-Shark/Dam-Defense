@@ -127,7 +127,7 @@
 	  Scale="0.9"
 	  GrabWhenSelected="true"
 	  price="2500">
-	  
+	<!-- spacing -->
 	<Deconstruct time="20">
 	  <Item identifier="weldingtool"/>
 	  <Item identifier="weldingfueltank"/>
@@ -141,13 +141,13 @@
 	  <Item identifier="wrench"/>
 	  <Item identifier="screwdriver"/>
     </Fabricate>
-    
+	<!-- spacing -->
 	<InventoryIcon texture="toolkit.png" depth="0.54" sourcerect="0,0,80,40"/>
     <Sprite texture="toolkit.png" depth="0.54" sourcerect="80,0,80,60" origin="0.5,0.67"/>
 	<BrokenSprite texture="toolkit.png" depth="0.54" sourcerect="0,0,80,40"/>
-	
+	<!-- spacing -->
 	<Body width="80" height="40" density="50"/>
-	
+	<!-- spacing -->
 	<Fabricator msg="ItemMsgInteractSelect" minvoltage="0.0" powerconsumption="0.0" canbeselected="true" allowuioverlap="false" hideitems="true" drawhudwhenequipped="false" keepopenwhenequipped="false" ShowContainedStateIndicator="false">
       <GuiFrame relativesize="0.4,0.45" style="ItemUI" anchor="Center" />
       <sound file="Content/Items/Fabricators/Fabricator.ogg" type="OnActive" range="1000.0" volumeproperty="RelativeVoltage" loop="true"/>
@@ -158,7 +158,7 @@
       <StatusEffect type="OnContained" target="This" condition="-100" disabledeltatime="true" setvalue="true" />
       <StatusEffect type="OnNotContained" target="This" condition="100" disabledeltatime="true" setvalue="true" />
 	</Holdable>
-
+	<!-- spacing -->
     <ItemContainer capacity="5" slotsperrow="5" uilabel="Input" canbeselected="true" allowuioverlap="false" hideitems="true" drawhudwhenequipped="false" keepopenwhenequipped="false" ShowContainedStateIndicator="false">
       <Containable items="smallitem,mediumitem" excludeditems="toolkit" />
 	  <StatusEffect type="OnContained" target="This" setvalue="true" drawinventory="false" />
@@ -171,13 +171,30 @@
 	</ItemContainer>
   </Item>
 
-  <!-- crate shelf now goes from bottom to top (instead of the other way around) -->
   <Override>
+  <!-- crate shelf now goes from bottom to top (instead of the other way around) -->
   <Item name="" identifier="crateshelf" tags="container,cargocontainer" linkable="true" canflipx="false" pickdistance="150" scale="0.5">
     <Sprite texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="1,657,185,366" origin="0.5,0.5" />
     <ItemContainer capacity="4" maxstacksize="1" canbeselected="true" hideitems="false" itempos="92,-320" iteminterval="0,92" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.15,0.2" anchor="Center" style="ItemUI" />
       <Containable items="crate" />
+    </ItemContainer>
+  </Item>
+  <!-- railgun shell racks can now hold weapons -->
+  <Item name="" identifier="railgunshellrack" tags="container,railgunammocontainer" pickdistance="120" scale="0.5" canflipx="false" canflipy="false">
+    <Sprite texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="330,811,218,212" origin="0.5,0.5" />
+    <ItemContainer hideitems="false" drawinventory="true" capacity="6" slotsperrow="6" itempos="32,-100" iteminterval="30,0" itemrotation="90" canbeselected="true" msg="ItemMsgInteractSelect">
+      <Upgrade gameversion="0.18.0.0" itempos="32,-100" iteminterval="30,0" />
+      <GuiFrame relativesize="0.3,0.2" anchor="Center" style="ItemUI" />
+      <Containable items="railgunammo,mountableweapon,weapon" />
+    </ItemContainer>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
+  <Item name="" identifier="railgunshellrack3" nameidentifier="railgunshellrack" category="Legacy" tags="container,railgunammocontainer" pickdistance="120" scale="0.5" canflipx="false" canflipy="false">
+    <Sprite texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="330,811,218,212" origin="0.5,0.5" />
+    <ItemContainer hideitems="false" drawinventory="true" capacity="3" slotsperrow="3" itempos="53,-100" iteminterval="55,0" itemrotation="90" canbeselected="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.2,0.2" anchor="Center" style="ItemUI" />
+      <Containable items="railgunammo,mountableweapon,weapon" />
     </ItemContainer>
   </Item>
   </Override>
@@ -186,6 +203,7 @@
   <Item name="DD Location" identifier="dd_location" spritecolor="255,255,255" tags="dd_location" category="Miscellaneous" scale="1" noninteractable="true">
     <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="768,128,128,128" origin="0.5,0.5" depth="0.1" />
   </Item>
+  
   <!-- Hatch with Card Reader -->
   <Item name="Hatch with Card Reader" identifier="hatchwcardreader" allowedlinks="gap,hull,structure,item" linkable="true" tags="door,weldable" scale="0.5" health="150" requirebodyinsidetrigger="false" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" ShowNameInHealthBar="false" explosiondamagemultiplier="0.1" ondamagedthreshold="2" allowrotatingineditor="false">
     <Upgrade gameversion="0.9.7.0" spritedepth="0.7"/>
@@ -229,6 +247,7 @@
       <output name="activate_out" displayname="connection.activateout" />
     </ConnectionPanel>
   </Item>
+  
   <!-- Door with Card Reader -->
   <Item name="Door with Card Reader" identifier="doorwcardreader" tags="door,weldable" scale="0.5" health="150" requirebodyinsidetrigger="false" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" ShowNameInHealthBar="false" explosiondamagemultiplier="0.1" allowrotatingineditor="false" allowedlinks="structure,item" ondamagedthreshold="10" linkable="true">
     <Sprite texture="Content/Items/Door/door.png" sourcerect="0,0,49,416" depth="0.51" origin="0.5,0.5" />
@@ -272,6 +291,7 @@
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
   </Item>
+  
   <!-- Windowed Door with Card Reader -->
   <Item name="Windowed Door with Card Reader" identifier="windoweddoorwcardreader" tags="door,weldable" scale="0.5" health="150" requirebodyinsidetrigger="false" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" ShowNameInHealthBar="false" explosiondamagemultiplier="0.1" allowrotatingineditor="false" allowedlinks="structure,item" ondamagedthreshold="10" linkable="true">
     <Sprite texture="door.png" sourcerect="0,0,49,416" depth="0.51" origin="0.5,0.5" />
@@ -315,6 +335,7 @@
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
   </Item>
+  
   <!-- Secure Door with Card Reader -->
   <Item name="Secure Door with Card Reader" identifier="securedoorwcardreader" tags="door,weldable" scale="0.5" health="500" requirebodyinsidetrigger="false" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" ShowNameInHealthBar="false" explosiondamagemultiplier="0.1" allowrotatingineditor="false" allowedlinks="structure,item" ondamagedthreshold="10" linkable="true">
     <Sprite texture="door.png" sourcerect="0,0,49,416" depth="0.51" origin="0.5,0.5" />
@@ -360,6 +381,7 @@
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
   </Item>
+  
   <!-- Secure Door -->
   <Item name="Custom Secure Door" identifier="securedoor" tags="door,weldable" scale="0.5" health="500" requirebodyinsidetrigger="false" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" ShowNameInHealthBar="false" explosiondamagemultiplier="0.1" allowrotatingineditor="false" allowedlinks="structure,item" ondamagedthreshold="10" linkable="true">
     <Sprite texture="door.png" sourcerect="0,0,49,416" depth="0.51" origin="0.5,0.5" />

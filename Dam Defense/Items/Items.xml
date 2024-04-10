@@ -197,7 +197,107 @@
       </StatusEffect>
     </Holdable>
   </Item>
-  <!-- molotov cocktail is now craftable -->
+  <!-- flamer  now uses afterburn instead of starting fires -->
+  <Item name="" identifier="flamer" category="Equipment" Tags="smallitem,weapon,gun,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer primary="secarmcab" amount="1" spawnprobability="0.2" notcampaign="true"/>
+    <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab" amount="1" spawnprobability="0.1"/>
+    <PreferredContainer secondary="armcab,weaponholder"/>
+    <Price baseprice="105" sold="false">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" sold="true" multiplier="1.25" minavailable="1" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantarmory" multiplier="1.25" minavailable="1" />
+    </Price>
+    <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="64,64,64,64" />-->
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="320,64,64,64" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="154,22,158,77" depth="0.55" origin="0.5,0.5" />
+    <!-- the item takes 10 seconds to break down in a deconstructor and turns into steel and plastic -->
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+      <Item identifier="rubber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+      <RequiredSkill identifier="mechanical" level="30" />
+      <RequiredSkill identifier="weapons" level="20" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="rubber" amount="2" />
+    </Fabricate>
+    <!-- physics body -->
+    <Body width="150" height="77" density="25" />
+    <!-- the character will hold the item 50 pixels in front of him, with his hands at the handle1 and handle2 positions -->
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="50,0" handle1="-62,-16" handle2="-11,-6" msg="ItemMsgPickUpSelect" />
+    <RepairTool firedamage="20.0" structurefixamount="0.0" usablein="Air" range="500" barrelpos="35,10" fireprobability="0.0" repairmultiple="true" RepairMultipleWalls="false" repairthroughwalls="false" repairthroughholes="true" combatpriority="50" spread="25" unskilledspread="25">
+      <!-- the item must contain a welding fuel tank for it to work -->
+      <RequiredItems items="weldingtoolfuel,oxygensource" type="Contained" msg="ItemMsgWeldingFuelRequired" />
+      <RequiredSkill identifier="weapons" level="50" />
+      <ParticleEmitterHitCharacter particle="fleshsmoke" particlespersecond="3" anglemin="265" anglemax="275" velocitymin="0" velocitymax="50" />
+      <ParticleEmitter particle="flamethrower" particlespersecond="80" anglemin="0" anglemax="0" velocitymin="1000" velocitymax="1500" highqualitycollisiondetection="true"/>
+      <ParticleEmitter particle="flamethrowersmoke" particlespersecond="80" anglemin="0" anglemax="0" velocitymin="500" velocitymax="1000"/>
+      <sound file="Content/Items/Weapons/FlameThrowerLoop.ogg" type="OnUse" range="750.0" loop="true" />
+      <StatusEffect type="OnFailure" target="This">
+        <ParticleEmitter particle="bubbles" particlespersecond="20" anglemin="-10" anglemax="10" scalemin="0.3" scalemax="0.7" velocitymin="5" velocitymax="100" copyentityangle="true"/>
+        <ParticleEmitter particle="fleshsmoke" particlespersecond="10" anglemin="-10" anglemax="10" scalemin="1" scalemax="1.5" velocitymin="5" velocitymax="200" copyentityangle="true"/>
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" targettype="UseTarget" targets="item" Condition="-15.0">
+        <Conditional HasTag="neq weldable"/>
+      </StatusEffect>
+      <!-- make the item unusable when there's less than 10% oxygen -->
+      <StatusEffect type="OnUse" target="Hull,This" UsableIn="None">
+        <Conditional OxygenPercentage="lt 10"/>
+      </StatusEffect>
+      <!-- make the item usable again when there's more than 10% oxygen -->
+      <StatusEffect type="OnUse" target="Hull,This" UsableIn="Air">
+        <Conditional OxygenPercentage="gt 10"/>
+      </StatusEffect>
+      <!-- when using, the contained welding fuel tank will detoriate (= lose fuel) -->
+      <StatusEffect type="OnUse" targettype="Contained" targets="weldingfueltank" Condition="-6.0" />
+      <StatusEffect type="OnUse" targettype="Contained" targets="incendiumfueltank" Condition="-2.5" />
+      <!-- do burn damage to characters -->
+      <StatusEffect type="OnSuccess" target="UseTarget">
+        <Affliction identifier="burn" amount="1" />
+        <Affliction identifier="afterburn" amount="2" />
+      </StatusEffect>
+      <!-- explode if oxygen tanks are inserted -->
+      <StatusEffect type="OnUse" targettype="Contained" targets="oxygentank" delay="1.0" stackable="false" Condition="0" setvalue="true">
+        <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" range="2000" />
+        <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" range="2000" />
+        <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" range="2000" />
+        <Explosion range="150.0" force="3" applyfireeffects="false" >
+          <Affliction identifier="burn" strength="25" />
+          <Affliction identifier="stun" strength="5" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnUse" targettype="Contained" targets="oxygenitetank" delay="1.0" stackable="false" Condition="0" setvalue="true">
+        <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" range="2000" />
+        <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" range="2000" />
+        <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" range="2000" />
+        <Explosion range="150.0" force="6" applyfireeffects="false" >
+          <Affliction identifier="burn" strength="50" />
+          <Affliction identifier="stun" strength="10" />
+        </Explosion>
+      </StatusEffect>
+      <!-- consume oxygen from the hull -->
+      <StatusEffect type="OnUse" target="Hull" Oxygen="-10000"/>
+      <StatusEffect type="OnFailure" target="Character">
+        <Conditional InWater="false"/>
+        <Affliction identifier="burn" strength="0.5" probability="0.5"/>
+      </StatusEffect>
+      <LightComponent LightColor="255,174,121,255" Flicker="0.5" Range="500">
+        <sprite texture="Content/Items/Electricity/lightsprite.png" origin="0.5,0.5" />
+      </LightComponent>
+    </RepairTool>
+    <!-- one welding fuel or oxygen tank can be contained inside the welding tool -->
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="false" itempos="8,-20" containedspritedepth="0.56" containedstateindicatorstyle="tank">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <Containable items="weldingtoolfuel,oxygensource" />
+    </ItemContainer>
+    <aitarget sightrange="5000" soundrange="500" fadeouttime="5" />
+    <SkillRequirementHint identifier="weapons" level="50" />
+  </Item>
+  <!-- molotov cocktail is now craftable and uses the afterburn instead of starting fires -->
   <Item name="" identifier="molotovcoctail" category="Weapon" maxstacksize="12" cargocontaineridentifier="metalcrate" impacttolerance="5" Scale="0.5" tags="smallitem,light,provocative,separatists" impactsoundtag="impact_metal_light" isshootable="true">
     <PreferredContainer primary="secarmcab" secondary="armcab"/>
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab" spawnprobability="0"/>
@@ -1001,7 +1101,7 @@
       <Item identifier="plastic" />
       <Item identifier="rubber" />
     </Deconstruct>
-    <InventoryIcon texture="mercsriflefolded.png" sourcerect="52,0,172,80" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="mercsrifle.png" sourcerect="52,96,172,80" depth="0.55" origin="0.5,0.5" />
     <Sprite texture="mercsrifle.png" sourcerect="0,0,224,80" depth="0.55" origin="0.5,0.5" />
     <Body width="220" height="50" density="25" />
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="57,-5" handle1="-40,-18" handle2="26,10" holdangle="-30">
@@ -1531,6 +1631,60 @@
     </Projectile>
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
+  <!-- revolver can now be bought at a nexshop -->
+  <Item name="" identifier="revolver" category="Weapon" cargocontaineridentifier="metalcrate" tags="smallitem,weapon,gun,pistolitem,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
+    <PreferredContainer secondary="outpostsecarmcab" amount="1" spawnprobability="0.5" />
+    <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab" amount="1" spawnprobability="0.25" />
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" sold="false" minavailable="1" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+      <Item identifier="plastic" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="12" />
+	</Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="35" requiresrecipe="true">
+      <RequiredSkill identifier="weapons" level="35" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="128,64,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,418,76,41" depth="0.55" origin="0.5,0.5" />
+    <Body width="72" height="40" density="25" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="70,5" handle1="-25,-7" msg="ItemMsgPickUpSelect" />
+    <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.5">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <Sound file="Content/Items/Weapons/Revolver1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/Revolver2.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/Weapons/Revolver3.ogg" type="OnUse" range="3000" />
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <StatusEffect type="OnUse">
+        <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+        <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
+      </StatusEffect>
+      <RequiredItems items="revolverammo" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="40" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="6" hideitems="true" containedstateindicatorstyle="bullet">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <Containable items="revolverammo" />
+    </ItemContainer>
+    <aitarget sightrange="2000" soundrange="5000" fadeouttime="5" />
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <SkillRequirementHint identifier="weapons" level="40" />
+  </Item>
   <!-- uranium can now be bought at a nexshop -->
   <Item name="" identifier="uranium" category="Material" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,advmunition_core" canbepicked="true" description="" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="1" maxamount="2" spawnprobability="0.05" />
@@ -1566,6 +1720,9 @@
     <Price baseprice="50" sold="false" />
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="6">
       <RequiredItem tag="fakemoney" amount="4" />
+	</Fabricate>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="6">
+      <RequiredItem tag="money" amount="8" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" amount="6">
       <RequiredSkill identifier="weapons" level="45" />
@@ -2348,6 +2505,9 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
       <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2" />
     </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="16" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="35">
       <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="plastic" />
@@ -2426,6 +2586,9 @@
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="5" />
 	</Fabricate>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="12" />
+	</Fabricate>
     <Deconstruct time="10">
       <Item identifier="plastic" />
       <Item identifier="titanium" />
@@ -2478,10 +2641,7 @@
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="4" />
-	</Fabricate>
-    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="2" />
+      <RequiredItem tag="money" amount="8" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2">
       <RequiredSkill identifier="weapons" level="20" />
@@ -2703,7 +2863,7 @@
   </Item>
   
   <!-- crudux cruo! -->
-  <Item name="Blood Cultist Robes" identifier="bloodcultistrobes" inventoryiconcolor="255,200,155,255" category="Equipment" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
+  <Item name="Blood Cultist Robes" identifier="bloodcultistrobes" inventoryiconcolor="255,200,155,255" category="Equipment,Misc" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
     <PreferredContainer primary="crewcab"/>
     <Price baseprice="150" canbespecial="false" sold="false">
       <Price storeidentifier="merchanthusk" minavailable="1" maxavailable="4" sold="true">
@@ -2739,12 +2899,13 @@
       <sprite name="Cultist Head" texture="cultist.png" limb="Head" hidelimb="true" inheritlimbdepth="true" sourcerect="482,12,122,130" inherittexturescale="true" origin="0.525,0.68" inheritscale="true" hideotherwearables="true" hidewearablesoftype="Hair,moustache,beard,head" />
       <StatusEffect type="OnWearing" target="Character" HideFace="true" />
 	  <!-- armor -->
-      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.75" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding,damage" armorsector="0.0,360.0" damagemultiplier="0.75" damagesound="LimbArmor" deflectprojectiles="true" />
 	  <!-- if wearer is a cultist -->
       <StatusEffect type="OnWearing" target="Character">
         <Conditional enlightened="gte 99" TargetSelf="True"/>
 		<ReduceAffliction identifier="huskinfection" strength="10" />
 		<ReduceAffliction type="infection" strength="10" />
+		<ReduceAffliction type="immunedebuff" strength="10" />
 		<ReduceAffliction type="bleeding" strength="1" />
 		<ReduceAffliction type="damage" strength="1" />
 		<ReduceAffliction type="bloodloss" strength="1" />
@@ -2755,25 +2916,157 @@
         <Affliction identifier="burn" strength="0.5" dividebylimbcount="true"/>
 	  </StatusEffect>
     </Wearable>
+	<ItemContainer capacity="2">
+      <Containable items="smallitem" />
+    </ItemContainer>
+  </Item>
+  
+  <!-- blood! -->
+  <Item name="Life Essence" identifier="lifeessence" category="Medical,Misc" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,medical" useinhealthinterface="true" description="" scale="0.35" impactsoundtag="impact_soft">
+    <SuitableTreatment type="bloodloss" suitability="100" />
+    <SuitableTreatment type="damage" suitability="100" />
+    <SuitableTreatment type="bleeding" suitability="100" />
+	<LightComponent range="20.0" lightcolor="255,0,0,100" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" pulsefrequency="0.65" pulseamount="1.0" allowingameediting="false" />
+    <Sprite texture="lifeessence.png" sourcerect="0,0,56,76" depth="0.6" origin="0.5,0.5" />
+    <Body width="80" height="45" density="11" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="-12,-8" msg="ItemMsgPickUpSelect">
+      <StatusEffect tags="medical" type="OnUse" target="This" Condition="-100.0" disabledeltatime="true">
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnUse" target="UseTarget, This" duration="20">
+        <ReduceAffliction type="bloodloss" amount="5" />
+        <ReduceAffliction type="damage" amount="5" />
+        <ReduceAffliction type="bleeding" amount="5" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+    <AiTarget sightrange="1000" static="true" />
+  </Item>
+  
+  <!-- bad blood! -->
+  <Item name="Human Heart" identifier="humanheart" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,medical" useinhealthinterface="true" description="" scale="0.35" impactsoundtag="impact_soft">
+    <Deconstruct time="5">
+      <Item identifier="carbon" />
+      <Item identifier="carbon" />
+    </Deconstruct>
+    <SuitableTreatment type="bloodloss" suitability="100" />
+    <SuitableTreatment type="damage" suitability="100" />
+    <SuitableTreatment type="bleeding" suitability="100" />
+    <Sprite texture="lifeessence.png" sourcerect="56,0,56,76" depth="0.6" origin="0.5,0.5" />
+    <Body width="80" height="45" density="11" />
+	<!-- Cannot be combined -->
+    <Holdable canBeCombined="false" removeOnCombined="false" slots="Any,RightHand,LeftHand" handle1="-12,-8" msg="ItemMsgPickUpSelect">
+	  <!-- If skill is below 50, item will be consumed but it will not do anything -->
+      <RequiredSkill identifier="medical" level="50" />
+      <StatusEffect tags="medical" type="OnUse" target="This" Condition="-100.0" disabledeltatime="true">
+        <Conditional Condition="gt 0"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget, This" duration="20">
+        <Conditional Condition="gt 0"/>
+        <ReduceAffliction type="bloodloss" amount="5" />
+        <ReduceAffliction type="damage" amount="5" />
+        <ReduceAffliction type="bleeding" amount="5" />
+      </StatusEffect>
+	  <!-- Heart will stop beating after 2 minutes and thusly lose any medical utility -->
+	  <StatusEffect type="Always" target="This" Condition="-0.83" />
+    </Holdable>
+    <AiTarget sightrange="1000" static="true" />
+	<SkillRequirementHint identifier="medical" level="50" />
+  </Item>
+  
+  <!-- sacrifice! -->
+  <Item name="Sacrificial Dagger" identifier="sacrificialdagger" category="Weapon,Misc" Tags="smallitem,weapon,gunsmith,mountableweapon,sharptool" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1" spawnprobability="0.25" />
+    <PreferredContainer secondary="abandonedstoragecab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer secondary="beaconsupplycab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer primary="secarmcab" secondary="armcab" />
+    <Price baseprice="29">
+      <Price storeidentifier="merchantoutpost" multiplier="1.5" minavailable="6" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="8" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" minavailable="2" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="15" />
+      <Price storeidentifier="merchantmine" multiplier="1.25" minavailable="2" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="15" />
+      <Price storeidentifier="merchanthusk" minavailable="0" maxavailable="2"/>
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="iron" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+      <RequiredItem identifier="iron" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="lifeessence.png" sourcerect="112,16,64,64" origin="0.5,0.5" />
+    <Sprite texture="lifeessence.png" sourcerect="112,0,80,16" depth="0.55" origin="0.5,0.5" />
+    <Body width="65" height="15" density="25" />
+    <MeleeWeapon slots="Any,RightHand,LeftHand" aimpos="50,0" handle1="-15,0" holdangle="30" reload="0.75" range="50" combatPriority="25" msg="ItemMsgPickUpSelect">
+      <!-- the order of these status effect is crucial for the item to work properly, do not change! -->
+	  <StatusEffect type="OnUse" target="UseTarget">
+        <Conditional entitytype="eq Character" />
+		<LuaHook name="DD.sacrificialdagger.sacrifice" />
+      </StatusEffect>
+	  <StatusEffect type="OnUse" target="UseTarget, Contained" disabledeltatime="true" condition="-9" comparison="AND" >
+	    <Conditional EntityType="character" />
+	    <Conditional Vitality="gt 0" />
+        <RequiredItem items="lifeessence" type="Contained" />
+	  </StatusEffect>
+	  <StatusEffect type="OnUse" target="Limb" disabledeltatime="true" comparison="AND" >
+	    <Conditional EntityType="limb" />
+        <RequiredItem items="lifeessence" type="Contained" />
+		<Affliction identifier="burn" strength="16" />
+        <Affliction identifier="stun" strength="0.8" />
+        <Explosion range="50.0" force="0.1" shockwave="false" sparks="false" flames="false" smoke="true" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect>
+      <Attack targetimpulse="2" severlimbsprobability="0.1" itemdamage="3" structuredamage="2" structuresoundtype="StructureSlash">
+        <Affliction identifier="lacerations" strength="10" />
+        <Affliction identifier="bleeding" strength="10" />
+        <Affliction identifier="stun" strength="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash4.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash5.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash6.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+    </MeleeWeapon>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true">
+      <Containable items="lifeessence" hide="true"/>
+      <SlotIcon slotindex="0" texture="%ModDir%/Misc/Icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
+    </ItemContainer>
+    <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
+    <Quality>
+      <QualityStat stattype="StrikingPowerMultiplier" value="0.1" />
+    </Quality>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
 
   <!-- maranax pallex! -->
   <Item name="The 1998" identifier="the1998" category="Misc" cargocontaineridentifier="metalcrate" allowasextracargo="true" Tags="smallitem,skillbook" maxstacksize="1" scale="0.5" impactsoundtag="impact_soft">
-    <Deconstruct time="20">
+    <Deconstruct time="10">
       <Item identifier="carbon" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="40" amount="1" requiresrecipe="true">
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="1" requiresrecipe="true">
       <Item identifier="carbon" />
     </Fabricate>
     <InventoryIcon texture="book.png" sourcerect="33,54,39,56" origin="0.5,0.5" />
     <Sprite texture="book.png" sourcerect="0,56,32,39" depth="0.6" origin="0.5,0.5" />
     <Body width="28" height="36" density="20" />
-	  <StatusEffect type="Always" Condition="1" />
-    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="40,-20" handle1="5,0" handle2="6,1" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon slots="Any,RightHand+LeftHand" reload="1" range="50" combatpriority="6" DisableWhenRangedWeaponEquipped="false" controlpose="true" aimpos="40,-20" handle1="5,0" handle2="6,1" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect">
 	  <!-- increase condtion over time -->
 	  <StatusEffect type="Always" TargetType="This" Condition="25" />
-	</Holdable>
-    <MeleeWeapon slots="Any,RightHand+LeftHand" reload="1" range="50" combatpriority="6" DisableWhenRangedWeaponEquipped="false">
+	  <StatusEffect type="Always" TargetType="This" Condition="75">
+	    <RequiredItems items="lifeessence" type="Contained" />
+	  </StatusEffect>
+	  <StatusEffect type="Always" TargetType="Contained" Condition="-5">
+        <Conditional Condition="lt 100" TargetContainer="true" />
+	  </StatusEffect>
+	  <!-- attack -->
 	  <Attack structuredamage="0" itemdamage="0" targetimpulse="5">
         <Affliction identifier="stun" strength="0.5" />
         <StatusEffect type="OnUse" target="UseTarget">
@@ -2783,8 +3076,9 @@
         </StatusEffect>
       </Attack>
 	  <!-- cultists when they use this book will say a chant in an forgotten knowledge and enlighten nearby players -->
-      <StatusEffect type="OnUse" TargetType="This, Character" comparison="AND">
+      <StatusEffect type="OnUse" TargetType="This, Character" comparison="AND" Condition="0" setvalue="true" disabledeltatime="true">
         <Conditional enlightened="gte 99" TargetSelf="True"/>
+	    <Conditional EntityType="character" />
         <Conditional Condition="gte 100"/>
         <Sound file="%ModDir%/Sounds/cultist1.ogg" selectionmode="random" range="500" volume="3.0"/>
         <Sound file="%ModDir%/Sounds/cultist2.ogg" range="500" volume="2.5" />
@@ -2798,12 +3092,11 @@
           <Affliction identifier="enlightened" strength="50" />
 		</Explosion>
       </StatusEffect>
-	  <!-- set condition to 0 after using -->
-	  <StatusEffect type="OnUse" TargetType="This, Character" comparison="AND" Condition="0" setvalue="true" disabledeltatime="true">
-        <Conditional enlightened="gte 99" TargetSelf="True"/>
-        <Conditional Condition="gte 100"/>
-	  </StatusEffect>
     </MeleeWeapon>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true">
+      <Containable items="lifeessence" hide="true"/>
+      <SlotIcon slotindex="0" texture="%ModDir%/Misc/Icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
+    </ItemContainer>
   </Item>
   
 </Items>

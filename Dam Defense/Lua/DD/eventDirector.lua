@@ -254,7 +254,6 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 		DD.eventDirector.cooldown = event.cooldown
 		if isMainEvent then
 			DD.eventDirector.mainEventCooldown = event.cooldown
-		else
 			DD.eventDirector.mainEvent = event
 		end
 		return event
@@ -300,8 +299,8 @@ DD.roundStartFunctions.eventDirector = function ()
 	DD.eventDirector.goodness = 0
 	DD.eventDirector.mainEvent = nil
 	DD.eventDirector.events = {}
-	DD.eventDirector.mainEventCooldown = 30
-	DD.eventDirector.cooldown = DD.eventDirector.mainEventCooldown
+	DD.eventDirector.cooldown = 60 * 1
+	DD.eventDirector.mainEventCooldown = 60 * 4
 end
 
 -- Lists to the message sender all of the publicly known events
@@ -344,7 +343,7 @@ DD.chatMessageFunctions.myEvents = function (message, sender)
 	return true
 end
 
--- If it's a client then do run the event director
+-- If it's a client then do NOT run the event director
 if CLIENT then
 	DD.eventDirector.enabled = false
 	DD.thinkFunctions.eventDirector = nil

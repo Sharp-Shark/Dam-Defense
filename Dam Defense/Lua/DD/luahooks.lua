@@ -67,6 +67,22 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	DD.messageClient(client, 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your grand objective is to make everyone a cultist, either by converting them all, by killing them all or a mix of the two. Long live Tchernobog!', {preset = 'crit'})
 end)
 
+Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", function(effect, deltaTime, item, targets, worldPosition)
+    if CLIENT and Game.IsMultiplayer then return end
+	
+	if targets[1] == nil then return end
+	local character = targets[1]
+	
+	if character.Vitality > 0 then return end
+	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) >= 1 then return end
+	
+	local inventory = item.ParentInventory
+	if (inventory.Owner == nil) or (inventory.Owner.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) < 99) then return end
+	
+	DD.giveAfflictionCharacter(character, 'cardiacarrest', 999)
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory, nil, nil, function (spawnedItem) end)
+end)
+
 Hook.Add("DD.debug", "DD.debug", function(effect, deltaTime, item, targets, worldPosition)
 	print(item)
 	DD.tablePrint(targets, nil, 1)
