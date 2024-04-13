@@ -1,4 +1,4 @@
-# Dam Defense v0.11.4 INDEV
+# Dam Defense v0.11.4
 
 Read me? How about I read you instead?
 

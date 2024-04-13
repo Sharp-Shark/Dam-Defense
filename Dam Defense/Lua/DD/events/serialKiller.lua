@@ -13,6 +13,8 @@ end, {
 	
 	onStart = function (self)
 		self.killerWon = false
+		self.timePressurePauseTimer = 0
+		self.eventActualStartTimer = 60 * 1
 		
 		local anyoneAlive = false
 		for client in DD.arrShuffle(Client.ClientList) do
@@ -34,29 +36,8 @@ end, {
 			self.fail()
 			return
 		else
-			self.murderCooldown = 15
-			-- Give affliction
-			DD.giveAfflictionCharacter(self.killer.Character, 'bloodlust', 1)
-			-- Give time pressure immunity for 3 minutes
-			DD.giveAfflictionCharacter(self.killer.Character, 'timepressureimmunity', 60 * 3)
-			-- Remove item at headslot
-			if self.killer.Character.Inventory.GetItemAt(DD.invSlots.head) ~= nil then
-				self.killer.Character.Inventory.GetItemAt(DD.invSlots.head).drop()
-			end
-			-- Put mask at headslot
-			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('clownmask'), self.killer.Character.Inventory, nil, nil, function (spawnedItem)
-				self.mask = spawnedItem
-				Timer.Wait(function ()
-					self.killer.Character.Inventory.TryPutItem(spawnedItem, DD.invSlots.head, true, true, self.killer.Character, true, true)
-				end, 1)
-			end)
-			-- Message
-			DD.messageClient(self.killer, 'You are a serial killer! Your mask grants you unnatural resilience and power, but it also makes you insane... only try to kill the person you have been tasked with killing!', {preset = 'crit'})
-			for client in Client.ClientList do
-				if client ~= self.killer then
-					DD.messageClient(client, 'A serial killer is roaming the area, however it is unknown who they are. Be careful!', {preset = 'crit'})
-				end
-			end
+			local message = 'You are going to turn into a Serial Killer within {time}. Make sure when you do turn, you are somewhere secluded, where no one will see it.'
+			DD.messageClient(self.killer, DD.stringReplace(message, {time = DD.numberToTime(self.eventActualStartTimer)}), {preset = 'crit'})
 		end
 	end,
 	
@@ -70,10 +51,46 @@ end, {
 			return
 		end
 		
+		if self.eventActualStartTimer > 0 then
+			self.eventActualStartTimer = self.eventActualStartTimer - 1/timesPerSecond
+			if not (self.eventActualStartTimer > 0) then
+				self.murderCooldown = 15
+				-- Give affliction
+				DD.giveAfflictionCharacter(self.killer.Character, 'bloodlust', 1)
+				-- Give time pressure immunity for 3 minutes
+				DD.giveAfflictionCharacter(self.killer.Character, 'timepressureimmunity', 60 * 3)
+				-- Remove item at headslot
+				if self.killer.Character.Inventory.GetItemAt(DD.invSlots.head) ~= nil then
+					self.killer.Character.Inventory.GetItemAt(DD.invSlots.head).drop()
+				end
+				-- Put mask at headslot
+				Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('clownmask'), self.killer.Character.Inventory, nil, nil, function (spawnedItem)
+					self.mask = spawnedItem
+					Timer.Wait(function ()
+						self.killer.Character.Inventory.TryPutItem(spawnedItem, DD.invSlots.head, true, true, self.killer.Character, true, true)
+					end, 1)
+				end)
+				-- Message
+				DD.messageClient(self.killer, 'You are a serial killer! Your mask grants you unnatural resilience and power, but it also makes you insane... only try to kill the person you have been tasked with killing!', {preset = 'crit'})
+				for client in Client.ClientList do
+					if client ~= self.killer then
+						DD.messageClient(client, 'A serial killer is roaming the area, however it is unknown who they are. Be careful!', {preset = 'crit'})
+					end
+				end
+			end
+			return
+		end
+		
 		local timeToExplode = 5 * 60 -- in seconds
-		DD.giveAfflictionCharacter(self.killer.character, 'timepressure', 60/timeToExplode/6) -- divide by 6 since it happens 6 times every second
+		if self.timePressurePauseTimer > 0 then
+			self.timePressurePauseTimer = self.timePressurePauseTimer - 1/timesPerSecond
+		else
+			DD.giveAfflictionCharacter(self.killer.character, 'timepressure', 60/timeToExplode/timesPerSecond)
+		end
 		if (self.murder == nil) or (self.murder.finished) then
-			self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+			if (self.murder ~= nil) and self.murder.murdererWon and (self.killer.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil) then
+				self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+			end
 			if self.murderCooldown <= 0 then
 				local victim = nil
 				for client in DD.arrShuffle(Client.ClientList) do
@@ -126,7 +143,13 @@ end, {
 	end,
 	
 	onCharacterDeath = function (self, character)
-		if (self.killer.Character ~= nil) and (self.killer.Character == character) then self.finish() end
+		if (self.killer.Character ~= nil) and (self.killer.Character == character) then
+			self.finish()
+			return
+		end
+		if (character.LastAttacker == self.killer.Character) and (character.SpeciesName == 'human') then
+			self.timePressurePauseTimer = 60 * 3
+		end
 	end,
 	
 	onFinish = function (self)
