@@ -55,16 +55,37 @@ Hook.Add("DD.wifitrigger.use", "DD.wifitrigger.use", function(effect, deltaTime,
 	component = item.GetComponentString('WifiComponent').TransmitSignal(Signal('true'), false)
 end)
 
+Hook.Add("DD.whalinggun.use", "DD.whalinggun.use", function(effect, deltaTime, item, targets, worldPosition)
+	local powder = targets[#targets]
+	if powder.HasTag('whalinggunpowder') or powder.HasTag('munition_propulsion') then
+		powder.Condition = powder.Condition - 50
+	end
+end)
+
 Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
 	if character == nil then return end
 	
+	-- talent
 	if character.HasTalent('enlightenedmind') then return end
     character.GiveTalent('enlightenedmind', true)
 	
+	-- reduce time pressure for all cultists (total amount removed will always be 60)
+	local cultistCharacters = {}
+	for character in Character.CharacterList do
+		if character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) >= 99 then
+			table.insert(cultistCharacters, character)
+		end
+	end
+	for character in cultistCharacters do
+		-- subtract by 1 to not count the just enlightened player
+		character.CharacterHealth.ReduceAfflictionOnAllLimbs('timepressure', 60 / (#cultistCharacters - 1), nil)
+	end
+	
+	-- pop-up
 	local client = DD.findClientByCharacter(character)
 	if client == nil then return end
-	DD.messageClient(client, 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your grand objective is to make everyone a cultist, either by converting them all, by killing them all or a mix of the two. Long live Tchernobog!', {preset = 'crit'})
+	DD.messageClient(client, 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your grand objective is to make everyone a cultist, either by converting them all, by killing them all or a mix of the two. Long live Tchernobog! Do /whisper to message fellow worshippers.', {preset = 'crit'})
 end)
 
 Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", function(effect, deltaTime, item, targets, worldPosition)
@@ -81,6 +102,20 @@ Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", fun
 	
 	DD.giveAfflictionCharacter(character, 'cardiacarrest', 999)
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory, nil, nil, function (spawnedItem) end)
+end)
+
+Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, deltaTime, item, targets, worldPosition)
+    local character = targets[1]
+	if character == nil then return end
+	
+	character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+	
+	-- head goes kaboom
+	for index, limb in pairs(character.AnimController.Limbs) do
+		if index == 2 then
+			Game.Explode(limb.WorldPosition, 1, 999, 999, 0, 0, 0, 0)
+		end
+	end
 end)
 
 Hook.Add("DD.debug", "DD.debug", function(effect, deltaTime, item, targets, worldPosition)

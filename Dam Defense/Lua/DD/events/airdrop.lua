@@ -161,3 +161,28 @@ DD.eventAirdropSeparatist = DD.class(DD.eventAirdrop, nil, {
 	maxAmount = 12,
 	message = 'Airdrop with {amount} items for "crafting" (wink wink) arrived at the radio tower above the slums. Crate despawns in {minutes} minutes!'
 })
+
+-- Cultist airdrop with guns
+DD.eventAirdropCultist = DD.class(DD.eventAirdrop, nil, {
+	name = 'airdropCultist',
+	isMainEvent = false,
+	cooldown = 60 * 2,
+	weight = 1,
+	goodness = -0.5,
+	
+	spawnPosition = 'dd_airdropseparatist',
+	crateIdentifier = 'explosivecrate',
+	items = {
+		{identifier = 'bloodcultistrobes', amount = '1', script = function (spawnedItem)
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('sacrificialdagger'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end)
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('the1998'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end)
+		end},
+		{identifier = 'tommygun', amount = '1', script = function (spawnedItem)
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('pistoldrum'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end)
+		end},
+		{identifier = 'fakemoney', amount = '10'}
+	},
+	minAmount = 3,
+	maxAmount = 6,
+	message = 'Airdrop with {amount} items for "crafting" (wink wink) arrived at the radio tower above the slums. Crate despawns in {minutes} minutes!'
+})

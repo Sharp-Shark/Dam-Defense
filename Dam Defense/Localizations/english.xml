@@ -154,6 +154,11 @@
   <entitydescription.flaregun>A brass and steel flare pistol with a wood finish of a bygone era. Serves as well in a museum as in the hands of a fighter.</entitydescription.flaregun>
   <entityname.flaregunround>Flare Gun Round</entityname.flaregunround>
   <entitydescription.flaregunround>Ammunition for a flare gun. Unusually explosive, great for setting flammable targets on fire.</entitydescription.flaregunround>
+  <!-- Whaling Gun -->
+  <entityname.whalinggun>Whaling Gun</entityname.whalinggun>
+  <entitydescription.whalinggun>A flintlock muzzle-loaded spear shooter. Accepts any harpoon, but requires specifically magnesium or phosphorus as a propellant. Does not work underwater.</entitydescription.whalinggun>
+  <entityname.whalingspear>Whaling Harpoon</entityname.whalingspear>
+  <entitydescription.whalingspear>A massive harpoon designed for hunting whales, but will of course kill nearly anything that isn't a whale just as well. Can only be fired out of a whaling gun.</entitydescription.whalingspear>
   <!-- Blood Cultist Robes -->
   <entityname.bloodcultistrobes>Blood Cultist Robes</entityname.bloodcultistrobes>
   <entitydescription.bloodcultistrobes>A simple hooded garment that grants passive regeneration and immunity to disease when worn by the "enlightened" members of the Blood Cult. The robe also serves to conceal their identity whilst letting other fellows cultists recognize them as their own.</entitydescription.bloodcultistrobes>

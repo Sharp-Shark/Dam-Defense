@@ -28,7 +28,6 @@ DD.eventDirector.eventPool = {
 	DD.eventAirdrop,
 	DD.eventAirdropMedical,
 	DD.eventAirdropSecurity,
-	DD.eventAirdropSeparatist,
 	DD.eventMurder,
 	DD.eventArrest1984,
 	DD.eventAfflictionFlu,
@@ -191,6 +190,14 @@ DD.eventDirector.getClientRelations = function (client)
 				targets = DD.setUnion(targets, security)
 			elseif security[client] then
 				targets = DD.setUnion(targets, rebels)
+			end
+		elseif event.name == 'bloodCult' then
+			local cultists = DD.toSet(event.cultists)
+			local noncultists = DD.setSubtract(clients, cultists)
+			if cultists[client] then
+				targets = DD.setUnion(targets, noncultists)
+			else
+				targets = DD.setUnion(targets, cultists)
 			end
 		elseif (event.name == 'arrest') and (event.charge == 'manslaughter') then
 			if event.target == client then

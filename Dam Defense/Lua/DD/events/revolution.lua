@@ -13,7 +13,7 @@ end, {
 	
 	onStart = function (self)
 		self.rebelsWon = false
-		self.rebelsDoxTimer = 60 * 10
+		self.rebelsDoxTimer = 60 * 8
 		self.rebelsDoxHappened = false
 		
 		-- Pick rebels
@@ -92,9 +92,7 @@ end, {
 					DD.messageClient(client, "There have been rumours of a revolution. You should ally yourself with the rebels or security. Has security ever treated you well though? List of rebels will be pubic in " .. DD.numberToTime(self.rebelsDoxTimer) .. '. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
 				end
 			end
-			-- Spawn airdrops for security and rebels
-			local event = DD.eventAirdropSecurity.new()
-			event.start()
+			-- Spawn airdrops for rebels
 			local event = DD.eventAirdropSeparatist.new()
 			event.start()
 		end

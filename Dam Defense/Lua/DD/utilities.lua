@@ -171,7 +171,7 @@ DD.stringReplace = function(str, tbl)
 			elseif tbl[build] == false then
 				formatted = formatted .. 'false'
 			elseif type(tbl[build]) == 'table' then
-				formatted = formatted .. table.print(tbl[build], true)
+				formatted = formatted .. DD.tablePrint(tbl[build], true)
 			elseif type(tbl[build]) == 'string' then
 				formatted = formatted .. tbl[build]
 			else
@@ -187,6 +187,25 @@ DD.stringReplace = function(str, tbl)
 		end
 	end
 	return formatted
+end
+
+-- Localizes a string
+DD.stringLocalize = function(key, tbl)
+	local language
+	if CLIENT then
+		language = string.lower(tostring(Game.Settings.CurrentConfig.language))
+		if DD.localizations[language] == nil then language = 'english' end
+	else
+		language = 'english'
+	end
+	if DD.localizations[language][key] == nil then language = 'english' end
+	
+	local str = DD.localizations[language][key]
+	if tbl == nil then
+		return str
+	else
+		return DD.stringReplace(str, tbl)
+	end
 end
 
 -- Checks if a string has another string

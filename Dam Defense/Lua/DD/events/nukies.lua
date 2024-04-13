@@ -11,7 +11,7 @@ end, {
 	name = 'nukies',
 	isMainEvent = true,
 	cooldown = 60 * 8,
-	weight = 2,
+	weight = 3,
 	goodness = -1.5,
 	
 	onStart = function (self)

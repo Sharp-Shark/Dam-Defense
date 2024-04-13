@@ -2862,6 +2862,104 @@
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
   
+  <!-- whaling gun, muzzle-loading flintlock that uses gunpowder to fire harpoons -->
+  <Item name="Whaling Gun" identifier="whalinggun" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Deconstruct time="30">
+      <RequiredItem identifier="titaniumaluminiumalloy" />
+      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="copper" />
+      <RequiredItem identifier="tin" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="90">
+      <RequiredSkill identifier="weapons" level="40" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="copper" amount="1" />
+      <RequiredItem identifier="tin" amount="1" />
+    </Fabricate>
+    <Sprite texture="whalinggun.png" sourcerect="0,0,240,64" depth="0.55" origin="0.5,0.5" />
+    <Body width="180" height="30" density="25" />
+	<Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="whalinggun.png" sourcerect="0,0,240,64" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.75" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="30,-25" aimpos="65,0" handle1="-40,-3" handle2="25,15" holdangle="-20" msg="ItemMsgPickUpSelect" />
+    <RangedWeapon barrelpos="100,15" weapondamagemodifier="1.5" reload="1.5" maxchargetime="0.5" launchimpulse="30.0" spread="1" unskilledspread="10" combatPriority="100" drawhudwhenequipped="true" crosshairscale="0.2" >
+	  <StatusEffect type="Always" target="This" Condition="100" setvalue="true" disabledeltatime="true" />
+	  <StatusEffect type="InWater" target="This" Condition="0" setvalue="true" disabledeltatime="true" />
+	  <StatusEffect type="OnUse" target="Contained">
+		<LuaHook name="DD.whalinggun.use" />
+	  </StatusEffect>
+	  <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <Sound file="Content/Items/Weapons/WEAPON_rifleGrenadeShot1.ogg" type="OnUse" range="1000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/WEAPON_rifleGrenadeShot2.ogg" type="OnUse" range="1000" />
+      <Sound file="Content/Items/Weapons/WEAPON_rifleGrenadeShot3.ogg" type="OnUse" range="1000" />
+	  <ChargeSound file="%ModDir%/Sounds/hammerpull.ogg" range="500" />
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <StatusEffect type="OnUse">
+        <Explosion range="150.0" force="10" shockwave="false" smoke="true" flames="false" flash="false" sparks="true" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect>
+      <RequiredItems items="whalinggunammo,harpoonammo" type="Contained" msg="ItemMsgSpearRequired" />
+      <RequiredItems items="whalinggunpowder,munition_propulsion" type="Contained" msg="itemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="40" />
+    </RangedWeapon>
+    <ItemContainer itempos="65,15" hideitems="false" capacity="1" maxstacksize="1" containedstateindicatorslot="0" containedstateindicatorstyle="spear" containedspritedepths="0.551">
+      <Containable items="whalinggunammo,harpoonammo" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="0,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="%ModDir%/Misc/Icons.png" sourcerect="512,64,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="flashlight" hide="false" itempos="45,3" setactive="true" />
+      </SubContainer>
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="whalinggunpowder,munition_propulsion" hide="true" />
+      </SubContainer>
+    </ItemContainer>
+    <aitarget sightrange="0" soundrange="500" fadeouttime="2" />
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <SkillRequirementHint identifier="weapons" level="40" />
+  </Item>
+  
+  <!-- whaling harpoon - whilst regular harpoons can be loaded into the whaling gun, whaling harpoons can only be used in the whaling gun -->
+  <Item name="Whaling Harpoon" identifier="whalingspear" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="6" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="mediumitem,whalinggunammo" Scale="0.5" impactsoundtag="impact_metal_light">
+    <PreferredContainer primary="whalinggun" amount="1" spawnprobability="1" />
+    <Deconstruct time="5">
+      <RequiredItem identifier="steel" />
+	</Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="6">
+      <RequiredSkill identifier="weapons" level="20" />
+      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="steel" />
+    </Fabricate>
+    <InventoryIcon texture="whalinggun.png" sourcerect="249,0,55,55" origin="0.5,0.5" />
+    <Sprite texture="whalinggun.png" sourcerect="0,64,190,28" depth="0.55" origin="0.5,0.5" />
+    <Body width="160" height="20" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Rope sourcepullforce="300" targetpullforce="100" projectilepullforce="5" maxlength="1500" snaponcollision="false" spritewidth="3" tile="true" origin="0.05,0.5" targetminmass="30" lerpforces="true" snapanimduration="0.5">
+      <Sprite texture="Content/Map/Thalamus/thalamus.png" sourcerect="617,352,174,32" depth="0.57" origin="0.5,0.5" />
+      <!-- Snap after 1 seconds if not stuck to anything -->
+      <StatusEffect type="OnUse" target="This" Snapped="true" delay="1" checkconditionalalways="true">
+        <Conditional targetitemcomponent="Projectile" IsStuckToTarget="false" />
+      </StatusEffect>
+    </Rope>
+    <Projectile characterusable="false" launchimpulse="5" sticktocharacters="true" sticktoitems="true" sticktostructures="true" sticktodoors="false">
+      <Attack penetration="0.9" structuredamage="60" itemdamage="60" targetforce="80" severlimbsprobability="1.0">
+        <Affliction identifier="lacerations" strength="200" />
+        <Affliction identifier="bleeding" strength="50" />
+        <Affliction identifier="stun" strength="1" />
+      </Attack>
+      <StatusEffect type="OnActive" target="UseTarget,This" checkconditionalalways="true" comparison="And">
+        <Conditional Snapped="false" />
+        <Conditional mass="lt 30" />
+        <Affliction identifier="drag" strength="1" />
+      </StatusEffect>
+    </Projectile>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
+  
   <!-- crudux cruo! -->
   <Item name="Blood Cultist Robes" identifier="bloodcultistrobes" inventoryiconcolor="255,200,155,255" category="Equipment,Misc" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
     <PreferredContainer primary="crewcab"/>
@@ -2896,7 +2994,7 @@
       <sprite name="Cultist Left Leg" texture="cultist.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Cultist Left Shoe" texture="cultist.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Cultist Right Shoe" texture="cultist.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Head" texture="cultist.png" limb="Head" hidelimb="true" inheritlimbdepth="true" sourcerect="482,12,122,130" inherittexturescale="true" origin="0.525,0.68" inheritscale="true" hideotherwearables="true" hidewearablesoftype="Hair,moustache,beard,head" />
+      <sprite name="Cultist Head" texture="cultist.png" limb="Head" hidelimb="true" inheritlimbdepth="true" sourcerect="512,12,122,130" inherittexturescale="true" origin="0.525,0.68" inheritscale="true" hideotherwearables="true" hidewearablesoftype="Hair,moustache,beard,head" />
       <StatusEffect type="OnWearing" target="Character" HideFace="true" />
 	  <!-- armor -->
       <damagemodifier afflictiontypes="bleeding,damage" armorsector="0.0,360.0" damagemultiplier="0.75" damagesound="LimbArmor" deflectprojectiles="true" />
@@ -2926,12 +3024,17 @@
     <SuitableTreatment type="bloodloss" suitability="100" />
     <SuitableTreatment type="damage" suitability="100" />
     <SuitableTreatment type="bleeding" suitability="100" />
+    <SuitableTreatment type="timepressure" suitability="150" />
 	<LightComponent range="20.0" lightcolor="255,0,0,100" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" pulsefrequency="0.65" pulseamount="1.0" allowingameediting="false" />
     <Sprite texture="lifeessence.png" sourcerect="0,0,56,76" depth="0.6" origin="0.5,0.5" />
     <Body width="80" height="45" density="11" />
     <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="-12,-8" msg="ItemMsgPickUpSelect">
       <StatusEffect tags="medical" type="OnUse" target="This" Condition="-100.0" disabledeltatime="true">
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnUse" target="UseTarget, This" duration="30">
+	    <Conditional enlightened="gte 99" />
+		<ReduceAffliction identifier="timepressure" amount="5" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnUse" target="UseTarget, This" duration="20">
         <ReduceAffliction type="bloodloss" amount="5" />

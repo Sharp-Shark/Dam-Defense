@@ -14,6 +14,37 @@ end, {
 	weight = 1.5,
 	goodness = -1.5,
 	
+	cultistTitles = {},
+	bloodWhisper = function (self, message, sender)
+		if self.cultistTitles[sender] == nil then
+			local titles = {
+				'Cultist',
+				'Enlightened',
+				'Worshipper',
+				'Believer',
+				'Faithful',
+				'Holy',
+				'Devout',
+				'Righteous',
+				'Loyal',
+				'Stalwart',
+				'Staunch',
+				'Fanatic',
+				'Sinless',
+				'Fearless',
+				'Zealous',
+				'Pious'
+			}
+			self.cultistTitles[sender] = ', the ' .. titles[math.random(#titles)]
+		end
+		local title = self.cultistTitles[sender]
+		for client in Client.ClientList do
+			if self.cultistsSet[client] then
+				DD.messageClient(client, message, {sender = sender.Name .. title, sendMain = false, sendAnother = true, color = Color(255, 55, 55)})
+			end
+		end
+	end,
+	
 	updateCultistList = function (self)
 		self.cultists = {}
 		for client in Client.ClientList do
@@ -60,6 +91,7 @@ end, {
 			for client in Client.ClientList do
 				if self.cultistsSet[client] then
 					DD.giveAfflictionCharacter(client.Character, 'enlightened', 999)
+					DD.giveAfflictionCharacter(client.Character, 'timepressureimmunity', 60 * 3) -- 3 minutes of time pressure immunity
 					-- No "DD.messageClient" here since whenever the "enlightened" affliction is gained, a luahook already sends a message
 				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
 					DD.messageClient(client, 'Intel reports a blood cult chapter has started in this region. Identify and neutralize all of them before they convert or kill everyone. Any mentions of "Tchernobog" should be met with suspicion.', {preset = 'crit'})
@@ -67,6 +99,9 @@ end, {
 					DD.messageClient(client, 'There have been rumours of cultists in the area. If you were not worried about hooded figures in the sewers saying strange chants before, you should be now.', {preset = 'crit'})
 				end
 			end
+			-- Spawn airdrops for cultists
+			local event = DD.eventAirdropCultist.new()
+			event.start()
 		end
 	end,
 	
@@ -105,6 +140,15 @@ end, {
 				end
 			end	
 		end
+	end,
+	
+	onChatMessage = function (self, message, sender)
+		if string.sub(message, 1, 8) ~= '/whisper' then return end
+		if not self.cultistsSet[sender] then return end
+		
+		self.bloodWhisper(string.sub(message, 10), sender)
+		
+		return true
 	end,
 	
 	onFinish = function (self)

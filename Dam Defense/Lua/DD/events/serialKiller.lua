@@ -37,6 +37,8 @@ end, {
 			self.murderCooldown = 15
 			-- Give affliction
 			DD.giveAfflictionCharacter(self.killer.Character, 'bloodlust', 1)
+			-- Give time pressure immunity for 3 minutes
+			DD.giveAfflictionCharacter(self.killer.Character, 'timepressureimmunity', 60 * 3)
 			-- Remove item at headslot
 			if self.killer.Character.Inventory.GetItemAt(DD.invSlots.head) ~= nil then
 				self.killer.Character.Inventory.GetItemAt(DD.invSlots.head).drop()
@@ -68,7 +70,10 @@ end, {
 			return
 		end
 		
+		local timeToExplode = 5 * 60 -- in seconds
+		DD.giveAfflictionCharacter(self.killer.character, 'timepressure', 60/timeToExplode/6) -- divide by 6 since it happens 6 times every second
 		if (self.murder == nil) or (self.murder.finished) then
+			self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
 			if self.murderCooldown <= 0 then
 				local victim = nil
 				for client in DD.arrShuffle(Client.ClientList) do
@@ -144,6 +149,7 @@ end, {
 			elseif self.killer.Character.IsArrested then
 				DD.messageAllClients('The serial killer has been arrested.', {preset = 'goodinfo'})
 				DD.messageClient(self.killer, 'You been arrested and are not an antagonist anymore!', {preset = 'crit'})
+				self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
 			end
 		end
 	end

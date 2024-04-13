@@ -25,6 +25,10 @@ require 'DD/utilities'
 require 'DD/saving'
 require 'DD/updater'
 
+-- Load localizations
+DD.localizations = {}
+DD.localizations.english = dofile(DD.path .. '/Localizations/english.lua')
+
 -- Mod workshop ID
 local getSteamWorkshopId = function ()
 	local text = File.Read(DD.path .. '/' .. 'filelist.xml')
@@ -95,6 +99,7 @@ DD.thinkFunctions.main = function ()
 	
 	-- After 30 minutes disable respawing
 	if DD.allowRespawning and (DD.roundTimer > DD.disableRespawningAfter) then
+		DD.messageAllClients('The match has gone on for too long and respawning has been automatically disabled.', {preset = 'crit'})
 		DD.setAllowRespawning(false)
 	end
 	
@@ -210,6 +215,7 @@ end
 require 'DD/nature'
 require 'DD/afflictions'
 require 'DD/eventDirector'
+require 'DD/latejoin'
 require 'DD/money'
 require 'DD/luahooks'
 require 'DD/commands'
@@ -321,7 +327,7 @@ end)
 
 -- Sends a message to husks telling them about their objective
 Hook.Add("husk.clientControl", "DD.huskMessage", function (client, husk)
-	print('test')
+	print('It seems husk.clientControl does absolutely nothing -- what a shame!')
 	
 	DD.messageClient(client, 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk.', {preset = 'crit'})
 
