@@ -12,6 +12,11 @@
 	</Effect>
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
+  
+  <!-- hidden affliction applied on serial killer that does nothing, just exists to flag him for statuseffects or conditionals -->
+  <Affliction name="Serial Killer" identifier="serialkiller" description="" type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" maxstrength="1">
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
 
   <!-- head NOT go kaboom -->
   <Affliction name="Time Pressure Immunity" identifier="timepressureimmunity" description="" type="timepressureimmunity" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="999" maxstrength="300">
@@ -24,7 +29,7 @@
   </Affliction>
 
   <!-- head go kaboom -->
-  <Affliction name="Time Pressure" identifier="timepressure" description="An increasing pressure from inside the head. Feels like it is about to explode, perhaps literally." type="timepressure" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="1" maxstrength="60">
+  <Affliction name="Time Pressure" identifier="timepressure" description="An increasing pressure from inside the head. Feels like it is about to explode, perhaps literally." type="timepressure" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="1" showicontoothersthreshold="999" showinhealthscannerthreshold="999" maxstrength="60">
     <Effect minstrength="0" maxstrength="50" />
 	<Effect minstrength="50" maxstrength="59" minvitalitydecrease="0.0" maxvitalitydecrease="1.0" multiplybymaxvitality="true" />
 	<Effect minstrength="59" maxstrength="60" >

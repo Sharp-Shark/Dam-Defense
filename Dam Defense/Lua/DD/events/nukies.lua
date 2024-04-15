@@ -44,7 +44,9 @@ end, {
 			-- Spawn nukies and do client messages
 			for client in Client.ClientList do
 				if self.nukiesSet[client] then
-					DD.spawnHuman(client, 'jet', DD.findRandomWaypointByJob('jet').WorldPosition, nil, nil)
+					local job = 'jet'
+					local pos = DD.findRandomWaypointByJob(job).WorldPosition
+					local character = DD.spawnHuman(client, job, pos)
 					DD.messageClient(client, 'You are a nukie! Work with your fellow nukies to explode the reactor and win the round.', {preset = 'crit'})
 				else
 					DD.messageClient(client, 'Intel reports nukie activity on the area. Keep the crew, and most importantly the reactor safe from them!', {preset = 'crit'})

@@ -51,33 +51,40 @@ end, {
 			return
 		end
 		
+		-- give serial killer "flag" affliction
+		if DD.isClientCharacterAlive(self.killer) and (self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true) == nil) then
+			DD.giveAfflictionCharacter(self.killer.Character, 'serialkiller', 999)
+		end
+		
 		if self.eventActualStartTimer > 0 then
 			self.eventActualStartTimer = self.eventActualStartTimer - 1/timesPerSecond
+			-- event actual start
 			if not (self.eventActualStartTimer > 0) then
 				self.murderCooldown = 15
 				-- Give affliction
 				DD.giveAfflictionCharacter(self.killer.Character, 'bloodlust', 1)
-				-- Give time pressure immunity for 3 minutes
-				DD.giveAfflictionCharacter(self.killer.Character, 'timepressureimmunity', 60 * 3)
+				-- Give time pressure immunity
+				DD.giveAfflictionCharacter(self.killer.Character, 'timepressureimmunity', self.murderCooldown)
 				-- Remove item at headslot
 				if self.killer.Character.Inventory.GetItemAt(DD.invSlots.head) ~= nil then
 					self.killer.Character.Inventory.GetItemAt(DD.invSlots.head).drop()
 				end
 				-- Put mask at headslot
-				Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('clownmask'), self.killer.Character.Inventory, nil, nil, function (spawnedItem)
+				Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('creepymask'), self.killer.Character.Inventory, nil, nil, function (spawnedItem)
 					self.mask = spawnedItem
 					Timer.Wait(function ()
 						self.killer.Character.Inventory.TryPutItem(spawnedItem, DD.invSlots.head, true, true, self.killer.Character, true, true)
 					end, 1)
 				end)
 				-- Message
-				DD.messageClient(self.killer, 'You are a serial killer! Your mask grants you unnatural resilience and power, but it also makes you insane... only try to kill the person you have been tasked with killing!', {preset = 'crit'})
+				DD.messageClient(self.killer, 'You are a serial killer! Your mask grants you unnatural resilience and power. You must kill your target ', {preset = 'crit'})
 				for client in Client.ClientList do
 					if client ~= self.killer then
 						DD.messageClient(client, 'A serial killer is roaming the area, however it is unknown who they are. Be careful!', {preset = 'crit'})
 					end
 				end
 			end
+			-- if event has not actually started yet, return to not execute the rest of the code
 			return
 		end
 		
@@ -88,9 +95,11 @@ end, {
 			DD.giveAfflictionCharacter(self.killer.character, 'timepressure', 60/timeToExplode/timesPerSecond)
 		end
 		if (self.murder == nil) or (self.murder.finished) then
+			-- if last murder resulted in a victory for the murderer, reset time pressure
 			if (self.murder ~= nil) and self.murder.murdererWon and (self.killer.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil) then
 				self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
 			end
+			-- when murderCooldown reaches 0, start a new murder event
 			if self.murderCooldown <= 0 then
 				local victim = nil
 				for client in DD.arrShuffle(Client.ClientList) do
@@ -107,6 +116,7 @@ end, {
 			end
 		end
 		
+		-- bloodlust when creepy mask is being worn
 		if DD.isClientCharacterAlive(self.killer) and (self.killer.Character.Inventory.GetItemAt(2) ~= nil) and (self.mask.ID == self.killer.Character.Inventory.GetItemAt(2).ID) then
 			if self.killer.Character.CharacterHealth.GetAffliction('bloodlust', true) == nil then
 				DD.giveAfflictionCharacter(self.killer.Character, 'bloodlust', 1)
@@ -138,7 +148,7 @@ end, {
 			return
 		end
 		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and self.killer.Character.IsArrested) then
-			self.finish()
+			--self.finish()
 		end
 	end,
 	
@@ -148,15 +158,21 @@ end, {
 			return
 		end
 		if (character.LastAttacker == self.killer.Character) and (character.SpeciesName == 'human') then
-			self.timePressurePauseTimer = 60 * 3
+			self.timePressurePauseTimer = 60 * 2
 		end
 	end,
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
-		if DD.isClientCharacterAlive(self.killer) then
+		if DD.isClientCharacterAlive(self.killer) and (not self.killerWon) then
+			if self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true) ~= nil then
+				self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true).SetStrength(0)
+			end
 			if self.killer.Character.CharacterHealth.GetAffliction('bloodlust', true) ~= nil then
 				self.killer.Character.CharacterHealth.GetAffliction('bloodlust', true).SetStrength(0)
+			end
+			if self.killer.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
+				self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
 			end
 		end
 		if self.killerWon then

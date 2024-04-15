@@ -121,6 +121,9 @@
   <!-- Emergency Mask -->
   <entityname.disposabledivingmask>Emergency Mask</entityname.disposabledivingmask>
   <entitydescription.disposabledivingmask>Disposable emergency oxygen mask. Also serves a medical purpose since it lowers oxygen low, helping keep patients with a critical status alive.</entitydescription.disposabledivingmask>
+  <!-- Creepy Mask -->
+  <entityname.creepymask>Creepy Mask</entityname.creepymask>
+  <entitydescription.creepymask>Boo-hoo, when's the hurting stop?</entitydescription.creepymask>
   <!-- Storage Guntainer -->
   <entityname.toolboxgun>Storage Guntainer</entityname.toolboxgun>
   <entitydescription.toolboxgun>A portable guntainer for storing tools and supplies.</entitydescription.toolboxgun>

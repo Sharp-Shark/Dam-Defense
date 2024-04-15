@@ -1,4 +1,4 @@
--- localization by Sharp-Shark
+-- english localization by Sharp-Shark
 return {
 	-- main.lua
 	matchHasGoneOnForTooLong = 'The match has gone on for too long and respawning has been automatically disabled.',

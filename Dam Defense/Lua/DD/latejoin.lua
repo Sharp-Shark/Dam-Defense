@@ -7,7 +7,8 @@ DD.lateJoinSpawn = function ()
 		if (not DD.isClientCharacterAlive(client)) and (not DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation]) then
 			local job = 'mechanic'
 			local pos = DD.findRandomWaypointByJob(job).WorldPosition
-			DD.spawnHuman(client, job, pos)
+			local character = DD.spawnHuman(client, job, pos)
+			character.SetOriginalTeam(CharacterTeamType.Team1)
 		end
 	end
 end
