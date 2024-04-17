@@ -2120,7 +2120,7 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="5" />
 	</Fabricate>
-    <Sprite name="Oxygen Mask" texture="headgears.png" sourcerect="0,94,72,62" depth="0.6" origin="0.45,0.5" />
+    <Sprite name="Oxygen Mask" texture="headgears.png" sourcerect="336,46,72,62" depth="0.6" origin="0.45,0.5" />
     <Body radius="25" density="25" />
     <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
@@ -2141,10 +2141,10 @@
   
   <!-- serial killer mask -->
   <Item name="Creepy Mask" identifier="creepymask" category="Equipment,Misc" cargocontaineridentifier="metalcrate" tags="smallitem,clownmask,clowns" description="" scale="0.5">
-    <Sprite texture="headgears.png" depth="0.6" sourcerect="330,18,36,53" origin="0.5,0.5" scale="0.5" />
+    <Sprite texture="headgears.png" depth="0.6" sourcerect="453,18,36,53" origin="0.5,0.5" scale="0.5" />
     <Body width="40" radius="30" density="15" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect">
-      <sprite name="Creepy Mask Wearable" texture="headgears.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.75" sourcerect="288,0,89,71" origin="0.5,0.6" />
+      <sprite name="Creepy Mask Wearable" texture="headgears.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.75" sourcerect="411,0,89,71" origin="0.5,0.6" />
       <StatusEffect type="OnWearing" target="Character" HideFace="true" duration="0.1" stackable="false" />
 	  <!-- if wearer is not a serial killer -->
       <StatusEffect type="OnWearing" target="Character">

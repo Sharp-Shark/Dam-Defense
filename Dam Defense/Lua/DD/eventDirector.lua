@@ -40,8 +40,8 @@ DD.eventDirector.cooldown = nil
 DD.eventDirector.mainEvent = nil
 DD.eventDirector.mainEventCooldown = nil
 DD.eventDirector.eventsPerClientCap = 2 -- how many events a single client can be a participant of
-DD.eventDirector.mainEventCap = 3 -- how many main events can be active at the same time (negative values means it is uncapped)
-DD.eventDirector.canMainEventBeRegularEvent  = true -- can a main event be called when a regular event is to be started
+DD.eventDirector.mainEventCap = 1 -- how many main events can be active at the same time (negative values means it is uncapped)
+DD.eventDirector.canMainEventBeRegularEvent = false -- can a main event be called when a regular event is to be started
 DD.eventDirector.mainEventsDisableRespawning = true -- if there is any active main event then respawning will be disabled
 
 -- Debug function
@@ -248,7 +248,7 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 	-- Get weights
 	local weights = {}
 	for key, value in pairs(DD.eventDirector.eventPool) do
-		if (value.tbl.isMainEvent == isMainEvent) or (value.tbl.isMainEvent and isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
+		if (value.tbl.isMainEvent == isMainEvent) or (value.tbl.isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
 			weights[key] = math.max(0, value.tbl.weight - value.tbl.weight * value.tbl.goodness * DD.eventDirector.goodness)
 		end
 	end
