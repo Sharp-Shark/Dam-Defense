@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="0.11.5" corepackage="False" steamworkshopid="3146664815" gameversion="1.3.0.3">
+<contentpackage name="Dam Defense" modversion="0.11.8" corepackage="False" steamworkshopid="3146664815" gameversion="1.3.0.4">
   <Item file="%ModDir%/Items/Machines.xml" />
   <Item file="%ModDir%/Items/Boomboxes.xml" />
   <Item file="%ModDir%/Items/Medicines.xml" />
@@ -10,6 +10,7 @@
   <Character file="%ModDir%/Characters/Husk/Husk.xml" />
   <Talents file="%ModDir%/Misc/Talents.xml" />
   <Text file="%ModDir%/Localizations/english.xml" />
+  <Text file="%ModDir%/Localizations/russian.xml" />
   <Jobs file="%ModDir%/Misc/Jobs.xml" />
   <Afflictions file="%ModDir%/Misc/Afflictions.xml" />
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />

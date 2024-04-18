@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<infotexts language="Russian" nowhitespace="false" translatedname="Русский">
+	<Override>
+		<!-- Mayor Job -->
+		<jobname.captain>Alcalde</jobname.captain>
+		<jobdescription.captain>Eres el gobernante (probablemente debido a tu hígado y pulmones invulnerables al daño) de este lugar, pero nadie gobierna solo. Dependerás de los ejecutores para que se cumpla tu palabra, los buceadores para mantener a raya la fauna local, el personal médico para mantener a todos sanos, los ingenieros para mantener la presa y su reactor funcionando, y los trabajadores con la producción de suministros cruciales.</jobdescription.captain>
+		<!-- Engineer -->
+		<jobname.engineer>Ingeniero</jobname.engineer>
+		<jobdescription.engineer>Un profesional altamente capacitado y valioso responsable de mantener la presa y su reactor. La seguridad a menudo estará ocupada, así que se te ha confiado una pistola, no seas imprudente con ella, úsala principalmente para mantener alejados a los saboteadores.</jobdescription.engineer>
+		<!-- Enforcer -->
+		<jobname.securityofficer>Ejecutor</jobname.securityofficer>
+		<jobdescription.securityofficer>Como su nombre sugiere, tu principal responsabilidad es hacer cumplir la ley de la tierra. También debes mantener seguros a los residentes, lo que desafortunadamente incluye a los campesinos. Si alguien se convierte en una amenaza, es deseable arrestarlos si es posible, después de todo, no te pagan por matar.</jobdescription.securityofficer>
+		<!-- Medical Doctor -->
+		<jobname.medicaldoctor>Médico</jobname.medicaldoctor>
+		<jobdescription.medicaldoctor>Aunque generalmente se da por sentado, los médicos juegan un papel importante, poseen la habilidad requerida para tratar a miembros de la tripulación heridos o inconscientes. Sus habilidades también pueden ser útiles para crear varios productos químicos no medicinales.</jobdescription.medicaldoctor>
+		<!-- Assistant -->
+		<jobname.assistant>Asistente</jobname.assistant>
+		<jobdescription.assistant>Solo un sujeto de prueba, despojado de todos sus derechos y humanidad. Según la ley, este individuo nunca ha existido.</jobdescription.assistant>
+		<!-- Laborer Job -->
+		<jobname.mechanic>Trabajador</jobname.mechanic>
+		<jobdescription.mechanic>Trabaja en la fábrica para refinar materiales crudos en equipos, armas, herramientas, munición y armaduras. De vez en cuando toma una copa con los amigos y planea un levantamiento contra tus opresores. Trabajamos para ganarnos el derecho a trabajar para ganarnos el derecho a darnos el derecho de comprarnos el derecho de vivir para ganarnos el derecho de morir.</jobdescription.mechanic>
+	</Override>
+	<!-- Clown Job -->
+	<jobname.clown>Payaso</jobname.clown>
+	<jobdescription.clown>¡La única regla es que no hay reglas! Bueno, casi. ¡Haz todo lo posible para que la seguridad te odie y (opcionalmente) haz que los residentes te amen!</jobdescription.clown>
+	<!-- Foreman Job -->
+	<jobname.foreman>Capataz</jobname.foreman>
+	<jobdescription.foreman>El Alcalde a menudo estará demasiado ocupado para vigilar la presa. Sin embargo, tu única ocupación es observar la presa. Darás órdenes a los ingenieros para asegurarte de que la presa y sus reactores estén funcionando perfectamente en todo momento. Si la situación lo requiere, también puedes trabajar temporalmente solo como un oficial de seguridad adicional.</jobdescription.foreman>
+	<!-- Researcher Job -->
+	<jobname.researcher>Investigador</jobname.researcher>
+	<jobdescription.researcher>Además de trabajar como Médico si es necesario, también conducirás principalmente investigaciones, a menudo poco éticas, con el objetivo de producir antídotos para infecciones utilizando tu muestreador de sangre en infectados y luego refinando tus muestras vivas en antídotos en un fabricador médico.</jobdescription.researcher>
+	<!-- Diver Job -->
+	<jobname.diver>Buzo</jobname.diver>
+	<jobdescription.diver>Experto en buceo y caza. Tu principal tarea es mantener la fauna local bajo control con tus armas y extraer minerales con tu cortador de plasma. Si la situación lo requiere, también puedes trabajar temporalmente solo como un oficial de seguridad adicional.</jobdescription.diver>
+	<!-- Nukie Job -->
+	<jobname.jet>Tropa de Élite Joviana</jobname.jet>
+	<jobdescription.jet>Tropas de Élite Jovianas. Destruyan esa presa y maten a cada bastardo que esté dentro y no esté aliado con los separatistas.</jobdescription.jet>
+	<!-- Immune Afflictions -->
+	<afflictionname.immuneboost>Estímulo Inmunológico</afflictionname.immuneboost>
+	<afflictiondescription.immuneboost>El sistema inmunológico ha sido fortalecido y reaccionará más rápido.</afflictiondescription.immuneboost>
+	<afflictionname.immuneresponse>Respuesta Inmunológica</afflictionname.immuneresponse>
+	<afflictiondescription.immuneresponse>El cuerpo está luchando arduamente contra una infección.</afflictiondescription.immuneresponse>
+	<afflictionname.fever>Fiebre</afflictionname.fever>
+	<afflictiondescription.fever>Combate las infecciones, pero temperaturas corporales demasiado altas pueden ser contraproducentes e incluso letales. Tratable con Stabilozina.</afflictiondescription.fever>
+	<!-- Misc Afflictions -->
+	<afflictionname.bacterialgangrene>Gangrena Bacteriana</afflictionname.bacterialgangrene>
+	<afflictiondescription.bacterialgangrene>Gangrena superficial causada por bacterias, puede causar infección bacteriana si no se trata. Aplicar antibióticos o lavar con etanol.</afflictiondescription.bacterialgangrene>
+	<!-- Disease Afflictions -->
+	<afflictionname.fluinfection>Infección de Gripe</afflictionname.fluinfection>
+	<afflictiondescription.fluinfection>Infección pulmonar muy contagiosa. Por lo general, no letal por sí sola. Causa vulnerabilidad a infecciones bacterianas oportunísticas y dificultad para respirar.</afflictiondescription.fluinfection>
+	<afflictionname.bacterialinfection>Infección Bacteriana</afflictionname.bacterialinfection>
+	<afflictiondescription.bacterialinfection>Una infección bacteriana amplia e inespecífica. Por lo general, no letal por sí sola. Tratable con Antibióticos de Amplio Espectro.</afflictiondescription.bacterialinfection>
+	<afflictionname.tbinfection>Infección de Tuberculosis</afflictionname.tbinfection>
+	<afflictiondescription.tbinfection>Una infección bacteriana pulmonar muy letal, también altamente transmisible. Si no se trata, muy probablemente resultará en la muerte. Tratable con Antibióticos de Amplio Espectro.</afflictiondescription.tbinfection>
+
+	<Override>
+		<entitydescription.captainspipe>Se utiliza para fumar tabaco de pipa. De alguna manera, cura el daño y la pérdida de sangre a una velocidad impresionante. Causa aproximadamente el mismo daño pulmonar que un paquete entero de cigarros.</entitydescription.captainspipe>
+		<entitydescription.cigar>Un cigarro finamente elaborado. De alguna manera, cura el daño y la pérdida de sangre. El uso intenso y frecuente puede causar daño pulmonar difícil de revertir.</entitydescription.cigar>
+		<entitydescription.rum>Una fina bebida alcohólica hecha de jugo de planta de raptor. Cuando se bebe, cura la infección de carcasa y aumenta el sistema inmunológico a costa de un daño orgánico menor. Se puede verter sobre heridas para eliminar la gangrena.</entitydescription.rum>
+		<entitydescription.ethanol>Alcohol médico utilizado como ingrediente en la fabricación de varios medicamentos. No se recomienda beber mientras se está de servicio. Cuando se bebe, aumenta el sistema inmunológico a costa de un daño orgánico leve. Se puede verter sobre heridas para eliminar la gangrena.</entitydescription.ethanol>
+		<entitydescription.stabilozine>Se utiliza como ingrediente en la fabricación de varios medicamentos. Por sí solo, se puede usar para ralentizar los efectos de la mayoría de los toxinas y reducir la fiebre.</entitydescription.stabilozine>
+		<entitydescription.adrenaline>Una hormona que se produce naturalmente. Cuando se consume, aumenta temporalmente el sistema inmunológico. Se utiliza para fabricar medicamentos o estimulantes de combate.</entitydescription.adrenaline>
+		<!--<entitydescription.replaceme></entitydescription.replaceme>-->
+	</Override>
+
+	<!-- Nexcredit -->
+	<entityname.money>Nexcredit</entityname.money>
+	<entitydescription.money>Los Nexcredits (TM) se pueden intercambiar por bienes en las Nexshops (TM). Este mensaje fue patrocinado por Nexpharma (TM).</entitydescription.money>
+	<!-- Counterfeit Nexcredit -->
+	<entityname.fakemoney>Nexcredit Falso</entityname.fakemoney>
+	<entitydescription.fakemoney>Cualquier humano puede decir fácilmente que estos son falsos, pero aún pueden engañar a las Nexshops. Muy ilegales, ¡no dejes que seguridad te atrape con uno de estos!</entitydescription.fakemoney>
+	<!-- Nukieshop -->
+	<entityname.nukieshop1>Tienda de Nukie</entityname.nukieshop1>
+	<!-- Nexshop -->
+	<entityname.nexshop1>Nexshop</entityname.nexshop1>
+	<!-- Nexcase -->
+	<entityname.moneycase>Nexcase</entityname.moneycase>
+	<entitydescription.moneycase>¿Dinero? ¡Amo el dinero! ¿Amas el dinero? Este Nexcase (TM) se puede utilizar para almacenar temporalmente Nexcredits (TM).</entitydescription.moneycase>
+	<!-- Foldable Chair -->
+	<entityname.foldablechair>Silla Plegable</entityname.foldablechair>
+	<entitydescription.foldablechair>Una silla de metal plegable simple. ¡Ahora puedes sentarte casi donde quieras con esto! Sorprendentemente resistente, lo suficientemente resistente como para, digamos, golpear letalmente a alguien en la cabeza con ella.</entitydescription.foldablechair>
+	<!-- Wifi Trigger -->
+	<entityname.wifitrigger>Disparador Wifi</entityname.wifitrigger>
+	<entitydescription.wifitrigger>Un dispositivo portátil que contiene un componente wifi, lo que permite el envío remoto conveniente de señales.</entitydescription.wifitrigger>
+	<!-- Live Influenza -->
+	<entityname.flusyringe>Jeringa de Gripe Viva</entityname.flusyringe>
+	<entitydescription.flusyringe>Una jeringa que contiene una muestra viva de influenza que fue tomada de alguien usando un muestreador de sangre. Se puede convertir en Antídoto para la Gripe en un fabricador médico.</entitydescription.flusyringe>
+	<!-- Influenza Antidote -->
+	<entityname.fluantidote>Antídoto para la Gripe</entityname.fluantidote>
+	<entitydescription.fluantidote>Una mezcla de un virus de la gripe debilitado y anticuerpos. Cura rápidamente cualquier infección de gripe en curso y proporciona inmunidad temporal contra ella también.</entitydescription.fluantidote>
+	<!-- Live Bacteria -->
+	<entityname.bacterialsyringe>Bacterias Vivas</entityname.bacterialsyringe>
+	<entitydescription.bacterialsyringe>Una jeringa que contiene una muestra viva de bacterias que fue tomada de alguien usando un muestreador de sangre. Se puede convertir en Antibióticos de Amplio Espectro en un fabricador médico.</entitydescription.bacterialsyringe>
+	<!-- Live Tuberculosis -->
+	<entityname.tbsyringe>Tuberculosis Viva</entityname.tbsyringe>
+	<entitydescription.tbsyringe>Una jeringa que contiene una muestra viva de tuberculosis que fue tomada de alguien usando un muestreador de sangre. Se puede convertir en Antibióticos de Amplio Espectro en un fabricador médico.</entitydescription.tbsyringe>
+	<!-- Blood Sampler -->
+	<entityname.bloodsampler>Muestreador de Sangre</entityname.bloodsampler>
+	<entitydescription.bloodsampler>Puede ser usado en personas infectadas para extraer una muestra viva de su infección. Las muestras de enfermedades vivas pueden convertirse en sus antídotos en un fabricador médico.</entitydescription.bloodsampler>
+	<!-- Diving Flashlight -->
+	<entityname.divingflashlight>Linterna de Buceo</entityname.divingflashlight>
+	<entitydescription.divingflashlight>Doble poder... doble consumo de energía.</entitydescription.divingflashlight>
+	<!-- Boomboxes -->
+	<entityname.boombox1>Reproductor de música Country</entityname.boombox1>
+	<entitydescription.boombox1>"Sweet Home Alabama" de Lynyrd Skynyrd.</entitydescription.boombox1>
+	<entityname.boombox2>Reproductor de música Virtual</entityname.boombox2>
+	<entitydescription.boombox2>"Virtual Insanity" de Jamiroquai.</entitydescription.boombox2>
+	<entityname.boombox3>Reproductor de música Metal</entityname.boombox3>
+	<entitydescription.boombox3>"Enter Sandman" de Metallica.</entitydescription.boombox3>
+	<entityname.boombox4>Reproductor de música Bandit</entityname.boombox4>
+	<entitydescription.boombox4>Radio Bandit de "S.T.A.L.K.E.R.: Clear Sky".</entitydescription.boombox4>
+	<entityname.boombox5>Reproductor de música de Payaso</entityname.boombox5>
+	<entitydescription.boombox5>"Tintin en la Luna" de Jeroen Tel.</entitydescription.boombox5>
+	<!-- Nukie Mask -->
+	<entityname.jetmask>Máscara Nukie</entityname.jetmask>
+	<entitydescription.jetmask>¡Una máscara de buceo y un casco! ¡Qué conveniente!</entitydescription.jetmask>
+	<!-- Diving Helmet -->
+	<entityname.divinghelmet>Casco de Buceo</entityname.divinghelmet>
+	<entitydescription.divinghelmet>¡Una máscara de buceo y un casco! ¡Qué conveniente!</entitydescription.divinghelmet>
+	<!-- Hard Hat -->
+	<entityname.hardhat>Casco de Seguridad</entityname.hardhat>
+	<entitydescription.hardhat>Crucial para mantener un entorno de trabajo seguro. ¡Protege tu cabeza!</entitydescription.hardhat>
+	<!-- Emergency Mask -->
+	<entityname.disposabledivingmask>Máscara de Oxígeno de Emergencia</entityname.disposabledivingmask>
+	<entitydescription.disposabledivingmask>Máscara de oxígeno desechable de emergencia. También tiene un propósito médico ya que reduce el oxígeno, ayudando a mantener con vida a pacientes en estado crítico.</entitydescription.disposabledivingmask>
+	<!-- Creepy Mask -->
+	<entityname.creepymask>Máscara Siniestra</entityname.creepymask>
+	<entitydescription.creepymask>¡Bu-huh, cuándo se detendrá el dolor!</entitydescription.creepymask>
+	<!-- Storage Guntainer -->
+	<entityname.toolboxgun>Almacén de Herramientas Portátil</entityname.toolboxgun>
+	<entitydescription.toolboxgun>Un guntainer portátil para almacenar herramientas y suministros.</entitydescription.toolboxgun>
+	<!-- Antique Revolver -->
+	<entityname.antiquerevolver>Revólver Antiguo</entityname.antiquerevolver>
+	<entitydescription.antiquerevolver>Un antiguo cañón de acción simple. A pesar de la edad, aún golpea duro.</entitydescription.antiquerevolver>
+	<!-- Foldable Shotgun -->
+	<entityname.foldableshotgun>Escopeta Plegable</entityname.foldableshotgun>
+	<entitydescription.foldableshotgun>Una escopeta antigua que logra tener tanto potencia como portabilidad al ser plegable.</entitydescription.foldableshotgun>
+	<!-- Separatist Rifle -->
+	<entityname.separatistrifle>Rifle Separatista</entityname.separatistrifle>
+	<entitydescription.separatistrifle>Diseño clásico soviético de 7.62x39mm utilizado por combatientes por la libertad, terroristas o ambos dependiendo de a quién preguntes.</entitydescription.separatistrifle>
+	<entityname.762magazine>Cargador de Rifle Separatista</entityname.762magazine>
+	<entitydescription.762magazine>Un cargador con 30 cartuchos de 7.62x39mm soviético.</entitydescription.762magazine>
+	<entityname.762round>Cartucho de Rifle Separatista</entityname.762round>
+	<entitydescription.762round>Un cartucho de 7x62x39mm.</entitydescription.762round>
+	<!-- Tommy Gun -->
+	<entityname.tommygun>Pistola Ametralladora Tommy</entityname.tommygun>
+	<entitydescription.tommygun>Una conversión a 9mm de una antigua pistola ametralladora usualmente asociada con la mafia u otros criminales lujosos. Cuenta con una impresionante cadencia de fuego y un acabado fino.</entitydescription.tommygun>
+	<entityname.pistoldrum>Cargador de Pistola Tommy</entityname.pistoldrum>
+	<entitydescription.pistoldrum>Un cargador para la pistola Tommy que contiene 60 cartuchos de 9mm.</entitydescription.pistoldrum>
+	<!-- Pistol -->
+	<entityname.pistol>Pistola</entityname.pistol>
+	<entitydescription.pistol>Una pistola compacta de 9mm finamente elaborada diseñada para uso civil.</entitydescription.pistol>
+	<entityname.pistolmagazine>Cargador de Pistola</entityname.pistolmagazine>
+	<entitydescription.pistolmagazine>Un cargador para pistolas que contiene 20 cartuchos de 9mm.</entitydescription.pistolmagazine>
+	<entityname.pistolround>Cartucho de Pistola</entityname.pistolround>
+	<entitydescription.pistolround>Un cartucho de 9mm</entitydescription.pistolround>
+	<!-- Flare Gun -->
+	<entityname.flaregun>Pistola de Bengalas</entityname.flaregun>
+	<entitydescription.flaregun>Una pistola de bengalas de latón y acero con un acabado de madera de una era pasada. Sirve tanto en un museo como en manos de un combatiente.</entitydescription.flaregun>
+	<entityname.flaregunround>Cartucho de Pistola de Bengalas</entityname.flaregunround>
+	<entitydescription.flaregunround>Munición para una pistola de bengalas. Inusualmente explosiva, ideal para prender fuego a objetivos inflamables.</entitydescription.flaregunround>
+	<!-- Whaling Gun -->
+	<entityname.whalinggun>Cañón Ballenero</entityname.whalinggun>
+	<entitydescription.whalinggun>Un disparador de lanzas de carga frontal con chispa de pedernal. Acepta cualquier arpón, pero requiere específicamente magnesio o fósforo como propelente. No funciona bajo el agua.</entitydescription.whalinggun>
+	<entityname.whalingspear>Arpón Ballenero</entityname.whalingspear>
+	<entitydescription.whalingspear>Un arpón masivo diseñado para cazar ballenas, pero por supuesto, también matará casi cualquier cosa que no sea una ballena igual de bien. Solo se puede disparar desde un cañón ballenero.</entitydescription.whalingspear>
+	<!-- Blood Cultist Robes -->
+	<entityname.bloodcultistrobes>Túnicas de Cultista de la Sangre</entityname.bloodcultistrobes>
+	<entitydescription.bloodcultistrobes>Una simple prenda con capucha que otorga regeneración pasiva e inmunidad a las enfermedades cuando es usada por los miembros "iluminados" del Culto de la Sangre. La túnica también sirve para ocultar su identidad mientras permite que otros cultistas los reconozcan como propios.</entitydescription.bloodcultistrobes>
+	<!-- Life Essence -->
+	<entityname.lifeessence>Esencia de Vida</entityname.lifeessence>
+	<entitydescription.lifeessence>Un corazón humano mágicamente siempre latiendo con un brillo rojo. Puede ser consumido para tratar pérdida de sangre, sangrado y daño o utilizado para sobrecargar ciertos objetos de los cultistas.</entitydescription.lifeessence>
+	<!-- Human Heart -->
+	<entityname.humanheart>Corazón Humano</entityname.humanheart>
+	<entitydescription.humanheart>Un corazón humano. Si aún está latiendo, pronto dejará de hacerlo. Puede ser usado por médicos entrenados para tratar pérdida de sangre, sangrado y daño o simplemente desmontado.</entitydescription.humanheart>
+	<!-- Sacrificial Dagger -->
+	<entityname.sacrificialdagger>Daga Sacrificial</entityname.sacrificialdagger>
+	<entitydescription.sacrificialdagger>Una daga torcida imbuida con una magia inquietante. Los cultistas pueden usarlas en los moribundos para arrancarles su esencia vital aún latente.</entitydescription.sacrificialdagger>
+	<!-- The 1998 -->
+	<entityname.the1998>El 1998</entityname.the1998>
+	<entitydescription.the1998>Un libro que contiene conocimientos antiguos prohibidos en un idioma olvidado. Inofensivo en manos de la mayoría, pero los cultistas los usarán para convertir a otros en uno de ellos.</entitydescription.the1998>
+	<!-- Trash Bags -->
+	<entityname.trashbag>Bolsa de Basura</entityname.trashbag>
+	<entitydescription.trashbag>El método estándar para desechar artículos.</entitydescription.trashbag>
+</infotexts>

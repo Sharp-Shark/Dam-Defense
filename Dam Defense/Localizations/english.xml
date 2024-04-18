@@ -111,10 +111,13 @@
   <entitydescription.boombox5>"Tintin on the Moon" by Jeroen Tel.</entitydescription.boombox5>
   <!-- Nukie Mask -->
   <entityname.jetmask>Nukie Mask</entityname.jetmask>
-  <entitydescription.jetmask>A diving mask and a helmet! How convenient.</entitydescription.jetmask>
+  <entitydescription.jetmask>A diving mask and a helmet! How efficient.</entitydescription.jetmask>
   <!-- Diving Helmet -->
   <entityname.divinghelmet>Diving Helmet</entityname.divinghelmet>
   <entitydescription.divinghelmet>A diving mask and a helmet! How convenient.</entitydescription.divinghelmet>
+  <!-- Constable Helmet -->
+  <entityname.constablehelmet>Constable Helmet</entityname.constablehelmet>
+  <entitydescription.constablehelmet>A diving mask and a helmet! How british.</entitydescription.constablehelmet>
   <!-- Hard Hat -->
   <entityname.hardhat>Hard Hat</entityname.hardhat>
   <entitydescription.hardhat>Crucial to maintain a safe working environment. Keeps your head safe!</entitydescription.hardhat>

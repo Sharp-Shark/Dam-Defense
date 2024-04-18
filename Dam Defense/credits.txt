@@ -1,0 +1,3 @@
+Russian localization by Squid. Squid also helped with removing unused textures and with cleaning the boombox xml.
+
+Everything else by Sharp-Shark.

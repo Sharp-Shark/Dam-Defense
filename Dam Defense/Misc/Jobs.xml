@@ -361,7 +361,7 @@
 	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
 	  </Item>
       <Item identifier="headset" equip="true"/>
-      <Item identifier="ballistichelmet3" equip="true"/>
+      <Item identifier="constablehelmet" equip="true"/>
       <Item identifier="rifle" equip="true">
         <Item identifier="riflebullet" />
         <Item identifier="riflebullet" />
@@ -388,7 +388,7 @@
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-      <Item identifier="disposabledivingmask"/>
+      <Item identifier="oxygentank"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -398,32 +398,17 @@
       <Item identifier="securityuniform1" equip="true" outfit="true"/>
       <Item identifier="bodyarmor" equip="true">
 	    <Item identifier="handcuffs" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
+        <Item identifier="pistoldrum" />
+        <Item identifier="pistoldrum" />
 	  </Item>
       <Item identifier="idcard" equip="true">
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
 	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
 	  </Item>
       <Item identifier="headset" equip="true"/>
-      <Item identifier="ballistichelmet3" equip="true"/>
-      <Item identifier="rifle" equip="true">
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
+      <Item identifier="constablehelmet" equip="true"/>
+      <Item identifier="tommygun" equip="true">
+        <Item identifier="pistoldrum" />
       </Item>
       <Item identifier="revolver" equip="false">
         <Item identifier="revolverround" />
@@ -458,7 +443,7 @@
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-      <Item identifier="disposabledivingmask"/>
+      <Item identifier="oxygentank"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_3.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_3.png" sourcerect="121,0,76,80" offset="-20,15" />
