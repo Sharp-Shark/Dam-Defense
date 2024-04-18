@@ -1,6 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
 
+  <!-- exists to play a SFX to a player the first time he becomes enlightened -->
+  <Affliction name="Enlightened SFX" identifier="enlightenedsfx" description="" type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="999" maxstrength="1">
+    <Effect minstrength="0" maxstrength="1" strengthchange="-1">
+      <StatusEffect target="Character">
+        <Conditional IsLocalPlayer="True"/>
+        <Sound file="%ModDir%/Sounds/tchernobog1.ogg" loop="false" volume="8.0" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/tchernobog2.ogg" loop="false" volume="8.0" />
+        <Sound file="%ModDir%/Sounds/tchernobog3.ogg" loop="false" volume="8.0" />
+        <Sound file="%ModDir%/Sounds/tchernobog4.ogg" loop="false" volume="8.0" />
+        <Sound file="%ModDir%/Sounds/tchernobog5.ogg" loop="false" volume="8.0" />
+      </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  
   <!-- cultist affliction gained from book 1998 by Jerry Peterson (enlightened is affliction, enlightenedmind is talent) -->
   <Affliction name="Enlightened" identifier="enlightened" description="You have been enlightened by the light of truth. You must enlighten others, so all may know it." type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" showicontoothersthreshold="999" showinhealthscannerthreshold="999" maxstrength="100">
     <Effect minstrength="0" maxstrength="99" strengthchange="-5" />

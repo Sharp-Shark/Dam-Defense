@@ -70,6 +70,9 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	if character.HasTalent('enlightenedmind') then return end
     character.GiveTalent('enlightenedmind', true)
 	
+	-- tchernobog sfx
+	DD.giveAfflictionCharacter(character, 'enlightenedsfx', 999)
+	
 	-- reduce time pressure for all cultists (total amount removed will always be 60)
 	local cultistCharacters = {}
 	for character in Character.CharacterList do

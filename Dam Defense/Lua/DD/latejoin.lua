@@ -9,6 +9,7 @@ DD.lateJoinSpawn = function ()
 			local pos = DD.findRandomWaypointByJob(job).WorldPosition
 			local character = DD.spawnHuman(client, job, pos)
 			character.SetOriginalTeam(CharacterTeamType.Team1)
+			character.UpdateTeam()
 		end
 	end
 end
