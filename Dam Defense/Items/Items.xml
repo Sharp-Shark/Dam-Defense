@@ -257,7 +257,7 @@
       <StatusEffect type="OnUse" targettype="Contained" targets="incendiumfueltank" Condition="-2.5" />
       <!-- do burn damage to characters -->
       <StatusEffect type="OnSuccess" target="UseTarget">
-        <Affliction identifier="burn" amount="1" />
+        <Affliction identifier="burn" amount="1.5" />
         <Affliction identifier="afterburn" amount="2" />
       </StatusEffect>
       <!-- explode if oxygen tanks are inserted -->
@@ -2897,7 +2897,7 @@
     <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
     <Projectile characterusable="false" launchimpulse="15.0" sticktocharacters="true" sticktoitems="true" sticktostructures="true" sticktodoors="true">
       <Attack penetration="1" severlimbsprobability="0">
-        <Affliction identifier="gunshotwound" strength="15" />
+        <Affliction identifier="gunshotwound" strength="20" />
       </Attack>
       <StatusEffect type="OnActive" target="This" Condition="50.0" setvalue="true" disabledeltatime="true">
 	    <Use />
@@ -2913,7 +2913,7 @@
         <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" volume="4.0" range="3000" />
         <Explosion range="250.0" ballastfloradamage="100" structuredamage="0" itemdamage="0" force="5" severlimbsprobability="0" debris="true" decal="explosion" decalsize="0.5" penetration="0.5">
           <Affliction identifier="afterburn" strength="100" dividebylimbcount="true"/>
-          <Affliction identifier="burn" strength="15" dividebylimbcount="true"/>
+          <Affliction identifier="burn" strength="20" dividebylimbcount="true"/>
           <Affliction identifier="stun" strength="0.5" />
         </Explosion>
         <Remove />
@@ -3267,6 +3267,7 @@
         <Explosion range="250.0" force="1.5" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0">
 		  <!-- due to affliction decay, will take atleast 3 hits to enlighten, if not more -->
           <Affliction identifier="enlightened" strength="50" />
+          <Affliction identifier="enlighteneddecaypause" strength="999" />
 		</Explosion>
       </StatusEffect>
     </MeleeWeapon>

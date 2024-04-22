@@ -16,6 +16,16 @@
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
   
+  <!-- pauses decay of enlightened affliction -->
+  <Affliction name="Enlightened Decay Pause" identifier="enlighteneddecaypause" description="" type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="5">
+    <Effect minstrength="0" maxstrength="5" strengthchange="-1" >
+	  <StatusEffect target="character">
+	    <Affliction identifier="enlightened" amount="5" />
+	  </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  
   <!-- cultist affliction gained from book 1998 by Jerry Peterson (enlightened is affliction, enlightenedmind is talent) -->
   <Affliction name="Enlightened" identifier="enlightened" description="You have been enlightened by the light of truth. You must enlighten others, so all may know it." type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" showicontoothersthreshold="999" showinhealthscannerthreshold="999" maxstrength="100">
     <Effect minstrength="0" maxstrength="99" strengthchange="-5" />
@@ -62,10 +72,10 @@
   </Affliction>
 
   <!-- taken from Combat Overhaul Legacy with only minor tweaks for this mod -->
-  <Affliction name="Afterburn" identifier="afterburn" description="" type="burn" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="true" activationthreshold="1.0" showiconthreshold="1000" maxstrength="15">
+  <Affliction name="Afterburn" identifier="afterburn" description="" type="burn" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="true" activationthreshold="1.0" showiconthreshold="999" maxstrength="15">
     <Effect minstrength="1" maxstrength="10" minvitalitydecrease="0" maxvitalitydecrease="0" strengthchange="-0.5">
       <StatusEffect target="Limb">
-        <Affliction identifier="burn" amount="0.55" />
+        <Affliction identifier="burn" amount="0.6" />
       </StatusEffect>
       <StatusEffect target="Limb">
         <ParticleEmitter particle="flamethrower_co" particlespersecond="4" scalemin="0.5" scalemax="0.7" distancemin="0" distancemax="30" />

@@ -88,7 +88,7 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	-- pop-up
 	local client = DD.findClientByCharacter(character)
 	if client == nil then return end
-	DD.messageClient(client, 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your grand objective is to make everyone a cultist, either by converting them all, by killing them all or a mix of the two. Long live Tchernobog! Do /whisper to message fellow worshippers.', {preset = 'crit'})
+	DD.messageClient(client, 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your objective is to have no non-cultist alive. You can convert others using "The 1998". You can extract "Life Essence" from the unconcious or the recently deceased using a "Sacrificial Dagger". Conversion and consuming "Life Essence" both lower your "Time Pressure". Long live Tchernobog! Do /cultists to get a list of fellow worshippers and /whisper to message them all.', {preset = 'crit'})
 end)
 
 Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", function(effect, deltaTime, item, targets, worldPosition)

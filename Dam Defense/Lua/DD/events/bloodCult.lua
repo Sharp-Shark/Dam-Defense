@@ -14,6 +14,18 @@ end, {
 	weight = 1.5,
 	goodness = -1.5,
 	
+	buildCultistList = function (self, excludeSet)
+		local excludeSet = excludeSet or {}
+		local clients = DD.setSubtract(self.cultistsSet, excludeSet)
+		
+		local text = ''
+		for client, value in pairs(clients) do
+			text = text .. client.Name .. ', '
+		end
+		text = string.sub(text, 1, #text - 2)
+		return text
+	end,
+	
 	cultistTitles = {},
 	bloodWhisper = function (self, message, sender)
 		if self.cultistTitles[sender] == nil then
@@ -143,10 +155,18 @@ end, {
 	end,
 	
 	onChatMessage = function (self, message, sender)
-		if string.sub(message, 1, 8) ~= '/whisper' then return end
+		if (string.sub(message, 1, 8) ~= '/whisper') and (message ~= '/cultists') then return end
 		if not self.cultistsSet[sender] then return end
 		
-		self.bloodWhisper(string.sub(message, 10), sender)
+		if message == '/cultists' then
+			-- Build cultist list
+			local cultistList = self.buildCultistList()
+			local message = ''
+			message = 'The cultists are: ' .. cultistList .. '.'
+			DD.messageClient(sender, message, {preset = 'command'})
+		else
+			self.bloodWhisper(string.sub(message, 10), sender)
+		end
 		
 		return true
 	end,

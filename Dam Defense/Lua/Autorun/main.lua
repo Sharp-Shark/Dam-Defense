@@ -154,6 +154,23 @@ DD.chatMessageFunctions.help = function (message, sender)
 	
 	commands = {'help', 'events', 'myevents', 'credits', 'withdraw', 'possess', 'freecam'}
 	
+	local specialCommands = {rebels = false, cultists = false, whisper = false}
+	for event in DD.eventDirector.getEventInstances('revolution') do
+		specialCommands['rebels'] = true
+	end
+	for event in DD.eventDirector.getEventInstances('bloodCult') do
+		if event.cultistsSet[sender] then
+			specialCommands['cultists'] = true
+			specialCommands['whisper'] = true
+		end
+	end
+	
+	for specialCommand, value in pairs(specialCommands) do
+		if value then
+			table.insert(commands, specialCommand)
+		end
+	end
+	
 	local list = ''
 	for command in commands do
 		list = list .. ' - /' .. command .. '\n'

@@ -11,6 +11,18 @@ end, {
 	weight = 2,
 	goodness = -1,
 	
+	buildRebelList = function (self, excludeSet)
+		local excludeSet = excludeSet or {}
+		local clients = DD.setSubtract(self.rebelsSet, excludeSet)
+		
+		local text = ''
+		for client, value in pairs(clients) do
+			text = text .. client.Name .. ', '
+		end
+		text = string.sub(text, 1, #text - 2)
+		return text
+	end,
+	
 	onStart = function (self)
 		self.rebelsWon = false
 		self.rebelsDoxTimer = 60 * 8
@@ -74,16 +86,14 @@ end, {
 			for client in Client.ClientList do
 				if rebelsSet[client] then
 					-- Build rebel list
-					local rebelsList = ''
-					for rebel in self.rebels do
-						if rebel ~= client then
-							rebelsList = rebelsList .. rebel.Name .. ', '
-						end
+					local rebelList = self.buildRebelList({client = true})
+					if DD.tableSize(self.rebels) > 1 then
+						rebelList = ' Your comrades are: ' .. rebelList .. '.'
+					else
+						rebelList = ''
 					end
-					rebelsList = string.sub(rebelsList, 1, #rebelsList - 2)
-					if DD.tableSize(self.rebels) > 1 then rebelsList = ' Your comrades are: ' .. rebelsList .. '.' end 
 					-- Rebel message
-					DD.messageClient(client, 'You are a rebel leader! Your objective is to kill the captain and security. Try to enlist non-security personnel to your cause.' .. rebelsList .. ' List of rebels will be public in ' .. DD.numberToTime(self.rebelsDoxTimer) ..'. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
+					DD.messageClient(client, 'You are a rebel leader! Your objective is to kill the captain and security. Try to enlist non-security personnel to your cause.' .. rebelList .. ' List of rebels will be public in ' .. DD.numberToTime(self.rebelsDoxTimer) ..'. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
 				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
 					-- Sec message
 					DD.messageClient(client, "There have been rumours of a conspiracy agaisn't the captain and security. A revolution comes this way, so be prepared to arrest and even kill any rebels. List of rebels will be pubic in " .. DD.numberToTime(self.rebelsDoxTimer) .. '. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
@@ -141,16 +151,10 @@ end, {
 			else
 				self.rebelsDoxHappened = true
 				-- Build rebel list
-				local rebelsList = ''
-				for rebel in self.rebels do
-					if rebel ~= client then
-						rebelsList = rebelsList .. rebel.Name .. ', '
-					end
-				end
-				rebelsList = string.sub(rebelsList, 1, #rebelsList - 2)
+				local rebelList = self.buildRebelList()
 				
 				local message = ''
-				message = 'The Nexascanner (TM) has finished its "rebel search algorithm" and found the rebel leaders to be: ' .. rebelsList .. '. Do /rebels to get a list of rebel leaders.'
+				message = 'The Nexascanner (TM) has finished its "rebel search algorithm" and found the rebel leaders to be: ' .. rebelList .. '. Do /rebels to get a list of rebel leaders.'
 				DD.messageAllClients(message, {preset = 'crit'})
 			end
 		end
@@ -173,16 +177,9 @@ end, {
 		
 		if self.rebelsSet[sender] or self.rebelsDoxHappened then
 			-- Build rebel list
-			local rebelsList = ''
-			for rebel in self.rebels do
-				if rebel ~= client then
-					rebelsList = rebelsList .. rebel.Name .. ', '
-				end
-			end
-			rebelsList = string.sub(rebelsList, 1, #rebelsList - 2)
-			
+			local rebelList = self.buildRebelList()
 			local message = ''
-			message = 'The rebel leaders are: ' .. rebelsList .. '.'
+			message = 'The rebel leaders are: ' .. rebelList .. '.'
 			if not self.rebelsDoxHappened then message = message .. ' The list of rebel leaders will be public in ' .. DD.numberToTime(self.rebelsDoxTimer) .. '.' end
 			DD.messageClient(sender, message, {preset = 'command'})
 		else
