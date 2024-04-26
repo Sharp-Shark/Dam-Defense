@@ -21,6 +21,9 @@
   <jobdescription.mechanic>Work at the factory to refine raw materials into equipment, weapons, tools, ammo and armor. From time to time have a drink with the lads and plan an uprising agaisn't your oppressors. We work to earn the right to work to earn the right to give ourselves the right to buy ourselves the right to live to earn the right to die.</jobdescription.mechanic>
   </Override>
   
+  <!-- Janitor Job -->
+  <jobname.janitor>Janitor</jobname.janitor>
+  <jobdescription.janitor>A firm believer of the broken windows theory. Discard items you find on the floor, spray any dirt away, do pest control with your flamer and get paid little, but still more than whatever the factory workers are paid. Occasionally attempt an uprising with the laborers.</jobdescription.janitor>
   <!-- Clown Job -->
   <jobname.clown>Clown</jobname.clown>
   <jobdescription.clown>The only rule is there are no rules! Well almost. Do your best at making security hate you and (optionally) make the residents love you.</jobdescription.clown>
@@ -58,10 +61,10 @@
   <Override>
   <entitydescription.captainspipe>Used for smoking pipe tabacco. Somehow heals damage and bloodloss at an impressive rate. Causes about as much lung damage as an entire pack of cigars.</entitydescription.captainspipe>
   <entitydescription.cigar>A finely crafted cigar. Somehow heals damage and bloodloss. Intense and frequent use may cause hard to reverse lung damage.</entitydescription.cigar>
-  <entitydescription.rum>A fine liquor made from raptor bane juice. When drunk heals husk infection and boosts the immune system at the cost of minor organ damage. Can be poured on wounds to clear gangrene.</entitydescription.rum>
+  <entitydescription.rum>A fine liquor made from raptor bane juice or pomegrenade extract. When drunk heals husk infection and boosts the immune system at the cost of minor organ damage. Can be poured on wounds to clear gangrene. Better drink or use this than 90% ethanol!</entitydescription.rum>
   <entitydescription.ethanol>Medical alcohol used as an ingredient in the manufacture of various medicines. Drinking while on duty is not advised. When drunk boosts the immune system at the cost of mild organ damage. Can be poured on wounds to clear gangrene.</entitydescription.ethanol>
   <entitydescription.stabilozine>Used as an ingredient in the manufacture of various medicines. On its own, can be used to slow down the effects of most toxins and lower fever.</entitydescription.stabilozine>
-  <entitydescription.adrenaline>A naturally occurring hormone. When consumed, temporarily boosts the immune system. Used to manufacture medicine or combat stimulants.</entitydescription.adrenaline>
+  <entitydescription.adrenaline>A naturally occurring hormone. When consumed, temporarily boosts the immune system and awakens anyone unconcious. Used to manufacture medicine or combat stimulants.</entitydescription.adrenaline>
   <!--<entitydescription.replaceme></entitydescription.replaceme>-->
   </Override>
   
@@ -109,6 +112,10 @@
   <entitydescription.boombox4>Bandit Radio from "S.T.A.L.K.E.R.: Clear Sky".</entitydescription.boombox4>
   <entityname.boombox5>Clown Boombox</entityname.boombox5>
   <entitydescription.boombox5>"Tintin on the Moon" by Jeroen Tel.</entitydescription.boombox5>
+  <entityname.boombox6>Punk Boombox</entityname.boombox6>
+  <entitydescription.boombox6>"Come Out and Play" by The Offspring.</entitydescription.boombox6>
+  <entityname.boombox7>Sailor Boombox</entityname.boombox7>
+  <entitydescription.boombox7>"Weigh, Hey and up She Rises" by The Irish Rovers.</entitydescription.boombox7>
   <!-- Nukie Mask -->
   <entityname.jetmask>Nukie Mask</entityname.jetmask>
   <entitydescription.jetmask>A diving mask and a helmet! How efficient.</entitydescription.jetmask>

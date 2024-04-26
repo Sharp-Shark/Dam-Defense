@@ -12,14 +12,15 @@ DD.eventFish = DD.class(DD.eventBase, nil, {
 		local locationTag = locationTags[math.random(#locationTags)]
 		local locationNames = {dd_dambasin = "inside of the dam's basin", dd_wetsewer = 'deep in the underwater section of the sewers'}
 		-- Fish
-		local fishTypes = {'crawler_hatchling', 'mudraptor_hatchling', 'tigerthresher_hatchling', 'husk'}
+		local fishTypes = {'crawler_hatchling', 'mudraptor_hatchling', 'tigerthresher_hatchling', 'husk', 'spitroach'}
 		local fishType = fishTypes[math.random(#fishTypes)]
 		local fishNames = {
 			crawler_hatchling = 'crawler hatchlings',
 			mudraptor_hatchling = 'mudraptor hatchlings',
 			tigerthresher_hatchling = 'thresher hatchlings',
 			hammerheadspawn = 'hammerhead spawn',
-			husk = 'husks'
+			husk = 'husks',
+			spitroach = 'spitroach'
 		}
 		local fishCount = 1 + math.random(3)
 	

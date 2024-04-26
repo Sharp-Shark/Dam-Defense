@@ -77,7 +77,7 @@ end, {
 		end
 		
 		-- Event requires 2 (or more) rebel leaders and (1 or more) security personnel
-		if (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0) then
+		if (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0) and false then
 			self.fail()
 			return
 		else
@@ -86,7 +86,7 @@ end, {
 			for client in Client.ClientList do
 				if rebelsSet[client] then
 					-- Build rebel list
-					local rebelList = self.buildRebelList({client = true})
+					local rebelList = self.buildRebelList({[client] = true})
 					if DD.tableSize(self.rebels) > 1 then
 						rebelList = ' Your comrades are: ' .. rebelList .. '.'
 					else

@@ -39,6 +39,12 @@
       <StatusEffect tags="medical" type="OnFailure" target="UseTarget, This" duration="10">
         <ReduceAffliction identifier="bloodloss" amount="1.25" />
       </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" target="Limb" duration="10">
+        <ReduceAffliction identifier="bacterialgangrene" amount="0.5" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="Limb" duration="10">
+        <ReduceAffliction identifier="bacterialgangrene" amount="0.3" />
+      </StatusEffect>
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -52,7 +58,7 @@
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer secondary="supplycab" minamount="1" maxamount="2" spawnprobability="0.5" notcampaign="true"/>
     <PreferredContainer secondary="wrecksupplycab,beaconsupplycab" amount="1" spawnprobability="0.3" />
-    <PreferredContainer secondary="wreckmedcab,abandonedmedcab" minamount="1" maxamount="2" spawnprobability="0.8" />
+    <PreferredContainer secondary="wreckmedcab,abandonedmedcab,piratemedcab" minamount="1" maxamount="2" spawnprobability="0.8" />
     <PreferredContainer secondary="outpostmedcab" minamount="1" maxamount="3" spawnprobability="0.5" />
     <PreferredContainer secondary="outpostmedcompartment" amount="1" spawnprobability="0.2" />
     <PreferredContainer secondary="outposttrashcan" amount="1" spawnprobability="0.1" />
@@ -66,11 +72,10 @@
       <Price storeidentifier="merchantmine"/>
       <Price storeidentifier="merchantmedical" multiplier="0.9"/>
     </Price>
-    <SuitableTreatment type="damage" suitability="50" />
-    <SuitableTreatment identifier="opiatewithdrawal" suitability="30" />
-    <SuitableTreatment type="burn" suitability="1" />
-    <SuitableTreatment identifier="opiateoverdose" suitability="-10" />
-    <SuitableTreatment identifier="opiateaddiction" suitability="-5" />
+    <SuitableTreatment type="damage" suitability="40" />
+    <SuitableTreatment identifier="opiatewithdrawal" suitability="5" />
+    <SuitableTreatment identifier="opiateoverdose" suitability="-20" />
+    <SuitableTreatment identifier="opiateaddiction" suitability="-20" />
     <SuitableTreatment identifier="oxygenlow" suitability="-20" />
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="4" />
@@ -83,27 +88,27 @@
       <Item identifier="opium" />
     </Deconstruct>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
-    <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,37,69" depth="0.6" origin="0.5,0.5" />
+    <Sprite texture="Medicines.png" sourcerect="0,0,37,69" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
-      <RequiredSkill identifier="medical" level="40" />
+      <RequiredSkill identifier="medical" level="50" />
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true"/>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="10">
-        <ReduceAffliction type="damage" amount="5" />
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="20">
+        <ReduceAffliction type="damage" amount="2.0" />
         <ReduceAffliction type="burn" amount="0.1" />
-        <Affliction identifier="oxygenlow" amount="2" /> 
-        <Affliction identifier="opiateaddiction" amount="0.5" />
+        <Affliction identifier="oxygenlow" amount="1.0" /> 
+        <Affliction identifier="opiateaddiction" amount="1.0" />
         <Affliction identifier="opiateoverdose" amount="1.0" />
-        <ReduceAffliction identifier="opiatewithdrawal" amount="3.0" />
+        <ReduceAffliction identifier="opiatewithdrawal" amount="3.75" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="10">
-        <ReduceAffliction type="damage" amount="2.5" />
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="20">
+        <ReduceAffliction type="damage" amount="1.25" />
         <ReduceAffliction type="burn" amount="0.05" />
-        <Affliction identifier="oxygenlow" amount="3" />
-        <Affliction identifier="opiateaddiction" amount="2.5" />
-        <Affliction identifier="opiateoverdose" amount="2.0" />
-        <ReduceAffliction identifier="opiatewithdrawal" amount="3.0" />
+        <Affliction identifier="oxygenlow" amount="1.5" />
+        <Affliction identifier="opiateaddiction" amount="2.0" />
+        <Affliction identifier="opiateoverdose" amount="1.5" />
+        <ReduceAffliction identifier="opiatewithdrawal" amount="3.75" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
         <Conditional entitytype="eq Character"/>
@@ -122,7 +127,7 @@
       </StatusEffect>
     </MeleeWeapon>
     <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
-    <SkillRequirementHint identifier="medical" level="40" />
+    <SkillRequirementHint identifier="medical" level="50" />
   </Morphine>
   <!-- protein bar has a chance to give a random bacterial infection -->
   <ProteinBar name="" identifier="proteinbar" category="Medical,Material" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,medical" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
@@ -343,6 +348,13 @@
       <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
         <Affliction identifier="stun" amount="0.1" />
       </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" disabledeltatime="true" allowwhenbroken="true">
+        <Affliction identifier="adrenalinerush" amount="8" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" delay="8" target="UseTarget" duration="10.0">
+        <Affliction identifier="nausea" amount="4.0" />
+        <Affliction identifier="organdamage" amount="2.0" />
+      </StatusEffect>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="5">
         <Affliction identifier="immuneboost" amount="12" />
       </StatusEffect>
@@ -385,12 +397,12 @@
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="30">
-        <ReduceAffliction type="poison" amount="2" />
-        <ReduceAffliction type="fever" amount="5" />
+        <Affliction identifier="stabilozineeffect" amount="4" />
+        <ReduceAffliction identifier="fever" amount="5" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="30">
-        <ReduceAffliction type="poison" amount="1" />
-        <ReduceAffliction type="fever" amount="4" />
+        <Affliction identifier="stabilozineeffect" amount="2" />
+        <ReduceAffliction identifier="fever" amount="4" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
         <Conditional entitytype="eq Character"/>
@@ -511,7 +523,7 @@
         <ReduceAffliction identifier="bacterialgangrene" amount="1" />
       </StatusEffect>
       <StatusEffect type="OnUse" target="This, Limb" duration="2">
-        <Affliction identifier="acidburn" amount="3" /> 
+        <Affliction identifier="acidburn" amount="2" /> 
       </StatusEffect>
 	  <!-- OnBroken -->
       <StatusEffect type="OnBroken" target="This">
@@ -577,8 +589,8 @@
         <Conditional huskinfection="lt 75.0" />
         <ReduceAffliction identifier="huskinfection" amount="2" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" duration="60.0">
-        <Affliction identifier="organdamage" amount="0.55" />
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
+        <Affliction identifier="organdamage" amount="0.5" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
         <ReduceAffliction identifier="bacterialinfection" amount="4" />
@@ -606,6 +618,12 @@
       </StatusEffect>
       <StatusEffect type="OnFailure" target="UseTarget" disabledeltatime="true">
         <Affliction identifier="huskinfectionresistance" amount="300" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="5">
+        <ReduceAffliction identifier="drunkweakness" amount="10" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="5">
+        <ReduceAffliction identifier="drunkweakness" amount="20" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
         <Conditional entitytype="eq Character"/>
@@ -644,6 +662,10 @@
       <RequiredItem identifier="ethanol" />
       <RequiredItem identifier="raptorbane" />
     </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="true">
+      <RequiredItem identifier="ethanol" />
+      <RequiredItem identifier="pomegrenadeextract" />
+    </Fabricate>
     <Sprite texture="Content/Items/Jobgear/TalentGear.png" sourcerect="486,212,27,66" depth="0.6" origin="0.5,0.5" />
     <Body width="27" height="66" density="20" />
     <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="32,28" holdangle="30" aimangle="120" aimable="false" msg="ItemMsgPickUpSelect">
@@ -657,8 +679,8 @@
       </StatusEffect>
 	  <!-- When Rum is drunk -->
       <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10">
-        <Affliction identifier="drunk" amount="8.0" />
-        <Affliction identifier="organdamage" amount="2.0" />
+        <Affliction identifier="drunk" amount="6.0" />
+        <Affliction identifier="organdamage" amount="1.5" />
         <Affliction identifier="immuneboost" amount="12.0" />
         <ReduceAffliction identifier="psychosis" amount="12.0" />
         <ReduceAffliction identifier="hallucinating" amount="12.0" />
@@ -670,7 +692,7 @@
         <ReduceAffliction identifier="bacterialgangrene" amount="1" />
       </StatusEffect>
       <StatusEffect type="OnUse" target="This, Limb" duration="2">
-        <Affliction identifier="acidburn" amount="2" /> 
+        <Affliction identifier="acidburn" amount="1" /> 
       </StatusEffect>
 	  <!-- OnBroken -->
       <StatusEffect type="OnBroken" target="This">

@@ -4,7 +4,7 @@
   <Override>
   <Job identifier="captain"
        minnumber="1" maxnumber="1" minkarma="0" initialcount="1"
-       uicolor="0.7,0.65,0.85"
+       uicolor="0.7,0.65,0.9"
        vitalitymodifier="20"
        pricemultiplier="1.3"
        idlebehavior="StayInHull">
@@ -125,7 +125,7 @@
   </Job>
 
   <Job identifier="engineer"
-       minkarma="0" initialcount="3"
+       minkarma="0" initialcount="2"
        uicolor="0.8,0.85,0.43"
        vitalitymodifier="0"
        pricemultiplier="1"
@@ -240,7 +240,7 @@
   </Job>
 
   <Job identifier="mechanic"
-       minkarma="0" initialcount="3"
+       minkarma="0" initialcount="2"
        uicolor="0.65,0.7,0.75"
        vitalitymodifier="0"
        pricemultiplier="1"
@@ -607,6 +607,112 @@
     </AutonomousObjectives>
   </Job>
   </Override>
+  
+  <!-- fixme (remove maxnumber="0") -->
+  <Job identifier="janitor"
+       minkarma="0" initialcount="2" maxnumber="0"
+       uicolor="0.45,0.45,0.85"
+       vitalitymodifier="0"
+       pricemultiplier="1"
+       idlebehavior="Active">
+    <Jobicon>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="896,256,128,128" origin="0.5,0.5"/>
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,640,28,28" origin="0.5,0.5"/>
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="mechanical" level="35,45" primary="true"/>
+      <Skill identifier="weapons" level="35,45"/>
+      <Skill identifier="electrical" level="25,35"/>
+      <Skill identifier="medical" level="15,25"/>
+      <Skill identifier="helm" level="15,25"/>
+    </Skills>
+    <ItemSet>
+      <Item identifier="idcard" equip="true">
+	    <!-- 3 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
+      <Item identifier="assistantclothes" equip="true" outfit="true"/>
+      <Item identifier="hardhat" equip="true">
+	    <Item identifier="oxygentank"/>
+	  </Item>
+      <Item identifier="toolbelt" equip="true">
+        <Item identifier="crowbar"/>
+        <Item identifier="flashlight" >
+		  <Item identifier="batterycell"/>
+	    </Item>
+	    <Item identifier="ethanol"/>
+	    <Item identifier="oxygentank"/>
+	  </Item>
+      <Item identifier="flamer" >
+		<Item identifier="weldingfueltank"/>
+	  </Item>
+      <Item identifier="weldingtool" >
+		<Item identifier="weldingfueltank"/>
+	  </Item>
+      <Item identifier="sprayer" >
+		<Item identifier="ethanol"/>
+	  </Item>
+      <Item identifier="wrench"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <ItemSet>
+      <Item identifier="idcard" equip="true">
+	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	  </Item>
+      <Item identifier="assistantclothes" equip="true" outfit="true"/>
+      <Item identifier="hardhat" equip="true">
+	    <Item identifier="oxygentank"/>
+	  </Item>
+      <Item identifier="toolbelt" equip="true">
+        <Item identifier="crowbar"/>
+        <Item identifier="flashlight" >
+		  <Item identifier="batterycell"/>
+	    </Item>
+	    <Item identifier="ethanol"/>
+	    <Item identifier="oxygentank"/>
+	  </Item>
+      <Item identifier="flamer" >
+		<Item identifier="weldingfueltank"/>
+	  </Item>
+      <Item identifier="weldingtool" >
+		<Item identifier="weldingfueltank"/>
+	  </Item>
+      <Item identifier="sprayer" >
+		<Item identifier="ethanol"/>
+	  </Item>
+      <Item identifier="wrench"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="fixleaks" prioritymodifier="1"/>
+      <Order identifier="repairmechanical" prioritymodifier="1"/>
+      <Order identifier="extinguishfires" prioritymodifier ="1"/>
+      <Order identifier="rescue" prioritymodifier="1"/>
+      <Order identifier="repairsystems" prioritymodifier="0.5"/>
+      <Order identifier="pumpwater" option="pumpout" prioritymodifier="0.5"/>
+      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.3"/>
+    </AutonomousObjectives>
+    <AppropriateOrders>
+      <Order identifier="fixleaks"/>
+      <Order identifier="pumpwater"/>
+      <Order identifier="repairmechanical"/>
+      <Order identifier="reportbrokendevices"/>
+    </AppropriateOrders>
+  </Job>
   
   <Job identifier="clown"
        minkarma="0" maxnumber="1" initialcount="1"

@@ -695,8 +695,14 @@
     <Price baseprice="931" sold="false" canbespecial="false" />
     <Deconstruct time="10">
       <Item identifier="steel" />
+      <Item identifier="steel" />
       <Item identifier="titaniumaluminiumalloy" />
     </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="weapons" level="55" />
+      <RequiredItem identifier="steel" amount="4" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
+    </Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="320,320,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="262,70,184,51" depth="0.55" origin="0.5,0.25" />
     <Body width="180" height="30" density="25" />
@@ -712,7 +718,7 @@
       <Sound file="Content/Items/Weapons/ShotgunShot2.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/ShotgunShot3.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/ShotgunShot4.ogg" type="OnUse" range="3000" />
-      <StatusEffect type="OnUse">
+      <StatusEffect type="OnUse" target="This">
         <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
         <Explosion range="150.0" force="3" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
       </StatusEffect>
@@ -720,7 +726,7 @@
       <StatusEffect type="OnUse" target="This" reload="2.0" setvalue="true" delay="0.05" />
       <StatusEffect type="OnUse" target="This" reload="0.1" setvalue="true" delay="2.0" />
       <!-- Cocking sound, delayed by 1.0 seconds. -->
-      <StatusEffect type="OnUse" delay="1.0">
+      <StatusEffect type="OnUse" target="This" delay="1.0">
         <Sound file="Content/Items/Weapons/ShotgunLoad1.ogg" type="OnUse" range="500" selectionmode="Random" />
         <Sound file="Content/Items/Weapons/ShotgunLoad2.ogg" type="OnUse" range="500" />
         <Sound file="Content/Items/Weapons/ShotgunLoad3.ogg" type="OnUse" range="500" />
@@ -927,7 +933,7 @@
       <Sound file="Content/Items/Weapons/SMGsingleShot4.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/SMGsingleShot5.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/SMGsingleShot6.ogg" type="OnUse" range="3000" />
-      <StatusEffect type="OnUse">
+      <StatusEffect type="OnUse" target="This">
         <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
         <Explosion range="150.0" force="1" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="12.0" />
       </StatusEffect>
@@ -1667,7 +1673,7 @@
       <Sound file="Content/Items/Weapons/Revolver2.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/Revolver3.ogg" type="OnUse" range="3000" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
-      <StatusEffect type="OnUse">
+      <StatusEffect type="OnUse" target="This">
         <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
         <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
       </StatusEffect>
@@ -2331,7 +2337,7 @@
       <Sound file="Content/Items/JobGear/Captain/WEAPONS_handCannon_5.ogg" type="OnUse" range="3000" />
       <ChargeSound file="%ModDir%/Sounds/hammerpull.ogg" range="500" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="7.0,7.0" colormultiplier="255,200,115,200" />
-      <StatusEffect type="OnUse">
+      <StatusEffect type="OnUse" target="This">
         <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
         <Explosion range="150.0" force="5" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
       </StatusEffect>
@@ -2397,11 +2403,11 @@
       <Sound file="Content/Items/Weapons/ShotgunShot2.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/ShotgunShot3.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/ShotgunShot4.ogg" type="OnUse" range="3000" />
-      <StatusEffect type="OnUse">
+      <StatusEffect type="OnUse" target="This">
         <Explosion range="150.0" force="2.5" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
       </StatusEffect>
       <!-- Cocking sound, delayed by 0.6 seconds. -->
-      <StatusEffect type="OnUse" delay="0.6">
+      <StatusEffect type="OnUse" target="This" delay="0.6">
         <Sound file="Content/Items/Weapons/ShotgunLoad1.ogg" type="OnUse" range="500" selectionmode="Random" />
         <Sound file="Content/Items/Weapons/ShotgunLoad2.ogg" type="OnUse" range="500" />
         <Sound file="Content/Items/Weapons/ShotgunLoad3.ogg" type="OnUse" range="500" />
@@ -2470,7 +2476,7 @@
       <Sound file="Content/Items/JobGear/Security/WEAPONS_assaultRifle_3.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/JobGear/Security/WEAPONS_assaultRifle_4.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/JobGear/Security/WEAPONS_assaultRifle_5.ogg" type="OnUse" range="3000" />
-      <StatusEffect type="OnUse">
+      <StatusEffect type="OnUse" target="This">
         <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
         <Explosion range="150.0" force="1" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="12.0" />
       </StatusEffect>
@@ -2680,7 +2686,7 @@
       <Sound file="Content/Items/Weapons/SMGsingleShot4.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/SMGsingleShot5.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/SMGsingleShot6.ogg" type="OnUse" range="3000" />
-      <StatusEffect type="OnUse">
+      <StatusEffect type="OnUse" target="This">
         <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
         <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="12.0" />
       </StatusEffect>
@@ -2851,7 +2857,7 @@
       <Sound file="Content/Items/Weapons/Revolver3.ogg" type="OnUse" range="3000" />
 	  <ChargeSound file="%ModDir%/Sounds/hammerpull.ogg" range="500" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
-      <StatusEffect type="OnUse">
+      <StatusEffect type="OnUse" target="This">
         <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
       </StatusEffect>
       <RequiredItems items="flaregunammo" type="Contained" msg="ItemMsgAmmoRequired" />
@@ -2902,7 +2908,7 @@
       <StatusEffect type="OnActive" target="This" Condition="50.0" setvalue="true" disabledeltatime="true">
 	    <Use />
 	  </StatusEffect>
-	  <StatusEffect type="OnImpact">
+	  <StatusEffect type="OnImpact" target="This" >
         <sound file="Content/Sounds/Impact/SoftImpact1.ogg" range="1000" />
         <sound file="Content/Sounds/Impact/SoftImpact2.ogg" range="1000" />
         <sound file="Content/Sounds/Impact/SoftImpact3.ogg" range="1000" />
@@ -2920,12 +2926,12 @@
       </StatusEffect>
     </Projectile>
     <LightComponent LightColor="255,0.0,0.0,255" Flicker="0.5" range="600" IsOn="false">
-      <StatusEffect type="OnUse" targettype="This" IsOn="true">
+      <StatusEffect type="OnUse" target="This" IsOn="true">
         <Conditional IsOn="eq False" targetitemcomponent="LightComponent" />
         <Conditional Condition="lt 100" />
         <sound file="Content/Items/Tools/FlareIgnite.ogg" range="800.0" />
       </StatusEffect>
-      <StatusEffect type="OnActive" targettype="This" comparison="AND">
+      <StatusEffect type="OnActive" target="This" comparison="AND">
         <Conditional PhysicsBodyActive="eq true" />
         <Conditional Condition="lt 100" />
         <ParticleEmitter particle="flare" emitinterval="2.1" particleamount="10" particlespersecond="60" anglemin="70" anglemax="100" velocitymin="100" velocitymax="200" />
@@ -2970,7 +2976,7 @@
       <Sound file="Content/Items/Weapons/WEAPON_rifleGrenadeShot3.ogg" type="OnUse" range="1000" />
 	  <ChargeSound file="%ModDir%/Sounds/hammerpull.ogg" range="500" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
-      <StatusEffect type="OnUse">
+      <StatusEffect type="OnUse" target="This">
         <Explosion range="150.0" force="10" shockwave="false" smoke="true" flames="false" flash="false" sparks="true" underwaterbubble="false" camerashake="6.0" />
       </StatusEffect>
       <RequiredItems items="whalinggunammo,harpoonammo" type="Contained" msg="ItemMsgSpearRequired" />
@@ -3275,6 +3281,31 @@
       <Containable items="lifeessence" hide="true"/>
       <SlotIcon slotindex="0" texture="%ModDir%/Misc/Icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
     </ItemContainer>
+  </Item>
+  
+  <!-- projectile launched by spitroaches -->
+  <Item name="Spitroach Spit" identifier="spitroachspit" category="Misc" scale="0.35" sonarsize="2" hideinmenus="true" spritecolor="255,0,0,255" >
+    <Sprite texture="lifeessence.png" sourcerect="56,0,56,76" depth="0.6" origin="0.5,0.5" />
+    <Body radius="15" density="15" />
+    <Projectile characterusable="false" launchimpulse="15" maxtargetstohit="1" sticktocharacters="true" sticktoitems="true" sticktodoors="true" sticktostructures="true" penetration="0.25" friendlyfire="false" damagedoors="true">
+      <Attack structuredamage="5" itemdamage="7.5" severlimbsprobability="0">
+        <Affliction identifier="blunttrauma" strength="5" />
+        <Affliction identifier="stun" strength="0.15" />
+      </Attack>
+      <StatusEffect type="OnActive" target="This" lifetime="0.5">
+        <ParticleEmitter particle="ammotrailwater" copyentityangle="true" anglemin="0" anglemax="0" particleamount="5" velocitymin="-10" velocitymax="-100" scalemin="0.25" scalemax="0.5" />
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" condition="-35" />
+	  <StatusEffect type="OnImpact" target="This" disabledeltatime="true" condition="-100" />
+	  <StatusEffect type="OnBroken" target="This" disabledeltatime="true">
+        <Explosion range="60.0" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" ballastfloradamage="0" structuredamage="0" itemdamage="0" force="4" severlimbsprobability="0" debris="false" decal="blood" decalsize="1" penetration="0.5">
+          <Affliction identifier="spitroachacid" strength="15" dividebylimbcount="true"/>
+          <Affliction identifier="stun" strength="0.15" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+	<LightComponent range="30.0" lightcolor="255,0,0,255" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" allowingameediting="false" />
   </Item>
   
 </Items>

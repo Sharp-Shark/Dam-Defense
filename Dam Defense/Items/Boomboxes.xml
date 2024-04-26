@@ -85,6 +85,11 @@
 	</Item>
 	<!-- enter sandman -->
 	<Item name="Metal Boombox" description="" identifier="boombox3" variantof="boombox1" category="Misc" Tags="smallitemitem,instrument" scale="0.5" isshootable="true">
+		<Fabricate suitablefabricators="fabricator" requiredtime="60">
+			<RequiredItem identifier="steel" amount="4" />
+			<RequiredItem identifier="copper" amount="2" />
+			<RequiredItem identifier="fpgacircuit" amount="1" />
+		</Fabricate>
 		<Sprite texture="%ModDir%/Items/boombox.png" sourcerect="200,0,100,64" depth="0.6" origin="0.5,0.5" />
 		<ItemComponent>
 			<!-- music -->
@@ -127,6 +132,41 @@
 			<StatusEffect type="Always" targettype="Contained" Condition="-0.1">
 				<RequiredItem items="mobilebattery" type="Contained" />
 				<sound file="%ModDir%/Sounds/title3.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
+				<Conditional condition="gt 0.0" />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>
+	<!-- come out and play -->
+	<Item name="Punk Boombox" description="" identifier="boombox6" variantof="boombox1" category="Misc" Tags="smallitemitem,instrument" scale="0.5" isshootable="true">
+		<Fabricate suitablefabricators="fabricator" requiredtime="60">
+			<RequiredItem identifier="steel" amount="4" />
+			<RequiredItem identifier="copper" amount="2" />
+			<RequiredItem identifier="fpgacircuit" amount="1" />
+		</Fabricate>
+		<Sprite texture="%ModDir%/Items/boombox.png" sourcerect="500,0,100,64" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<!-- music -->
+			<StatusEffect type="Always" targettype="Contained" Condition="-0.1">
+				<RequiredItem items="mobilebattery" type="Contained" />
+				<sound file="%ModDir%/Sounds/comeoutandplay.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
+				<Conditional condition="gt 0.0" />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>
+	<!-- drunken sailor -->
+	<Item name="Sailor Boombox" description="" identifier="boombox7" variantof="boombox1" category="Misc" Tags="smallitemitem,instrument" scale="0.5" isshootable="true">
+		<Fabricate suitablefabricators="fabricator" requiredtime="60">
+			<RequiredItem identifier="steel" amount="2" />
+			<RequiredItem identifier="plastic" amount="2" />
+			<RequiredItem identifier="copper" amount="2" />
+			<RequiredItem identifier="rum" amount="1" />
+		</Fabricate>
+		<Sprite texture="%ModDir%/Items/boombox.png" sourcerect="600,0,100,64" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<!-- music -->
+			<StatusEffect type="Always" targettype="Contained" Condition="-0.1">
+				<RequiredItem items="mobilebattery" type="Contained" />
+				<sound file="%ModDir%/Sounds/drunkensailor.ogg" volume="1.5" selectionmode="CharacterSpecific" range="900" loop="true" />
 				<Conditional condition="gt 0.0" />
 			</StatusEffect>
 		</ItemComponent>

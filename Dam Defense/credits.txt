@@ -1,3 +1,4 @@
 Russian localization by Squid. Squid also helped with removing unused textures and with cleaning the boombox xml.
+Special thanks to the Undertow discord and the Luatrauma discord for helping me overcome a lot of the hurdles I came across.
 
 Everything else by Sharp-Shark.

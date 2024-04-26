@@ -490,7 +490,7 @@ DD.isCharacterSecurity = function (character)
 end
 
 DD.isCharacterProletariat = function (character)
-	local jobs = {'engineer', 'mechanic', 'clown'}
+	local jobs = {'engineer', 'mechanic', 'clown', 'janitor'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 

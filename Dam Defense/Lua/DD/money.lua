@@ -13,6 +13,7 @@ DD.jobSalaryTimer = {
 	researcher = getJobSalaryTimer(7),
 	medicaldoctor = getJobSalaryTimer(5),
 	engineer = getJobSalaryTimer(5),
+	janitor = getJobSalaryTimer(3),
 	mechanic = getJobSalaryTimer(2),
 	clown = getJobSalaryTimer(2),
 	-- removed jobs

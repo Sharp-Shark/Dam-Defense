@@ -1,6 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
 
+  <!-- overrides -->
+  <Override>
+  <!-- vanilla infection is not visible and removes itself, making it do nothing essentially -->
+  <Infection
+    identifier="infection"
+    type="infection"
+    limbspecific="true"
+    maxstrength="200"
+    burnoverlayalpha="0"
+    causeofdeathdescription="causeofdeathdescription.damage"
+    selfcauseofdeathdescription="self_causeofdeathdescription.damage"
+    healcostmultiplier="2.5"
+	showiconthreshold="999">
+    <Description
+     textidentifier="afflictiondescription.infection.low"
+     minstrength="0"
+     maxstrength="30"/>
+    <Description
+      textidentifier="afflictiondescription.infection"
+      minstrength="30"
+      maxstrength="60"/>
+    <Description
+      textidentifier="afflictiondescription.infection.high"
+      minstrength="60"
+      maxstrength="200"/>
+    <Effect minstrength="0" maxstrength="200" strengthchange="-200" />
+    <icon texture="Content/UI/TalentsIcons4.png" sourcerect="0,384,128,128" color="84,171,90,255" origin="0,0"/>
+  </Infection>
+  </Override>
+
   <!-- exists to play a SFX to a player the first time he becomes enlightened -->
   <Affliction name="Enlightened SFX" identifier="enlightenedsfx" description="" type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="999" maxstrength="1">
     <Effect minstrength="0" maxstrength="1" strengthchange="-1">
@@ -71,12 +101,30 @@
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,256,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
 
+  <!-- affliction given by spitroach spit -->
+  <Affliction name="Spitroach Acid" identifier="spitroachacid" description="" type="burn" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="true" activationthreshold="1.0" showiconthreshold="999" maxstrength="100">
+    <Effect minstrength="1" maxstrength="60" minvitalitydecrease="0" maxvitalitydecrease="0" strengthchange="-2">
+      <StatusEffect target="Limb">
+	    <Conditional speciesname="neq spitroach" />
+        <Affliction identifier="acidburn" amount="1.5" />
+        <Affliction identifier="bleeding" amount="0.5" />
+      </StatusEffect>
+	  <!-- particles -->
+      <StatusEffect target="Limb">
+	    <Conditional speciesname="neq spitroach" />
+        <ParticleEmitter particle="smoke" particlespersecond="4" scalemin="2" scalemax="2.5" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
+  </Affliction>
+
   <!-- taken from Combat Overhaul Legacy with only minor tweaks for this mod -->
   <Affliction name="Afterburn" identifier="afterburn" description="" type="burn" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="true" activationthreshold="1.0" showiconthreshold="999" maxstrength="15">
     <Effect minstrength="1" maxstrength="10" minvitalitydecrease="0" maxvitalitydecrease="0" strengthchange="-0.5">
       <StatusEffect target="Limb">
         <Affliction identifier="burn" amount="0.6" />
       </StatusEffect>
+	  <!-- particles -->
       <StatusEffect target="Limb">
         <ParticleEmitter particle="flamethrower_co" particlespersecond="4" scalemin="0.5" scalemax="0.7" distancemin="0" distancemax="30" />
         <ParticleEmitter particle="smoke" particlespersecond="4" scalemin="2" scalemax="2.5" />

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Character speciesname="Spitroach" humanoid="false" blooddecal="blood">
+  
+  <ragdolls folder="default"/>
+  <animations folder="default"/>
+  
+  <health
+    vitality="150"
+    doesbleed="false"/>
+
+  <gibemitter particle="gib" particleamount="20" velocitymin="200" velocitymax="700" anglemin="0" anglemax="360"/>
+  <gibemitter particle="heavygib" particleamount="10" velocitymin="50" velocitymax="500" anglemin="0" anglemax="360"/>
+  
+  <sound file="%ModDir%/Characters/Spitroach/attack1.ogg" state="Attack" range="500"/>
+  <sound file="%ModDir%/Characters/Spitroach/attack2.ogg" state="Attack" range="500"/>
+
+  <sound file="%ModDir%/Characters/Spitroach/idle1.ogg" state="Idle" range="500"/>
+  <sound file="%ModDir%/Characters/Spitroach/idle2.ogg" state="Idle" range="500"/>
+  <sound file="%ModDir%/Characters/Spitroach/idle3.ogg" state="Idle" range="500"/>
+
+  <Inventory slots="Any, Any" accessiblewhenalive="false">
+    <Item identifier="swimbladder"/>
+    <Item identifier="chitin"/>
+  </Inventory>
+  
+  <ai
+    combatstrength="150"
+    sight="0.5"
+    hearing="1.0"
+    aggressiveboarding="true" attackwhenprovoked="True" aggressiongreed="5" aggressionhurt="150"
+    fleehealththreshold="20">
+    
+    <latchonto
+      attachtowalls="true"/>
+
+    <target tag="decoy" state="Attack" priority="600" />
+    <target tag="provocative" state="Attack" priority="150"/>
+    <target tag="spitroach" state="Protect" priority="120" reactdistance="400" />
+    <target tag="stronger" state="PassiveAggressive" priority="100"/>
+    <target tag="human" state="Attack" priority="100"/>
+    <target tag="equal" state="Attack" priority="100" />
+    <target tag="weaker" state="Attack" priority="100"/>
+    <target tag="dead" state="Eat" priority="80"/> 
+    <target tag="door" state="Attack" priority="65"/>
+    <target tag="sonar" state="Attack" priority="50"/>
+    <target tag="room" state="Attack" priority="50"/>
+    <target tag="nasonov" state="Attack" priority="50"/>
+  </ai>
+  
+  <!-- explode on death may be added after some tweaking
+  <StatusEffect type="OnDeath" target="This">
+    <ParticleEmitter particle="gib" particleamount="20" scalemin="1" scalemax="2" velocitymin="200" velocitymax="700" anglemin="0" anglemax="360" />
+    <ParticleEmitter particle="heavygib" particleamount="10" scalemin="1" scalemax="2" velocitymin="50" velocitymax="500" anglemin="0" anglemax="360" />
+    <Explosion range="210.0" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" ballastfloradamage="0" structuredamage="0" itemdamage="0" force="8" severlimbsprobability="0" debris="false" decal="blood" decalsize="1" penetration="0.5">
+      <Affliction identifier="spitroachacid" strength="30" dividebylimbcount="true"/>
+      <Affliction identifier="stun" strength="1" />
+    </Explosion>
+  </StatusEffect>
+  -->
+  
+</Character>
+
