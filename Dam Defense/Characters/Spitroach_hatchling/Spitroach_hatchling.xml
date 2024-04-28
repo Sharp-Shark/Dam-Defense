@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Charactervariant inherit="Spitroach" speciesname="Spitroach_hatchling" speciestranslationoverride="Spitroach" texture="%ModDir%/Characters/Spitroach_hatchling/spitroach_hatchling.png" eatingspeed="5">
+  <health vitality="75" />
+  <ragdoll scalemultiplier="0.5"/>
+  <animations folder="%ModDir%/Characters/Spitroach_hatchling/Animations/"/>
+  <ai combatstrength="100"/>
+  <inventory/>
+</Charactervariant>
+

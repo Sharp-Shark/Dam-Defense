@@ -3284,8 +3284,8 @@
   </Item>
   
   <!-- projectile launched by spitroaches -->
-  <Item name="Spitroach Spit" identifier="spitroachspit" category="Misc" scale="0.35" sonarsize="2" hideinmenus="true" spritecolor="255,0,0,255" >
-    <Sprite texture="lifeessence.png" sourcerect="56,0,56,76" depth="0.6" origin="0.5,0.5" />
+  <Item name="Spitroach Spit" identifier="spitroachspit" category="Misc" scale="0.35" sonarsize="2" hideinmenus="true" >
+    <Sprite texture="spitroach.png" sourcerect="114,0,42,49" depth="0.6" origin="0.5,0.5" />
     <Body radius="15" density="15" />
     <Projectile characterusable="false" launchimpulse="15" maxtargetstohit="1" sticktocharacters="true" sticktoitems="true" sticktodoors="true" sticktostructures="true" penetration="0.25" friendlyfire="false" damagedoors="true">
       <Attack structuredamage="5" itemdamage="7.5" severlimbsprobability="0">
@@ -3306,6 +3306,48 @@
       </StatusEffect>
     </Projectile>
 	<LightComponent range="30.0" lightcolor="255,0,0,255" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" allowingameediting="false" />
+  </Item>
+  
+  <!-- egg layed by spitroach that spitroach hatchlings hatch out of -->
+  <Item name="Spitroach Egg" identifier="spitroachegg" hideinmenus="true" health="60" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true" category="Misc" spritecolor="185,230,240,255" scale="0.5" impactsoundtag="impact_soft">
+    <Sprite texture="spitroach.png" depth="0.18" sourcerect="0,0,114,145" origin="0.5,0.5" />
+    <Price baseprice="370" sold="false"/>
+    <Deconstruct time="10">
+      <Item identifier="adrenalinegland" />
+      <Item identifier="alienblood" />
+    </Deconstruct>
+    <!-- rectangular body to prevent the egg from rolling -->
+    <Body width="110" height="120" friction="1.0" restitution="0.01" angulardamping="1.0" density="12"/>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" showcontainedstateindicator="false" canbeselected="true">
+      <GuiFrame relativesize="0.15,0.2" anchor="Center" style="ItemUI" />
+      <StatusEffect type="OnBroken" target="This">
+        <particleemitter particle="mudrapeggbrownchunks" particleamount="100" velocitymin="100" velocitymax="2000" anglemin="0" anglemax="360" scalemin="0.4" scalemax="0.6" />
+        <particleemitter particle="whitegoosplash" particleamount="20" velocitymin="0" velocitymax="300" anglemin="0" anglemax="360" scalemin="0.5" scalemax="1.0" emitinterval="0" particlespersecond="0" highqualitycollisiondetection="False" copyentityangle="False" />
+        <Sound file="Content/Sounds/Damage/Gore4.ogg" range="500" />
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnDamaged" target="This">
+        <particleemitter particle="mudrapeggbrownchunks" particleamount="8" velocitymin="100" velocitymax="1000" anglemin="0" anglemax="360" scalemin="0.2" scalemax="0.5" />
+      </StatusEffect>
+      <StatusEffect type="OnFire" target="This" Condition="-5.0"/>      
+      <!-- spawn a thresher and remove the item if scale is above 0.95 -->
+      <StatusEffect type="Always" target="This" Condition="0" setvalue="true">
+        <Conditional Scale="gte 0.95" />
+        <SpawnCharacter speciesname="Spitroach_hatchling" />
+        <Remove />
+      </StatusEffect>      
+      <Containable items="antibloodloss1,alienblood">
+        <!-- increase scale -->
+        <StatusEffect type="OnContaining" target="This" Scale="0.005"/>
+        <StatusEffect type="OnContaining" target="Contained" Condition="-1"/>
+      </Containable>
+    </ItemContainer>
+    <LightComponent range="5" lightcolor="217,157,0,61" powerconsumption="0" IsOn="true" castshadows="false" allowingameediting="false" pulsefrequency="1" pulseamount="0.30">
+      <sprite texture="Content/Items/CreatureLoot/CreatureLoot.png" depth="0.025" sourcerect="300,291,98,113" origin="0.5,0.6" alpha="1.0" />
+    </LightComponent>
+    <LightComponent range="40" lightcolor="255,199,0,58" powerconsumption="0" IsOn="true" castshadows="false" allowingameediting="false">
+      <sprite texture="Content/Items/CreatureLoot/CreatureLoot.png" depth="0.025" sourcerect="410,301,88,95" origin="0.5,0.6" alpha="1.0" />
+    </LightComponent>
   </Item>
   
 </Items>
