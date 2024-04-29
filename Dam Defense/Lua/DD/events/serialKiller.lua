@@ -148,7 +148,7 @@ end, {
 			return
 		end
 		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and self.killer.Character.IsArrested) then
-			--self.finish()
+			self.finish()
 		end
 	end,
 	
