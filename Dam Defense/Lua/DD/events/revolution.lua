@@ -77,7 +77,7 @@ end, {
 		end
 		
 		-- Event requires 2 (or more) rebel leaders and (1 or more) security personnel
-		if (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0) and false then
+		if (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0) then
 			self.fail()
 			return
 		else
