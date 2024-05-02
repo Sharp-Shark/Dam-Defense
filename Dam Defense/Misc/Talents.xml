@@ -50,6 +50,15 @@
 	
   </Talent>
 
+  <!-- talent that lets janitor craft the trashbag -->
+  <Talent identifier="janitorialknowledge">
+    <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
+	
+    <AddedRecipe itemidentifier="trashbag"/>
+	
+  </Talent>
+
+  <!-- unlocks all vanilla recipes (or most of them) -->
   <Talent identifier="unlockallrecipes">
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
 	

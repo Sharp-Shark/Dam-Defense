@@ -608,9 +608,8 @@
   </Job>
   </Override>
   
-  <!-- fixme (remove maxnumber="0") -->
   <Job identifier="janitor"
-       minkarma="0" initialcount="2" maxnumber="0"
+       minkarma="0" initialcount="2"
        uicolor="0.45,0.45,0.85"
        vitalitymodifier="0"
        pricemultiplier="1"
@@ -641,7 +640,7 @@
         <Item identifier="flashlight" >
 		  <Item identifier="batterycell"/>
 	    </Item>
-	    <Item identifier="ethanol"/>
+	    <Item identifier="trashbag"/>
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="flamer" >
@@ -653,6 +652,7 @@
       <Item identifier="sprayer" >
 		<Item identifier="ethanol"/>
 	  </Item>
+	  <Item identifier="trashbag"/>
       <Item identifier="wrench"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
@@ -676,7 +676,7 @@
         <Item identifier="flashlight" >
 		  <Item identifier="batterycell"/>
 	    </Item>
-	    <Item identifier="ethanol"/>
+	    <Item identifier="trashbag"/>
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="flamer" >
@@ -688,6 +688,7 @@
       <Item identifier="sprayer" >
 		<Item identifier="ethanol"/>
 	  </Item>
+	  <Item identifier="trashbag"/>
       <Item identifier="wrench"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>

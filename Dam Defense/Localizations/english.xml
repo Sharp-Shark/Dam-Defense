@@ -68,6 +68,9 @@
   <!--<entitydescription.replaceme></entitydescription.replaceme>-->
   </Override>
   
+  <!-- Trash Bag -->
+  <entityname.trashbag>Trash Bag</entityname.trashbag>
+  <entitydescription.trashbag>Utilizes non-euclidean space and mysterious alchemical processes to, after having 20 items put inside it, turn into 8 scrap.</entitydescription.trashbag>
   <!-- Nexcredit -->
   <entityname.money>Nexcredit</entityname.money>
   <entitydescription.money>Nexcredits (TM) can be exchanged for goods at Nexshops (TM). This message was sponsored by Nexpharma (TM).</entitydescription.money>

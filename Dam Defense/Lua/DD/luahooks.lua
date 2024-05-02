@@ -74,6 +74,7 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	DD.giveAfflictionCharacter(character, 'enlightenedsfx', 999)
 	
 	-- reduce time pressure for all cultists (total amount removed will always be 60)
+	local totalAmountReduced = 120 -- for reference, timepressure maxstrength is 60
 	local cultistCharacters = {}
 	for character in Character.CharacterList do
 		if character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) >= 99 then
@@ -82,7 +83,7 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	end
 	for character in cultistCharacters do
 		-- subtract by 1 to not count the just enlightened player
-		character.CharacterHealth.ReduceAfflictionOnAllLimbs('timepressure', 60 / (#cultistCharacters - 1), nil)
+		character.CharacterHealth.ReduceAfflictionOnAllLimbs('timepressure', totalAmountReduced / (#cultistCharacters - 1), nil)
 	end
 	
 	-- pop-up

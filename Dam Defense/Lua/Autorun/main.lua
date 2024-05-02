@@ -295,6 +295,9 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			if (character.JobIdentifier == 'mechanic') or (character.JobIdentifier == 'clown') then
 				character.GiveTalent('unlockallrecipes', true)
 			end
+			if (character.JobIdentifier == 'janitor') then
+				character.GiveTalent('janitorialknowledge', true)
+			end
 			if (character.JobIdentifier == 'captain') then
 				character.GiveTalent('drunkensailor', true)
 			end

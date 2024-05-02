@@ -1,10 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
+  <!-- trash bag -->
+  <Item name="Trash Bag" identifier="trashbag" category="Equipment,Misc" Tags="smallitem" scale="0.5" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
+    <Sprite texture="trashbag.png" depth="0.5" sourcerect="0,0,72,120" origin="0.5,0.5" />
+    <Body width="16" height="12" density="20" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" requiresrecipe="true">
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" requiresrecipe="true">
+      <RequiredItem identifier="scrap" />
+    </Fabricate>
+	<Holdable slots="Any,RightHand,LeftHand" handle1="0,50" holdangle="90" msg="ItemMsgPickUpSelect">
+	  <StatusEffect type="OnContained" target="Contained">
+	    <Remove />
+	  </StatusEffect>
+	  <StatusEffect type="OnBroken" target="Parent">
+	    <SpawnItem identifiers="scrap" spawnposition="SameInventory" count="8" />
+	  </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+	</Holdable>
+	<ItemContainer capacity="1" hideitems="true" showcontainedstateindicator="false">
+	  <Containable items="smallitem,mediumitem">
+	    <StatusEffect type="OnContaining" target="This" condition="-5" disabledeltatime="true" />
+	  </Containable>
+	</ItemContainer>
+  </Item>
+  <!-- money -->
   <Item name="Nexcredit" identifier="money" category="Equipment,Misc" maxstacksize="50" maxstacksizecharacterinventory="10" Tags="smallitem,money" scale="0.35" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
     <Sprite texture="wallet.png" depth="0.5" sourcerect="0,0,64,32" origin="0.5,0.5" />
 	<Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
     <Body width="16" height="12" density="20" />
   </Item>
+  <!-- fake money -->
   <Item name="Counterfeit Nexcredit" identifier="fakemoney" category="Equipment,Misc" maxstacksize="50" maxstacksizecharacterinventory="10" Tags="smallitem,money,fakemoney" scale="0.35" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
     <Sprite texture="wallet.png" depth="0.5" sourcerect="64,0,64,32" origin="0.5,0.5" />
     <Deconstruct time="2">
@@ -3240,7 +3269,7 @@
     <InventoryIcon texture="book.png" sourcerect="33,54,39,56" origin="0.5,0.5" />
     <Sprite texture="book.png" sourcerect="0,56,32,39" depth="0.6" origin="0.5,0.5" />
     <Body width="28" height="36" density="20" />
-    <MeleeWeapon slots="Any,RightHand+LeftHand" reload="1" range="50" combatpriority="6" DisableWhenRangedWeaponEquipped="false" controlpose="true" aimpos="40,-20" handle1="5,0" handle2="6,1" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon slots="Any,RightHand+LeftHand" HitOnlyCharacters="true" reload="1" range="50" combatpriority="6" DisableWhenRangedWeaponEquipped="false" controlpose="true" aimpos="40,-20" handle1="5,0" handle2="6,1" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect">
 	  <!-- increase condtion over time -->
 	  <StatusEffect type="Always" TargetType="This" Condition="25" />
 	  <StatusEffect type="Always" TargetType="This" Condition="75">
