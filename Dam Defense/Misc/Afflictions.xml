@@ -30,6 +30,11 @@
     <icon texture="Content/UI/TalentsIcons4.png" sourcerect="0,384,128,128" color="84,171,90,255" origin="0,0"/>
   </Infection>
   </Override>
+  
+  <!-- Stun vulnerability -->
+  <Affliction name="Stun Vulnerability" identifier="stunvulnerability" description="General feeling of weakness, unbalance and lightheadedness makes any stun more intense." type="debuff" targets="human" limbspecific="false" indicatorlimb="Torso" showiconthreshold="101" showinhealthscannerthreshold="101" karmachangeonapplied="0" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="250,250,150,255">
+    <Effect minstrength="1" maxstrength="100" strengthchange="-10" minresistance="0.0" maxresistance="-2.0" resistancefor="stun"></Effect>
+  </Affliction>
 
   <!-- exists to play a SFX to a player the first time he becomes enlightened -->
   <Affliction name="Enlightened SFX" identifier="enlightenedsfx" description="" type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="999" maxstrength="1">

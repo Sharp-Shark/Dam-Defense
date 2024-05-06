@@ -122,6 +122,79 @@ Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, 
 	end
 end)
 
+-- Execute when a human puts on a goblin mask
+Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime, item, targets, worldPosition)
+	-- Guard clause
+	local character = targets[1]
+	if (character == nil) or (character.SpeciesName ~= 'human') then return end
+	
+	-- Is Troll
+	local conversionTrollPercentage = 20
+	local isTroll = math.random(100) <= conversionTrollPercentage
+	
+	-- For safety
+	local greenskinInfo = 'You are a kind of amphibious nimble critter that like playing games with their prey. Put masks on humans to turn them into goblins. Hide in goblin crates to regenerate.'
+	local client = DD.findClientByCharacter(character)
+	if client ~= nil then
+		--client.SetClientCharacter(nil)
+		DD.messageClient(client, greenskinInfo, {preset = 'crit'})
+	end
+	
+	-- Find items to be regiven (clothing, ID Card, etc)
+	local slotItems = {}
+	for itemCount = 0, character.Inventory.Capacity do
+		local item = character.Inventory.GetItemAt(itemCount)
+		if ((item == nil) or ((tostring(item.Prefab.Identifier.Value) ~= 'handcuffs') and (tostring(item.Prefab.Identifier.Value) ~= 'bodybag'))) and ((DD.tableHas({0, 1, 3, 4, 5, 6, 7}, itemCount) and (not isTroll)) or (DD.tableHas({0, 1, 3, 4, 7}, itemCount) and isTroll)) then
+			local conversion = {[0] = 0, [1] = 1, [3] = 2, [4] = 3, [5] = 4, [6] = 6, [7] = 6}
+			slotItems[conversion[itemCount]] = item
+		end
+	end
+	-- Find items to drop
+	local dropItems = {}
+	local hasRemovedMask = false
+	for item in character.Inventory.AllItems do
+		if not DD.tableHas(slotItems, item) then
+			if (item.Prefab.identifier ~= 'goblinmask') or hasRemovedMask then
+				table.insert(dropItems, item)
+			else
+				hasRemovedMask = true
+			end
+		end
+	end
+	
+	-- Make goblin (or troll)
+	local speciesName = 'humanGoblin'
+	if troll then speciesName = 'humanTroll' end
+	local newCharacter = DD.spawnHuman(client, 'assistant', character.worldPosition, character.Name, nil, speciesName)
+
+	-- Give items back to player after a delay
+	Timer.Wait(function ()
+		-- Remove goblin card
+		Entity.Spawner.AddEntityToRemoveQueue(newCharacter.Inventory.GetItemAt(0))
+		-- Give clothing items to their correct slot
+		for itemCount, item in pairs(slotItems) do
+			--newCharacter.Inventory.ForceToSlot(item, itemCount)
+			newCharacter.Inventory.TryPutItem(item, itemCount, true, true, newCharacter, true, true)
+		end
+		-- Give other items wherever they may fit (or put them in the floor by dropping them)
+		for item in dropItems do
+			local foundSlot = false
+			for itemCount = 0, newCharacter.Inventory.Capacity do
+				if newCharacter.Inventory.CanBePutInSlot(item, itemCount, false) and (itemCount ~= 4) and (itemCount ~= 5) then
+					newCharacter.Inventory.TryPutItem(item, itemCount, true, true, newCharacter, true, true)
+					foundSlot = true
+				end
+			end
+			if not foundSlot then
+				item.Drop()
+			end
+		end
+		-- Delete old character
+		Entity.Spawner.AddEntityToRemoveQueue(character)
+	end, 100)
+	
+end)
+
 Hook.Add("DD.debug", "DD.debug", function(effect, deltaTime, item, targets, worldPosition)
 	print(item)
 	DD.tablePrint(targets, nil, 1)

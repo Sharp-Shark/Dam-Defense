@@ -539,16 +539,20 @@ DD.numberToTime = function (n, data)
 end
 
 -- Spawns a human with a job somewhere
-DD.spawnHuman = function (client, job, pos, name, subclass)
+DD.spawnHuman = function (client, job, pos, name, subclass, speciesName)
+	local speciesName = speciesName or 'human'
+	
 	local info
 	if name ~= nil then
-		info = CharacterInfo('human', name)
+		info = CharacterInfo(speciesName, name)
 	elseif client == nil then
-		info = CharacterInfo('human', CharacterInfo('human', 'John Doe').GetRandomName(1))
+		info = CharacterInfo(speciesName, CharacterInfo(speciesName, 'John Doe').GetRandomName(1))
 	elseif client.CharacterInfo == nil then
-		info = CharacterInfo('human', client.Name)
+		info = CharacterInfo(speciesName, client.Name)
 	else
-		info = client.CharacterInfo
+		if speciesName == 'human' then info = client.CharacterInfo
+		else info = CharacterInfo(speciesName, client.Name)
+		end
 	end
 	
 	local jobPrefab = JobPrefab.Get(job)
@@ -563,12 +567,12 @@ DD.spawnHuman = function (client, job, pos, name, subclass)
 	
 	local character
 	if client == nil then
-		character = Character.Create('human', pos, info.Name, info, 0, false, true)
+		character = Character.Create(speciesName, pos, info.Name, info, 0, false, true)
 	else
-		character = Character.Create('human', pos, info.Name, info, 0, true, false)
+		character = Character.Create(speciesName, pos, info.Name, info, 0, true, false)
 	end
 	
-	character.GiveJobItems()
+	if speciesName == 'human' then character.GiveJobItems() end
 	if client ~= nil then
 		client.SetClientCharacter(character)
 	end

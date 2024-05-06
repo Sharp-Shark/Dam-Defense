@@ -190,4 +190,13 @@
   <!-- The 1998 -->
   <entityname.the1998>The 1998</entityname.the1998>
   <entitydescription.the1998>A book containing old forbidden knowledge in an forgotten language. Harmless in the hands of most, but cultists will use these to convert others into one of them.</entitydescription.the1998>
+  <!-- Goblin Crate -->
+  <entityname.goblincrate>Goblin Crate</entityname.goblincrate>
+  <entitydescription.goblincrate>Too small for even the most nimble of humans... but maybe a goblin could fit in there.</entitydescription.goblincrate>
+  <!-- Goblin Mask -->
+  <entityname.goblinmask>Goblin Mask</entityname.goblinmask>
+  <entitydescription.goblinmask>A strange green mask that emanates a magical aura. What happens if it is put on?</entitydescription.goblinmask>
+  <!-- Midazolam -->
+  <entityname.midazolam>Midazolam</entityname.midazolam>
+  <entitydescription.midazolam>Strong drug with healing properties, but due to it's composition, it causes alcohol poisoning and unconciousness.</entitydescription.midazolam>
 </infotexts>
