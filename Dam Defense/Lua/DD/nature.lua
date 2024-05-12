@@ -1,3 +1,5 @@
+if CLIENT and Game.IsMultiplayer then return end
+
 DD.speciesData = {
 	tigerthresher = {initialBreedTimer = 180, eggIdentifer = 'tigerthresheregg', populationName = 'thresher', populationCap = 6},
 	tigerthresher_hatchling = {initialGrowTimer = 120, populationName = 'thresher'},
@@ -126,4 +128,18 @@ DD.roundStartFunctions.nature = function ()
 	DD.roundData.creatureGrowthTimer = {}
 	DD.roundData.creatureBreedTimer = {}
 	DD.roundData.populations = {}
+end
+
+DD.characterDeathFunctions.corpseCleanUp = function (character)
+	DD.roundData.creatureGrowthTimer[character] = nil
+	DD.roundData.creatureBreedTimer[character] = nil
+	
+	local despawnBlacklist = {'human', 'humanhusk', 'humangoblin', 'humantroll'}
+	if not DD.tableHas(despawnBlacklist, string.lower(tostring(character.SpeciesName))) then
+		Timer.Wait(function ()
+			Entity.Spawner.AddEntityToRemoveQueue(character)
+		end, 60*1000)
+	end
+
+	return true
 end

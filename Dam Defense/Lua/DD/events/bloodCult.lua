@@ -94,8 +94,8 @@ end, {
 		end
 		local nonCultistsSet = DD.setSubtract(aliveSet, self.cultistsSet)
 		
-		-- Event requires 1 (or more) cultists and 2 (or more) non-cultist
-		if (DD.tableSize(self.cultists) <= 0) or (DD.tableSize(nonCultistsSet) <= 1) then
+		-- Event requires 2 (or more) cultists and 3 (or more) non-cultist
+		if (DD.tableSize(self.cultists) <= 1) or (DD.tableSize(nonCultistsSet) <= 2) then
 			self.fail()
 			return
 		else

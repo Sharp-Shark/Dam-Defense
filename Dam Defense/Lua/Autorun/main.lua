@@ -99,7 +99,7 @@ DD.thinkFunctions.main = function ()
 	
 	-- After 30 minutes disable respawing
 	if DD.allowRespawning and (DD.roundTimer > DD.disableRespawningAfter) then
-		DD.messageAllClients('The match has gone on for too long and respawning has been automatically disabled.', {preset = 'crit'})
+		DD.messageAllClients(DD.stringLocalize('matchHasGoneOnForTooLong'), {preset = 'crit'})
 		DD.setAllowRespawning(false)
 	end
 	
@@ -112,7 +112,7 @@ DD.thinkFunctions.main = function ()
 		end
 	end
 	if not anyHumanAlive then
-		DD.messageAllClients('All of the crew is dead! Round ending in 10 seconds.', {preset = 'crit'})
+		DD.messageAllClients(DD.stringLocalize('allTheCrewIsDead'), {preset = 'crit'})
 		DD.roundData.roundEnding = true
 		Timer.Wait(function ()
 			Game.EndGame()
@@ -126,18 +126,6 @@ local doCharacterDeathFunctions = function (character)
 	for name, func in pairs(DD.characterDeathFunctions) do
 		func(character)
 	end
-end
-DD.characterDeathFunctions.corpseCleanUp = function (character)
-	DD.roundData.creatureGrowthTimer[character] = nil
-	DD.roundData.creatureBreedTimer[character] = nil
-
-	if (character.SpeciesName ~= 'human') and (character.SpeciesName ~= 'humanhusk') then
-		Timer.Wait(function ()
-			Entity.Spawner.AddEntityToRemoveQueue(character)
-		end, 60*1000)
-	end
-
-	return true
 end
 
 -- Functions executed whenever a chat message is sent
@@ -177,14 +165,14 @@ DD.chatMessageFunctions.help = function (message, sender)
 	end
 	list = string.sub(list, 1, #list - 1)
 	
-	DD.messageClient(sender, DD.stringReplace('List of chat commands:\n{list}.', {list = list}), {preset = 'command'})
+	DD.messageClient(sender, DD.stringLocalize('commandHelp', {list = list}), {preset = 'command'})
 	
 	return true
 end
 DD.chatMessageFunctions.ghostRole = function (message, sender)
 	if message ~= '/possess' then return end
 	if DD.isClientCharacterAlive(sender) then
-		local message = 'You have to be dead to use this command.'
+		local message = DD.stringLocalize('commandPossessErrorDead')
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 		return true
 	end
@@ -200,11 +188,11 @@ DD.chatMessageFunctions.ghostRole = function (message, sender)
 	end
 	
 	if winner ~= nil then
-		local message = 'Do /freecam to go back to spectating. You cannot respawn unless you are spectating.'
+		local message = DD.stringLocalize('commandPossess')
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 		sender.SetClientCharacter(winner)
 	else
-		local message = 'No nearby character fit to be possessed was found.'
+		local message = DD.stringLocalize('commandPossessErrorNothingNearby')
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 	end
 	
@@ -213,12 +201,12 @@ end
 DD.chatMessageFunctions.freecam = function (message, sender)
 	if message ~= '/freecam' then return end
 	if sender.Character == nil then
-		local message = 'You are already spectating.'
+		local message = DD.stringLocalize('commandFreecamErrorDead')
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 		return true
 	end
 	if sender.Character.SpeciesName == 'human' then
-		local message = 'You cannot become a spectator whilst controlling a human.'
+		local message = DD.stringLocalize('commandFreecamErrorHuman')
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 		return true
 	end
@@ -343,15 +331,6 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
 		end
 	end
-end)
-
--- Sends a message to husks telling them about their objective
-Hook.Add("husk.clientControl", "DD.huskMessage", function (client, husk)
-	print('It seems husk.clientControl does absolutely nothing -- what a shame!')
-	
-	DD.messageClient(client, 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk.', {preset = 'crit'})
-
-	return
 end)
 
 -- Round start functions called at lua script execution just incase reloadlua is called mid-round

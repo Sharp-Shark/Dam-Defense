@@ -1,3 +1,5 @@
+if CLIENT and Game.IsMultiplayer then return end
+
 Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(effect, deltaTime, item, targets, worldPosition)
     if CLIENT and Game.IsMultiplayer then return end
 	
@@ -70,8 +72,10 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	if character.HasTalent('enlightenedmind') then return end
     character.GiveTalent('enlightenedmind', true)
 	
-	-- tchernobog sfx
-	DD.giveAfflictionCharacter(character, 'enlightenedsfx', 999)
+	-- play tchernobog sfx 1 second after player transforms
+	Timer.Wait(function ()
+		DD.giveAfflictionCharacter(character, 'enlightenedsfx', 999)
+	end, 1000)
 	
 	-- reduce time pressure for all cultists (total amount removed will always be 60)
 	local totalAmountReduced = 120 -- for reference, timepressure maxstrength is 60
@@ -133,10 +137,9 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 	local isTroll = math.random(100) <= conversionTrollPercentage
 	
 	-- For safety
-	local greenskinInfo = 'You are a kind of amphibious nimble critter that like playing games with their prey. Put masks on humans to turn them into goblins. Hide in goblin crates to regenerate.'
+	local greenskinInfo = DD.stringLocalize('greenskinInfo')
 	local client = DD.findClientByCharacter(character)
 	if client ~= nil then
-		--client.SetClientCharacter(nil)
 		DD.messageClient(client, greenskinInfo, {preset = 'crit'})
 	end
 	
@@ -193,6 +196,26 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 		Entity.Spawner.AddEntityToRemoveQueue(character)
 	end, 100)
 	
+end)
+
+-- Remove goblin/troll and spawn his mask on the floor
+DD.characterDeathFunctions.greenskinDeath = function (character)
+	if (character.SpeciesName ~= 'humanGoblin') and (character.SpeciesName ~= 'humanTroll') then return end
+
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('goblinmask'), character.WorldPosition)
+	Entity.Spawner.AddEntityToRemoveQueue(character)
+
+	return true
+end
+
+-- Sends a message to husks telling them about their objective and abilities
+Hook.Add("character.created", "DD.huskMessage", function (createdCharacter)
+	if createdCharacter.SpeciesName ~= 'humanhusk' then return end
+	Timer.Wait(function()
+		local client = DD.findClientByCharacter(createdCharacter)
+		if client == nil then return end
+		DD.messageClient(client, DD.stringLocalize('huskMessage'), {preset = 'crit'})
+	end, 100)
 end)
 
 Hook.Add("DD.debug", "DD.debug", function(effect, deltaTime, item, targets, worldPosition)

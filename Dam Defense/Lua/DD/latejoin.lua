@@ -1,7 +1,5 @@
 if CLIENT then return end
 
-DD.lateJoinMessage = 'Respawning is currently disabled, however you and anyone who just joined will be spawned in as a laborer within {timer}.'
-
 DD.lateJoinSpawn = function ()
 	for client in Client.ClientList do
 		if (not DD.isClientCharacterAlive(client)) and (not DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation]) then
@@ -36,12 +34,11 @@ DD.thinkFunctions.lateJoin = function ()
 			else
 				resetLateJoinTimer = false
 				if DD.lateJoinTimer == Game.ServerSettings.RespawnInterval then
-					local message = 'Late-join spawn will occur within {timer}.'
 					for client in Client.ClientList do
 						if lateJoinSet[client.AccountId.StringRepresentation] then
-							DD.messageClient(client, DD.stringReplace(DD.lateJoinMessage, {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'crit'})
+							DD.messageClient(client, DD.stringLocalize('lateJoinMessage', {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'crit'})
 						else
-							DD.messageClient(client, DD.stringReplace(message, {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'info'})
+							DD.messageClient(client, DD.stringLocalize('lateJoinAnnounceTimer', {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'info'})
 						end
 					end
 				end
@@ -61,6 +58,6 @@ end
 
 Hook.Add("client.connected", "DD.lateJoinClientConnect", function (connectedClient)
 	if (not DD.allowRespawning) and (not DD.lateJoinBlacklistSet[connectedClient.AccountId.StringRepresentation]) then
-		DD.messageClient(connectedClient, DD.stringReplace(DD.lateJoinMessage, {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'crit'})
+		DD.messageClient(connectedClient, DD.stringLocalize('lateJoinMessage', {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'crit'})
 	end
 end)

@@ -325,10 +325,10 @@ DD.chatMessageFunctions.events = function (message, sender)
 	list = string.sub(list, 1, #list - 2)
 	
 	if list == '' then
-		list = 'none (there are no public events)'
+		list = DD.stringLocalize('commandEventsNone')
 	end
 	
-	DD.messageClient(sender, DD.stringReplace('The public list of events currently is: {list}.', {list = list}), {preset = 'command'})
+	DD.messageClient(sender, DD.stringLocalize('commandEvents', {list = list}), {preset = 'command'})
 	
 	return true
 end
@@ -344,10 +344,10 @@ DD.chatMessageFunctions.myEvents = function (message, sender)
 	list = string.sub(list, 1, #list - 2)
 	
 	if list == '' then
-		list = 'none (you are in no events)'
+		list = DD.stringLocalize('commandMyEventsNone')
 	end
 	
-	DD.messageClient(sender, DD.stringReplace('The events you are currently in are: {list}.', {list = list}), {preset = 'command'})
+	DD.messageClient(sender, DD.stringLocalize('commandMyEvents', {list = list}), {preset = 'command'})
 	
 	return true
 end

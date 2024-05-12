@@ -41,11 +41,11 @@
     <Effect minstrength="0" maxstrength="1" strengthchange="-1">
       <StatusEffect target="Character">
         <Conditional IsLocalPlayer="True"/>
-        <Sound file="%ModDir%/Sounds/tchernobog1.ogg" loop="false" volume="8.0" selectionmode="Random" />
-        <Sound file="%ModDir%/Sounds/tchernobog2.ogg" loop="false" volume="8.0" />
-        <Sound file="%ModDir%/Sounds/tchernobog3.ogg" loop="false" volume="8.0" />
-        <Sound file="%ModDir%/Sounds/tchernobog4.ogg" loop="false" volume="8.0" />
-        <Sound file="%ModDir%/Sounds/tchernobog5.ogg" loop="false" volume="8.0" />
+        <Sound file="%ModDir%/Sounds/tchernobog1.ogg" loop="false" volume="12.0" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/tchernobog2.ogg" loop="false" volume="12.0" />
+        <Sound file="%ModDir%/Sounds/tchernobog3.ogg" loop="false" volume="12.0" />
+        <Sound file="%ModDir%/Sounds/tchernobog4.ogg" loop="false" volume="12.0" />
+        <Sound file="%ModDir%/Sounds/tchernobog5.ogg" loop="false" volume="12.0" />
       </StatusEffect>
 	</Effect>
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>

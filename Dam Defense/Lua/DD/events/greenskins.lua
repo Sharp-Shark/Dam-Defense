@@ -45,7 +45,7 @@ end, {
 			-- Spawn greenskins and do client messages
 			for client in Client.ClientList do
 				if self.greenskinsSet[client] then
-					local greenskinInfo = 'You are a kind of amphibious nimble critter that like playing games with their prey. Put masks on humans to turn them into goblins. Hide in goblin crates to regenerate.'
+					local greenskinInfo = DD.stringLocalize('greenskinInfo')
 					local speciesName = 'humanGoblin'
 					
 					local job = 'assistant'

@@ -63,8 +63,8 @@ end, {
 		self.timer = 40
 		
 		-- Warn airdrop has been spawned
-		local message = 'A Nexcase (TM) with {amount} Nexcredits (TM) has been teleported to you by Nexmail (TM). It will be teleported back in {seconds} seconds along with anything left inside!'
-		DD.messageClient(self.client, DD.stringReplace(message, {amount = self.amount, seconds = self.timer}), {preset = 'command'})
+		local message = ''
+		DD.messageClient(self.client, DD.stringLocalize('withdrawMoneyMessage', {amount = self.amount, seconds = self.timer}), {preset = 'command'})
 	end,
 	
 	onThink = function (self)
@@ -155,15 +155,14 @@ end
 DD.chatMessageFunctions.tellCredits = function (message, sender)
 	if message ~= '/credits' then return end
 	if (DD.roundData.bank[sender] == nil) or (DD.roundData.salaryTimer[sender] == nil) then
-		local message = 'You have no Nexaccount (TM).'
+		local message = DD.stringLocalize('commandCreditsError')
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 		return true
 	end
 	
 	local amount = DD.roundData.bank[sender]
-	local message = 'You have {amount} Nexcredits (TM) in your Nexaccount (TM). Your next reward will be in {timer}.'
 	
-	DD.messageClient(sender, DD.stringReplace(message, {amount = amount, timer = DD.numberToTime(DD.roundData.salaryTimer[sender])}), {preset = 'command'})
+	DD.messageClient(sender, DD.stringLocalize('commandCredits', {amount = amount, timer = DD.numberToTime(DD.roundData.salaryTimer[sender])}), {preset = 'command'})
 	
 	return true
 end
@@ -171,22 +170,22 @@ end
 DD.chatMessageFunctions.withdrawMoney = function (message, sender)
 	if string.sub(message, 1, 9) ~= '/withdraw' then return end
 	if DD.roundData.bank[sender] == nil then
-		local message = 'You have no Nexaccount (TM).'
+		local message = DD.stringLocalize('commandWithdrawError')
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 		return true
 	end
 	if not DD.isClientCharacterAlive(sender) then
-		local message = 'You have to be alive to withdraw.'
+		local message = DD.stringLocalize('commandWithdrawErrorDead')
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 		return true
 	end
 	if sender.Character.SpeciesName ~= 'human' then
-		local message = 'Error! Non-human lifeform detected.'
+		local message = DD.stringLocalize('commandWithdrawErrorNotHuman')
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 		return true
 	end
 	if (DD.roundData.withdrawCooldown[sender] ~= nil) and (DD.roundData.withdrawCooldown[sender] > 0) then
-		local message = 'You have to wait {timer} before you can withdraw again.'
+		local message = DD.stringLocalize('commandWithdrawErrorCooldown')
 		DD.messageClient(sender, DD.stringReplace(message, {timer = DD.numberToTime(DD.roundData.withdrawCooldown[sender])}), {preset = 'command'})
 		return true
 	end
@@ -197,7 +196,7 @@ DD.chatMessageFunctions.withdrawMoney = function (message, sender)
 	local amount = math.max(0, math.min(maxAmount, tonumber(args[1]) or 999999))
 	
 	if (amount == nil) or (amount <= 1) then
-		local message = 'You have tried to withdraw an invalid amount and thusly failed.'
+		local message = DD.stringLocalize('commandWithdrawErrorInvalidAmount')
 		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
 		return true
 	end
