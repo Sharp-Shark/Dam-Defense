@@ -125,7 +125,7 @@
   </Job>
 
   <Job identifier="engineer"
-       minkarma="0" initialcount="2"
+       minkarma="0" maxnumber="3" initialcount="3"
        uicolor="0.8,0.85,0.43"
        vitalitymodifier="0"
        pricemultiplier="1"
@@ -240,7 +240,7 @@
   </Job>
 
   <Job identifier="mechanic"
-       minkarma="0" initialcount="2"
+       minkarma="0" initialcount="3"
        uicolor="0.65,0.7,0.75"
        vitalitymodifier="0"
        pricemultiplier="1"
@@ -463,7 +463,7 @@
   </Job>
 
   <Job identifier="medicaldoctor"
-       minkarma="0" maxnumber="2" initialcount="2"
+       minkarma="0" maxnumber="1" initialcount="1"
        uicolor="0.75,0.35,0.25"
        vitalitymodifier="0"
        pricemultiplier="1.15"
@@ -609,7 +609,7 @@
   </Override>
   
   <Job identifier="janitor"
-       minkarma="0" initialcount="2"
+       minkarma="0" maxnumber="2" initialcount="2"
        uicolor="0.45,0.45,0.85"
        vitalitymodifier="0"
        pricemultiplier="1"
@@ -632,7 +632,7 @@
 	    <!-- 3 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
 	  </Item>
       <Item identifier="assistantclothes" equip="true" outfit="true"/>
-      <Item identifier="hardhat" equip="true">
+      <Item identifier="hardhatjanitor" equip="true">
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="toolbelt" equip="true">
@@ -668,7 +668,7 @@
 	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	  </Item>
       <Item identifier="assistantclothes" equip="true" outfit="true"/>
-      <Item identifier="hardhat" equip="true">
+      <Item identifier="hardhatjanitor" equip="true">
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="toolbelt" equip="true">
