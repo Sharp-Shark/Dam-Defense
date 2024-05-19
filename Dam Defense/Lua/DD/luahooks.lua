@@ -72,9 +72,9 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	if character.HasTalent('enlightenedmind') then return end
     character.GiveTalent('enlightenedmind', true)
 	
-	-- play tchernobog sfx 1 second after player transforms
+	-- play tchernobog sfx and flashes a image 1 second after player transforms
 	Timer.Wait(function ()
-		DD.giveAfflictionCharacter(character, 'enlightenedsfx', 999)
+		DD.giveAfflictionCharacter(character, 'enlightenedfx', 999)
 	end, 1000)
 	
 	-- reduce time pressure for all cultists (total amount removed will always be 60)
