@@ -208,13 +208,20 @@ DD.characterDeathFunctions.greenskinDeath = function (character)
 	return true
 end
 
+-- Give goblin/troll the greenskin talent(s)
+Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
+	Timer.Wait(function ()
+		createdCharacter.GiveTalent('greenskinknowledge', true)
+	end, 1000)
+end)
+
 -- Sends a message to husks telling them about their objective and abilities
 Hook.Add("character.created", "DD.huskMessage", function (createdCharacter)
 	if createdCharacter.SpeciesName ~= 'humanhusk' then return end
 	Timer.Wait(function()
 		local client = DD.findClientByCharacter(createdCharacter)
 		if client == nil then return end
-		DD.messageClient(client, DD.stringLocalize('huskMessage'), {preset = 'crit'})
+		DD.messageClient(client, DD.stringLocalize('huskInfo'), {preset = 'crit'})
 	end, 100)
 end)
 

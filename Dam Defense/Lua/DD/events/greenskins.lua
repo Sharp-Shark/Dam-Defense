@@ -72,8 +72,13 @@ end, {
 	end,
 	
 	onFinish = function (self)
+		for item in Item.ItemList do
+			if (item.Prefab.Identifier == 'goblinmask') or (item.Prefab.Identifier == 'goblincrate') or (item.Prefab.Identifier == 'midazolam') then
+				Entity.Spawner.AddItemToRemoveQueue(item)
+			end
+		end
 		if DD.tableSize(self.greenskins) <= 0 then
-			DD.messageAllClients('All greenskins have been eliminated.', {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('greenskinsEventEndDefeat'), {preset = 'goodinfo'})
 		end
 	end
 })

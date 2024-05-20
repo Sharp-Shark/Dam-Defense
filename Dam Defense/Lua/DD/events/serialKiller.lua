@@ -60,11 +60,11 @@ end, {
 			self.eventActualStartTimer = self.eventActualStartTimer - 1/timesPerSecond
 			-- event actual start
 			if not (self.eventActualStartTimer > 0) then
-				self.murderCooldown = 15
+				self.murderCooldown = 60
 				-- Give affliction
 				DD.giveAfflictionCharacter(self.killer.Character, 'bloodlust', 1)
 				-- Give time pressure immunity
-				DD.giveAfflictionCharacter(self.killer.Character, 'timepressureimmunity', self.murderCooldown)
+				DD.giveAfflictionCharacter(self.killer.Character, 'timepressureimmunity', 60 * 3) -- 3 minutes of time pressure immunity
 				-- Remove item at headslot
 				if self.killer.Character.Inventory.GetItemAt(DD.invSlots.head) ~= nil then
 					self.killer.Character.Inventory.GetItemAt(DD.invSlots.head).drop()
@@ -135,7 +135,7 @@ end, {
 		-- See if anyone is still alive
 		local anyoneAlive = false
 		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and (client ~= self.killer) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (client ~= self.killer) then
 				anyoneAlive = true
 				break
 			end

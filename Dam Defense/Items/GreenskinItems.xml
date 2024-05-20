@@ -5,11 +5,6 @@
   <Item name="Goblin Crate" identifier="goblincrate" maxstacksize="8" inventoryiconcolor="55,255,55" spritecolor="55,255,55" tags="crate,allowcleanup,clowns" scale="0.43" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy" DisableItemUsageWhenSelected="true" waterproof="true">
     <Price baseprice="170" sold="false" canbespecial="false" />
     <Deconstruct time="5" />
-    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
-      <RequiredItem identifier="metalcrate" />
-      <RequiredItem identifier="redpaint" />
-      <RequiredItem identifier="rubber" />
-    </Fabricate>
     <sprite texture="Content/Map/Outposts/Art/FactionItems.png" sourcerect="5,0,158,83" depth="0.54" origin="0.5,0.5" />
     <Body width="150" height="76" density="20" />
     <Holdable slots="Any, RightHand+LeftHand" holdpos="0,-80" handle1="-20,14" handle2="20,14" aimable="false" msg="ItemMsgPickUpSelect" />
@@ -52,8 +47,11 @@
     <Sprite name="Goblin Mask" texture="headgears.png" depth="0.6" sourcerect="453,71,47,71" origin="0.5,0.6" scale="0.5" />
     <Body width="40" radius="30" density="15" />
     <Deconstruct time="10">
-      <Item identifier="bikehorn" />
+      <Item identifier="plastic" />
     </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="1" requiresrecipe="true">
+      <Item identifier="plastic" />
+    </Fabricate>
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect">
       <sprite name="Goblin Mask Wearable" texture="headgears.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.75" sourcerect="411,71,89,71" origin="0.5,0.6" />
       <StatusEffect type="OnWearing" target="Character" HideFace="true" duration="0.1" stackable="false">

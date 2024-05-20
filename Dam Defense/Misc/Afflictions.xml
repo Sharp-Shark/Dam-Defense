@@ -67,7 +67,7 @@
     <Effect minstrength="0" maxstrength="99" strengthchange="-5" />
 	<Effect minstrength="99" maxstrength="100" strengthchange="1.0">
 	  <StatusEffect target="character">
-	    <Affliction identifier="timepressure" amount="0.2" />
+	    <Affliction identifier="timepressure" amount="0.12" />
 	    <LuaHook name="DD.enlightened.givetalent" />
 	  </StatusEffect>
 	</Effect>

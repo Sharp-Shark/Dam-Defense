@@ -9,7 +9,7 @@ return {
 	commandPossess = 'Do /freecam to go back to spectating. You cannot respawn unless you are spectating.',
 	commandFreecamErrorDead = 'You are already spectating.',
 	commandFreecamErrorHuman = 'You cannot become a spectator whilst controlling a human.',
-	huskMessage = 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk.',
+	huskInfo = 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate.',
 	-- eventDirector.lua
 	commandEventsNone = 'none (there are no public events)',
 	commandEvents = 'The public list of events currently is: {list}.',

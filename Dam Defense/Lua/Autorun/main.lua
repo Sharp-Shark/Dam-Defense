@@ -173,7 +173,7 @@ DD.chatMessageFunctions.ghostRole = function (message, sender)
 	if message ~= '/possess' then return end
 	if DD.isClientCharacterAlive(sender) then
 		local message = DD.stringLocalize('commandPossessErrorDead')
-		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		DD.messageClient(sender, message, {preset = 'command'})
 		return true
 	end
 	
@@ -189,11 +189,11 @@ DD.chatMessageFunctions.ghostRole = function (message, sender)
 	
 	if winner ~= nil then
 		local message = DD.stringLocalize('commandPossess')
-		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		DD.messageClient(sender, message, {preset = 'command'})
 		sender.SetClientCharacter(winner)
 	else
 		local message = DD.stringLocalize('commandPossessErrorNothingNearby')
-		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		DD.messageClient(sender, message, {preset = 'command'})
 	end
 	
 	return true
@@ -202,12 +202,12 @@ DD.chatMessageFunctions.freecam = function (message, sender)
 	if message ~= '/freecam' then return end
 	if sender.Character == nil then
 		local message = DD.stringLocalize('commandFreecamErrorDead')
-		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		DD.messageClient(sender, message, {preset = 'command'})
 		return true
 	end
 	if sender.Character.SpeciesName == 'human' then
 		local message = DD.stringLocalize('commandFreecamErrorHuman')
-		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		DD.messageClient(sender, message, {preset = 'command'})
 		return true
 	end
 	

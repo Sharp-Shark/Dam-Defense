@@ -64,7 +64,7 @@ end, {
 		
 		-- Warn airdrop has been spawned
 		local message = ''
-		DD.messageClient(self.client, DD.stringLocalize('withdrawMoneyMessage', {amount = self.amount, seconds = self.timer}), {preset = 'command'})
+		DD.messageClient(self.client, DD.stringLocalize('commandWithdraw', {amount = self.amount, seconds = self.timer}), {preset = 'command'})
 	end,
 	
 	onThink = function (self)
@@ -91,8 +91,7 @@ DD.giveMoneyToClient = function (client, amount, announce)
 		DD.roundData.bank[client] = amount
 	end
 	if announce then
-		local message = 'You have received {amount} Nexcredits (TM).'
-		DD.messageClient(client, DD.stringReplace(message, {amount = amount}), {preset = 'command'})
+		DD.messageClient(client, DD.stringLocalize('giveMoneyToClient', {amount = amount}), {preset = 'command'})
 	end
 end
 
@@ -156,7 +155,7 @@ DD.chatMessageFunctions.tellCredits = function (message, sender)
 	if message ~= '/credits' then return end
 	if (DD.roundData.bank[sender] == nil) or (DD.roundData.salaryTimer[sender] == nil) then
 		local message = DD.stringLocalize('commandCreditsError')
-		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		DD.messageClient(sender, message, {preset = 'command'})
 		return true
 	end
 	
@@ -171,17 +170,17 @@ DD.chatMessageFunctions.withdrawMoney = function (message, sender)
 	if string.sub(message, 1, 9) ~= '/withdraw' then return end
 	if DD.roundData.bank[sender] == nil then
 		local message = DD.stringLocalize('commandWithdrawError')
-		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		DD.messageClient(sender, message, {preset = 'command'})
 		return true
 	end
 	if not DD.isClientCharacterAlive(sender) then
 		local message = DD.stringLocalize('commandWithdrawErrorDead')
-		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		DD.messageClient(sender, message, {preset = 'command'})
 		return true
 	end
 	if sender.Character.SpeciesName ~= 'human' then
 		local message = DD.stringLocalize('commandWithdrawErrorNotHuman')
-		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		DD.messageClient(sender, message, {preset = 'command'})
 		return true
 	end
 	if (DD.roundData.withdrawCooldown[sender] ~= nil) and (DD.roundData.withdrawCooldown[sender] > 0) then
@@ -197,7 +196,7 @@ DD.chatMessageFunctions.withdrawMoney = function (message, sender)
 	
 	if (amount == nil) or (amount <= 1) then
 		local message = DD.stringLocalize('commandWithdrawErrorInvalidAmount')
-		DD.messageClient(sender, DD.stringReplace(message, {}), {preset = 'command'})
+		DD.messageClient(sender, message, {preset = 'command'})
 		return true
 	end
 	

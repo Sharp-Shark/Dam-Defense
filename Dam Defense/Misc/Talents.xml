@@ -50,6 +50,14 @@
 	
   </Talent>
 
+  <!-- talent that lets greenskins craft goblin masks -->
+  <Talent identifier="greenskinknowledge">
+    <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
+	
+    <AddedRecipe itemidentifier="goblinmask"/>
+	
+  </Talent>
+
   <!-- talent that lets janitor craft the trashbag -->
   <Talent identifier="janitorialknowledge">
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
