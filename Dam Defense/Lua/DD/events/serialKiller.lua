@@ -92,7 +92,7 @@ end, {
 		if self.timePressurePauseTimer > 0 then
 			self.timePressurePauseTimer = self.timePressurePauseTimer - 1/timesPerSecond
 		else
-			DD.giveAfflictionCharacter(self.killer.character, 'timepressure', 60/timeToExplode/timesPerSecond)
+			DD.giveAfflictionCharacter(self.killer.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 		end
 		if (self.murder == nil) or (self.murder.finished) then
 			-- if last murder resulted in a victory for the murderer, reset time pressure

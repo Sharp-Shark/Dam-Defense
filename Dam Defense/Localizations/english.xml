@@ -1,5 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <infotexts language="English" nowhitespace="false" translatedname="English">
+  <!-- Room Names -->
+  <roomname.sewers>Sewers</roomname.sewers>
+  <roomname.streets>Streets</roomname.streets>
+  <roomname.slums>Slums</roomname.slums>
+  <roomname.factory>Factory</roomname.factory>
+  <roomname.factoryrooftop>Factory rooftop</roomname.factoryrooftop>
+  <roomname.hospital>Hospital</roomname.hospital>
+  <roomname.hospitalrooftop>Hospital rooftop</roomname.hospitalrooftop>
+  <roomname.temporaryholding>Temporary holding</roomname.temporaryholding>
+  <roomname.prison>Prison</roomname.prison>
+  <roomname.prisonrooftop>Prison rooftop</roomname.prisonrooftop>
+  <roomname.divingarmory>Diving armory</roomname.divingarmory>
+  <roomname.motel>Motel</roomname.motel>
+  <roomname.motelrooftop>Motel rooftop</roomname.motelrooftop>
+  <roomname.huskstatue>Husk statue</roomname.huskstatue>
+  <roomname.damborder>Dam border</roomname.damborder>
+  <roomname.dam>Dam</roomname.dam>
+  <roomname.damoffices>Dam offices</roomname.damoffices>
+  <roomname.damrooftop>Dam rooftop</roomname.damrooftop>
+  <roomname.damcafeteria>Dam cafeteria</roomname.damcafeteria>
+  <roomname.damgreenhouse>Dam greenhouse</roomname.damgreenhouse>
+  <roomname.security>Security</roomname.security>
+  <roomname.janitorialcloset>Janitorial closet</roomname.janitorialcloset>
+  <roomname.janitorialquarters>Janitorial quarters</roomname.janitorialquarters>
+  <roomname.engineersquarters>Engineers quarters</roomname.engineersquarters>
+  <roomname.captainsquarters>Captains quarters</roomname.captainsquarters>
+  <roomname.dammaintenanceshafts>Dam maintenance shafts</roomname.dammaintenanceshafts>
+  <roomname.reactorcontrolroom>Reactor control room</roomname.reactorcontrolroom>
+  <roomname.dambasin>Dam basin</roomname.dambasin>
+  <roomname.clownroom>Clown room</roomname.clownroom>
+  
   <Override>
   <!-- Mayor Job -->
   <jobname.captain>Mayor</jobname.captain>

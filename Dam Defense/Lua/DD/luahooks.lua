@@ -77,17 +77,13 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 		DD.giveAfflictionCharacter(character, 'enlightenedfx', 999)
 	end, 1000)
 	
-	-- reduce time pressure for all cultists (total amount removed will always be 60)
-	local totalAmountReduced = 120 -- for reference, timepressure maxstrength is 60
-	local cultistCharacters = {}
+	-- resets the time pressure for all cultists
 	for character in Character.CharacterList do
 		if character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) >= 99 then
-			table.insert(cultistCharacters, character)
+			if character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
+				character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+			end
 		end
-	end
-	for character in cultistCharacters do
-		-- subtract by 1 to not count the just enlightened player
-		character.CharacterHealth.ReduceAfflictionOnAllLimbs('timepressure', totalAmountReduced / (#cultistCharacters - 1), nil)
 	end
 	
 	-- pop-up
@@ -131,6 +127,15 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 	-- Guard clause
 	local character = targets[1]
 	if (character == nil) or (character.SpeciesName ~= 'human') then return end
+	
+	-- Reset time pressure for all the trolls and goblins
+	for character in Character.CharacterList do
+		if (character.SpeciesName == 'humanGoblin') or (character.SpeciesName == 'humanTroll') then
+			if character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
+				character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+			end
+		end
+	end
 	
 	-- Is Troll
 	local conversionTrollPercentage = 20
@@ -210,6 +215,8 @@ end
 
 -- Give goblin/troll the greenskin talent(s)
 Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
+	if (createdCharacter.SpeciesName ~= 'humanGoblin') and (createdCharacter.SpeciesName ~= 'humanTroll') then return end
+	
 	Timer.Wait(function ()
 		createdCharacter.GiveTalent('greenskinknowledge', true)
 	end, 1000)

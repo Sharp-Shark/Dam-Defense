@@ -61,9 +61,16 @@ end, {
 	
 	onThink = function (self)
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+		local timesPerSecond = 2
 		
 		-- See if any greenskin is alive
 		self.updateGreenskinList()
+		
+		-- Increase time pressure
+		local timeToExplode = 8 * 60 + 20 -- in seconds
+		for client in self.greenskins do
+			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
+		end
 		
 		-- End event if all reactors are broken or all nukies are dead
 		if DD.tableSize(self.greenskins) <= 0 then

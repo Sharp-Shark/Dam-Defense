@@ -59,6 +59,7 @@ end, {
 	
 	onThink = function (self)
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+		local timesPerSecond = 2
 	
 		-- See if any reactor is unbroken
 		local anyReactorIsUnbroken = false
@@ -73,12 +74,20 @@ end, {
 		local anyNukieIsAlive = false
 		for key, nukie in pairs(self.nukies) do
 			if DD.isClientCharacterAlive(nukie) then
-				anyNukieIsAlive = true
+				if not nukie.Character.IsArrested then
+					anyNukieIsAlive = true
+				end
 			else
 				DD.messageClient(nukie, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
 				self.nukies[key] = nil
 				self.nukiesSet[nukie] = nil
 			end
+		end
+		
+		-- Increase time pressure
+		local timeToExplode = 15 * 60 -- in seconds
+		for client in self.nukies do
+			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 		end
 		
 		-- End event if all reactors are broken or all nukies are dead
@@ -108,6 +117,11 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
+		for client in self.nukies do
+			if client.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
+				client.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+			end
+		end
 		if self.nukiesWon then
 			DD.messageAllClients('Nukies have won this round! Round ending in 10 seconds.', {preset = 'crit'})
 			DD.roundData.roundEnding = true
@@ -115,7 +129,7 @@ end, {
 				Game.EndGame()
 			end, 10 * 1000)
 		else
-			DD.messageAllClients('All nukies have been eliminated.', {preset = 'goodinfo'})
+			DD.messageAllClients('All nukies have been neutralized.', {preset = 'goodinfo'})
 		end
 	end
 })
