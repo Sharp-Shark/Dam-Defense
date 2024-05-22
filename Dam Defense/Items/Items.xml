@@ -3,7 +3,7 @@
   <!-- trash bag -->
   <Item name="Trash Bag" identifier="trashbag" category="Equipment,Misc" Tags="smallitem" scale="0.5" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
     <Sprite texture="trashbag.png" depth="0.5" sourcerect="0,0,72,120" origin="0.5,0.5" />
-    <Body width="16" height="12" density="20" />
+    <Body width="35" height="100" density="20" />
     <Fabricate suitablefabricators="fabricator" requiredtime="10" requiresrecipe="true">
       <RequiredItem identifier="plastic" />
     </Fabricate>
@@ -3001,8 +3001,8 @@
       <RequiredItem identifier="copper" />
       <RequiredItem identifier="tin" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="90">
-      <RequiredSkill identifier="weapons" level="40" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="180">
+      <RequiredSkill identifier="weapons" level="50" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
       <RequiredItem identifier="steel" amount="2" />
       <RequiredItem identifier="copper" amount="1" />

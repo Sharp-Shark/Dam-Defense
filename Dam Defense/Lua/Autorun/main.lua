@@ -292,7 +292,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			if (character.JobIdentifier == 'captain') then
 				character.GiveTalent('drunkensailor', true)
 			end
-			if (character.JobIdentifier == 'medicaldoctor') or (character.JobIdentifier == 'researcher') or (character.JobIdentifier == 'securityofficer') then
+			if (character.JobIdentifier == 'medicaldoctor') or (character.JobIdentifier == 'researcher') or (character.JobIdentifier == 'securityofficer') or (character.JobIdentifier == 'janitor') then
 				character.GiveTalent('firemanscarry', true)
 			end
 			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'jet') then
