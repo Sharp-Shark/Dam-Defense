@@ -124,17 +124,44 @@
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
   </Affliction>
 
+  <!-- cooldown for afterburn -->
+  <Affliction name="Afterburn Stun Cooldown" identifier="afterburnstuncooldown" description="" type="burn" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="false" activationthreshold="1.0" showiconthreshold="999" maxstrength="1">
+    <Effect minstrength="0" maxstrength="1">
+      <StatusEffect target="Character" disabledeltatime="true">
+	    <Conditional afterburn="lt 1.0" />
+	    <ReduceAffliction identifier="afterburnstuncooldown" strength="-99" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
+  </Affliction>
+
   <!-- taken from Combat Overhaul Legacy with only minor tweaks for this mod -->
   <Affliction name="Afterburn" identifier="afterburn" description="" type="burn" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="true" activationthreshold="1.0" showiconthreshold="999" maxstrength="15">
-    <Effect minstrength="1" maxstrength="10" minvitalitydecrease="0" maxvitalitydecrease="0" strengthchange="-0.5">
+    <Effect minstrength="1" maxstrength="8" minvitalitydecrease="0" maxvitalitydecrease="0" strengthchange="-0.5">
       <StatusEffect target="Limb">
-        <Affliction identifier="burn" amount="0.6" />
+        <Affliction identifier="burn" amount="0.4" />
       </StatusEffect>
 	  <!-- particles -->
       <StatusEffect target="Limb">
         <ParticleEmitter particle="flamethrower_co" particlespersecond="4" scalemin="0.5" scalemax="0.7" distancemin="0" distancemax="30" />
         <ParticleEmitter particle="smoke" particlespersecond="4" scalemin="2" scalemax="2.5" />
       </StatusEffect>
+    </Effect>
+    <Effect minstrength="8" maxstrength="15" minvitalitydecrease="0" maxvitalitydecrease="0" strengthchange="-0.5">
+      <StatusEffect target="Limb">
+        <Affliction identifier="burn" amount="0.8" />
+      </StatusEffect>
+	  <!-- particles -->
+      <StatusEffect target="Limb">
+        <ParticleEmitter particle="flamethrower_co" particlespersecond="4" scalemin="0.5" scalemax="0.7" distancemin="0" distancemax="30" />
+        <ParticleEmitter particle="smoke" particlespersecond="4" scalemin="2" scalemax="2.5" />
+      </StatusEffect>
+	  <!-- afterburn stun -->
+	  <StatusEffect target="Character" disabledeltatime="true" >
+	    <Conditional afterburnstuncooldown="lte 0.0" />
+	    <Affliction identifier="stun" amount="1.0" />
+	    <Affliction identifier="afterburnstuncooldown" amount="1.0" />
+	  </StatusEffect>
     </Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
   </Affliction>

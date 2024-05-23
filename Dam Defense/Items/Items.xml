@@ -241,8 +241,8 @@
       <Price storeidentifier="merchantarmory" multiplier="1.25" minavailable="1" />
     </Price>
     <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="64,64,64,64" />-->
-    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="320,64,64,64" />
-    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="154,22,158,77" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="flamer.png" sourcerect="0,0,216,92" />
+    <Sprite texture="flamer.png" sourcerect="0,0,216,92" depth="0.55" origin="0.5,0.5" />
     <!-- the item takes 10 seconds to break down in a deconstructor and turns into steel and plastic -->
     <Deconstruct time="10">
       <Item identifier="steel" />
@@ -257,7 +257,7 @@
     <!-- physics body -->
     <Body width="150" height="77" density="25" />
     <!-- the character will hold the item 50 pixels in front of him, with his hands at the handle1 and handle2 positions -->
-    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="50,0" handle1="-62,-16" handle2="-11,-6" msg="ItemMsgPickUpSelect" />
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="10,-50" holdangle="60" aimpos="55,-30" handle1="-80,20" handle2="0,-20" msg="ItemMsgPickUpSelect" />
     <RepairTool firedamage="20.0" structurefixamount="0.0" usablein="Air" range="500" barrelpos="35,10" fireprobability="0.0" repairmultiple="true" RepairMultipleWalls="false" repairthroughwalls="false" repairthroughholes="true" combatpriority="50" spread="25" unskilledspread="25">
       <!-- the item must contain a welding fuel tank for it to work -->
       <RequiredItems items="weldingtoolfuel,oxygensource" type="Contained" msg="ItemMsgWeldingFuelRequired" />
@@ -287,7 +287,7 @@
       <!-- do burn damage to characters -->
       <StatusEffect type="OnSuccess" target="UseTarget">
         <Affliction identifier="burn" amount="1.5" />
-        <Affliction identifier="afterburn" amount="2" />
+        <Affliction identifier="afterburn" amount="3" />
       </StatusEffect>
       <!-- explode if oxygen tanks are inserted -->
       <StatusEffect type="OnUse" targettype="Contained" targets="oxygentank" delay="1.0" stackable="false" Condition="0" setvalue="true">
@@ -319,9 +319,13 @@
       </LightComponent>
     </RepairTool>
     <!-- one welding fuel or oxygen tank can be contained inside the welding tool -->
-    <ItemContainer capacity="1" maxstacksize="1" hideitems="false" itempos="8,-20" containedspritedepth="0.56" containedstateindicatorstyle="tank">
-      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="false" itempos="3,-15" containedspritedepth="0.56" containedstateindicatorslot="0" containedstateindicatorstyle="tank">
       <Containable items="weldingtoolfuel,oxygensource" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="flashlight" hide="false" itempos="26,1.5" setactive="true" />
+      </SubContainer>
     </ItemContainer>
     <aitarget sightrange="5000" soundrange="500" fadeouttime="5" />
     <SkillRequirementHint identifier="weapons" level="50" />
