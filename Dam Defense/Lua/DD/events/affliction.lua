@@ -39,7 +39,7 @@ DD.eventAfflictionFlu = DD.class(DD.eventAffliction, nil, {
 	identifier = 'fluhidden',
 	minamount = 5,
 	maxamount = 50,
-	ratio = 1/4
+	ratio = 1/5
 })
 
 -- TB event
@@ -53,7 +53,7 @@ DD.eventAfflictionTB = DD.class(DD.eventAffliction, nil, {
 	identifier = 'tbhidden',
 	minamount = 5,
 	maxamount = 50,
-	ratio = 1/4
+	ratio = 1/5
 })
 
 -- Husk event

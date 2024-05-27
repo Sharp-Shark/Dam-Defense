@@ -3306,7 +3306,7 @@
 	  </StatusEffect>
 	  <!-- attack -->
 	  <Attack structuredamage="0" itemdamage="0" targetimpulse="5">
-        <Affliction identifier="stun" strength="0.5" />
+        <Affliction identifier="stun" strength="0.8" />
         <StatusEffect type="OnUse" target="UseTarget">
           <Conditional entitytype="eq Character"/>
           <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>

@@ -54,6 +54,9 @@ DD.roundStartFunctions.main = function ()
 		Submarine.MainSub.LockX = true
 		Submarine.MainSub.LockY = true
 	end
+	if SERVER then
+		Game.ServerSettings['AllowFriendlyFire'] = true
+	end
 
 	DD.roundData = {}
 	DD.roundEnding = false

@@ -24,7 +24,7 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
     if CLIENT and Game.IsMultiplayer then return end
 	if targets[1] == nil then return end
 	local character = targets[1]
-	if not DD.isCharacterUsingHullOxygen(character) then return end
+	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) >= 1 then return end
 	
 	local spreadDiseaseToCharacter = function (toCharacter, fromCharacter, diseaseName, chance)
 		-- Get fromCharacter infection amount
@@ -59,18 +59,19 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 	local hull = character.CurrentHull
 	if hull == nil then return end
 	
-	local affectedHulls = {hull = true}
+	local affectedHulls = {[hull] = true}
 	for otherHull in character.CurrentHull.GetConnectedHulls(false, 3, true) do affectedHulls[otherHull] = true end
 	
 	for other in Character.CharacterList do
-		if (other.SpeciesName == 'human') and (not other.IsDead) and affectedHulls[other.CurrentHull] and DD.isCharacterUsingHullOxygen(other) and
-		(Vector2.Distance(character.WorldPosition, other.WorldPosition) < 750) then
+		local isOtherUsingHullOxygen = other.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) <= 0
+		local isOtherInDistance = affectedHulls[other.CurrentHull] and (Vector2.Distance(character.WorldPosition, other.WorldPosition) < 750)
+		if (other ~= character) and (other.SpeciesName == 'human') and (not other.IsDead) and isOtherUsingHullOxygen and isOtherInDistance then
 			spreadDiseaseToCharacter(other, character, 'husk', 0.15)
 			for diseaseName, data in pairs(DD.diseaseData) do
 				local chance = getDiseaseStat(diseaseName, 'spreadChance')
 				if character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) > 0 then
 					spreadDiseaseToCharacter(other, character, diseaseName, chance)
-				else
+				elseif character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true) > 0 then
 					spreadDiseaseToCharacter(other, character, diseaseName, chance / 2)
 				end
 			end

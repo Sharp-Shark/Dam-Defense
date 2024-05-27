@@ -124,17 +124,6 @@
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
   </Affliction>
 
-  <!-- cooldown for afterburn -->
-  <Affliction name="Afterburn Stun Cooldown" identifier="afterburnstuncooldown" description="" type="burn" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="false" activationthreshold="1.0" showiconthreshold="999" maxstrength="1">
-    <Effect minstrength="0" maxstrength="1">
-      <StatusEffect target="Character" disabledeltatime="true">
-	    <Conditional afterburn="lt 1.0" />
-	    <ReduceAffliction identifier="afterburnstuncooldown" strength="-99" />
-      </StatusEffect>
-    </Effect>
-    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
-  </Affliction>
-
   <!-- taken from Combat Overhaul Legacy with only minor tweaks for this mod -->
   <Affliction name="Afterburn" identifier="afterburn" description="" type="burn" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="true" activationthreshold="1.0" showiconthreshold="999" maxstrength="15">
     <Effect minstrength="1" maxstrength="8" minvitalitydecrease="0" maxvitalitydecrease="0" strengthchange="-0.5">
@@ -156,12 +145,6 @@
         <ParticleEmitter particle="flamethrower_co" particlespersecond="4" scalemin="0.5" scalemax="0.7" distancemin="0" distancemax="30" />
         <ParticleEmitter particle="smoke" particlespersecond="4" scalemin="2" scalemax="2.5" />
       </StatusEffect>
-	  <!-- afterburn stun -->
-	  <StatusEffect target="Character" disabledeltatime="true" >
-	    <Conditional afterburnstuncooldown="lte 0.0" />
-	    <Affliction identifier="stun" amount="1.0" />
-	    <Affliction identifier="afterburnstuncooldown" amount="1.0" />
-	  </StatusEffect>
     </Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
   </Affliction>
@@ -318,9 +301,9 @@
     showicontoothersthreshold="999"
     showinhealthscannerthreshold="999"
     iconcolors="60,140,195,255;60,107,195,255;60,0,195,255">
-    <Effect minstrength="0" maxstrength="1" resistancefor="damage" minresistance="0.0" maxresistance="-3.0" />
-    <Effect minstrength="1" maxstrength="10" resistancefor="damage" minresistance="-3.0" maxresistance="-3.0" />
-    <Effect minstrength="10" maxstrength="11" resistancefor="damage" minresistance="-3.0" maxresistance="-3.0">
+    <Effect minstrength="0" maxstrength="1" resistancefor="damage,burn" minresistance="0.0" maxresistance="-3.0" />
+    <Effect minstrength="1" maxstrength="10" resistancefor="damage,burn" minresistance="-3.0" maxresistance="-3.0" />
+    <Effect minstrength="10" maxstrength="11" resistancefor="damage,burn" minresistance="-3.0" maxresistance="-3.0">
       <StatusEffect target="Character" setvalue="true">
         <Affliction identifier="stun" amount="1" />
       </StatusEffect>
@@ -532,7 +515,7 @@
     MedicalSkillGain="0.005">
     <Effect minstrength="0" maxstrength="200" strengthchange="-1" >
       <StatusEffect target="Character" disabledeltatime="false">
-	    <Affliction identifier="fluinfection" strength="1"/>
+	    <Affliction identifier="fluinfection" strength="0.5"/>
       </StatusEffect>
     </Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
@@ -552,7 +535,7 @@
     causeofdeathdescription="Rot to death"
     selfcauseofdeathdescription="You have rotted to death."
     MedicalSkillGain="0.005">
-    <Effect minstrength="0" maxstrength="200" strengthchange="1"
+    <Effect minstrength="0" maxstrength="200" strengthchange="0.75"
       multiplybymaxvitality="true"
       minvitalitydecrease="0"
       maxvitalitydecrease="1.0">
@@ -612,7 +595,7 @@
     MedicalSkillGain="0.005">
     <Effect minstrength="0" maxstrength="200" strengthchange="-1" >
       <StatusEffect target="Character" disabledeltatime="false">
-	    <Affliction identifier="bacterialinfection" strength="1"/>
+	    <Affliction identifier="bacterialinfection" strength="0.5"/>
       </StatusEffect>
     </Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
@@ -632,7 +615,7 @@
     causeofdeathdescription="Rot to death"
     selfcauseofdeathdescription="You have rotted to death."
     MedicalSkillGain="0.005">
-    <Effect minstrength="0" maxstrength="200" strengthchange="1"
+    <Effect minstrength="0" maxstrength="200" strengthchange="0.75"
       multiplybymaxvitality="true"
       minvitalitydecrease="0"
       maxvitalitydecrease="2">
@@ -690,7 +673,7 @@
     MedicalSkillGain="0.005">
     <Effect minstrength="0" maxstrength="200" strengthchange="-1" >
       <StatusEffect target="Character" disabledeltatime="false">
-	    <Affliction identifier="tbinfection" strength="1"/>
+	    <Affliction identifier="tbinfection" strength="0.5"/>
       </StatusEffect>
     </Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="185,155,100,255" origin="0,0"/>
@@ -710,7 +693,7 @@
     causeofdeathdescription="Rot to death"
     selfcauseofdeathdescription="You have rotted to death."
     MedicalSkillGain="0.005">
-    <Effect minstrength="0" maxstrength="200" strengthchange="1"
+    <Effect minstrength="0" maxstrength="200" strengthchange="0.75"
       multiplybymaxvitality="true"
       minvitalitydecrease="0.0"
       maxvitalitydecrease="2.0">
