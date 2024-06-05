@@ -1923,7 +1923,7 @@
   </Override>
   <!-- end of overrides -->
   
-  <!-- stronger battery that consumes more power -->
+  <!-- stronger flashlight that consumes more power -->
   <Item name="Diving Flashlight" identifier="divingflashlight" category="Diving,Equipment" Tags="smallitem,tool,provocative,flashlight" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="divingcab" minamount="1" maxamount="2" spawnprobability="1" notcampaign="true"/>
     <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab,wrecksupplycab,beaconsupplycab" amount="1" spawnprobability="0.05"/>
@@ -2202,8 +2202,9 @@
         </StatusEffect>
       </Containable>
     </ItemContainer>
+    <StatusHUD drawhudwhenequipped="true" overlaycolor="0,20,0,50" debugwiring="true" showtexts="false" />
   </Item>
-  <Item name="Hard Hat" identifier="hardhatjanitor" nameidentifier="hardhat" variantof="hardhat" category="Diving,Equipment" tags="lightdiving,diving,smallitem,hardhat" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
+  <Item name="Hard Hat" identifier="hardhatjanitor" variantof="hardhat" category="Diving,Equipment" tags="lightdiving,diving,smallitem,hardhat" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
     <Sprite name="Hard Hat" texture="headgears.png" sourcerect="0,92,96,92" depth="0.6" origin="0.5,0.5" />
     <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
@@ -2272,6 +2273,7 @@
         <Affliction identifier="timepressure" strength="999" />
 	  </StatusEffect>
     </Wearable>
+    <StatusHUD drawhudwhenequipped="true" overlaycolor="176,0,0,120" range="3000" thermalgoggles="true" showdeadcharacters="false" showtexts="false" />
   </Item>
 
   <!-- Wifi Trigger -->

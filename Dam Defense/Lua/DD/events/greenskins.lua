@@ -45,8 +45,13 @@ end, {
 			-- Spawn greenskins and do client messages
 			for client in Client.ClientList do
 				if self.greenskinsSet[client] then
-					local greenskinInfo = DD.stringLocalize('greenskinInfo')
+					-- Is Troll
+					local conversionTrollPercentage = 20
+					local isTroll = math.random(100) <= conversionTrollPercentage
 					local speciesName = 'humanGoblin'
+					if isTroll then speciesName = 'humanTroll' end
+					
+					local greenskinInfo = DD.stringLocalize('greenskinInfo')
 					
 					local job = 'assistant'
 					local pos = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition

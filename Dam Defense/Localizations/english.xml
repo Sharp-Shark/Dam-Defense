@@ -161,7 +161,9 @@
   <entitydescription.constablehelmet>A diving mask and a helmet! How british.</entitydescription.constablehelmet>
   <!-- Hard Hat -->
   <entityname.hardhat>Hard Hat</entityname.hardhat>
-  <entitydescription.hardhat>Crucial to maintain a safe working environment. Keeps your head safe!</entitydescription.hardhat>
+  <entitydescription.hardhat>Crucial to maintain a safe working environment. Keeps your head safe! Also has a built-in engineer's goggle to facilitate wiring.</entitydescription.hardhat>
+  <entityname.hardhatjanitor>Hard Hat</entityname.hardhatjanitor>
+  <entitydescription.hardhatjanitor>Crucial to maintain a safe working environment. Keeps your head safe!</entitydescription.hardhatjanitor>
   <!-- Emergency Mask -->
   <entityname.disposabledivingmask>Emergency Mask</entityname.disposabledivingmask>
   <entitydescription.disposabledivingmask>Disposable emergency oxygen mask. Also serves a medical purpose since it lowers oxygen low, helping keep patients with a critical status alive.</entitydescription.disposabledivingmask>

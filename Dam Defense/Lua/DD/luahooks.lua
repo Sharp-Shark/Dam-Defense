@@ -172,7 +172,7 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 	
 	-- Make goblin (or troll)
 	local speciesName = 'humanGoblin'
-	if troll then speciesName = 'humanTroll' end
+	if isTroll then speciesName = 'humanTroll' end
 	local newCharacter = DD.spawnHuman(client, 'assistant', character.worldPosition, character.Name, nil, speciesName)
 
 	-- Give items back to player after a delay

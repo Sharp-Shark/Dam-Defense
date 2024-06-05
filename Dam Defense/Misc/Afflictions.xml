@@ -391,7 +391,7 @@
     MedicalSkillGain="0.005">
     <Effect strengthchange="0"
 	  minspeedmultiplier="1"
-	  maxspeedmultiplier="1.5"
+	  maxspeedmultiplier="1.35"
 	  resistancefor="damage,bleeding,bloodloss,stun"
 	  minresistance="0.5"
 	  maxresistance="0.5">

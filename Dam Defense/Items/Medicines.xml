@@ -523,10 +523,10 @@
       </StatusEffect>
       <!-- When Ethanol is used in Health GUI -->
       <StatusEffect type="OnUse" target="This, Limb" duration="5">
-        <ReduceAffliction identifier="bacterialgangrene" amount="1" />
+        <ReduceAffliction identifier="bacterialgangrene" amount="2" />
       </StatusEffect>
       <StatusEffect type="OnUse" target="This, Limb" duration="2">
-        <Affliction identifier="acidburn" amount="2" /> 
+        <Affliction identifier="acidburn" amount="1" /> 
       </StatusEffect>
 	  <!-- OnBroken -->
       <StatusEffect type="OnBroken" target="This">
@@ -692,7 +692,7 @@
       </StatusEffect>
       <!-- When Rum is used in Health GUI -->
       <StatusEffect type="OnUse" target="This, Limb" duration="5">
-        <ReduceAffliction identifier="bacterialgangrene" amount="1" />
+        <ReduceAffliction identifier="bacterialgangrene" amount="2" />
       </StatusEffect>
       <StatusEffect type="OnUse" target="This, Limb" duration="2">
         <Affliction identifier="acidburn" amount="1" /> 
