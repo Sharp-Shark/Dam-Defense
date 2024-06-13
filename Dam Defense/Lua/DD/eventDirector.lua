@@ -14,6 +14,7 @@ require 'DD/events/nukies'
 require 'DD/events/serialKiller'
 require 'DD/events/bloodCult'
 require 'DD/events/greenskins'
+require 'DD/events/vip'
 
 -- Event director table
 DD.eventDirector = {}
@@ -35,6 +36,7 @@ DD.eventDirector.eventPool = {
 	DD.eventAfflictionFlu,
 	DD.eventAfflictionTB,
 	DD.eventBlackout,
+	DD.eventVIP,
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}

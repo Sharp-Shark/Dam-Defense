@@ -79,6 +79,23 @@
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
 
+  <!-- beeping bomb builds up desperation -->
+  <Affliction name="Beeping Bomb" identifier="beepingbomb" description="" type="beepingbomb" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
+    <Effect minstrength="0" maxstrength="7.5" strengthchange="1.0">
+      <StatusEffect target="Character">
+        <Sound file="%ModDir%/Sounds/bombbeep.ogg" loop="true" volume="6.0" />
+      </StatusEffect>
+	</Effect>
+    <Effect minstrength="7.5" maxstrength="9.9" strengthchange="1.0" />
+    <Effect minstrength="9.9" maxstrength="10" strengthchange="1.0">
+	  <StatusEffect target="Character" >
+	    <ReduceAffliction identifier="beepingbomb" amount="999" />
+	    <LuaHook name="DD.timepressure.explode" />
+	  </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+
   <!-- head NOT go kaboom -->
   <Affliction name="Time Pressure Immunity" identifier="timepressureimmunity" description="" type="timepressureimmunity" causeofdeathdescription="" selfcauseofdeathdescription="" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="999" maxstrength="300">
     <Effect minstrength="0" maxstrength="300" strengthchange="-1" >

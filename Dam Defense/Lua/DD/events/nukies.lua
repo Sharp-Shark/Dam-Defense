@@ -85,7 +85,7 @@ end, {
 		end
 		
 		-- Increase time pressure
-		local timeToExplode = 15 * 60 -- in seconds
+		local timeToExplode = 12 * 60 -- in seconds
 		for client in self.nukies do
 			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 		end

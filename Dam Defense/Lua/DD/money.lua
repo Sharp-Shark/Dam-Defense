@@ -2,24 +2,33 @@ if CLIENT then return end
 
 -- Calculates the interval necessary for an amount of money to be acquired given a period of time
 -- If money = 30 and period = 60 then interval = 2
-local getJobSalaryTimer = function (money, period)
+local calculateSalaryTimer = function (money, period)
 	local period = period or (60 * 5)
 	return period / money
 end
 DD.jobSalaryTimer = {
-	captain = getJobSalaryTimer(10),
-	diver = getJobSalaryTimer(7),
-	securityofficer = getJobSalaryTimer(7),
-	researcher = getJobSalaryTimer(7),
-	medicaldoctor = getJobSalaryTimer(5),
-	engineer = getJobSalaryTimer(5),
-	janitor = getJobSalaryTimer(3),
-	mechanic = getJobSalaryTimer(2),
-	clown = getJobSalaryTimer(2),
+	captain = calculateSalaryTimer(10),
+	diver = calculateSalaryTimer(7),
+	securityofficer = calculateSalaryTimer(7),
+	researcher = calculateSalaryTimer(7),
+	medicaldoctor = calculateSalaryTimer(5),
+	engineer = calculateSalaryTimer(5),
+	janitor = calculateSalaryTimer(3),
+	mechanic = calculateSalaryTimer(2),
+	clown = calculateSalaryTimer(2),
 	-- removed jobs
-	foreman = getJobSalaryTimer(7),
-	assistant = getJobSalaryTimer(2)
+	foreman = calculateSalaryTimer(7),
+	assistant = calculateSalaryTimer(2)
 }
+local getCharacterSalaryTimer = function (character)
+	local jobIdentifier = tostring(character.JobIdentifier)
+	
+	if DD.roundData.characterSalaryTimer[character] ~= nil then
+		return DD.roundData.characterSalaryTimer[character]
+	else
+		return DD.jobSalaryTimer[jobIdentifier]
+	end
+end
 
 -- Event for giving people money on "/withdraw" command
 DD.eventWithdraw = DD.class(DD.eventBase, function (self, client, amount)
@@ -113,20 +122,19 @@ DD.updateMoney = function ()
 	for client in Client.ClientList do
 		if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
 			local character = client.Character
-			local jobIdentifier = tostring(character.JobIdentifier)
 			if (DD.roundData.withdrawCooldown[client] ~= nil) and (DD.roundData.withdrawCooldown[client] > 0) then
 				DD.roundData.withdrawCooldown[client] = DD.roundData.withdrawCooldown[client] - 0.5
 			end
 			if DD.roundData.salaryTimer[client] ~= nil then
 				if DD.roundData.salaryTimer[client] <= 0 then
 					DD.giveMoneyToClient(client, 1)
-					DD.roundData.salaryTimer[client] = DD.jobSalaryTimer[jobIdentifier]
+					DD.roundData.salaryTimer[client] = getCharacterSalaryTimer(character)
 				else
 					DD.roundData.salaryTimer[client] = DD.roundData.salaryTimer[client] - 0.5
 				end
 			else
 				DD.giveMoneyToClient(client, 0)
-				DD.roundData.salaryTimer[client] = DD.jobSalaryTimer[jobIdentifier]
+				DD.roundData.salaryTimer[client] = getCharacterSalaryTimer(character)
 			end
 		end
 	end
@@ -141,6 +149,7 @@ end
 DD.roundStartFunctions.money = function ()
 	DD.roundData.bank = {}
 	DD.roundData.salaryTimer = {}
+	DD.roundData.characterSalaryTimer = {}
 	DD.roundData.withdrawCooldown = {}
 end
 

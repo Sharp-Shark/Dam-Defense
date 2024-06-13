@@ -112,7 +112,9 @@ Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, 
     local character = targets[1]
 	if character == nil then return end
 	
-	character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+	if character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
+		character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+	end
 	
 	-- head goes kaboom
 	for index, limb in pairs(character.AnimController.Limbs) do

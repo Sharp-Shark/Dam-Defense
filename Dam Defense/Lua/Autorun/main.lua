@@ -232,6 +232,16 @@ require 'DD/discord'
 -- Save file
 DD.saving.boot()
 
+-- Execute when lua stops
+Hook.Add("stop", "DD.stop", function ()
+
+	for event in DD.eventDirector.events do
+		event.fail()
+	end
+	
+	return true
+end)
+
 -- Execute at round start
 Hook.Add("roundStart", "DD.prepareRound", function ()
 
