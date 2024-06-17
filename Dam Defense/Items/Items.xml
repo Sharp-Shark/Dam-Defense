@@ -1908,13 +1908,13 @@
     <Sprite texture="Content/Items/Tools/tools.png" depth="0.55" sourcerect="161,105,64,128" origin="0.5,0.5" />
     <Body width="30" height="100" density="8" />
     <Holdable slots="RightHand+LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" handle2="-10,40" msg="ItemMsgPickUpSelect" />
-    <RepairTool extinguishamount="60.0" range="500" barrelpos="21,25" repairthroughholes="true" hititems="false" IgnoreCharacters="false">
+    <RepairTool extinguishamount="60.0" range="500" barrelpos="21,25" repairmultiple="true" repairthroughholes="true" hititems="false" IgnoreCharacters="false">
       <ParticleEmitter particle="extinguisher" velocitymin="1000.0" velocitymax="1650.0" particlespersecond="100" />
       <StatusEffect type="OnUse" targettype="This" Condition="-2.0" />
       <sound file="Content/Items/Tools/Extinguisher.ogg" type="OnUse" range="500.0" loop="true" />
-        <StatusEffect type="OnSuccess" target="UseTarget">
-          <ReduceAffliction identifier="afterburn" amount="20.0" />
-        </StatusEffect>
+      <StatusEffect type="OnUse" target="UseTarget">
+        <ReduceAffliction identifier="afterburn" amount="20.0" />
+      </StatusEffect>
     </RepairTool>
     <Propulsion force="-80" usablein="water" particles="bubbles" />
     <aitarget sightrange="1000" soundrange="1000" fadeouttime="1" />
@@ -2204,8 +2204,30 @@
     </ItemContainer>
     <StatusHUD drawhudwhenequipped="true" overlaycolor="0,20,0,50" debugwiring="true" showtexts="false" />
   </Item>
-  <Item name="Hard Hat" identifier="hardhatjanitor" variantof="hardhat" category="Diving,Equipment" tags="lightdiving,diving,smallitem,hardhat" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
+  <Item name="Hard Hat" identifier="hardhatjanitor" category="Diving,Equipment" tags="lightdiving,diving,smallitem,hardhat" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
+    <Upgrade gameversion="0.9.6.0" scale="0.325" />
+    <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer secondary="armcab" />
+    <Price baseprice="320">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchantcity" multiplier="1.2" minavailable="1" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+	  <Item identifier="divingmask" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="mechanical" level="30" />
+      <RequiredItem identifier="ballisticfiber" amount="2" />
+	  <RequiredItem identifier="divingmask" />
+    </Fabricate>
     <Sprite name="Hard Hat" texture="headgears.png" sourcerect="0,92,96,92" depth="0.6" origin="0.5,0.5" />
+    <Body radius="45" density="25" />
     <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" UseHullOxygen="false" Condition="-0.5" comparison="Or">
@@ -2225,6 +2247,15 @@
       <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
       <sprite name="Hard Hat Wearable" texture="headgears.png" sourcerect="0,92,96,92" origin="0.48,0.65" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
     </Wearable>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <Containable items="oxygensource,weldingtoolfuel" excludeditems="oxygenitetank" />
+      <Containable items="oxygenitetank">
+        <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="1.2" setvalue="true" targetslot="0">
+          <Conditional IsDead="false" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
   </Item>
   
   <!-- emergency oxygen mask for cases where the spawn is flooded -->
@@ -3097,6 +3128,69 @@
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
   
+  <!-- cleans, extinguishes fire and pushes rioters away -->
+  <Item name="Water Cannon" identifier="watercannon" category="Equipment" Tags="mediumitem,provocative" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
+    <Deconstruct time="60">
+      <Item identifier="aluminium" />
+      <Item identifier="plastic" />
+      <Item identifier="steel" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="mechanical" level="30" />
+      <RequiredItem identifier="aluminium" amount="2" />
+      <RequiredItem identifier="plastic" />
+      <RequiredItem identifier="steel" />
+    </Fabricate>
+    <Sprite texture="watercannon.png" depth="0.55" sourcerect="0,0,216,80" origin="0.5,0.5" />
+	<Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="watercannon.png" sourcerect="0,0,216,80" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.75" />
+    </Wearable>
+    <Body width="100" height="30" density="8" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" aimpos="60,-30" holdpos="20,-50" holdangle="15" handle1="-60,15" handle2="20,10" msg="ItemMsgPickUpSelect" />
+    <RepairTool TargetForce="100" wateramount="100.0" extinguishamount="60.0" range="400" barrelpos="21,9" repairmultiple="true" repairthroughholes="true" hititems="false" IgnoreCharacters="false">
+      <RequiredItem items="batterycell" type="Contained" />
+      <ParticleEmitter particle="watercannonspray" velocitymin="2000.0" velocitymax="3000.0" particlespersecond="100" />
+	  <StatusEffect type="OnUse" targettype="UseTarget" >
+        <Affliction identifier="watercannonstun" amount="15.0" />
+	  </StatusEffect>
+      <StatusEffect type="OnUse" targettype="This" Condition="-5.0" />
+      <sound file="Content/Items/Tools/Extinguisher.ogg" type="OnUse" range="500.0" loop="true" />
+      <StatusEffect type="OnUse" target="UseTarget">
+        <ReduceAffliction identifier="afterburn" amount="20.0" />
+      </StatusEffect>
+    </RepairTool>
+	<!-- cleaning -->
+    <Sprayer barrelpos="34,8" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="500">
+      <RequiredItem items="batterycell" type="Contained" />
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <PaintColors>
+        <PaintColor paintitem="batterycell" color="200,200,200,0" />
+      </PaintColors>
+    </Sprayer>
+	<!-- container and refuel logic -->
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="false" itempos="3,-15" containedspritedepth="0.56" containedstateindicatorslot="0" containedstateindicatorstyle="battery">
+      <Containable items="batterycell" hide="true">
+	    <StatusEffect type="OnContaining" TargetType="Contained" Condition="-2" conditionalComparison="And">
+          <Conditional InWater="true" TargetContainer="true" />
+          <Conditional Condition="lt 100" TargetContainer="true" />
+	    </StatusEffect>
+	    <StatusEffect type="OnContaining" target="This" Condition="20.0" AllowWhenBroken="true">
+          <Conditional InWater="true" TargetContainer="true" />
+	    </StatusEffect>
+	  </Containable>
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="flashlight" hide="false" itempos="20,1.5" setactive="true" />
+      </SubContainer>
+    </ItemContainer>
+    <Propulsion force="-80" usablein="water" particles="bubbles" />
+    <Propulsion force="-29" usablein="air" particles="bubbles" />
+    <aitarget sightrange="1000" soundrange="1000" fadeouttime="1" />
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
+  
   <!-- crudux cruo! -->
   <Item name="Blood Cultist Robes" identifier="bloodcultistrobes" inventoryiconcolor="255,200,155,255" category="Equipment,Misc" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
     <PreferredContainer primary="crewcab"/>
@@ -3406,5 +3500,4 @@
       <sprite texture="Content/Items/CreatureLoot/CreatureLoot.png" depth="0.025" sourcerect="410,301,88,95" origin="0.5,0.6" alpha="1.0" />
     </LightComponent>
   </Item>
-  
 </Items>

@@ -31,6 +31,16 @@
   </Infection>
   </Override>
   
+  <!-- Water cannon stun -->
+  <Affliction name="Water Cannon Stun" identifier="watercannonstun" description="" type="stun" limbspecific="false" indicatorlimb="Torso" showiconthreshold="999" showinhealthscannerthreshold="999" karmachangeonapplied="0" maxstrength="10" WeaponsSkillGain="1.0" iconcolors="250,250,150,255">
+    <Effect minstrength="0" maxstrength="9.9" strengthchange="-5.0" />
+    <Effect minstrength="9.9" maxstrength="10" strengthchange="-1.0" >
+	  <StatusEffect target="Character" disabledeltatime="true" setvalue="true" stun="0.1">
+	    <Conditional stun="lte 0.1" />
+	  </StatusEffect>
+	</Effect>
+  </Affliction>
+  
   <!-- Stun vulnerability -->
   <Affliction name="Stun Vulnerability" identifier="stunvulnerability" description="General feeling of weakness, unbalance and lightheadedness makes any stun more intense." type="debuff" targets="human" limbspecific="false" indicatorlimb="Torso" showiconthreshold="101" showinhealthscannerthreshold="101" karmachangeonapplied="0" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="250,250,150,255">
     <Effect minstrength="1" maxstrength="100" strengthchange="-10" minresistance="0.0" maxresistance="-2.0" resistancefor="stun"></Effect>

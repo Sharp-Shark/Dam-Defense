@@ -92,7 +92,7 @@ local doThinkFunctions = function ()
 	end
 end
 DD.thinkFunctions.main = function ()
-	if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) or CLIENT then return end
+	if CLIENT or (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) then return end
 	
 	DD.roundTimer = DD.roundTimer + 0.5
 	
