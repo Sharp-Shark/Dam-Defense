@@ -74,7 +74,7 @@ end, {
 		local anyNukieIsAlive = false
 		for key, nukie in pairs(self.nukies) do
 			if DD.isClientCharacterAlive(nukie) then
-				if not nukie.Character.IsArrested then
+				if not nukie.Character.IsHandcuffed then
 					anyNukieIsAlive = true
 				end
 			else

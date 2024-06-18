@@ -1161,7 +1161,72 @@
     </AppropriateOrders>
   </Job>
   
-  <!-- This job cannot be picked! -->
+  <!-- These jobs cannot be picked! -->
+  <Job identifier="bodyguard"
+       minkarma="0" maxnumber="0"
+       uicolor="0.45,0.5,0.55"
+       vitalitymodifier="10"
+       pricemultiplier="1.15"
+       idlebehavior="Patrol">
+    <Jobicon>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5"/>
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5"/>
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="weapons" level="65,75" primary="true"/>
+      <Skill identifier="medical" level="55,65"/>
+      <Skill identifier="mechanical" level="10,20"/>
+      <Skill identifier="electrical" level="10,20"/>
+      <Skill identifier="helm" level="10,20"/>
+    </Skills>
+    <ItemSet>
+      <Item identifier="goonclothes" equip="true" outfit="true"/>
+      <Item identifier="idcard" equip="true">
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	  </Item>
+      <Item identifier="pistol" equip="false">
+        <Item identifier="pistolmagazine" />
+      </Item>
+      <Item identifier="pistolmagazine" />
+      <Item identifier="pistolmagazine" />
+      <Item identifier="flashlight" >
+		<Item identifier="batterycell"/>
+	  </Item>
+      <Item identifier="midazolam"/>
+      <Item identifier="midazolam"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="disposabledivingmask" />
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="fightintruders" prioritymodifier="1"/>
+      <Order identifier="rescue" prioritymodifier="1"/>
+      <Order identifier="extinguishfires" prioritymodifier ="0.75"/>
+      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.2"/>
+      <Order identifier="fixleaks" prioritymodifier="0.1"/>
+    </AutonomousObjectives>
+    <AppropriateOrders>
+      <Order identifier="operateweapons"/>
+      <Order identifier="fightintruders"/>
+    </AppropriateOrders>
+  </Job>
   <Job identifier="jet" uicolor="1.0,0.0,0.0" vitalitymodifier="15" maxnumber="0" pricemultiplier="1.0" idlebehavior="Active">
     <Jobicon>
       <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5" />

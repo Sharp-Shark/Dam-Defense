@@ -18,7 +18,7 @@ end, {
 		
 		local anyoneAlive = false
 		for client in DD.arrShuffle(Client.ClientList) do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (not DD.isCharacterAntagSafe(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsHandcuffed) and (not DD.isCharacterAntagSafe(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
 				self.killer = client
 			elseif DD.isClientCharacterAlive(client) then
 				anyoneAlive = true
@@ -147,7 +147,7 @@ end, {
 			self.finish()
 			return
 		end
-		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and self.killer.Character.IsArrested) then
+		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and self.killer.Character.IsHandcuffed) then
 			self.finish()
 		end
 	end,
@@ -159,6 +159,12 @@ end, {
 		end
 		if (character.LastAttacker == self.killer.Character) and (character.SpeciesName == 'human') then
 			self.timePressurePauseTimer = 60 * 2
+		end
+	end,
+	
+	onChatMessage = function (self, message, sender)
+		if (not DD.isClientCharacterAlive(sender)) and (string.sub(message, 1, 1) ~= '/') then
+			DD.messageClient(self.killer, message, {type = 'Dead', sender = sender.Name})
 		end
 	end,
 	
@@ -185,7 +191,7 @@ end, {
 			if not DD.isClientCharacterAlive(self.killer) then
 				DD.messageAllClients('The serial killer has been eliminated.', {preset = 'goodinfo'})
 				DD.messageClient(self.killer, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
-			elseif self.killer.Character.IsArrested then
+			elseif self.killer.Character.IsHandcuffed then
 				DD.messageAllClients('The serial killer has been arrested.', {preset = 'goodinfo'})
 				DD.messageClient(self.killer, 'You been arrested and are not an antagonist anymore!', {preset = 'crit'})
 				self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)

@@ -480,7 +480,7 @@ DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 end
 
 DD.isCharacterAntagSafe = function (character)
-	local jobs = {'captain', 'securityofficer', 'diver', 'foreman', 'researcher', 'medicaldoctor'}
+	local jobs = {'captain', 'securityofficer', 'diver', 'foreman', 'researcher', 'medicaldoctor', 'bodyguard'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 

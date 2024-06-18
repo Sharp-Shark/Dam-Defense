@@ -1623,7 +1623,7 @@
     </Projectile>
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
-  <!-- stungun darts can now be bought at a nexshop -->
+  <!-- stungun darts can now be bought at a nexshop ALSO 0.8 stun instead of 0.1 AND 2 progressivestun instead of 1 -->
   <Item name="" identifier="stungundart" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,stungunammo" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="armcab" minamount="1" maxamount="10" spawnprobability="0.25" notcampaign="true" />
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab" minamount="1" maxamount="3" spawnprobability="0.2" />
@@ -1654,8 +1654,8 @@
     <Projectile characterusable="false" launchimpulse="15.0" sticktocharacters="true">
       <Attack structuredamage="0" targetforce="2">
         <Affliction identifier="lacerations" strength="0.5" />
-        <Affliction identifier="stun" strength="0.1" />
-        <Affliction identifier="progressivestun" strength="1" />
+        <Affliction identifier="stun" strength="1.0" />
+        <Affliction identifier="progressivestun" strength="2" />
       </Attack>
       <StatusEffect type="OnImpact" target="This">
         <Sound file="Content/Items/Weapons/TaserHit1.ogg" type="OnUse" range="500" selectionmode="Random" />
@@ -2287,7 +2287,7 @@
       <StatusEffect type="OnBroken" target="This">
         <Remove />
       </StatusEffect>
-      <sprite name="Oxygen Mask" texture="headgears.png" sourcerect="288,0,120,108" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidewearablesoftype="Hair,moustache,beard" origin="0.384,0.553" />
+      <sprite name="Oxygen Mask" texture="headgears.png" sourcerect="288,0,120,108" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidewearablesoftype="moustache,beard" origin="0.384,0.553" />
     </Wearable>
   </Item>
   
@@ -2964,7 +2964,7 @@
   </Item>
   
   <!-- flaregun round -->
-  <Item name="Flare Gun Round" identifier="flaregunround" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,flaregunammo" Scale="0.5" impactsoundtag="impact_metal_light">
+  <Item name="Flare Gun Round" identifier="flaregunround" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="12" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,flaregunammo" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="flaregun" amount="1" spawnprobability="1" />
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab" minamount="1" maxamount="2" spawnprobability="0.2" />
     <PreferredContainer primary="secarmcab" secondary="armcab" />
@@ -2992,6 +2992,8 @@
     <Projectile characterusable="false" launchimpulse="15.0" sticktocharacters="true" sticktoitems="true" sticktostructures="true" sticktodoors="true">
       <Attack penetration="1" severlimbsprobability="0">
         <Affliction identifier="gunshotwound" strength="20" />
+        <Affliction identifier="bleeding" strength="10" />
+        <Affliction identifier="stun" strength="0.5" />
       </Attack>
       <StatusEffect type="OnActive" target="This" Condition="50.0" setvalue="true" disabledeltatime="true">
 	    <Use />
@@ -3001,7 +3003,7 @@
         <sound file="Content/Sounds/Impact/SoftImpact2.ogg" range="1000" />
         <sound file="Content/Sounds/Impact/SoftImpact3.ogg" range="1000" />
       </StatusEffect>
-	  <StatusEffect type="OnImpact" target="This" delay="2" disabledeltatime="true">
+	  <StatusEffect type="OnImpact" target="This" delay="1" disabledeltatime="true">
         <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" volume="4.0" range="3000" />
         <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" volume="4.0" range="3000" />
         <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" volume="4.0" range="3000" />
@@ -3160,10 +3162,8 @@
       </StatusEffect>
     </RepairTool>
 	<!-- cleaning -->
-    <Sprayer barrelpos="34,8" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="500">
+    <Sprayer barrelpos="34,8" spread="0" unskilledspread="0" drawhudwhenequipped="false" spraystrength="6.0" range="500">
       <RequiredItem items="batterycell" type="Contained" />
-      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
-      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <PaintColors>
         <PaintColor paintitem="batterycell" color="200,200,200,0" />
       </PaintColors>

@@ -11,10 +11,15 @@ end, {
 	instanceCap = 1,
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 0.5,
+	weight = 0.8,
 	goodness = -1,
 	
 	onStart = function (self)
+		local ignorePlayerCount = false
+		if (self.vip ~= nil) or (self.guard ~= nil) then
+			ignorePlayerCount = true
+		end
+	
 		if self.vip == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
 				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterSecurity(client.Character)) and DD.eventDirector.isClientBelowEventCap(client) then
@@ -26,7 +31,7 @@ end, {
 		
 		if self.guard == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
-				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterSecurity(client.Character)) and (client ~= self.vip) and DD.eventDirector.isClientBelowEventCap(client) then
+				if (not DD.isClientCharacterAlive(client)) and client.InGame then
 					self.guard = client
 					break
 				end
@@ -34,12 +39,18 @@ end, {
 		end
 		
 		-- event requires 6 or more players
-		if (self.vip == nil) or (self.guard == nil) or (DD.tableSize(Client.ClientList) <= 5) then
+		if (self.vip == nil) or (self.guard == nil) or ((not ignorePlayerCount) and (DD.tableSize(Client.ClientList) <= 5)) then
 			self.fail()
 			return
 		else
 			-- Bounty
-			self.bounty = 20
+			self.bounty = 30
+			-- Spawn bodyguard
+			local job = 'bodyguard'
+			local pos = self.vip.Character.WorldPosition
+			local character = DD.spawnHuman(client, job, pos)
+			character.SetOriginalTeam(CharacterTeamType.Team1)
+			character.UpdateTeam()
 			-- Remove item at innerclothing
 			if self.vip.Character.Inventory.GetItemAt(DD.invSlots.innerclothing) ~= nil then
 				self.vip.Character.Inventory.GetItemAt(DD.invSlots.innerclothing).drop()
@@ -49,18 +60,16 @@ end, {
 			local vipOutfitIdentifier = vipOutfitIdentifiers[math.random(#vipOutfitIdentifiers)]
 			-- Put vip outfit at headslot
 			Timer.Wait(function ()
-			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(vipOutfitIdentifier), self.vip.Character.Inventory, nil, nil, function (spawnedItem)
-				self.vipOutfit = spawnedItem
-				Timer.Wait(function ()
-					self.vip.Character.Inventory.TryPutItem(spawnedItem, DD.invSlots.innerclothing, true, true, self.vip.Character, true, true)
-				end, 1)
-			end)
+				Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(vipOutfitIdentifier), self.vip.Character.Inventory, nil, nil, function (spawnedItem)
+					self.vipOutfit = spawnedItem
+					Timer.Wait(function ()
+						self.vip.Character.Inventory.TryPutItem(spawnedItem, DD.invSlots.innerclothing, true, true, self.vip.Character, true, true)
+					end, 1)
+				end)
 			end, 1)
-			-- Custom salary for VIP and Guard
+			-- Custom salary for VIP
 			DD.roundData.characterSalaryTimer[self.vip.Character] = DD.jobSalaryTimer.captain
 			DD.roundData.salaryTimer[self.vip] = DD.roundData.characterSalaryTimer[self.vip.Character]
-			DD.roundData.characterSalaryTimer[self.guard.Character] = DD.jobSalaryTimer.securityofficer
-			DD.roundData.salaryTimer[self.guard] = DD.roundData.characterSalaryTimer[self.guard.Character]
 			-- Messages
 			DD.messageClient(self.vip, 'You are now a VIP. A body guard, ' .. self.guard.Name ..', has been assigned to keep you safe from hostiles. Your pay grade has been raised.', {preset = 'crit'})
 			DD.messageClient(self.guard, 'You have been tasked with keeping VIP ' .. self.vip.Name .. ' alive at all costs. Failure will result in immediate termination. Your pay grade has been raised.', {preset = 'crit'})

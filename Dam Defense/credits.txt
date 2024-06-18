@@ -1,4 +1,5 @@
 Russian localization by Squid. Squid also helped with removing unused textures and with cleaning the boombox xml.
 Special thanks to the Undertow discord and the Luatrauma discord for helping me overcome a lot of the hurdles I came across.
+Files "mercsuit.png" and "Jerry.xml" by Jerry Peterson. VIP event was an idea suggested by Jerry Peterson.
 
 Everything else by Sharp-Shark.

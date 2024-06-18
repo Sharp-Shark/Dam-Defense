@@ -46,7 +46,7 @@ end, {
 			return
 		end
 		
-		if (not DD.isClientCharacterAlive(self.target)) or self.target.Character.IsArrested then
+		if (not DD.isClientCharacterAlive(self.target)) or self.target.Character.IsHandcuffed then
 			self.finish()
 		end
 	end,
@@ -56,7 +56,7 @@ end, {
 	end,
 	
 	onFinish = function (self)
-		if DD.isClientCharacterAlive(self.target) and self.target.Character.IsArrested then
+		if DD.isClientCharacterAlive(self.target) and self.target.Character.IsHandcuffed then
 			DD.giveMoneyToSecurity(5, true)
 			DD.messageAllClients('Justice at last! The criminal known as ' .. self.target.Name .. ' who was charged with ' .. self.charge .. ' has been arrested.', {preset = 'goodinfo'})
 		else
@@ -68,7 +68,7 @@ end, {
 -- Tasks security with (ideally) arresting a player for a silly reason
 DD.eventArrest1984 = DD.class(DD.eventArrest, function (self)
 	for client in DD.arrShuffle(Client.ClientList) do
-		if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (not DD.isCharacterAntagSafe(client.Character)) and DD.eventDirector.isClientBelowEventCap(client) then
+		if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsHandcuffed) and (not DD.isCharacterAntagSafe(client.Character)) and DD.eventDirector.isClientBelowEventCap(client) then
 			self.target = client
 			break
 		end

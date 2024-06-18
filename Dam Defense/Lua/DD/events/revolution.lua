@@ -32,6 +32,7 @@ end, {
 		local jobChances = {
 			clown = 1,
 			mechanic = 1,
+			janitor = 0.5,
 			engineer = 0.5,
 			medicaldoctor = 0.5
 		}
@@ -41,7 +42,7 @@ end, {
 		self.rebelsSet = DD.toSet(self.rebels)
 		for client in DD.arrShuffle(Client.ClientList) do
 			local chance = -1
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsHandcuffed) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
 				chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
 			end
 			if DD.isClientCharacterAlive(client) and DD.isCharacterAntagSafe(client.Character) then
@@ -58,7 +59,7 @@ end, {
 		if DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3) then
 			for client in DD.arrShuffle(Client.ClientList) do
 				local chance = -1
-				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and DD.eventDirector.isClientBelowEventCap(client) then
+				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsHandcuffed) and DD.eventDirector.isClientBelowEventCap(client) then
 					chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
 					if chance ~= -1 then chance = 1 end
 				end
@@ -124,7 +125,7 @@ end, {
 		-- See if any rebel is alive
 		local anyRebelIsAlive = false
 		for key, rebel in pairs(self.rebels) do
-			if DD.isClientCharacterAlive(rebel) and (not rebel.Character.IsArrested) and (rebel.Character.SpeciesName == 'human') then
+			if DD.isClientCharacterAlive(rebel) and (not rebel.Character.IsHandcuffed) and (rebel.Character.SpeciesName == 'human') then
 				anyRebelIsAlive = true
 			else
 				if (not DD.isClientCharacterAlive(rebel)) or (rebel.Character.SpeciesName ~= 'human') then

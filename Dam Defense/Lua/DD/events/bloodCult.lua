@@ -76,7 +76,7 @@ end, {
 			self.cultistsSet = {}
 			self.cultists = {}
 			for client in DD.arrShuffle(Client.ClientList) do
-				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsArrested) and (not DD.isCharacterAntagSafe(client.Character)) then
+				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsHandcuffed) and (not DD.isCharacterAntagSafe(client.Character)) then
 					table.insert(self.cultists, client)
 					self.cultistsSet[client] = true
 				end
