@@ -23,10 +23,10 @@ end, {
 				self.killer = client
 			elseif DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
 				anyoneAlive = true
-				killsLeftToWin = killsLeftToWin + 1
+				self.killsLeftToWin = self.killsLeftToWin + 1
 			end
 		end
-		killsLeftToWin = math.ceil(killsLeftToWin * 0.8)
+		self.killsLeftToWin = math.ceil(self.killsLeftToWin * 0.8)
 		
 		local nonSecurity = {}
 		for client in Client.ClientList do
