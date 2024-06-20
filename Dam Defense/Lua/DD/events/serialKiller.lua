@@ -13,6 +13,7 @@ end, {
 	
 	onStart = function (self)
 		self.killerWon = false
+		self.killsLeftToWin = 0 -- killer automatically wins once this value is equal to or lower than 0
 		self.timePressurePauseTimer = 0
 		self.eventActualStartTimer = 60 * 1
 		
@@ -20,10 +21,12 @@ end, {
 		for client in DD.arrShuffle(Client.ClientList) do
 			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsHandcuffed) and (not DD.isCharacterAntagSafe(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
 				self.killer = client
-			elseif DD.isClientCharacterAlive(client) then
+			elseif DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
 				anyoneAlive = true
+				killsLeftToWin = killsLeftToWin + 1
 			end
 		end
+		killsLeftToWin = math.ceil(killsLeftToWin * 0.8)
 		
 		local nonSecurity = {}
 		for client in Client.ClientList do
@@ -32,7 +35,7 @@ end, {
 			end
 		end
 		
-		if (self.killer == nil) or (not anyoneAlive) or (#nonSecurity < 2) then
+		if (self.killer == nil) or (not anyoneAlive) or (#nonSecurity < 3) then
 			self.fail()
 			return
 		else
@@ -149,6 +152,13 @@ end, {
 		end
 		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and self.killer.Character.IsHandcuffed) then
 			self.finish()
+			return
+		end
+		-- End event if killsLeftToWin is equal to or lower than 0
+		if self.killsLeftToWin <= 0 then
+			self.killerWon = true
+			self.finish()
+			return
 		end
 	end,
 	
@@ -158,6 +168,7 @@ end, {
 			return
 		end
 		if (character.LastAttacker == self.killer.Character) and (character.SpeciesName == 'human') then
+			self.killsLeftToWin = self.killsLeftToWin - 1
 			self.timePressurePauseTimer = 60 * 2
 		end
 	end,

@@ -11,7 +11,7 @@ end, {
 	instanceCap = 1,
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 0.8,
+	weight = 1.5,
 	goodness = -1,
 	
 	onStart = function (self)

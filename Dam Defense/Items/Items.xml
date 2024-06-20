@@ -3162,7 +3162,9 @@
       </StatusEffect>
     </RepairTool>
 	<!-- cleaning -->
-    <Sprayer barrelpos="34,8" spread="0" unskilledspread="0" drawhudwhenequipped="false" spraystrength="6.0" range="500">
+    <Sprayer barrelpos="34,8" spread="0" unskilledspread="0" drawhudwhenequipped="true" spraystrength="6.0" range="500">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <RequiredItem items="batterycell" type="Contained" />
       <PaintColors>
         <PaintColor paintitem="batterycell" color="200,200,200,0" />

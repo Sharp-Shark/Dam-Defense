@@ -418,10 +418,10 @@
     MedicalSkillGain="0.005">
     <Effect strengthchange="0"
 	  minspeedmultiplier="1"
-	  maxspeedmultiplier="1.35"
+	  maxspeedmultiplier="1.15"
 	  resistancefor="damage,bleeding,bloodloss,stun"
-	  minresistance="0.5"
-	  maxresistance="0.5">
+	  minresistance="0.35"
+	  maxresistance="0.35">
       <StatusEffect target="Character" interval="0.1" disabledeltatime="true">
         <ReduceAffliction type="stun" strength="0.2"/>
         <ReduceAffliction type="damage" strength="0.2"/>
