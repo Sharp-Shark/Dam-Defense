@@ -48,7 +48,7 @@ end, {
 			-- Spawn bodyguard
 			local job = 'bodyguard'
 			local pos = self.vip.Character.WorldPosition
-			local character = DD.spawnHuman(client, job, pos)
+			local character = DD.spawnHuman(self.guard, job, pos)
 			character.SetOriginalTeam(CharacterTeamType.Team1)
 			character.UpdateTeam()
 			-- Remove item at innerclothing
