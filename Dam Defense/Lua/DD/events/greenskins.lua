@@ -7,6 +7,7 @@ DD.eventGreenskins = DD.class(DD.eventBase, function (self, greenskins)
 end, {
 	paramType = {'clientList'},
 	clientKeys = {'greenskins'},
+	public = false,
 	
 	name = 'greenskins',
 	isMainEvent = true,

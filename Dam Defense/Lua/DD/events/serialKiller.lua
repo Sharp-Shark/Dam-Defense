@@ -4,6 +4,7 @@ DD.eventSerialKiller = DD.class(DD.eventBase, function (self, killer)
 end, {
 	paramType = {'client'},
 	clientKeys = {'killer'},
+	public = false,
 	
 	name = 'serialKiller',
 	isMainEvent = true,
@@ -86,6 +87,8 @@ end, {
 						DD.messageClient(client, 'A serial killer is roaming the area, however it is unknown who they are. Be careful!', {preset = 'crit'})
 					end
 				end
+				-- Make event public
+				self.public = true
 			end
 			-- if event has not actually started yet, return to not execute the rest of the code
 			return
