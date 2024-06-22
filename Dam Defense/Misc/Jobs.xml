@@ -1183,15 +1183,24 @@
     </Skills>
     <ItemSet>
       <Item identifier="goonclothes" equip="true" outfit="true"/>
+      <Item identifier="headset" equip="true"/>
+      <Item identifier="bodyarmor" equip="true">
+        <Item identifier="pistolmagazine" />
+        <Item identifier="pistolmagazine" />
+	    <Item identifier="handcuffs" />
+	  </Item>
       <Item identifier="idcard" equip="true">
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
 	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
 	  </Item>
-      <Item identifier="pistol" equip="false">
+      <Item identifier="uzi" equip="false">
         <Item identifier="pistolmagazine" />
       </Item>
       <Item identifier="pistolmagazine" />
       <Item identifier="pistolmagazine" />
+      <Item identifier="stunbaton">
+        <Item identifier="batterycell"/>
+      </Item>
       <Item identifier="flashlight" >
 		<Item identifier="batterycell"/>
 	  </Item>

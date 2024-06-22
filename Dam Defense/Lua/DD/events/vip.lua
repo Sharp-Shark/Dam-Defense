@@ -66,6 +66,14 @@ end, {
 						self.vip.Character.Inventory.TryPutItem(spawnedItem, DD.invSlots.innerclothing, true, true, self.vip.Character, true, true)
 					end, 1)
 				end)
+				-- give VIP a headset if he lacks one
+				if self.vip.Character.Inventory.GetItemAt(DD.invSlots.headset) == nil then
+					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('headset'), self.vip.Character.Inventory, nil, nil, function (spawnedItem)
+						Timer.Wait(function ()
+							self.vip.Character.Inventory.TryPutItem(spawnedItem, DD.invSlots.headset, true, true, self.vip.Character, true, true)
+						end, 1)
+					end)
+				end
 			end, 1)
 			-- Custom salary for VIP
 			DD.roundData.characterSalaryTimer[self.vip.Character] = DD.jobSalaryTimer.captain

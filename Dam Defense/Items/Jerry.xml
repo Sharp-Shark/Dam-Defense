@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- credits to Jerry Peterson -->
 <Items>
-  <Item name="Bodyguard Suit" identifier="goonclothes" category="Equipment" cargocontaineridentifier="metalcrate" tags="smallitem,clothing" scale="0.5" inventoryiconcolor="66,66,66,255" impactsoundtag="impact_soft">
+  <Item name="Bodyguard Suit" identifier="goonclothes" category="Equipment" cargocontaineridentifier="metalcrate" tags="smallitem,clothing" scale="0.5" impactsoundtag="impact_soft">
     <Deconstruct time="10">
       <Item identifier="organicfiber" />
     </Deconstruct>
-    <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sheetindex="1,8" sheetelementsize="64,64" />
-    <Sprite name="mercsuit" texture="Content/Items/Jobgear/MiscJobGear.png" sourcerect="247,77,117,62" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon texture="mercsuit.png" sourcerect="456,142,64,64" />
+    <Sprite name="mercsuit" texture="mercsuit.png" sourcerect="403,0,117,62" depth="0.6" origin="0.5,0.5" />
     <Body width="100" height="50" density="15" friction="0.8" restitution="0.01" />
     <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
-      <sprite name="Bodyguard Head" texture="mercsuit.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.65" sourcerect="407,23,80,80" origin="0.5,0.5" />
+      <sprite name="Bodyguard Head" texture="mercsuit.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.65" sourcerect="440,62,80,80" origin="0.5,0.5" />
       <sprite name="Bodyguard Torso" texture="mercsuit.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Bodyguard Right Hand" texture="mercsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Bodyguard Left Hand" texture="mercsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />

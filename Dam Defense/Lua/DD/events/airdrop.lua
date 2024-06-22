@@ -8,7 +8,7 @@ end, {
 	name = 'airdrop',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 2,
+	weight = 2.5,
 	goodness = 1,
 	
 	spawnPosition = 'dd_airdrop',
@@ -120,7 +120,7 @@ DD.eventAirdropSecurity = DD.class(DD.eventAirdrop, nil, {
 	isMainEvent = false,
 	cooldown = 60 * 2,
 	weight = 1,
-	goodness = 1.5,
+	goodness = 1.2,
 	
 	spawnPosition = 'dd_airdropsecurity',
 	crateIdentifier = 'securemetalcrate',
