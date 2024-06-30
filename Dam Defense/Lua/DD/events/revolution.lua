@@ -86,6 +86,8 @@ end, {
 			local rebelsSet = DD.toSet(self.rebels)
 			for client in Client.ClientList do
 				if rebelsSet[client] then
+				    -- Give rebel leader talent	
+					client.Character.GiveTalent('rebelknowledge', true)
 					-- Build rebel list
 					local rebelList = self.buildRebelList({[client] = true})
 					if DD.tableSize(self.rebels) > 1 then

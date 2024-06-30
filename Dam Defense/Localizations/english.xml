@@ -49,7 +49,7 @@
   <jobdescription.assistant>Just a test subject, stripped of all their rights and humanity. As far as the law is concerned, this individual has never existed.</jobdescription.assistant>
   <!-- Laborer Job -->
   <jobname.mechanic>Laborer</jobname.mechanic>
-  <jobdescription.mechanic>Work at the factory to refine raw materials into equipment, weapons, tools, ammo and armor. From time to time have a drink with the lads and plan an uprising agaisn't your oppressors. We work to earn the right to work to earn the right to give ourselves the right to buy ourselves the right to live to earn the right to die.</jobdescription.mechanic>
+  <jobdescription.mechanic>Has all non-event specific recipes unlocked. Work at the factory to refine raw materials into equipment, weapons, tools, ammo and armor. From time to time have a drink with the lads and plan an uprising agaisn't your oppressors. We work to earn the right to work to earn the right to give ourselves the right to buy ourselves the right to live to earn the right to die.</jobdescription.mechanic>
   </Override>
   
   <!-- Janitor Job -->
@@ -129,6 +129,9 @@
   <!-- Live Tuberculosis -->
   <entityname.tbsyringe>Live Tuberculosis</entityname.tbsyringe>
   <entitydescription.tbsyringe>A syringe containing a live sample of tuberculosis that was taken from someone using a blood sampler. Can be made into Broad-spectrum Antibiotics in a medical fabricator.</entitydescription.tbsyringe>
+  <!-- Tuberculosis Antidote -->
+  <entityname.tbantidote>Tuberculosis Antidote</entityname.tbantidote>
+  <entitydescription.tbantidote>A concoction of tuberculosis parts and antibodies. Quickly heals any ongoing tuberculosis infection and gives temporary immunity to it aswell.</entitydescription.tbantidote>
   <!-- Blood Sampler -->
   <entityname.bloodsampler>Blood Sampler</entityname.bloodsampler>
   <entitydescription.bloodsampler>Can be used on infected people to extract a live sample of their infection. Live disease samples can be turned into their antidotes in a medical fabricator.</entitydescription.bloodsampler>
@@ -179,13 +182,19 @@
   <!-- Foldable Shotgun -->
   <entityname.foldableshotgun>Foldable Shotgun</entityname.foldableshotgun>
   <entitydescription.foldableshotgun>An antique shotgun that manages to have both power and portability by being foldable.</entitydescription.foldableshotgun>
+  <!-- Pipe Gun -->
+  <entityname.pipegun>Pipe Gun</entityname.pipegun>
+  <entitydescription.pipegun>Two pipes, a simple trigger and a stock. Extremely cheap and fast to manufacture. Accepts both revolver and rifle rounds.</entitydescription.pipegun>
   <!-- Separatist Rifle -->
   <entityname.separatistrifle>Separatist Rifle</entityname.separatistrifle>
-  <entitydescription.separatistrifle>Classic soviet 7.62x39mm design used by freedom fighters, terrorists or both depending on who you ask.</entitydescription.separatistrifle>
+  <entitydescription.separatistrifle>Only craftable by rebel leaders. Classic soviet 7.62x39mm design used by freedom fighters, terrorists or both depending on who you ask.</entitydescription.separatistrifle>
   <entityname.762magazine>Separatist Rifle Magazine</entityname.762magazine>
-  <entitydescription.762magazine>A magazine containing 30 rounds of soviet 7.62x39mm.</entitydescription.762magazine>
+  <entitydescription.762magazine>Only craftable by rebel leaders. A magazine containing 30 rounds of soviet 7.62x39mm.</entitydescription.762magazine>
   <entityname.762round>Separatist Rifle Round</entityname.762round>
   <entitydescription.762round>A round of 7x62x39mm.</entitydescription.762round>
+  <!-- Marksmen Rifle -->
+  <entityname.marksmanrifle>Marksmen Rifle</entityname.marksmanrifle>
+  <entitydescription.marksmanrifle>Only craftable by rebel leaders. Precision 7.62x39mm semi-automatic rifle. The right arm of the free world.</entitydescription.marksmanrifle>
   <!-- Tommy Gun -->
   <entityname.tommygun>Tommy Gun</entityname.tommygun>
   <entitydescription.tommygun>A 9mm convertion of an antique submachine gun usually associated with the mafia or any other lavish criminals. Bolsters an impressive rate of fire and fine finish.</entitydescription.tommygun>
@@ -216,7 +225,7 @@
   <entitydescription.watercannon>Pumps in water, stores it and then fires it at a high pressure. Useful for crowd control, cleaning, extinguishing fires or for propulsion in the air or water. Requires a battery to fire and to refill.</entitydescription.watercannon>
   <!-- Blood Cultist Robes -->
   <entityname.bloodcultistrobes>Blood Cultist Robes</entityname.bloodcultistrobes>
-  <entitydescription.bloodcultistrobes>A simple hooded garment that grants passive regeneration and immunity to disease when worn by the "enlightened" members of the Blood Cult. The robe also serves to conceal their identity whilst letting other fellows cultists recognize them as their own.</entitydescription.bloodcultistrobes>
+  <entitydescription.bloodcultistrobes>Only craftable by cultists. A simple hooded garment that grants passive regeneration and immunity to disease when worn by the "enlightened" members of the Blood Cult. The robe also serves to conceal their identity whilst letting other fellows cultists recognize them as their own.</entitydescription.bloodcultistrobes>
   <!-- Life Essence -->
   <entityname.lifeessence>Life Essence</entityname.lifeessence>
   <entitydescription.lifeessence>A magically forever beating human heart with a red glow. Can be consumed to treat bloodloss, bleeding and damage or used to overcharge certain cultist items.</entitydescription.lifeessence>
@@ -225,16 +234,16 @@
   <entitydescription.humanheart>A human heart. If it's still beating, it soon won't be. Can be used by trained doctors to treat bloodloss, bleeding and damage or just deconstructed.</entitydescription.humanheart>
   <!-- Sacrificial Dagger -->
   <entityname.sacrificialdagger>Sacrificial Dagger</entityname.sacrificialdagger>
-  <entitydescription.sacrificialdagger>A crooked dagger imbued with an eery magic. Cultists can use these on the dying to rip out their still beating life essence.</entitydescription.sacrificialdagger>
+  <entitydescription.sacrificialdagger>Only craftable by cultists. A crooked dagger imbued with an eery magic. Cultists can use these on the dying to rip out their still beating life essence.</entitydescription.sacrificialdagger>
   <!-- The 1998 -->
   <entityname.the1998>The 1998</entityname.the1998>
-  <entitydescription.the1998>A book containing old forbidden knowledge in an forgotten language. Harmless in the hands of most, but cultists will use these to convert others into one of them.</entitydescription.the1998>
+  <entitydescription.the1998>Only craftable by cultists. A book containing old forbidden knowledge in an forgotten language. Harmless in the hands of most, but cultists will use these to convert others into one of them.</entitydescription.the1998>
   <!-- Goblin Crate -->
   <entityname.goblincrate>Goblin Crate</entityname.goblincrate>
   <entitydescription.goblincrate>Too small for even the most nimble of humans... but maybe a goblin could fit in there.</entitydescription.goblincrate>
   <!-- Goblin Mask -->
   <entityname.goblinmask>Goblin Mask</entityname.goblinmask>
-  <entitydescription.goblinmask>A strange green mask that emanates a magical aura. What happens if it is put on?</entitydescription.goblinmask>
+  <entitydescription.goblinmask>Only craftable by goblins and trolls. A strange green mask that emanates a magical aura. What happens if it is put on?</entitydescription.goblinmask>
   <!-- Midazolam -->
   <entityname.midazolam>Midazolam</entityname.midazolam>
   <entitydescription.midazolam>Strong drug with healing properties, but due to it's composition, it causes alcohol poisoning and unconciousness.</entitydescription.midazolam>

@@ -177,6 +177,11 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 	if isTroll then speciesName = 'humanTroll' end
 	local newCharacter = DD.spawnHuman(client, 'assistant', character.worldPosition, character.Name, nil, speciesName)
 
+    -- Spawn a duffel bag at the player's feet to put the dropped items inside
+	local duffelbag
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('duffelbag'), character.WorldPosition, nil, nil, function (spawnedItem)
+		duffelbag = spawnedItem
+	end)
 	-- Give items back to player after a delay
 	Timer.Wait(function ()
 		-- Remove goblin card
@@ -186,17 +191,10 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 			--newCharacter.Inventory.ForceToSlot(item, itemCount)
 			newCharacter.Inventory.TryPutItem(item, itemCount, true, true, newCharacter, true, true)
 		end
-		-- Give other items wherever they may fit (or put them in the floor by dropping them)
+		-- Put other items in the duffel bag
 		for item in dropItems do
-			local foundSlot = false
-			for itemCount = 0, newCharacter.Inventory.Capacity do
-				if newCharacter.Inventory.CanBePutInSlot(item, itemCount, false) and (itemCount ~= 4) and (itemCount ~= 5) then
-					newCharacter.Inventory.TryPutItem(item, itemCount, true, true, newCharacter, true, true)
-					foundSlot = true
-				end
-			end
 			if not foundSlot then
-				item.Drop()
+				duffelbag.OwnInventory.TryPutItem(item, character, nil, true, true)
 			end
 		end
 		-- Delete old character
@@ -209,19 +207,39 @@ end)
 DD.characterDeathFunctions.greenskinDeath = function (character)
 	if (character.SpeciesName ~= 'humanGoblin') and (character.SpeciesName ~= 'humanTroll') then return end
 
-	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('goblinmask'), character.WorldPosition)
+	local client = DD.findClientByCharacter(character)
+	if client ~= nil then
+		client.SetClientCharacter(nil)
+	end
+	if #DD.eventDirector.getEventInstances('greenskins') > 0 then
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('goblinmask'), character.WorldPosition)
+	end
 	Entity.Spawner.AddEntityToRemoveQueue(character)
 
 	return true
 end
 
--- Give goblin/troll the greenskin talent(s)
+-- Give goblin/troll the greenskin talent(s) + fix to a bug introduced by the Summer Update (Barotrauma v1.5.7.0)
 Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
 	if (createdCharacter.SpeciesName ~= 'humanGoblin') and (createdCharacter.SpeciesName ~= 'humanTroll') then return end
 	
 	Timer.Wait(function ()
-		createdCharacter.GiveTalent('greenskinknowledge', true)
-	end, 1000)
+		if createdCharacter.JobIdentifier ~= 'assistant' then
+			local client = DD.findClientByCharacter(createdCharacter)
+			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
+			client.SetClientCharacter(character)
+			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
+		else
+			createdCharacter.GiveTalent('greenskinknowledge', true)
+		end
+	end, 100)
+end)
+
+-- Remove goblin masks outside of goblin event to prevent bugs
+Hook.Add("item.created", 'DD.goblinmaskRemove', function(item)
+	if (item.Prefab.Identifier == 'goblinmask') and (#DD.eventDirector.getEventInstances('greenskins') <= 0) then
+		Entity.Spawner.AddItemToRemoveQueue(item)
+	end
 end)
 
 -- Sends a message to husks telling them about their objective and abilities

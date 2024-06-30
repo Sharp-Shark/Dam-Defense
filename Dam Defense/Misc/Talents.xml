@@ -49,6 +49,16 @@
     <AddedRecipe itemidentifier="sacrificialdagger"/>
 	
   </Talent>
+  
+  <!-- rebel leader talent that unlocks crafting of rebel items -->
+  <Talent identifier="rebelknowledge">
+    <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
+	
+    <AddedRecipe itemidentifier="marksmanrifle"/>
+    <AddedRecipe itemidentifier="separatistrifle"/>
+    <AddedRecipe itemidentifier="762magazine"/>
+	
+  </Talent>
 
   <!-- talent that lets greenskins craft goblin masks -->
   <Talent identifier="greenskinknowledge">
@@ -159,6 +169,7 @@
 	
 	<!-- for some reason dirty bomb is not an unlockable recipe? Now it is! -->
     <AddedRecipe itemidentifier="dirtybomb"/>
+    <AddedRecipe itemidentifier="nucleardepthdecoycheap"/>
 	
   </Talent>
 

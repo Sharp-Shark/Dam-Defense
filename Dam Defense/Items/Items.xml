@@ -227,7 +227,7 @@
     </Holdable>
   </Item>
   <!-- flamer  now uses afterburn instead of starting fires -->
-  <Item name="" identifier="flamer" category="Equipment" Tags="smallitem,weapon,gun,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+  <Item name="" identifier="flamer" category="Equipment,Weapon" Tags="smallitem,weapon,gun,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="secarmcab" amount="1" spawnprobability="0.2" notcampaign="true"/>
     <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab" amount="1" spawnprobability="0.1"/>
@@ -244,12 +244,12 @@
     <InventoryIcon texture="flamer.png" sourcerect="0,0,216,92" />
     <Sprite texture="flamer.png" sourcerect="0,0,216,92" depth="0.55" origin="0.5,0.5" />
     <!-- the item takes 10 seconds to break down in a deconstructor and turns into steel and plastic -->
-    <Deconstruct time="10">
+    <Deconstruct time="20">
       <Item identifier="steel" />
       <Item identifier="rubber" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
-      <RequiredSkill identifier="mechanical" level="30" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="60" requiresrecipe="true">
+      <RequiredSkill identifier="weapons" level="45" />
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="steel" amount="2" />
       <RequiredItem identifier="rubber" amount="2" />
@@ -1728,8 +1728,8 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="12" />
 	</Fabricate>
-    <Fabricate suitablefabricators="fabricator" requiredtime="35" requiresrecipe="true">
-      <RequiredSkill identifier="weapons" level="35" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="45" requiresrecipe="true">
+      <RequiredSkill identifier="weapons" level="45" />
       <RequiredItem identifier="steel" amount="2" />
       <RequiredItem identifier="plastic" />
     </Fabricate>
@@ -2558,6 +2558,57 @@
     <SkillRequirementHint identifier="weapons" level="50" />
   </Item>
   
+  <!-- a pipe, a stock and a trigger, just need some bullets -->
+  <Item name="Pipe Gun" identifier="pipegun" category="Weapon" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="mediumitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="15" />
+      <RequiredItem identifier="steel" amount="2" />
+    </Fabricate>
+    <Deconstruct time="20">
+      <Item identifier="steel" amount="1" />
+      <Item identifier="iron" amount="1" />
+      <Item identifier="carbon" amount="1" />
+    </Deconstruct>
+    <InventoryIcon texture="pipegun.png" sourcerect="0,88,91,44" origin="0.5,0.5" />
+    <Sprite texture="pipegun.png" sourcerect="0,0,172,44" depth="0.55" origin="0.5,0.5" />
+	<BrokenSprite texture="pipegun.png" sourcerect="0,44,172,44" depth="0.55" mincondition="0" maxcondition="95" fadein="false" />
+    <Body width="220" height="50" density="25" />
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-8" handle1="-23,3" handle2="25,20" holdangle="-30">
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.9" setvalue="true" />
+    </Holdable>
+    <RangedWeapon reload="1.2" holdtrigger="true" barrelpos="100,15" spread="3" unskilledspread="12" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
+      <Sound file="Content/Items/Weapons/ShotgunShot1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/ShotgunShot2.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/Weapons/ShotgunShot3.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/Weapons/ShotgunShot4.ogg" type="OnUse" range="3000" />
+	  <StatusEffect type="OnUse" target="This" Delay="0.6" Condition="0" setvalue="true" >
+        <Explosion range="50.0" force="0.0" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="0.0" />
+        <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
+        <Sound file="Content/Items/Weapons/ShotgunLoad1.ogg" type="OnUse" range="500" selectionmode="Random" />
+        <Sound file="Content/Items/Weapons/ShotgunLoad2.ogg" type="OnUse" range="500" />
+        <Sound file="Content/Items/Weapons/ShotgunLoad3.ogg" type="OnUse" range="500" />
+	  </StatusEffect>
+	  <StatusEffect type="OnUse" target="This" Delay="1.1" Condition="100" setvalue="true" />
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="12.0" />
+      </StatusEffect>
+      <RequiredItems items="revolverammo,rifleammo" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="50" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
+      <Containable items="revolverammo,rifleammo" hide="true" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+    </ItemContainer> 
+    <aitarget sightrange="2000" soundrange="4000" fadeouttime="5" />
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+    <SkillRequirementHint identifier="weapons" level="50" />
+  </Item>
+  
   <!-- it's just an AK -->
   <Item name="Separatist Rifle" identifier="separatistrifle" category="Weapon" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="mediumitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder"/>
@@ -2571,7 +2622,7 @@
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="16" />
 	</Fabricate>
-    <Fabricate suitablefabricators="fabricator" requiredtime="45">
+    <Fabricate suitablefabricators="fabricator" requiredtime="45" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
       <RequiredItem identifier="steel" amount="2" />
@@ -2627,6 +2678,75 @@
     <SkillRequirementHint identifier="weapons" level="50" />
   </Item>
   
+  <!-- it's just an AK -->
+  <Item name="Marksman Rifle" identifier="marksmanrifle" category="Weapon" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="mediumitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder"/>
+    <Price baseprice="720" sold="false">
+      <Price storeidentifier="merchantoutpost" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" />
+      <Price storeidentifier="merchantmine" multiplier="1.25" />
+    </Price>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="16" />
+	</Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="75" requiresrecipe="true">
+      <RequiredSkill identifier="weapons" level="25" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
+      <RequiredItem identifier="steel" amount="1" />
+      <RequiredItem identifier="copper" />
+      <RequiredItem identifier="tin" />
+    </Fabricate>
+    <Deconstruct time="35">
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
+      <RequiredItem identifier="steel" amount="1" />
+      <RequiredItem identifier="copper" />
+      <RequiredItem identifier="tin" />
+    </Deconstruct>
+    <InventoryIcon texture="separatistrifle.png" sourcerect="0,48,208,50" origin="0.5,0.5" />
+    <Sprite texture="separatistrifle.png" sourcerect="0,48,224,50" depth="0.55" origin="0.5,0.5" />
+    <Body width="220" height="50" density="25" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-20" handle1="-53,-10" handle2="26,10" holdangle="-30">
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.9" setvalue="true" />
+    </Holdable>
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,48,224,50" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
+    </Wearable>
+    <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="110,2" spread="3" unskilledspread="12" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
+      <Sound file="Content/Items/JobGear/Security/WEAPONS_assaultRifle_1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/JobGear/Security/WEAPONS_assaultRifle_2.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/JobGear/Security/WEAPONS_assaultRifle_3.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/JobGear/Security/WEAPONS_assaultRifle_4.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/JobGear/Security/WEAPONS_assaultRifle_5.ogg" type="OnUse" range="3000" />
+      <StatusEffect type="OnUse" target="This">
+        <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
+        <Explosion range="150.0" force="1" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="12.0" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+      <RequiredItems items="762magazine" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="50" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
+      <Containable items="762ammo" itempos="-3.5,-8.5" rotation="-10" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />   
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="flashlight" hide="false" itempos="25,0.5" setactive="true"/>
+      </SubContainer>
+    </ItemContainer> 
+    <aitarget sightrange="2000" soundrange="4000" fadeouttime="5" />
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+    <SkillRequirementHint identifier="weapons" level="50" />
+  </Item>
+  
   <!-- 30 rounds of soviet 7.62x39mm -->
   <Item name="Separatist Rifle Magazine" identifier="762magazine" maxstacksize="8" maxstacksizecharacterinventory="2" scale="0.5" category="Weapon" allowasextracargo="true" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,762ammo" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="assaultrifle" minamount="1" maxamount="1" spawnprobability="1"/>
@@ -2641,7 +2761,7 @@
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="4" />
 	</Fabricate>
-    <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2">
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="phosphorus" />
       <RequiredItem tag="advmunition_tip" description="fabricationdescription.advmunition_tip" />
@@ -2649,7 +2769,7 @@
       <RequiredItem tag="advmunition_jacket" description="fabricationdescription.advmunition_jacket" />
       <RequiredItem identifier="steel" />
     </Fabricate>
-    <Fabricate suitablefabricators="fabricator" requiredtime="20" displayname="recycleitem">
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" displayname="recycleitem" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="phosphorus" />
       <RequiredItem tag="advmunition_tip" description="fabricationdescription.advmunition_tip" />
@@ -2849,7 +2969,7 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
       <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2" />
     </Price>
-    <Fabricate suitablefabricators="fabricator" requiredtime="35">
+    <Fabricate suitablefabricators="fabricator" requiredtime="45">
       <RequiredSkill identifier="weapons" level="45" />
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="titaniumaluminiumalloy" />
@@ -3026,13 +3146,14 @@
       <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
     </Price>
     <Deconstruct time="10">
-      <Item identifier="steel" />
-      <RequiredItem identifier="copper" />
-      <RequiredItem identifier="tin" />
+      <Item identifier="iron" />
+      <Item identifier="carbon" />
+      <Item identifier="copper" />
+      <Item identifier="tin" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="35">
-      <RequiredSkill identifier="weapons" level="35" />
-      <RequiredItem identifier="steel" amount="2" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="weapons" level="25" />
+      <RequiredItem identifier="steel" />
       <RequiredItem identifier="copper" />
       <RequiredItem identifier="tin" />
     </Fabricate>
@@ -3083,7 +3204,7 @@
       <Item identifier="carbon" />
       <Item identifier="phosphorus" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="8">
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="12">
       <RequiredSkill identifier="weapons" level="20" />
       <Item identifier="plastic" />
       <Item identifier="phosphorus" />
@@ -3537,6 +3658,101 @@
       <Containable items="lifeessence" hide="true"/>
       <SlotIcon slotindex="0" texture="%ModDir%/Misc/Icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
     </ItemContainer>
+  </Item>
+  
+  <!-- gang war spraycans (cyan, yellow and magenta) -->
+  <Item name="Cyan Spraycan" identifier="cyanspraycan" description="" spritecolor="185,255,255,255" inventoryiconcolor="185,255,255,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Sprite texture="spraycan.png" sourcerect="0,0,32,88" depth="0.55" origin="0.5,0.5" />
+    <Deconstruct time="10">
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="plastic" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <Body width="30" height="80" density="8" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" msg="ItemMsgPickUpSelect" />
+    <Sprayer barrelpos="21,25" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="300">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="spray" velocitymin="500.0" velocitymax="650.0" particlespersecond="100" />
+      <sound file="Content/Items/Tools/Sprayer.ogg" type="OnUse" range="500.0" loop="true" />
+      <StatusEffect type="OnUse" target="This" Condition="-2.0" />
+      <PaintColors>
+        <PaintColor paintitem="ethanol" color="0,128,128,180" />
+      </PaintColors>
+    </Sprayer>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="ethanol" />
+	  <StatusEffect type="OnSpawn" target="This" >
+        <SpawnItem identifiers="ethanol" spawnposition="ThisInventory" />
+	  </StatusEffect>
+    </ItemContainer>
+    <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
+  </Item>
+  <Item name="Yellow Spraycan" identifier="yellowspraycan" description="" spritecolor="255,185,255,255" inventoryiconcolor="255,185,255,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Sprite texture="spraycan.png" sourcerect="0,0,32,88" depth="0.55" origin="0.5,0.5" />
+    <Deconstruct time="10">
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="plastic" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <Body width="30" height="80" density="8" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" msg="ItemMsgPickUpSelect" />
+    <Sprayer barrelpos="21,25" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="300">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="spray" velocitymin="500.0" velocitymax="650.0" particlespersecond="100" />
+      <sound file="Content/Items/Tools/Sprayer.ogg" type="OnUse" range="500.0" loop="true" />
+      <StatusEffect type="OnUse" target="This" Condition="-2.0" />
+      <PaintColors>
+        <PaintColor paintitem="ethanol" color="128,0,128,180" />
+      </PaintColors>
+    </Sprayer>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="ethanol" />
+	  <StatusEffect type="OnSpawn" target="This" >
+        <SpawnItem identifiers="ethanol" spawnposition="ThisInventory" />
+	  </StatusEffect>
+    </ItemContainer>
+    <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
+  </Item>
+  <Item name="Magenta Spraycan" identifier="magentaspraycan" description="" spritecolor="255,255,185,255" inventoryiconcolor="255,255,185,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Sprite texture="spraycan.png" sourcerect="0,0,32,88" depth="0.55" origin="0.5,0.5" />
+    <Deconstruct time="10">
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="plastic" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <Body width="30" height="80" density="8" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" msg="ItemMsgPickUpSelect" />
+    <Sprayer barrelpos="21,25" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="300">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="spray" velocitymin="500.0" velocitymax="650.0" particlespersecond="100" />
+      <sound file="Content/Items/Tools/Sprayer.ogg" type="OnUse" range="500.0" loop="true" />
+      <StatusEffect type="OnUse" target="This" Condition="-2.0" />
+      <PaintColors>
+        <PaintColor paintitem="ethanol" color="128,128,0,180" />
+      </PaintColors>
+    </Sprayer>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="ethanol" />
+	  <StatusEffect type="OnSpawn" target="This" >
+        <SpawnItem identifiers="ethanol" spawnposition="ThisInventory" />
+	  </StatusEffect>
+    </ItemContainer>
+    <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
   </Item>
   
   <!-- projectile launched by spitroaches -->
