@@ -212,5 +212,15 @@ end, {
 		else
 			DD.messageAllClients('All rebels have been eliminated or arrested.', {preset = 'goodinfo'})
 		end
+	end,
+	
+	onFinishAlways = function (self)
+		for client in self.rebels do
+			if client.Character ~= nil then
+				if client.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
+					client.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+				end
+			end
+		end
 	end
 })

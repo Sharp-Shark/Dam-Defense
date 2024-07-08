@@ -347,20 +347,6 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
-		for client in self.gang1 do
-			if client.Character ~= nil then
-				if client.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
-					client.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
-				end
-			end
-		end
-		for client in self.gang2 do
-			if client.Character ~= nil then
-				if client.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
-					client.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
-				end
-			end
-		end
 		if self.winnerGang == 'gang1' then
 			DD.messageAllClients(DD.stringLocalize('gangWarEndGang', {gangName = self.gang1Name, rivalGangName = self.gang2Name}), {preset = 'goodinfo'})
 		elseif self.winnerGang == 'gang2' then

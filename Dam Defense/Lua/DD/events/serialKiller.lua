@@ -184,17 +184,6 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
-		if DD.isClientCharacterAlive(self.killer) and (not self.killerWon) then
-			if self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true) ~= nil then
-				self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true).SetStrength(0)
-			end
-			if self.killer.Character.CharacterHealth.GetAffliction('bloodlust', true) ~= nil then
-				self.killer.Character.CharacterHealth.GetAffliction('bloodlust', true).SetStrength(0)
-			end
-			if self.killer.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
-				self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
-			end
-		end
 		if self.killerWon then
 			DD.messageAllClients('Serial killer has won this round! Round ending in 10 seconds.', {preset = 'crit'})
 			DD.roundData.roundEnding = true
@@ -208,6 +197,19 @@ end, {
 			elseif self.killer.Character.IsHandcuffed then
 				DD.messageAllClients('The serial killer has been arrested.', {preset = 'goodinfo'})
 				DD.messageClient(self.killer, 'You been arrested and are not an antagonist anymore!', {preset = 'crit'})
+			end
+		end
+	end,
+	
+	onFinishAlways = function (self)
+		if DD.isClientCharacterAlive(self.killer) and (not self.killerWon) then
+			if self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true) ~= nil then
+				self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true).SetStrength(0)
+			end
+			if self.killer.Character.CharacterHealth.GetAffliction('bloodlust', true) ~= nil then
+				self.killer.Character.CharacterHealth.GetAffliction('bloodlust', true).SetStrength(0)
+			end
+			if self.killer.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
 				self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
 			end
 		end
