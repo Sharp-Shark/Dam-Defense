@@ -15,6 +15,7 @@ require 'DD/events/serialKiller'
 require 'DD/events/bloodCult'
 require 'DD/events/greenskins'
 require 'DD/events/vip'
+require 'DD/events/gangWar'
 
 -- Event director table
 DD.eventDirector = {}
@@ -26,6 +27,7 @@ DD.eventDirector.eventPool = {
 	DD.eventSerialKiller,
 	DD.eventBloodCult,
 	DD.eventGreenskins,
+	DD.eventGangWar,
 	-- Side events
 	DD.eventFish,
 	DD.eventAirdrop,

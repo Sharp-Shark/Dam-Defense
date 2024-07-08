@@ -64,6 +64,20 @@ Hook.Add("DD.whalinggun.use", "DD.whalinggun.use", function(effect, deltaTime, i
 	end
 end)
 
+Hook.Add("DD.spraycan.use", "DD.spraycan.use", function(effect, deltaTime, item, targets, worldPosition)
+	local limb = targets[1]
+	if limb == nil then return end
+	
+	local character = limb.character
+	if limb.type == LimbType.Head then
+		local afflictionIdentifier = DD.stringSplit(tostring(item.Prefab.Identifier), 'spraycan')[1] .. 'paint'
+		DD.giveAfflictionCharacter(character, afflictionIdentifier, 0.5 * deltaTime, limb)
+		if DD.isCharacterUsingHullOxygen(character) then
+			DD.giveAfflictionCharacter(character, 'noxiousspray', 0.5 * deltaTime, limb)
+		end
+	end
+end)
+
 Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
 	if character == nil then return end

@@ -26,7 +26,7 @@
 	  <Attack structuredamage="2" itemdamage="4" targetimpulse="4">
         <Affliction identifier="blunttrauma" strength="10" />
         <Affliction identifier="stun" strength="1" />
-        <Affliction identifier="johncena" strength="999" probability="0.04" />
+        <Affliction identifier="johncena" strength="999" probability="0.06" />
         <StatusEffect type="OnUse" target="UseTarget">
           <Conditional entitytype="eq Character"/>
           <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
@@ -38,11 +38,12 @@
         <!-- AND HIS NAME IS JOHN CENA -->
         <StatusEffect type="OnUse" target="UseTarget" comparison="AND" >
           <Conditional entitytype="eq Character"/>
+	      <Conditional vitality="gt 0" />
 		  <Conditional johncena="gte 99.0" />
-		  <Affliction identifier="blunttrauma" strength="30" />
+          <Affliction identifier="johncenafx" strength="999" />
+		  <Affliction identifier="blunttrauma" strength="15" />
           <Affliction identifier="stun" strength="3" />
           <ReduceAffliction identifier="johncena" strength="999" />
-          <!--<sound file="%ModDir%/Items/johncena.ogg" range="800" volume="10.0" />-->
         </StatusEffect>
       </Attack>
     </MeleeWeapon>

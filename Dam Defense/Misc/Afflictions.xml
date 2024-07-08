@@ -45,9 +45,59 @@
   <Affliction name="Stun Vulnerability" identifier="stunvulnerability" description="General feeling of weakness, unbalance and lightheadedness makes any stun more intense." type="debuff" targets="human" limbspecific="false" indicatorlimb="Torso" showiconthreshold="101" showinhealthscannerthreshold="101" karmachangeonapplied="0" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="250,250,150,255">
     <Effect minstrength="1" maxstrength="100" strengthchange="-10" minresistance="0.0" maxresistance="-2.0" resistancefor="stun"></Effect>
   </Affliction>
+  
+  <!-- noxious suffocant spray -->
+  <Affliction name="Noxious Spray" identifier="noxiousspray" description="" type="poison" targets="human" limbspecific="true" activationthreshold="0.0" showiconthreshold="0.0" maxstrength="1">
+    <Effect minstrength="0" maxstrength="1" strengthchange="-0.1" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0" minfacetint="200,180,255,100" maxfacetint="200,180,255,200" >
+	  <StatusEffect target="Character">
+	    <Conditional vitality="gt 0" />
+	    <Affliction identifier="oxygenlow" amount="12" />
+	  </StatusEffect>
+	</Effect>
+    <PeriodicEffect minstrength="0" maxstrength="1" mininterval="0.8" maxinterval="1.2">
+      <StatusEffect target="Character" conditionalComparison="And" >
+        <Affliction identifier="oxygenlow" amount="6" />
+        <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/cough2.ogg" />
+        <Sound file="%ModDir%/Sounds/cough3.ogg" />
+        <Sound file="%ModDir%/Sounds/cough4.ogg" />
+	    <Conditional vitality="gt 0" />
+		<Conditional InWater="eq False" />
+		<Conditional IsDead="eq False" />
+      </StatusEffect>
+    </PeriodicEffect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,0,128,128" color="255,155,55,255" origin="0,0"/>
+  </Affliction>
+  <!-- screen covered in paint -->
+  <Affliction name="Cyan Paint" identifier="cyanpaint" description="" type="fx" limbspecific="true" activationthreshold="0.0" showiconthreshold="999" maxstrength="1">
+    <Effect minstrength="0" maxstrength="1" strengthchange="-0.05" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0" />
+	<AfflictionOverlay texture="%ModDir%/Misc/cyanOverlay.png" />
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  <Affliction name="Yellow Paint" identifier="yellowpaint" description="" type="fx" limbspecific="true" activationthreshold="0.0" showiconthreshold="999" maxstrength="1">
+    <Effect minstrength="0" maxstrength="1" strengthchange="-0.05" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0" />
+	<AfflictionOverlay texture="%ModDir%/Misc/yellowOverlay.png" />
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  <Affliction name="Magenta Paint" identifier="magentapaint" description="" type="fx" limbspecific="true" activationthreshold="0.0" showiconthreshold="999" maxstrength="1">
+    <Effect minstrength="0" maxstrength="1" strengthchange="-0.05" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0" />
+	<AfflictionOverlay texture="%ModDir%/Misc/magentaOverlay.png" />
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+
+  <!-- gang war effect, play a sound effect -->
+  <Affliction name="Gang FX" identifier="gangfx" description="" type="fx" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
+    <Effect minstrength="0" maxstrength="10" strengthchange="-10.0" >
+      <StatusEffect target="Character">
+        <Conditional IsLocalPlayer="True"/>
+        <Sound file="%ModDir%/Sounds/candyshop.ogg" loop="false" volume="12.0" />
+      </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
 
   <!-- enlightened effect, play a sound effect and flashes an image -->
-  <Affliction name="Enlightened FX" identifier="enlightenedfx" description="" type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
+  <Affliction name="Enlightened FX" identifier="enlightenedfx" description="" type="fx" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
     <Effect minstrength="0" maxstrength="10" strengthchange="-10.0" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0">
       <StatusEffect target="Character">
         <Conditional IsLocalPlayer="True"/>
@@ -90,7 +140,7 @@
   </Affliction>
 
   <!-- beeping bomb builds up desperation -->
-  <Affliction name="Beeping Bomb" identifier="beepingbomb" description="" type="beepingbomb" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
+  <Affliction name="Beeping Bomb" identifier="beepingbomb" description="" type="beepingbomb" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
     <Effect minstrength="0" maxstrength="7.5" strengthchange="1.0">
       <StatusEffect target="Character">
         <Sound file="%ModDir%/Sounds/bombbeep.ogg" loop="true" volume="6.0" />
@@ -176,6 +226,7 @@
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
   </Affliction>
 
+
   <!-- used for Foldable Chair AND HIS NAME IS JOHN CENA -->
   <Affliction
     name="John Cena"
@@ -193,6 +244,17 @@
     maxstrength="100">
     <Effect minstrength="0" maxstrength="100" strengthchange="-4" />
     <Icon texture="Content/UI/TalentsIcons3.png" sourcerect="384,0,128,128" color="10,193,114,255" origin="0,0"/>
+  </Affliction>
+  <Affliction name="John Cena FX" identifier="johncenafx" description="" type="fx" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
+    <Effect minstrength="0" maxstrength="10" strengthchange="-10.0" >
+      <StatusEffect target="Character" delay="0.2">
+        <Sound file="%ModDir%/Sounds/crit.ogg" loop="false" volume="12.0" selectionmode="Random" />
+      </StatusEffect>
+      <StatusEffect target="Character" offset="0,50" stackable="false" interval="1" >
+        <ParticleEmitter particle="crit" particleamount="1" scalemin="0.5" scalemax="0.5" velocitymin="0" velocitymax="0" anglemin="0" anglemax="0" />
+      </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
 
   <!-- stun vulnerability -->

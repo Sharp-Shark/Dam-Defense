@@ -59,6 +59,33 @@
     <AddedRecipe itemidentifier="762magazine"/>
 	
   </Talent>
+  
+  <!-- gang member talent that unlocks crafting of gang member items -->
+  <Talent identifier="gangknowledge">
+    <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
+	
+    <AddedRecipe itemidentifier="uzi"/>
+    <AddedRecipe itemidentifier="backwardscap"/>
+	
+  </Talent>
+  <Talent identifier="cyangangknowledge">
+    <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
+	
+    <AddedRecipe itemidentifier="cyanspraycan"/>
+	
+  </Talent>
+  <Talent identifier="yellowgangknowledge">
+    <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
+	
+    <AddedRecipe itemidentifier="yellowspraycan"/>
+	
+  </Talent>
+  <Talent identifier="magentagangknowledge">
+    <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
+	
+    <AddedRecipe itemidentifier="magentaspraycan"/>
+	
+  </Talent>
 
   <!-- talent that lets greenskins craft goblin masks -->
   <Talent identifier="greenskinknowledge">

@@ -34,6 +34,13 @@ return {
 	-- events/blackout.lua (TBD)
 	-- events/bloodCult.lua (TBD)
 	-- events/fish.lua (TBD)
+	-- events/gangWar.lua (still need to add localization for "/gang")
+	gangWarDoxx = 'The Nexbank (TM) has found unusual activity in the account of {name}, and as such has determined they are a gang member. Do /gang to get the public list of gang members.',
+	gangWarGangsterInfo = 'You are a gang member of the {gangName}. Your sole objective is to eliminate the rival gang, known as {rivalGangName}. Your gang may try and ally itself with the proletariat and security alike to gain an edge. Beware security gets a reward for arresting gangsters. Your pay grade has been raised. Do /gang for a list of fellow and known gangsters.',
+	gangWarSecurityInfo = 'Two rival gangs are in the area. Their objective does not involve destroying the dam, however they may still cause havoc in the process of eliminating their rivals. Security will be rewarded every minute by Nexpharma per arrested gangster. Despite that, you may try and stay neutral, or even ally yourself with one of the gangs. Do /gang for a list of known gangsters.',
+	gangWarCommonerInfo = 'Two rival gangs are in the area. Their objective does not involve destroying the dam, however they may still cause havoc in the process of eliminating their rivals. You may try and stay neutral, or even ally yourself with one of the gangs. Do /gang for a list of known gangsters.',
+	gangWarEndGang = 'The {gangName} has won agaisnt the {rivalGangName}! Life goes on.',
+	gangWarEndNeutral = 'Both gangs have been eliminated or arrested! Life goes on.',
 	-- events/ghostRole.lua (TBD)
 	-- events/greenskins.lua
 	greenskinInfo = 'You are a kind of amphibious nimble critter that like playing games with their prey. Put masks on humans to turn them into goblins. Hide in goblin crates to regenerate.',

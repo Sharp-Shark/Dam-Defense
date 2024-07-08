@@ -129,6 +129,10 @@ DD.thinkFunctions.afflictions = function ()
 		for limb in character.AnimController.Limbs do
 			if limb.InWater then
 				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'afterburn', 10)
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'noxiousspray', 10)
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'cyanpaint', 10)
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'yellowpaint', 10)
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'magentapaint', 10)
 			end
 		end
 		-- Husk regen

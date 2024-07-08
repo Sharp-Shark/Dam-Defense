@@ -174,6 +174,8 @@ DD.stringReplace = function(str, tbl)
 				formatted = formatted .. DD.tablePrint(tbl[build], true)
 			elseif type(tbl[build]) == 'string' then
 				formatted = formatted .. tbl[build]
+			elseif type(tbl[build]) == 'userdata' then
+				formatted = formatted .. tbl[build].Name
 			else
 				formatted = formatted .. tostring(tbl[build])
 			end

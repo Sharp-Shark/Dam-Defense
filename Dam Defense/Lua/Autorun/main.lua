@@ -145,7 +145,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 	
 	commands = {'help', 'events', 'myevents', 'credits', 'withdraw', 'possess', 'freecam'}
 	
-	local specialCommands = {rebels = false, cultists = false, whisper = false}
+	local specialCommands = {rebels = false, cultists = false, whisper = false, gang = false}
 	for event in DD.eventDirector.getEventInstances('revolution') do
 		specialCommands['rebels'] = true
 	end
@@ -154,6 +154,9 @@ DD.chatMessageFunctions.help = function (message, sender)
 			specialCommands['cultists'] = true
 			specialCommands['whisper'] = true
 		end
+	end
+	for event in DD.eventDirector.getEventInstances('gangWar') do
+		specialCommands['gang'] = true
 	end
 	
 	for specialCommand, value in pairs(specialCommands) do

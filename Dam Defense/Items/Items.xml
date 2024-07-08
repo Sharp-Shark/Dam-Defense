@@ -2692,7 +2692,7 @@
       <RequiredItem tag="fakemoney" amount="16" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="75" requiresrecipe="true">
-      <RequiredSkill identifier="weapons" level="25" />
+      <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
       <RequiredItem identifier="steel" amount="1" />
       <RequiredItem identifier="copper" />
@@ -2904,8 +2904,8 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
       <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2" />
     </Price>
-    <Fabricate suitablefabricators="fabricator" requiredtime="60">
-      <RequiredSkill identifier="weapons" level="55" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="60" requiresrecipe="true" >
+      <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="steel" />
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="titaniumaluminiumalloy" />
@@ -3661,8 +3661,8 @@
   </Item>
   
   <!-- gang war spraycans (cyan, yellow and magenta) -->
-  <Item name="Cyan Spraycan" identifier="cyanspraycan" description="" spritecolor="185,255,255,255" inventoryiconcolor="185,255,255,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
-    <Sprite texture="spraycan.png" sourcerect="0,0,32,88" depth="0.55" origin="0.5,0.5" />
+  <Item name="Cyan Spraycan" identifier="cyanspraycan" nameidentifier="spraycan" description="" spritecolor="185,255,255,255" inventoryiconcolor="185,255,255,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Sprite texture="spraycan.png" sourcerect="0,0,28,80" depth="0.55" origin="0.5,0.5" />
     <Deconstruct time="10">
       <RequiredItem identifier="aluminium" />
       <RequiredItem identifier="plastic" />
@@ -3673,8 +3673,14 @@
       <RequiredItem identifier="plastic" />
     </Fabricate>
     <Body width="30" height="80" density="8" />
-    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" msg="ItemMsgPickUpSelect" />
-    <Sprayer barrelpos="21,25" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="300">
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,15" msg="ItemMsgPickUpSelect" />
+    <RepairTool TargetForce="0" wateramount="0.0" extinguishamount="0.0" usablein="Air" range="150" barrelpos="10,35" repairmultiple="true" RepairMultipleWalls="false" repairthroughholes="true" spread="25" unskilledspread="25">
+	  <StatusEffect type="OnUse" targettype="limb" >
+		<LuaHook name="DD.spraycan.use" />
+        <Affliction identifier="acidburn" amount="1.0" />
+	  </StatusEffect>
+    </RepairTool>
+    <Sprayer barrelpos="10,35" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="200">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="spray" velocitymin="500.0" velocitymax="650.0" particlespersecond="100" />
@@ -3692,8 +3698,8 @@
     </ItemContainer>
     <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
   </Item>
-  <Item name="Yellow Spraycan" identifier="yellowspraycan" description="" spritecolor="255,185,255,255" inventoryiconcolor="255,185,255,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
-    <Sprite texture="spraycan.png" sourcerect="0,0,32,88" depth="0.55" origin="0.5,0.5" />
+  <Item name="Yellow Spraycan" identifier="yellowspraycan" nameidentifier="spraycan" description="" spritecolor="255,255,185,255" inventoryiconcolor="255,255,185,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Sprite texture="spraycan.png" sourcerect="0,0,28,80" depth="0.55" origin="0.5,0.5" />
     <Deconstruct time="10">
       <RequiredItem identifier="aluminium" />
       <RequiredItem identifier="plastic" />
@@ -3704,8 +3710,51 @@
       <RequiredItem identifier="plastic" />
     </Fabricate>
     <Body width="30" height="80" density="8" />
-    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" msg="ItemMsgPickUpSelect" />
-    <Sprayer barrelpos="21,25" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="300">
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,15" msg="ItemMsgPickUpSelect" />
+    <RepairTool TargetForce="0" wateramount="0.0" extinguishamount="0.0" usablein="Air" range="150" barrelpos="10,35" repairmultiple="true" RepairMultipleWalls="false" repairthroughholes="true" spread="25" unskilledspread="25">
+	  <StatusEffect type="OnUse" targettype="limb" >
+		<LuaHook name="DD.spraycan.use" />
+        <Affliction identifier="acidburn" amount="1.0" />
+	  </StatusEffect>
+    </RepairTool>
+    <Sprayer barrelpos="10,35" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="200">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="spray" velocitymin="500.0" velocitymax="650.0" particlespersecond="100" />
+      <sound file="Content/Items/Tools/Sprayer.ogg" type="OnUse" range="500.0" loop="true" />
+      <StatusEffect type="OnUse" target="This" Condition="-2.0" />
+      <PaintColors>
+        <PaintColor paintitem="ethanol" color="128,128,0,180" />
+      </PaintColors>
+    </Sprayer>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="ethanol" />
+	  <StatusEffect type="OnSpawn" target="This" >
+        <SpawnItem identifiers="ethanol" spawnposition="ThisInventory" />
+	  </StatusEffect>
+    </ItemContainer>
+    <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
+  </Item>
+  <Item name="Magenta Spraycan" identifier="magentaspraycan" nameidentifier="spraycan" description="" spritecolor="255,185,255,255" inventoryiconcolor="255,185,255,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Sprite texture="spraycan.png" sourcerect="0,0,28,80" depth="0.55" origin="0.5,0.5" />
+    <Deconstruct time="10">
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="plastic" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <Body width="30" height="80" density="8" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,15" msg="ItemMsgPickUpSelect" />
+    <RepairTool TargetForce="0" wateramount="0.0" extinguishamount="0.0" usablein="Air" range="150" barrelpos="10,35" repairmultiple="true" RepairMultipleWalls="false" repairthroughholes="true" spread="25" unskilledspread="25">
+	  <StatusEffect type="OnUse" targettype="limb" >
+		<LuaHook name="DD.spraycan.use" />
+        <Affliction identifier="acidburn" amount="1.0" />
+	  </StatusEffect>
+    </RepairTool>
+    <Sprayer barrelpos="10,35" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="200">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="spray" velocitymin="500.0" velocitymax="650.0" particlespersecond="100" />
@@ -3723,36 +3772,23 @@
     </ItemContainer>
     <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
   </Item>
-  <Item name="Magenta Spraycan" identifier="magentaspraycan" description="" spritecolor="255,255,185,255" inventoryiconcolor="255,255,185,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
-    <Sprite texture="spraycan.png" sourcerect="0,0,32,88" depth="0.55" origin="0.5,0.5" />
-    <Deconstruct time="10">
-      <RequiredItem identifier="aluminium" />
-      <RequiredItem identifier="plastic" />
-    </Deconstruct>
+  <!-- gang war backwards cap with bandana -->
+  <Item name="Backwards Cap" identifier="backwardscap" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.4">
+    <Deconstruct time="5" />
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
-      <RequiredSkill identifier="mechanical" level="20" />
-      <RequiredItem identifier="aluminium" />
-      <RequiredItem identifier="plastic" />
+      <RequiredItem identifier="ballisticfiber" />
+      <RequiredItem identifier="organicfiber" />
     </Fabricate>
-    <Body width="30" height="80" density="8" />
-    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" msg="ItemMsgPickUpSelect" />
-    <Sprayer barrelpos="21,25" spread="0" unskilledspread="0" drawhudwhenequipped="true" crosshairscale="0.1" spraystrength="6.0" range="300">
-      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
-      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
-      <ParticleEmitter particle="spray" velocitymin="500.0" velocitymax="650.0" particlespersecond="100" />
-      <sound file="Content/Items/Tools/Sprayer.ogg" type="OnUse" range="500.0" loop="true" />
-      <StatusEffect type="OnUse" target="This" Condition="-2.0" />
-      <PaintColors>
-        <PaintColor paintitem="ethanol" color="128,128,0,180" />
-      </PaintColors>
-    </Sprayer>
-    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
-      <Containable items="ethanol" />
-	  <StatusEffect type="OnSpawn" target="This" >
-        <SpawnItem identifiers="ethanol" spawnposition="ThisInventory" />
-	  </StatusEffect>
-    </ItemContainer>
-    <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
+    <Sprite name="Baseball Cap" texture="spraycan.png" depth="0.6" sourcerect="28,0,89,60" origin="0.5,0.5" />
+    <Body width="80" height="45" density="15" waterdragcoefficient="10"/>
+    <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect">
+      <damagemodifier afflictionidentifiers="blunttrauma,lacerations" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+      <sprite name="Baseball Cap Wearable" texture="spraycan.png" limb="Head" hidewearablesoftype="Hair" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="28,0,89,90" origin="0.55,0.6" />
+      <StatusEffect type="OnWearing" target="Character" HideFace="true" duration="0.1" stackable="false" />
+    </Wearable>
   </Item>
   
   <!-- projectile launched by spitroaches -->

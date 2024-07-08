@@ -113,6 +113,7 @@ end, {
 	
 	onThink = function (self)
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+		local timesPerSecond = 2
 		
 		-- See if security is still alivd
 		local anySecurityIsAlive = false
@@ -136,6 +137,12 @@ end, {
 					self.rebelsSet[rebel] = nil
 				end
 			end
+		end
+		
+		-- Increase time pressure
+		local timeToExplode = 15 * 60 -- in seconds
+		for client in self.rebels do
+			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 		end
 		
 		-- End event if all of security is dead or if all rebel leaders are dead/arrested

@@ -173,6 +173,9 @@
   <!-- Creepy Mask -->
   <entityname.creepymask>Creepy Mask</entityname.creepymask>
   <entitydescription.creepymask>Boo-hoo, when's the hurting stop?</entitydescription.creepymask>
+  <!-- Backwards Cap (for gang members) -->
+  <entityname.backwardscap>Backwards Cap</entityname.backwardscap>
+  <entitydescription.backwardscap>Only craftable by gang members. Appears to be a backwards cap and bandana, but is lined with a ballistic fiber. Thug life.</entitydescription.backwardscap>
   <!-- Storage Guntainer -->
   <entityname.toolboxgun>Storage Guntainer</entityname.toolboxgun>
   <entitydescription.toolboxgun>A portable guntainer for storing tools and supplies.</entitydescription.toolboxgun>
@@ -202,7 +205,7 @@
   <entitydescription.pistoldrum>A magazine for the tommy gun containing 60 rounds of 9mm.</entitydescription.pistoldrum>
   <!-- UZI -->
   <entityname.uzi>UZI</entityname.uzi>
-  <entitydescription.uzi>A very light 9mm submachine gun with a foldable stock. This bullet hose fires faster than you can count.</entitydescription.uzi>
+  <entitydescription.uzi>Only craftable by gang members. A very light 9mm submachine gun with a foldable stock. This bullet hose fires faster than you can count.</entitydescription.uzi>
   <!-- Pistol -->
   <entityname.pistol>Pistol</entityname.pistol>
   <entitydescription.pistol>A finely-crafted compact 9mm pistol designed for civilian use.</entitydescription.pistol>
@@ -247,4 +250,7 @@
   <!-- Midazolam -->
   <entityname.midazolam>Midazolam</entityname.midazolam>
   <entitydescription.midazolam>Strong drug with healing properties, but due to it's composition, it causes alcohol poisoning and unconciousness.</entitydescription.midazolam>
+  <!-- gang members spraycan -->
+  <entityname.spraycan>Spraycan</entityname.spraycan>
+  <entitydescription.spraycan>Only craftable by members of the gang associated with the color. Aluminum can full of paint for defacing public spaces. Spray contains a very noxious acidic substance, do not use it on someone's face.</entitydescription.spraycan>
 </infotexts>
