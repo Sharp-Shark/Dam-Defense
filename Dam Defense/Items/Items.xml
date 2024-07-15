@@ -286,8 +286,12 @@
       <StatusEffect type="OnUse" targettype="Contained" targets="incendiumfueltank" Condition="-2.5" />
       <!-- do burn damage to characters -->
       <StatusEffect type="OnSuccess" target="UseTarget">
-        <Affliction identifier="burn" amount="1.5" />
+        <Affliction identifier="burn" amount="1.0" />
         <Affliction identifier="afterburn" amount="3" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget">
+	    <Conditional speciesname="neq human" />
+        <Affliction identifier="burn" amount="1.0" />
       </StatusEffect>
       <!-- explode if oxygen tanks are inserted -->
       <StatusEffect type="OnUse" targettype="Contained" targets="oxygentank" delay="1.0" stackable="false" Condition="0" setvalue="true">
@@ -1182,6 +1186,81 @@
     </Quality>
     <SkillRequirementHint identifier="weapons" level="50" />
   </Item>
+  <!-- HMG rounds do not stun -->
+  <Item name="" identifier="hmground" category="Weapon" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem" impactsoundtag="impact_metal_light" hideinmenus="true" scale="0.5">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,200,200,175" scalemultiplier="1,0.8" />
+      <Attack structuredamage="4" targetforce="7.5" itemdamage="4" severlimbsprobability="0.1" penetration="0.4">
+        <Affliction identifier="gunshotwound" strength="12" />
+        <Affliction identifier="bleeding" strength="10" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+      <!-- hmg rounds should not exist outside magazines -->
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+  <!-- AR rounds do not stun -->
+  <Item name="assaultrifleround" identifier="assaultrifleround" category="Weapon" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,riflemanbonus" impactsoundtag="impact_metal_light" hideinmenus="true" scale="0.5">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="40" height="14" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,200,200,175" scalemultiplier="1,0.8" />
+      <Attack structuredamage="6" targetforce="7.5" itemdamage="6" severlimbsprobability="0.2" penetration="0.3">
+        <Affliction identifier="gunshotwound" strength="25" />
+        <Affliction identifier="bleeding" strength="15" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+  <!-- SMG rounds do not stun -->
+  <Item name="" identifier="smground" category="Weapon" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem" impactsoundtag="impact_metal_light" hideinmenus="true" scale="0.5">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="40" height="14" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,175" scalemultiplier="1,0.6" />
+      <Attack structuredamage="4" targetforce="5" itemdamage="4" severlimbsprobability="0.1">
+        <Affliction identifier="gunshotwound" strength="12.5" />
+        <Affliction identifier="bleeding" strength="12.5" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+      <!-- smg rounds should not exist outside magazines -->
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
   <!-- increase fix speed (2.5) and make buyable at nukieshop -->
   <Item name="" identifier="screwdriver" addedrepairspeedmultiplier="2.5" category="Equipment" Tags="smallitem,simpletool,tool,electricalrepairtool,screwdriveritem" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
     <Preferredcontainer secondary="respawncontainer" amount="1" spawnprobability="1" notcampaign="true"/>
@@ -1359,9 +1438,52 @@
     </Wearable>
     <Holdable slots="RightHand+LeftHand" holdpos="0,-70" handle1="-5,0" handle2="10,-20" holdangle="0" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" allowswappingwhenpicked="false" />
     <ItemContainer capacity="6" maxstacksize="32" depth="0.5" >
-      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor" />
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor,safetyharness" />
     </ItemContainer>
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
+  <!-- nerfed safetyharness -->
+  <Item name="" identifier="safetyharness" category="Equipment" tags="smallitem,clothing" scale="0.35" cargocontaineridentifier="metalcrate" allowasextracargo="true" description="" impactsoundtag="impact_soft">
+    <PreferredContainer primary="crewcab" secondary="engcab"/>
+    <Price baseprice="120" sold="false">
+      <Price storeidentifier="merchantoutpost" multiplier="1.2" />
+      <Price storeidentifier="merchantcity" multiplier="1.2" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" multiplier="1.2" />
+    </Price>
+    <Deconstruct time="20">
+      <Item identifier="rubber" />
+      <Item identifier="steel" />
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="true">
+      <RequiredSkill identifier="mechanical" level="25" />
+      <RequiredItem identifier="rubber" amount="2" />
+      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="organicfiber" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/JobGear/TalentGear.png" sourcerect="198,132,67,57" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/JobGear/TalentGear.png" sourcerect="58,326,143,40" depth="0.6" origin="0.5,0.5" />
+    <Body width="120" height="35" density="15" />
+    <Wearable slots="Any,OuterClothes" msg="ItemMsgPickUpSelect">
+      <damagemodifier afflictionidentifiers="lacerations" armorsector="0.0,360.0" damagemultiplier="0.25" />
+      <damagemodifier afflictiontypes="burn" armorsector="0.0,360.0" damagemultiplier="0.25" />
+      <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.5" />
+      <SkillModifier skillidentifier="mechanical" skillvalue="15" />
+      <SkillModifier skillidentifier="electrical" skillvalue="15" />
+      <sprite name="safetyharness Torso" texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="Torso" hidelimb="false" inherittexturescale="true" hideotherwearables="false" origin="0.45,0.5" inheritsourcerect="false" SourceRect="160,0,112,192" />
+      <sprite name="safetyharness Right Hand" texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="safetyharness Left Hand" texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="safetyharness Right Lower Arm" texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="safetyharness Left Lower Arm" texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="safetyharness Right Upper Arm" texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="safetyharness Left Upper Arm" texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <StatValue stattype="FlowResistance" value="0.9" />
+    </Wearable>
+    <ItemContainer capacity="2" >
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor,safetyharness" />
+    </ItemContainer>
   </Item>
   <!-- bandolier can hold any item and also had stat changes -->
   <Item name="" identifier="bandolier" category="Equipment" tags="mediumitem,clothing" scale="0.5" cargocontaineridentifier="metalcrate" allowasextracargo="true" description="" impactsoundtag="impact_soft">
@@ -1381,9 +1503,9 @@
       <Item identifier="ballisticfiber" />
       <Item identifier="plastic" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="true">
-      <RequiredSkill identifier="weapons" level="35" />
-      <RequiredItem identifier="ballisticfiber" amount="2" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredItem identifier="ballisticfiber" amount="3" />
       <RequiredItem identifier="plastic" />
     </Fabricate>
     <InventoryIcon texture="Content/Items/JobGear/TalentGear.png" sourcerect="202,304,48,61" origin="0.45,0.5" />
@@ -1394,11 +1516,13 @@
       <damagemodifier afflictionidentifiers="blunttrauma,lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.475" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="bitewounds" armorsector="0.0,360.0" damagemultiplier="0.55" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
-      <sprite name="Security Vest" texture="Content/Items/JobGear/TalentGear.png" limb="Torso" hidelimb="false" sourcerect="217,209,75,97" inherittexturescale="true" origin="0.45,0.6" />
+      <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.625" />
+      <SkillModifier skillidentifier="weapons" skillvalue="5" />
+	  <sprite name="Security Vest" texture="Content/Items/JobGear/TalentGear.png" limb="Torso" hidelimb="false" sourcerect="217,209,75,97" inherittexturescale="true" origin="0.45,0.6" />
     </Wearable>
 	<Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
     <ItemContainer capacity="6" >
-      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor" />
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor,safetyharness" />
     </ItemContainer>
   </Item>
   <!-- added storage to body armor -->
@@ -1419,7 +1543,7 @@
       <Item identifier="ballisticfiber" amount="3" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
-      <RequiredSkill identifier="weapons" level="40" />
+      <RequiredSkill identifier="weapons" level="45" />
       <RequiredItem identifier="ballisticfiber" amount="4" />
     </Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
@@ -1430,11 +1554,12 @@
       <damagemodifier afflictionidentifiers="blunttrauma,lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="bitewounds" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.5" />
       <sprite name="Security Vest Wearable" texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="Torso" hidelimb="false" inheritscale="true" scale="0.65" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="4,32,126,183" />
     </Wearable>
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
 	<ItemContainer capacity="2">
-      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor" />
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor,safetyharness" />
     </ItemContainer>
   </Item>
   <!-- added storage to pirate/separatist body armor -->
@@ -1455,9 +1580,10 @@
     <Deconstruct time="20">
       <Item identifier="ballisticfiber" amount="1" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="30">
-      <RequiredSkill identifier="weapons" level="40" />
-      <RequiredItem identifier="ballisticfiber" amount="2" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+      <RequiredSkill identifier="weapons" level="20" />
+      <RequiredItem identifier="organicfiber" amount="2" />
+      <RequiredItem identifier="steel" amount="3" />
     </Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="320,640,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Map/Pirates/PirateEquip.png" sourcerect="14,45,103,158" depth="0.6" origin="0.5,0.4" />
@@ -1467,12 +1593,13 @@
       <damagemodifier afflictionidentifiers="blunttrauma,lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="bitewounds" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
 	  <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.5" />
       <SkillModifier skillidentifier="weapons" skillvalue="5" />
       <sprite name="Pirate Armor Wearable" texture="Content/Map/Pirates/PirateEquip.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" ignorelimbscale="true" scale="0.7" inheritsourcerect="false" sourcerect="14,45,103,158" />
     </Wearable>
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
 	<ItemContainer capacity="2">
-      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor" />
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor,safetyharness" />
     </ItemContainer>
   </Item>
   <!-- rifle rounds can now be bought at a nexshop -->
@@ -1509,8 +1636,6 @@
       <Attack structuredamage="15" targetforce="12" itemdamage="15" severlimbsprobability="0.5" penetration="0.45">
         <Affliction identifier="gunshotwound" strength="55" />
         <Affliction identifier="bleeding" strength="33" />
-        <Affliction identifier="stun" strength="0.6" />
-        <Affliction identifier="stun" strength="0.9" probability="0.3" />
       </Attack>
       <StatusEffect type="OnImpact" target="UseTarget">
         <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
@@ -1575,7 +1700,7 @@
     </Projectile>
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
-  <!-- rubber shotgun shells can now be bought at a nexshop -->
+  <!-- rubber shotgun shells can now be bought at a nexshop also nerfed stun and buffed blunttrauma -->
   <Item name="" identifier="shotgunshellblunt" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="12" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,shotgunammo" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="shotgun,autoshotgun,shotgununique" />
     <PreferredContainer primary="armcab" minamount="6" maxamount="12" spawnprobability="1" notcampaign="true" />
@@ -1606,8 +1731,8 @@
     <Projectile characterusable="false" hitscan="true" hitscancount="8" removeonhit="true" spread="15">
       <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="150,150,200,200" scalemultiplier="1,0.5" />
       <Attack structuredamage="0" targetforce="4" itemdamage="0" severlimbsprobability="0">
-        <Affliction identifier="blunttrauma" strength="3" />
-        <Affliction identifier="stun" strength="0.3" />
+        <Affliction identifier="blunttrauma" strength="8" />
+        <Affliction identifier="stun" strength="0.1" />
       </Attack>
       <StatusEffect type="OnImpact" target="UseTarget">
         <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="150,150,200,130" />
@@ -1648,7 +1773,6 @@
       <Attack structuredamage="10" targetforce="10" itemdamage="10" severlimbsprobability="0.2" penetration="0.1">
         <Affliction identifier="gunshotwound" strength="28" />
         <Affliction identifier="bleeding" strength="25" />
-        <Affliction identifier="stun" strength="0.3" />
       </Attack>
       <StatusEffect type="OnImpact" target="UseTarget">
         <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -1817,7 +1941,6 @@
       <Attack structuredamage="20" targetforce="20" itemdamage="20" severlimbsprobability="1.0" penetration="0.5">
         <Affliction identifier="gunshotwound" strength="70" />
         <Affliction identifier="bleeding" strength="50" />
-        <Affliction identifier="stun" strength="0.5" />
       </Attack>
       <StatusEffect type="OnImpact" target="UseTarget">
         <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="6,6" colormultiplier="255,200,115,200" />
@@ -2575,8 +2698,23 @@
     <Body width="220" height="50" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-8" handle1="-23,3" handle2="25,20" holdangle="-30">
       <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.9" setvalue="true" />
+	  <StatusEffect type="OnUse" target="This">
+        <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" volume="4.0" range="3000" />
+        <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" volume="4.0" range="3000" />
+        <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" volume="4.0" range="3000" />
+        <Explosion range="250.0" ballastfloradamage="100" structuredamage="0" itemdamage="0" force="5" severlimbsprobability="0" debris="true" decal="explosion" decalsize="0.5" penetration="0.5">
+          <Affliction identifier="afterburn" strength="100" dividebylimbcount="true"/>
+          <Affliction identifier="burn" strength="20" dividebylimbcount="true"/>
+          <Affliction identifier="stun" strength="0.5" />
+        </Explosion>
+        <RequiredItems items="flaregunround" type="Contained" msg="ItemMsgAmmoRequired" />
+	  </StatusEffect>
+	  <StatusEffect type="OnUse" target="Contained">
+	    <Remove />
+        <RequiredItems items="flaregunround" type="Contained" msg="ItemMsgAmmoRequired" />
+	  </StatusEffect>
     </Holdable>
-    <RangedWeapon reload="1.2" holdtrigger="true" barrelpos="100,15" spread="3" unskilledspread="12" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="1.3" damagemultiplier="0.9" holdtrigger="true" barrelpos="100,15" spread="3" unskilledspread="12" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -2591,15 +2729,15 @@
         <Sound file="Content/Items/Weapons/ShotgunLoad2.ogg" type="OnUse" range="500" />
         <Sound file="Content/Items/Weapons/ShotgunLoad3.ogg" type="OnUse" range="500" />
 	  </StatusEffect>
-	  <StatusEffect type="OnUse" target="This" Delay="1.1" Condition="100" setvalue="true" />
+	  <StatusEffect type="OnUse" target="This" Delay="1.2" Condition="100" setvalue="true" />
       <StatusEffect type="OnUse" target="This">
         <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="12.0" />
       </StatusEffect>
-      <RequiredItems items="revolverammo,rifleammo" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredItems items="revolverammo,rifleammo,shotgunammo,handcannonammo" type="Contained" msg="ItemMsgAmmoRequired" />
       <RequiredSkill identifier="weapons" level="50" />
     </RangedWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
-      <Containable items="revolverammo,rifleammo" hide="true" />
+      <Containable items="revolverammo,rifleammo,shotgunammo,handcannonammo,flaregunammo" hide="true" />
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
     </ItemContainer> 
     <aitarget sightrange="2000" soundrange="4000" fadeouttime="5" />
@@ -2803,8 +2941,6 @@
       <Attack structuredamage="6" targetforce="7.5" itemdamage="6" severlimbsprobability="0.2" penetration="0.25">
         <Affliction identifier="gunshotwound" strength="16" />
         <Affliction identifier="bleeding" strength="8" />
-        <Affliction identifier="stun" strength="0.1" />
-        <Affliction identifier="stun" strength="0.2" probability="0.1" />
       </Attack>
       <StatusEffect type="OnImpact" target="UseTarget">
         <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
@@ -3776,8 +3912,8 @@
   <Item name="Backwards Cap" identifier="backwardscap" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.4">
     <Deconstruct time="5" />
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
-      <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="organicfiber" />
+      <RequiredItem identifier="steel" amount="2" />
     </Fabricate>
     <Sprite name="Baseball Cap" texture="spraycan.png" depth="0.6" sourcerect="28,0,89,60" origin="0.5,0.5" />
     <Body width="80" height="45" density="15" waterdragcoefficient="10"/>

@@ -72,7 +72,7 @@ Hook.Add("DD.spraycan.use", "DD.spraycan.use", function(effect, deltaTime, item,
 	if limb.type == LimbType.Head then
 		local afflictionIdentifier = DD.stringSplit(tostring(item.Prefab.Identifier), 'spraycan')[1] .. 'paint'
 		DD.giveAfflictionCharacter(character, afflictionIdentifier, 0.5 * deltaTime, limb)
-		if DD.isCharacterUsingHullOxygen(character) then
+		if character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) < 1 then
 			DD.giveAfflictionCharacter(character, 'noxiousspray', 0.5 * deltaTime, limb)
 		end
 	end

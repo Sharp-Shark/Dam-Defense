@@ -341,7 +341,7 @@
     </Skills>
     <ItemSet>
       <Item identifier="securityuniform1" equip="true" outfit="true"/>
-      <Item identifier="bodyarmor" equip="true">
+      <Item identifier="bandolier" equip="true">
 	    <Item identifier="handcuffs" />
         <Item identifier="riflebullet" />
         <Item identifier="riflebullet" />
@@ -355,6 +355,17 @@
         <Item identifier="riflebullet" />
         <Item identifier="riflebullet" />
         <Item identifier="riflebullet" />
+        <Item identifier="pistolmagazine" />
+        <Item identifier="pistolmagazine" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="idcard" equip="true">
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
@@ -373,8 +384,6 @@
       <Item identifier="pistol" equip="false">
         <Item identifier="pistolmagazine" />
       </Item>
-      <Item identifier="pistolmagazine" />
-      <Item identifier="pistolmagazine" />
       <Item identifier="stungun" equip="false">
         <Item identifier="stungundart" />
         <Item identifier="stungundart" />
@@ -388,7 +397,6 @@
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-      <Item identifier="oxygentank"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -396,10 +404,31 @@
     </ItemSet>
     <ItemSet>
       <Item identifier="securityuniform1" equip="true" outfit="true"/>
-      <Item identifier="bodyarmor" equip="true">
+      <Item identifier="bandolier" equip="true">
 	    <Item identifier="handcuffs" />
         <Item identifier="pistoldrum" />
         <Item identifier="pistoldrum" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="stungundart" />
+        <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="idcard" equip="true">
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
@@ -418,18 +447,6 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
       </Item>
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
-      <Item identifier="revolverround" />
       <Item identifier="stungun" equip="false">
         <Item identifier="stungundart" />
         <Item identifier="stungundart" />
@@ -443,7 +460,6 @@
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-      <Item identifier="oxygentank"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_3.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_3.png" sourcerect="121,0,76,80" offset="-20,15" />

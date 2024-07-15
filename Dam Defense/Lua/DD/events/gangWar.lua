@@ -166,7 +166,7 @@ end, {
 		-- Hei, Al Capone, vê se te emenda! Já sabem do teu furo, nego, no imposto de renda.
 		self.knownGangsters = {}
 		self.knownGangstersSet = {}
-		local doxTimer = 60 * 10
+		local doxTimer = 60 * 8
 		self.gang1DoxInitialTimer = doxTimer / DD.tableSize(self.gang1)
 		self.gang1DoxTimer = self.gang1DoxInitialTimer
 		self.gang2DoxInitialTimer = doxTimer / DD.tableSize(self.gang2)
@@ -269,7 +269,7 @@ end, {
 		self.rewardSecurityForArrests(timesPerSecond)
 		
 		-- Increase time pressure
-		local timeToExplode = 15 * 60 -- in seconds
+		local timeToExplode = 12 * 60 -- in seconds
 		for client in self.gang1 do
 			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 		end
@@ -362,7 +362,9 @@ end, {
 				if client.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
 					client.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
 				end
-				DD.roundData.characterSalaryTimer[client.Character] = nil
+				if self.winnerGang ~= 'gang1' then
+					DD.roundData.characterSalaryTimer[client.Character] = nil
+				end
 			end
 		end
 		for client in self.gang2 do
@@ -370,7 +372,9 @@ end, {
 				if client.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
 					client.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
 				end
-				DD.roundData.characterSalaryTimer[client.Character] = nil
+				if self.winnerGang ~= 'gang2' then
+					DD.roundData.characterSalaryTimer[client.Character] = nil
+				end
 			end
 		end
 	end

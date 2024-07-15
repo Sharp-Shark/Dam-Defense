@@ -96,6 +96,7 @@
   <entitydescription.ethanol>Medical alcohol used as an ingredient in the manufacture of various medicines. Drinking while on duty is not advised. When drunk boosts the immune system at the cost of mild organ damage. Can be poured on wounds to clear gangrene.</entitydescription.ethanol>
   <entitydescription.stabilozine>Used as an ingredient in the manufacture of various medicines. On its own, can be used to slow down the effects of most toxins and lower fever.</entitydescription.stabilozine>
   <entitydescription.adrenaline>A naturally occurring hormone. When consumed, temporarily boosts the immune system and awakens anyone unconcious. Used to manufacture medicine or combat stimulants.</entitydescription.adrenaline>
+  <entitydescription.piratebodyarmor>Only craftable by rebel leaders. A set of body armor, partially fashioned out of improvised materials by the Jovian Separatists. It's heavier than it looks.</entitydescription.piratebodyarmor>
   <!--<entitydescription.replaceme></entitydescription.replaceme>-->
   </Override>
   
@@ -174,7 +175,7 @@
   <entityname.creepymask>Creepy Mask</entityname.creepymask>
   <entitydescription.creepymask>Boo-hoo, when's the hurting stop?</entitydescription.creepymask>
   <!-- Backwards Cap (for gang members) -->
-  <entityname.backwardscap>Backwards Cap</entityname.backwardscap>
+  <entityname.backwardscap>Ballistic Cap</entityname.backwardscap>
   <entitydescription.backwardscap>Only craftable by gang members. Appears to be a backwards cap and bandana, but is lined with a ballistic fiber. Thug life.</entitydescription.backwardscap>
   <!-- Storage Guntainer -->
   <entityname.toolboxgun>Storage Guntainer</entityname.toolboxgun>
@@ -187,7 +188,7 @@
   <entitydescription.foldableshotgun>An antique shotgun that manages to have both power and portability by being foldable.</entitydescription.foldableshotgun>
   <!-- Pipe Gun -->
   <entityname.pipegun>Pipe Gun</entityname.pipegun>
-  <entitydescription.pipegun>Two pipes, a simple trigger and a stock. Extremely cheap and fast to manufacture. Accepts both revolver and rifle rounds.</entitydescription.pipegun>
+  <entitydescription.pipegun>Two pipes, a simple trigger and a stock. Extremely cheap and fast to manufacture. Accepts any kind of cartridge.</entitydescription.pipegun>
   <!-- Separatist Rifle -->
   <entityname.separatistrifle>Separatist Rifle</entityname.separatistrifle>
   <entitydescription.separatistrifle>Only craftable by rebel leaders. Classic soviet 7.62x39mm design used by freedom fighters, terrorists or both depending on who you ask.</entitydescription.separatistrifle>

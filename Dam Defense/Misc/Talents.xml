@@ -54,6 +54,7 @@
   <Talent identifier="rebelknowledge">
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
 	
+    <AddedRecipe itemidentifier="piratebodyarmor"/>
     <AddedRecipe itemidentifier="marksmanrifle"/>
     <AddedRecipe itemidentifier="separatistrifle"/>
     <AddedRecipe itemidentifier="762magazine"/>
@@ -149,8 +150,8 @@
     <AddedRecipe itemidentifier="screwdriverhardened" />
     <AddedRecipe itemidentifier="crowbarhardened" />
     <AddedRecipe itemidentifier="divingknifehardened" />
-    <AddedRecipe itemidentifier="smgmagazinedepletedfuel" />
-    <AddedRecipe itemidentifier="revolverrounddepletedfuel" />
+    <!--<AddedRecipe itemidentifier="smgmagazinedepletedfuel" /> removed for balance -->
+    <!--<AddedRecipe itemidentifier="revolverrounddepletedfuel" /> removed for balance -->
     <AddedRecipe itemidentifier="nucleargun" />
     <AddedRecipe itemidentifier="nuclearshellcheap" />
     <AddedRecipe itemidentifier="nucleardepthchargecheap" />

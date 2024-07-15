@@ -202,7 +202,7 @@ end, {
 	end,
 	
 	onFinishAlways = function (self)
-		if DD.isClientCharacterAlive(self.killer) and (not self.killerWon) then
+		if (self.killer ~= nil) and DD.isClientCharacterAlive(self.killer) and (not self.killerWon) then
 			if self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true) ~= nil then
 				self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true).SetStrength(0)
 			end
