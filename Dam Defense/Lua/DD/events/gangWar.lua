@@ -12,7 +12,7 @@ end, {
 	paramType = {'clientList', 'clientList'},
 	clientKeys = {'eventGangWar'},
 	
-	name = 'eventGangWar',
+	name = 'gangWar',
 	isMainEvent = true,
 	cooldown = 60 * 6,
 	weight = 1.5,
@@ -20,6 +20,40 @@ end, {
 	
 	-- set this to false unless testing the event
 	debugMode = false,
+	
+	addClientToGang = function(self, client, gang)
+		if self.gang1Set[client] or self.gang2Set[client] then return end
+	
+		DD.messageClients(gang, DD.stringLocalize('gangWarRecruitmentNotice', {name = client.Name}), {preset = 'goodinfo'})
+		table.insert(gang, client)
+		self.gang1Set = DD.toSet(self.gang1)
+		self.gang2Set = DD.toSet(self.gang2)
+		
+		-- afflictions
+		DD.giveAfflictionCharacter(client.Character, 'gangfx', 999)
+		DD.giveAfflictionCharacter(client.Character, 'timepressureimmunity', 60 * 3) -- 3 minutes of time pressure immunity
+		-- give talents
+		client.character.GiveTalent('gangknowledge', true)
+		if self.gang1Set[client] then
+			client.Character.GiveTalent(self.gang1Color .. 'gangknowledge', true)
+		else
+			client.Character.GiveTalent(self.gang2Color .. 'gangknowledge', true)
+		end
+		-- custom salary for gang member
+		DD.roundData.characterSalaryTimer[client.Character] = DD.jobSalaryTimer.securityofficer
+		DD.roundData.salaryTimer[client] = DD.roundData.characterSalaryTimer[client.Character]
+		-- message
+		local gangName
+		local rivalGangName
+		if self.gang1Set[client] then
+			gangName = self.gang1Name
+			rivalGangName = self.gang2Name
+		else
+			gangName = self.gang2Name
+			rivalGangName = self.gang1Name
+		end
+		DD.messageClient(client, DD.stringLocalize('gangWarGangsterInfo', {gangName = gangName, rivalGangName = rivalGangName}), {preset = 'crit'})
+	end,
 	
 	buildList = function (self, set, excludeSet)
 		local excludeSet = excludeSet or {}
@@ -33,14 +67,12 @@ end, {
 		return text
 	end,
 	
-	doxGangster = function (self, gang)
-		for client in DD.arrShuffle(gang) do
-			if not self.knownGangstersSet[client] then
-				DD.messageAllClients(DD.stringLocalize('gangWarDoxx', {name = client.Name}), {preset = 'command'})
-				table.insert(self.knownGangsters, client)
-				self.knownGangstersSet[client] = true
-				return
-			end
+	doxGangster = function (self, client)
+		if not self.knownGangstersSet[client] then
+			DD.messageAllClients(DD.stringLocalize('gangWarDoxx', {name = client.Name}), {preset = 'command'})
+			table.insert(self.knownGangsters, client)
+			self.knownGangstersSet[client] = true
+			return
 		end
 	end,
 	
@@ -166,11 +198,20 @@ end, {
 		-- Hei, Al Capone, vê se te emenda! Já sabem do teu furo, nego, no imposto de renda.
 		self.knownGangsters = {}
 		self.knownGangstersSet = {}
-		local doxTimer = 60 * 8
-		self.gang1DoxInitialTimer = doxTimer / DD.tableSize(self.gang1)
-		self.gang1DoxTimer = self.gang1DoxInitialTimer
-		self.gang2DoxInitialTimer = doxTimer / DD.tableSize(self.gang2)
-		self.gang2DoxTimer = self.gang2DoxInitialTimer
+		self.doxTimer = 60 * 8
+		self.clientDoxTimerOffset = {}
+		-- Give gangsters a timer offset
+		local amount
+		amount = 0
+		for client in self.gang1 do
+			self.clientDoxTimerOffset[client] = self.doxTimer / #self.gang1 * amount / 2
+			amount = amount + 1
+		end
+		amount = 0
+		for client in self.gang2 do
+			self.clientDoxTimerOffset[client] = self.doxTimer / #self.gang2 * amount / 2
+			amount = amount + 1
+		end
 		
 		-- set of living non-gangsters
 		local aliveSet = {}
@@ -252,17 +293,22 @@ end, {
 		end
 		
 		-- dox gangsters
-		if self.gang1DoxTimer > 0 then
-			self.gang1DoxTimer = self.gang1DoxTimer - 1 / timesPerSecond
-		else
-			self.gang1DoxTimer = self.gang1DoxInitialTimer
-			self.doxGangster(self.gang1)
+		if self.doxTimer > 0 then
+			self.doxTimer = self.doxTimer - 1 / timesPerSecond
 		end
-		if self.gang2DoxTimer > 0 then
-			self.gang2DoxTimer = self.gang2DoxTimer - 1 / timesPerSecond
-		else
-			self.gang2DoxTimer = self.gang2DoxInitialTimer
-			self.doxGangster(self.gang2)
+		for client in self.gang1 do
+			local offset = 0
+			if self.clientDoxTimerOffset[client] ~= nil then offset = self.clientDoxTimerOffset[client] end
+			if self.doxTimer - offset <= 0 then
+				self.doxGangster(client)
+			end
+		end
+		for client in self.gang2 do
+			local offset = 0
+			if self.clientDoxTimerOffset[client] ~= nil then offset = self.clientDoxTimerOffset[client] end
+			if self.doxTimer - offset <= 0 then
+				self.doxGangster(client)
+			end
 		end
 		
 		-- reward security

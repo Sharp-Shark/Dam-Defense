@@ -73,18 +73,21 @@
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
 	
     <AddedRecipe itemidentifier="cyanspraycan"/>
+    <AddedRecipe itemidentifier="cyanmeth"/>
 	
   </Talent>
   <Talent identifier="yellowgangknowledge">
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
 	
     <AddedRecipe itemidentifier="yellowspraycan"/>
+    <AddedRecipe itemidentifier="yellowmeth"/>
 	
   </Talent>
   <Talent identifier="magentagangknowledge">
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
 	
     <AddedRecipe itemidentifier="magentaspraycan"/>
+    <AddedRecipe itemidentifier="magentameth"/>
 	
   </Talent>
 

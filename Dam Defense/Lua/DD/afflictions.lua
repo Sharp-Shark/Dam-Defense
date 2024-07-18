@@ -2,9 +2,9 @@
 if CLIENT and Game.IsMultiplayer then return end
 
 DD.diseaseData = {
-	flu = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.3, symptomChance = 1.0},
-	bacterial = {immune = 3, immuneVisibility = 0.5, spreadChance = 0.15, necrotic = true, symptomChance = 1.0},
-	tb = {immune = 1.5, immuneVisibility = 0.5, spreadChance = 0.3, necrotic = true, symptomChance = 1.0}
+	flu = {displayName = 'Flu', immune = 3, immuneVisibility = 0.5, spreadChance = 0.3, symptomChance = 1.0},
+	bacterial = {displayName = 'Bacterial', immune = 3, immuneVisibility = 0.5, spreadChance = 0.15, necrotic = true, symptomChance = 1.0},
+	tb = {displayName = 'Tuberculosis', immune = 1.5, immuneVisibility = 0.5, spreadChance = 0.3, necrotic = true, symptomChance = 1.0}
 }
 local getDiseaseStat = function (diseaseName, statName)
 	local stat = DD.diseaseData[diseaseName][statName]

@@ -337,6 +337,11 @@ DD.toArr = function (t)
 	return DD.tableValues(t)
 end
 
+-- Xor
+DD.xor = function (b1, b2)
+	return (b1 or b2) and not (b1 and b2)
+end
+
 -- Shuffles a table (assumes it has an array-like structure)
 DD.arrShuffle = function (array)
 	local shuffledArray = {}
@@ -645,6 +650,12 @@ DD.messageClient = function (client, text, data)
 	if data.preset == 'command' then
 		sender = '[Command]'
 		color = Color(190, 215, 255)
+		sendMain = false
+		sendAnother = true
+	end
+	if data.preset == 'bloodsample' then
+		sender = '[Blood Sample]'
+		color = Color(255, 55, 55)
 		sendMain = false
 		sendAnother = true
 	end

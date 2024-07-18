@@ -3,8 +3,17 @@ if CLIENT and Game.IsMultiplayer then return end
 Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(effect, deltaTime, item, targets, worldPosition)
     if CLIENT and Game.IsMultiplayer then return end
 	
+	local user = item.ParentInventory
+	if user == nil then return end
+	user = user.Owner
+	local userClient = DD.findClientByCharacter(user)
+	
 	if targets[1] == nil then return end
 	local character = targets[1]
+	local client = DD.findClientByCharacter(character)
+	
+	-- item has been used and thus will be deleted
+	Entity.Spawner.AddEntityToRemoveQueue(item)
 	
 	local speciesName = string.lower(tostring(character.SpeciesName))
 	if speciesName ~= 'human' then
@@ -19,7 +28,6 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 	local characterInfection = character.CharacterHealth.GetAfflictionStrengthByType('infection', true)
 	local characterHusk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
 	if characterHusk < 35 then characterHusk = 0 end
-	if characterInfection + characterHusk <= 0 then return end
 	
 	local getCharacterInfection = function (character, diseaseName)
 		local total = 0
@@ -30,10 +38,27 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 	
 	local inventory = item.ParentInventory
 	
+	local testResults = {['Crystal meth'] = false, ['Husk infection'] = false}
+	for event in DD.eventDirector.events do
+		if event.name == 'gangWar' then
+			if event.gang1Set[client] or event.gang2Set[client] then
+				testResults['Crystal meth'] = true
+			end
+		end
+	end
+	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true) > 0 then
+		testResults['Husk infection'] = true
+	end
+	
 	local characterInfections = {}
 	characterInfections.husk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
 	for diseaseName, data in pairs(DD.diseaseData) do
 		characterInfections[diseaseName] = getCharacterInfection(character, diseaseName)
+		if characterInfections[diseaseName] > 0 then
+			testResults[diseaseName .. ' infection'] = true
+		else
+			testResults[DD.diseaseData[diseaseName].displayName .. ' infection'] = false
+		end
 	end
 	
 	local winnerName = ''
@@ -45,11 +70,27 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 		end
 	end
 	
+	if userClient ~= nil then
+		local text = ''
+		for name, value in pairs(testResults) do
+			local bool = value
+			if not DD.isCharacterMedical(user) then
+				bool = DD.xor(bool, math.random() < 1/3)
+			end
+			if bool then
+				text = text .. name .. ': ' .. 'positive. '
+			end
+		end
+		text = string.sub(text, 1, #text - 1)
+		if text == '' then text = 'Negative on all tests.' end
+		DD.messageClient(userClient, text, {preset = 'bloodsample'})
+	end
+	
 	if winnerName == '' then return end
 	local itemIdentifier = winnerName .. 'syringe'
 	if winnerName == 'husk' then itemIdentifier = 'huskeggs' end
 	
-	Entity.Spawner.AddEntityToRemoveQueue(item)
+	if characterInfection + characterHusk <= 0 then return end
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(itemIdentifier), inventory, nil, nil, function (spawnedItem) end)
 end)
 
@@ -74,6 +115,30 @@ Hook.Add("DD.spraycan.use", "DD.spraycan.use", function(effect, deltaTime, item,
 		DD.giveAfflictionCharacter(character, afflictionIdentifier, 0.5 * deltaTime, limb)
 		if character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) < 1 then
 			DD.giveAfflictionCharacter(character, 'noxiousspray', 0.5 * deltaTime, limb)
+		end
+	end
+end)
+
+Hook.Add("DD.meth.use", "DD.meth.use", function(effect, deltaTime, item, targets, worldPosition)
+	if item.ParentInventory == nil then return end
+	local pipe = item.ParentInventory.Owner
+	if pipe.ParentInventory == nil then return end
+	local character = pipe.ParentInventory.Owner
+	local client = DD.findClientByCharacter(character)
+	if client == nil then return end
+	
+	if (character.SpeciesName ~= 'human') or DD.isCharacterSecurity(character) then return end
+	
+	local color = DD.stringSplit(tostring(item.Prefab.Identifier), 'meth')[1]
+	
+	for event in DD.eventDirector.events do
+		if event.name == 'gangWar' then
+			local gangNumber
+			if event.gang1Color == color then
+				event.addClientToGang(client, event.gang1)
+			elseif event.gang2Color == color then
+				event.addClientToGang(client, event.gang2)
+			end
 		end
 	end
 end)

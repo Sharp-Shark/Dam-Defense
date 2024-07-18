@@ -284,6 +284,8 @@
       <Item identifier="idcard" equip="true">
 	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	  </Item>
       <Item identifier="bluejumpsuit2" equip="true" outfit="true"/>
       <Item identifier="baseballcap" equip="true" />
@@ -682,6 +684,8 @@
       <Item identifier="idcard" equip="true">
 	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	  </Item>
       <Item identifier="assistantclothes" equip="true" outfit="true"/>
       <Item identifier="hardhatjanitor" equip="true">
@@ -770,6 +774,8 @@
     </ItemSet>
     <ItemSet>
       <Item identifier="idcard" equip="true">
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	  </Item>
@@ -973,6 +979,9 @@
       <Item identifier="pistol" equip="false">
         <Item identifier="pistolmagazine" />
       </Item>
+      <Item identifier="stunbaton">
+        <Item identifier="batterycell"/>
+      </Item>
       <Item identifier="underwaterscooter">
         <Item identifier="batterycell"/>
       </Item>
@@ -1036,6 +1045,9 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
+      </Item>
+      <Item identifier="stunbaton">
+        <Item identifier="batterycell"/>
       </Item>
       <Item identifier="underwaterscooter">
         <Item identifier="batterycell"/>

@@ -74,12 +74,14 @@ end, {
 					self.killer.Character.Inventory.GetItemAt(DD.invSlots.head).drop()
 				end
 				-- Put mask at headslot
-				Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('creepymask'), self.killer.Character.Inventory, nil, nil, function (spawnedItem)
-					self.mask = spawnedItem
-					Timer.Wait(function ()
-						self.killer.Character.Inventory.TryPutItem(spawnedItem, DD.invSlots.head, true, true, self.killer.Character, true, true)
-					end, 1)
-				end)
+				Timer.Wait(function ()
+					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('creepymask'), self.killer.Character.Inventory, nil, nil, function (spawnedItem)
+						self.mask = spawnedItem
+						Timer.Wait(function ()
+							self.killer.Character.Inventory.TryPutItem(spawnedItem, DD.invSlots.head, true, true, self.killer.Character, true, true)
+						end, 1)
+					end)
+				end, 1)
 				-- Message
 				DD.messageClient(self.killer, 'You are a serial killer! Your mask grants you unnatural resilience and power. You must kill your target ', {preset = 'crit'})
 				for client in Client.ClientList do

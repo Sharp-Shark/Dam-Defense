@@ -251,7 +251,10 @@
   <!-- Midazolam -->
   <entityname.midazolam>Midazolam</entityname.midazolam>
   <entitydescription.midazolam>Strong drug with healing properties, but due to it's composition, it causes alcohol poisoning and unconciousness.</entitydescription.midazolam>
-  <!-- gang members spraycan -->
+  <!-- Gangster Spraycan -->
   <entityname.spraycan>Spraycan</entityname.spraycan>
   <entitydescription.spraycan>Only craftable by members of the gang associated with the color. Aluminum can full of paint for defacing public spaces. Spray contains a very noxious acidic substance, do not use it on someone's face.</entitydescription.spraycan>
+  <!-- Gangster Crystal Meth -->
+  <entityname.crystalmeth>Crystal Meth</entityname.crystalmeth>
+  <entitydescription.crystalmeth>Only craftable by members of the gang associated with the color. Can be smoked with a captain's pipe to join a gang. All the benefits and health risks of smoking pipe tabacco and injecting meth.</entitydescription.crystalmeth>
 </infotexts>

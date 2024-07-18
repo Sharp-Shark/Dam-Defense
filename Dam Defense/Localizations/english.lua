@@ -41,6 +41,7 @@ return {
 	gangWarCommonerInfo = 'Two rival gangs are in the area. Their objective does not involve destroying the dam, however they may still cause havoc in the process of eliminating their rivals. You may try and stay neutral, or even ally yourself with one of the gangs. Do /gang for a list of known gangsters.',
 	gangWarEndGang = 'The {gangName} has won agaisnt the {rivalGangName}! Life goes on.',
 	gangWarEndNeutral = 'Both gangs have been eliminated or arrested! Life goes on.',
+	gangWarRecruitmentNotice = 'Your gang has just recruited {name}!',
 	-- events/ghostRole.lua (TBD)
 	-- events/greenskins.lua
 	greenskinInfo = 'You are a kind of amphibious nimble critter that like playing games with their prey. Put masks on humans to turn them into goblins. Hide in goblin crates to regenerate.',
