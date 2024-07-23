@@ -15,10 +15,14 @@ end, {
 		self.failed = false
 		self.finished = false
 		
-		-- Enforce instance cap and main event cap
+		-- Enforce instance cap, main event cap and other restrictions
 		if self.isMainEvent then self.instanceCap = 1 end
 		if (DD.eventDirector.mainEventCap >= 0) and self.isMainEvent and (#DD.eventDirector.getMainEvents() >= DD.eventDirector.mainEventCap) then return end
 		if (self.instanceCap >= 0) and (#DD.eventDirector.getEventInstances(self.name) >= self.instanceCap) then
+			self.fail()
+			return
+		end
+		if (not self.allowLateGame) and (DD.roundTimer > DD.disableRespawningAfter) then
 			self.fail()
 			return
 		end
@@ -76,6 +80,7 @@ end, {
 	name = 'name',
 	instanceCap = -1, -- how many instances of this event can be active at the same time (negative values mean it is uncapped)
 	isMainEvent = false, -- for eventDirector
+	allowLateGame = true, -- event may occur after respawn has been permanently disabled
 	cooldown = 60 * 1, -- for eventDirector
 	weight = 1, -- for eventDirector
 	goodness = 0, -- for eventDirector

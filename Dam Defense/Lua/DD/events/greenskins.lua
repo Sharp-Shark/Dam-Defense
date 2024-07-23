@@ -11,7 +11,7 @@ end, {
 	
 	name = 'greenskins',
 	isMainEvent = true,
-	cooldown = 60 * 10,
+	cooldown = 60 * 3,
 	weight = 0.5,
 	goodness = -1.5,
 	

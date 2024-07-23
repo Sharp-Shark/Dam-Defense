@@ -153,7 +153,7 @@
       <Item identifier="toolbelt" equip="true">
         <Item identifier="pistolmagazine" />
         <Item identifier="pistolmagazine" />
-        <Item identifier="divingflashlight">
+        <Item identifier="flashlight">
           <Item identifier="batterycell"/>
         </Item>
         <Item identifier="crowbar"/>
@@ -179,7 +179,7 @@
       <Item identifier="idcard" equip="true">
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
 	  </Item>
-      <Item identifier="orangejumpsuit2" equip="true" outfit="true"/>
+      <Item identifier="orangejumpsuit1" equip="true" outfit="true"/>
       <Item identifier="headset" equip="true"/>
       <Item identifier="hardhat" equip="true"/>
       <Item identifier="toolbelt" equip="true">
@@ -195,7 +195,7 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
-        <Item identifier="divingflashlight">
+        <Item identifier="flashlight">
           <Item identifier="batterycell"/>
         </Item>
         <Item identifier="crowbar"/>
@@ -324,7 +324,7 @@
 
   <Job identifier="securityofficer"
        minkarma="0" maxnumber="2" initialcount="2"
-       uicolor="0.95,0.65,0.35"
+       uicolor="0.65,0.55,0.35"
        vitalitymodifier="10"
        pricemultiplier="1.15"
        idlebehavior="Patrol">
@@ -587,43 +587,6 @@
       <Order identifier="requestfirstaid"/>
     </AppropriateOrders>
   </Job>
-  
-  <Job identifier="assistant"
-       minkarma="0" maxnumber="0"
-       vitalitymodifier="0"
-       pricemultiplier="0.8"
-       idlebehavior="Active">
-    <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="640,256,128,128" origin="0.5,0.5"/>
-    </Jobicon>
-    <JobiconSmall>
-      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,669,28,28" origin="0.5,0.5"/>
-    </JobiconSmall>
-    <Skills>
-      <Skill identifier="weapons" level="20,30"/>
-      <Skill identifier="mechanical" level="20,30"/>
-      <Skill identifier="electrical" level="20,30"/>
-      <Skill identifier="medical" level="20,30"/>
-      <Skill identifier="helm" level="17.5,20"/>
-    </Skills>
-    <ItemSet>
-      <Item identifier="clownmask" equip="true"/>
-      <Item identifier="assistantclothes" equip="true" outfit="true"/>
-	  <Item identifier="handcuffs" equip="true"/>
-      <PreviewSprites dims="120,109">
-        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
-        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
-      </PreviewSprites>
-    </ItemSet>
-    <AutonomousObjectives>
-      <Order identifier="extinguishfires" prioritymodifier ="1"/>
-      <Order identifier="pumpwater" option="pumpout" prioritymodifier="1"/>
-      <Order identifier="rescue" prioritymodifier="1"/>
-      <Order identifier="repairsystems" prioritymodifier="0.5"/>
-      <Order identifier="fixleaks" prioritymodifier="0.5"/>
-      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.4"/>
-    </AutonomousObjectives>
-  </Job>
   </Override>
   
   <Job identifier="janitor"
@@ -803,35 +766,34 @@
     </AutonomousObjectives>
   </Job>
   
-  <!-- foreman has been removed -->
   <Job identifier="foreman"
-       maxnumber="0"
-       minkarma="30" initialcount="0"
+       maxnumber="1"
+       minkarma="30" initialcount="1"
        uicolor="0.95,0.65,0.35"
        vitalitymodifier="10"
        pricemultiplier="1"
        idlebehavior="Active">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="768,256,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
-      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5"/>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,727,28,28" origin="0.5,0.5"/>
     </JobiconSmall>
     <Skills>
       <Skill identifier="weapons" level="65,75" primary="true"/>
       <Skill identifier="electrical" level="55,65"/>
       <Skill identifier="mechanical" level="55,65"/>
       <Skill identifier="medical" level="15,25"/>
-      <Skill identifier="helm" level="15,25"/>
+      <Skill identifier="helm" level="5,10"/>
     </Skills>
     <ItemSet>
       <Item identifier="idcard" equip="true">
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
 	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
 	  </Item>
-      <Item identifier="baseballcap" equip="true" />
-      <Item identifier="quartermasterclothes" equip="true" outfit="true"/>
-      <Item identifier="bodyarmor" equip="true">
+      <Item identifier="hardhathead" equip="true"/>
+      <Item identifier="orangejumpsuit2" equip="true" outfit="true"/>
+      <Item identifier="bandolier" equip="true">
 	    <Item identifier="handcuffs" />
         <Item identifier="shotgunshell" />
         <Item identifier="shotgunshell" />
@@ -845,66 +807,97 @@
         <Item identifier="shotgunshell" />
         <Item identifier="shotgunshell" />
         <Item identifier="shotgunshell" />
+        <Item identifier="pistolmagazine" />
+        <Item identifier="pistolmagazine" />
+	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="headset" equip="true"/>
-      <Item identifier="shotgun" equip="false">
+      <Item identifier="shotgununique" equip="true">
         <Item identifier="shotgunshell" />
         <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
+      </Item>
+      <Item identifier="pistol" equip="false">
+        <Item identifier="pistolmagazine" />
+      </Item>
+      <Item identifier="stunbaton">
+        <Item identifier="batterycell"/>
+      </Item>
+      <Item identifier="flashlight">
+        <Item identifier="batterycell"/>
       </Item>
       <Item identifier="weldingtool">
         <Item identifier="weldingfueltank"/>
       </Item>
-      <Item identifier="wrench"/>
       <Item identifier="screwdriver"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-      <Item identifier="disposabledivingmask"/>
     </ItemSet>
     <ItemSet>
       <Item identifier="idcard" equip="true">
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
 	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
 	  </Item>
-      <Item identifier="baseballcap" equip="true" />
-      <Item identifier="quartermasterclothes" equip="true" outfit="true"/>
-      <Item identifier="bodyarmor" equip="true">
+      <Item identifier="hardhathead" equip="true"/>
+      <Item identifier="orangejumpsuit2" equip="true" outfit="true"/>
+      <Item identifier="bandolier" equip="true">
 	    <Item identifier="handcuffs" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="headset" equip="true"/>
-      <Item identifier="rifle" equip="true">
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
+      <Item identifier="shotgun" equip="true">
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+      </Item>
+      <Item identifier="revolver" equip="false">
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+      </Item>
+      <Item identifier="stunbaton">
+        <Item identifier="batterycell"/>
+      </Item>
+      <Item identifier="flashlight">
+        <Item identifier="batterycell"/>
       </Item>
       <Item identifier="weldingtool">
         <Item identifier="weldingfueltank"/>
       </Item>
-      <Item identifier="wrench"/>
       <Item identifier="screwdriver"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-      <Item identifier="disposabledivingmask"/>
     </ItemSet>
     <AutonomousObjectives>
       <Order identifier="extinguishfires" prioritymodifier ="1"/>
@@ -924,8 +917,8 @@
   </Job>
   
   <Job identifier="diver"
-       maxnumber="2"
-       minkarma="30" initialcount="2"
+       maxnumber="1"
+       minkarma="30" initialcount="1"
        uicolor="0.35,0.6,0.75"
        vitalitymodifier="10"
        pricemultiplier="1"
@@ -1190,6 +1183,43 @@
   </Job>
   
   <!-- These jobs cannot be picked! -->
+  <Override>
+  <Job identifier="assistant"
+       minkarma="0" maxnumber="0"
+       vitalitymodifier="0"
+       pricemultiplier="0.8"
+       idlebehavior="Active">
+    <Jobicon>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="640,256,128,128" origin="0.5,0.5"/>
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,669,28,28" origin="0.5,0.5"/>
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="weapons" level="20,30"/>
+      <Skill identifier="mechanical" level="20,30"/>
+      <Skill identifier="electrical" level="20,30"/>
+      <Skill identifier="medical" level="20,30"/>
+      <Skill identifier="helm" level="17.5,20"/>
+    </Skills>
+    <ItemSet>
+      <Item identifier="prisonerclothes" equip="true" outfit="true"/>
+	  <Item identifier="handcuffs" equip="true"/>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="extinguishfires" prioritymodifier ="1"/>
+      <Order identifier="pumpwater" option="pumpout" prioritymodifier="1"/>
+      <Order identifier="rescue" prioritymodifier="1"/>
+      <Order identifier="repairsystems" prioritymodifier="0.5"/>
+      <Order identifier="fixleaks" prioritymodifier="0.5"/>
+      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.4"/>
+    </AutonomousObjectives>
+  </Job>
+  </Override>
   <Job identifier="bodyguard"
        minkarma="0" maxnumber="0"
        uicolor="0.45,0.5,0.55"
@@ -1264,7 +1294,7 @@
       <Order identifier="fightintruders"/>
     </AppropriateOrders>
   </Job>
-  <Job identifier="jet" uicolor="1.0,0.0,0.0" vitalitymodifier="15" maxnumber="0" pricemultiplier="1.0" idlebehavior="Active">
+  <Job identifier="jet" uicolor="1.0,0.0,0.0" vitalitymodifier="10" maxnumber="0" pricemultiplier="1.0" idlebehavior="Active">
     <Jobicon>
       <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5" />
     </Jobicon>

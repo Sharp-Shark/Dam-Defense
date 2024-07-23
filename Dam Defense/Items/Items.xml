@@ -227,7 +227,7 @@
     </Holdable>
   </Item>
   <!-- flamer  now uses afterburn instead of starting fires -->
-  <Item name="" identifier="flamer" category="Equipment,Weapon" Tags="smallitem,weapon,gun,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+  <Item name="" identifier="flamer" category="Equipment,Weapon" Tags="mediumitem,weapon,gun,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="secarmcab" amount="1" spawnprobability="0.2" notcampaign="true"/>
     <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab" amount="1" spawnprobability="0.1"/>
@@ -656,7 +656,7 @@
       <QualityStat stattype="ExplosionDamage" value="0.1" />
     </Quality>
   </Item>
-  <!-- riot shotgun goes in back slot -->
+  <!-- riot shotgun goes in back slot and changed sprite to be Facility Gamemode Tactical Shotgun -->
   <Item name="" identifier="shotgun" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="secarmcab" amount="1" spawnprobability="1" notcampaign="true" />
     <PreferredContainer secondary="outpostsecarmcab" amount="1" spawnprobability="0.5" />
@@ -682,14 +682,13 @@
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
       <RequiredItem identifier="plastic" amount="2" />
     </Fabricate>
-    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="704,830,64,64" origin="0.5,0.5" />
-    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,65,185,54" depth="0.55" origin="0.5,0.25" />
+    <Sprite texture="jetshotgun.png" sourcerect="0,0,216,60" depth="0.55" origin="0.5,0.5" />
     <Body width="180" height="30" density="25" />
-    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="40,-10" aimpos="55,5" handle1="-25,-16" handle2="26,0" holdangle="-40" msg="ItemMsgPickUpSelect" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="30,-50" aimpos="60,-10" handle1="-35,-5" handle2="20,5" holdangle="-10" msg="ItemMsgPickUpSelect" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,65,185,54" canbehiddenbyotherwearables="false" rotation="85" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.45,1.0" />
+      <sprite texture="jetshotgun.png" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" sourcerect="0,0,216,60" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.45,0.88" />
     </Wearable>
-    <RangedWeapon barrelpos="80,5" spread="0.1" unskilledspread="3" combatPriority="80" reload="1" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon barrelpos="70,12" spread="0.1" unskilledspread="3" combatPriority="80" reload="1" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -715,7 +714,7 @@
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="flashlight" hide="false" itempos="26,-3" setactive="true" />
+        <Containable items="flashlight" hide="false" itempos="40,-2" setactive="true" />
       </SubContainer>
     </ItemContainer>
     <aitarget sightrange="3000" soundrange="5000" fadeouttime="5" />
@@ -725,8 +724,8 @@
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <SkillRequirementHint identifier="weapons" level="50" />
   </Item>
-  <!-- boom stick goes in back slot -->
-  <Item name="" identifier="shotgununique" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gun,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light" hideinmenus="true" allowasextracargo="true">
+  <!-- boom stick goes in back slot and is faster and cheaper to craft -->
+  <Item name="" identifier="shotgununique" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gun,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light" allowasextracargo="true">
     <PreferredContainer primary="secarmcab" secondary="armcab" />
     <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab" spawnprobability="0.05" />
     <Price baseprice="931" sold="false" canbespecial="false" />
@@ -736,9 +735,9 @@
       <Item identifier="titaniumaluminiumalloy" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
-      <RequiredSkill identifier="weapons" level="55" />
-      <RequiredItem identifier="steel" amount="4" />
-      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
+      <RequiredSkill identifier="weapons" level="25" />
+      <RequiredItem identifier="steel" amount="3" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
     </Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="320,320,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="262,70,184,51" depth="0.55" origin="0.5,0.25" />
@@ -945,7 +944,7 @@
     <SkillRequirementHint identifier="weapons" level="50" />
   </Item>
   <!-- deadeye carbine goes in back slot -->
-  <Item name="" identifier="smgunique" category="Weapon" cargocontaineridentifier="metalcrate" tags="smallautoweapon,smallitem,weapon,gun,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light" hideinmenus="true" allowasextracargo="true">
+  <Item name="" identifier="smgunique" category="Weapon" cargocontaineridentifier="metalcrate" tags="smallautoweapon,smallitem,weapon,gun,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light" allowasextracargo="true">
     <PreferredContainer primary="secarmcab" secondary="armcab" />
     <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab" spawnprobability="0.05" />
     <Price baseprice="1064" sold="false" canbespecial="false" />
@@ -1147,9 +1146,7 @@
     <InventoryIcon texture="mercsrifle.png" sourcerect="52,96,172,80" depth="0.55" origin="0.5,0.5" />
     <Sprite texture="mercsrifle.png" sourcerect="0,0,224,80" depth="0.55" origin="0.5,0.5" />
     <Body width="220" height="50" density="25" />
-    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="57,-5" handle1="-40,-18" handle2="26,10" holdangle="-30">
-      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.9" setvalue="true" />
-    </Holdable>
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="57,-5" handle1="-40,-18" handle2="26,10" holdangle="-30" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite name="MERCS Rifle Worn" texture="mercsrifle.png" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" sourcerect="0,0,224,80" limb="Torso" ignorelimbscale="true" scale="0.52" origin="0.45,0.85" />
     </Wearable>
@@ -2311,7 +2308,7 @@
   </Item>
   
   <!-- Hey look buddy, I'm an engineer. That means I solve problems, not problems like "What is beauty?" Because that would fall within the purview of your conundrums of philosophy. I solve practical problems, for instance: how am I going to stop some mean mother Hubbard from tearing me a structurally superfluous be-hind? The answer, use a gun, and if that don't work... Use more gun. Take for instance this heavy caliber tripod mounted lil' old number designed by me, built by me, and you best hope... Not pointed at you. -->
-  <Item name="Hard Hat" identifier="hardhat" category="Diving,Equipment" tags="lightdiving,diving,smallitem,hardhat" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
+  <Item name="Yellow Hard Hat" identifier="hardhat" category="Diving,Equipment" tags="lightdiving,diving,smallitem,hardhat" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
     <Upgrade gameversion="0.9.6.0" scale="0.325" />
     <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
@@ -2325,12 +2322,16 @@
       <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
     </Price>
     <Deconstruct time="10">
-      <Item identifier="ballisticfiber" />
+      <Item identifier="plastic" amount="1" />
+      <Item identifier="steel" amount="1" />
+      <Item identifier="fpgacircuit" amount="1" />
 	  <Item identifier="divingmask" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="20">
-      <RequiredSkill identifier="mechanical" level="30" />
-      <RequiredItem identifier="ballisticfiber" amount="2" />
+      <RequiredSkill identifier="engineer" level="40" />
+      <RequiredItem identifier="plastic" amount="2" />
+      <RequiredItem identifier="steel" amount="1" />
+      <RequiredItem identifier="fpgacircuit" amount="1" />
 	  <RequiredItem identifier="divingmask" />
     </Fabricate>
     <Sprite name="Hard Hat" texture="headgears.png" sourcerect="0,0,96,92" depth="0.6" origin="0.5,0.5" />
@@ -2365,7 +2366,65 @@
     </ItemContainer>
     <StatusHUD drawhudwhenequipped="true" overlaycolor="0,20,0,50" debugwiring="true" showtexts="false" />
   </Item>
-  <Item name="Hard Hat" identifier="hardhatjanitor" category="Diving,Equipment" tags="lightdiving,diving,smallitem,hardhat" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
+  <Item name="Orange Hard Hat" identifier="hardhathead" category="Diving,Equipment" tags="lightdiving,diving,smallitem,hardhat" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
+    <Upgrade gameversion="0.9.6.0" scale="0.325" />
+    <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer secondary="armcab" />
+    <Price baseprice="320">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchantcity" multiplier="1.2" minavailable="1" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="20">
+      <Item identifier="plastic" amount="1" />
+      <Item identifier="ballisticfiber" amount="2" />
+      <Item identifier="fpgacircuit" amount="1" />
+	  <Item identifier="divingmask" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="40">
+      <RequiredItem identifier="plastic" amount="2" />
+      <RequiredItem identifier="ballisticfiber" amount="2" />
+      <RequiredItem identifier="fpgacircuit" amount="1" />
+	  <RequiredItem identifier="divingmask" />
+    </Fabricate>
+    <Sprite name="Hard Hat" texture="headgears.png" sourcerect="192,92,96,92" depth="0.6" origin="0.5,0.5" />
+    <Body radius="45" density="25" />
+    <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" UseHullOxygen="false" Condition="-0.5" comparison="Or">
+        <Conditional IsDead="false" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="-100.0" Oxygen="-5.0" Condition="-5.0">
+        <Conditional IsDead="false" />
+        <RequiredItem items="weldingfueltank" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained,Character" targetlimbs="Torso" OxygenAvailable="-100.0" Oxygen="-7.0" Condition="-5.0">
+        <RequiredItem items="incendiumfueltank" type="Contained" />
+        <Affliction identifier="burn" amount="3.0" />
+      </StatusEffect>
+      <damagemodifier afflictionidentifiers="blunttrauma,lacerations" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+      <sprite name="Hard Hat Wearable" texture="headgears.png" sourcerect="192,92,96,92" origin="0.48,0.65" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
+    </Wearable>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <Containable items="oxygensource,weldingtoolfuel" excludeditems="oxygenitetank" />
+      <Containable items="oxygenitetank">
+        <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="1.2" setvalue="true" targetslot="0">
+          <Conditional IsDead="false" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+    <StatusHUD drawhudwhenequipped="true" overlaycolor="0,20,0,50" debugwiring="true" showtexts="false" />
+  </Item>
+  <Item name="White Hard Hat" identifier="hardhatjanitor" category="Diving,Equipment" tags="lightdiving,diving,smallitem,hardhat" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
     <Upgrade gameversion="0.9.6.0" scale="0.325" />
     <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
@@ -2379,12 +2438,14 @@
       <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
     </Price>
     <Deconstruct time="10">
-      <Item identifier="ballisticfiber" />
+      <Item identifier="plastic" amount="1" />
+      <Item identifier="steel" amount="1" />
 	  <Item identifier="divingmask" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="30" />
-      <RequiredItem identifier="ballisticfiber" amount="2" />
+      <RequiredItem identifier="plastic" amount="2" />
+      <RequiredItem identifier="steel" amount="1" />
 	  <RequiredItem identifier="divingmask" />
     </Fabricate>
     <Sprite name="Hard Hat" texture="headgears.png" sourcerect="0,92,96,92" depth="0.6" origin="0.5,0.5" />
@@ -2696,25 +2757,8 @@
     <Sprite texture="pipegun.png" sourcerect="0,0,172,44" depth="0.55" origin="0.5,0.5" />
 	<BrokenSprite texture="pipegun.png" sourcerect="0,44,172,44" depth="0.55" mincondition="0" maxcondition="95" fadein="false" />
     <Body width="220" height="50" density="25" />
-    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-8" handle1="-23,3" handle2="25,20" holdangle="-30">
-      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.9" setvalue="true" />
-	  <StatusEffect type="OnUse" target="This">
-        <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" volume="4.0" range="3000" />
-        <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" volume="4.0" range="3000" />
-        <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" volume="4.0" range="3000" />
-        <Explosion range="250.0" ballastfloradamage="100" structuredamage="0" itemdamage="0" force="5" severlimbsprobability="0" debris="true" decal="explosion" decalsize="0.5" penetration="0.5">
-          <Affliction identifier="afterburn" strength="100" dividebylimbcount="true"/>
-          <Affliction identifier="burn" strength="20" dividebylimbcount="true"/>
-          <Affliction identifier="stun" strength="0.5" />
-        </Explosion>
-        <RequiredItems items="flaregunround" type="Contained" msg="ItemMsgAmmoRequired" />
-	  </StatusEffect>
-	  <StatusEffect type="OnUse" target="Contained">
-	    <Remove />
-        <RequiredItems items="flaregunround" type="Contained" msg="ItemMsgAmmoRequired" />
-	  </StatusEffect>
-    </Holdable>
-    <RangedWeapon reload="1.3" damagemultiplier="0.9" holdtrigger="true" barrelpos="100,15" spread="3" unskilledspread="12" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-8" handle1="-23,3" handle2="25,20" holdangle="-30" />
+    <RangedWeapon reload="1.3" holdtrigger="true" barrelpos="100,15" spread="2" unskilledspread="8" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -2733,7 +2777,7 @@
       <StatusEffect type="OnUse" target="This">
         <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="12.0" />
       </StatusEffect>
-      <RequiredItems items="revolverammo,rifleammo,shotgunammo,handcannonammo" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredItems items="revolverammo,rifleammo,shotgunammo,handcannonammo,flaregunammo" type="Contained" msg="ItemMsgAmmoRequired" />
       <RequiredSkill identifier="weapons" level="50" />
     </RangedWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
@@ -2776,9 +2820,7 @@
     <InventoryIcon texture="separatistrifle.png" sourcerect="0,0,224,48" origin="0.5,0.5" />
     <Sprite texture="separatistrifle.png" sourcerect="0,0,224,48" depth="0.55" origin="0.5,0.5" />
     <Body width="220" height="50" density="25" />
-    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-20" handle1="-53,-10" handle2="26,10" holdangle="-30">
-      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.9" setvalue="true" />
-    </Holdable>
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-20" handle1="-53,-10" handle2="26,10" holdangle="-30" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,0,224,48" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
     </Wearable>
@@ -2845,9 +2887,7 @@
     <InventoryIcon texture="separatistrifle.png" sourcerect="0,48,208,50" origin="0.5,0.5" />
     <Sprite texture="separatistrifle.png" sourcerect="0,48,224,50" depth="0.55" origin="0.5,0.5" />
     <Body width="220" height="50" density="25" />
-    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-20" handle1="-53,-10" handle2="26,10" holdangle="-30">
-      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.9" setvalue="true" />
-    </Holdable>
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-20" handle1="-53,-10" handle2="26,10" holdangle="-30" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,48,224,50" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
     </Wearable>
@@ -3287,7 +3327,7 @@
       <Item identifier="copper" />
       <Item identifier="tin" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator" requiredtime="40">
       <RequiredSkill identifier="weapons" level="25" />
       <RequiredItem identifier="steel" />
       <RequiredItem identifier="copper" />
@@ -3340,7 +3380,7 @@
       <Item identifier="carbon" />
       <Item identifier="phosphorus" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="12">
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="12">
       <RequiredSkill identifier="weapons" level="20" />
       <Item identifier="plastic" />
       <Item identifier="phosphorus" />
@@ -3351,9 +3391,8 @@
     <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
     <Projectile characterusable="false" launchimpulse="15.0" sticktocharacters="true" sticktoitems="true" sticktostructures="true" sticktodoors="true">
       <Attack penetration="1" severlimbsprobability="0">
-        <Affliction identifier="gunshotwound" strength="20" />
-        <Affliction identifier="bleeding" strength="10" />
-        <Affliction identifier="stun" strength="0.5" />
+        <Affliction identifier="gunshotwound" strength="12" />
+        <Affliction identifier="bleeding" strength="6" />
       </Attack>
       <StatusEffect type="OnActive" target="This" Condition="50.0" setvalue="true" disabledeltatime="true">
 	    <Use />
@@ -3369,8 +3408,8 @@
         <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" volume="4.0" range="3000" />
         <Explosion range="250.0" ballastfloradamage="100" structuredamage="0" itemdamage="0" force="5" severlimbsprobability="0" debris="true" decal="explosion" decalsize="0.5" penetration="0.5">
           <Affliction identifier="afterburn" strength="100" dividebylimbcount="true"/>
-          <Affliction identifier="burn" strength="20" dividebylimbcount="true"/>
-          <Affliction identifier="stun" strength="0.5" />
+          <Affliction identifier="burn" strength="15" dividebylimbcount="true"/>
+          <Affliction identifier="stun" strength="0.35" />
         </Explosion>
         <Remove />
       </StatusEffect>

@@ -8,6 +8,7 @@ end, {
 	
 	name = 'serialKiller',
 	isMainEvent = true,
+	allowLateGame = false,
 	cooldown = 60 * 5,
 	weight = 1,
 	goodness = -0.5,

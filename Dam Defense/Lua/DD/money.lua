@@ -10,6 +10,7 @@ DD.jobSalaryTimer = {
 	captain = calculateSalaryTimer(10),
 	diver = calculateSalaryTimer(7),
 	securityofficer = calculateSalaryTimer(7),
+	foreman = calculateSalaryTimer(7),
 	researcher = calculateSalaryTimer(7),
 	medicaldoctor = calculateSalaryTimer(5),
 	engineer = calculateSalaryTimer(5),
@@ -18,7 +19,6 @@ DD.jobSalaryTimer = {
 	clown = calculateSalaryTimer(2),
 	-- other jobs
 	bodyguard = calculateSalaryTimer(7),
-	foreman = calculateSalaryTimer(7),
 	assistant = calculateSalaryTimer(2)
 }
 local getCharacterSalaryTimer = function (character)

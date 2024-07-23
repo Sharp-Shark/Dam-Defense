@@ -10,6 +10,7 @@ end, {
 	
 	name = 'bloodCult',
 	isMainEvent = true,
+	allowLateGame = false,
 	cooldown = 60 * 6,
 	weight = 1.5,
 	goodness = -1.5,

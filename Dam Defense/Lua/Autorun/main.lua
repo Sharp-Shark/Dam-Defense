@@ -12,7 +12,7 @@ DD.warnings = {}
 
 -- Allow respawing
 DD.allowRespawning = true
-DD.disableRespawningAfter = 60 * 45
+DD.disableRespawningAfter = 60 * 35
 
 -- Json
 json = dofile(DD.path .. "/Lua/json.lua")
@@ -302,7 +302,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			if (character.JobIdentifier == 'janitor') then
 				character.GiveTalent('janitorialknowledge', true)
 			end
-			if (character.JobIdentifier == 'engineer') then
+			if (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') then
 				character.GiveTalent('unstoppablecuriosity', true)
 			end
 			if (character.JobIdentifier == 'captain') then
@@ -311,7 +311,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			if (character.JobIdentifier == 'medicaldoctor') or (character.JobIdentifier == 'researcher') or (character.JobIdentifier == 'securityofficer') or (character.JobIdentifier == 'janitor') then
 				character.GiveTalent('firemanscarry', true)
 			end
-			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'jet') then
+			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') then
 				character.GiveTalent('daringdolphin', true)
 				character.GiveTalent('ballastdenizen', true)
 			end

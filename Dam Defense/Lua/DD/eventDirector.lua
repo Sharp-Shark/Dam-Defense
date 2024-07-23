@@ -43,6 +43,7 @@ DD.eventDirector.eventPool = {
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}
 DD.eventDirector.cooldown = nil
+DD.eventDirector.respawnNowCooldown = 0
 DD.eventDirector.mainEvent = nil
 DD.eventDirector.mainEventCooldown = nil
 DD.eventDirector.eventsPerClientCap = 2 -- how many events a single client can be a participant of
@@ -292,18 +293,27 @@ DD.thinkFunctions.eventDirector = function ()
 	
 	if not DD.eventDirector.enabled then return end
 	if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) then return end
+	local timesPerSecond = 2
 	
 	if (DD.eventDirector.mainEvent == nil) and (DD.eventDirector.mainEventCooldown <= 0) then
 		DD.eventDirector.startNewEvent(true)
 		DD.eventDirector.mainEventCooldown = math.max(5, DD.eventDirector.mainEventCooldown)
 	else
-		DD.eventDirector.mainEventCooldown = DD.eventDirector.mainEventCooldown - 0.5
+		DD.eventDirector.mainEventCooldown = DD.eventDirector.mainEventCooldown - 1 / timesPerSecond
 	end
 	
 	if DD.eventDirector.cooldown <= 0 then
 		DD.eventDirector.startNewEvent()
 	else
-		DD.eventDirector.cooldown = DD.eventDirector.cooldown - 0.5
+		DD.eventDirector.cooldown = DD.eventDirector.cooldown - 1 / timesPerSecond
+	end
+	
+	-- do respawnnow just before a main event starts
+	if DD.eventDirector.respawnNowCooldown > 0 then
+		DD.eventDirector.respawnNowCooldown = DD.eventDirector.respawnNowCooldown - 1 / timesPerSecond
+	elseif (DD.eventDirector.mainEvent == nil) and (DD.eventDirector.mainEventCooldown <= 0) then
+		Game.ExecuteCommand('respawnnow')
+		DD.eventDirector.respawnNowCooldown = 15
 	end
 end
 
@@ -313,6 +323,7 @@ DD.roundStartFunctions.eventDirector = function ()
 	DD.eventDirector.mainEvent = nil
 	DD.eventDirector.events = {}
 	DD.eventDirector.cooldown = 60 * 1
+	DD.eventDirector.respawnNowCooldown = 0
 	DD.eventDirector.mainEventCooldown = 60 * 4
 end
 

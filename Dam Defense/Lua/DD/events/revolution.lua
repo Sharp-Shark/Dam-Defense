@@ -7,6 +7,7 @@ end, {
 	
 	name = 'revolution',
 	isMainEvent = true,
+	allowLateGame = false,
 	cooldown = 60 * 6,
 	weight = 2,
 	goodness = -1,
@@ -215,6 +216,7 @@ end, {
 	end,
 	
 	onFinishAlways = function (self)
+		if self.rebels == nil then self.rebels = {} end
 		for client in self.rebels do
 			if client.Character ~= nil then
 				if client.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then

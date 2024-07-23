@@ -14,7 +14,8 @@ end, {
 	
 	name = 'gangWar',
 	isMainEvent = true,
-	cooldown = 60 * 6,
+	allowLateGame = false,
+	cooldown = 60 * 5,
 	weight = 1.5,
 	goodness = -0.5,
 	
@@ -403,6 +404,8 @@ end, {
 	end,
 	
 	onFinishAlways = function (self)
+		if self.gang1 == nil then self.gang1 = {} end
+		if self.gang2 == nil then self.gang2 = {} end
 		for client in self.gang1 do
 			if client.Character ~= nil then
 				if client.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then

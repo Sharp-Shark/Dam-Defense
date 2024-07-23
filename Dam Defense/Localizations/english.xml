@@ -45,8 +45,8 @@
   <jobname.medicaldoctor>Medical Doctor</jobname.medicaldoctor>
   <jobdescription.medicaldoctor>Although usually taken for granted, doctors play an important role, possessing the required skill to treat injured or unconscious crewmembers. Their skills can also be useful for creating various non-medicinal chemicals.</jobdescription.medicaldoctor>
   <!-- Assistant -->
-  <jobname.assistant>Subject</jobname.assistant>
-  <jobdescription.assistant>Just a test subject, stripped of all their rights and humanity. As far as the law is concerned, this individual has never existed.</jobdescription.assistant>
+  <jobname.assistant>Prisoner</jobname.assistant>
+  <jobdescription.assistant>Sentenced to a life in prison. No longer worried about following the law, as soon as you break out of these shackles, all hell will break loose.</jobdescription.assistant>
   <!-- Laborer Job -->
   <jobname.mechanic>Laborer</jobname.mechanic>
   <jobdescription.mechanic>Has all non-event specific recipes unlocked. Work at the factory to refine raw materials into equipment, weapons, tools, ammo and armor. From time to time have a drink with the lads and plan an uprising agaisn't your oppressors. We work to earn the right to work to earn the right to give ourselves the right to buy ourselves the right to live to earn the right to die.</jobdescription.mechanic>
@@ -59,8 +59,8 @@
   <jobname.clown>Clown</jobname.clown>
   <jobdescription.clown>The only rule is there are no rules! Well almost. Do your best at making security hate you and (optionally) make the residents love you.</jobdescription.clown>
   <!-- Foreman Job -->
-  <jobname.foreman>Foreman</jobname.foreman>
-  <jobdescription.foreman>The Mayor will often be too busy to watch over the dam. However, your only occupation is watching the dam. You will order the engineers around to make sure the dam and its reactors are working neatly at all times. If the situation calls for it, you can also temporarily work as just an additional security officer.</jobdescription.foreman>
+  <jobname.foreman>Head Engineer</jobname.foreman>
+  <jobdescription.foreman>The mayor will often be too busy to watch over the dam, and that is where you come in. You will work together with the engineers and janitors around to make sure the dam and its reactors are working neatly at all times. If the situation damands it, you can also temporarily serve as an additional security officer.</jobdescription.foreman>
   <!-- Researcher Job -->
   <jobname.researcher>Researcher</jobname.researcher>
   <jobdescription.researcher>Aside from working as a Medical Doctor if the times come, you will also be mainly conducting often unethical research with the aim of producing antidotes to infections by using your blood sampler on infected and later refining your live samples into antidotes in a medical fabricator.</jobdescription.researcher>
@@ -164,9 +164,11 @@
   <entityname.constablehelmet>Constable Helmet</entityname.constablehelmet>
   <entitydescription.constablehelmet>A diving mask and a helmet! How british.</entitydescription.constablehelmet>
   <!-- Hard Hat -->
-  <entityname.hardhat>Hard Hat</entityname.hardhat>
+  <entityname.hardhat>Yellow Hard Hat</entityname.hardhat>
   <entitydescription.hardhat>Crucial to maintain a safe working environment. Keeps your head safe! Also has a built-in engineer's goggle to facilitate wiring.</entitydescription.hardhat>
-  <entityname.hardhatjanitor>Hard Hat</entityname.hardhatjanitor>
+  <entityname.hardhathead>Orange Hard Hat</entityname.hardhathead>
+  <entitydescription.hardhathead>Crucial to maintain a safe working environment. Keeps your head especially safe with its ballistic fiber lining on the inside! Also has a built-in engineer's goggle to facilitate wiring.</entitydescription.hardhathead>
+  <entityname.hardhatjanitor>White Hard Hat</entityname.hardhatjanitor>
   <entitydescription.hardhatjanitor>Crucial to maintain a safe working environment. Keeps your head safe!</entitydescription.hardhatjanitor>
   <!-- Emergency Mask -->
   <entityname.disposabledivingmask>Emergency Mask</entityname.disposabledivingmask>
