@@ -12,7 +12,7 @@ end, {
 	isMainEvent = false,
 	cooldown = 60 * 3,
 	weight = 1.5,
-	goodness = -1,
+	goodness = 0.5,
 	
 	onStart = function (self)
 		local ignorePlayerCount = false

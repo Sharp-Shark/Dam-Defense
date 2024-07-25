@@ -169,6 +169,13 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	local client = DD.findClientByCharacter(character)
 	if client == nil then return end
 	DD.messageClient(client, 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your objective is to have no non-cultist alive. You can convert others using "The 1998". You can extract "Life Essence" from the unconcious or the recently deceased using a "Sacrificial Dagger". Conversion and consuming "Life Essence" both lower your "Time Pressure". Long live Tchernobog! Do /cultists to get a list of fellow worshippers and /whisper to message them all.', {preset = 'crit'})
+
+	-- notify other cultists
+	for otherClient in Client.ClientList do
+		if (client ~= otherClient) and DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (client.Character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened') > 99) then
+			DD.messageClient(otherClient, DD.stringLocalize('bloodCultRecruitmentNotice', {name = client.Name}), {preset = 'goodinfo'})
+		end
+	end
 end)
 
 Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", function(effect, deltaTime, item, targets, worldPosition)

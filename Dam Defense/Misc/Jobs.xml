@@ -612,16 +612,17 @@
       <Item identifier="idcard" equip="true">
 	    <!-- 3 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
 	  </Item>
-      <Item identifier="assistantclothes" equip="true" outfit="true"/>
+      <Item identifier="assistantclothes" equip="true" outfit="true">
+	    <Item identifier="trashbag"/>
+	    <Item identifier="trashbag"/>
+	  </Item>
       <Item identifier="hardhatjanitor" equip="true">
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="toolbelt" equip="true">
-        <Item identifier="crowbar"/>
         <Item identifier="flashlight" >
 		  <Item identifier="batterycell"/>
 	    </Item>
-	    <Item identifier="trashbag"/>
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="flamer" >
@@ -633,7 +634,7 @@
       <Item identifier="sprayer" >
 		<Item identifier="ethanol"/>
 	  </Item>
-	  <Item identifier="trashbag"/>
+      <Item identifier="crowbar"/>
       <Item identifier="wrench"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
@@ -650,16 +651,17 @@
 	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	  </Item>
-      <Item identifier="assistantclothes" equip="true" outfit="true"/>
+      <Item identifier="assistantclothes" equip="true" outfit="true">
+	    <Item identifier="trashbag"/>
+	    <Item identifier="trashbag"/>
+	  </Item>
       <Item identifier="hardhatjanitor" equip="true">
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="toolbelt" equip="true">
-        <Item identifier="crowbar"/>
         <Item identifier="flashlight" >
 		  <Item identifier="batterycell"/>
 	    </Item>
-	    <Item identifier="trashbag"/>
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="flamer" >
@@ -671,7 +673,7 @@
       <Item identifier="sprayer" >
 		<Item identifier="ethanol"/>
 	  </Item>
-	  <Item identifier="trashbag"/>
+      <Item identifier="crowbar"/>
       <Item identifier="wrench"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
@@ -1348,6 +1350,82 @@
       <Item identifier="flashlight">
         <Item identifier="batterycell" />
       </Item>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="fightintruders" prioritymodifier="1" />
+      <Order identifier="rescue" prioritymodifier="0.5" />
+    </AutonomousObjectives>
+    <AppropriateOrders>
+      <Order identifier="fightintruders" />
+      <Order identifier="rescue" />
+      <Order identifier="requestfirstaid" />
+    </AppropriateOrders>
+  </Job>
+  <!--MERCS-->
+  <Job identifier="mercs" uicolor="0.3,0.3,1.0" vitalitymodifier="10" maxnumber="0" pricemultiplier="1.0" idlebehavior="Active">
+    <Jobicon>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5" />
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5" />
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="helm" level="60,60" />
+      <Skill identifier="weapons" level="60,60" />
+      <Skill identifier="mechanical" level="60,60" />
+      <Skill identifier="electrical" level="60,60" />
+      <Skill identifier="medical" level="60,60" />
+    </Skills>
+	<!-- Trooper -->
+    <ItemSet>
+      <Item identifier="securityuniform2" equip="true" />
+      <Item identifier="autoinjectorheadset" equip="true">
+        <Item identifier="combatstimulantsyringe" />
+      </Item>
+      <Item identifier="divingmask" equip="true" />
+      <Item identifier="nexsuit" equip="true" outfit="true">
+        <Item identifier="oxygentank" />
+		<Item identifier="handcuffs" />
+        <Item identifier="assaultriflemagazine" />
+        <Item identifier="assaultriflemagazine" />
+        <Item identifier="pistolmagazine" />
+        <Item identifier="pistolmagazine" />
+      </Item>
+      <Item identifier="idcard" equip="true">
+	    <!-- 15 nexcredits -->
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
+      <Item identifier="assaultrifle" equip="true">
+        <Item identifier="assaultriflemagazine" />
+      </Item>
+      <Item identifier="pistol">
+        <Item identifier="pistolmagazine" />
+      </Item>
+      <Item identifier="assaultriflemagazine" />
+      <Item identifier="assaultriflemagazine" />
+      <Item identifier="stunbaton">
+        <Item identifier="batterycell"/>
+      </Item>
+      <Item identifier="divingflashlight">
+        <Item identifier="batterycell" />
+      </Item>
+      <Item identifier="midazolam"/>
+      <Item identifier="midazolam"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="disposabledivingmask" />
     </ItemSet>
     <AutonomousObjectives>
       <Order identifier="fightintruders" prioritymodifier="1" />

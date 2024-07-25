@@ -12,7 +12,7 @@ DD.warnings = {}
 
 -- Allow respawing
 DD.allowRespawning = true
-DD.disableRespawningAfter = 60 * 35
+DD.disableRespawningAfter = 60 * 30
 
 -- Json
 json = dofile(DD.path .. "/Lua/json.lua")

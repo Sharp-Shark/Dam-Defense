@@ -77,32 +77,26 @@ end, {
 		end
 	end,
 	
-	rewardSecurityForArrests = function (self, timesPerSecond)
-		if self.rewardSecurityTimer == nil then
-			self.rewardSecurityTimer = 60
-			return
-		elseif self.rewardSecurityTimer > 0 then
-			self.rewardSecurityTimer = self.rewardSecurityTimer - 1 / timesPerSecond
-			return
-		else
-			self.rewardSecurityTimer = 60
-		end
-	
+	rewardSecurityForArrests = function (self, multiplier)
 		local arrestedGangsters = 0
 		for client in self.gang1 do
-			if (client.Character ~= nil) and (not client.Character.IsDead) and client.Character.IsHandcuffed then
+			if DD.isClientCharacterAlive(client) and DD.isCharacterArrested(client.Character) then
 				arrestedGangsters = arrestedGangsters + 1
 			end
 		end
 		for client in self.gang2 do
-			if (client.Character ~= nil) and (not client.Character.IsDead) and client.Character.IsHandcuffed then
+			if DD.isClientCharacterAlive(client) and DD.isCharacterArrested(client.Character) then
 				arrestedGangsters = arrestedGangsters + 1
 			end
 		end
 		
+		if arrestedGangsters <= 0 then
+			return
+		end
+		
 		for client in Client.ClientList do
 			if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) then
-				DD.giveMoneyToClient(client, arrestedGangsters, true)
+				DD.giveMoneyToClient(client, arrestedGangsters * multiplier, true)
 			end
 		end
 	end,
@@ -182,7 +176,7 @@ end, {
 			if DD.tableSize(self.gang1) + DD.tableSize(self.gang2) >= math.ceil(#Client.ClientList / 3) then
 				break
 			end
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsHandcuffed) and (not DD.isCharacterAntagSafe(client.Character)) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterArrested(client.Character)) and (not DD.isCharacterAntagSafe(client.Character)) then
 				-- do not add client to a gang if he's already in one
 				if not (self.gang1Set[client] or self.gang2Set[client]) then
 					if DD.tableSize(self.gang1) <= DD.tableSize(self.gang2) then
@@ -312,8 +306,18 @@ end, {
 			end
 		end
 		
-		-- reward security
-		self.rewardSecurityForArrests(timesPerSecond)
+		-- see if any gangster is not arrested
+		local anyGangsterNotArrested = false
+		for client in self.gang1 do
+			if DD.isClientCharacterAlive(client) and (not DD.isCharacterArrested(client.Character)) then
+				anyGangsterNotArrested = true
+			end
+		end
+		for client in self.gang2 do
+			if DD.isClientCharacterAlive(client) and (not DD.isCharacterArrested(client.Character)) then
+				anyGangsterNotArrested = true
+			end
+		end
 		
 		-- Increase time pressure
 		local timeToExplode = 12 * 60 -- in seconds
@@ -326,6 +330,11 @@ end, {
 		
 		-- end event
 		if (DD.tableSize(self.gang1) + DD.tableSize(self.gang2) <= 0) and not self.debugMode then
+			self.finish()
+			return
+		end
+		if (not anyGangsterNotArrested) and not self.debugMode then
+			self.winnerGang = 'security'
 			self.finish()
 			return
 		end
@@ -394,10 +403,16 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
+		self.rewardSecurityForArrests(5)
 		if self.winnerGang == 'gang1' then
 			DD.messageAllClients(DD.stringLocalize('gangWarEndGang', {gangName = self.gang1Name, rivalGangName = self.gang2Name}), {preset = 'goodinfo'})
 		elseif self.winnerGang == 'gang2' then
 			DD.messageAllClients(DD.stringLocalize('gangWarEndGang', {gangName = self.gang2Name, rivalGangName = self.gang1Name}), {preset = 'goodinfo'})
+		elseif self.winnerGang == 'security' then
+			for client in Client.ClientList do
+				DD.giveMoneyToClient(client, 10, true)
+			end
+			DD.messageAllClients(DD.stringLocalize('gangWarEndSecurity'), {preset = 'goodinfo'})
 		else
 			DD.messageAllClients(DD.stringLocalize('gangWarEndNeutral'), {preset = 'goodinfo'})
 		end

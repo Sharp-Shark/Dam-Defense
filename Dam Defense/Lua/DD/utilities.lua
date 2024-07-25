@@ -476,7 +476,7 @@ DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 	
 	if character.AnimController.HeadInWater and not ignoreHeadInWater then return false end
 	if not character.UseHullOxygen then return false end
-	if (suitslot ~= nil) and (suitslot.Prefab.Identifier == 'pucs') then return false end
+	if (suitslot ~= nil) and ((suitslot.Prefab.Identifier == 'pucs') or (suitslot.Prefab.Identifier == 'nexsuit')) then return false end
 	
 	--[[
 	if (headslot ~= nil) and headslot.HasTag('diving') then return false end
@@ -487,12 +487,12 @@ DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 end
 
 DD.isCharacterAntagSafe = function (character)
-	local jobs = {'captain', 'securityofficer', 'diver', 'foreman', 'researcher', 'medicaldoctor', 'bodyguard'}
+	local jobs = {'captain', 'securityofficer', 'diver', 'foreman', 'researcher', 'medicaldoctor', 'bodyguard', 'mercs'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 
 DD.isCharacterSecurity = function (character)
-	local jobs = {'captain', 'securityofficer', 'diver', 'foreman'}
+	local jobs = {'captain', 'securityofficer', 'diver', 'foreman', 'mercs'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 
@@ -504,6 +504,17 @@ end
 DD.isCharacterMedical = function (character)
 	local jobs = {'medicaldoctor', 'researcher'}
 	return DD.tableHas(jobs, character.JobIdentifier)
+end
+
+DD.isCharacterArrested = function (character)
+	if character.IsDead then return false end
+	if character.IsHandcuffed then return true end
+	
+	if (character.CurrentHull.RoomName == 'roomname.brig') and (character.Inventory.GetItemAt(DD.invSlots.innerclothes).Prefab.Identifier == 'prisonerclothes') then
+		return true
+	end
+	
+	return false
 end
 
 DD.isClientCharacterAlive = function (client)

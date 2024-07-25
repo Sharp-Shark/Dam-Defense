@@ -10,6 +10,7 @@ end, {
 	
 	name = 'nukies',
 	isMainEvent = true,
+	allowEarlyGame = false,
 	cooldown = 60 * 3,
 	weight = 2,
 	goodness = -1.5,
@@ -74,7 +75,7 @@ end, {
 		local anyNukieIsAlive = false
 		for key, nukie in pairs(self.nukies) do
 			if DD.isClientCharacterAlive(nukie) then
-				if not nukie.Character.IsHandcuffed then
+				if not DD.isCharacterArrested(nukie.Character) then
 					anyNukieIsAlive = true
 				end
 			else

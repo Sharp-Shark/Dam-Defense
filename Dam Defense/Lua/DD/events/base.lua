@@ -22,6 +22,10 @@ end, {
 			self.fail()
 			return
 		end
+		if (not self.allowEarlyGame) and (DD.roundTimer <= DD.disableRespawningAfter) then
+			self.fail()
+			return
+		end
 		if (not self.allowLateGame) and (DD.roundTimer > DD.disableRespawningAfter) then
 			self.fail()
 			return
@@ -80,6 +84,7 @@ end, {
 	name = 'name',
 	instanceCap = -1, -- how many instances of this event can be active at the same time (negative values mean it is uncapped)
 	isMainEvent = false, -- for eventDirector
+	allowEarlyGame = true, -- event may occur before respawn has been permanently disabled
 	allowLateGame = true, -- event may occur after respawn has been permanently disabled
 	cooldown = 60 * 1, -- for eventDirector
 	weight = 1, -- for eventDirector

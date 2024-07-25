@@ -24,6 +24,25 @@ end, {
 		return text
 	end,
 	
+	rewardSecurityForArrests = function (self, multiplier)
+		local arrestedRebels = 0
+		for client in self.rebels do
+			if DD.isClientCharacterAlive(client) and DD.isCharacterArrested(client.Character) then
+				arrestedRebels = arrestedRebels + 1
+			end
+		end
+		
+		if arrestedRebels <= 0 then
+			return
+		end
+		
+		for client in Client.ClientList do
+			if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) then
+				DD.giveMoneyToClient(client, arrestedRebels * multiplier, true)
+			end
+		end
+	end,
+	
 	onStart = function (self)
 		self.rebelsWon = false
 		self.rebelsDoxTimer = 60 * 8
@@ -43,7 +62,7 @@ end, {
 		self.rebelsSet = DD.toSet(self.rebels)
 		for client in DD.arrShuffle(Client.ClientList) do
 			local chance = -1
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsHandcuffed) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterArrested(client.Character)) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
 				chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
 			end
 			if DD.isClientCharacterAlive(client) and DD.isCharacterAntagSafe(client.Character) then
@@ -60,7 +79,7 @@ end, {
 		if DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3) then
 			for client in DD.arrShuffle(Client.ClientList) do
 				local chance = -1
-				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsHandcuffed) and DD.eventDirector.isClientBelowEventCap(client) then
+				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterArrested(client.Character)) and DD.eventDirector.isClientBelowEventCap(client) then
 					chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
 					if chance ~= -1 then chance = 1 end
 				end
@@ -129,7 +148,7 @@ end, {
 		-- See if any rebel is alive
 		local anyRebelIsAlive = false
 		for key, rebel in pairs(self.rebels) do
-			if DD.isClientCharacterAlive(rebel) and (not rebel.Character.IsHandcuffed) and (rebel.Character.SpeciesName == 'human') then
+			if DD.isClientCharacterAlive(rebel) and (not DD.isCharacterArrested(rebel.Character)) and (rebel.Character.SpeciesName == 'human') then
 				anyRebelIsAlive = true
 			else
 				if (not DD.isClientCharacterAlive(rebel)) or (rebel.Character.SpeciesName ~= 'human') then
@@ -211,6 +230,7 @@ end, {
 				Game.EndGame()
 			end, 10 * 1000)
 		else
+			self.rewardSecurityForArrests(5)
 			DD.messageAllClients('All rebels have been eliminated or arrested.', {preset = 'goodinfo'})
 		end
 	end,

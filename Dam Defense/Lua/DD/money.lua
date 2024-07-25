@@ -18,6 +18,7 @@ DD.jobSalaryTimer = {
 	mechanic = calculateSalaryTimer(2),
 	clown = calculateSalaryTimer(2),
 	-- other jobs
+	mercs = calculateSalaryTimer(15),
 	bodyguard = calculateSalaryTimer(7),
 	assistant = calculateSalaryTimer(2)
 }
@@ -45,7 +46,7 @@ end, {
 	onStart = function (self)
 		if self.client == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
-				if DD.isClientCharacterAlive(client) and (not client.Character.IsHandcuffed) and DD.eventDirector.isClientBelowEventCap(client) then
+				if DD.isClientCharacterAlive(client) and DD.eventDirector.isClientBelowEventCap(client) then
 					self.client = client
 					break
 				end

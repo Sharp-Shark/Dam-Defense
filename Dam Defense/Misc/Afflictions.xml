@@ -84,6 +84,17 @@
 	<AfflictionOverlay texture="%ModDir%/Misc/magentaOverlay.png" />
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
+  
+  <!-- announcement effect, play a sound effect -->
+  <Affliction name="Announcement FX" identifier="announcementfx" description="" type="fx" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
+    <Effect minstrength="0" maxstrength="10" strengthchange="-10.0" >
+      <StatusEffect target="Character">
+        <Conditional IsLocalPlayer="True"/>
+        <Sound file="%ModDir%/Sounds/announcement.ogg" loop="false" volume="12.0" />
+      </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
 
   <!-- gang war effect, play a sound effect -->
   <Affliction name="Gang FX" identifier="gangfx" description="" type="fx" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
@@ -139,6 +150,22 @@
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
 
+  <!-- JUDGEMENT -->
+  <Affliction name="Judgement" identifier="judgement" description="" type="beepingbomb" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
+    <Effect minstrength="0" maxstrength="8.5" strengthchange="9.9">
+      <StatusEffect target="Character">
+        <Sound file="%ModDir%/Sounds/judgement.ogg" loop="false" volume="12.0" />
+      </StatusEffect>
+	</Effect>
+    <Effect minstrength="8.5" maxstrength="9.9" strengthchange="1.0" />
+    <Effect minstrength="9.9" maxstrength="10" strengthchange="1.0">
+	  <StatusEffect target="Character" >
+	    <ReduceAffliction identifier="beepingbomb" amount="999" />
+	    <LuaHook name="DD.timepressure.explode" />
+	  </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
   <!-- beeping bomb builds up desperation -->
   <Affliction name="Beeping Bomb" identifier="beepingbomb" description="" type="beepingbomb" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
     <Effect minstrength="0" maxstrength="7.5" strengthchange="1.0">

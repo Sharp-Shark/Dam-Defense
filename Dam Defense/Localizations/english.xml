@@ -8,9 +8,7 @@
   <roomname.factoryrooftop>Factory rooftop</roomname.factoryrooftop>
   <roomname.hospital>Hospital</roomname.hospital>
   <roomname.hospitalrooftop>Hospital rooftop</roomname.hospitalrooftop>
-  <roomname.temporaryholding>Temporary holding</roomname.temporaryholding>
-  <roomname.prison>Prison</roomname.prison>
-  <roomname.prisonrooftop>Prison rooftop</roomname.prisonrooftop>
+  <roomname.brigrooftop>Brig rooftop</roomname.brigrooftop>
   <roomname.divingarmory>Diving armory</roomname.divingarmory>
   <roomname.motel>Motel</roomname.motel>
   <roomname.motelrooftop>Motel rooftop</roomname.motelrooftop>
@@ -67,9 +65,15 @@
   <!-- Diver Job -->
   <jobname.diver>Diver</jobname.diver>
   <jobdescription.diver>Expert in diving and hunting. Your main task is keeping the local fauna in check with your guns and to mine with your plasma cutter. If the situation calls for it, you can also temporarily work as just an additional security officer.</jobdescription.diver>
+  <!-- Bodyguard Job -->
+  <jobname.bodyguard>Bodyguard</jobname.bodyguard>
+  <jobdescription.bodyguard>Hired, trained and armed to keep the VIP safe at all costs. Mission failure will result in subject termination.</jobdescription.bodyguard>
   <!-- Nukie Job -->
   <jobname.jet>Jovian Elite Trooper</jobname.jet>
   <jobdescription.jet>Jovian Elite Troops. Destroy that dam and kill every single bastard inside who isn't allied with the separatists.</jobdescription.jet>
+  <!-- MERCS Job -->
+  <jobname.mercs>MERCS Member</jobname.mercs>
+  <jobdescription.mercs>Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Restore order in the dam and protect it. Mission failure will result in subject termination.</jobdescription.mercs>
   
   <!-- Immune Afflictions -->
   <afflictionname.immuneboost>Immune-boost</afflictionname.immuneboost>
@@ -259,4 +263,7 @@
   <!-- Gangster Crystal Meth -->
   <entityname.crystalmeth>Crystal Meth</entityname.crystalmeth>
   <entitydescription.crystalmeth>Only craftable by members of the gang associated with the color. Can be smoked with a captain's pipe to join a gang. All the benefits and health risks of smoking pipe tabacco and injecting meth.</entitydescription.crystalmeth>
+  <!-- Nexsuit -->
+  <entityname.nexsuit>Nexsuit</entityname.nexsuit>
+  <entitydescription.nexsuit>Nexpharma proprietary suit exclusive to their elite paramilitary group, the Mobile Emergency Rescue and Combat Squad, or MERCS. In actuality, it's just a PUCS adapted for combat.</entitydescription.nexsuit>
 </infotexts>

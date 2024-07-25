@@ -21,7 +21,7 @@ end, {
 		
 		local anyoneAlive = false
 		for client in DD.arrShuffle(Client.ClientList) do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not client.Character.IsHandcuffed) and (not DD.isCharacterAntagSafe(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterArrested(client.Character)) and (not DD.isCharacterAntagSafe(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
 				self.killer = client
 			elseif DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
 				anyoneAlive = true
@@ -156,7 +156,7 @@ end, {
 			self.finish()
 			return
 		end
-		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and self.killer.Character.IsHandcuffed) then
+		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and DD.isCharacterArrested(self.killer.Character)) then
 			self.finish()
 			return
 		end
@@ -197,7 +197,7 @@ end, {
 			if not DD.isClientCharacterAlive(self.killer) then
 				DD.messageAllClients('The serial killer has been eliminated.', {preset = 'goodinfo'})
 				DD.messageClient(self.killer, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
-			elseif self.killer.Character.IsHandcuffed then
+			elseif DD.isCharacterArrested(self.killer.Character) then
 				DD.messageAllClients('The serial killer has been arrested.', {preset = 'goodinfo'})
 				DD.messageClient(self.killer, 'You been arrested and are not an antagonist anymore!', {preset = 'crit'})
 			end

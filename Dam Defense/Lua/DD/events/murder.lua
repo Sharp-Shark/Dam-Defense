@@ -60,7 +60,7 @@ end, {
 		if not DD.isClientCharacterAlive(self.murderer) then
 			self.murdererDied = true
 		else
-			if self.murderer.Character.IsHandcuffed then
+			if DD.isCharacterArrested(self.murderer.Character) then
 				self.murdererArrested = true
 			end
 		end
