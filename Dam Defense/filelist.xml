@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="0.13.4" corepackage="False" steamworkshopid="3146664815" gameversion="1.5.9.1">
+<contentpackage name="Dam Defense" modversion="0.13.5" corepackage="False" steamworkshopid="3146664815" gameversion="1.5.9.1">
   <Item file="%ModDir%/Items/Jerry.xml" />
   <Item file="%ModDir%/Items/Machines.xml" />
   <Item file="%ModDir%/Items/Boomboxes.xml" />

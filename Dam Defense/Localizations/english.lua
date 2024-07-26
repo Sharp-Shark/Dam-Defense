@@ -4,6 +4,8 @@ return {
 	matchHasGoneOnForTooLong = 'The match has gone on for too long and respawning has been automatically disabled.',
 	allTheCrewIsDead = 'All of the crew is dead! Round ending in 10 seconds.',
 	commandHelp = 'List of chat commands:\n{list}.',
+	commandHelpMisspell = '"{command}" is not a valid chat command. Do "/help" for a list of chat commands.',
+	commandInfoMonster = 'You are a monster and your objective is to antagonize the humans.',
 	commandPossessErrorDead = 'You have to be dead to use this command.',
 	commandPossessErrorNothingNearby = 'No nearby character fit to be possessed was found.',
 	commandPossess = 'Do /freecam to go back to spectating. You cannot respawn unless you are spectating.',

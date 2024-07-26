@@ -172,7 +172,7 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 
 	-- notify other cultists
 	for otherClient in Client.ClientList do
-		if (client ~= otherClient) and DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (client.Character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened') > 99) then
+		if (client ~= otherClient) and DD.isClientCharacterAlive(otherClient) and (otherClient.Character.SpeciesName == 'human') and (otherClient.Character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened') > 99) then
 			DD.messageClient(otherClient, DD.stringLocalize('bloodCultRecruitmentNotice', {name = client.Name}), {preset = 'goodinfo'})
 		end
 	end

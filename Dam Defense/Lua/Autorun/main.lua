@@ -140,10 +140,11 @@ local doChatMessageFunctions = function (message, sender)
 	end
 	return returnValue
 end
+-- lists commands
 DD.chatMessageFunctions.help = function (message, sender)
-	if message ~= '/help' then return end
+	if string.sub(message, 1, 1) ~= '/' then return end
 	
-	commands = {'help', 'events', 'myevents', 'credits', 'withdraw', 'possess', 'freecam'}
+	commands = {'help', 'jobinfo', 'events', 'myevents', 'credits', 'withdraw', 'possess', 'freecam'}
 	
 	local specialCommands = {rebels = false, cultists = false, whisper = false, gang = false}
 	for event in DD.eventDirector.getEventInstances('revolution') do
@@ -158,11 +159,24 @@ DD.chatMessageFunctions.help = function (message, sender)
 	for event in DD.eventDirector.getEventInstances('gangWar') do
 		specialCommands['gang'] = true
 	end
-	
 	for specialCommand, value in pairs(specialCommands) do
 		if value then
 			table.insert(commands, specialCommand)
 		end
+	end
+	
+	local isMisspell = true
+	for command in commands do
+		if string.sub(message, 1, #command + 1) == '/' .. command then
+			isMisspell = false
+		end
+	end
+	if (not isMisspell) and (message ~= '/help') then
+		return
+	end
+	if isMisspell then
+		DD.messageClient(sender, DD.stringLocalize('commandHelpMisspell', {command = message}), {preset = 'commandError'})
+		return
 	end
 	
 	local list = ''
@@ -175,7 +189,19 @@ DD.chatMessageFunctions.help = function (message, sender)
 	
 	return true
 end
-DD.chatMessageFunctions.ghostRole = function (message, sender)
+DD.chatMessageFunctions.jobinfo = function (message, sender)
+	if message ~= '/jobinfo' then return end
+	if not DD.isClientCharacterAlive(sender) then return end
+	
+	if sender.Character.SpeciesName == 'human' then
+		DD.messageClient(sender, JobPrefab.Get(sender.Character.JobIdentifier).Description, {preset = 'command'})
+	else
+		DD.messageClient(sender, DD.stringLocalize('commandInfoMonster'), {preset = 'command'})
+	end
+	
+	return true
+end
+DD.chatMessageFunctions.possess = function (message, sender)
 	if message ~= '/possess' then return end
 	if DD.isClientCharacterAlive(sender) then
 		local message = DD.stringLocalize('commandPossessErrorDead')

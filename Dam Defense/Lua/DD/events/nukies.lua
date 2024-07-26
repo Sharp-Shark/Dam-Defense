@@ -11,7 +11,7 @@ end, {
 	name = 'nukies',
 	isMainEvent = true,
 	allowEarlyGame = false,
-	cooldown = 60 * 3,
+	cooldown = 60 * 2,
 	weight = 2,
 	goodness = -1.5,
 	
@@ -71,6 +71,15 @@ end, {
 			end
 		end
 		
+		-- See if any non-nukie is alive
+		local anyNonNukieAlive = false
+		for client in Client.ClientList do
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not self.nukiesSet[client]) then
+				anyNonNukieAlive = true
+				break
+			end
+		end
+		
 		-- See if any nukie is alive
 		local anyNukieIsAlive = false
 		for key, nukie in pairs(self.nukies) do
@@ -93,6 +102,11 @@ end, {
 		
 		-- End event if all reactors are broken or all nukies are dead
 		if not anyReactorIsUnbroken then
+			self.nukiesWon = true
+			self.finish()
+			return
+		end
+		if not anyNonNukieAlive then
 			self.nukiesWon = true
 			self.finish()
 			return

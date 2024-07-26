@@ -509,6 +509,7 @@ end
 DD.isCharacterArrested = function (character)
 	if character.IsDead then return false end
 	if character.IsHandcuffed then return true end
+	if character.CurrentHull == nil then return false end
 	
 	if (character.CurrentHull.RoomName == 'roomname.brig') and (character.Inventory.GetItemAt(DD.invSlots.innerclothes).Prefab.Identifier == 'prisonerclothes') then
 		return true
@@ -661,6 +662,12 @@ DD.messageClient = function (client, text, data)
 	if data.preset == 'command' then
 		sender = '[Command]'
 		color = Color(190, 215, 255)
+		sendMain = false
+		sendAnother = true
+	end
+	if data.preset == 'commandError' then
+		sender = '[Error]'
+		color = Color(255, 55, 55)
 		sendMain = false
 		sendAnother = true
 	end

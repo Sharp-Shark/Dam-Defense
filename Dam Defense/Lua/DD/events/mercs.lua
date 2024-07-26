@@ -10,9 +10,9 @@ end, {
 	instanceCap = 1,
 	isMainEvent = false,
 	allowEarlyGame = false,
-	cooldown = 60 * 2,
-	weight = 0.8,
-	goodness = 2.5,
+	cooldown = 60 * 1,
+	weight = 1.0,
+	goodness = 2.0,
 	
 	onStart = function (self)
 		if self.mercs == nil then
