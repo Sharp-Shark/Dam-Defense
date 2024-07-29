@@ -17,6 +17,7 @@ require 'DD/events/greenskins'
 require 'DD/events/vip'
 require 'DD/events/gangWar'
 require 'DD/events/mercs'
+require 'DD/events/deathSquad'
 
 -- Event director table
 DD.eventDirector = {}
@@ -29,6 +30,7 @@ DD.eventDirector.eventPool = {
 	DD.eventBloodCult,
 	DD.eventGreenskins,
 	DD.eventGangWar,
+	DD.eventDeathSquad,
 	-- Side events
 	DD.eventFish,
 	DD.eventAirdrop,

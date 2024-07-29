@@ -65,6 +65,11 @@ end, {
 				table.insert(self.cultists, client)
 			end
 		end
+		for client in self.cultists do
+			if not self.cultistsSet[client] then
+				self.logClients({[client] = true})
+			end
+		end
 		self.cultistsSet = DD.toSet(self.cultists)
 		return self.cultists
 	end,

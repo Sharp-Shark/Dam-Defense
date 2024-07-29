@@ -3,6 +3,26 @@ DD.warn = function (text)
 	table.insert(DD.warnings, text)
 end
 
+-- Special character for special string formatting
+-- print(DD.sc .. 'color:red' .. DD.sc .. 'red' .. DD.sc .. 'end' .. DD.sc)
+DD.specialChar = '‖'
+
+-- Short for DD.specialChar for live inputting lua commands in debug menu
+if sc == nil then
+	sc = DD.specialChar
+end
+DD.sc = DD.specialChar
+
+-- https://github.com/evilfactory/LuaCsForBarotrauma/blob/master/Barotrauma/BarotraumaShared/SharedSource/Networking/NetworkMember.cs#L221
+DD.clientLogName = function (client)
+	local text = DD.sc
+	if client.Karma < 40 then
+		text = text .. 'color:#ff9900;'
+	end
+	text = text .. 'metadata:' ..  client.AccountId.ToString() .. DD.sc .. client.Name .. DD.sc .. 'end' .. DD.sc
+	return text
+end
+
 -- Couldn't be bothered to recall what number is used for each inventory slot so I made this table
 DD.invSlots = {
 	idcard = 0,

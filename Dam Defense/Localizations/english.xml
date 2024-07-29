@@ -74,6 +74,8 @@
   <!-- MERCS Job -->
   <jobname.mercs>MERCS Member</jobname.mercs>
   <jobdescription.mercs>Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Restore order in the dam and protect it. Mission failure will result in subject termination.</jobdescription.mercs>
+  <jobname.mercsevil>MERC Squadder</jobname.mercsevil>
+  <jobdescription.mercsevil>Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Explode the reactor and kill any personnel related to the dam. Mission failure will result in subject termination.</jobdescription.mercsevil>
   
   <!-- Immune Afflictions -->
   <afflictionname.immuneboost>Immune-boost</afflictionname.immuneboost>

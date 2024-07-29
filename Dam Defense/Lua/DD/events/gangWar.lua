@@ -10,7 +10,7 @@ DD.eventGangWar = DD.class(DD.eventBase, function (self, gang1, gang2)
 	end
 end, {
 	paramType = {'clientList', 'clientList'},
-	clientKeys = {'eventGangWar'},
+	clientKeys = {'gang1', 'gang2'},
 	
 	name = 'gangWar',
 	isMainEvent = true,
@@ -54,6 +54,9 @@ end, {
 			rivalGangName = self.gang1Name
 		end
 		DD.messageClient(client, DD.stringLocalize('gangWarGangsterInfo', {gangName = gangName, rivalGangName = rivalGangName}), {preset = 'crit'})
+		
+		-- log
+		self.logClients({[client] = true})
 	end,
 	
 	buildList = function (self, set, excludeSet)

@@ -6,6 +6,24 @@ end, {
 	clientKeys = {}, -- keys of properties of this event that are a client or a client list (useful for finding what clients are participanting in an event)
 	public = true, -- determines if event will be listed in "/publicevents"
 
+	logClients = function (self, set)
+		local text = '{clientName} is a member of the "{eventName}" event ({seed}) under the key "{keyName}".'
+		for clientKey in self.clientKeys do
+			if type(self[clientKey]) == 'table' then
+				for client in self[clientKey] do
+					if (set == nil) or set[client] then
+						Game.Log(DD.stringReplace(text, {clientName = DD.clientLogName(client), eventName = self.name, seed = self.seed, keyName = clientKey}), 12)
+					end
+				end
+			else
+				local client = self[clientKey]
+				if (set == nil) or set[client] then
+					Game.Log(DD.stringReplace(text, {clientName = DD.clientLogName(client), eventName = self.name, seed = self.seed, keyName = clientKey}), 12)
+				end
+			end
+		end
+	end,
+
 	started = false,
 	start = function (self)
 		if DD.debugMode then print('start: ' .. self.name .. self.seed) end
@@ -40,8 +58,11 @@ end, {
 		-- onStart
 		self.onStart()
 		
-		-- Add self to eventDirector events list
-		if not self.failed then table.insert(DD.eventDirector.events, self) end
+		-- Add self to eventDirector events list and log clients
+		if not self.failed then
+			table.insert(DD.eventDirector.events, self)
+			self.logClients()
+		end
 		
 		return self
 	end,
