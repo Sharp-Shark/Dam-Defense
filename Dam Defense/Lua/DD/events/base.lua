@@ -61,7 +61,10 @@ end, {
 		-- Add self to eventDirector events list and log clients
 		if not self.failed then
 			table.insert(DD.eventDirector.events, self)
-			self.logClients()
+			if SERVER then
+				Game.Log(DD.stringReplace('"{eventName}" event ({seed}) has started.', {eventName = self.name, seed = self.seed}), 12)
+				self.logClients()
+			end
 		end
 		
 		return self
@@ -88,6 +91,9 @@ end, {
 				table.remove(DD.eventDirector.events, key)
 			end
 		end
+		
+		-- log event end
+		if SERVER and (not self.failed) then Game.Log(DD.stringReplace('"{eventName}" event ({seed}) has finished.', {eventName = self.name, seed = self.seed}), 12) end
 		
 		-- Flags
 		self.finished = true

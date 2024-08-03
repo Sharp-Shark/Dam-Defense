@@ -19,6 +19,14 @@ DD.speciesData = {
 	hammerheadspawn = {initialBreedTimer = 45, hatchlingIdentifier = 'hammerheadspawn', populationName = 'hammerhead', populationCap = 60}
 }
 
+DD.plantData = {
+	fiberplant = {itemIdentifier = 'fiberplant', weight = 1.5},
+	elastinplant = {itemIdentifier = 'elastinplant', weight = 0.5},
+	aquaticpoppy = {itemIdentifier = 'aquaticpoppy', weight = 1},
+	yeastshroom = {itemIdentifier = 'yeastshroom', weight = 1.5},
+	slimebacteria = {itemIdentifier = 'slimebacteria', weight = 1}
+}
+
 DD.spawnEggWithSaline = function (identifier, pos)
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), pos, nil, nil, function (spawnedItem)
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('antibloodloss1'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end)
@@ -89,7 +97,34 @@ DD.breedCharacter = function (character)
 	return character
 end
 
-DD.updateNature = function ()
+DD.spawnPlants = function ()
+	local weights = {}
+	for key, value in pairs(DD.plantData) do
+			weights[key] = value.weight
+	end
+	local plant = DD.weightedRandom(DD.plantData, weights)
+	
+	local location1 = DD.getLocation(function (item) return item.HasTag('dd_plantspawn') and (not self.locationBlacklistSet[item]) end)
+	if (location1 == nil) or (#location1.linkedTo == 0) then
+		self.fail()
+		return
+	end
+	DD.eventPlant.tbl.locationBlacklistSet[location1] = true
+	
+	local plantAmount = math.floor(math.random() * 4) + 5
+	for n = 1, plantAmount do
+		local location2 = location1.linkedTo[math.random(#location1.linkedTo)]
+		local position = Vector2(DD.lerp(math.random(), location1.WorldPosition.X, location2.WorldPosition.X), DD.lerp(math.random(), location1.WorldPosition.Y, location2.WorldPosition.Y))
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(plant.itemIdentifier), position, nil, nil, function (spawnedItem)
+			spawnedItem.Rotation = location2.Rotation
+		end)
+	end
+end
+
+DD.thinkFunctions.nature = function ()
+	if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) then return end
+	local timesPerSecond = 2
+
 	-- Update population count
 	for populationName, population in pairs(DD.roundData.populations) do
 		DD.roundData.populations[populationName] = 0
@@ -104,7 +139,7 @@ DD.updateNature = function ()
 			DD.roundData.populations[populationName] = DD.roundData.populations[populationName] + 1
 		end
 	end
-	-- Nature update
+	-- Creature update
 	for character in Character.CharacterList do
 		local speciesName = string.lower(tostring(character.SpeciesName))
 		if (character.Submarine == Submarine.MainSub) and (not character.IsDead) and (DD.speciesData[speciesName] ~= nil) then
@@ -116,18 +151,43 @@ DD.updateNature = function ()
 			end
 		end
 	end
-end
-
-DD.thinkFunctions.nature = function ()
-	if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) then return end
-
-	DD.updateNature()
+	-- Plant update
+	if DD.roundData.plantSpawnTimer <= 0 then
+		local weights = {}
+		for key, value in pairs(DD.plantData) do
+				weights[key] = value.weight
+		end
+		local plant = DD.weightedRandom(DD.plantData, weights)
+		
+		local location1 = DD.getLocation(function (item) return item.HasTag('dd_plantspawn') and (not DD.roundData.plantSpawnLocationBlacklistSet[item]) end)
+		if (location1 ~= nil) and (#location1.linkedTo > 0) then
+			DD.roundData.plantSpawnLocationBlacklistSet[location1] = true
+			
+			local plantAmount = math.floor(math.random() * 4) + 5
+			for n = 1, plantAmount do
+				local location2 = location1.linkedTo[math.random(#location1.linkedTo)]
+				local position = Vector2(DD.lerp(math.random(), location1.WorldPosition.X, location2.WorldPosition.X), DD.lerp(math.random(), location1.WorldPosition.Y, location2.WorldPosition.Y))
+				Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(plant.itemIdentifier), position, nil, nil, function (spawnedItem)
+					spawnedItem.Rotation = location2.Rotation
+				end)
+			end
+		end
+		DD.roundData.plantSpawnTimer = DD.roundData.plantSpawnTimerInitial
+	else
+		DD.roundData.plantSpawnTimer = DD.roundData.plantSpawnTimer - 1 / timesPerSecond
+	end
 end
 
 DD.roundStartFunctions.nature = function ()
+	-- creature related
 	DD.roundData.creatureGrowthTimer = {}
 	DD.roundData.creatureBreedTimer = {}
 	DD.roundData.populations = {}
+	-- half of plant spawn locations will be used by the time respawn is disabled
+	DD.roundData.plantSpawnTimerInitial = DD.disableRespawningAfter / #DD.getLocations(function (item) return item.HasTag('dd_plantspawn') end) * 2
+	DD.roundData.plantSpawnTimer = DD.roundData.plantSpawnTimerInitial
+	-- never use the same plant spawn location twice
+	DD.roundData.plantSpawnLocationBlacklistSet = {}
 end
 
 DD.characterDeathFunctions.corpseCleanUp = function (character)

@@ -136,7 +136,7 @@ DD.thinkFunctions.afflictions = function ()
 			end
 		end
 		-- Husk regen
-		if (character.SpeciesName == 'humanhusk') and (not character.IsDead) then
+		if ((character.SpeciesName == 'humanhusk') or (character.SpeciesName == 'husk')) and (not character.IsDead) then
 			local damage = 0
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByIdentifier('bloodloss', true)
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByType('damage', true)

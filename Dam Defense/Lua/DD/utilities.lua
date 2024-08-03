@@ -517,7 +517,7 @@ DD.isCharacterSecurity = function (character)
 end
 
 DD.isCharacterProletariat = function (character)
-	local jobs = {'engineer', 'mechanic', 'clown', 'janitor'}
+	local jobs = {'mechanic', 'clown'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 
@@ -530,6 +530,7 @@ DD.isCharacterArrested = function (character)
 	if character.IsDead then return false end
 	if character.IsHandcuffed then return true end
 	if character.CurrentHull == nil then return false end
+	if character.Inventory.GetItemAt(DD.invSlots.innerclothes) == nil then return false end
 	
 	if (character.CurrentHull.RoomName == 'roomname.brig') and (character.Inventory.GetItemAt(DD.invSlots.innerclothes).Prefab.Identifier == 'prisonerclothes') then
 		return true
@@ -540,6 +541,10 @@ end
 
 DD.isClientCharacterAlive = function (client)
 	return (client.Character ~= nil) and (not client.Character.IsDead)
+end
+
+DD.lerp = function (n, a, b)
+	return a*(1-n) + b*n
 end
 
 -- Turns a number (represents seconds) into a formatted string for hours, minutes and seconds

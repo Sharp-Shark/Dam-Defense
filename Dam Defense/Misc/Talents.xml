@@ -40,6 +40,20 @@
   </Talent>
   </Override>
   
+  <!-- green thumb -->
+  <Talent identifier="greenthumb">
+    <Icon texture="Content/UI/TalentsIcons2.png" sheetindex="3,4" sheetelementsize="128,128"/>
+	
+    <AbilityGroupEffect abilityeffecttype="OnItemPicked">
+      <Conditions>
+        <AbilityConditionItem tags="plant" />
+      </Conditions>
+      <Abilities>
+        <CharacterAbilityModifyValue multiplyvalue="0.5" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  
   <!-- cultist talent that unlocks crafting of cultist items (enlightened is affliction, enlightenedmind is talent) -->
   <Talent identifier="enlightenedmind">
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>

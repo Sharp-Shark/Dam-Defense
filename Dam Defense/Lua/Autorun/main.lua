@@ -327,6 +327,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			end
 			if (character.JobIdentifier == 'janitor') then
 				character.GiveTalent('janitorialknowledge', true)
+				character.GiveTalent('greenthumb', true)
 			end
 			if (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') then
 				character.GiveTalent('unstoppablecuriosity', true)

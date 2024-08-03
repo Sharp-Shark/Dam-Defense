@@ -124,6 +124,9 @@
   <!-- Wifi Trigger -->
   <entityname.wifitrigger>Wifi Trigger</entityname.wifitrigger>
   <entitydescription.wifitrigger>A handheld device that contains an wifi component, allowing for convenient remote sending of signals.</entitydescription.wifitrigger>
+  <!-- Myxotoxin -->
+  <entityname.myxotoxin>Myxotoxin</entityname.myxotoxin>
+  <entitydescription.myxotoxin>Toxin with antibiotic properties extracted from a colony of myxobacteria. Side-effects include internal damage and alcohol sensitivity. Can be further processed into ABX.</entitydescription.myxotoxin>
   <!-- Live Influenza -->
   <entityname.flusyringe>Live Influenza</entityname.flusyringe>
   <entitydescription.flusyringe>A syringe containing a live sample of influenza that was taken from someone using a blood sampler. Can be made into Influenza Antidote in a medical fabricator.</entitydescription.flusyringe>

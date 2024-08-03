@@ -639,6 +639,9 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="1" />
 	</Fabricate>
+    <Deconstruct time="2">
+      <RequiredItem identifier="carbon" />
+    </Deconstruct>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="256,768,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="435,452,30,57" depth="0.6" origin="0.5,0.5" />
     <SuitableTreatment identifier="bacterialgangrene" suitability="30" />
@@ -697,6 +700,11 @@
       <RequiredItem tag="fakemoney" amount="4" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" >
+      <RequiredSkill identifier="medical" level="30" />
+      <RequiredItem identifier="myxotoxin" />
+      <RequiredItem identifier="myxotoxin" />
+    </Fabricate>
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" >
       <RequiredSkill identifier="medical" level="40" />
       <RequiredItem identifier="bacterialsyringe" />
       <RequiredItem identifier="alienblood" />
@@ -725,7 +733,7 @@
     <SuitableTreatment identifier="bacterialgangrene" suitability="50" />
     <Body width="35" height="65" density="10.2" waterdragcoefficient="1"/>
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
-      <RequiredSkill identifier="medical" level="25" />
+      <RequiredSkill identifier="medical" level="30" />
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
@@ -867,11 +875,17 @@
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="2" />
 	</Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="7.5" amount="1">
+      <RequiredSkill identifier="medical" level="5" />
+      <RequiredItem identifier="organicfiber" />
+    </Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" amount="2">
       <RequiredSkill identifier="medical" level="5" />
       <RequiredItem identifier="organicfiber" />
     </Fabricate>
-    <Deconstruct time="2"/>
+    <Deconstruct time="2">
+      <RequiredItem identifier="carbon" />
+    </Deconstruct>
     <SuitableTreatment type="bleeding" suitability="30" />
     <SuitableTreatment type="burn" suitability="30" />
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
@@ -909,13 +923,9 @@
       <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
       <Price storeidentifier="merchantmine" multiplier="0.9" minavailable="2" />
     </Price>
-    <Deconstruct time="10">
-      <RequiredItem identifier="rubber" />
+    <Deconstruct time="2">
+      <RequiredItem identifier="carbon" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="10">
-      <RequiredItem identifier="rubber" />
-      <RequiredItem identifier="rubber" />
-    </Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="64,768,64,64" />
     <Sprite texture="Content/Items/Materials/Minerals.png" sourcerect="178,8,42,45" depth="0.55" origin="0.5,0.5" />
     <Body width="45" height="45" density="12" />
@@ -928,6 +938,69 @@
   </Item>
   </Override>
   <!-- end of overrides -->
+  
+  <!-- myxotoxin extracts from myxobacteria, can be refined into ABX -->
+  <Item name="Myxotoxin" identifier="myxotoxin" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,chem,medical,syringe" description="" cargocontaineridentifier="mediccrate" scale="0.5" useinhealthinterface="true" RequireAimToUse="True">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <Deconstruct time="10">
+      <RequiredItem identifier="carbon" />
+    </Deconstruct>
+    <InventoryIcon texture="MedicinesInventory.png" sourcerect="336,0,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,69,37,69" depth="0.6" origin="0.5,0.5" />
+    <SuitableTreatment type="damage" suitability="-33" />>
+    <SuitableTreatment identifier="bacterialinfection" suitability="25" />
+    <SuitableTreatment identifier="tbinfection" suitability="25" />
+    <SuitableTreatment identifier="bacterialgangrene" suitability="25" />
+    <Body width="35" height="65" density="10.2" waterdragcoefficient="1"/>
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <RequiredSkill identifier="medical" level="15" />
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="120.0">
+        <Affliction identifier="organdamage" amount="0.25" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="120.0">
+        <ReduceAffliction identifier="bacterialinfection" amount="1" />
+        <ReduceAffliction identifier="tbinfection" amount="0.5" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="20.0">
+        <ReduceAffliction identifier="bacterialgangrene" amount="1" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="Limb" duration="120.0">
+        <Affliction identifier="organdamage" amount="0.5" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="120.0">
+        <ReduceAffliction identifier="bacterialinfection" amount="0.5" />
+        <ReduceAffliction identifier="tbinfection" amount="0.25" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="20.0">
+        <ReduceAffliction identifier="bacterialgangrene" amount="0.5" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="10">
+        <ReduceAffliction identifier="drunkweakness" amount="5" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="10">
+        <ReduceAffliction identifier="drunkweakness" amount="10" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnFailure" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+        <Affliction identifier="stun" amount="0.1" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </MeleeWeapon>
+    <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
+    <SkillRequirementHint identifier="medical" level="25" />
+  </Item>
   
   <!-- bloodlust -->
   <Item name="Blood Sampler" identifier="bloodsampler" maxstacksize="32" maxstacksizecharacterinventory="8" category="Medical,Equipment,Weapon" Tags="smallitem,weapon,gunsmith,mountableweapon,sharptool" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">

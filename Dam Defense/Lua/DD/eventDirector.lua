@@ -156,6 +156,13 @@ DD.eventDirector.getClientRelations = function (client)
 		end
 	end
 	
+	local antagSafe = {}
+	for client in Client.ClientList do
+		if (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
+			antagSafe[client] = true
+		end
+	end
+	
 	local clowns = {}
 	for client in Client.ClientList do
 		if (client.Character ~= nil) and (client.Character.JobIdentifier == 'clown') then
@@ -188,11 +195,23 @@ DD.eventDirector.getClientRelations = function (client)
 			else
 				targets = DD.setUnion(targets, nukies)
 			end
+		elseif event.name == 'deathSquad' then
+			local nukies = DD.toSet(event.nukies)
+			local nonnukies = DD.setSubtract(clients, nukies)
+			if nukies[client] then
+				targets = DD.setUnion(targets, nonnukies)
+			else
+				targets = DD.setUnion(targets, nukies)
+			end
 		elseif event.name == 'murder' then
 			if event.murderer == client then
 				targets = DD.setUnion(targets, {[event.victim] = true})
 			else
 				targets = DD.setUnion(targets, {[event.murderer] = true})
+			end
+		elseif event.name == 'vip' then
+			if (event.vip ~= client) and (event.guard ~= client) and (not antagSafe[client]) then
+				targets = DD.setUnion(targets, {[event.vip] = true, [event.guard] = true})
 			end
 		elseif event.name == 'revolution' then
 			local rebels = DD.toSet(event.rebels)
@@ -222,6 +241,19 @@ DD.eventDirector.getClientRelations = function (client)
 			else
 				targets = DD.setUnion(targets, {[event.killer] = true})
 			end
+		elseif event.name == 'gangWar' then
+			if event.gang1Set[client] then
+				targets = DD.setUnion(targets, event.gang2Set)
+				targets = DD.setUnion(targets, security)
+			end
+			if event.gang2Set[client] then
+				targets = DD.setUnion(targets, event.gang1Set)
+				targets = DD.setUnion(targets, security)
+			end
+			if security[client] then
+				targets = DD.setUnion(targets, event.gang1Set)
+				targets = DD.setUnion(targets, event.gang2Set)
+			end
 		end
 	end
 	
@@ -245,7 +277,8 @@ Hook.Add("character.death", "DD.friendlyFireDetector", function(character)
 		else
 			DD.eventDirector.unfairKillCounter[killer] = DD.eventDirector.unfairKillCounter[killer] + 1
 		end
-		print('[!] ' .. killed.Name .. ' was possibly killed unfairly by: ' .. killer.Name .. '! This is their ' .. DD.eventDirector.unfairKillCounter[killer] .. ' unfair kill.')
+		local text = '{killedName} was possibly killed unfairly by {killerName}! This is their {count} possibly unfair kill.'
+		Game.Log(DD.stringReplace(text, {killedName = DD.clientLogName(killed), killerName = DD.clientLogName(killer), count = DD.eventDirector.unfairKillCounter[killer]}), 10)
 	end
 	
 	return true

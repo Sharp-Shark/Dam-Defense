@@ -20,7 +20,7 @@
 
   <Inventory slots="Any, Any" accessiblewhenalive="false">
     <Item identifier="swimbladder"/>
-    <Item identifier="chitin"/>
+    <Item identifier="sulphuricacid"/>
   </Inventory>
   
   <ai
