@@ -23,7 +23,7 @@ DD.plantData = {
 	fiberplant = {itemIdentifier = 'fiberplant', weight = 1.5},
 	elastinplant = {itemIdentifier = 'elastinplant', weight = 0.5},
 	aquaticpoppy = {itemIdentifier = 'aquaticpoppy', weight = 1},
-	yeastshroom = {itemIdentifier = 'yeastshroom', weight = 1.5},
+	yeastshroom = {itemIdentifier = 'yeastshroom', weight = 1},
 	slimebacteria = {itemIdentifier = 'slimebacteria', weight = 1}
 }
 
@@ -184,7 +184,7 @@ DD.roundStartFunctions.nature = function ()
 	DD.roundData.creatureBreedTimer = {}
 	DD.roundData.populations = {}
 	-- half of plant spawn locations will be used by the time respawn is disabled
-	DD.roundData.plantSpawnTimerInitial = DD.disableRespawningAfter / #DD.getLocations(function (item) return item.HasTag('dd_plantspawn') end) * 2
+	DD.roundData.plantSpawnTimerInitial = DD.disableRespawningAfter / #DD.getLocations(function (item) return item.HasTag('dd_plantspawn') end) * 1.5
 	DD.roundData.plantSpawnTimer = DD.roundData.plantSpawnTimerInitial
 	-- never use the same plant spawn location twice
 	DD.roundData.plantSpawnLocationBlacklistSet = {}

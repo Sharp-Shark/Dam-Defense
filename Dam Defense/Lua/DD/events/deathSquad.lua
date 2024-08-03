@@ -12,19 +12,11 @@ end, {
 	isMainEvent = true,
 	allowEarlyGame = false,
 	cooldown = 60 * 3,
-	weight = 1.5,
+	weight = 0.5,
 	goodness = -2.0,
 	
 	onStart = function (self)
 		self.nukiesWon = false
-		
-		-- Event may only happen if all of security is dead
-		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and DD.isCharacterSecurity(client.Character) then
-				self.fail()
-				return
-			end
-		end
 	
 		-- Find reactors
 		self.reactors = {}
