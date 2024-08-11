@@ -371,12 +371,12 @@ end)
 
 Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, item, targets, worldPosition)
 	local inShieldedContainer = false
-	if item.Condition <= 1 then
+	if item.Condition <= 2 then
 		if (item.ParentInventory ~= nil) and (LuaUserData.TypeOf(item.ParentInventory.Owner) == 'Barotrauma.Item') and item.ParentInventory.Owner.HasTag('reactor') then
 			item.Condition = 0
 			inShieldedContainer = true
 		else
-			item.Condition = 1
+			item.Condition = 2
 		end
 	end
 	
@@ -420,18 +420,6 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 			local attackResult = limb.AddDamage(limb.SimPosition, {AfflictionPrefab.Prefabs['radiationsickness'].Instantiate(amount * #character.AnimController.Limbs)}, false, 1, 0.0, nil)
 			character.CharacterHealth.ApplyDamage(limb, attackResult, nil)
 		end
-		--[[ going limb by limb is performance-intensive
-		for limb in character.AnimController.Limbs do
-			local distance = Vector2.Distance(item.WorldPosition, limb.WorldPosition)
-			if item.InWater then distance = distance * 2 end
-			if distance <= maxDistance then
-				distance = math.max(minDistance, distance)
-				local amount = maxAmount / distance ^ 2
-				local attackResult = limb.AddDamage(limb.SimPosition, {AfflictionPrefab.Prefabs['radiationsickness'].Instantiate(amount)}, false, 1, 0.0, nil)
-				character.CharacterHealth.ApplyDamage(limb, attackResult, nil)
-			end
-		end
-		--]]
 	end
 end)
 
