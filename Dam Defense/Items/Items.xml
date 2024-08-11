@@ -248,8 +248,8 @@
       <Item identifier="steel" />
       <Item identifier="rubber" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="90" requiresrecipe="true">
-      <RequiredSkill identifier="weapons" level="30" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="true">
+      <RequiredSkill identifier="weapons" level="60" />
       <RequiredItem identifier="steel" amount="2" />
       <RequiredItem identifier="rubber" amount="2" />
     </Fabricate>
@@ -758,10 +758,10 @@
         <Explosion range="150.0" force="3" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
       </StatusEffect>
       <!-- only 2 shots can be fired at the 0.1 interval, after that you need to wait 1 second -->
-      <StatusEffect type="OnUse" target="This" reload="2.0" setvalue="true" delay="0.05" />
-      <StatusEffect type="OnUse" target="This" reload="0.1" setvalue="true" delay="2.0" />
+      <StatusEffect type="OnUse" target="This" reload="1.5" setvalue="true" delay="0.05" />
+      <StatusEffect type="OnUse" target="This" reload="0.1" setvalue="true" delay="1.5" />
       <!-- Cocking sound, delayed by 1.0 seconds. -->
-      <StatusEffect type="OnUse" target="This" delay="1.0">
+      <StatusEffect type="OnUse" target="This" delay="0.8">
         <Sound file="Content/Items/Weapons/ShotgunLoad1.ogg" type="OnUse" range="500" selectionmode="Random" />
         <Sound file="Content/Items/Weapons/ShotgunLoad2.ogg" type="OnUse" range="500" />
         <Sound file="Content/Items/Weapons/ShotgunLoad3.ogg" type="OnUse" range="500" />
@@ -1618,12 +1618,15 @@
       <Price storeidentifier="merchantmine" multiplier="0.9" />
     </Price>
     <Deconstruct time="20">
-      <Item identifier="ballisticfiber" amount="1" />
+      <RequiredItem identifier="organicfiber" amount="2" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="lead" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="organicfiber" amount="2" />
       <RequiredItem identifier="steel" amount="3" />
+      <RequiredItem identifier="lead" />
     </Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="320,640,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Map/Pirates/PirateEquip.png" sourcerect="14,45,103,158" depth="0.6" origin="0.5,0.4" />
@@ -1634,6 +1637,7 @@
       <damagemodifier afflictionidentifiers="bitewounds" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
 	  <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.5" />
+	  <damagemodifier afflictiontypes="radiationsickness" armorsector="0.0,360.0" damagemultiplier="0.5" />
       <SkillModifier skillidentifier="weapons" skillvalue="5" />
       <sprite name="Pirate Armor Wearable" texture="Content/Map/Pirates/PirateEquip.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" ignorelimbscale="true" scale="0.7" inheritsourcerect="false" sourcerect="14,45,103,158" />
     </Wearable>
@@ -1971,8 +1975,8 @@
     <SkillRequirementHint identifier="weapons" level="40" />
   </Item>
   <!-- uranium can now be bought at a nexshop -->
-  <Item name="" identifier="uranium" category="Material" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,advmunition_core" canbepicked="true" description="" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light">
-    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="1" maxamount="2" spawnprobability="0.05" />
+  <Item name="" identifier="uranium" category="Material" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,advmunition_core,scrapcannonammo" canbepicked="true" description="" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light">
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab,piratestoragecab" minamount="1" maxamount="2" spawnprobability="0.05" />
     <PreferredContainer primary="storagecab" />
     <Price baseprice="50" sold="false">
       <Price storeidentifier="merchantoutpost" multiplier="1.3" />
@@ -1984,9 +1988,6 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="10" />
 	</Fabricate>
-    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="10" />
-	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="898,192,61,63" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Materials/minerals.png" sourcerect="4,130,49,41" depth="0.55" origin="0.5,0.5" />
     <Body width="45" height="32" density="40" />
@@ -1996,6 +1997,24 @@
         <Remove />
       </StatusEffect>
     </Holdable>
+    <!-- for scrap cannon -->
+    <Projectile characterusable="false" hitscan="true" hitscancount="16" removeonhit="true" spread="25">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,100" scalemultiplier="1,0.5" />
+      <Attack structuredamage="1" targetforce="4" itemdamage="1" severlimbsprobability="0.15" penetration="0.2">
+        <Affliction identifier="lacerations" strength="8" />
+        <Affliction identifier="bleeding" strength="6" />
+        <Affliction identifier="stun" strength="0.3" />
+        <Affliction identifier="radiationsickness" strength="5" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+    </Projectile>
   </Item>
   <!-- cut the stun from handcannon rounds to a third of what they are/were in vanilla -->
   <Item name="" identifier="handcannonround" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="12" interactthroughwalls="true" cargocontaineridentifier="metalcrate" allowasextracargo="true" Scale="0.5" tags="smallitem,handcannonammo,pistolammoitem" impactsoundtag="impact_metal_light">
@@ -2128,7 +2147,7 @@
       <Containable items="oxygensource,weldingtoolfuel" />
     </ItemContainer>
   </Item>
-  <!-- fire extinguisher also puts out burning players -->
+  <!-- fire extinguisher also puts out burning players (be recycled and be put in the backslot) -->
   <Item name="" identifier="extinguisher" category="Equipment" Tags="mediumitem,fireextinguisher,provocative" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
     <Upgrade gameversion="0.9.600.0" Tags="mediumitem,fireextinguisher,provocative" />
     <PreferredContainer primary="extinguisherholder" spawnprobability="1.0"/>
@@ -2149,10 +2168,18 @@
       <RequiredItem identifier="aluminium" />
       <RequiredItem identifier="sodium" amount="2" />
     </Fabricate>
+    <Fabricate suitablefabricators="fabricator" displayname="recycleitem" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="extinguisher" mincondition="0.0" maxcondition="0.1" usecondition="false"/>
+      <RequiredItem identifier="sodium" amount="2" />
+    </Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Tools/tools.png" depth="0.55" sourcerect="161,105,64,128" origin="0.5,0.5" />
     <Body width="30" height="100" density="8" />
     <Holdable slots="RightHand+LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" handle2="-10,40" msg="ItemMsgPickUpSelect" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="Content/Items/Tools/tools.png" canbehiddenbyotherwearables="false" rotation="0" depth="0.6" sourcerect="161,105,64,128" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="1.1,0.6" />
+    </Wearable>
     <RepairTool extinguishamount="60.0" range="500" barrelpos="21,25" repairmultiple="true" repairthroughholes="true" hititems="false" IgnoreCharacters="false">
       <ParticleEmitter particle="extinguisher" velocitymin="1000.0" velocitymax="1650.0" particlespersecond="100" />
       <StatusEffect type="OnUse" targettype="This" Condition="-2.0" />
@@ -2165,8 +2192,257 @@
     <aitarget sightrange="1000" soundrange="1000" fadeouttime="1" />
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
+  <!-- spent fuel rods will glow and emit radiation -->
+  <Item name="" identifier="fuelrod" Category="Fuel" Tags="mediumitem,reactorfuel" maxstacksize="8" cargocontaineridentifier="metalcrate" scale="0.5">
+    <PreferredContainer primary="reactorcab"/>
+    <PreferredContainer secondary="nucleargun" minamount="1" maxamount="1" spawnprobability="1"/>
+    <PreferredContainer secondary="wreckreactorcab,abandonedreactorcab,piratereactorcab" minamount="1" maxamount="2" spawnprobability="0.5"/>
+    <PreferredContainer secondary="beaconengcab" amount="1" spawnprobability="0.2"/>
+    <PreferredContainer secondary="abandonedengcab,pirateengcab,wreckengcab" amount="1" spawnprobability="0.05"/>
+    <Price baseprice="150" displaynonempty="true" minavailable="2">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+      <Price storeidentifier="merchanttutorial" multiplier="0.5" minavailable="3" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+      <Item identifier="uranium" mincondition="0.95"/>
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="15">
+      <RequiredSkill identifier="electrical" level="25" />
+      <RequiredItem identifier="uranium" />
+      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="lead" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" displayname="recycleitem" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="15" />
+      <RequiredItem identifier="uranium" />
+      <RequiredItem identifier="fuelrod" mincondition="0.0" maxcondition="0.1" usecondition="false"/>
+    </Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="10" />
+	</Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="576,64,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" depth="0.55" sourcerect="410,1,19,68" />
+    <Body radius="6" height="55" density="20" />
+    <LightComponent allowingameediting="false" lightcolor="70,200,250,0" canbeselected="false" range="0.0" ison="true" />
+	<ItemComponent>
+	  <StatusEffect type="Always" target="This" condition="-0.05" >
+          <Conditional condition="lt 100" />
+		  <LuaHook name="DD.fuelrod.decay" />
+	  </StatusEffect>
+	</ItemComponent>
+    <Holdable handle1="0,0" slots="RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+    <ItemContainer hideitems="true" capacity="1" itemrotation="90" drawinventory="false" canbeselected="false" SpawnWithId="nucleargunbolt" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="nucleargunbolt" />
+      <StatusEffect type="OnUse" target="This" condition="-25.0" disabledeltatime="true">
+        <SpawnItem identifiers="nucleargunbolt" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+  <Item name="" identifier="fulguriumfuelrod" Category="Fuel" Tags="mediumitem,reactorfuel" maxstacksize="8" cargocontaineridentifier="metalcrate" health="150" scale="0.5">
+    <PreferredContainer primary="reactorcab" />
+    <PreferredContainer secondary="wreckreactorcab,abandonedreactorcab,piratereactorcab" amount="1" spawnprobability="0.2"/>
+    <PreferredContainer secondary="beaconengcab" amount="1" spawnprobability="0.05"/>
+    <PreferredContainer secondary="abandonedengcab,pirateengcab,wreckengcab" amount="1" spawnprobability="0.01"/>
+    <Price baseprice="250" sold="false" displaynonempty="true">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="1.25" />
+      <Price storeidentifier="merchantmine" multiplier="1.1" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="2" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+      <Item identifier="lead" />
+      <Item identifier="fulgurium" mincondition="0.95"/>
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="15">
+      <RequiredSkill identifier="electrical" level="60" />
+      <RequiredItem identifier="fulgurium" />
+      <RequiredItem identifier="lead" amount="2" />
+      <RequiredItem identifier="steel" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" displayname="recycleitem" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="40" />
+      <RequiredItem identifier="fulgurium" />
+      <RequiredItem identifier="fulguriumfuelrod" mincondition="0.0" maxcondition="0.1" usecondition="false"/>
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" depth="0.55" sourcerect="431,1,19,68" />
+    <Body radius="6" height="55" density="20" />
+    <LightComponent allowingameediting="false" lightcolor="70,200,250,0" canbeselected="false" range="0.0" ison="true" />
+	<ItemComponent>
+	  <StatusEffect type="Always" target="This" condition="-0.05" >
+          <Conditional condition="lt 100" />
+		  <LuaHook name="DD.fuelrod.decay" />
+	  </StatusEffect>
+	</ItemComponent>
+    <Holdable handle1="0,0" slots="RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+    <ItemContainer hideitems="true" capacity="1" itemrotation="90" drawinventory="false" canbeselected="false" SpawnWithId="nucleargunbolt" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="nucleargunbolt" />
+      <StatusEffect type="OnUse" target="This" condition="-12.5" disabledeltatime="true">
+        <SpawnItem identifiers="nucleargunbolt" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+  <Item name="" identifier="thoriumfuelrod" Category="Fuel" Tags="mediumitem,reactorfuel" maxstacksize="8" cargocontaineridentifier="metalcrate" health="200" scale="0.5">
+    <PreferredContainer primary="reactorcab" />
+    <PreferredContainer secondary="wreckreactorcab,abandonedreactorcab,piratereactorcab" amount="1" spawnprobability="0.1"/>
+    <PreferredContainer secondary="beaconengcab" amount="1" spawnprobability="0.02"/>
+    <PreferredContainer secondary="abandonedengcab,pirateengcab,wreckengcab" amount="1" spawnprobability="0.01"/>
+    <Price baseprice="200" displaynonempty="true">
+      <Price storeidentifier="merchantoutpost" sold="false" />
+      <Price storeidentifier="merchantcity" minavailable="1" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="1.25" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="2" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+      <Item identifier="lead" />
+      <Item identifier="thorium" mincondition="0.95"/>
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="15">
+      <RequiredSkill identifier="electrical" level="50" />
+      <RequiredItem identifier="thorium" />
+      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="lead" amount="2" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" displayname="recycleitem" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="30" />
+      <RequiredItem identifier="thorium" />
+      <RequiredItem identifier="thoriumfuelrod" mincondition="0.0" maxcondition="0.1" usecondition="false"/>
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="384,64,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" depth="0.55" sourcerect="452,1,19,68" />
+    <Body radius="6" width="21" height="71" density="20" />
+    <LightComponent allowingameediting="false" lightcolor="70,200,250,0" canbeselected="false" range="0.0" ison="true" />
+	<ItemComponent>
+	  <StatusEffect type="Always" target="This" condition="-0.05" >
+          <Conditional condition="lt 100" />
+		  <LuaHook name="DD.fuelrod.decay" />
+	  </StatusEffect>
+	</ItemComponent>
+    <Holdable handle1="0,0" slots="RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+    <ItemContainer hideitems="true" capacity="1" itemrotation="90" drawinventory="false" canbeselected="false" SpawnWithId="nucleargunbolt" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="nucleargunbolt" />
+      <StatusEffect type="OnUse" target="This" condition="-25.0" disabledeltatime="true">
+        <SpawnItem identifiers="nucleargunbolt" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+  <Item name="" identifier="fulguriumfuelrodvolatile" category="Fuel" Tags="mediumitem,reactorfuel" maxstacksize="8" allowasextracargo="true" cargocontaineridentifier="metalcrate" health="400" scale="0.5">
+    <PreferredContainer primary="reactorcab"/>
+    <Price baseprice="400" sold="false" displaynonempty="true">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="1.25" />
+      <Price storeidentifier="merchantmine" multiplier="1.1" />
+    </Price>
+    <Deconstruct time="15">
+      <Item identifier="steel" />
+      <Item identifier="lead" />
+      <Item identifier="fulgurium" mincondition="0.95" />
+      <Item identifier="thorium" mincondition="0.95" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="true">
+      <RequiredSkill identifier="electrical" level="70" />
+      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="lead" amount="2" />
+      <RequiredItem identifier="fulgurium" />
+      <RequiredItem identifier="thorium" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" displayname="recycleitem" requiredtime="10" requiresrecipe="true">
+      <RequiredSkill identifier="electrical" level="70" />
+      <RequiredItem identifier="fulgurium" />
+      <RequiredItem identifier="thorium" />
+      <RequiredItem identifier="fulguriumfuelrodvolatile" mincondition="0.0" maxcondition="0.1" usecondition="false" />
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/JobGear/TalentGear.png" sourcerect="67,176,62,61" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/JobGear/TalentGear.png" depth="0.55" sourcerect="190,60,20,71" origin="0.5,0.5" />
+    <Body radius="6" height="55" density="30" />
+    <LightComponent allowingameediting="false" lightcolor="70,200,250,0" canbeselected="false" range="0.0" ison="true" />
+	<ItemComponent>
+	  <StatusEffect type="Always" target="This" condition="-0.05" >
+		  <LuaHook name="DD.fuelrod.decay" />
+	  </StatusEffect>
+	</ItemComponent>
+    <Holdable handle1="0,0" slots="RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+    <ItemContainer hideitems="true" capacity="1" itemrotation="90" drawinventory="false" canbeselected="false" SpawnWithId="nucleargunbolt" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="nucleargunbolt" />
+      <StatusEffect type="OnUse" target="This" condition="-20" disabledeltatime="true">
+        <SpawnItem identifiers="nucleargunbolt" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1" />
+    </Quality>
+  </Item>
   </Override>
   <!-- end of overrides -->
+  
+  <!-- hazmat suit -->
+  <Item name="Hazmat Suit" identifier="hazmatsuit" category="Equipment" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
+    <Deconstruct time="30">
+      <Item identifier="organicfiber" />
+      <Item identifier="lead" />
+      <Item identifier="iron" />
+      <Item identifier="rubber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60" >
+      <RequiredSkill identifier="electrical" level="30" />
+      <RequiredItem identifier="organicfiber" />
+      <RequiredItem identifier="lead" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="rubber" />
+      <RequiredItem identifier="rubber" />
+    </Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="5" />
+	</Fabricate>
+    <InventoryIcon name="Uniform Icon" texture="hazmatsuit.png" sourcerect="416,111,128,110" origin="0.5,0.5" />
+    <Sprite texture="hazmatsuit.png" sourcerect="420,221,124,67" depth="0.6" origin="0.5,0.5" />
+    <Body width="100" height="50" density="15" friction="0.8" restitution="0.01" />
+    <Wearable slots="Any,InnerClothes+Head" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="0.8" HideFace="true" setvalue="true" disabledeltatime="true" />
+      <sprite name="Uniform Head" texture="hazmatsuit.png" sourcerect="416,0,113,111" origin="0.4,0.52" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
+      <sprite name="Uniform Torso" texture="hazmatsuit.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Hand" texture="hazmatsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Hand" texture="hazmatsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Lower Arm" texture="hazmatsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Lower Arm" texture="hazmatsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Upper Arm" texture="hazmatsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Upper Arm" texture="hazmatsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Waist" texture="hazmatsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Thigh" texture="hazmatsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Thigh" texture="hazmatsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Leg" texture="hazmatsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Leg" texture="hazmatsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Shoe" texture="hazmatsuit.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Shoe" texture="hazmatsuit.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+	  <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,bleeding" damagemultiplier="0.9" damagesound="LimbArmor" deflectprojectiles="true" />
+	  <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="burn" damagemultiplier="0.5" damagesound="" deflectprojectiles="true" />
+	  <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.05" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection" probabilitymultiplier="0.5" damagesound="LimbArmor" />
+    </Wearable>
+  </Item>
   
   <!-- stronger flashlight that consumes more power -->
   <Item name="Diving Flashlight" identifier="divingflashlight" category="Diving,Equipment" Tags="smallitem,tool,provocative,flashlight" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
@@ -2827,6 +3103,86 @@
     </Quality>
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <SkillRequirementHint identifier="weapons" level="50" />
+  </Item>
+
+  <!-- makeshift flamer -->
+  <Item name="Makeshift Flamer" identifier="makeshiftflamer" category="Equipment,Weapon" Tags="mediumitem,fireextinguisher,provocative,weapon,gun,mountableweapon" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
+    <Upgrade gameversion="0.9.600.0" Tags="mediumitem,fireextinguisher,provocative" />
+    <PreferredContainer primary="extinguisherholder" spawnprobability="1.0"/>
+    <PreferredContainer secondary="engcab,reactorcab"/>
+    <Price baseprice="100" displaynonempty="true">
+      <Price storeidentifier="merchantoutpost" minavailable="3" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="4" />
+      <Price storeidentifier="merchantresearch" minavailable="2" />
+      <Price storeidentifier="merchantmilitary" minavailable="2" />
+      <Price storeidentifier="merchantmine" minavailable="2" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="aluminium" />
+      <Item identifier="ethanol" mincondition="0.5" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="ethanol" amount="2" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" displayname="recycleitem" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="makeshiftflamer" mincondition="0.0" maxcondition="0.1" usecondition="false"/>
+      <RequiredItem identifier="ethanol" amount="2" />
+    </Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="5" />
+	</Fabricate>
+    <InventoryIcon texture="flamer.png" sourcerect="152,92,64,64" origin="0.5,0.5" />
+    <Sprite texture="flamer.png" depth="0.55" sourcerect="216,0,64,128" origin="0.5,0.5" />
+    <Body width="30" height="100" density="8" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" handle2="-10,40" msg="ItemMsgPickUpSelect" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="flamer.png" canbehiddenbyotherwearables="false" rotation="0" depth="0.6" sourcerect="216,0,64,128" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="1.1,0.6" />
+    </Wearable>
+    <RepairTool firedamage="20.0" structurefixamount="0.0" usablein="Air" range="500" barrelpos="21,25" fireprobability="0.0" repairmultiple="true" RepairMultipleWalls="false" repairthroughwalls="false" repairthroughholes="true" combatpriority="40" spread="35" unskilledspread="35">
+      <RequiredSkill identifier="weapons" level="30" />
+      <ParticleEmitterHitCharacter particle="fleshsmoke" particlespersecond="3" anglemin="265" anglemax="275" velocitymin="0" velocitymax="50" />
+      <ParticleEmitter particle="flamethrower" particlespersecond="80" anglemin="0" anglemax="0" velocitymin="1000" velocitymax="1500" highqualitycollisiondetection="true"/>
+      <ParticleEmitter particle="flamethrowersmoke" particlespersecond="80" anglemin="0" anglemax="0" velocitymin="500" velocitymax="1000"/>
+      <sound file="Content/Items/Weapons/FlameThrowerLoop.ogg" type="OnUse" range="750.0" loop="true" />
+      <StatusEffect type="OnFailure" target="This">
+        <ParticleEmitter particle="bubbles" particlespersecond="20" anglemin="-10" anglemax="10" scalemin="0.3" scalemax="0.7" velocitymin="5" velocitymax="100" copyentityangle="true"/>
+        <ParticleEmitter particle="fleshsmoke" particlespersecond="10" anglemin="-10" anglemax="10" scalemin="1" scalemax="1.5" velocitymin="5" velocitymax="200" copyentityangle="true"/>
+      </StatusEffect>
+      <!-- make the item unusable when there's less than 10% oxygen -->
+      <StatusEffect type="OnUse" target="Hull,This" UsableIn="None">
+        <Conditional OxygenPercentage="lt 10"/>
+      </StatusEffect>
+      <!-- make the item usable again when there's more than 10% oxygen -->
+      <StatusEffect type="OnUse" target="Hull,This" UsableIn="Air">
+        <Conditional OxygenPercentage="gt 10"/>
+      </StatusEffect>
+      <!-- when using, this will detoriate -->
+      <StatusEffect type="OnUse" targettype="This" Condition="-4.0" />
+      <!-- do burn damage to characters -->
+      <StatusEffect type="OnSuccess" target="UseTarget">
+        <Affliction identifier="burn" amount="0.7" />
+        <Affliction identifier="afterburn" amount="2.1" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget">
+	    <Conditional speciesname="neq human" />
+        <Affliction identifier="burn" amount="0.7" />
+      </StatusEffect>
+      <!-- consume oxygen from the hull -->
+      <StatusEffect type="OnUse" target="Hull" Oxygen="-10000"/>
+      <StatusEffect type="OnFailure" target="Character">
+        <Conditional InWater="false"/>
+        <Affliction identifier="burn" strength="0.5" probability="0.5"/>
+      </StatusEffect>
+      <LightComponent LightColor="255,174,121,255" Flicker="0.5" Range="500">
+        <sprite texture="Content/Items/Electricity/lightsprite.png" origin="0.5,0.5" />
+      </LightComponent>
+    </RepairTool>
+    <!--<Propulsion force="-80" usablein="water" particles="bubbles" />-->
+    <aitarget sightrange="1000" soundrange="1000" fadeouttime="1" />
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
   
   <!-- a pipe, a stock and a trigger, just need some bullets -->
@@ -4139,6 +4495,7 @@
         <Conditional InWater="false" />
         <RequiredItem items="oxygenitetank" type="Contained" />
       </StatusEffect>
+      <damagemodifier afflictiontypes="radiationsickness" armorsector="0.0,360.0" damagemultiplier="0.9" />
       <damagemodifier afflictiontypes="burn" armorsector="0.0,360.0" damagemultiplier="0.9" />
       <damagemodifier afflictionidentifiers="blunttrauma,lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="bitewounds" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />

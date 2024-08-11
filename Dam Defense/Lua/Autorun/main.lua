@@ -210,10 +210,10 @@ DD.chatMessageFunctions.possess = function (message, sender)
 	end
 	
 	local winner = nil
-	local winnerDistance = 750
+	local winnerDistance = nil
 	for character in Character.CharacterList do
 		if (DD.findClientByCharacter(character) == nil) and (not character.IsDead) and (character.SpeciesName ~= 'human') and
-		(Vector2.Distance(sender.SpectatePos, character.WorldPosition) < winnerDistance) then
+		((winner == nil) or (Vector2.Distance(sender.SpectatePos, character.WorldPosition) < winnerDistance)) then
 			winner = character
 			winnerDistance = Vector2.Distance(sender.SpectatePos, character.WorldPosition)
 		end
@@ -265,7 +265,9 @@ DD.saving.boot()
 Hook.Add("stop", "DD.stop", function ()
 
 	for event in DD.eventDirector.events do
-		event.fail()
+		if DD.debugMode then print('fail: ' .. self.name .. self.seed) end
+		event.failed = true
+		event.onFinishAlways()
 	end
 	
 	return true

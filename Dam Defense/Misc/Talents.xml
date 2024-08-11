@@ -118,6 +118,7 @@
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
 	
     <AddedRecipe itemidentifier="trashbag"/>
+    <AddedRecipe itemidentifier="flamer"/>
 	
   </Talent>
 
@@ -156,7 +157,7 @@
     <AddedRecipe itemidentifier="sulphuricacidsyringe"/>
 	
 	<!-- engineer unlocks -->
-    <AddedRecipe itemidentifier="flamer"/>
+    <!--<AddedRecipe itemidentifier="flamer"/>-->
     <AddedRecipe itemidentifier="arcemitter" />
     <AddedRecipe itemidentifier="fpgacircuit"/>
     <AddedRecipe itemidentifier="circuitbox"/>

@@ -53,25 +53,7 @@
       <VitalityMultiplier type="damage" multiplier="0.5" />
     </Limb>
   </health>
-  <inventory arrowslot="9" Slots="Card, Headset, InnerClothes, OuterClothes, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface" accessiblewhenalive="False" accessiblebyowner="True" Commonness="1">
-    <Item identifier="idcard" slot="Card" />
-    <Item identifier="midazolam" />
-    <Item identifier="midazolam" />
-    <Item identifier="meth" />
-    <Item identifier="meth" />
-    <!-- 8 Goblin Crates (1 Stack) -->
-    <Item identifier="goblincrate" />
-    <Item identifier="goblincrate" />
-    <Item identifier="goblincrate" />
-    <Item identifier="goblincrate" />
-    <Item identifier="goblincrate" />
-    <Item identifier="goblincrate" />
-    <Item identifier="goblincrate" />
-    <Item identifier="goblincrate" />
-    <!-- End -->
-    <Item identifier="goblinmask" />
-    <Item identifier="goblinmask" />
-  </inventory>
+  <inventory arrowslot="9" Slots="Card, Headset, InnerClothes, OuterClothes, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface" accessiblewhenalive="False" accessiblebyowner="True" Commonness="1" />
   <Heads>
     <Head tags="head1,male" sheetindex="3,0" />
   </Heads>

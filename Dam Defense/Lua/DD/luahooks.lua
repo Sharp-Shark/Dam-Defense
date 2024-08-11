@@ -292,14 +292,13 @@ end)
 -- Remove goblin/troll and spawn his mask on the floor
 DD.characterDeathFunctions.greenskinDeath = function (character)
 	if (character.SpeciesName ~= 'humanGoblin') and (character.SpeciesName ~= 'humanTroll') then return end
+	if character.JobIdentifier ~= 'assistant' then return end
 
 	local client = DD.findClientByCharacter(character)
 	if client ~= nil then
 		client.SetClientCharacter(nil)
 	end
-	if #DD.eventDirector.getEventInstances('greenskins') > 0 then
-		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('goblinmask'), character.WorldPosition)
-	end
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('goblinmask'), character.WorldPosition)
 	Entity.Spawner.AddEntityToRemoveQueue(character)
 
 	return true
@@ -317,15 +316,47 @@ Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
 			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
 		else
 			createdCharacter.GiveTalent('greenskinknowledge', true)
+			local items = {
+				humangoblin = {
+					'idcard',
+					'bikehorn',
+					'midazolam',
+					'midazolam',
+					'meth',
+					'meth',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblinmask'
+				},
+				humantroll = {
+					'idcard',
+					'midazolam',
+					'midazolam',
+					'meth',
+					'meth',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblincrate',
+					'goblinmask',
+					'goblinmask'
+				}
+			}
+			for item in items[string.lower(tostring(createdCharacter.SpeciesName))] do
+				Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(item), createdCharacter.Inventory, nil, nil, function (spawnedItem) end)
+			end
 		end
 	end, 100)
-end)
-
--- Remove goblin masks outside of goblin event to prevent bugs
-Hook.Add("item.created", 'DD.goblinmaskRemove', function(item)
-	if (item.Prefab.Identifier == 'goblinmask') and (#DD.eventDirector.getEventInstances('greenskins') <= 0) then
-		Entity.Spawner.AddItemToRemoveQueue(item)
-	end
 end)
 
 -- Sends a message to husks telling them about their objective and abilities
@@ -336,6 +367,72 @@ Hook.Add("character.created", "DD.huskMessage", function (createdCharacter)
 		if client == nil then return end
 		DD.messageClient(client, DD.stringLocalize('huskInfo'), {preset = 'crit'})
 	end, 100)
+end)
+
+Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, item, targets, worldPosition)
+	local inShieldedContainer = false
+	if item.Condition <= 1 then
+		if (item.ParentInventory ~= nil) and (LuaUserData.TypeOf(item.ParentInventory.Owner) == 'Barotrauma.Item') and item.ParentInventory.Owner.HasTag('reactor') then
+			item.Condition = 0
+			inShieldedContainer = true
+		else
+			item.Condition = 1
+		end
+	end
+	
+	local lerpFactor = item.Health / item.Prefab.Health
+	local minAlpha = 0
+	local maxAlpha = 255
+	local minRange = 0
+	local maxRange = 400
+	if item.Prefab.Identifier == 'fulguriumfuelrodvolatile' then
+		minAlpha = 64
+		minRange = 100
+	end
+	local range = DD.lerp(lerpFactor, maxRange, minRange)
+	local alpha = DD.lerp(lerpFactor, maxAlpha, minAlpha)
+	item.GetComponentString('LightComponent').IsOn = true
+	item.GetComponentString('LightComponent').LightColor = Color(Byte(70), Byte(200), Byte(250), Byte(alpha))
+	item.GetComponentString('LightComponent').Range = range * 2
+	if SERVER then
+		local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("IsOn")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
+		local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("LightColor")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
+		local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("Range")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
+	end
+	
+	local maxAmount = item.Prefab.Health - item.Health
+	if item.Prefab.Identifier == 'fulguriumfuelrodvolatile' then
+		maxAmount = maxAmount + 50
+	end
+	if inShieldedContainer then maxAmount = maxAmount / 2 end
+	local minDistance = 50
+	local maxDistance = math.sqrt(maxAmount / 0.005)
+	for character in Character.CharacterList do
+		local limb = character.AnimController.Limbs[1]
+		local distance = Vector2.Distance(item.WorldPosition, limb.WorldPosition)
+		if item.InWater then distance = distance * 2 end
+		if distance <= maxDistance then
+			distance = math.max(minDistance, distance)
+			local amount = maxAmount / distance ^ 2
+			local attackResult = limb.AddDamage(limb.SimPosition, {AfflictionPrefab.Prefabs['radiationsickness'].Instantiate(amount * #character.AnimController.Limbs)}, false, 1, 0.0, nil)
+			character.CharacterHealth.ApplyDamage(limb, attackResult, nil)
+		end
+		--[[ going limb by limb is performance-intensive
+		for limb in character.AnimController.Limbs do
+			local distance = Vector2.Distance(item.WorldPosition, limb.WorldPosition)
+			if item.InWater then distance = distance * 2 end
+			if distance <= maxDistance then
+				distance = math.max(minDistance, distance)
+				local amount = maxAmount / distance ^ 2
+				local attackResult = limb.AddDamage(limb.SimPosition, {AfflictionPrefab.Prefabs['radiationsickness'].Instantiate(amount)}, false, 1, 0.0, nil)
+				character.CharacterHealth.ApplyDamage(limb, attackResult, nil)
+			end
+		end
+		--]]
+	end
 end)
 
 Hook.Add("DD.debug", "DD.debug", function(effect, deltaTime, item, targets, worldPosition)

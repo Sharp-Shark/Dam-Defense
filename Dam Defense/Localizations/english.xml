@@ -96,6 +96,7 @@
   <afflictiondescription.tbinfection>A very lethal bacterial lung infection, also highly transmissible. If untreated, will very likely result in death. Treatable with Broad-spectrum Antibiotics</afflictiondescription.tbinfection>
   
   <Override>
+  <entityname.orangejumpsuit1>Lead-lined Overalls</entityname.orangejumpsuit1>
   <entitydescription.captainspipe>Used for smoking pipe tabacco. Somehow heals damage and bloodloss at an impressive rate. Causes about as much lung damage as an entire pack of cigars.</entitydescription.captainspipe>
   <entitydescription.cigar>A finely crafted cigar. Somehow heals damage and bloodloss. Intense and frequent use may cause hard to reverse lung damage.</entitydescription.cigar>
   <entitydescription.rum>A fine liquor made from raptor bane juice or pomegrenade extract. When drunk heals husk infection and boosts the immune system at the cost of minor organ damage. Can be poured on wounds to clear gangrene. Better drink or use this than 90% ethanol!</entitydescription.rum>
@@ -163,6 +164,9 @@
   <entitydescription.boombox6>"Come Out and Play" by The Offspring.</entitydescription.boombox6>
   <entityname.boombox7>Sailor Boombox</entityname.boombox7>
   <entitydescription.boombox7>"Weigh, Hey and up She Rises" by The Irish Rovers.</entitydescription.boombox7>
+  <!-- Hazmat Suit -->
+  <entityname.hazmatsuit>Hazmat Suit</entityname.hazmatsuit>
+  <entitydescription.hazmatsuit>Class C hazmat suit infused with lead and steel for radiation protection. Gas mask protects against airborne contaminants, be them radioactive, chemical or biological.</entitydescription.hazmatsuit>
   <!-- Nukie Mask -->
   <entityname.jetmask>Nukie Mask</entityname.jetmask>
   <entitydescription.jetmask>A diving mask and a helmet! How efficient.</entitydescription.jetmask>
@@ -197,6 +201,9 @@
   <!-- Foldable Shotgun -->
   <entityname.foldableshotgun>Foldable Shotgun</entityname.foldableshotgun>
   <entitydescription.foldableshotgun>An antique shotgun that manages to have both power and portability by being foldable.</entitydescription.foldableshotgun>
+  <!-- Makeshift Flamer -->
+  <entityname.makeshiftflamer>Makeshift Flamer</entityname.makeshiftflamer>
+  <entitydescription.makeshiftflamer>Fire extinguisher can filled with a flammable substance. The irony of being set on fire with a fire extinguisher might be lost on the person burning.</entitydescription.makeshiftflamer>
   <!-- Pipe Gun -->
   <entityname.pipegun>Pipe Gun</entityname.pipegun>
   <entitydescription.pipegun>Two pipes, a simple trigger and a stock. Extremely cheap and fast to manufacture. Accepts any kind of cartridge.</entitydescription.pipegun>

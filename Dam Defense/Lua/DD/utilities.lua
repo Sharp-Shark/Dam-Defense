@@ -493,10 +493,12 @@ DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 	if character.Inventory == nil then return end
 	local headslot = character.Inventory.GetItemAt(DD.invSlots.head)
 	local suitslot = character.Inventory.GetItemAt(DD.invSlots.suit)
+	local clothingslot = character.Inventory.GetItemAt(DD.invSlots.innerclothes)
 	
 	if character.AnimController.HeadInWater and not ignoreHeadInWater then return false end
 	if not character.UseHullOxygen then return false end
 	if (suitslot ~= nil) and ((suitslot.Prefab.Identifier == 'pucs') or (suitslot.Prefab.Identifier == 'nexsuit')) then return false end
+	if (clothingslot ~= nil) and (clothingslot.Prefab.Identifier == 'hazmatsuit') then return false end
 	
 	--[[
 	if (headslot ~= nil) and headslot.HasTag('diving') then return false end

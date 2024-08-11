@@ -90,6 +90,10 @@ end, {
 						DD.messageClient(client, 'A serial killer is roaming the area, however it is unknown who they are. Be careful!', {preset = 'crit'})
 					end
 				end
+				-- 
+				for character in Character.CharacterList do
+					DD.giveAfflictionCharacter(character, 'killerfx', 999)
+				end
 				-- Make event public
 				self.public = true
 			end
