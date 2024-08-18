@@ -146,7 +146,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 	
 	commands = {'help', 'jobinfo', 'events', 'myevents', 'credits', 'withdraw', 'possess', 'freecam'}
 	
-	local specialCommands = {rebels = false, cultists = false, whisper = false, gang = false}
+	local specialCommands = {rebels = false, cultists = false, whisper = false, gang = false, fire = false}
 	for event in DD.eventDirector.getEventInstances('revolution') do
 		specialCommands['rebels'] = true
 	end
@@ -158,6 +158,9 @@ DD.chatMessageFunctions.help = function (message, sender)
 	end
 	for event in DD.eventDirector.getEventInstances('gangWar') do
 		specialCommands['gang'] = true
+	end
+	if (DD.isClientCharacterAlive(sender) and (sender.Character.JobIdentifier == 'captain')) or sender.HasPermission(ClientPermissions.ConsoleCommands) then
+		specialCommands['fire'] = true
 	end
 	for specialCommand, value in pairs(specialCommands) do
 		if value then
@@ -176,7 +179,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 	end
 	if isMisspell then
 		DD.messageClient(sender, DD.stringLocalize('commandHelpMisspell', {command = message}), {preset = 'commandError'})
-		return
+		return true
 	end
 	
 	local list = ''
@@ -247,16 +250,108 @@ DD.chatMessageFunctions.freecam = function (message, sender)
 	
 	return true
 end
+DD.chatMessageFunctions.fire = function (message, sender)
+	if string.sub(message, 1, 5) ~= '/fire' then return end
+	if not DD.isClientCharacterAlive(sender) and not sender.HasPermission(ClientPermissions.ConsoleCommands) then return end
+	if (sender.Character.JobIdentifier ~= 'captain') and not sender.HasPermission(ClientPermissions.ConsoleCommands) then return end
+	
+	local count = 1
+	local numberMap = {}
+	for client in Client.ClientList do
+		if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) then
+			numberMap[tostring(count)] = client
+			count = count + 1
+		end
+	end
+	
+	local client
+	local foundTarget = false
+	local targetName = string.sub(message, 7)
+	if numberMap[targetName] then
+		client = numberMap[targetName]
+		DD.giveAfflictionCharacter(client.Character, 'beepingbomb', 5)
+		foundTarget = true
+		targetName = client.Name
+	end
+	if foundTarget == false then
+		for client in Client.ClientList do
+			if DD.isClientCharacterAlive(client) then
+				local character = client.Character
+				if (character.SpeciesName == 'human') and DD.isCharacterSecurity(character) and (client.Name == targetName) then
+					client = DD.findClientByCharacter(character)
+					DD.giveAfflictionCharacter(character, 'beepingbomb', 5)
+					foundTarget = true
+					break
+				end
+			end
+		end
+	end
+	if foundTarget == false then
+		for character in Character.CharacterList do
+			if (not character.IsDead) and (character.SpeciesName == 'human') and DD.isCharacterSecurity(character) and (character.Name == targetName) then
+				client = DD.findClientByCharacter(character)
+				DD.giveAfflictionCharacter(character, 'beepingbomb', 5)
+				foundTarget = true
+				break
+			end
+		end
+	end
+	
+	if not foundTarget then
+		local text = ''
+		for key, value in pairs(numberMap) do
+			text = text .. DD.stringReplace(' {number}: "{name}".', {number = key, name = value.Name})
+		end
+		if targetName == '' then
+			DD.messageClient(sender, DD.stringReplace('You can fire someone using their security ID number.' .. text, {name = targetName}), {preset = 'command'})
+		else
+			DD.messageClient(sender, DD.stringReplace('No member of security named {name} was found. You can fire someone using their security ID number.' .. text, {name = targetName}), {preset = 'command'})
+		end
+		return true
+	end
+	
+	if sender.Character.JobIdentifier ~= 'captain' then
+		DD.messageAllClients(DD.stringLocalize('commandFireAdmin', {name = targetName}), {preset = 'badinfo'})
+	else
+		DD.messageAllClients(DD.stringLocalize('commandFire', {name = targetName}), {preset = 'badinfo'})
+	end
+	
+	if client == nil then return true end
+	
+	DD.clientJob[client] = 'mechanic'
+	
+	client.AssignedJob = JobVariant(JobPrefab.Get('mechanic'), math.random(JobPrefab.Get('mechanic').Variants) - 1)
+	local seed = tostring(math.floor(math.random() * 10^8))
+	DD.characterDeathFunctions['respawnAsLaborer' .. seed] = function (character)
+		local target = client
+		Timer.Wait(function ()
+			if client ~= DD.findClientByCharacter(character) then return end
+			local seed = seed
+			local job = 'mechanic'
+			local pos = DD.findRandomWaypointByJob(job).WorldPosition
+			local character = DD.spawnHuman(client, job, pos)
+			character.SetOriginalTeam(CharacterTeamType.Team1)
+			character.UpdateTeam()
+		
+			DD.characterDeathFunctions['respawnAsLaborer' .. seed] = nil
+		end, 100)
+	end
+	
+	return true
+end
 
 -- Load other files
 require 'DD/nature'
+require 'DD/procGen'
 require 'DD/afflictions'
 require 'DD/eventDirector'
 require 'DD/latejoin'
+require 'DD/autoJob'
 require 'DD/money'
 require 'DD/luahooks'
 require 'DD/commands'
-require 'DD/discord'
+require 'DD/networking/client'
+require 'DD/networking/server'
 
 -- Save file
 DD.saving.boot()
@@ -265,7 +360,7 @@ DD.saving.boot()
 Hook.Add("stop", "DD.stop", function ()
 
 	for event in DD.eventDirector.events do
-		if DD.debugMode then print('fail: ' .. self.name .. self.seed) end
+		if DD.debugMode then print('fail: ' .. event.name .. event.seed) end
 		event.failed = true
 		event.onFinishAlways()
 	end

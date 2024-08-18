@@ -3,7 +3,7 @@
 <Jobs>
   <Override>
   <Job identifier="captain"
-       minnumber="1" maxnumber="1" minkarma="0" initialcount="1"
+       maxnumber="1" minkarma="0" initialcount="1"
        uicolor="0.7,0.65,0.9"
        vitalitymodifier="20"
        pricemultiplier="1.3"

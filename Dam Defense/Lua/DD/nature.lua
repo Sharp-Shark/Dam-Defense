@@ -104,20 +104,26 @@ DD.spawnPlants = function ()
 	end
 	local plant = DD.weightedRandom(DD.plantData, weights)
 	
-	local location1 = DD.getLocation(function (item) return item.HasTag('dd_plantspawn') and (not self.locationBlacklistSet[item]) end)
-	if (location1 == nil) or (#location1.linkedTo == 0) then
-		self.fail()
-		return
-	end
-	DD.eventPlant.tbl.locationBlacklistSet[location1] = true
-	
-	local plantAmount = math.floor(math.random() * 4) + 5
-	for n = 1, plantAmount do
-		local location2 = location1.linkedTo[math.random(#location1.linkedTo)]
-		local position = Vector2(DD.lerp(math.random(), location1.WorldPosition.X, location2.WorldPosition.X), DD.lerp(math.random(), location1.WorldPosition.Y, location2.WorldPosition.Y))
-		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(plant.itemIdentifier), position, nil, nil, function (spawnedItem)
-			spawnedItem.Rotation = location2.Rotation
-		end)
+	local location1 = DD.getLocation(function (item) return item.HasTag('dd_plantspawn') and (not DD.roundData.plantSpawnLocationBlacklistSet[item]) end)
+	if (location1 ~= nil) and (#location1.linkedTo > 0) then
+		DD.roundData.plantSpawnLocationBlacklistSet[location1] = true
+		
+		local plantAmount = math.floor(math.random() * 4) + 5
+		for n = 1, plantAmount do
+			local location2 = location1.linkedTo[math.random(#location1.linkedTo)]
+			local position = Vector2(DD.lerp(math.random(), location1.WorldPosition.X, location2.WorldPosition.X), DD.lerp(math.random(), location1.WorldPosition.Y, location2.WorldPosition.Y))
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(plant.itemIdentifier), position, nil, nil, function (spawnedItem)
+				spawnedItem.Rotation = location2.Rotation
+				if SERVER then
+					Timer.Wait(function ()
+						local message = Networking.Start("syncEntityRotation")
+						message.WriteUInt16(spawnedItem.ID)
+						message.WriteSingle(spawnedItem.Rotation)
+						Networking.Send(message)
+					end, 100)
+				end
+			end)
+		end
 	end
 end
 
@@ -153,25 +159,7 @@ DD.thinkFunctions.nature = function ()
 	end
 	-- Plant update
 	if DD.roundData.plantSpawnTimer <= 0 then
-		local weights = {}
-		for key, value in pairs(DD.plantData) do
-				weights[key] = value.weight
-		end
-		local plant = DD.weightedRandom(DD.plantData, weights)
-		
-		local location1 = DD.getLocation(function (item) return item.HasTag('dd_plantspawn') and (not DD.roundData.plantSpawnLocationBlacklistSet[item]) end)
-		if (location1 ~= nil) and (#location1.linkedTo > 0) then
-			DD.roundData.plantSpawnLocationBlacklistSet[location1] = true
-			
-			local plantAmount = math.floor(math.random() * 4) + 5
-			for n = 1, plantAmount do
-				local location2 = location1.linkedTo[math.random(#location1.linkedTo)]
-				local position = Vector2(DD.lerp(math.random(), location1.WorldPosition.X, location2.WorldPosition.X), DD.lerp(math.random(), location1.WorldPosition.Y, location2.WorldPosition.Y))
-				Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(plant.itemIdentifier), position, nil, nil, function (spawnedItem)
-					spawnedItem.Rotation = location2.Rotation
-				end)
-			end
-		end
+		DD.spawnPlants()
 		DD.roundData.plantSpawnTimer = DD.roundData.plantSpawnTimerInitial
 	else
 		DD.roundData.plantSpawnTimer = DD.roundData.plantSpawnTimer - 1 / timesPerSecond

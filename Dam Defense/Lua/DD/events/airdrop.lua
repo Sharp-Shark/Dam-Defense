@@ -67,11 +67,12 @@ end, {
 	
 	onThink = function (self)
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+		local timesPerSecond = 2
 		
 		if self.timer <= 0 then
 			self.finish()
 		else
-			self.timer = self.timer - 0.5
+			self.timer = self.timer - 1 / timesPerSecond
 		end
 	end,
 	

@@ -11,6 +11,8 @@ return {
 	commandPossess = 'Do /freecam to go back to spectating. You cannot respawn unless you are spectating.',
 	commandFreecamErrorDead = 'You are already spectating.',
 	commandFreecamErrorHuman = 'You cannot become a spectator whilst controlling a human.',
+	commandFire = 'The captain has decided to fire {name} from the security force!',
+	commandFireAdmin = 'Nexpharma (TM) has decided to fire {name} from the security force!',
 	huskInfo = 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate.',
 	-- eventDirector.lua
 	commandEventsNone = 'none (there are no public events)',
@@ -28,7 +30,7 @@ return {
 	commandWithdrawErrorDead = 'You have to be alive to withdraw.',
 	commandWithdrawErrorNotHuman = 'Error! Non-human lifeform detected.',
 	commandWithdrawErrorCooldown = 'You have to wait {timer} before you can withdraw again.',
-	commandWithdrawErrorInvalidAmount = 'You have tried to withdraw an invalid amount and thusly failed.',
+	commandWithdrawErrorInvalidAmount = 'You have tried to withdraw an invalid amount and thusly failed. Do "/credits" to see how many credits you have.',
 	commandWithdraw = 'A Nexcase (TM) with {amount} Nexcredits (TM) has been teleported to you by Nexmail (TM). It will be teleported back in {seconds} seconds along with anything left inside!',
 	-- events/affliction.lua (TBD)
 	-- events/airdrop.lua (TBD)
@@ -36,6 +38,13 @@ return {
 	-- events/blackout.lua (TBD)
 	-- events/bloodCult.lua (TBD)
 	bloodCultRecruitmentNotice = 'The cult has just recruited {name}!',
+	-- events/election.lua
+	electionStart = 'Time for democracy, vote yes to replace the current captain, vote no to keep him! Head to your nearest ballot box, insert your desired amount of Nexcredits (TM) and press "Vote Yes" or "Vote No". You have {timer} to vote with your wallet!',
+	electionVoteCast = 'New votes have been cast!',
+	electionEndYes = 'The election has ended and it has been democratically decided to replace the current captain with a new one! The new captain is {name}.',
+	electionEndYesFail = 'The election has ended and it has been democratically decided to replace the current captain with a new one, however due to a lack of a proper replacement, the decision will sadly be ignored.',
+	electionEndNo = 'The election has ended and it has been democratically decided to keep the current captain!',
+	electionEndFail = 'The election has ended because the captain has died or some other failure in the process.',
 	-- events/fish.lua (TBD)
 	-- events/gangWar.lua (still need to add localization for "/gang")
 	gangWarDoxx = 'The Nexbank (TM) has found unusual activity in the account of {name}, and as such has determined they are a gang member. Do /gang to get the public list of gang members.',

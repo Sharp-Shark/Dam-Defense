@@ -423,7 +423,51 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 	end
 end)
 
+local vote = function (bool, targets)
+	local count = 0
+	for target in targets do
+		count = count + 1
+		Entity.Spawner.AddItemToRemoveQueue(target)
+	end
+	if count == 0 then return end
+	
+	for event in DD.eventDirector.events do
+		if event.name == 'election' then
+			if bool then
+				event.yesVotes = event.yesVotes + count
+			else
+				event.noVotes = event.noVotes + count
+			end
+		end
+	end
+	if SERVER then DD.messageAllClients(DD.stringLocalize('electionVoteCast'), {preset = 'info'}) end
+end
+Hook.Add("DD.ballotbox.voteYes", "DD.ballotbox.voteYes", function(effect, deltaTime, item, targets, worldPosition)
+	vote(true, targets)
+end)
+Hook.Add("DD.ballotbox.voteNo", "DD.ballotbox.voteNo", function(effect, deltaTime, item, targets, worldPosition)
+	vote(false, targets)
+end)
+
 Hook.Add("DD.debug", "DD.debug", function(effect, deltaTime, item, targets, worldPosition)
 	print(item)
 	DD.tablePrint(targets, nil, 1)
 end)
+
+-- fix from evil factory for goblin/troll respawn bug
+if SERVER then
+local characterInfoDictRedux = {}
+Hook.Patch("Barotrauma.Networking.GameServer", "UpdateCharacterInfo", function(instance, ptable)
+	local sender = ptable["sender"]
+	characterInfoDictRedux[sender] = sender.CharacterInfo
+end, Hook.HookMethodType.After)
+Hook.Patch("Barotrauma.Networking.RespawnManager", "DispatchShuttle", function(instance, ptable)
+	for client in Client.ClientList do
+		if not client.Character or client.Character.IsDead then
+			if characterInfoDictRedux[client] then
+				client.CharacterInfo = characterInfoDictRedux[client]
+			end
+		end
+	end
+end, Hook.HookMethodType.Before)
+end

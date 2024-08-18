@@ -79,6 +79,14 @@
 	<ItemContainer capacity="2" maxstacksize="50" hideitems="false">
       <Containable items="money" hide="true" />
     </ItemContainer>
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.09,0.07" anchor="BottomCenter" pivot="BottomRight" relativeoffset="-0.025,0.093" style="ItemUI" />
+      <Button text="Withdraw">
+        <StatusEffect type="OnUse" targettype="Character" stackable="false" duration="1">
+          <LuaHook name="DD.idcard.withdraw" />
+        </StatusEffect>
+      </Button>
+    </CustomInterface>
   </Item>
   <!-- handcuff slows down wearer (25% slower) and degrades over time (lasts ~3 minute) -->
   <Item name="" identifier="handcuffs" category="Equipment" maxstacksize="8" maxstacksizecharacterinventory="1" MaxStackSizeHoldableOrWearableInventory="8" cargocontaineridentifier="metalcrate" tags="smallitem,handlocker" scale="0.5" impactsoundtag="impact_metal_light" equipconfirmationtext="handcuffequipconfirmation">
@@ -1637,7 +1645,7 @@
       <damagemodifier afflictionidentifiers="bitewounds" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
 	  <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.5" />
-	  <damagemodifier afflictiontypes="radiationsickness" armorsector="0.0,360.0" damagemultiplier="0.5" />
+	  <damagemodifier afflictionidentifiers="radiationsickness" armorsector="0.0,360.0" damagemultiplier="0.5" />
       <SkillModifier skillidentifier="weapons" skillvalue="5" />
       <sprite name="Pirate Armor Wearable" texture="Content/Map/Pirates/PirateEquip.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" ignorelimbscale="true" scale="0.7" inheritsourcerect="false" sourcerect="14,45,103,158" />
     </Wearable>
@@ -3104,6 +3112,44 @@
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <SkillRequirementHint identifier="weapons" level="50" />
   </Item>
+  
+
+  <Item name="Breaching Slug" identifier="shotgunslugbreaching" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="12" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,shotgunammo" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="6">
+      <RequiredItem tag="money" amount="8" />
+	</Fabricate>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="5">
+      <RequiredItem tag="fakemoney" amount="4" />
+	</Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="6">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
+      <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
+      <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <InventoryIcon texture="foldableshotgun.png" sourcerect="220,0,64,64" origin="0.5,0.5" />
+    <Sprite texture="foldableshotgun.png" sourcerect="261,64,23,11" depth="0.55" origin="0.5,0.5" />
+    <Body width="23" height="10" density="15" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" hitscan="true" hitscancount="1" removeonhit="true" spread="1">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,100" scalemultiplier="1,0.5" />
+      <Attack structuredamage="75" targetforce="32" itemdamage="150" severlimbsprobability="0.5" >
+        <Affliction identifier="gunshotwound" strength="32" />
+        <Affliction identifier="bleeding" strength="12" />
+        <Affliction identifier="stun" strength="0.4" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="8" velocitymin="0" velocitymax="0" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+    </Projectile>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
 
   <!-- makeshift flamer -->
   <Item name="Makeshift Flamer" identifier="makeshiftflamer" category="Equipment,Weapon" Tags="mediumitem,fireextinguisher,provocative,weapon,gun,mountableweapon" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
@@ -4495,7 +4541,7 @@
         <Conditional InWater="false" />
         <RequiredItem items="oxygenitetank" type="Contained" />
       </StatusEffect>
-      <damagemodifier afflictiontypes="radiationsickness" armorsector="0.0,360.0" damagemultiplier="0.9" />
+      <damagemodifier afflictionidentifiers="radiationsickness" armorsector="0.0,360.0" damagemultiplier="0.5" />
       <damagemodifier afflictiontypes="burn" armorsector="0.0,360.0" damagemultiplier="0.9" />
       <damagemodifier afflictionidentifiers="blunttrauma,lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="bitewounds" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />

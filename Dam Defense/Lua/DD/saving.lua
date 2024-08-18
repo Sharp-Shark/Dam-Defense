@@ -10,6 +10,7 @@ DD.saving.autoSave = true
 DD.saving.keys = {
 	'debugMode',
 	'eventDirector.enabled',
+	'jobBans',
 }
 
 -- Get any value from the table DD

@@ -201,6 +201,9 @@
   <!-- Foldable Shotgun -->
   <entityname.foldableshotgun>Foldable Shotgun</entityname.foldableshotgun>
   <entitydescription.foldableshotgun>An antique shotgun that manages to have both power and portability by being foldable.</entitydescription.foldableshotgun>
+  <!-- Shotgun Slug Breaching -->
+  <entityname.shotgunslugbreaching>Breaching Slug</entityname.shotgunslugbreaching>
+  <entitydescription.shotgunslugbreaching>A shotgun slug for breaching doors. Still lethal.</entitydescription.shotgunslugbreaching>
   <!-- Makeshift Flamer -->
   <entityname.makeshiftflamer>Makeshift Flamer</entityname.makeshiftflamer>
   <entitydescription.makeshiftflamer>Fire extinguisher can filled with a flammable substance. The irony of being set on fire with a fire extinguisher might be lost on the person burning.</entitydescription.makeshiftflamer>

@@ -1,3 +1,5 @@
+if CLIENT then return end
+
 local function escapeQuotes (str)
     return str:gsub("\"", "\\\"")
 end
@@ -54,3 +56,11 @@ end)
 if SERVER and Game.ServerSettings.IsPublic then
 	discordChatMessage('00| Server is up and running!')
 end
+
+Networking.Receive("requestUpdateJobBans", function (message, client)
+	if client.HasPermission(ClientPermissions.ConsoleCommands) then
+		local message = Networking.Start("updateJobBans")
+		message.WriteString(json.serialize(DD.jobBans))
+		Networking.Send(message, client.Connection)
+	end
+end)

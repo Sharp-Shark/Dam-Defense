@@ -2,6 +2,22 @@
 <Items>
 
   <Override>
+  <!-- added a special tag to identify it (for procGen.lua) -->
+  <Item name="" identifier="opdeco_cabinetsdorm" tags="cabinet" allowattachitems="false" width="110" height="398" texturescale="1.0,1.0" scale="0.5" category="Decorative">
+    <Upgrade gameversion="0.16.2.0" refreshrect="true" PositionY="-88" />
+    <sprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1760,1360,117,309" depth="0.84" premultiplyalpha="false" origin="0.5,0.5" />
+    <ItemContainer capacity="6" slotsperrow="3" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.16,0.22" anchor="Center" style="ItemUI" />
+      <Containable items="smallitem,mediumitem" excludedidentifiers="mobilecontainer" />
+    </ItemContainer>
+    <!-- backwards compatibility for older versions in which mobile containers like storage containers were containable in any cabinet -->
+    <Upgrade gameversion="1.1.0.0" campaignsaveonly="true">
+      <ItemContainer>
+        <Containable items="smallitem,mediumitem" />
+        <ClearSubContainerRestrictions />
+      </ItemContainer>
+    </Upgrade>
+  </Item>
   <!-- made immune to explosions but halved meltdowndelay -->
   <Item name="" identifier="reactor1" tags="reactor" type="Reactor" scale="0.5" linkable="true" category="Machine" damagedbyexplosions="false" explosiondamagemultiplier="0.2">
     <Upgrade gameversion="0.10.0.0" scale="*0.5" />
@@ -347,6 +363,29 @@
       <limbposition limb="RightHand" position="145,-25" allowusinglimb="true" />
       <limbposition limb="LeftHand" position="145,-25" allowusinglimb="true" />
     </Controller>
+  </Item>
+  
+  <!-- ballot box -->
+  <Item name="Ballot Box" identifier="ballotbox" category="Misc" tags="democracy" canflipx="false" canflipy="false" scale="0.5" noninteractable="true" condition="0" >
+    <Sprite texture="ballotbox.png" depth="0.75" sourcerect="0,0,148,232" origin="0.5,0.5" />
+	<BrokenSprite texture="ballotbox.png" depth="0.75" sourcerect="148,0,148,232" origin="0.5,0.5" />
+    <CustomInterface canbeselected="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.15,0.15" style="ItemUI" anchor="Center" />
+      <Button text="Vote Yes">
+        <StatusEffect type="OnUse" target="Contained" stackable="false" duration="1">
+          <LuaHook name="DD.ballotbox.voteYes" />
+        </StatusEffect>
+      </Button>
+      <Button text="Vote No">
+        <StatusEffect type="OnUse" target="Contained" stackable="false" duration="1">
+          <LuaHook name="DD.ballotbox.voteNo" />
+        </StatusEffect>
+      </Button>
+    </CustomInterface>
+	<ItemContainer hideitems="true" capacity="12" drawinventory="false" canbeselected="false" >
+	  <Containable items="money" />
+	</ItemContainer>
+    <LightComponent range="125.0" lightcolor="255,200,155,100" powerconsumption="0" IsOn="false" castshadows="false" alphablend="false" pulsefrequency="0.8" pulseamount="1.0" allowingameediting="false" />
   </Item>
 
   <!-- nexshops -->

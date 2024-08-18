@@ -165,3 +165,205 @@ if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
 Game.AddCommand('dd_startEvent', 'dd_startEvent [eventidentifier]: manually creates and starts an event with the provided identifier.', func, validArgs, false)
+
+-- Debug console dd_jobBan
+local func = function (args)
+	if CLIENT then print('Server-side only!') return end
+	
+	if args[1] == nil then
+		DD.tablePrint(DD.jobBans, nil, 1)
+		return
+	end
+	
+	local targetName = args[1]
+	local job = args[2]
+	local reason = args[3]
+	if reason == nil then reason = '' end
+	
+	local target
+	for client in Client.ClientList do
+		if client.Name == targetName then
+			target = client
+			break
+		end
+		if client.SessionId == targetName then
+			target = client
+			break
+		end
+	end
+	
+	-- target oopsie
+	if target == nil then
+		print('Could not find specified client.')
+		return
+	end
+	
+	-- info
+	if args[2] == nil then
+		DD.tablePrint(DD.jobBans[target.AccountId.StringRepresentation], nil, 1)
+		return
+	end
+	
+	local jobSet = {}
+	for jobPrefab in JobPrefab.Prefabs do
+		if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
+			jobSet[tostring(jobPrefab.Identifier)] = true
+		end
+	end
+	-- job oopsie
+	if not jobSet[job] then
+		print(job .. ' is not a valid job.')
+		return
+	end
+	
+	-- actually applies the job ban
+	if DD.jobBans[target.AccountId.StringRepresentation] == nil then
+		DD.jobBans[target.AccountId.StringRepresentation] = {names = {}, reasons = {}}
+	end
+	if not DD.tableHas(DD.jobBans[target.AccountId.StringRepresentation].names, target.Name) then
+		table.insert(DD.jobBans[target.AccountId.StringRepresentation].names, target.Name)
+	end
+	DD.jobBans[target.AccountId.StringRepresentation][job] = true
+	DD.jobBans[target.AccountId.StringRepresentation].reasons[job] = reason
+	
+	-- give message
+	if reason ~= '' then
+		DD.messageClient(target, DD.stringReplace('You have been banned from the {jobName} job because: {reason}.', {jobName = job, reason = reason}), {preset = 'crit'})
+	end
+	
+	-- debug
+	local text = 'Banned ' .. DD.clientLogName(target) .. ' from the ' .. job .. ' job because: ' .. reason .. '.'
+	print(text)
+	Game.Log(text, 10)
+	DD.tablePrint(DD.jobBans[target.AccountId.StringRepresentation], nil, 1)
+	
+	-- network
+	local message = Networking.Start("updateJobBans")
+	message.WriteString(json.serialize(DD.jobBans))
+	for client in Client.ClientList do
+		if client.HasPermission(ClientPermissions.ConsoleCommands) then
+			Networking.Send(message, client.Connection)
+		end
+	end
+	
+	-- saving
+	DD.saving.save({'jobBans'})
+end
+local validArgs = function (...)
+	local tbl = {{}, {}, {'', 'no reason specified', 'you were being an idiot', 'an admin felt like it'}}
+	
+	if CLIENT and Game.IsMultiplayer and (not DD.receivedCaptainWhitelist) then
+		local message = Networking.Start("requestUpdateJobBans")
+		Networking.Send(message)
+	end
+	
+	for client in Client.ClientList do
+		table.insert(tbl[1], client.Name)
+	end
+	
+	for jobPrefab in JobPrefab.Prefabs do
+		if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
+			table.insert(tbl[2], tostring(jobPrefab.Identifier))
+		end
+	end
+	
+	return tbl
+end
+if CLIENT and Game.IsMultiplayer then
+	func = function () return end
+end
+Game.AddCommand('dd_jobBan', 'dd_jobBan [name/number] [job] [reason]: job bans a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)
+
+-- Debug console dd_jobUnban
+local func = function (args)
+	if CLIENT then print('Server-side only!') return end
+	
+	if args[1] == nil then
+		DD.tablePrint(DD.jobBans, nil, 1)
+		return
+	end
+	
+	local accountId = args[1]
+	local job = args[2]
+	
+	-- accountId oopsie
+	local foundAccountId = false
+	for otherAccountId, value in pairs(DD.jobBans) do
+		if accountId == otherAccountId then
+			 foundAccountId = true
+		end
+	end
+	if not foundAccountId then
+		print('Could not find specified client.')
+		DD.tablePrint(DD.jobBans, nil, 1)
+		return
+	end
+	
+	local name = DD.jobBans[accountId].names[1]
+	if args[2] == nil then
+		DD.jobBans[accountId] = nil
+	else
+		local jobSet = {}
+		for key, value in pairs(DD.jobBans[accountId]) do
+			if type(value) == 'boolean' then
+				jobSet[key] = true
+			end
+		end
+		-- job oopsie
+		if not jobSet[job] then
+			print('Client is not banned from ' .. job .. ' job')
+			return
+		end
+		
+		DD.jobBans[accountId][job] = nil
+		DD.jobBans[accountId].reasons[job] = nil
+	end
+	
+	-- debug
+	if args[2] == nil then
+		local text = 'Revoked all job bans and job ban data from ' .. name .. '.'
+		print(text)
+		Game.Log(text, 10)
+	else
+		local text = 'Revoked ' .. args[2] ..' job ban from ' .. name .. '.'
+		print(text)
+		Game.Log(text, 10)
+		DD.tablePrint(DD.jobBans[accountId], nil, 1)
+	end
+	
+	-- network
+	local message = Networking.Start("updateJobBans")
+	message.WriteString(json.serialize(DD.jobBans))
+	for client in Client.ClientList do
+		if client.HasPermission(ClientPermissions.ConsoleCommands) then
+			Networking.Send(message, client.Connection)
+		end
+	end
+	
+	-- saving
+	DD.saving.save({'jobBans'})
+end
+local validArgs = function (...)
+	local tbl = {{}, {}}
+	
+	if CLIENT and Game.IsMultiplayer and (not DD.receivedCaptainWhitelist) then
+		local message = Networking.Start("requestUpdateJobBans")
+		Networking.Send(message)
+	end
+	
+	for accountId, value in pairs(DD.jobBans) do
+		table.insert(tbl[1], accountId)
+	end
+	
+	for jobPrefab in JobPrefab.Prefabs do
+		if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
+			table.insert(tbl[2], tostring(jobPrefab.Identifier))
+		end
+	end
+	
+	return tbl
+end
+if CLIENT and Game.IsMultiplayer then
+	func = function () return end
+end
+Game.AddCommand('dd_jobUnban', 'dd_jobUnban [accountId] [job]: unbans a client of a job. Do not specify a job to clear all the job ban data of a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)

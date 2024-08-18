@@ -218,5 +218,16 @@ DD.chatMessageFunctions.withdrawMoney = function (message, sender)
 	local event = DD.eventWithdraw.new(sender, amount)
 	event.start()
 	
+	DD.giveAfflictionCharacter(sender.Character, 'shopfx', 999)
+	
 	return true
 end
+
+Hook.Add("DD.idcard.withdraw", "DD.idcard.withdraw", function(effect, deltaTime, item, targets, worldPosition)
+	local character = targets[1]
+	if character == nil then return end
+	local client = DD.findClientByCharacter(character)
+	if client == nil then return end
+	
+	DD.chatMessageFunctions.withdrawMoney('/withdraw', client)
+end)
