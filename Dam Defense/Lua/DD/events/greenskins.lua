@@ -55,7 +55,7 @@ end, {
 					
 					local greenskinInfo = DD.stringLocalize('greenskinInfo')
 					
-					local job = 'assistant'
+					local job = 'greenskinjob'
 					local pos = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
 					local character = DD.spawnHuman(client, job, pos, nil, nil, speciesName)
 					character.SetOriginalTeam(CharacterTeamType.Team1)

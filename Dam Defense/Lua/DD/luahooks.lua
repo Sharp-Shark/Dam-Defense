@@ -261,7 +261,7 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 	-- Make goblin (or troll)
 	local speciesName = 'humanGoblin'
 	if isTroll then speciesName = 'humanTroll' end
-	local newCharacter = DD.spawnHuman(client, 'assistant', character.worldPosition, character.Name, nil, speciesName)
+	local newCharacter = DD.spawnHuman(client, 'greenskinjob', character.worldPosition, character.Name, nil, speciesName)
 
     -- Spawn a duffel bag at the player's feet to put the dropped items inside
 	local duffelbag
@@ -292,7 +292,7 @@ end)
 -- Remove goblin/troll and spawn his mask on the floor
 DD.characterDeathFunctions.greenskinDeath = function (character)
 	if (character.SpeciesName ~= 'humanGoblin') and (character.SpeciesName ~= 'humanTroll') then return end
-	if character.JobIdentifier ~= 'assistant' then return end
+	if character.JobIdentifier ~= 'greenskinjob' then return end
 
 	local client = DD.findClientByCharacter(character)
 	if client ~= nil then
@@ -309,7 +309,7 @@ Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
 	if (createdCharacter.SpeciesName ~= 'humanGoblin') and (createdCharacter.SpeciesName ~= 'humanTroll') then return end
 	
 	Timer.Wait(function ()
-		if createdCharacter.JobIdentifier ~= 'assistant' then
+		if createdCharacter.JobIdentifier ~= 'greenskinjob' then
 			local client = DD.findClientByCharacter(createdCharacter)
 			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
 			client.SetClientCharacter(character)

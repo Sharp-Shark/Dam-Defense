@@ -81,7 +81,7 @@ local func = function (args)
 	else
 		print('Event director disabled.')
 	end
-	if DD.saving.autoSave and not DD.debugMode then DD.saving.save({'eventDirector.enabled'}) end
+	DD.saving.autoSave({'eventDirector.enabled'})
 end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
@@ -210,6 +210,7 @@ local func = function (args)
 			jobSet[tostring(jobPrefab.Identifier)] = true
 		end
 	end
+	jobSet['all'] = true
 	-- job oopsie
 	if not jobSet[job] then
 		print(job .. ' is not a valid job.')
@@ -223,8 +224,18 @@ local func = function (args)
 	if not DD.tableHas(DD.jobBans[target.AccountId.StringRepresentation].names, target.Name) then
 		table.insert(DD.jobBans[target.AccountId.StringRepresentation].names, target.Name)
 	end
-	DD.jobBans[target.AccountId.StringRepresentation][job] = true
-	DD.jobBans[target.AccountId.StringRepresentation].reasons[job] = reason
+	if job == 'all' then
+		local jobSet = {}
+		for jobPrefab in JobPrefab.Prefabs do
+			if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
+				DD.jobBans[target.AccountId.StringRepresentation][tostring(jobPrefab.Identifier)] = true
+				DD.jobBans[target.AccountId.StringRepresentation].reasons[tostring(jobPrefab.Identifier)] = reason
+			end
+		end
+	else
+		DD.jobBans[target.AccountId.StringRepresentation][job] = true
+		DD.jobBans[target.AccountId.StringRepresentation].reasons[job] = reason
+	end
 	
 	-- give message
 	if reason ~= '' then
@@ -247,7 +258,7 @@ local func = function (args)
 	end
 	
 	-- saving
-	DD.saving.save({'jobBans'})
+	DD.saving.autoSave({'jobBans'})
 end
 local validArgs = function (...)
 	local tbl = {{}, {}, {'', 'no reason specified', 'you were being an idiot', 'an admin felt like it'}}
@@ -266,6 +277,7 @@ local validArgs = function (...)
 			table.insert(tbl[2], tostring(jobPrefab.Identifier))
 		end
 	end
+	table.insert(tbl[2], 'all')
 	
 	return tbl
 end
@@ -299,28 +311,32 @@ local func = function (args)
 		return
 	end
 	
+	local jobSet = {}
+	for key, value in pairs(DD.jobBans[accountId]) do
+		if type(value) == 'boolean' then
+			jobSet[key] = true
+		end
+	end
+	jobSet['all'] = true
+	-- job oopsie
+	if not jobSet[job] then
+		if job ~= nil then
+			print('Client is not banned from ' .. job .. ' job')
+		end
+		DD.tablePrint(DD.jobBans[accountId], nil, 1)
+		return
+	end
+	
 	local name = DD.jobBans[accountId].names[1]
-	if args[2] == nil then
+	if args[2] == 'all' then
 		DD.jobBans[accountId] = nil
 	else
-		local jobSet = {}
-		for key, value in pairs(DD.jobBans[accountId]) do
-			if type(value) == 'boolean' then
-				jobSet[key] = true
-			end
-		end
-		-- job oopsie
-		if not jobSet[job] then
-			print('Client is not banned from ' .. job .. ' job')
-			return
-		end
-		
 		DD.jobBans[accountId][job] = nil
 		DD.jobBans[accountId].reasons[job] = nil
 	end
 	
 	-- debug
-	if args[2] == nil then
+	if args[2] == 'all' then
 		local text = 'Revoked all job bans and job ban data from ' .. name .. '.'
 		print(text)
 		Game.Log(text, 10)
@@ -341,7 +357,7 @@ local func = function (args)
 	end
 	
 	-- saving
-	DD.saving.save({'jobBans'})
+	DD.saving.autoSave({'jobBans'})
 end
 local validArgs = function (...)
 	local tbl = {{}, {}}
@@ -360,6 +376,7 @@ local validArgs = function (...)
 			table.insert(tbl[2], tostring(jobPrefab.Identifier))
 		end
 	end
+	table.insert(tbl[2], 'all')
 	
 	return tbl
 end

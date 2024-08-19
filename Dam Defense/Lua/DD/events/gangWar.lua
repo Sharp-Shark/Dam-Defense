@@ -59,13 +59,17 @@ end, {
 		self.logClients({[client] = true})
 	end,
 	
-	buildList = function (self, set, excludeSet)
+	buildList = function (self, set, excludeSet, useClientLogName)
 		local excludeSet = excludeSet or {}
 		local clients = DD.setSubtract(set, excludeSet)
 		
 		local text = ''
 		for client, value in pairs(set) do
-			text = text .. client.Name .. ', '
+			if useClientLogName then
+				text = text .. DD.clientLogName(client) .. ', '
+			else
+				text = text .. client.Name .. ', '
+			end
 		end
 		text = string.sub(text, 1, #text - 2)
 		return text
@@ -73,7 +77,7 @@ end, {
 	
 	doxGangster = function (self, client)
 		if not self.knownGangstersSet[client] then
-			DD.messageAllClients(DD.stringLocalize('gangWarDoxx', {name = client.Name}), {preset = 'command'})
+			DD.messageAllClients(DD.stringLocalize('gangWarDoxx', {name = DD.clientLogName(client)}), {preset = 'command'})
 			table.insert(self.knownGangsters, client)
 			self.knownGangstersSet[client] = true
 			return
@@ -276,7 +280,9 @@ end, {
 				DD.messageClient(client, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
 				self.gang1[key] = nil
 				self.gang1Set[client] = nil
-				DD.roundData.characterSalaryTimer[client.Character] = nil
+				if client.Character ~= nil then
+					DD.roundData.characterSalaryTimer[client.Character] = nil
+				end
 				DD.giveMoneyToClients(self.gang2, 5, true)
 			end
 		end
@@ -285,7 +291,9 @@ end, {
 				DD.messageClient(client, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
 				self.gang2[key] = nil
 				self.gang2Set[client] = nil
-				DD.roundData.characterSalaryTimer[client.Character] = nil
+				if client.Character ~= nil then
+					DD.roundData.characterSalaryTimer[client.Character] = nil
+				end
 				DD.giveMoneyToClients(self.gang1, 5, true)
 			end
 		end
@@ -388,15 +396,15 @@ end, {
 			-- Build  list
 			local list
 			if self.gang1Set[sender] then
-				list = self.buildList(self.gang1Set)
+				list = self.buildList(self.gang1Set, nil, true)
 			elseif self.gang2Set[sender] then
-				list = self.buildList(self.gang2Set)
+				list = self.buildList(self.gang2Set, nil, true)
 			end
 			message = 'Your fellow gang members are: ' .. list .. '. '
 		end
 		-- Build  list
 		local list
-		list = self.buildList(self.knownGangstersSet)
+		list = self.buildList(self.knownGangstersSet, nil, true)
 		if list == '' then list = 'empty' end
 		message = message .. 'Public list of gangsters is: ' .. list .. '. '
 		DD.messageClient(sender, message, {preset = 'command'})

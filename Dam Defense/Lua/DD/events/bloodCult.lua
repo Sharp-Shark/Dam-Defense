@@ -15,13 +15,17 @@ end, {
 	weight = 1.5,
 	goodness = -1.5,
 	
-	buildCultistList = function (self, excludeSet)
+	buildCultistList = function (self, excludeSet, useClientLogName)
 		local excludeSet = excludeSet or {}
 		local clients = DD.setSubtract(self.cultistsSet, excludeSet)
 		
 		local text = ''
 		for client, value in pairs(clients) do
-			text = text .. client.Name .. ', '
+			if useClientLogName then
+				text = text .. DD.clientLogName(client) .. ', '
+			else
+				text = text .. client.Name .. ', '
+			end
 		end
 		text = string.sub(text, 1, #text - 2)
 		return text
@@ -166,7 +170,7 @@ end, {
 		
 		if message == '/cultists' then
 			-- Build cultist list
-			local cultistList = self.buildCultistList()
+			local cultistList = self.buildCultistList(nil, true)
 			local message = ''
 			message = 'The cultists are: ' .. cultistList .. '.'
 			DD.messageClient(sender, message, {preset = 'command'})

@@ -43,13 +43,16 @@
   <jobname.medicaldoctor>Medical Doctor</jobname.medicaldoctor>
   <jobdescription.medicaldoctor>Although usually taken for granted, doctors play an important role, possessing the required skill to treat injured or unconscious crewmembers. Their skills can also be useful for creating various non-medicinal chemicals.</jobdescription.medicaldoctor>
   <!-- Assistant -->
-  <jobname.assistant>Prisoner</jobname.assistant>
+  <jobname.assistant>Convict</jobname.assistant>
   <jobdescription.assistant>Sentenced to a life in prison. No longer worried about following the law, as soon as you break out of these shackles, all hell will break loose.</jobdescription.assistant>
   <!-- Laborer Job -->
   <jobname.mechanic>Laborer</jobname.mechanic>
   <jobdescription.mechanic>Has all non-event specific recipes unlocked. Work at the factory to refine raw materials into equipment, weapons, tools, ammo and armor. From time to time have a drink with the lads and plan an uprising agaisn't your oppressors. We work to earn the right to work to earn the right to give ourselves the right to buy ourselves the right to live to earn the right to die.</jobdescription.mechanic>
   </Override>
   
+  <!-- Greenskin Job -->
+  <jobname.greenskinjob>Greenskin</jobname.greenskinjob>
+  <jobdescription.greenskinjob>You are a kind of amphibious nimble critter that like playing games with their prey. Put masks on humans to turn them into goblins. Hide in goblin crates to regenerate.</jobdescription.greenskinjob>
   <!-- Janitor Job -->
   <jobname.janitor>Janitor</jobname.janitor>
   <jobdescription.janitor>A firm believer of the broken windows theory. Discard items you find on the floor, spray any dirt away, do pest control with your flamer and get paid little, but still more than whatever the factory workers are paid. Occasionally attempt an uprising with the laborers.</jobdescription.janitor>

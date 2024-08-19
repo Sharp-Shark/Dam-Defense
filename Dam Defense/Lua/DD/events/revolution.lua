@@ -12,13 +12,17 @@ end, {
 	weight = 2,
 	goodness = -1,
 	
-	buildRebelList = function (self, excludeSet)
+	buildRebelList = function (self, excludeSet, useClientLogName)
 		local excludeSet = excludeSet or {}
 		local clients = DD.setSubtract(self.rebelsSet, excludeSet)
 		
 		local text = ''
 		for client, value in pairs(clients) do
-			text = text .. client.Name .. ', '
+			if useClientLogName then
+				text = text .. DD.clientLogName(client) .. ', '
+			else
+				text = text .. client.Name .. ', '
+			end
 		end
 		text = string.sub(text, 1, #text - 2)
 		return text
@@ -207,7 +211,7 @@ end, {
 		
 		if self.rebelsSet[sender] or self.rebelsDoxHappened then
 			-- Build rebel list
-			local rebelList = self.buildRebelList()
+			local rebelList = self.buildRebelList(nil, true)
 			local message = ''
 			message = 'The rebel leaders are: ' .. rebelList .. '.'
 			if not self.rebelsDoxHappened then message = message .. ' The list of rebel leaders will be public in ' .. DD.numberToTime(self.rebelsDoxTimer) .. '.' end

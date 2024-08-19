@@ -1,7 +1,7 @@
 DD.saving = {}
 
 -- The path to the save file
-DD.saving.savePath = DD.path .. '/save.json'
+DD.saving.savePath = 'LocalMods/Dam Defense.json'
 
 -- Auto saving
 DD.saving.autoSave = true
@@ -60,6 +60,11 @@ DD.saving.save = function (keys)
 	end
 	File.Write(DD.saving.savePath, json.serialize(tbl))
 	return json.serialize(tbl)
+end
+
+-- Autosave function
+DD.saving.autoSave = function (keys)
+	if DD.saving.autoSave and not DD.debugMode then DD.saving.save(keys) end
 end
 
 -- Print save file

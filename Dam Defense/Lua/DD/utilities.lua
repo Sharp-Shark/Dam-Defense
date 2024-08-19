@@ -23,6 +23,18 @@ DD.clientLogName = function (client)
 	return text
 end
 
+-- Set of antag safe jobs
+DD.antagSafeJobs = {
+	captain = true,
+	securityofficer = true,
+	diver = true,
+	foreman = true,
+	researcher = true,
+	medicaldoctor = true,
+	bodyguard = true,
+	mercs = true,
+}
+
 -- Couldn't be bothered to recall what number is used for each inventory slot so I made this table
 DD.invSlots = {
 	idcard = 0,
@@ -509,8 +521,7 @@ DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 end
 
 DD.isCharacterAntagSafe = function (character)
-	local jobs = {'captain', 'securityofficer', 'diver', 'foreman', 'researcher', 'medicaldoctor', 'bodyguard', 'mercs'}
-	return DD.tableHas(jobs, character.JobIdentifier)
+	return DD.antagSafeJobs[tostring(character.JobIdentifier)]
 end
 
 DD.isCharacterSecurity = function (character)
