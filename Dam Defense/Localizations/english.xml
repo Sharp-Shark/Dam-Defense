@@ -99,6 +99,7 @@
   <afflictiondescription.tbinfection>A very lethal bacterial lung infection, also highly transmissible. If untreated, will very likely result in death. Treatable with Broad-spectrum Antibiotics</afflictiondescription.tbinfection>
   
   <Override>
+  <entityname.ironhelmet>Makeshift Helmet</entityname.ironhelmet><!-- Iron Helmet now is called Makeshift Helmet -->
   <entityname.orangejumpsuit1>Lead-lined Overalls</entityname.orangejumpsuit1>
   <entitydescription.captainspipe>Used for smoking pipe tabacco. Somehow heals damage and bloodloss at an impressive rate. Causes about as much lung damage as an entire pack of cigars.</entitydescription.captainspipe>
   <entitydescription.cigar>A finely crafted cigar. Somehow heals damage and bloodloss. Intense and frequent use may cause hard to reverse lung damage.</entitydescription.cigar>

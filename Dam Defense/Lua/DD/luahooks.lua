@@ -105,6 +105,61 @@ Hook.Add("DD.whalinggun.use", "DD.whalinggun.use", function(effect, deltaTime, i
 	end
 end)
 
+Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
+    local character = instance
+	local hitLimb = ptable['targetLimb']
+	if hitLimb == nil then return end
+	local afflictions = ptable['attack'].Afflictions
+	local penetration = ptable['penetration']
+	local multiplier = 1.0
+	
+    if character.Inventory == nil then return end
+    local armor
+	if hitLimb.type == LimbType.Head then
+		armor = character.Inventory.GetItemAt(DD.invSlots.head)
+		multiplier = 2.0
+	else
+		armor = character.Inventory.GetItemAt(DD.invSlots.suit)
+	end
+	if armor == nil then return end
+	local set = {
+		ironhelmet = true,
+		makeshiftarmor = true,
+	}
+	if not set[tostring(armor.Prefab.Identifier)] then return end
+
+    local damage = 0
+
+    for affliction, value in pairs(afflictions) do
+		if affliction.Identifier == 'gunshotwound' then
+			damage = damage + affliction.Strength * (1 - penetration) * multiplier
+		end
+    end
+
+    armor.Condition = armor.Condition - damage
+
+    if armor.Condition <= 0 then
+        Entity.Spawner.AddEntityToRemoveQueue(armor)
+    end
+end, Hook.HookMethodType.Before)
+
+Hook.Add("DD.brassknuckle.disarm", "DD.brassknuckle.disarm", function(effect, deltaTime, item, targets, worldPosition)
+	local character = item
+	local limb = targets[1]
+	local limbSlot
+	if limb.type == LimbType.LeftHand then
+		limbSlot = InvSlotType.LeftHand
+	elseif limb.type == LimbType.RightHand then
+		limbSlot = InvSlotType.RightHand
+	else
+		return
+	end
+	local item = character.Inventory.GetItemInLimbSlot(limbSlot)
+	if item == nil then return end
+	if item.Prefab.Identifier == 'brassknuckle' then return end
+	item.Drop(character, true, true)
+end)
+
 Hook.Add("DD.spraycan.use", "DD.spraycan.use", function(effect, deltaTime, item, targets, worldPosition)
 	local limb = targets[1]
 	if limb == nil then return end
@@ -370,11 +425,21 @@ Hook.Add("character.created", "DD.huskMessage", function (createdCharacter)
 end)
 
 Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, item, targets, worldPosition)
-	local inShieldedContainer = false
+	local containerMultiplier = {
+		exosuit = 0.0,
+		clownexosuit = 0.0,
+		reactor1 = 0.5,
+		outpostreactor = 0.5,
+	}
+	local multiplier = 1.0
+	if (item.ParentInventory ~= nil) and (LuaUserData.TypeOf(item.ParentInventory.Owner) == 'Barotrauma.Item') and
+	(containerMultiplier[tostring(item.ParentInventory.Owner.Prefab.Identifier)] ~= nil) then
+		multiplier = multiplier * containerMultiplier[tostring(item.ParentInventory.Owner.Prefab.Identifier)]
+	end
+	
 	if item.Condition <= 2 then
 		if (item.ParentInventory ~= nil) and (LuaUserData.TypeOf(item.ParentInventory.Owner) == 'Barotrauma.Item') and item.ParentInventory.Owner.HasTag('reactor') then
 			item.Condition = 0
-			inShieldedContainer = true
 		else
 			item.Condition = 2
 		end
@@ -407,7 +472,7 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 	if item.Prefab.Identifier == 'fulguriumfuelrodvolatile' then
 		maxAmount = maxAmount + 50
 	end
-	if inShieldedContainer then maxAmount = maxAmount / 2 end
+	maxAmount = maxAmount * multiplier
 	local minDistance = 50
 	local maxDistance = math.sqrt(maxAmount / 0.005)
 	for character in Character.CharacterList do
