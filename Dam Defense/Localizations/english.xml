@@ -252,6 +252,9 @@
   <!-- Water Cannon -->
   <entityname.watercannon>Water Cannon</entityname.watercannon>
   <entitydescription.watercannon>Pumps in water, stores it and then fires it at a high pressure. Useful for crowd control, cleaning, extinguishing fires or for propulsion in the air or water. Requires a battery to fire and to refill.</entitydescription.watercannon>
+  <!-- Brass Knuckle -->
+  <entityname.brassknuckle>Brass Knuckle</entityname.brassknuckle>
+  <entitydescription.brassknuckle>Don't bring a gun to a fist fight or you may have the dishonor of being killed with your own firearm. Truly a fistful of frags.</entitydescription.brassknuckle>
   <!-- Blood Cultist Robes -->
   <entityname.bloodcultistrobes>Blood Cultist Robes</entityname.bloodcultistrobes>
   <entitydescription.bloodcultistrobes>Only craftable by cultists. A simple hooded garment that grants passive regeneration and immunity to disease when worn by the "enlightened" members of the Blood Cult. The robe also serves to conceal their identity whilst letting other fellows cultists recognize them as their own.</entitydescription.bloodcultistrobes>

@@ -3141,7 +3141,6 @@
       <Item identifier="steel" />
       <Item identifier="steel" />
       <RequiredItem identifier="copper" />
-      <RequiredItem identifier="tin" />
     </Deconstruct>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="10" />
@@ -3151,7 +3150,6 @@
       <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
       <RequiredItem identifier="steel" amount="3" />
       <RequiredItem identifier="copper" />
-      <RequiredItem identifier="tin" />
     </Fabricate>
     <InventoryIcon texture="foldableshotgun.png" sourcerect="0,56,112,72" origin="0.5,0.5" />
     <Sprite texture="foldableshotgun.png" sourcerect="0,0,220,56" depth="0.55" origin="0.5,0.25" />
@@ -3378,13 +3376,11 @@
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
       <RequiredItem identifier="steel" amount="2" />
-      <RequiredItem identifier="copper" />
       <RequiredItem identifier="tin" />
     </Fabricate>
     <Deconstruct time="35">
-      <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
-      <RequiredItem identifier="steel" amount="2" />
-      <RequiredItem identifier="copper" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
+      <RequiredItem identifier="steel" amount="1" />
       <RequiredItem identifier="tin" />
     </Deconstruct>
     <InventoryIcon texture="separatistrifle.png" sourcerect="0,0,224,48" origin="0.5,0.5" />
@@ -3444,14 +3440,12 @@
     <Fabricate suitablefabricators="fabricator" requiredtime="75" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
-      <RequiredItem identifier="steel" amount="1" />
-      <RequiredItem identifier="copper" />
+      <RequiredItem identifier="steel" amount="2" />
       <RequiredItem identifier="tin" />
     </Fabricate>
     <Deconstruct time="35">
-      <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
       <RequiredItem identifier="steel" amount="1" />
-      <RequiredItem identifier="copper" />
       <RequiredItem identifier="tin" />
     </Deconstruct>
     <InventoryIcon texture="separatistrifle.png" sourcerect="0,48,208,50" origin="0.5,0.5" />
@@ -3584,13 +3578,11 @@
       <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
-      <RequiredItem identifier="copper" />
       <RequiredItem identifier="tin" />
     </Fabricate>
     <Deconstruct time="10">
       <Item identifier="plastic" />
       <Item identifier="titaniumaluminiumalloy" />
-      <Item identifier="copper" />
       <Item identifier="tin" />
     </Deconstruct>
     <Sprite texture="tommy.png" sourcerect="0,0,211,57" depth="0.55" origin="0.5,0.5" />
@@ -3895,13 +3887,13 @@
       <Item identifier="iron" />
       <Item identifier="carbon" />
       <Item identifier="copper" />
-      <Item identifier="tin" />
+      <Item identifier="zinc" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="40">
       <RequiredSkill identifier="weapons" level="25" />
       <RequiredItem identifier="steel" />
       <RequiredItem identifier="copper" />
-      <RequiredItem identifier="tin" />
+      <RequiredItem identifier="zinc" />
     </Fabricate>
     <InventoryIcon texture="flaregun.png" sourcerect="100,0,40,64" origin="0.5,0.5" />
     <Sprite texture="flaregun.png" sourcerect="0,0,92,52" depth="0.55" origin="0.5,0.5" />
