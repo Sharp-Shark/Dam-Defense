@@ -424,6 +424,7 @@ Hook.Add("character.created", "DD.huskMessage", function (createdCharacter)
 	end, 100)
 end)
 
+local fuelrodDecayNetworkCooldown = {}
 Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, item, targets, worldPosition)
 	local containerMultiplier = {
 		exosuit = 0.0,
@@ -460,12 +461,18 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 	item.GetComponentString('LightComponent').LightColor = Color(Byte(70), Byte(200), Byte(250), Byte(alpha))
 	item.GetComponentString('LightComponent').Range = range * 2
 	if SERVER then
-		local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("IsOn")]
-		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
-		local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("LightColor")]
-		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
-		local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("Range")]
-		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
+		if (fuelrodDecayNetworkCooldown[item] ~= nil) and (fuelrodDecayNetworkCooldown[item] > 0) then
+			fuelrodDecayNetworkCooldown[item] = fuelrodDecayNetworkCooldown[item] - 1
+		else
+			local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("IsOn")]
+			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
+			local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("LightColor")]
+			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
+			local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("Range")]
+			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
+			
+			fuelrodDecayNetworkCooldown[item] = 30
+		end
 	end
 	
 	local maxAmount = item.Prefab.Health - item.Health

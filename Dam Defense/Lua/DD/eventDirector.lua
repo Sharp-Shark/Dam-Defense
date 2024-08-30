@@ -214,8 +214,8 @@ DD.eventDirector.getClientRelations = function (client)
 		elseif event.name == 'vip' then
 			if (event.vip ~= client) and (event.guard ~= client) and (not antagSafe[client]) then
 				local tbl = {}
-				if self.vip ~= nil then tbl[event.vip] = true end
-				if self.guard ~= nil then tbl[event.guard] = true end
+				if event.vip ~= nil then tbl[event.vip] = true end
+				if event.guard ~= nil then tbl[event.guard] = true end
 				targets = DD.setUnion(targets, tbl)
 			end
 		elseif event.name == 'revolution' then

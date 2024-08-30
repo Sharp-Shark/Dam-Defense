@@ -199,6 +199,9 @@ DD.chatMessageFunctions.withdrawMoney = function (message, sender)
 		DD.messageClient(sender, DD.stringReplace(message, {timer = DD.numberToTime(DD.roundData.withdrawCooldown[sender])}), {preset = 'command'})
 		return true
 	end
+	if sender.Character.IsHandcuffed then
+		return true
+	end
 
 	local args = DD.stringSplit(message, ' ') table.remove(args, 1)
 	

@@ -92,7 +92,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 				-- respawn captain once he dies
 				local seed = tostring(math.floor(math.random() * 10^8))
 				DD.characterDeathFunctions['respawnAsLaborer' .. seed] = function (character)
-					local target = self.captain
+					local client = self.captain
 					Timer.Wait(function ()
 						if client ~= DD.findClientByCharacter(character) then return end
 						local seed = seed
@@ -108,7 +108,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 				-- respawn replacement once he dies
 				local seed = tostring(math.floor(math.random() * 10^8))
 				DD.characterDeathFunctions['respawnAsCaptain' .. seed] = function (character)
-					local target = replacement
+					local client = replacement
 					Timer.Wait(function ()
 						if client ~= DD.findClientByCharacter(character) then return end
 						local seed = seed

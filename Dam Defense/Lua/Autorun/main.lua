@@ -253,7 +253,7 @@ end
 DD.chatMessageFunctions.fire = function (message, sender)
 	if string.sub(message, 1, 5) ~= '/fire' then return end
 	if not DD.isClientCharacterAlive(sender) and not sender.HasPermission(ClientPermissions.ConsoleCommands) then return end
-	if (sender.Character.JobIdentifier ~= 'captain') and not sender.HasPermission(ClientPermissions.ConsoleCommands) then return end
+	if DD.isClientCharacterAlive(sender) and (sender.Character.JobIdentifier ~= 'captain') and not sender.HasPermission(ClientPermissions.ConsoleCommands) then return end
 	
 	local count = 1
 	local numberMap = {}
@@ -323,7 +323,7 @@ DD.chatMessageFunctions.fire = function (message, sender)
 	client.AssignedJob = JobVariant(JobPrefab.Get('mechanic'), math.random(JobPrefab.Get('mechanic').Variants) - 1)
 	local seed = tostring(math.floor(math.random() * 10^8))
 	DD.characterDeathFunctions['respawnAsLaborer' .. seed] = function (character)
-		local target = client
+		local client = client
 		Timer.Wait(function ()
 			if client ~= DD.findClientByCharacter(character) then return end
 			local seed = seed
@@ -494,3 +494,8 @@ Timer.Wait(function ()
 		end
 	end
 end, 0)
+
+-- Evil NetConfig (TM)
+NetConfig.MaxHealthUpdateInterval = 0
+NetConfig.LowPrioCharacterPositionUpdateInterval = 0
+NetConfig.MaxEventPacketsPerUpdate = 8
