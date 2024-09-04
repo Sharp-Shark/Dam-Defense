@@ -47,7 +47,7 @@ DD.thinkFunctions.lateJoin = function ()
 		end
 	end
 	if resetLateJoinTimer then
-		DD.lateJoinTimer = Game.ServerSettings.RespawnInterval
+		DD.lateJoinTimer = 60
 	end
 end
 

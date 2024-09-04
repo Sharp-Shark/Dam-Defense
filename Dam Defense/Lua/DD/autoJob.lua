@@ -18,7 +18,7 @@ end
 DD.autoJob = function ()
 	if #Client.ClientList == 0 then return {} end
 
-	local antagSafeCap = math.ceil(#Client.ClientList / 3)
+	local antagSafeCap = math.ceil(#Client.ClientList * 2 / 5)
 
 	local jobSet = {}
 	for jobPrefab in JobPrefab.Prefabs do
