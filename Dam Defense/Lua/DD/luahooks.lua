@@ -316,7 +316,7 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 	-- Make goblin (or troll)
 	local speciesName = 'humanGoblin'
 	if isTroll then speciesName = 'humanTroll' end
-	local newCharacter = DD.spawnHuman(client, 'greenskinjob', character.worldPosition, character.Name, nil, speciesName)
+	local newCharacter = DD.spawnHuman(client, 'greenskinjob', character.WorldPosition, character.Name, nil, speciesName)
 
     -- Spawn a duffel bag at the player's feet to put the dropped items inside
 	local duffelbag
