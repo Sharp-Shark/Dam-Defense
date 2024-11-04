@@ -210,7 +210,7 @@
     <Deconstruct time="30">
       <Item identifier="carbon" mincondition="0.5" />
     </Deconstruct>
-    <Growable growthspeed="1.5" pickingtime="3" maximumvines="24" maxhealth="500" hardiness="0.15" floodtolerance="0.4" seedrate="0" productrate="4" flowertint="255,54,0,255" flowerquantity="10" baseflowerscale="0.35" vinescale="0.25" vinetint="244,172,132,255">
+    <Growable growthspeed="3.0" pickingtime="3" maximumvines="24" maxhealth="500" hardiness="0.15" floodtolerance="0.4" seedrate="0" productrate="0.5" flowerquantity="3" flowertint="255,54,0,255" baseflowerscale="0.35" vinescale="0.25" vinetint="244,172,132,255">
       <ProducedItem identifier="creepingorange" probability="0.95" />
       <ProducedItem identifier="badcreepingorange" probability="0.05"/>
       <VineSprites vineatlas="Content/Items/Gardening/branches.png" decayatlas="Content/Items/Gardening/branches_overlay.png">
@@ -258,7 +258,7 @@
     <Deconstruct time="30">
       <Item identifier="carbon" mincondition="0.5" />
     </Deconstruct>
-    <Growable growthspeed="0.75" pickingtime="3" maximumvines="48" maxhealth="500" hardiness="0.071" floodtolerance="0.5" seedrate="0" productrate="1" flowerquantity="16" baseflowerscale="0.25" leaftint="226,95,85,255" vinescale="0.25" vinetint="226,95,85,255" flowertint="48,122,245,255">
+    <Growable growthspeed="3.0" pickingtime="3" maximumvines="48" maxhealth="500" hardiness="0.071" floodtolerance="0.5" seedrate="0" productrate="0.5" flowerquantity="3" baseflowerscale="0.25" leaftint="226,95,85,255" vinescale="0.25" vinetint="226,95,85,255" flowertint="48,122,245,255">
       <ProducedItem identifier="tobaccobud" probability="1.0" />
       <VineSprites vineatlas="Content/Items/Gardening/branches.png" decayatlas="Content/Items/Gardening/branches_overlay.png">
         <LeafSprite texture="Content/Items/Gardening/GrowablePlants_Temp.png" sourcerect="0,256,256,256" />
@@ -305,7 +305,7 @@
     <Deconstruct time="30">
       <Item identifier="carbon" mincondition="0.5" />
     </Deconstruct>
-    <Growable growthspeed="2" pickingtime="3" maximumvines="18" maxhealth="375" hardiness="0.162" floodtolerance="0.2" seedrate="0" productrate="1" flowerquantity="8" baseflowerscale="0.40" vinescale="0.25" vinetint="135,187,61,255" flowertint="240,180,17,255">
+    <Growable growthspeed="3.0" pickingtime="3" maximumvines="18" maxhealth="375" hardiness="0.162" floodtolerance="0.2" seedrate="0" productrate="0.5" flowerquantity="3" baseflowerscale="0.40" vinescale="0.25" vinetint="135,187,61,255" flowertint="240,180,17,255">
       <ProducedItem identifier="saltbulb" probability="1.0"/>
       <VineSprites vineatlas="Content/Items/Gardening/branches.png" decayatlas="Content/Items/Gardening/branches_overlay.png">
         <LeafSprite texture="Content/Items/Gardening/GrowablePlants_Temp.png" sourcerect="0,512,256,256" />
@@ -352,7 +352,7 @@
     <Deconstruct time="30">
       <Item identifier="carbon" mincondition="0.5" />
     </Deconstruct>
-    <Growable growthspeed="0.75" pickingtime="3" maximumvines="36" maxhealth="325" hardiness="0.062" floodtolerance="0.4" seedrate="0" productrate="4" flowerquantity="10" baseflowerscale="0.35" vinescale="0.25" leaftint="140,146,56,255" vinetint="140,146,56,255" flowertint="238,36,98,255">
+    <Growable growthspeed="3.0" pickingtime="3" maximumvines="36" maxhealth="325" hardiness="0.062" floodtolerance="0.4" seedrate="0" productrate="0.5" flowerquantity="3" baseflowerscale="0.35" vinescale="0.25" leaftint="140,146,56,255" vinetint="140,146,56,255" flowertint="238,36,98,255">
       <ProducedItem identifier="raptorbane" probability="0.4" />
       <ProducedItem identifier="badraptorbane" probability="0.6"></ProducedItem>
       <VineSprites vineatlas="Content/Items/Gardening/branches.png" decayatlas="Content/Items/Gardening/branches_overlay.png">
@@ -408,7 +408,7 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="3" />
 	</Fabricate>
-    <Growable growthspeed="2" pickingtime="3" maximumvines="18" maxhealth="375" hardiness="0.15" floodtolerance="0.2" seedrate="0" productrate="1" flowerquantity="4" baseflowerscale="0.60" vinescale="0.25" vinetint="55,152,27,255" flowertint="139,56,87,255">
+    <Growable growthspeed="3.0" pickingtime="3" maximumvines="18" maxhealth="300" hardiness="0.15" floodtolerance="0.2" seedrate="0" productrate="0.5" flowerquantity="3" baseflowerscale="0.60" vinescale="0.25" vinetint="55,152,27,255" flowertint="139,56,87,255">
       <ProducedItem identifier="banana" probability="1.0"/>
       <VineSprites vineatlas="Content/Items/Gardening/branches.png" decayatlas="Content/Items/Gardening/branches_overlay.png">
         <LeafSprite texture="Content/Items/Gardening/GrowablePlants_Temp.png" sourcerect="0,256,256,256" />

@@ -364,14 +364,24 @@ DD.setXor = function (t1, t2)
 	return DD.setSubtract(DD.setUnion(t1, t2), DD.setIntersection(t1, t2))
 end
 
+-- Xor
+DD.xor = function (b1, b2)
+	return (b1 or b2) and not (b1 and b2)
+end
+
 -- Turns a table into an array
 DD.toArr = function (t)
 	return DD.tableValues(t)
 end
 
--- Xor
-DD.xor = function (b1, b2)
-	return (b1 or b2) and not (b1 and b2)
+
+-- Like string.sub but for array tables
+DD.arrSub = function (array, start, finish)
+	local tbl = {}
+	for count = start, finish do
+		table.insert(tbl, array[count])
+	end
+	return tbl
 end
 
 -- Shuffles a table (assumes it has an array-like structure)
@@ -524,6 +534,11 @@ DD.isCharacterAntagSafe = function (character)
 	return DD.antagSafeJobs[tostring(character.JobIdentifier)]
 end
 
+DD.isCharacterHusk = function (character)
+	local speciesNames = {'humanhusk', 'husk', 'husk_chimera', 'husk_prowler', 'husk_exosuit', 'huskcontainer', 'crawlerhusk'}
+	return DD.tableHas(speciesNames, string.lower(tostring(character.SpeciesName)))
+end
+
 DD.isCharacterSecurity = function (character)
 	local jobs = {'captain', 'securityofficer', 'diver', 'foreman', 'mercs'}
 	return DD.tableHas(jobs, character.JobIdentifier)
@@ -614,10 +629,10 @@ DD.spawnHuman = function (client, job, pos, name, subclass, speciesName)
 	
 	local jobPrefab = JobPrefab.Get(job)
 	if subclass == nil then
-		info.Job = Job(jobPrefab)
+		info.Job = Job(jobPrefab, false)
 		info.Job.Variant = math.random(jobPrefab.Variants) - 1
 	else
-		info.Job = Job(jobPrefab)
+		info.Job = Job(jobPrefab, false)
 		info.Job.Variant = subclass
 	end
 	if info.Job.Variant > (jobPrefab.Variants - 1) then info.Job.Variant = (jobPrefab.Variants - 1) end

@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <infotexts language="English" nowhitespace="false" translatedname="English">
   <!-- Room Names -->
+  <roomname.outofbounds>Out of Bounds Area</roomname.outofbounds>
+  <roomname.rooftops>Rooftops</roomname.rooftops>
   <roomname.sewers>Sewers</roomname.sewers>
   <roomname.streets>Streets</roomname.streets>
   <roomname.slums>Slums</roomname.slums>

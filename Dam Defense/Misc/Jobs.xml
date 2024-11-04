@@ -388,7 +388,6 @@
       </Item>
       <Item identifier="stungun" equip="false">
         <Item identifier="stungundart" />
-        <Item identifier="stungundart" />
       </Item>
       <Item identifier="stunbaton">
         <Item identifier="batterycell"/>
@@ -450,7 +449,6 @@
         <Item identifier="revolverround" />
       </Item>
       <Item identifier="stungun" equip="false">
-        <Item identifier="stungundart" />
         <Item identifier="stungundart" />
       </Item>
       <Item identifier="stunbaton">

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="0.13.17" corepackage="False" steamworkshopid="3146664815" gameversion="1.5.9.2">
+<contentpackage name="Dam Defense" modversion="0.14.0" corepackage="False" steamworkshopid="3146664815" gameversion="1.6.19.1">
   <Item file="%ModDir%/Items/Jerry.xml" />
   <Item file="%ModDir%/Items/Machines.xml" />
   <Item file="%ModDir%/Items/Boomboxes.xml" />
@@ -10,6 +10,7 @@
   <Particles file="%ModDir%/Misc/Particles.xml" />
   <Character file="%ModDir%/Characters/Humanhusk/Humanhusk.xml" />
   <Character file="%ModDir%/Characters/Husk/Husk.xml" />
+  <Character file="%ModDir%/Characters/Husk_prowler/Husk_prowler.xml" />
   <Character file="%ModDir%/Characters/Spitroach/Spitroach.xml" />
   <Character file="%ModDir%/Characters/Spitroach_hatchling/Spitroach_hatchling.xml" />
   <Character file="%ModDir%/Characters/Humantroll/Humantroll.xml" />
@@ -20,4 +21,5 @@
   <Afflictions file="%ModDir%/Misc/Afflictions.xml" />
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />
   <Submarine file="%ModDir%/Submarines/DD Olde Towne Dam.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Pioneer Point Dam.sub" />
 </contentpackage>

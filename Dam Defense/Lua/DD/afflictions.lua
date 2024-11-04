@@ -110,7 +110,7 @@ Hook.Add("character.applyDamage", "DD.resetHuskRegenOnDamage", function (charact
 	local character = characterHealth.Character
 	if character == nil then return end
 	
-	if (character.SpeciesName == 'humanhusk') and
+	if DD.isCharacterHusk(character) and
 	(not character.IsDead) and
 	(attackResult.Damage >= 0.1) and
 	(character.CharacterHealth.GetAffliction('huskregen', true) ~= nil) and
@@ -128,7 +128,7 @@ DD.thinkFunctions.afflictions = function ()
 		-- Burning affliction reduce if a limb is underwater
 		for limb in character.AnimController.Limbs do
 			if limb.InWater then
-				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'afterburn', 10)
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'burning', 10)
 				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'noxiousspray', 10)
 				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'cyanpaint', 10)
 				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'yellowpaint', 10)
@@ -136,15 +136,15 @@ DD.thinkFunctions.afflictions = function ()
 			end
 		end
 		-- Husk regen
-		if ((character.SpeciesName == 'humanhusk') or (character.SpeciesName == 'husk')) and (not character.IsDead) then
+		if DD.isCharacterHusk(character) and (not character.IsDead) then
 			local damage = 0
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByIdentifier('bloodloss', true)
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByType('damage', true)
 			if ((character.Vitality < 0) or character.IsRagdolled) and (damage >= 1) then
 				if character.Vitality < 0 then
-					DD.giveAfflictionCharacter(character, 'huskregen', 0.5 * (1/60))
+					DD.giveAfflictionCharacter(character, 'huskregen', 0.5 * (1/60) * character.MaxVitality / 100)
 				else
-					DD.giveAfflictionCharacter(character, 'huskregen', 1 * (1/60))
+					DD.giveAfflictionCharacter(character, 'huskregen', 1 * (1/60) * character.MaxVitality / 100)
 				end
 			else
 				local affliction = character.CharacterHealth.GetAffliction('huskregen', true)

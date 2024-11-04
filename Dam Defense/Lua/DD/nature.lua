@@ -16,7 +16,10 @@ DD.speciesData = {
 	mudraptor_unarmored = {initialGrowTimer = 120, grownIdentifier = 'mudraptor', initialBreedTimer = 60, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 6},
 	mudraptor_hatchling = {initialGrowTimer = 120, grownIdentifier = 'mudraptor_unarmored', populationName = 'mudraptor'},
 	
-	hammerheadspawn = {initialBreedTimer = 45, hatchlingIdentifier = 'hammerheadspawn', populationName = 'hammerhead', populationCap = 60}
+	hammerheadspawn = {initialBreedTimer = 45, hatchlingIdentifier = 'hammerheadspawn', populationName = 'hammerhead', populationCap = 60},
+	
+	husk_prowler = {populationName = 'husk'},
+	husk = {initialGrowTimer = 180, grownIdentifier = 'husk_prowler', populationName = 'husk'},
 }
 
 DD.plantData = {

@@ -310,7 +310,7 @@ DD.chatMessageFunctions.fire = function (message, sender)
 		return true
 	end
 	
-	if sender.Character.JobIdentifier ~= 'captain' then
+	if (sender.Character == nil) or (sender.Character.JobIdentifier ~= 'captain') then
 		DD.messageAllClients(DD.stringLocalize('commandFireAdmin', {name = targetName}), {preset = 'badinfo'})
 	else
 		DD.messageAllClients(DD.stringLocalize('commandFire', {name = targetName}), {preset = 'badinfo'})
@@ -352,6 +352,7 @@ require 'DD/luahooks'
 require 'DD/commands'
 require 'DD/networking/client'
 require 'DD/networking/server'
+require 'DD/gui'
 
 -- Save file
 DD.saving.boot()
@@ -443,37 +444,39 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	end
 	
 	-- Mess with their idcard
-	local idcard = character.Inventory.GetItemAt(DD.invSlots.idcard)
-	if idcard ~= nil then
-		local jobPrefab = JobPrefab.Get(character.JobIdentifier)
-		
-		-- Give idcard any tags that it should have
-		local waypoint = DD.findRandomWaypointByJob(character.JobIdentifier)
-		if waypoint ~= nil then
-			local tags = ''
-			for tag in waypoint.IdCardTags do
-				if not idcard.HasTag(tag) then tags = tags .. ',' .. tag end
+	Timer.Wait(function ()
+		local idcard = character.Inventory.GetItemAt(DD.invSlots.idcard)
+		if idcard ~= nil then
+			local jobPrefab = JobPrefab.Get(character.JobIdentifier)
+			
+			-- Give idcard any tags that it should have
+			local waypoint = DD.findRandomWaypointByJob(character.JobIdentifier)
+			if waypoint ~= nil then
+				local tags = ''
+				for tag in waypoint.IdCardTags do
+					if not idcard.HasTag(tag) then tags = tags .. ',' .. tag end
+				end
+				idcard.Tags = idcard.Tags .. tags
 			end
-			idcard.Tags = idcard.Tags .. tags
+			
+			-- Set the idcard's color to be the job's UIColor
+			local color = jobPrefab.UIColor
+			color = Color.Lerp(color, Color.White, 0.25)
+			idcard.SpriteColor = color
+			idcard['set_InventoryIconColor'](color)
+			
+			-- Sync changes for clients
+			if SERVER then
+				local item = idcard
+				local tags = item.SerializableProperties[Identifier("Tags")]
+				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
+				local sprcolor = item.SerializableProperties[Identifier("SpriteColor")]
+				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(sprcolor, item))
+				local invColor = item.SerializableProperties[Identifier("InventoryIconColor")]
+				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
+			end
 		end
-		
-		-- Set the idcard's color to be the job's UIColor
-		local color = jobPrefab.UIColor
-		color = Color.Lerp(color, Color.White, 0.25)
-		idcard.SpriteColor = color
-		idcard['set_InventoryIconColor'](color)
-		
-		-- Sync changes for clients
-		if SERVER then
-			local item = idcard
-			local tags = item.SerializableProperties[Identifier("Tags")]
-			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
-			local sprcolor = item.SerializableProperties[Identifier("SpriteColor")]
-			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(sprcolor, item))
-			local invColor = item.SerializableProperties[Identifier("InventoryIconColor")]
-			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
-		end
-	end
+	end, 100)
 end)
 
 -- Round start functions called at lua script execution just incase reloadlua is called mid-round

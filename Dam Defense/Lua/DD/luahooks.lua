@@ -17,7 +17,7 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 	
 	local speciesName = string.lower(tostring(character.SpeciesName))
 	if speciesName ~= 'human' then
-		if string.sub(speciesName, #speciesName - 3, #speciesName) == 'husk' then
+		if DD.isCharacterHusk(character) then
 			local inventory = item.ParentInventory
 			Entity.Spawner.AddEntityToRemoveQueue(item)
 			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('huskeggs'), inventory, nil, nil, function (spawnedItem) end)
