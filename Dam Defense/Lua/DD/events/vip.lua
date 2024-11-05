@@ -49,7 +49,7 @@ end, {
 			local job = 'bodyguard'
 			local pos = self.vip.Character.WorldPosition
 			local character = DD.spawnHuman(self.guard, job, pos)
-			character.SetOriginalTeam(CharacterTeamType.Team1)
+			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 			character.UpdateTeam()
 			-- Remove item at innerclothing
 			if self.vip.Character.Inventory.GetItemAt(DD.invSlots.innerclothing) ~= nil then

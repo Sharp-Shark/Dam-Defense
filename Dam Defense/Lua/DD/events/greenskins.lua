@@ -58,7 +58,7 @@ end, {
 					local job = 'greenskinjob'
 					local pos = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
 					local character = DD.spawnHuman(client, job, pos, nil, nil, speciesName)
-					character.SetOriginalTeam(CharacterTeamType.Team1)
+					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 					character.UpdateTeam()
 					DD.messageClient(client, greenskinInfo, {preset = 'crit'})
 				end

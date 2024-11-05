@@ -34,7 +34,7 @@ end, {
 			local job = 'mercs'
 			local pos = DD.findRandomWaypointByJob(job).WorldPosition
 			local character = DD.spawnHuman(self.mercs, job, pos)
-			character.SetOriginalTeam(CharacterTeamType.Team1)
+			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 			character.UpdateTeam()
 			-- Messages
 			local otherClients = DD.setSubtract(DD.toSet(Client.ClientList), {[self.mercs] = true})

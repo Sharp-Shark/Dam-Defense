@@ -48,7 +48,7 @@ end, {
 					local job = 'jet'
 					local pos = DD.findRandomWaypointByJob(job).WorldPosition
 					local character = DD.spawnHuman(client, job, pos)
-					character.SetOriginalTeam(CharacterTeamType.Team1)
+					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 					character.UpdateTeam()
 					DD.messageClient(client, 'You are a nukie! Work with your fellow nukies to explode the reactor and win the round.', {preset = 'crit'})
 				else

@@ -6,7 +6,7 @@ DD.lateJoinSpawn = function ()
 			local job = 'mechanic'
 			local pos = DD.findRandomWaypointByJob(job).WorldPosition
 			local character = DD.spawnHuman(client, job, pos)
-			character.SetOriginalTeam(CharacterTeamType.Team1)
+			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 			character.UpdateTeam()
 		end
 	end
