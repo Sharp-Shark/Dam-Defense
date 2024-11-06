@@ -946,7 +946,7 @@
         <Sound file="Content/Items/Weapons/WEAPON_rifleGrenadeShot3.ogg" type="OnUse" range="1000" />
       </StatusEffect>
     </ItemComponent>
-    <RangedWeapon barrelpos="80,0" weapondamagemodifier="1.5" unskilledspread="2" combatPriority="70" reload="1.5" reloadnoskill="4.5" reloadskillrequirement="40" drawhudwhenequipped="true" crosshairscale="0.15">
+    <RangedWeapon barrelpos="80,0" weapondamagemodifier="1.5" unskilledspread="2" combatPriority="70" reload="1.35" reloadnoskill="1.35" reloadskillrequirement="0" drawhudwhenequipped="true" crosshairscale="0.15">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -1268,7 +1268,7 @@
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite name="MERCS Rifle Worn" texture="mercsrifle.png" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" sourcerect="0,0,224,80" limb="Torso" ignorelimbscale="true" scale="0.52" origin="0.45,0.85" />
     </Wearable>
-    <RangedWeapon reload="0.2" weapondamagemodifier="1.5" holdtrigger="true" barrelpos="95,-13" spread="2" unskilledspread="8" combatPriority="120" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.2" weapondamagemodifier="1.2" holdtrigger="true" barrelpos="95,-13" spread="2" unskilledspread="8" combatPriority="120" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -3509,7 +3509,7 @@
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,0,224,48" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
     </Wearable>
-    <RangedWeapon reload="0.16" holdtrigger="true" barrelpos="110,2" spread="6" unskilledspread="24" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.14" holdtrigger="true" barrelpos="110,2" spread="6" unskilledspread="24" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -3574,7 +3574,7 @@
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,48,224,50" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
     </Wearable>
-    <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="110,2" spread="3" unskilledspread="12" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.18" holdtrigger="true" barrelpos="110,2" spread="3" unskilledspread="12" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -3662,7 +3662,7 @@
     <Projectile characterusable="false" hitscan="true" removeonhit="true">
       <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,200,200,175" scalemultiplier="1,0.8" />
       <Attack structuredamage="6" targetforce="7.5" itemdamage="6" severlimbsprobability="0.2" penetration="0.35">
-        <Affliction identifier="gunshotwound" strength="16" />
+        <Affliction identifier="gunshotwound" strength="18" />
         <Affliction identifier="bleeding" strength="8" />
       </Attack>
       <StatusEffect type="OnImpact" target="UseTarget">
@@ -3710,7 +3710,7 @@
 	<Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="tommy.png" sourcerect="0,0,211,57" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.85" />
     </Wearable>
-    <RangedWeapon weapondamagemodifier="1.15" reload="0.1" holdtrigger="true" barrelpos="90,12" spread="4" unskilledspread="10" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon weapondamagemodifier="1.1" reload="0.12" holdtrigger="true" barrelpos="90,12" spread="4" unskilledspread="10" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -3775,7 +3775,7 @@
     <Sprite texture="uzi.png" sourcerect="0,0,184,56" depth="0.55" origin="0.5,0.5" />
     <Body width="70" height="30" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="50,-10" handle1="2,-4" handle2="-2,-12" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon weapondamagemodifier="1.1" reload="0.1" holdtrigger="true" barrelpos="63,6" spread="8" unskilledspread="15" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon weapondamagemodifier="1.1" reload="0.12" holdtrigger="true" barrelpos="63,6" spread="8" unskilledspread="15" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
