@@ -207,6 +207,9 @@
   <!-- Foldable Shotgun -->
   <entityname.foldableshotgun>Foldable Shotgun</entityname.foldableshotgun>
   <entitydescription.foldableshotgun>An antique shotgun that manages to have both power and portability by being foldable.</entitydescription.foldableshotgun>
+  <!-- 40mm Rubber Round -->
+  <entityname.40mmrubberround>40mm Rubber Round</entityname.40mmrubberround>
+  <entitydescription.40mmrubberround>Ammunition for grenade launcher. Less-lethal rubber round, does not explode.</entitydescription.40mmrubberround>
   <!-- Shotgun Slug Breaching -->
   <entityname.shotgunslugbreaching>Breaching Slug</entityname.shotgunslugbreaching>
   <entitydescription.shotgunslugbreaching>A shotgun slug for breaching doors. Still lethal.</entitydescription.shotgunslugbreaching>

@@ -41,6 +41,11 @@
 	</Effect>
   </Affliction>
   
+  <!-- Stun inflicted by 40mm Rubber Round -->
+  <Affliction name="Rubber Stun" identifier="rubberstun" description="" type="debuff" limbspecific="false" indicatorlimb="Torso" showiconthreshold="101" showinhealthscannerthreshold="101" karmachangeonapplied="0" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="250,250,150,255">
+    <Effect minstrength="1" maxstrength="100" strengthchange="-5" minspeedmultiplier="1.0" maxspeedmultiplier="0.3"></Effect>
+  </Affliction>
+  
   <!-- Stun vulnerability -->
   <Affliction name="Stun Vulnerability" identifier="stunvulnerability" description="General feeling of weakness, unbalance and lightheadedness makes any stun more intense." type="debuff" targets="human" limbspecific="false" indicatorlimb="Torso" showiconthreshold="101" showinhealthscannerthreshold="101" karmachangeonapplied="0" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="250,250,150,255">
     <Effect minstrength="1" maxstrength="100" strengthchange="-10" minresistance="0.0" maxresistance="-2.0" resistancefor="stun"></Effect>
@@ -411,7 +416,7 @@
       </StatusEffect>
 	</Effect>
     <PeriodicEffect minstrength="35" maxstrength="65" mininterval="12" maxinterval="16">
-      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
@@ -624,7 +629,7 @@
     MedicalSkillGain="0.005">
     <Effect minstrength="0" maxstrength="200" strengthchange="1" />
     <PeriodicEffect mininterval="24" maxinterval="32">
-      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
@@ -684,7 +689,7 @@
       </StatusEffect>
     </Effect>
     <PeriodicEffect mininterval="12" maxinterval="16">
-      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
@@ -782,7 +787,7 @@
     MedicalSkillGain="0.005">
     <Effect minstrength="0" maxstrength="200" strengthchange="1" />
     <PeriodicEffect mininterval="24" maxinterval="32">
-      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
@@ -842,7 +847,7 @@
       </StatusEffect>
     </Effect>
     <PeriodicEffect mininterval="12" maxinterval="16">
-      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
@@ -901,7 +906,7 @@
       </StatusEffect>
     </Effect>
     <PeriodicEffect minstrength="35" maxstrength="55" mininterval="16" maxinterval="64">
-      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
@@ -914,7 +919,7 @@
       </StatusEffect>
     </PeriodicEffect>
     <PeriodicEffect minstrength="55" maxstrength="75" mininterval="8" maxinterval="32">
-      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
@@ -927,7 +932,7 @@
       </StatusEffect>
     </PeriodicEffect>
     <PeriodicEffect minstrength="75" maxstrength="95" mininterval="4" maxinterval="16">
-      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
@@ -940,7 +945,7 @@
       </StatusEffect>
     </PeriodicEffect>
     <PeriodicEffect minstrength="95" maxstrength="100" mininterval="2" maxinterval="8">
-      <StatusEffect target="Character" SpeedMultiplier="0.0" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
       <StatusEffect target="Character">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
