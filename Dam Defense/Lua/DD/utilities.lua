@@ -762,6 +762,7 @@ end
 
 -- Opens or closes a door
 DD.setDoorState = function (item, state)
+	if (state == false) and (item.Condition <= 0) then return end
 	item.GetComponentString('Door').isOpen = state
 	if SERVER then
 		local prop = item.GetComponentString('Door').SerializableProperties[Identifier("IsOpen")]
