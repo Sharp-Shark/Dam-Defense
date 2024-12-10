@@ -10,10 +10,10 @@ end, {
 	
 	name = 'bloodCult',
 	isMainEvent = true,
-	allowLateGame = false,
 	cooldown = 60 * 6,
 	weight = 1.5,
 	goodness = -1.5,
+	minimunAlivePercentage = 1.0,
 	
 	buildCultistList = function (self, excludeSet, useClientLogName)
 		local excludeSet = excludeSet or {}

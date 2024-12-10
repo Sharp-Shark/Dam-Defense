@@ -12,7 +12,6 @@ DD.warnings = {}
 
 -- Allow respawing
 DD.allowRespawning = true
-DD.disableRespawningAfter = 60 * 30
 
 -- Json
 json = dofile(DD.path .. "/Lua/json.lua")
@@ -100,12 +99,6 @@ DD.thinkFunctions.main = function ()
 	
 	if #Client.ClientList == 1 then return end
 	
-	-- After 30 minutes disable respawing
-	if DD.allowRespawning and (DD.roundTimer > DD.disableRespawningAfter) then
-		DD.messageAllClients(DD.stringLocalize('matchHasGoneOnForTooLong'), {preset = 'crit'})
-		DD.setAllowRespawning(false)
-	end
-	
 	-- End round if everyone is dead
 	local anyHumanAlive = false
 	for client in Client.ClientList do
@@ -144,7 +137,7 @@ end
 DD.chatMessageFunctions.help = function (message, sender)
 	if string.sub(message, 1, 1) ~= '/' then return end
 	
-	commands = {'help', 'jobinfo', 'events', 'myevents', 'credits', 'withdraw', 'possess', 'freecam'}
+	commands = {'help', 'jobinfo', 'events', 'myevents', 'credits', 'withdraw', 'possess', 'freecam', 'election'}
 	
 	local specialCommands = {rebels = false, cultists = false, whisper = false, gang = false, fire = false}
 	for event in DD.eventDirector.getEventInstances('revolution') do
@@ -336,6 +329,31 @@ DD.chatMessageFunctions.fire = function (message, sender)
 			DD.characterDeathFunctions['respawnAsLaborer' .. seed] = nil
 		end, 100)
 	end
+	
+	return true
+end
+DD.chatMessageFunctions.election = function (message, sender)
+	if message ~= '/election' then return end
+	if #DD.eventDirector.getEventInstances('election') > 0 then
+		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorAlreadyOngoing'), {preset = 'command'})
+		return true
+	end
+	if DD.eventDirector.getMainEvents() > 0 then
+		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorMainEvent'), {preset = 'command'})
+		return true
+	end
+	if DD.roundData.electionBlacklistSet == nil then
+		DD.roundData.electionBlacklistSet = {}
+	end
+	if DD.roundData.electionBlacklistSet[sender.AccountId.StringRepresentation] then
+		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorLimitReached'), {preset = 'command'})
+		return true
+	end
+	
+	DD.roundData.electionBlacklistSet[sender.AccountId.StringRepresentation] = true
+	
+	local event = DD.eventElection.new()
+	event.start()
 	
 	return true
 end

@@ -10,10 +10,10 @@ end, {
 	
 	name = 'deathSquad',
 	isMainEvent = true,
-	allowEarlyGame = false,
 	cooldown = 60 * 3,
 	weight = 0.5,
 	goodness = -2.0,
+	minimunDeadPercentage  = 0.6,
 	
 	onStart = function (self)
 		self.nukiesWon = false

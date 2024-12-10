@@ -13,6 +13,9 @@ return {
 	commandFreecamErrorHuman = 'You cannot become a spectator whilst controlling a human.',
 	commandFire = 'The captain has decided to fire {name} from the security force!',
 	commandFireAdmin = 'Nexpharma (TM) has decided to fire {name} from the security force!',
+	commandElectionErrorAlreadyOngoing = 'Cannot start an election because one is already ongoing.',
+	commandElectionErrorMainEvent = 'Cannot start an election because a main event is ongoing.',
+	commandElectionErrorLimitReached = 'Limit reached! You cannot start more than one election per round.',
 	huskInfo = 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate.',
 	-- eventDirector.lua
 	commandEventsNone = 'none (there are no public events)',

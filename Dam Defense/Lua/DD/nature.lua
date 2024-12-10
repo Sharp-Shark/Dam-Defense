@@ -174,8 +174,8 @@ DD.roundStartFunctions.nature = function ()
 	DD.roundData.creatureGrowthTimer = {}
 	DD.roundData.creatureBreedTimer = {}
 	DD.roundData.populations = {}
-	-- half of plant spawn locations will be used by the time respawn is disabled
-	DD.roundData.plantSpawnTimerInitial = DD.disableRespawningAfter / #DD.getLocations(function (item) return item.HasTag('dd_plantspawn') end) * 1.5
+	-- all plant spawn locations will be used by the time 40min have passed
+	DD.roundData.plantSpawnTimerInitial = 40 * 60 / #DD.getLocations(function (item) return item.HasTag('dd_plantspawn') end)
 	DD.roundData.plantSpawnTimer = DD.roundData.plantSpawnTimerInitial
 	-- never use the same plant spawn location twice
 	DD.roundData.plantSpawnLocationBlacklistSet = {}

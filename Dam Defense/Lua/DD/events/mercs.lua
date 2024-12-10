@@ -9,10 +9,10 @@ end, {
 	name = 'mercs',
 	instanceCap = 1,
 	isMainEvent = false,
-	allowEarlyGame = false,
 	cooldown = 60 * 1,
 	weight = 1.0,
 	goodness = 2.0,
+	minimunDeadPercentage  = 0.3,
 	
 	onStart = function (self)
 		if self.mercs == nil then

@@ -49,7 +49,6 @@ DD.eventDirector.eventPool = {
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}
 DD.eventDirector.cooldown = nil
-DD.eventDirector.respawnNowCooldown = 0
 DD.eventDirector.mainEvent = nil
 DD.eventDirector.mainEventCooldown = nil
 DD.eventDirector.eventsPerClientCap = 2 -- how many events a single client can be a participant of
@@ -294,11 +293,28 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 	local isMainEvent = isMainEvent
 	if isMainEvent == nil then isMainEvent = false end
 
+	-- Count players
+	local players = 0
+	local alive = 0
+	for client in Client.ClientList do
+		if client.InGame then
+			players = players + 1
+			if DD.isClientCharacterAlive(client) then
+				alive = alive + 1
+			end
+		end
+	end
+	local alivePercentage = alive / players
+	local deadPercentage = 1 - alivePercentage
+
 	-- Get weights
 	local weights = {}
 	for key, value in pairs(DD.eventDirector.eventPool) do
 		if (value.tbl.isMainEvent == isMainEvent) or (value.tbl.isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
 			weights[key] = math.max(0, value.tbl.weight - value.tbl.weight * value.tbl.goodness * DD.eventDirector.goodness)
+		end
+		if (value.tbl.minimunAlivePercentage > alivePercentage) and (value.tbl.minimunDeadPercentage > deadPercentage) then
+			weights[key] = 0
 		end
 	end
 	-- Start event
@@ -323,7 +339,7 @@ DD.thinkFunctions.eventDirector = function ()
 	-- Respawning is disabled if there are ongoing main events
 	if ((#DD.eventDirector.getMainEvents() > 0) and DD.eventDirector.mainEventsDisableRespawning) then
 		DD.setAllowRespawning(false)
-	elseif not (DD.roundTimer > DD.disableRespawningAfter) then
+	else
 		DD.setAllowRespawning(true)
 	end
 	
@@ -339,7 +355,7 @@ DD.thinkFunctions.eventDirector = function ()
 	
 	if (DD.eventDirector.mainEvent == nil) and (DD.eventDirector.mainEventCooldown <= 0) then
 		DD.eventDirector.startNewEvent(true)
-		DD.eventDirector.mainEventCooldown = math.max(5, DD.eventDirector.mainEventCooldown)
+		DD.eventDirector.mainEventCooldown = 1
 	else
 		DD.eventDirector.mainEventCooldown = DD.eventDirector.mainEventCooldown - 1 / timesPerSecond
 	end
@@ -349,14 +365,6 @@ DD.thinkFunctions.eventDirector = function ()
 	else
 		DD.eventDirector.cooldown = DD.eventDirector.cooldown - 1 / timesPerSecond
 	end
-	
-	-- do respawnnow just before a main event starts
-	if DD.eventDirector.respawnNowCooldown > 0 then
-		DD.eventDirector.respawnNowCooldown = DD.eventDirector.respawnNowCooldown - 1 / timesPerSecond
-	elseif (DD.eventDirector.mainEvent == nil) and (DD.eventDirector.mainEventCooldown <= 0) then
-		Game.ExecuteCommand('respawnnow')
-		DD.eventDirector.respawnNowCooldown = 15
-	end
 end
 
 -- Called at round start
@@ -365,7 +373,6 @@ DD.roundStartFunctions.eventDirector = function ()
 	DD.eventDirector.mainEvent = nil
 	DD.eventDirector.events = {}
 	DD.eventDirector.cooldown = 60 * 1
-	DD.eventDirector.respawnNowCooldown = 0
 	DD.eventDirector.mainEventCooldown = 60 * 4
 end
 

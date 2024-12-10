@@ -14,10 +14,10 @@ end, {
 	
 	name = 'gangWar',
 	isMainEvent = true,
-	allowLateGame = false,
 	cooldown = 60 * 5,
 	weight = 1.5,
 	goodness = -0.5,
+	minimunAlivePercentage = 1.0,
 	
 	-- set this to false unless testing the event
 	debugMode = false,

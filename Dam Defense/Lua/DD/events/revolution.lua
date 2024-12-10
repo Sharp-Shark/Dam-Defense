@@ -7,10 +7,10 @@ end, {
 	
 	name = 'revolution',
 	isMainEvent = true,
-	allowLateGame = false,
 	cooldown = 60 * 6,
 	weight = 2,
 	goodness = -1,
+	minimunAlivePercentage = 1.0,
 	
 	buildRebelList = function (self, excludeSet, useClientLogName)
 		local excludeSet = excludeSet or {}

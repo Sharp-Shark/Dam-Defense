@@ -33,6 +33,20 @@ end, {
 		self.failed = false
 		self.finished = false
 		
+		-- Count players
+		local players = 0
+		local alive = 0
+		for client in Client.ClientList do
+			if client.InGame then
+				players = players + 1
+				if DD.isClientCharacterAlive(client) then
+					alive = alive + 1
+				end
+			end
+		end
+		local alivePercentage = alive / players
+		local deadPercentage = 1 - alivePercentage
+		
 		-- Enforce instance cap, main event cap and other restrictions
 		if self.isMainEvent then self.instanceCap = 1 end
 		if (DD.eventDirector.mainEventCap >= 0) and self.isMainEvent and (#DD.eventDirector.getMainEvents() >= DD.eventDirector.mainEventCap) then return end
@@ -40,11 +54,7 @@ end, {
 			self.fail()
 			return
 		end
-		if (not self.allowEarlyGame) and (DD.roundTimer <= DD.disableRespawningAfter) then
-			self.fail()
-			return
-		end
-		if (not self.allowLateGame) and (DD.roundTimer > DD.disableRespawningAfter) then
+		if (self.minimunAlivePercentage > alivePercentage) and (self.minimunDeadPercentage > deadPercentage) then
 			self.fail()
 			return
 		end
@@ -111,21 +121,82 @@ end, {
 	name = 'name',
 	instanceCap = -1, -- how many instances of this event can be active at the same time (negative values mean it is uncapped)
 	isMainEvent = false, -- for eventDirector
-	allowEarlyGame = true, -- event may occur before respawn has been permanently disabled
-	allowLateGame = true, -- event may occur after respawn has been permanently disabled
 	cooldown = 60 * 1, -- for eventDirector
 	weight = 1, -- for eventDirector
 	goodness = 0, -- for eventDirector
+	minimunAlivePercentage = 0.0, -- minimun percentage of alive players required when event starts
+	minimunDeadPercentage  = 0.0, -- minimun percentage of dead players required when event starts
 	
 	onStart = function (self) return end,
 	
 	onThink = function (self) self.finish() end,
 	
-	onCharacterDeath = function (self, character) end,
+	onCharacterDeath = function (self, character) return end,
 	
-	onChatMessage = function (self, message, sender) end,
+	onChatMessage = function (self, message, sender) return end,
 	
 	onFinish = function (self) return end,
 	
 	onFinishAlways = function (self) return end -- use this if you have some code that ALWAYS must be executed upon event end no matter what
+})
+
+-- Base for state machine event
+DD.eventSMBase = DD.class(DD.eventBase, function (self)
+	for key, state in pairs(self.states) do
+		if type(state) == 'string' then
+			self.states[key] = self[state]
+		end
+		self[state].parent = self
+	end
+end, {
+	start = function (self)
+		DD.eventBase.tbl.start(self)
+		
+		self.changeState('start')
+	end,
+
+	states = {start = 'stateStart'},
+	
+	stateStart = {
+		onChange = function (self, state) return end,
+		onThink = function (self) return end,
+	},
+	
+	changeState = function (self, state)
+		self.state = state
+		self.states[self.state]:onChange(state)
+	end,
+	
+	onThink = function (self)
+		self.states[self.state]:onThink()
+	end
+})
+
+-- Base for events with secret antags who are warned about the event before everyone else (eg. Serial Killer or Blood Cult)
+DD.eventSecretAntagBase = DD.class(DD.eventSMBase, nil, {
+	states = {start = 'stateStart', main = 'stateMain'},
+	
+	stateStartInitialTimer = 60 * 1, -- in seconds
+	
+	stateStart = {
+		onChange = function (self, state)
+			self.timer = self.parent.stateStartInitialTimer
+		end,
+		onThink = function (self)
+			if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+			local timesPerSecond = 2
+		
+			if self.timer > 0 then
+				self.timer = self.timer - 1 / timesPerSecond
+			else
+				self.parent.changeState('main')
+				return
+			end
+		end,
+	},
+	
+	stateMain = {
+		onChange = function (self, state) return end,
+		onThink = function (self) self.parent.finish() end,
+	},
 })

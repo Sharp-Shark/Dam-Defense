@@ -65,12 +65,20 @@ DD.invSlots = {
 }
 
 -- Output table in a neat way
-DD.tablePrint = function (t, output, long, depth, chars)
+DD.tablePrint = function (t, output, long, depth, chars, history)
 	if t == nil then
 		out = 'nil'
 		if not output then print(out) end
 		return out
 	end
+	
+	-- avoids infinite recursion
+	local historyCopy = {}
+	for k, v in pairs(history or {}) do
+		historyCopy[k] = v
+	end
+	local history = historyCopy
+	history[t] = true
 	
 	local chars = chars or {}
 	local quoteChar = chars['quote'] or '"'
@@ -118,7 +126,11 @@ DD.tablePrint = function (t, output, long, depth, chars)
 				end
 			end
 		elseif type(key) == 'table' then
-			out = out .. DD.tablePrint(key, true, long, depth + 1, chars)
+			if history[key] then
+				out = out + 'RECURSION'
+			else
+				out = out .. DD.tablePrint(key, true, long, depth + 1, chars, history)
+			end
 		elseif type(key) == 'string' then
 			out = out .. quoteChar .. key .. quoteChar
 		else
@@ -144,7 +156,11 @@ DD.tablePrint = function (t, output, long, depth, chars)
 				end
 			end
 		elseif type(value) == 'table' then
-			out = out .. DD.tablePrint(value, true, long, depth + 1, chars)
+			if history[value] then
+				out = out .. 'RECURSION'
+			else
+				out = out .. DD.tablePrint(value, true, long, depth + 1, chars, history)
+			end
 		elseif type(value) == 'string' then
 			out = out .. quoteChar .. value .. quoteChar
 		else

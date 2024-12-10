@@ -10,10 +10,10 @@ end, {
 	
 	name = 'nukies',
 	isMainEvent = true,
-	allowEarlyGame = false,
 	cooldown = 60 * 2,
 	weight = 2,
 	goodness = -1.5,
+	minimunDeadPercentage  = 0.4,
 	
 	onStart = function (self)
 		self.nukiesWon = false
