@@ -1,5 +1,5 @@
 -- Enlighten a few initial players whose objective is to convert all players into cultists like them, or kill them
-DD.eventBloodCult = DD.class(DD.eventBase, function (self, cultists)
+DD.eventBloodCult = DD.class(DD.eventSecretAntagBase, function (self, cultists)
 	self.cultists = cultists
 	if type(self.cultists) == 'table' then
 		self.cultistsSet = DD.toSet(self.cultists)
@@ -7,6 +7,7 @@ DD.eventBloodCult = DD.class(DD.eventBase, function (self, cultists)
 end, {
 	paramType = {'clientList'},
 	clientKeys = {'cultists'},
+	public = false,
 	
 	name = 'bloodCult',
 	isMainEvent = true,
@@ -115,10 +116,6 @@ end, {
 					DD.giveAfflictionCharacter(client.Character, 'enlightened', 999)
 					DD.giveAfflictionCharacter(client.Character, 'timepressureimmunity', 60 * 3) -- 3 minutes of time pressure immunity
 					-- No "DD.messageClient" here since whenever the "enlightened" affliction is gained, a luahook already sends a message
-				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
-					DD.messageClient(client, 'Intel reports a blood cult chapter has started in this region. Identify and neutralize all of them before they convert or kill everyone. Any mentions of "Tchernobog" should be met with suspicion.', {preset = 'crit'})
-				else
-					DD.messageClient(client, 'There have been rumours of cultists in the area. If you were not worried about hooded figures in the sewers saying strange chants before, you should be now.', {preset = 'crit'})
 				end
 			end
 			-- Spawn airdrops for cultists
@@ -127,28 +124,46 @@ end, {
 		end
 	end,
 	
-	onThink = function (self)
-		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
-		
-		self.updateCultistList()
-		
-		local aliveSet = {}
-		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
-				aliveSet[client] = true
+	stateStartInitialTimer = 60 * 2, -- in seconds
+	
+	stateMain = {
+		onChange = function (self, state)
+			-- Give affliction and do client messages
+			for client in Client.ClientList do
+				if self.parent.cultistsSet[client] then
+					DD.messageClient(client, 'Nexpharma intelligence has discovered the existance of your blood cult and now everyone is aware of your conspiracy, exert caution! They do not know who the individual cultists are at the moment though.', {preset = 'crit'})
+				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
+					DD.messageClient(client, 'Intel reports a blood cult chapter has started in this region. Identify and neutralize all of them before they convert or kill everyone. Any mentions of "Tchernobog" should be met with suspicion.', {preset = 'crit'})
+				else
+					DD.messageClient(client, 'There have been rumours of cultists in the area. If you were not worried about hooded figures in the sewers saying strange chants before, you should be now.', {preset = 'crit'})
+				end
 			end
-		end
-		local nonCultistsSet = DD.setSubtract(aliveSet, self.cultistsSet)
-		
-		if DD.tableSize(nonCultistsSet) <= 0 then
-			self.cultistsWon = true
-			self.finish()
-			return
-		end
-		if DD.tableSize(self.cultistsSet) <= 0 then
-			self.finish()
-		end
-	end,
+			-- Make event public
+			self.parent.public = true
+		end,
+		onThink = function (self)
+			if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+			
+			self.parent.updateCultistList()
+			
+			local aliveSet = {}
+			for client in Client.ClientList do
+				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
+					aliveSet[client] = true
+				end
+			end
+			local nonCultistsSet = DD.setSubtract(aliveSet, self.parent.cultistsSet)
+			
+			if DD.tableSize(nonCultistsSet) <= 0 then
+				self.parent.cultistsWon = true
+				self.parent.finish()
+				return
+			end
+			if DD.tableSize(self.parent.cultistsSet) <= 0 then
+				self.parent.finish()
+			end
+		end,
+	},
 	
 	onCharacterDeath = function (self, character)
 		local client = DD.findClientByCharacter(character)

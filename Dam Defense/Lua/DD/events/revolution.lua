@@ -1,9 +1,10 @@
 -- Pick some players to be part of a revolution tasked with killing all of security (and also trigger an eventAirdropSeparatist)
-DD.eventRevolution = DD.class(DD.eventBase, function (self, rebels)
+DD.eventRevolution = DD.class(DD.eventSecretAntagBase, function (self, rebels)
 	self.rebels = rebels
 end, {
 	paramType = {'clientList'},
 	clientKeys = {'rebels', 'security'},
+	public = false,
 	
 	name = 'revolution',
 	isMainEvent = true,
@@ -120,13 +121,7 @@ end, {
 						rebelList = ''
 					end
 					-- Rebel message
-					DD.messageClient(client, 'You are a rebel leader! Your objective is to kill the captain and security. Try to enlist non-security personnel to your cause.' .. rebelList .. ' List of rebels will be public in ' .. DD.numberToTime(self.rebelsDoxTimer) ..'. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
-				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
-					-- Sec message
-					DD.messageClient(client, "There have been rumours of a conspiracy agaisn't the captain and security. A revolution comes this way, so be prepared to arrest and even kill any rebels. List of rebels will be pubic in " .. DD.numberToTime(self.rebelsDoxTimer) .. '. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
-				else
-					-- Neutral message
-					DD.messageClient(client, "There have been rumours of a revolution. You should ally yourself with the rebels or security. Has security ever treated you well though? List of rebels will be pubic in " .. DD.numberToTime(self.rebelsDoxTimer) .. '. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
+					DD.messageClient(client, 'You are a rebel leader! Your objective is to kill the captain and security. You have ' .. DD.numberToTime(self.stateStartInitialTimer) ..' until people become aware of the revolution, so start preparing now. Try to enlist non-security personnel to your cause.' .. rebelList .. ' Do /rebels to get info pertinent to this event.', {preset = 'crit'})
 				end
 			end
 			-- Spawn airdrops for rebels
@@ -135,64 +130,84 @@ end, {
 		end
 	end,
 	
-	onThink = function (self)
-		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
-		local timesPerSecond = 2
-		
-		-- See if security is still alivd
-		local anySecurityIsAlive = false
-		self.security = {}
-		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) and (client.Character.SpeciesName == 'human') then
-				table.insert(self.security, client)
-				anySecurityIsAlive = true
-			end
-		end
-		
-		-- See if any rebel is alive
-		local anyRebelIsAlive = false
-		for key, rebel in pairs(self.rebels) do
-			if DD.isClientCharacterAlive(rebel) and (not DD.isCharacterArrested(rebel.Character)) and (rebel.Character.SpeciesName == 'human') then
-				anyRebelIsAlive = true
-			else
-				if (not DD.isClientCharacterAlive(rebel)) or (rebel.Character.SpeciesName ~= 'human') then
-					DD.messageClient(rebel, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
-					self.rebels[key] = nil
-					self.rebelsSet[rebel] = nil
+	stateStartInitialTimer = 60 * 2, -- in seconds
+	
+	stateMain = {
+		onChange = function (self, state)
+			local rebelsSet = DD.toSet(self.parent.rebels)
+			for client in Client.ClientList do
+				if rebelsSet[client] then
+					DD.messageClient(client, 'Everyone, including security, has heard rumours about your conspiracy and are now aware of the revolution. The cat is out of the bag, so be careful! They do not know who the rebels are yet, but the list of rebels will be public in ' .. DD.numberToTime(self.parent.rebelsDoxTimer) ..'. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
+				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
+					-- Sec message
+					DD.messageClient(client, "There have been rumours of a conspiracy agaisnt the captain and security. A revolution comes this way, so be prepared to arrest and even kill any rebels. List of rebels will be pubic in " .. DD.numberToTime(self.parent.rebelsDoxTimer) .. '. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
+				else
+					-- Neutral message
+					DD.messageClient(client, "There have been rumours of a revolution. You should ally yourself with the rebels or security. Has security ever treated you well though? List of rebels will be pubic in " .. DD.numberToTime(self.parent.rebelsDoxTimer) .. '. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
 				end
 			end
-		end
-		
-		-- Increase time pressure
-		local timeToExplode = 15 * 60 -- in seconds
-		for client in self.rebels do
-			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
-		end
-		
-		-- End event if all of security is dead or if all rebel leaders are dead/arrested
-		if not anySecurityIsAlive then
-			self.rebelsWon = true
-			self.finish()
-			return
-		end
-		if not anyRebelIsAlive then
-			self.finish()
-			return
-		end
-		if anySecurityIsAlive and anyRebelIsAlive and not self.rebelsDoxHappened then
-			if self.rebelsDoxTimer > 0 then
-				self.rebelsDoxTimer = self.rebelsDoxTimer - 0.5
-			else
-				self.rebelsDoxHappened = true
-				-- Build rebel list
-				local rebelList = self.buildRebelList()
-				
-				local message = ''
-				message = 'The Nexascanner (TM) has finished its "rebel search algorithm" and found the rebel leaders to be: ' .. rebelList .. '. Do /rebels to get a list of rebel leaders.'
-				DD.messageAllClients(message, {preset = 'crit'})
+			-- Make event public
+			self.parent.public = true
+		end,
+		onThink = function (self)
+			if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+			local timesPerSecond = 2
+			
+			-- See if security is still alivd
+			local anySecurityIsAlive = false
+			self.parent.security = {}
+			for client in Client.ClientList do
+				if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) and (client.Character.SpeciesName == 'human') then
+					table.insert(self.parent.security, client)
+					anySecurityIsAlive = true
+				end
 			end
-		end
-	end,
+			
+			-- See if any rebel is alive
+			local anyRebelIsAlive = false
+			for key, rebel in pairs(self.parent.rebels) do
+				if DD.isClientCharacterAlive(rebel) and (not DD.isCharacterArrested(rebel.Character)) and (rebel.Character.SpeciesName == 'human') then
+					anyRebelIsAlive = true
+				else
+					if (not DD.isClientCharacterAlive(rebel)) or (rebel.Character.SpeciesName ~= 'human') then
+						DD.messageClient(rebel, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+						self.parent.rebels[key] = nil
+						self.parent.rebelsSet[rebel] = nil
+					end
+				end
+			end
+			
+			-- Increase time pressure
+			local timeToExplode = 15 * 60 -- in seconds
+			for client in self.parent.rebels do
+				DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
+			end
+			
+			-- End event if all of security is dead or if all rebel leaders are dead/arrested
+			if not anySecurityIsAlive then
+				self.parent.rebelsWon = true
+				self.parent.finish()
+				return
+			end
+			if not anyRebelIsAlive then
+				self.parent.finish()
+				return
+			end
+			if anySecurityIsAlive and anyRebelIsAlive and not self.parent.rebelsDoxHappened then
+				if self.parent.rebelsDoxTimer > 0 then
+					self.parent.rebelsDoxTimer = self.parent.rebelsDoxTimer - 0.5
+				else
+					self.parent.rebelsDoxHappened = true
+					-- Build rebel list
+					local rebelList = self.parent.buildRebelList()
+					
+					local message = ''
+					message = 'The Nexascanner (TM) has finished its "rebel search algorithm" and found the rebel leaders to be: ' .. rebelList .. '. Do /rebels to get a list of rebel leaders.'
+					DD.messageAllClients(message, {preset = 'crit'})
+				end
+			end
+		end,
+	},
 	
 	onCharacterDeath = function (self, character)
 		local client = DD.findClientByCharacter(character)

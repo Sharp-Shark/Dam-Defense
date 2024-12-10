@@ -159,7 +159,7 @@ DD.eventAirdropSeparatist = DD.class(DD.eventAirdrop, nil, {
 	},
 	minAmount = 8,
 	maxAmount = 12,
-	message = 'Airdrop with {amount} items for "crafting" (wink wink) arrived at the radio tower above the slums. Crate despawns in {minutes} minutes!'
+	message = 'Airdrop with {amount} items for crafting arrived at the radio tower above the slums. Crate despawns in {minutes} minutes!'
 })
 
 -- Cultist airdrop with guns
@@ -184,5 +184,5 @@ DD.eventAirdropCultist = DD.class(DD.eventAirdrop, nil, {
 	},
 	minAmount = 3,
 	maxAmount = 6,
-	message = 'Airdrop with {amount} items for "crafting" (wink wink) arrived at the radio tower above the slums. Crate despawns in {minutes} minutes!'
+	message = 'Airdrop with {amount} items for crafting arrived at the radio tower above the slums. Crate despawns in {minutes} minutes!'
 })

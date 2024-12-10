@@ -1,5 +1,5 @@
 -- Main event where 2 gangs fight. Although it is a main event, it can't possibly cause the round to end
-DD.eventGangWar = DD.class(DD.eventBase, function (self, gang1, gang2)
+DD.eventGangWar = DD.class(DD.eventSecretAntagBase, function (self, gang1, gang2)
 	self.gang1 = gang1
 	self.gang2 = gang2
 	if type(self.gang1) == 'table' then
@@ -11,6 +11,7 @@ DD.eventGangWar = DD.class(DD.eventBase, function (self, gang1, gang2)
 end, {
 	paramType = {'clientList', 'clientList'},
 	clientKeys = {'gang1', 'gang2'},
+	public = false,
 	
 	name = 'gangWar',
 	isMainEvent = true,
@@ -255,13 +256,7 @@ end, {
 						gangName = self.gang2Name
 						rivalGangName = self.gang1Name
 					end
-					DD.messageClient(client, DD.stringLocalize('gangWarGangsterInfo', {gangName = gangName, rivalGangName = rivalGangName}), {preset = 'crit'})
-				elseif (client.Character ~= nil) and DD.isCharacterSecurity(client.Character) then
-					-- message for security
-					DD.messageClient(client, DD.stringLocalize('gangWarSecurityInfo'), {preset = 'crit'})
-				else
-					-- message for commoners
-					DD.messageClient(client, DD.stringLocalize('gangWarCommonerInfo'), {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('gangWarGangsterInfo', {gangName = gangName, rivalGangName = rivalGangName, timer = self.stateStartInitialTimer}), {preset = 'crit'})
 				end
 			end
 			-- spawn airdrops for gangs
@@ -270,96 +265,117 @@ end, {
 		end
 	end,
 	
-	onThink = function (self)
-		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
-		local timesPerSecond = 2
-		
-		-- check for dead gangsters
-		for key, client in pairs(self.gang1) do
-			if (client.Character == nil) or client.Character.IsDead then
-				DD.messageClient(client, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
-				self.gang1[key] = nil
-				self.gang1Set[client] = nil
-				if client.Character ~= nil then
-					DD.roundData.characterSalaryTimer[client.Character] = nil
+	stateStartInitialTimer = 60 * 2, -- in seconds
+	
+	stateMain = {
+		onChange = function (self, state)
+			-- give affliction and do client messages
+			for client in Client.ClientList do
+				if self.parent.gang1Set[client] or self.parent.gang2Set[client] then
+					-- message for gangsters
+					DD.messageClient(client, DD.stringLocalize('gangWarGangsterReveal'), {preset = 'crit'})
+				elseif (client.Character ~= nil) and DD.isCharacterSecurity(client.Character) then
+					-- message for security
+					DD.messageClient(client, DD.stringLocalize('gangWarSecurityInfo'), {preset = 'crit'})
+				else
+					-- message for commoners
+					DD.messageClient(client, DD.stringLocalize('gangWarCommonerInfo'), {preset = 'crit'})
 				end
-				DD.giveMoneyToClients(self.gang2, 5, true)
 			end
-		end
-		for key, client in pairs(self.gang2) do
-			if (client.Character == nil) or client.Character.IsDead then
-				DD.messageClient(client, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
-				self.gang2[key] = nil
-				self.gang2Set[client] = nil
-				if client.Character ~= nil then
-					DD.roundData.characterSalaryTimer[client.Character] = nil
+			-- Make event public
+			self.parent.public = true
+		end,
+		onThink = function (self)
+			if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+			local timesPerSecond = 2
+			
+			-- check for dead gangsters
+			for key, client in pairs(self.parent.gang1) do
+				if (client.Character == nil) or client.Character.IsDead then
+					DD.messageClient(client, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+					self.parent.gang1[key] = nil
+					self.parent.gang1Set[client] = nil
+					if client.Character ~= nil then
+						DD.roundData.characterSalaryTimer[client.Character] = nil
+					end
+					DD.giveMoneyToClients(self.parent.gang2, 5, true)
 				end
-				DD.giveMoneyToClients(self.gang1, 5, true)
 			end
-		end
-		
-		-- dox gangsters
-		if self.doxTimer > 0 then
-			self.doxTimer = self.doxTimer - 1 / timesPerSecond
-		end
-		for client in self.gang1 do
-			local offset = 0
-			if self.clientDoxTimerOffset[client] ~= nil then offset = self.clientDoxTimerOffset[client] end
-			if self.doxTimer - offset <= 0 then
-				self.doxGangster(client)
+			for key, client in pairs(self.parent.gang2) do
+				if (client.Character == nil) or client.Character.IsDead then
+					DD.messageClient(client, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+					self.parent.gang2[key] = nil
+					self.parent.gang2Set[client] = nil
+					if client.Character ~= nil then
+						DD.roundData.characterSalaryTimer[client.Character] = nil
+					end
+					DD.giveMoneyToClients(self.parent.gang1, 5, true)
+				end
 			end
-		end
-		for client in self.gang2 do
-			local offset = 0
-			if self.clientDoxTimerOffset[client] ~= nil then offset = self.clientDoxTimerOffset[client] end
-			if self.doxTimer - offset <= 0 then
-				self.doxGangster(client)
+			
+			-- dox gangsters
+			if self.parent.doxTimer > 0 then
+				self.parent.doxTimer = self.parent.doxTimer - 1 / timesPerSecond
 			end
-		end
-		
-		-- see if any gangster is not arrested
-		local anyGangsterNotArrested = false
-		for client in self.gang1 do
-			if DD.isClientCharacterAlive(client) and (not DD.isCharacterArrested(client.Character)) then
-				anyGangsterNotArrested = true
+			for client in self.parent.gang1 do
+				local offset = 0
+				if self.parent.clientDoxTimerOffset[client] ~= nil then offset = self.parent.clientDoxTimerOffset[client] end
+				if self.parent.doxTimer - offset <= 0 then
+					self.parent.doxGangster(client)
+				end
 			end
-		end
-		for client in self.gang2 do
-			if DD.isClientCharacterAlive(client) and (not DD.isCharacterArrested(client.Character)) then
-				anyGangsterNotArrested = true
+			for client in self.parent.gang2 do
+				local offset = 0
+				if self.parent.clientDoxTimerOffset[client] ~= nil then offset = self.parent.clientDoxTimerOffset[client] end
+				if self.parent.doxTimer - offset <= 0 then
+					self.parent.doxGangster(client)
+				end
 			end
-		end
-		
-		-- Increase time pressure
-		local timeToExplode = 12 * 60 -- in seconds
-		for client in self.gang1 do
-			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
-		end
-		for client in self.gang2 do
-			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
-		end
-		
-		-- end event
-		if (DD.tableSize(self.gang1) + DD.tableSize(self.gang2) <= 0) and not self.debugMode then
-			self.finish()
-			return
-		end
-		if (not anyGangsterNotArrested) and not self.debugMode then
-			self.winnerGang = 'security'
-			self.finish()
-			return
-		end
-		if (DD.tableSize(self.gang1) <= 0) and not self.debugMode then
-			self.winnerGang = 'gang2'
-			self.finish()
-			return
-		end
-		if (DD.tableSize(self.gang2) <= 0) and not self.debugMode then
-			self.winnerGang = 'gang1'
-			self.finish()
-			return
-		end
-	end,
+			
+			-- see if any gangster is not arrested
+			local anyGangsterNotArrested = false
+			for client in self.parent.gang1 do
+				if DD.isClientCharacterAlive(client) and (not DD.isCharacterArrested(client.Character)) then
+					anyGangsterNotArrested = true
+				end
+			end
+			for client in self.parent.gang2 do
+				if DD.isClientCharacterAlive(client) and (not DD.isCharacterArrested(client.Character)) then
+					anyGangsterNotArrested = true
+				end
+			end
+			
+			-- Increase time pressure
+			local timeToExplode = 12 * 60 -- in seconds
+			for client in self.parent.gang1 do
+				DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
+			end
+			for client in self.parent.gang2 do
+				DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
+			end
+			
+			-- end event
+			if (DD.tableSize(self.parent.gang1) + DD.tableSize(self.parent.gang2) <= 0) and not self.parent.debugMode then
+				self.parent.finish()
+				return
+			end
+			if (not anyGangsterNotArrested) and not self.parent.debugMode then
+				self.parent.winnerGang = 'security'
+				self.parent.finish()
+				return
+			end
+			if (DD.tableSize(self.parent.gang1) <= 0) and not self.parent.debugMode then
+				self.parent.winnerGang = 'gang2'
+				self.parent.finish()
+				return
+			end
+			if (DD.tableSize(self.parent.gang2) <= 0) and not self.parent.debugMode then
+				self.parent.winnerGang = 'gang1'
+				self.parent.finish()
+				return
+			end
+		end,
+	},
 	
 	onCharacterDeath = function (self, character)
 		local client = DD.findClientByCharacter(character)
