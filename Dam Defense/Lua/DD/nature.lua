@@ -182,6 +182,13 @@ DD.roundStartFunctions.nature = function ()
 end
 
 DD.characterDeathFunctions.corpseCleanUp = function (character)
+	local client = DD.findClientByCharacter(character)
+	if (client ~= nil) and (character.SpeciesName == 'human') then
+		local info = CharacterInfo('human', client.Name)
+		info.RecreateHead(client.CharacterInfo.Head)
+		client.CharacterInfo = info
+	end
+
 	DD.roundData.creatureGrowthTimer[character] = nil
 	DD.roundData.creatureBreedTimer[character] = nil
 	

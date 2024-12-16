@@ -421,7 +421,7 @@ Hook.Add("character.death", "DD.characterDeath", function (character)
 	return true
 end)
 
--- Executes cwhenever a chat message is sent
+-- Executes whenever a chat message is sent
 Hook.Add("chatMessage", "DD.chatMessage", function (message, sender)
 	return doChatMessageFunctions(message, sender)
 end)
