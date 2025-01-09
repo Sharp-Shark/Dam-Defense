@@ -23,6 +23,48 @@ end, {
 	-- set this to false unless testing the event
 	debugMode = false,
 	
+	getShouldFinish = function (self)
+		-- see if any gangster is not arrested
+		local anyGangsterNotArrested = false
+		local gang1Alive = false
+		local gang2Alive = false
+		for client in self.gang1 do
+			if DD.isClientCharacterAlive(client) and (not DD.isCharacterArrested(client.Character)) then
+				anyGangsterNotArrested = true
+			end
+			if DD.isClientCharacterAlive(client) then
+				gang1Alive = true
+			end
+		end
+		for client in self.gang2 do
+			if DD.isClientCharacterAlive(client) and (not DD.isCharacterArrested(client.Character)) then
+				anyGangsterNotArrested = true
+			end
+			if DD.isClientCharacterAlive(client) then
+				gang2Alive = true
+			end
+		end
+		
+		-- end event
+		if ((not gang1Alive) and (not gang2live)) and not self.debugMode then
+			return true
+		end
+		if (not anyGangsterNotArrested) and not self.debugMode then
+			self.winnerGang = 'security'
+			return true
+		end
+		if (not gang1Alive) and not self.debugMode then
+			self.winnerGang = 'gang2'
+			return true
+		end
+		if (not gang2Alive) and not self.debugMode then
+			self.winnerGang = 'gang1'
+			return true
+		end
+		
+		return false
+	end,
+	
 	addClientToGang = function(self, client, gang)
 		if self.gang1Set[client] or self.gang2Set[client] then return end
 	
@@ -265,7 +307,7 @@ end, {
 		end
 	end,
 	
-	stateStartInitialTimer = 60 * 2, -- in seconds
+	stateStartInitialTimer = 60 * 3, -- in seconds
 	
 	stateMain = {
 		onChange = function (self, state)
@@ -333,19 +375,6 @@ end, {
 				end
 			end
 			
-			-- see if any gangster is not arrested
-			local anyGangsterNotArrested = false
-			for client in self.parent.gang1 do
-				if DD.isClientCharacterAlive(client) and (not DD.isCharacterArrested(client.Character)) then
-					anyGangsterNotArrested = true
-				end
-			end
-			for client in self.parent.gang2 do
-				if DD.isClientCharacterAlive(client) and (not DD.isCharacterArrested(client.Character)) then
-					anyGangsterNotArrested = true
-				end
-			end
-			
 			-- Increase time pressure
 			local timeToExplode = 12 * 60 -- in seconds
 			for client in self.parent.gang1 do
@@ -355,25 +384,8 @@ end, {
 				DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 			end
 			
-			-- end event
-			if (DD.tableSize(self.parent.gang1) + DD.tableSize(self.parent.gang2) <= 0) and not self.parent.debugMode then
+			if self.parent.getShouldFinish() then
 				self.parent.finish()
-				return
-			end
-			if (not anyGangsterNotArrested) and not self.parent.debugMode then
-				self.parent.winnerGang = 'security'
-				self.parent.finish()
-				return
-			end
-			if (DD.tableSize(self.parent.gang1) <= 0) and not self.parent.debugMode then
-				self.parent.winnerGang = 'gang2'
-				self.parent.finish()
-				return
-			end
-			if (DD.tableSize(self.parent.gang2) <= 0) and not self.parent.debugMode then
-				self.parent.winnerGang = 'gang1'
-				self.parent.finish()
-				return
 			end
 		end,
 	},

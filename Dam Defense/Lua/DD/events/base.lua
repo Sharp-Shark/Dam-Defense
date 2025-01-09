@@ -149,6 +149,8 @@ DD.eventSMBase = DD.class(DD.eventBase, function (self)
 		self.states[key].parent = self
 	end
 end, {
+	state = 'start',
+
 	start = function (self)
 		DD.eventBase.tbl.start(self)
 		
@@ -185,6 +187,13 @@ DD.eventWithStartBase = DD.class(DD.eventSMBase, nil, {
 		onThink = function (self)
 			if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 			local timesPerSecond = 2
+			
+			if self.parent.getShouldFinish ~= nil then
+				if self.parent.getShouldFinish() then
+					self.parent.finish()
+					return
+				end
+			end
 		
 			if self.timer > 0 then
 				self.timer = self.timer - 1 / timesPerSecond

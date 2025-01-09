@@ -13,6 +13,35 @@ end, {
 	goodness = -1,
 	minimunAlivePercentage = 1.0,
 	
+	getShouldFinish = function (self)
+		-- See if security is still alive
+		local anySecurityIsAlive = false
+		for client in Client.ClientList do
+			if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) and (client.Character.SpeciesName == 'human') then
+				anySecurityIsAlive = true
+			end
+		end
+		
+		-- See if any rebel is alive
+		local anyRebelIsAlive = false
+		for key, rebel in pairs(self.rebels) do
+			if DD.isClientCharacterAlive(rebel) and (not DD.isCharacterArrested(rebel.Character)) and (rebel.Character.SpeciesName == 'human') then
+				anyRebelIsAlive = true
+			end
+		end
+		
+		-- End event if all of security is dead or if all rebel leaders are dead/arrested
+		if not anySecurityIsAlive then
+			self.rebelsWon = true
+			return true
+		end
+		if not anyRebelIsAlive then
+			return true
+		end
+		
+		return false
+	end,
+	
 	buildRebelList = function (self, excludeSet, useClientLogName)
 		local excludeSet = excludeSet or {}
 		local clients = DD.setSubtract(self.rebelsSet, excludeSet)
@@ -131,7 +160,7 @@ end, {
 		end
 	end,
 	
-	stateStartInitialTimer = 60 * 2, -- in seconds
+	stateStartInitialTimer = 60 * 3, -- in seconds
 	
 	stateMain = {
 		onChange = function (self, state)
@@ -155,7 +184,13 @@ end, {
 			if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 			local timesPerSecond = 2
 			
-			-- See if security is still alivd
+			-- Increase time pressure
+			local timeToExplode = 15 * 60 -- in seconds
+			for client in self.parent.rebels do
+				DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
+			end
+			
+			-- See if security is still alive
 			local anySecurityIsAlive = false
 			self.parent.security = {}
 			for client in Client.ClientList do
@@ -177,12 +212,6 @@ end, {
 						self.parent.rebelsSet[rebel] = nil
 					end
 				end
-			end
-			
-			-- Increase time pressure
-			local timeToExplode = 15 * 60 -- in seconds
-			for client in self.parent.rebels do
-				DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 			end
 			
 			-- End event if all of security is dead or if all rebel leaders are dead/arrested

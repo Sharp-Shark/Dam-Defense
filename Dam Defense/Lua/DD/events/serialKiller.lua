@@ -13,6 +13,33 @@ end, {
 	goodness = -0.5,
 	minimunAlivePercentage = 1.0,
 	
+	getShouldFinish = function (self)
+		-- See if anyone is still alive
+		local anyoneAlive = false
+		for client in Client.ClientList do
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (client ~= self.killer) then
+				anyoneAlive = true
+				break
+			end
+		end
+		
+		-- End event if the serial killer is dead or if everyone is dead
+		if not anyoneAlive then
+			self.killerWon = true
+			return true
+		end
+		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and DD.isCharacterArrested(self.killer.Character)) then
+			return true
+		end
+		-- End event if killsLeftToWin is equal to or lower than 0
+		if self.killsLeftToWin <= 0 then
+			self.killerWon = true
+			return true
+		end
+		
+		return false
+	end,
+	
 	onStart = function (self)
 		self.killerWon = false
 		self.killsLeftToWin = 0 -- killer automatically wins once this value is equal to or lower than 0
@@ -41,7 +68,7 @@ end, {
 			return
 		else
 			local message = 'You are going to turn into a Serial Killer within {time}. Make sure when you do turn, you are somewhere secluded, where no one will see it.'
-			DD.messageClient(self.killer, DD.stringReplace(message, {time = DD.numberToTime(self.eventActualStartTimer)}), {preset = 'crit'})
+			DD.messageClient(self.killer, DD.stringReplace(message, {time = DD.numberToTime(self.stateStartInitialTimer)}), {preset = 'crit'})
 			if self.killer.Character ~= nil then DD.giveAfflictionCharacter(self.killer.Character, 'notificationfx', 999) end
 		end
 	end,
@@ -55,6 +82,7 @@ end, {
 		
 			self.parent.murderCooldown = 60
 			-- Give affliction
+			DD.giveAfflictionCharacter(self.parent.killer.Character, 'serialkiller', 999)
 			DD.giveAfflictionCharacter(self.parent.killer.Character, 'bloodlust', 1)
 			-- Give time pressure immunity
 			DD.giveAfflictionCharacter(self.parent.killer.Character, 'timepressureimmunity', 60 * 3) -- 3 minutes of time pressure immunity
@@ -144,30 +172,8 @@ end, {
 				end
 			end
 			
-			-- See if anyone is still alive
-			local anyoneAlive = false
-			for client in Client.ClientList do
-				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (client ~= self.parent.killer) then
-					anyoneAlive = true
-					break
-				end
-			end
-			
-			-- End event if the serial killer is dead or if everyone is dead
-			if not anyoneAlive then
-				self.parent.killerWon = true
+			if self.parent.getShouldFinish() then
 				self.parent.finish()
-				return
-			end
-			if (not DD.isClientCharacterAlive(self.parent.killer)) or ((self.parent.killer.Character ~= nil) and DD.isCharacterArrested(self.parent.killer.Character)) then
-				self.parent.finish()
-				return
-			end
-			-- End event if killsLeftToWin is equal to or lower than 0
-			if self.parent.killsLeftToWin <= 0 then
-				self.parent.killerWon = true
-				self.parent.finish()
-				return
 			end
 		end,
 	},
@@ -203,10 +209,10 @@ end, {
 		else
 			if not DD.isClientCharacterAlive(self.killer) then
 				DD.messageAllClients('The serial killer has been eliminated.', {preset = 'goodinfo'})
-				DD.messageClient(self.killer, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+				if self.killer ~= nil then DD.messageClient(self.killer, 'You have died and are not an antagonist anymore!', {preset = 'crit'}) end
 			elseif DD.isCharacterArrested(self.killer.Character) then
 				DD.messageAllClients('The serial killer has been arrested.', {preset = 'goodinfo'})
-				DD.messageClient(self.killer, 'You been arrested and are not an antagonist anymore!', {preset = 'crit'})
+				if self.killer ~= nil then DD.messageClient(self.killer, 'You been arrested and are not an antagonist anymore!', {preset = 'crit'}) end
 			end
 		end
 	end,

@@ -7,6 +7,7 @@
   <Item file="%ModDir%/Items/Items.xml" />
   <Item file="%ModDir%/Items/GreenskinItems.xml" />
   <Item file="%ModDir%/Items/growableplants.xml" />
+  <Structure file="%ModDir%/Misc/Prefabs.xml" />
   <Particles file="%ModDir%/Misc/Particles.xml" />
   <Character file="%ModDir%/Characters/Humanhusk/Humanhusk.xml" />
   <Character file="%ModDir%/Characters/Husk/Husk.xml" />
@@ -22,4 +23,5 @@
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />
   <Submarine file="%ModDir%/Submarines/DD Olde Towne Dam.sub" />
   <Submarine file="%ModDir%/Submarines/DD Pioneer Point Dam.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Restoration.sub" />
 </contentpackage>

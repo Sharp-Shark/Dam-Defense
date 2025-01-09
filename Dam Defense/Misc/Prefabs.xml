@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<prefabs>
+  <label name="Label Icon Biohazard" identifier="labelsiconbiohazard" descriptionidentifier="decorativelabel" scale="0.25" category="Decorative" subcategory="labels">
+    <sprite texture="%ModDir%/Misc/biohazard.png" sourcerect="0,0,400,400" depth="0.85" origin="0.5,0.5" />
+  </label>
+</prefabs>

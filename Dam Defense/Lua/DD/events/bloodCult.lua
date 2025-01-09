@@ -16,6 +16,28 @@ end, {
 	goodness = -1.5,
 	minimunAlivePercentage = 1.0,
 	
+	getShouldFinish = function (self)
+		self.updateCultistList()
+		
+		local aliveSet = {}
+		for client in Client.ClientList do
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
+				aliveSet[client] = true
+			end
+		end
+		local nonCultistsSet = DD.setSubtract(aliveSet, self.cultistsSet)
+		
+		if DD.tableSize(nonCultistsSet) <= 0 then
+			self.cultistsWon = true
+			return true
+		end
+		if DD.tableSize(self.cultistsSet) <= 0 then
+			return true
+		end
+		
+		return false
+	end,
+	
 	buildCultistList = function (self, excludeSet, useClientLogName)
 		local excludeSet = excludeSet or {}
 		local clients = DD.setSubtract(self.cultistsSet, excludeSet)
@@ -124,7 +146,7 @@ end, {
 		end
 	end,
 	
-	stateStartInitialTimer = 60 * 2, -- in seconds
+	stateStartInitialTimer = 60 * 3, -- in seconds
 	
 	stateMain = {
 		onChange = function (self, state)
@@ -145,22 +167,7 @@ end, {
 		onThink = function (self)
 			if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 			
-			self.parent.updateCultistList()
-			
-			local aliveSet = {}
-			for client in Client.ClientList do
-				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
-					aliveSet[client] = true
-				end
-			end
-			local nonCultistsSet = DD.setSubtract(aliveSet, self.parent.cultistsSet)
-			
-			if DD.tableSize(nonCultistsSet) <= 0 then
-				self.parent.cultistsWon = true
-				self.parent.finish()
-				return
-			end
-			if DD.tableSize(self.parent.cultistsSet) <= 0 then
+			if self.parent.getShouldFinish() then
 				self.parent.finish()
 			end
 		end,

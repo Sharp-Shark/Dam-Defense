@@ -15,6 +15,8 @@ DD.sc = DD.specialChar
 
 -- https://github.com/evilfactory/LuaCsForBarotrauma/blob/master/Barotrauma/BarotraumaShared/SharedSource/Networking/NetworkMember.cs#L221
 DD.clientLogName = function (client)
+	if client == nil then error("bad argument #1 to 'clientLogName' (client expected, got nil)\n\n" .. debug.traceback(), 1) end
+	
 	local text = DD.sc
 	if client.Karma < 40 then
 		text = text .. 'color:#ff9900;'
@@ -178,6 +180,7 @@ end
 
 -- Get the size of a table (for tables that aren't like an array, #t won't work)
 DD.tableSize = function (t)
+	if t == nil then error("bad argument #1 to 'tableSize' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local size = 0
 	for item in t do size = size + 1 end
 	return size
@@ -185,12 +188,15 @@ end
 
 -- See if table has a value
 DD.tableHas = function (t, query)
+	if t == nil then error("bad argument #1 to 'tableHas' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	if query == nil then error("bad argument #2 to 'tableHas' (got unexpected nil)\n\n" .. debug.traceback(), 1) end
 	for value in t do if value == query then return true end end
 	return false
 end
 
 -- Returns an array of the keys of a table
 DD.tableKeys = function (t)
+	if t == nil then error("bad argument #1 to 'tableKeys' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local build = {}
 	for key, value in pairs(t) do table.insert(build, key) end
 	return build
@@ -198,6 +204,7 @@ end
 
 -- Returns an array of the values of a table
 DD.tableValues = function (t)
+	if t == nil then error("bad argument #1 to 'tableValues' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local build = {}
 	for key, value in pairs(t) do table.insert(build, value) end
 	return build
@@ -241,6 +248,7 @@ end
 
 -- Localizes a string
 DD.stringLocalize = function(key, tbl)
+	if key == nil then error("bad argument #1 to 'stringLocalize' (string expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local language
 	if CLIENT then
 		language = string.lower(tostring(Game.Settings.CurrentConfig.language))
@@ -329,6 +337,7 @@ end
 
 -- Turns a table into a set
 DD.toSet = function (t)
+	if t == nil then error("bad argument #1 to 'toSet' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local build = {}
 	for value in t do
 		build[value] = true
@@ -338,6 +347,8 @@ end
 
 -- Return union between 2 sets
 DD.setUnion = function (t1, t2)
+	if t1 == nil then error("bad argument #1 to 'setUnion' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	if t2 == nil then error("bad argument #2 to 'setUnion' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local build = {}
 	for key, value in pairs(t1) do
 		build[key] = true
@@ -350,6 +361,8 @@ end
 
 -- Return intersection between 2 sets
 DD.setIntersection = function (t1, t2)
+	if t1 == nil then error("bad argument #1 to 'setIntersection' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	if t2 == nil then error("bad argument #2 to 'setIntersection' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local build = {}
 	for key, value in pairs(t1) do
 		if t2[key] then
@@ -366,6 +379,8 @@ end
 
 -- Return subtraction between 2 sets
 DD.setSubtract = function (t1, t2)
+	if t1 == nil then error("bad argument #1 to 'setSubtract' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	if t2 == nil then error("bad argument #2 to 'setSubtract' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local build = {}
 	for key, value in pairs(t1) do
 		if not t2[key] then
@@ -377,6 +392,8 @@ end
 
 -- Return difference between 2 sets
 DD.setXor = function (t1, t2)
+	if t1 == nil then error("bad argument #1 to 'setXor' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	if t2 == nil then error("bad argument #2 to 'setXor' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
 	return DD.setSubtract(DD.setUnion(t1, t2), DD.setIntersection(t1, t2))
 end
 
@@ -452,6 +469,7 @@ end
 
 -- Gives an affliction to a character
 DD.giveAfflictionCharacter = function (character, identifier, amount, limb)
+	if character == nil then error("bad argument #1 to 'giveAfflictionCharacter' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local limb = limb or character.AnimController.MainLimb
 	character.CharacterHealth.ApplyAffliction(limb, AfflictionPrefab.Prefabs[identifier].Instantiate(amount))
 end
@@ -478,6 +496,7 @@ end
 
 -- Returns the client whose client matches
 DD.findClientByCharacter = function (character)
+	if character == nil then error("bad argument #1 to 'findClientByCharacter' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
 	return DD.findClient('Character', character)
 end
 
@@ -547,30 +566,36 @@ DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 end
 
 DD.isCharacterAntagSafe = function (character)
+	if character == nil then error("bad argument #1 to 'isCharacterAntagSafe' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
 	return DD.antagSafeJobs[tostring(character.JobIdentifier)]
 end
 
 DD.isCharacterHusk = function (character)
+	if character == nil then error("bad argument #1 to 'isCharacterHusk' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local speciesNames = {'humanhusk', 'husk', 'husk_chimera', 'husk_prowler', 'husk_exosuit', 'huskcontainer', 'crawlerhusk'}
 	return DD.tableHas(speciesNames, string.lower(tostring(character.SpeciesName)))
 end
 
 DD.isCharacterSecurity = function (character)
+	if character == nil then error("bad argument #1 to 'isCharacterSecurity' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local jobs = {'captain', 'securityofficer', 'diver', 'foreman', 'mercs'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 
 DD.isCharacterProletariat = function (character)
+	if character == nil then error("bad argument #1 to 'isCharacterProletariat' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local jobs = {'mechanic', 'clown'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 
 DD.isCharacterMedical = function (character)
+	if character == nil then error("bad argument #1 to 'isCharacterMedical' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local jobs = {'medicaldoctor', 'researcher'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 
 DD.isCharacterArrested = function (character)
+	if character == nil then error("bad argument #1 to 'isCharacterArrested' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
 	if character.IsDead then return false end
 	if character.IsHandcuffed then return true end
 	if character.CurrentHull == nil then return false end
@@ -584,6 +609,7 @@ DD.isCharacterArrested = function (character)
 end
 
 DD.isClientCharacterAlive = function (client)
+	if client == nil then error("bad argument #1 to 'isClientCharacterAlive' (client expected, got nil)\n\n" .. debug.traceback(), 1) end
 	return (client.Character ~= nil) and (not client.Character.IsDead)
 end
 
@@ -593,6 +619,7 @@ end
 
 -- Turns a number (represents seconds) into a formatted string for hours, minutes and seconds
 DD.numberToTime = function (n, data)
+	if n == nil then error("bad argument #1 to 'numberToTime' (number expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local data = data or {}
 	local spacing = data.spacing or 1
 	local unitSpacing = data.unitSpacing or spacing
@@ -682,6 +709,7 @@ end
 -- Messages a message to a client
 DD.messageClient = function (client, text, data)
 	if CLIENT then return end
+	if client == nil then error("bad argument #1 to 'messageClient' (client expected, got nil)\n\n" .. debug.traceback(), 1) end
 	
 	local data = data or {}
 	
