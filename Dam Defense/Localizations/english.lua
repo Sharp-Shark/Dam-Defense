@@ -16,6 +16,8 @@ return {
 	commandElectionErrorAlreadyOngoing = 'Cannot start an election because one is already ongoing.',
 	commandElectionErrorMainEvent = 'Cannot start an election because a main event is ongoing.',
 	commandElectionErrorLimitReached = 'Limit reached! You cannot start more than one election per round.',
+	commandElectionErrorNoCaptain = 'Cannot start an election because there is no captain.',
+	commandElectionErrorNoSecurity = 'Cannot start an election because there is no security member aside from the captain.',
 	huskInfo = 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate.',
 	-- eventDirector.lua
 	commandEventsNone = 'none (there are no public events)',

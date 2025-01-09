@@ -83,6 +83,9 @@ end, {
 			DD.messageClient(self.guard, 'You have been tasked with keeping VIP ' .. self.vip.Name .. ' alive at all costs. Failure will result in immediate termination. Your pay grade has been raised.', {preset = 'crit'})
 			local otherClients = DD.setSubtract(DD.toSet(Client.ClientList), {[self.vip] = true, [self.guard] = true})
 			DD.messageClients(DD.tableKeys(otherClients), 'A VIP is in town! Any non-medical and non-security personnel who kills ' .. self.vip.name .. ' will be rewarded with ' .. self.bounty ..' nexcredits.', {preset = 'crit'})
+			for client in Client.ClientList do
+				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+			end
 		end
 	end,
 	
@@ -118,6 +121,9 @@ end, {
 	end,
 	
 	onFinish = function (self)
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		end
 		local rewarded = false
 		if (self.vip.Character ~= nil) and (self.vip.Character.LastAttacker ~= nil) and not DD.isCharacterAntagSafe(self.vip.Character.LastAttacker) then
 			local murderer = DD.findClientByCharacter(self.vip.Character.LastAttacker)

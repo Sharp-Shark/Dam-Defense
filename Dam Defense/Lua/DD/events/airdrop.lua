@@ -63,6 +63,9 @@ end, {
 		
 		-- Warn airdrop has been spawned
 		DD.messageAllClients(DD.stringReplace(self.message, {amount = amount, minutes = self.timer / 60}), {preset = 'goodinfo'})
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		end
 	end,
 	
 	onThink = function (self)

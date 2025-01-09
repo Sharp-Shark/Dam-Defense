@@ -1,5 +1,5 @@
 -- Enlighten a few initial players whose objective is to convert all players into cultists like them, or kill them
-DD.eventBloodCult = DD.class(DD.eventSecretAntagBase, function (self, cultists)
+DD.eventBloodCult = DD.class(DD.eventWithStartBase, function (self, cultists)
 	self.cultists = cultists
 	if type(self.cultists) == 'table' then
 		self.cultistsSet = DD.toSet(self.cultists)
@@ -137,6 +137,7 @@ end, {
 				else
 					DD.messageClient(client, 'There have been rumours of cultists in the area. If you were not worried about hooded figures in the sewers saying strange chants before, you should be now.', {preset = 'crit'})
 				end
+				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
 			-- Make event public
 			self.parent.public = true
@@ -198,6 +199,9 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		end
 		if self.cultistsWon then
 			DD.messageAllClients('The blood cult has won this round, long live Tchernobog! Round ending in 10 seconds.', {preset = 'crit'})
 			DD.roundData.roundEnding = true

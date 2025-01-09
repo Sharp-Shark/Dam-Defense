@@ -1,5 +1,5 @@
 -- Main event where 2 gangs fight. Although it is a main event, it can't possibly cause the round to end
-DD.eventGangWar = DD.class(DD.eventSecretAntagBase, function (self, gang1, gang2)
+DD.eventGangWar = DD.class(DD.eventWithStartBase, function (self, gang1, gang2)
 	self.gang1 = gang1
 	self.gang2 = gang2
 	if type(self.gang1) == 'table' then
@@ -281,6 +281,7 @@ end, {
 					-- message for commoners
 					DD.messageClient(client, DD.stringLocalize('gangWarCommonerInfo'), {preset = 'crit'})
 				end
+				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
 			-- Make event public
 			self.parent.public = true
@@ -430,6 +431,9 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		end
 		self.rewardSecurityForArrests(5)
 		if self.winnerGang == 'gang1' then
 			DD.messageAllClients(DD.stringLocalize('gangWarEndGang', {gangName = self.gang1Name, rivalGangName = self.gang2Name}), {preset = 'goodinfo'})

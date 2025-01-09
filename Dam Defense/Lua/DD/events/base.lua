@@ -146,7 +146,7 @@ DD.eventSMBase = DD.class(DD.eventBase, function (self)
 		if type(state) == 'string' then
 			self.states[key] = self[state]
 		end
-		self[state].parent = self
+		self.states[key].parent = self
 	end
 end, {
 	start = function (self)
@@ -172,8 +172,8 @@ end, {
 	end
 })
 
--- Base for events with secret antags who are warned about the event before everyone else (eg. Serial Killer or Blood Cult)
-DD.eventSecretAntagBase = DD.class(DD.eventSMBase, nil, {
+-- Base for events with an initial start state and then a main state
+DD.eventWithStartBase = DD.class(DD.eventSMBase, nil, {
 	states = {start = 'stateStart', main = 'stateMain'},
 	
 	stateStartInitialTimer = 60 * 1, -- in seconds

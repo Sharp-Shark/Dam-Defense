@@ -338,7 +338,7 @@ DD.chatMessageFunctions.election = function (message, sender)
 		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorAlreadyOngoing'), {preset = 'command'})
 		return true
 	end
-	if DD.eventDirector.getMainEvents() > 0 then
+	if #DD.eventDirector.getMainEvents() > 0 then
 		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorMainEvent'), {preset = 'command'})
 		return true
 	end
@@ -347,6 +347,27 @@ DD.chatMessageFunctions.election = function (message, sender)
 	end
 	if DD.roundData.electionBlacklistSet[sender.AccountId.StringRepresentation] then
 		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorLimitReached'), {preset = 'command'})
+		return true
+	end
+	
+	local captainIsAlive = false
+	local anySecurityIsAlive = false
+	for client in Client.ClientList do
+		if DD.isClientCharacterAlive(client) and DD.isCharacterSecurity(client.Character) and (client.Character.SpeciesName == 'human') then
+			if client.Character.JobIdentifier == 'captain' then
+				captainIsAlive = true
+			else
+				anySecurityIsAlive = true
+			end
+		end
+	end
+	
+	if not captainIsAlive then
+		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorNoCaptain'), {preset = 'command'})
+		return true
+	end
+	if not anySecurityIsAlive then
+		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorNoSecurity'), {preset = 'command'})
 		return true
 	end
 	

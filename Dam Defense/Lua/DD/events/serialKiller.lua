@@ -1,5 +1,5 @@
 -- Picks a player to be a serial killer and keeps giving them targets to kill
-DD.eventSerialKiller = DD.class(DD.eventSecretAntagBase, function (self, killer)
+DD.eventSerialKiller = DD.class(DD.eventWithStartBase, function (self, killer)
 	self.killer = killer
 end, {
 	paramType = {'client'},
@@ -42,6 +42,7 @@ end, {
 		else
 			local message = 'You are going to turn into a Serial Killer within {time}. Make sure when you do turn, you are somewhere secluded, where no one will see it.'
 			DD.messageClient(self.killer, DD.stringReplace(message, {time = DD.numberToTime(self.eventActualStartTimer)}), {preset = 'crit'})
+			if self.killer.Character ~= nil then DD.giveAfflictionCharacter(self.killer.Character, 'notificationfx', 999) end
 		end
 	end,
 	
@@ -77,7 +78,7 @@ end, {
 					DD.messageClient(client, 'A serial killer is roaming the area, however it is unknown who they are. Be careful!', {preset = 'crit'})
 				end
 			end
-			-- 
+			-- Halloween SFX
 			for character in Character.CharacterList do
 				DD.giveAfflictionCharacter(character, 'killerfx', 999)
 			end
@@ -190,6 +191,9 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		end
 		if self.killerWon then
 			DD.messageAllClients('Serial killer has won this round! Round ending in 10 seconds.', {preset = 'crit'})
 			DD.roundData.roundEnding = true

@@ -45,6 +45,9 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 		end
 		
 		DD.messageAllClients(DD.stringLocalize('electionStart', {timer = DD.numberToTime(self.timer)}), {preset = 'crit'})
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		end
 	end,
 	
 	onThink = function (self)
@@ -52,6 +55,9 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 		local timesPerSecond = 2
 		
 		if ((self.captain == nil) or (not DD.isClientCharacterAlive(self.captain))) and (not self.debugMode) then
+			for client in Client.ClientList do
+				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+			end
 			DD.messageAllClients(DD.stringLocalize('electionEndFail'), {preset = 'crit'})
 			self.fail()
 		end
@@ -65,6 +71,10 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 	
 	onFinish = function (self)
 		local result = self.yesVotes - self.noVotes
+		
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		end
 		
 		if (self.captain == nil) or (not DD.isClientCharacterAlive(self.captain)) then
 			DD.messageAllClients(DD.stringLocalize('electionEndFail'), {preset = 'crit'})

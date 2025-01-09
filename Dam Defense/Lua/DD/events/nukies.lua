@@ -54,6 +54,7 @@ end, {
 				else
 					DD.messageClient(client, 'Intel reports nukie activity on the area. Keep the crew, and most importantly the reactor safe from them!', {preset = 'crit'})
 				end
+				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
 		end
 	end,
@@ -132,6 +133,9 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		end
 		for client in self.nukies do
 			if client.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
 				client.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)

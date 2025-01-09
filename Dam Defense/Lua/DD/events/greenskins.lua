@@ -86,6 +86,9 @@ end, {
 	end,
 	
 	onFinish = function (self)
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		end
 		for item in Item.ItemList do
 			if (item.Prefab.Identifier == 'goblinmask') or (item.Prefab.Identifier == 'goblincrate') or (item.Prefab.Identifier == 'midazolam') then
 				Entity.Spawner.AddItemToRemoveQueue(item)

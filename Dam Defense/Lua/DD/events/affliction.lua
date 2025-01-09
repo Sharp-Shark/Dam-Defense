@@ -24,7 +24,12 @@ DD.eventAffliction = DD.class(DD.eventBase, nil, {
 			end
 		end
 		
-		if self.message ~= nil then DD.messageAllClients(self.message, {preset = 'badinfo'}) end
+		if self.message ~= nil then
+			DD.messageAllClients(self.message, {preset = 'badinfo'})
+			for client in Client.ClientList do
+				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+			end
+		end
 	end
 })
 

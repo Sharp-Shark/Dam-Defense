@@ -35,6 +35,7 @@ end, {
 					DD.messageClient(client, 'An unknown criminal has been charged with ' .. self.charge .. '! Find out who they are and lawfully arrest them.', {preset = preset})
 				end
 			end
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 		end
 	end,
 	

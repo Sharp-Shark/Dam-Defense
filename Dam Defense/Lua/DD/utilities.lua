@@ -700,7 +700,7 @@ DD.messageClient = function (client, text, data)
 		color = Color(100, 200, 155)
 		messageType = 'ServerMessageBoxInGame'
 		icon = 'WorkshopMenu.InfoButton'
-		sendAnother = true
+		sendAnother = true		
 	end
 	if data.preset == 'info' then
 		sender = '[Neutral Info]'

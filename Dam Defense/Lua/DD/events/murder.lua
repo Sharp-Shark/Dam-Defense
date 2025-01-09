@@ -46,6 +46,8 @@ end, {
 		else
 			DD.messageClient(self.murderer, 'You hear voices in your head... aggressive yet seductive voices telling you to murder ' .. self.victim.Name .. '.', {preset = 'crit'})
 			DD.messageClient(self.victim, 'You hear voices in your head... calm yet worried voices warning someone wants to murder you.', {preset = 'crit'})
+			if self.murderer.Character ~= nil then DD.giveAfflictionCharacter(self.murderer.Character, 'notificationfx', 999) end
+			if self.victim.Character ~= nil then DD.giveAfflictionCharacter(self.victim.Character, 'notificationfx', 999) end
 		end
 	end,
 	

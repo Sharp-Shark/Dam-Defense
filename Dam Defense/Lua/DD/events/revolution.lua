@@ -1,5 +1,5 @@
 -- Pick some players to be part of a revolution tasked with killing all of security (and also trigger an eventAirdropSeparatist)
-DD.eventRevolution = DD.class(DD.eventSecretAntagBase, function (self, rebels)
+DD.eventRevolution = DD.class(DD.eventWithStartBase, function (self, rebels)
 	self.rebels = rebels
 end, {
 	paramType = {'clientList'},
@@ -122,6 +122,7 @@ end, {
 					end
 					-- Rebel message
 					DD.messageClient(client, 'You are a rebel leader! Your objective is to kill the captain and security. You have ' .. DD.numberToTime(self.stateStartInitialTimer) ..' until people become aware of the revolution, so start preparing now. Try to enlist non-security personnel to your cause.' .. rebelList .. ' Do /rebels to get info pertinent to this event.', {preset = 'crit'})
+					if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 				end
 			end
 			-- Spawn airdrops for rebels
@@ -145,6 +146,7 @@ end, {
 					-- Neutral message
 					DD.messageClient(client, "There have been rumours of a revolution. You should ally yourself with the rebels or security. Has security ever treated you well though? List of rebels will be pubic in " .. DD.numberToTime(self.parent.rebelsDoxTimer) .. '. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
 				end
+				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
 			-- Make event public
 			self.parent.public = true
@@ -242,6 +244,9 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		end
 		if self.rebelsWon then
 			DD.messageAllClients('Rebels have won this round! Round ending in 10 seconds.', {preset = 'crit'})
 			DD.roundData.roundEnding = true
