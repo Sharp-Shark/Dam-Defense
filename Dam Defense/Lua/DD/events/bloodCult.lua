@@ -206,6 +206,11 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
+		for character in Character.CharacterList do
+			if character.SpeciesName == 'humanUndead' then
+				DD.giveAfflictionCharacter(character, 'timepressure', 999)
+			end
+		end
 		for client in Client.ClientList do
 			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 		end

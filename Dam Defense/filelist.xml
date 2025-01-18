@@ -9,6 +9,7 @@
   <Item file="%ModDir%/Items/growableplants.xml" />
   <Structure file="%ModDir%/Misc/Prefabs.xml" />
   <Particles file="%ModDir%/Misc/Particles.xml" />
+  <Character file="%ModDir%/Characters/Humanundead/Humanundead.xml" />
   <Character file="%ModDir%/Characters/Humanhusk/Humanhusk.xml" />
   <Character file="%ModDir%/Characters/Husk/Husk.xml" />
   <Character file="%ModDir%/Characters/Husk_prowler/Husk_prowler.xml" />

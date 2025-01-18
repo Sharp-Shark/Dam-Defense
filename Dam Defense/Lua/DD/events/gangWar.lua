@@ -298,7 +298,7 @@ end, {
 						gangName = self.gang2Name
 						rivalGangName = self.gang1Name
 					end
-					DD.messageClient(client, DD.stringLocalize('gangWarGangsterInfo', {gangName = gangName, rivalGangName = rivalGangName, timer = self.stateStartInitialTimer}), {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('gangWarGangsterInfo', {gangName = gangName, rivalGangName = rivalGangName, timer = DD.numberToTime(self.stateStartInitialTimer)}), {preset = 'crit'})
 				end
 			end
 			-- spawn airdrops for gangs

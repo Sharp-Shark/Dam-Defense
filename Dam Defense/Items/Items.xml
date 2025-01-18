@@ -83,8 +83,8 @@
       <Item identifier="steel" />
       <Item identifier="titaniumaluminiumalloy" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="90">
-      <RequiredSkill identifier="weapons" level="25" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="steel" />
       <RequiredItem identifier="steel" />
@@ -145,7 +145,7 @@
     <Deconstruct time="5">
       <Item identifier="rubber" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="4" >
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="rubber" />
       <RequiredItem identifier="phosphorus" />
@@ -163,6 +163,40 @@
       <sound file="Content/Sounds/Impact/SoftImpact1.ogg" type="OnImpact" range="3000" selectionmode="Random" />
       <sound file="Content/Sounds/Impact/SoftImpact2.ogg" type="OnImpact" range="3000" />
       <sound file="Content/Sounds/Impact/SoftImpact3.ogg" type="OnImpact" range="3000" />
+    </Projectile>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
+  <!-- 40mm jumper grenade -->
+  <Item name="40mm Jumper Grenade" identifier="40mmjumpergrenade" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,grenade" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Deconstruct time="5">
+      <RequiredItem identifier="carbon" />
+      <RequiredItem identifier="silicon" />
+      <RequiredItem identifier="phosphorus" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="8" >
+      <RequiredSkill identifier="weapons" level="20" />
+      <RequiredItem identifier="plastic" />
+      <RequiredItem identifier="phosphorus" />
+    </Fabricate>
+    <InventoryIcon texture="launcher.png" sourcerect="200,80,64,64" origin="0.5,0.5" />
+    <Sprite texture="launcher.png" sourcerect="200,144,41,17" depth="0.55" origin="0.5,0.5" />
+    <Body width="38" height="15" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" launchimpulse="10.0" sticktocharacters="false" >
+      <sound file="Content/Items/Weapons/FragGrenade40mmShot1.ogg" type="OnImpact" range="3000" selectionmode="Random" />
+      <sound file="Content/Items/Weapons/FragGrenade40mmShot2.ogg" type="OnImpact" range="3000" />
+	  <!-- Lua hook for better blast jumping -->
+      <StatusEffect type="OnImpact" target="This" disabledeltatime="true">
+		<LuaHook name="DD.jumpergrenade.blastjump" />
+      </StatusEffect>
+      <!-- Grenade launcher ammo explodes on impact -->
+      <StatusEffect type="OnImpact" target="This" disabledeltatime="true">
+        <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
+        <Explosion range="300.0" force="50.0" flames="false" smoke="true" sparks="false" underwaterbubble="false" shockwave="true" severlimbsprobability="0.0" penetration="1.0" >
+          <Affliction identifier="stun" strength="0.5" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
     </Projectile>
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
@@ -864,8 +898,8 @@
       <Price storeidentifier="merchantmine" />
       <Price storeidentifier="merchantarmory" multiplier="0.9" minleveldifficulty="0" />
     </Price>
-    <Fabricate suitablefabricators="fabricator" requiredtime="30">
-      <RequiredSkill identifier="weapons" level="25" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="45">
+      <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="sodium" />
       <RequiredItem identifier="phosphorus" />
     </Fabricate>
@@ -2806,6 +2840,134 @@
   </Override>
   <!-- end of overrides -->
   
+  <!-- sharpened volcano fragment (Mmmph!) -->
+  <Item name="Sharpened Volcano Fragment" identifier="sharpenedvolcanofragment" category="Weapon" Tags="mediumitem,weapon,gunsmith,mountableweapon" scale="0.5" allowasextracargo="true" requireaimtouse="true" impactsoundtag="impact_metal_light">
+    <Deconstruct time="30">
+      <RequiredItem identifier="titanium" amount="1" />
+      <RequiredItem identifier="incendium" amount="1" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30" >
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
+      <RequiredItem identifier="incendium" amount="1" />
+    </Fabricate>
+    <InventoryIcon texture="flamer.png" sourcerect="216,192,64,64" origin="0.5,0.5" />
+    <Sprite texture="flamer.png" sourcerect="0,92,175,82" depth="0.55" origin="0.5,0.2" />
+    <Body width="161" height="20" density="25" />
+    <LightComponent range="100.0" lightcolor="240,80,20,192" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" flickerspeed="0.4" flicker="0.2" pulsefrequency="0.8" pulseamount="0.1" allowingameediting="false" />
+	<MeleeWeapon slots="Any,RightHand+LeftHand" aimpos="50,10" handle1="-22,-2" handle2="-32,-2" holdangle="30" aimangle="10" reload="0.8" range="155" combatPriority="40" msg="ItemMsgPickUpSelect">
+      <Attack targetimpulse="5" severlimbsprobability="7.5" itemdamage="30" structuredamage="15">
+        <Affliction identifier="lacerations" strength="10" />
+        <Affliction identifier="burn" strength="10" />
+        <Affliction identifier="burning" strength="25" />
+        <Affliction identifier="bleeding" strength="5" />
+        <Affliction identifier="stun" strength="0.5" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash4.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash5.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash6.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+    </MeleeWeapon>
+    <Quality>
+      <QualityStat stattype="StrikingPowerMultiplier" value="0.1" />
+    </Quality>
+    <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
+  </Item>
+  
+  <!-- displacer cannon (Half-Life: Opposing Force) -->
+  <Item name="Displacer Cannon" identifier="displacercannon" category="Weapon" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="mediumitem,weapon,gun,mountableweapon,provocativetohumanai" Scale="0.5" impactsoundtag="impact_metal_heavy">
+    <Deconstruct time="30">
+      <RequiredItem identifier="dementonite" />
+      <RequiredItem identifier="fulgurium" />
+      <RequiredItem identifier="lead" />
+      <RequiredItem identifier="iron" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
+      <RequiredSkill identifier="electrical" level="40" />
+      <RequiredItem identifier="dementonite" />
+      <RequiredItem identifier="fulgurium" />
+      <RequiredItem identifier="lead" />
+      <RequiredItem identifier="steel" />
+    </Fabricate>
+    <Sprite texture="launcher.png" sourcerect="0,184,208,84" depth="0.55" origin="0.5,0.5" />
+    <Body width="238" height="63" density="25" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="30,-25" aimpos="62,-8" handle1="-50,-25" handle2="0,-5" holdangle="-5">
+      <StatusEffect type="OnSpawn" target="This" targetitemcomponent="ItemContainer">
+        <SpawnItem identifier="displacercannonround" spawnposition="ThisInventory" />
+      </StatusEffect>
+	  <StatusEffect type="Always" target="This" Condition="25.0" >
+	    <Conditional Condition="lt 100" />
+		<LuaHook name="DD.displacercannon.update" />
+	  </StatusEffect>
+	</Holdable>
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="Displacer Cannon Worn" texture="launcher.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,184,208,84" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.6,0.8" />
+    </Wearable>
+    <LightComponent range="80.0" lightcolor="70,200,250" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" flickerspeed="0.4" flicker="0.2" pulsefrequency="0.8" pulseamount="0.1" allowingameediting="false" />
+    <RangedWeapon reload="0.5" holdtrigger="true" barrelpos="95,5" spread="0" unskilledspread="10" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2" maxchargetime="2.0" ChargeSoundWindupPitchSlide="0.5,2.0" >
+      <RequiredItems items="displacercannonround" type="Contained" />
+	  <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="FlareBubbles" scalemin="1.4" scalemax="1.8" particleamount="14" anglemin="0" anglemax="360" velocitymin="0" velocitymax="50" />
+      <ParticleEmitter particle="GlowDot" scalemin="4.0" scalemax="4.0" particleamount="20" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" colormultiplier="10,235,195,255" />
+      <ParticleEmitterCharge particle="chargenucleargun" particlespersecond="60" scalemultiplier="0.75,0.75" scalemin="1.0" scalemax="1.0" anglemax="360" />
+      <Sound file="%ModDir%/Sounds/displacerfire.ogg" type="OnUse" volume="3.0" range="3000" />
+      <ChargeSound file="%ModDir%/Sounds/displacercannoncharge.ogg" range="1000" />
+      <StatusEffect type="OnUse" target="This" Condition="0.0" SetValue="true" >
+        <Explosion range="150.0" force="3" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="This" delay="4">
+        <SpawnItem identifier="displacercannonround" spawnposition="ThisInventory" targetitemcomponent="ItemContainer" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+      <RequiredSkill identifier="weapons" level="20" />
+    </RangedWeapon>
+    <ItemContainer drawinventory="false" canbeselected="false" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false" capacity="1" maxstacksize="1" hideitems="true" >
+	  <Containable items="displacercannonround" />
+    </ItemContainer>
+    <aitarget sightrange="3000" soundrange="5000" fadeouttime="5" />
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+    <SkillRequirementHint identifier="weapons" level="20" />
+  </Item>
+
+  <!-- displacer cannon ammo -->
+  <Item name="displacercannonround" identifier="displacercannonround" category="Weapon" scale="0.5" sonarsize="2" hideinmenus="true">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="143,414,113,9" depth="0.55" origin="0.5,0.5" />
+    <Body width="170" height="10" density="20" />
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-50" handle1="-10,0" handle2="10,0" aimable="false" />
+    <Projectile characterusable="false" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracernucleargun" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1,0.75" />
+      <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" />
+	  <!-- telefrag -->
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <sound file="%ModDir%/Sounds/displacerteleport.ogg" volume="3.0" range="3000" />
+        <ParticleEmitter particle="muzzleflashnucleargun" anglemin="0" anglemax="360" particleamount="10" velocitymin="0" scalemin="0.5" scalemax="0.8" scalemultiplier="0.75,0.75" />
+        <ParticleEmitter particle="weldspark" particleamount="5" anglemin="0" anglemax="360" velocitymin="300" velocitymax="350" scalemin="1.5" scalemax="1.9" drawontop="true" colormultiplier="150,255,195,180" />
+        <ParticleEmitter particle="FlareBubbles" particleamount="3" anglemin="0" anglemax="360" velocitymin="0" velocitymax="50" />
+	    <Explosion range="100" itemdamage="999999" structuredamage="999" flames="false" smoke="false" sparks="false" underwaterbubble="false" shockwave="true" force="15" severlimbsprobability="1.0" penetration="1.0" >
+          <Affliction identifier="internaldamage" strength="999999" />
+		</Explosion>
+	  </StatusEffect>
+	  <!-- teleport -->
+      <StatusEffect type="OnImpact" target="This">
+		<LuaHook name="DD.displacercannon.teleport" />
+	  </StatusEffect>
+	  <!-- remove -->
+      <StatusEffect type="OnNotContained" target="This">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+  
   <!-- hazmat suit -->
   <Item name="Hazmat Suit" identifier="hazmatsuit" category="Equipment" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
     <Deconstruct time="30">
@@ -2815,7 +2977,7 @@
       <Item identifier="rubber" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="60" >
-      <RequiredSkill identifier="electrical" level="30" />
+      <RequiredSkill identifier="electrical" level="20" />
       <RequiredItem identifier="organicfiber" />
       <RequiredItem identifier="lead" />
       <RequiredItem identifier="iron" />
@@ -3578,7 +3740,7 @@
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="5" />
 	</Fabricate>
-    <InventoryIcon texture="flamer.png" sourcerect="152,92,64,64" origin="0.5,0.5" />
+    <InventoryIcon texture="flamer.png" sourcerect="216,128,64,64" origin="0.5,0.5" />
     <Sprite texture="flamer.png" depth="0.55" sourcerect="216,0,64,128" origin="0.5,0.5" />
     <Body width="30" height="100" density="8" />
     <Holdable slots="RightHand+LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" handle2="-10,40" msg="ItemMsgPickUpSelect" />
@@ -4543,8 +4705,10 @@
 	  <!-- armor -->
       <damagemodifier afflictiontypes="bleeding,damage" armorsector="0.0,360.0" damagemultiplier="0.75" damagesound="LimbArmor" deflectprojectiles="true" />
 	  <!-- if wearer is a cultist -->
-      <StatusEffect type="OnWearing" target="Character">
+      <StatusEffect type="OnWearing" target="Character" conditionalComparison='or'>
         <Conditional enlightened="gte 99" TargetSelf="True"/>
+        <Conditional speciesname="eq humanundead" />
+		<ReduceAffliction identifier="huskstun" strength="10" />
 		<ReduceAffliction identifier="huskinfection" strength="10" />
 		<ReduceAffliction type="infection" strength="10" />
 		<ReduceAffliction type="immunedebuff" strength="10" />
@@ -4553,8 +4717,9 @@
 		<ReduceAffliction type="bloodloss" strength="1" />
 	  </StatusEffect>
 	  <!-- if wearer is not a cultist -->
-      <StatusEffect type="OnWearing" target="Character">
+      <StatusEffect type="OnWearing" target="Character" conditionalComparison='and' >
         <Conditional enlightened="lt 99" TargetSelf="True"/>
+        <Conditional speciesname="neq humanundead" />
         <Affliction identifier="burn" strength="0.5" dividebylimbcount="true"/>
 	  </StatusEffect>
     </Wearable>

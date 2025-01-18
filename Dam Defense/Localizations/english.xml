@@ -170,6 +170,12 @@
   <entitydescription.boombox6>"Come Out and Play" by The Offspring.</entitydescription.boombox6>
   <entityname.boombox7>Sailor Boombox</entityname.boombox7>
   <entitydescription.boombox7>"Weigh, Hey and up She Rises" by The Irish Rovers.</entitydescription.boombox7>
+  <!-- Sharpened Volcano Fragment -->
+  <entityname.sharpenedvolcanofragment>Sharpened Volcano Fragment</entityname.sharpenedvolcanofragment>
+  <entitydescription.sharpenedvolcanofragment>An axe-shaped piece of sharpened magmatic rock infused with incendium. Permanently scalding, will cause burns and set targets on fire.</entitydescription.sharpenedvolcanofragment>
+  <!-- Displacer Cannon -->
+  <entityname.displacercannon>Displacer Cannon</entityname.displacercannon>
+  <entitydescription.displacercannon>Space-warping experimental weapon powered by rare alien materials. Be careful to not explode yourself!</entitydescription.displacercannon>
   <!-- Hazmat Suit -->
   <entityname.hazmatsuit>Hazmat Suit</entityname.hazmatsuit>
   <entitydescription.hazmatsuit>Class C hazmat suit infused with lead and steel for radiation protection. Gas mask protects against airborne contaminants, be them radioactive, chemical or biological.</entitydescription.hazmatsuit>
@@ -210,6 +216,9 @@
   <!-- 40mm Rubber Round -->
   <entityname.40mmrubberround>40mm Rubber Round</entityname.40mmrubberround>
   <entitydescription.40mmrubberround>Ammunition for grenade launcher. Less-lethal rubber round, does not explode.</entitydescription.40mmrubberround>
+  <!-- 40mm Jumper Grenade -->
+  <entityname.40mmjumpergrenade>40mm Jumper Grenade</entityname.40mmjumpergrenade>
+  <entitydescription.40mmjumpergrenade>Ammunition for grenade launcher. Harmless explosive, useful for blast jumping.</entitydescription.40mmjumpergrenade>
   <!-- Shotgun Slug Breaching -->
   <entityname.shotgunslugbreaching>Breaching Slug</entityname.shotgunslugbreaching>
   <entitydescription.shotgunslugbreaching>A shotgun slug for breaching doors. Still lethal.</entitydescription.shotgunslugbreaching>

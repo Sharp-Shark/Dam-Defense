@@ -149,8 +149,6 @@ DD.eventSMBase = DD.class(DD.eventBase, function (self)
 		self.states[key].parent = self
 	end
 end, {
-	state = 'start',
-
 	start = function (self)
 		DD.eventBase.tbl.start(self)
 		

@@ -192,7 +192,7 @@ DD.characterDeathFunctions.corpseCleanUp = function (character)
 	DD.roundData.creatureGrowthTimer[character] = nil
 	DD.roundData.creatureBreedTimer[character] = nil
 	
-	local despawnBlacklist = {'human', 'humanhusk', 'humangoblin', 'humantroll'}
+	local despawnBlacklist = {'human', 'humanhusk', 'humangoblin', 'humantroll', 'humanundead'}
 	if not DD.tableHas(despawnBlacklist, string.lower(tostring(character.SpeciesName))) then
 		Timer.Wait(function ()
 			Entity.Spawner.AddEntityToRemoveQueue(character)

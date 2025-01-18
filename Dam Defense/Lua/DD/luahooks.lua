@@ -160,6 +160,32 @@ Hook.Add("DD.brassknuckle.disarm", "DD.brassknuckle.disarm", function(effect, de
 	item.Drop(character, true, true)
 end)
 
+Hook.Add("DD.jumpergrenade.blastjump", "DD.jumpergrenade.blastjump", function(effect, deltaTime, item, targets, worldPosition)
+	local character = effect.user
+	local vector = Vector2.Normalize(character.WorldPosition - item.WorldPosition)
+	local distance = Vector2.Distance(character.WorldPosition, item.WorldPosition)
+	local scaler = 5000 / math.max(1, distance - 300)
+	character.AnimController.MainLimb.body.ApplyForce(vector * scaler)
+	
+end)
+
+Hook.Add("DD.displacercannon.teleport", "DD.displacercannon.teleport", function(effect, deltaTime, item, targets, worldPosition)
+	local item = targets[1]
+	effect.user.TeleportTo(item.WorldPosition)
+end)
+
+Hook.Add("DD.displacercannon.update", "DD.displacercannon.teleport", function(effect, deltaTime, item, targets, worldPosition)
+	local lerpFactor = (item.Condition / 100) ^ 2
+	item.GetComponentString('LightComponent').LightColor = Color(Byte(70), Byte(200), Byte(250), Byte(DD.lerp(lerpFactor, 0, 255)))
+	item.GetComponentString('LightComponent').Range = DD.lerp(lerpFactor, 0, 80)
+	if SERVER then
+		local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("LightColor")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
+		local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("Range")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
+	end
+end)
+
 Hook.Add("DD.spraycan.use", "DD.spraycan.use", function(effect, deltaTime, item, targets, worldPosition)
 	local limb = targets[1]
 	if limb == nil then return end
@@ -239,6 +265,7 @@ Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", fun
 	if targets[1] == nil then return end
 	local character = targets[1]
 	
+	if character.SpeciesName == 'humanUndead' then return end
 	if character.Vitality > 0 then return end
 	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) >= 1 then return end
 	
@@ -248,6 +275,54 @@ Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", fun
 	DD.giveAfflictionCharacter(character, 'cardiacarrest', 999)
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory, nil, nil, function (spawnedItem) end)
 end)
+
+-- When a cultist dies, he will come back as a zombie
+DD.characterDeathFunctions.cultistDeath = function (character)
+	if character.SpeciesName ~= 'human' then return end
+	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('timepressure', true) >= 59 then return end
+	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) < 99 then return end
+	if (character.Inventory.GetItemAt(DD.invSlots.innerclothing) == nil) or (tostring(character.Inventory.GetItemAt(DD.invSlots.innerclothing).Prefab.Identifier.Value) ~= 'bloodcultistrobes') then return end
+	local client = DD.findClientByCharacter(character)
+	
+	-- Find items to be regiven (clothing, ID Card, etc)
+	local slotItems = {}
+	for itemCount = 0, character.Inventory.Capacity do
+		local item = character.Inventory.GetItemAt(itemCount)
+		if (item ~= nil) and (tostring(item.Prefab.Identifier.Value) ~= 'handcuffs') and (tostring(item.Prefab.Identifier.Value) ~= 'bodybag') then
+			slotItems[itemCount] = item
+		end
+	end
+	
+	local newCharacter = DD.spawnHuman(client, 'undeadjob', character.WorldPosition, character.Name, nil, 'humanUndead')
+	DD.giveAfflictionCharacter(newCharacter, 'stun', 2)
+	DD.giveAfflictionCharacter(newCharacter, 'enlightened', 999)
+	
+    -- Spawn a duffel bag at the player's feet to put the dropped items inside
+	local duffelbag
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('duffelbag'), character.WorldPosition, nil, nil, function (spawnedItem)
+		duffelbag = spawnedItem
+	end)
+	-- Give items back to player after a delay
+	Timer.Wait(function ()
+		-- Give clothing items to their correct slot
+		for itemCount, item in pairs(slotItems) do
+			newCharacter.Inventory.TryPutItem(item, itemCount, true, true, newCharacter, true, true)
+			if itemCount == DD.invSlots.innerclothing then
+				for itemCount = 0, item.OwnInventory.Capacity do
+					local item = item.OwnInventory.GetItemAt(itemCount)
+					duffelbag.OwnInventory.TryPutItem(item, character, nil, true, true)
+				end
+				item.NonInteractable = true
+				if SERVER then
+					local tags = item.SerializableProperties[Identifier("NonInteractable")]
+					Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
+				end
+			end
+		end
+		-- Delete old character
+		Entity.Spawner.AddEntityToRemoveQueue(character)
+	end, 100)
+end
 
 Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
@@ -361,6 +436,14 @@ end
 
 -- Give goblin/troll the greenskin talent(s) + fix to a bug introduced by the Summer Update (Barotrauma v1.5.7.0)
 Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
+	if (createdCharacter.SpeciesName == 'humanUndead') and (createdCharacter.JobIdentifier ~= 'undeadjob') then	
+		Timer.Wait(function ()
+			local client = DD.findClientByCharacter(createdCharacter)
+			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
+			client.SetClientCharacter(character)
+			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
+		end, 100)
+	end
 	if (createdCharacter.SpeciesName ~= 'humanGoblin') and (createdCharacter.SpeciesName ~= 'humanTroll') then return end
 	
 	Timer.Wait(function ()
@@ -429,6 +512,7 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 	local containerMultiplier = {
 		exosuit = 0.0,
 		clownexosuit = 0.0,
+		nucleargun = 0.5,
 		reactor1 = 0.5,
 		outpostreactor = 0.5,
 	}
