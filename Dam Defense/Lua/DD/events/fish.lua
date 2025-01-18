@@ -6,10 +6,16 @@ DD.eventFish = DD.class(DD.eventBase, nil, {
 	weight = 2,
 	goodness = -1,
 	
+	silent = false, -- if true, will not do any warning
+	locationTag = nil,
+	
 	onStart = function (self)
 		-- Location
 		local locationTags = {'dd_dambasin', 'dd_wetsewer'}
 		local locationTag = locationTags[math.random(#locationTags)]
+		if self.locationTag ~= nil then
+			locationTag = self.locationTag
+		end
 		local locationNames = {dd_dambasin = "inside of the dam's basin", dd_wetsewer = 'deep in the underwater section of the sewers'}
 		-- Fish
 		local fishTypes = {'crawler_hatchling', 'mudraptor_hatchling', 'tigerthresher_hatchling', 'husk', 'spitroach_hatchling'}
@@ -31,9 +37,11 @@ DD.eventFish = DD.class(DD.eventBase, nil, {
 		end
 		
 		-- Warn fish have been spawned
-		DD.messageAllClients('A total of ' .. fishCount .. ' ' .. fishNames[fishType] .. ' have been spotted ' .. locationNames[locationTag] .. '! It is adviced to kill them before they grow in numbers.', {preset = 'badinfo'})
-		for client in Client.ClientList do
-			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+		if not self.silent then
+			DD.messageAllClients('A total of ' .. fishCount .. ' ' .. fishNames[fishType] .. ' have been spotted ' .. locationNames[locationTag] .. '! It is adviced to kill them before they grow in numbers.', {preset = 'badinfo'})
+			for client in Client.ClientList do
+				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+			end
 		end
 	end
 })

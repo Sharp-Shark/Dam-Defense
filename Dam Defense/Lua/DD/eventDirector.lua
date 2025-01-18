@@ -37,6 +37,7 @@ DD.eventDirector.eventPool = {
 	DD.eventAirdrop,
 	DD.eventAirdropMedical,
 	DD.eventAirdropSecurity,
+	DD.eventAirdropArtifact,
 	DD.eventMurder,
 	DD.eventArrest1984,
 	DD.eventAfflictionFlu,

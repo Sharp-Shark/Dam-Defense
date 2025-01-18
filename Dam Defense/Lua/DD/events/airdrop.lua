@@ -47,16 +47,26 @@ end, {
 		if maxAmount <= 0 then amount = 0 end
 		
 		-- Spawn crate at airdrop pos and fill it with items
-		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(crateIdentifier), position, nil, nil, function (spawnedItem)
+		if (crateIdentifier == nil) or (crateIdentifier == 'none') then
 			for n = 1, amount do
 				local item = items[math.random(#items)]
 				local script = item.script or function (spawnedItem) end
 				for m = 1, item.amount do
-					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(item.identifier), spawnedItem.OwnInventory, nil, nil, script)
+					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(item.identifier), position, nil, nil, script)
 				end
 			end
-			self.item = spawnedItem
-		end)
+		else
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(crateIdentifier), position, nil, nil, function (spawnedItem)
+				for n = 1, amount do
+					local item = items[math.random(#items)]
+					local script = item.script or function (spawnedItem) end
+					for m = 1, item.amount do
+						Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(item.identifier), spawnedItem.OwnInventory, nil, nil, script)
+					end
+				end
+				self.item = spawnedItem
+			end)
+		end
 		
 		-- Timer until crate deletes itself (to avoid cluttering the map with crates)
 		self.timer = 60 * 4
@@ -188,4 +198,26 @@ DD.eventAirdropCultist = DD.class(DD.eventAirdrop, nil, {
 	minAmount = 3,
 	maxAmount = 6,
 	message = 'Airdrop with {amount} items for crafting arrived at the radio tower above the slums. Crate despawns in {minutes} minutes!'
+})
+
+-- Artifact airdrop
+DD.eventAirdropArtifact = DD.class(DD.eventAirdrop, nil, {
+	name = 'airdropArtifact',
+	isMainEvent = false,
+	cooldown = 60 * 3,
+	weight = 1,
+	goodness = 0.5,
+	
+	spawnPosition = 'dd_airdropartifact',
+	crateIdentifier = 'none',
+	items = {
+		{identifier = 'skyholderartifact', amount = '1'},
+		{identifier = 'thermalartifact', amount = '1'},
+		{identifier = 'faradayartifact', amount = '1'},
+		{identifier = 'nasonovartifact', amount = '1', script = function (spawnedItem) local event = DD.eventFish.new() event.silent = true event.locationTag = 'dd_dambasin' event.start(event) end},
+		{identifier = 'psychosisartifact', amount = '1', script = function (spawnedItem) local event = DD.eventFish.new() event.silent = true event.locationTag = 'dd_wetsewer' event.start(event) end},
+	},
+	minAmount = 1,
+	maxAmount = 1,
+	message = 'An unindentified object has fallen from the sky!'
 })

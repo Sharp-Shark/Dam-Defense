@@ -1,6 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
   <Override>
+  <!-- antirad cheaper to craft -->
+  <AntiRad name="" identifier="antirad" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer secondary="wreckmedcab,abandonedmedcab,piratemedcab" amount="1" spawnprobability="0.1" />
+    <PreferredContainer secondary="outpostmedcab" amount="1" spawnprobability="0.2" />
+    <PreferredContainer secondary="outpostmedcompartment" amount="1" spawnprobability="0.06" />
+    <PreferredContainer primary="medcab" secondary="medcontainer"/>
+    <Price baseprice="125" minleveldifficulty="11">
+      <Price storeidentifier="merchantoutpost"/>
+      <Price storeidentifier="merchantcity"/>
+      <Price storeidentifier="merchantresearch"/>
+      <Price storeidentifier="merchantmilitary"/>
+      <Price storeidentifier="merchantmine"/>
+      <Price storeidentifier="merchantmedical" minavailable="2" multiplier="0.9"/>
+    </Price>
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30" >
+      <RequiredSkill identifier="medical" level="20" />
+      <RequiredItem identifier="stabilozine" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="carbon" />
+    </Fabricate>
+    <Deconstruct time="20">
+      <Item identifier="stabilozine" />
+      <Item identifier="iron" />
+    </Deconstruct>
+    <SuitableTreatment identifier="radiationsickness" suitability="100" />
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="128,704,64,64" origin="0.5,0.5" />
+    <Sprite texture="Medicines.png" sourcerect="149,142,37,67" depth="0.6" origin="0.5,0.5" />
+    <Body width="35" height="65" density="10.2" waterdragcoefficient="1"/>
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <RequiredSkill identifier="medical" level="40" />
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="1.0">
+        <ReduceAffliction identifier="radiationsickness" amount="100.0" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="1.0">
+        <ReduceAffliction identifier="radiationsickness" amount="25.0" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnFailure" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+        <Affliction identifier="stun" amount="0.1" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </MeleeWeapon>
+    <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
+    <SkillRequirementHint identifier="medical" level="40" />
+  </AntiRad>
   <!-- chloral hydrate has been nerfed -->
   <ChloralHydrate name="" identifier="chloralhydrate" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />

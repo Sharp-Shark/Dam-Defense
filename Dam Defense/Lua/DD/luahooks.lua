@@ -166,7 +166,6 @@ Hook.Add("DD.jumpergrenade.blastjump", "DD.jumpergrenade.blastjump", function(ef
 	local distance = Vector2.Distance(character.WorldPosition, item.WorldPosition)
 	local scaler = 5000 / math.max(1, distance - 300)
 	character.AnimController.MainLimb.body.ApplyForce(vector * scaler)
-	
 end)
 
 Hook.Add("DD.displacercannon.teleport", "DD.displacercannon.teleport", function(effect, deltaTime, item, targets, worldPosition)
@@ -510,6 +509,7 @@ end)
 local fuelrodDecayNetworkCooldown = {}
 Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, item, targets, worldPosition)
 	local containerMultiplier = {
+		artifactcontainer = 0.0,
 		exosuit = 0.0,
 		clownexosuit = 0.0,
 		nucleargun = 0.5,
@@ -539,6 +539,9 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 		minAlpha = 64
 		minRange = 100
 	end
+	if item.Prefab.Identifier == 'skyholderartifact' then
+		lerpFactor = 0
+	end
 	local range = DD.lerp(lerpFactor, maxRange, minRange)
 	local alpha = DD.lerp(lerpFactor, maxAlpha, minAlpha)
 	item.GetComponentString('LightComponent').IsOn = true
@@ -562,6 +565,9 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 	local maxAmount = item.Prefab.Health - item.Health
 	if item.Prefab.Identifier == 'fulguriumfuelrodvolatile' then
 		maxAmount = maxAmount + 50
+	end
+	if item.Prefab.Identifier == 'skyholderartifact' then
+		maxAmount = 300
 	end
 	maxAmount = maxAmount * multiplier
 	local minDistance = 50
