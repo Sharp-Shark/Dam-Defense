@@ -1,6 +1,8 @@
 Russian localization by Squid. Squid also helped with removing unused textures and with cleaning the boombox xml.
 Special thanks to the Undertow discord, the Luatrauma discord and Evil Factory for helping me overcome a lot of the hurdles I came across.
-Files "mercsuit.png" and "Jerry.xml" by Jerry Peterson. VIP event was an idea suggested by Jerry Peterson.
+Some art and audio assets are taken from other games like TF2, Half-Life, Half-Life: Opposing Force, Blood and Gloomwood.
+VIP event was an idea suggested by Jerry Peterson and he also provided the bodyguard outfit sprites.
+Map "DD Aegaeon Cliffs Dam" was made by Barry Ballast (aka Pepsi Cola).
 Base sprite for the toolkit was taken from BTE by Chiko Eduardo.
 
 Everything else by Sharp-Shark.

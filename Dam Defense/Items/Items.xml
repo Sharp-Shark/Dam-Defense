@@ -953,8 +953,8 @@
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="5" />
 	</Fabricate>
-    <Fabricate suitablefabricators="fabricator" requiredtime="20">
-      <RequiredSkill identifier="weapons" level="60" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="weapons" level="30" />
       <RequiredItem identifier="iron" />
       <RequiredItem identifier="uex" />
     </Fabricate>
@@ -1348,7 +1348,7 @@
     </Quality>
     <SkillRequirementHint identifier="weapons" level="50" />
   </Item>
-  <!-- harpoon gun goes in back slot -->
+  <!-- harpoon gun buffed -->
   <Item name="" identifier="harpoongun" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer secondary="wreckweaponholder" spawnprobability="0.05" />
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1" spawnprobability="0.1" />
@@ -1362,23 +1362,21 @@
       <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
     </Price>
     <Deconstruct time="10">
-      <Item identifier="steel" />
+      <Item identifier="iron" />
+      <Item identifier="carbon" />
       <Item identifier="plastic" />
       <Item identifier="tin" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
       <RequiredSkill identifier="weapons" level="30" />
-      <RequiredItem identifier="steel" amount="2" />
-      <RequiredItem identifier="plastic" amount="2" />
-      <RequiredItem identifier="tin" amount="2" />
+      <RequiredItem identifier="steel" amount="1" />
+      <RequiredItem identifier="plastic" amount="1" />
+      <RequiredItem identifier="tin" amount="1" />
     </Fabricate>
     <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,203,181,39" depth="0.55" origin="0.5,0.5" />
     <Body width="180" height="30" density="25" />
-    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="35,-10" aimpos="45,-10" handle1="-20,-6" handle2="30,10" holdangle="-40" msg="ItemMsgPickUpSelect" />
-	<Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,203,181,39" canbehiddenbyotherwearables="false" rotation="85" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.55,1.1" />
-    </Wearable>
-    <RangedWeapon reload="1.75" launchimpulse="20.0" barrelpos="85,14" spread="1" unskilledspread="10" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="35,-10" aimpos="45,-10" handle1="-20,-6" handle2="30,10" holdangle="-40" msg="ItemMsgPickUpSelect" />
+    <RangedWeapon reload="1.5" weapondamagemodifier="1.5" launchimpulse="20.0" barrelpos="85,14" spread="1" unskilledspread="10" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <Sound file="Content/Items/Weapons/HarpoonGun1.ogg" type="OnUse" range="1000" />
@@ -1406,7 +1404,7 @@
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <SkillRequirementHint identifier="weapons" level="30" />
   </Item>
-  <!-- harpoon coil-rifle goes in back slot -->
+  <!-- harpoon coil-rifle buffed -->
   <Item name="" identifier="harpooncoilrifle" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer secondary="wreckweaponholder" spawnprobability="0.005" />
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1" spawnprobability="0.01" />
@@ -1422,9 +1420,11 @@
     <Deconstruct time="10">
       <Item identifier="aluminium" />
       <Item identifier="plastic" />
+      <Item identifier="plastic" />
+      <Item identifier="copper" />
       <Item identifier="copper" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+    <Fabricate suitablefabricators="fabricator" requiredtime="30" >
       <RequiredSkill identifier="weapons" level="30" />
       <RequiredItem identifier="aluminium" amount="2" />
       <RequiredItem identifier="plastic" amount="2" />
@@ -1432,11 +1432,8 @@
     </Fabricate>
     <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="262,383,179,49" depth="0.55" origin="0.5,0.5" />
     <Body width="170" height="44" density="25" />
-    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="35,-10" aimpos="45,-10" handle1="-20,-6" handle2="30,10" holdangle="-40" msg="ItemMsgPickUpSelect" />
-	<Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="262,383,179,49" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.9" />
-    </Wearable>
-    <RangedWeapon launchimpulse="30.0" maxchargetime="0.25" reload="1.5" weapondamagemodifier="1.7" spread="0.2" unskilledspread="5" combatPriority="70" drawhudwhenequipped="true" barrelpos="85,16" crosshairscale="0.2" holdtrigger="true">
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="35,-10" aimpos="45,-10" handle1="-20,-6" handle2="30,10" holdangle="-40" msg="ItemMsgPickUpSelect" />
+    <RangedWeapon launchimpulse="30.0" maxchargetime="0.25" reload="1.5" weapondamagemodifier="2.0" spread="0.2" unskilledspread="5" combatPriority="70" drawhudwhenequipped="true" barrelpos="85,16" crosshairscale="0.2" holdtrigger="true">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <Sound file="Content/Items/Weapons/WEAPON_harpoonCoilRifleShot1.ogg" type="OnUse" range="2000" />
@@ -1473,6 +1470,198 @@
     </Quality>
     <SkillRequirementHint identifier="weapons" level="30" />
   </Item>
+  <!-- nucleargun (rapid fissile accelerator) balance changes -->
+  <Item name="" identifier="nucleargun" category="Weapon" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="mediumitem,weapon,gun,mountableweapon,provocativetohumanai" Scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="secarmcab" secondary="weaponholder,armcab"/>
+    <Price baseprice="900" sold="false">
+      <Price storeidentifier="merchantoutpost" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="1" maxavailable="2" sold="true">
+        <Reputation faction="coalition" min="70"/>
+      </Price>
+      <Price storeidentifier="merchantmine" multiplier="1.25" />
+    </Price>
+    <Deconstruct time="30">
+      <Item identifier="copper" />
+      <Item identifier="plastic" />
+      <Item identifier="lead" />
+      <Item identifier="titaniumaluminiumalloy" />
+      <Item identifier="fulgurium" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="false" >
+      <RequiredSkill identifier="electrical" level="40" />
+      <RequiredItem identifier="fpgacircuit" />
+      <RequiredItem identifier="lead" amount="2"/>
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
+      <RequiredItem identifier="fulgurium" amount="2" />
+    </Fabricate>
+    <Sprite texture="Content/Items/JobGear/TalentGear.png" sourcerect="271,127,240,66" depth="0.55" origin="0.5,0.5" />
+    <Body width="238" height="63" density="25" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="60,-15" aimpos="70,4" handle1="-50,-10" handle2="10,-3" holdangle="-25" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="Nuclear Gun Worn" texture="Content/Items/JobGear/TalentGear.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="270,127,240,66" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.5,0.8" />
+    </Wearable>
+    <RangedWeapon reload="0.5" holdtrigger="true" barrelpos="118,14" spread="0" unskilledspread="10" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2" maxchargetime="0.75" ChargeSoundWindupPitchSlide="0.5,1.5">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="FlareBubbles" scalemin="1.4" scalemax="1.8" particleamount="14" anglemin="0" anglemax="360" velocitymin="0" velocitymax="50" />
+      <ParticleEmitter particle="GlowDot" scalemin="4.0" scalemax="4.0" particleamount="20" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" colormultiplier="10,235,195,255" />
+      <ParticleEmitterCharge particle="chargenucleargun" particlespersecond="60" scalemultiplier="0.75,0.75" scalemin="1.0" scalemax="1.0" anglemax="360" />
+      <Sound file="Content/Items/JobGear/Engineer/WEAPONS_rapidFissileAccelerator.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/JobGear/Engineer/WEAPONS_rapidFissileAccelerator2.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/JobGear/Engineer/WEAPONS_rapidFissileAccelerator3.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/JobGear/Engineer/WEAPONS_rapidFissileAccelerator4.ogg" type="OnUse" range="3000" />
+      <ChargeSound file="Content/Items/JobGear/Engineer/WEAPONS_rapidFissileAcceleratorStartLoop.ogg" range="1000" />
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="150.0" force="3" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+      <RequiredItems items="reactorfuel" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="25" />
+      <RequiredSkill identifier="electrical" level="45" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="false" itempos="10,-5" containedspritedepths="0.562,0.561" containedstateindicatorstyle="default" containedstateindicatorslot="0">
+      <Containable items="reactorfuel" rotation="90"/>
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="192,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="flashlight" hide="false" itempos="25,0" setactive="true"/>
+      </SubContainer>
+    </ItemContainer>
+    <aitarget sightrange="3000" soundrange="5000" fadeouttime="5" />
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+    <SkillRequirementHint identifier="weapons" level="25" />
+    <SkillRequirementHint identifier="electrical" level="45" />
+  </Item>
+  <!-- scrapcannon balance changes -->
+  <Item name="" identifier="scrapcannon" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gun,mountableweapon,provocativetohumanai" Scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="secarmcab" secondary="weaponholder,armcab"/>
+    <Price baseprice="640" sold="false">
+      <Price storeidentifier="merchantoutpost" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="0" maxavailable="2" sold="true">
+        <Reputation faction="separatists" min="70"/>
+      </Price>
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="1" maxavailable="2" sold="true">
+        <Reputation faction="separatists" min="70"/>
+      </Price>
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmine" multiplier="1.25" />
+    </Price>
+    <Deconstruct time="30">
+      <Item identifier="physicorium" amount="2" />
+      <Item identifier="fpgacircuit" />
+      <Item identifier="lead" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="false" >
+      <RequiredSkill identifier="mechanical" level="40" />
+      <RequiredItem identifier="physicorium" amount="2" />
+      <RequiredItem identifier="fpgacircuit" />
+      <RequiredItem identifier="lead" amount="2" />
+    </Fabricate>
+    <Sprite texture="Content/Items/JobGear/TalentGear.png" sourcerect="354,371,158,55" depth="0.55" origin="0.5,0.45" />
+    <Body width="158" height="40" density="25" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="60,-15" aimpos="55,4" handle1="-26,-20" handle2="10,-3" holdangle="-25" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="Scrap Cannon Worn" texture="Content/Items/JobGear/TalentGear.png" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" sourcerect="354,371,158,55" limb="Torso" scale="0.5" origin="0.5,1.0" />
+    </Wearable>
+    <RangedWeapon reload="3.0" barrelpos="67,5" spread="0" unskilledspread="4" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="explosionsmoke" particleamount="1" velocitymin="0" velocitymax="0" scalemin="0.5" scalemax="0.6" />
+      <ParticleEmitter particle="shrapnel" particleamount="50" velocitymin="500" velocitymax="1500" anglemin="-30" anglemax="30" scalemin="0.5" scalemax="1.0" />
+      <ParticleEmitter particle="spark" particleamount="50" velocitymin="500" velocitymax="1500" anglemin="-30" anglemax="30" scalemin="0.5" scalemax="1.0" />
+      <Sound file="Content/Items/Jobgear/Mechanic/WEAPON_scrapCannonShot1.ogg" range="3000" type="OnUse" selectionmode="Random" volume="2"/>
+      <Sound file="Content/Items/Jobgear/Mechanic/WEAPON_scrapCannonShot2.ogg" range="3000" type="OnUse" volume="2" />
+      <Sound file="Content/Items/Jobgear/Mechanic/WEAPON_scrapCannonShot3.ogg" range="3000" type="OnUse" volume="2" />
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="250.0" force="3" shockwave="false" smoke="true" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="Contained" Condition="-12.5" targetslot="1" disabledeltatime="true" />
+      <RequiredItems items="scrapcannonammo" type="Contained" msg="itemmsgammorequired" />
+      <RequiredItems items="mobilebattery" type="Contained" msg="itemmsgbatterycellrequired" />
+      <RequiredSkill identifier="weapons" level="25" />
+      <RequiredSkill identifier="mechanical" level="45" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="32" slotsperrow="3" hideitems="true" containedstateindicatorslot="1" containedstateindicatorstyle="battery">
+      <Containable items="scrapcannonammo" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1"  maxstacksize="1">
+        <Containable items="mobilebattery" />
+      </SubContainer>
+    </ItemContainer>
+    <aitarget sightrange="3000" soundrange="5000" fadeouttime="5" />
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+    <SkillRequirementHint identifier="weapons" level="25" />
+    <SkillRequirementHint identifier="mechanical" level="45" />
+  </Item>
+  <!-- autoshotgun balance changes -->
+  <Item name="" identifier="autoshotgun" category="Weapon" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="mediumitem,weapon,gun,gunsmith,mountableweapon,provocativetohumanai" Scale="0.62" impactsoundtag="impact_metal_light">
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder"/>
+    <Price baseprice="710" sold="false">
+      <Price storeidentifier="merchantoutpost" multiplier="1.4" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="0" maxavailable="1" sold="true">
+        <Reputation faction="coalition" min="70"/>
+      </Price>
+      <Price storeidentifier="merchantmine" multiplier="1.25" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="false" >
+      <RequiredSkill identifier="mechanical" level="30" />
+      <RequiredItem identifier="ballisticfiber" />
+      <RequiredItem identifier="physicorium" amount="2" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
+    </Fabricate>
+    <Deconstruct time="30">
+      <Item identifier="ballisticfiber" />
+      <Item identifier="physicorium" amount="2" />
+      <Item identifier="titaniumaluminiumalloy" />
+    </Deconstruct>
+    <Sprite texture="Content/Items/JobGear/TalentGear.png" sourcerect="308,1,152,61" depth="0.55" origin="0.5,0.5" />
+    <Body width="150" height="40" density="25" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="40,-20" aimpos="48,-5" handle1="-12,-15" handle2="20,5" holdangle="-20" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.9" setvalue="true" />
+    </Holdable>
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="Autoshogun Worn" texture="Content/Items/JobGear/TalentGear.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="308,1,152,61" limb="Torso" depthlimb="LeftArm" ignorelimbscale="true" scale="0.62" origin="0.5,0.9" />
+    </Wearable>
+    <RangedWeapon barrelpos="68,10" weapondamagemodifier="0.9" spread="5" unskilledspread="18" combatPriority="80" reload="0.65" holdtrigger="true" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <Sound file="Content/Items/JobGear/Security/WEAPONS_autoShotgun.ogg" type="OnUse" range="3000" volume="2" selectionmode="Random" />
+      <Sound file="Content/Items/JobGear/Security/WEAPONS_autoShotgun_1.ogg" type="OnUse" range="3000" volume="2" />
+      <Sound file="Content/Items/JobGear/Security/WEAPONS_autoShotgun_2.ogg" type="OnUse" range="3000" volume="2" />
+      <Sound file="Content/Items/JobGear/Security/WEAPONS_autoShotgun_3.ogg" type="OnUse" range="3000" volume="2" />
+      <StatusEffect type="OnUse" target="This">
+        <ParticleEmitter particle="casingfirearm" particleamount="1" colormultiplier="0.5,0.5,0.5,1" ScaleMultiplier="1.5,1.5" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
+        <Explosion range="150.0" force="2" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect>
+      <RequiredItems items="shotgunammo" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="75" />
+    </RangedWeapon>
+    <ItemContainer capacity="2" maxstacksize="12" hideitems="false" containedstateindicatorstyle="bullet" ShowTotalStackCapacityInContainedStateIndicator="true" containedstateindicatorslot="0" containedspritedepth="0.56">
+      <Containable items="shotgunammo" hide="true"/>
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="flashlight" hide="false" itempos="26,-2" setactive="true"/>
+      </SubContainer>
+    </ItemContainer>
+    <aitarget sightrange="3000" soundrange="5000" fadeouttime="5" />
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+    <SkillRequirementHint identifier="weapons" level="75" />
+  </Item>
   <!-- change assault rifle sprite to be Facility Gamemode MERCS rifle -->
   <Item name="" identifier="assaultrifle" category="Weapon" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="mediumitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder"/>
@@ -1483,9 +1672,9 @@
       <Price storeidentifier="merchantmilitary" multiplier="0.9" />
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
-    <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="true">
-      <RequiredSkill identifier="weapons" level="60" />
-      <RequiredItem identifier="titaniumaluminiumalloy" amount="3" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="false" >
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="physicorium" amount="3" />
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="rubber" />
     </Fabricate>
@@ -1502,7 +1691,7 @@
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite name="MERCS Rifle Worn" texture="mercsrifle.png" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" sourcerect="0,0,224,80" limb="Torso" ignorelimbscale="true" scale="0.52" origin="0.45,0.85" />
     </Wearable>
-    <RangedWeapon reload="0.2" weapondamagemodifier="1.2" holdtrigger="true" barrelpos="95,-13" spread="2" unskilledspread="8" combatPriority="120" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="95,-13" spread="2" unskilledspread="8" combatPriority="120" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -3137,8 +3326,8 @@
   <!-- sharpened volcano fragment (Mmmph!) -->
   <Item name="Sharpened Volcano Fragment" identifier="sharpenedvolcanofragment" category="Weapon" Tags="mediumitem,weapon,gunsmith,mountableweapon" scale="0.5" allowasextracargo="true" requireaimtouse="true" impactsoundtag="impact_metal_light">
     <Deconstruct time="30">
-      <RequiredItem identifier="titanium" amount="1" />
-      <RequiredItem identifier="incendium" amount="1" />
+      <Item identifier="titanium" amount="1" />
+      <Item identifier="incendium" amount="1" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="30" >
       <RequiredSkill identifier="weapons" level="30" />
@@ -3176,15 +3365,15 @@
   <!-- displacer cannon (Half-Life: Opposing Force) -->
   <Item name="Displacer Cannon" identifier="displacercannon" category="Weapon" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="mediumitem,weapon,gun,mountableweapon,provocativetohumanai" Scale="0.5" impactsoundtag="impact_metal_heavy">
     <Deconstruct time="30">
-      <RequiredItem identifier="dementonite" />
-      <RequiredItem identifier="fulgurium" />
-      <RequiredItem identifier="lead" />
-      <RequiredItem identifier="iron" />
+      <Item identifier="dementonite" amount="2" />
+      <Item identifier="fulgurium" amount="2" />
+      <Item identifier="lead" />
+      <Item identifier="iron" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
+    <Fabricate suitablefabricators="fabricator" requiredtime="180" >
       <RequiredSkill identifier="electrical" level="30" />
-      <RequiredItem identifier="dementonite" />
-      <RequiredItem identifier="fulgurium" />
+      <RequiredItem identifier="dementonite" amount="2" />
+      <RequiredItem identifier="fulgurium" amount="2" />
       <RequiredItem identifier="lead" />
       <RequiredItem identifier="steel" />
     </Fabricate>
@@ -3330,8 +3519,8 @@
       <Item identifier="steel" />
       <Item identifier="lightcomponent" />
     </Deconstruct>
-    <InventoryIcon texture="divingflashlight.png" sourcerect="0,0,64,36" origin="0.5,0.5" />
-    <Sprite texture="divingflashlight.png" sourcerect="0,0,64,36" depth="0.55" origin="0.55,0.4" />
+    <InventoryIcon texture="%ModDir%/Items/tools.png" sourcerect="0,0,64,36" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/tools.png" sourcerect="0,0,64,36" depth="0.55" origin="0.55,0.4" />
     <Body width="48" height="15" density="15" />
     <Holdable slots="Any,RightHand,LeftHand,Head" holdpos="30,-50" aimpos="60,0" handle1="-20,0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnActive" targettype="Contained" Condition="-0.4">
@@ -3355,6 +3544,84 @@
     </ItemContainer>
     <AiTarget sightrange="3000" />
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
+  
+  <!-- multitool that does welding tool, wrench and screwdriver functionality -->
+  <Item name="Repair Tool" identifier="repairtool" category="Equipment" addedrepairspeedmultiplier="2.5" Tags="smallitem,simpletool,tool,weldingequipment,electricalrepairtool,screwdriveritem,mechanicalrepairtool,wrenchitem,wrench,screwdriver,mountableweapon" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Sprite texture="%ModDir%/Items/tools.png" sourcerect="0,36,100,100" depth="0.55" origin="0.5,0.5" />
+    <Deconstruct time="30">
+      <Item identifier="physicorium" />
+      <Item identifier="titanium" />
+      <Item identifier="plastic" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="mechanical" level="50" />
+      <RequiredItem identifier="physicorium" />
+      <RequiredItem identifier="titaniumaluminiumalloy" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <!-- physics body -->
+    <Body width="90" height="90" density="25" />
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="60,0" handle1="-10,2" handle2="-40,-30" msg="ItemMsgPickUpSelect" />
+    <RepairTool firedamage="10.0" structurefixamount="2.0" range="150" barrelpos="16,19" particles="weld" repairmultiple="true" repairthroughwalls="false" combatpriority="3" levelwallfixamount="-0.425" targetforce="10">
+      <!-- the item must contain a welding fuel tank for it to work -->
+      <RequiredItems items="weldingtoolfuel,oxygensource" type="Contained" msg="ItemMsgWeldingFuelRequired" />
+      <RequiredSkill identifier="mechanical" level="50" />
+      <ParticleEmitter particle="weld" particlespersecond="50" copyentityangle="true"/>
+      <ParticleEmitterHitStructure particle="weldspark" particlespersecond="200" anglemin="-40" anglemax="40" velocitymin="200" velocitymax="800" />
+      <ParticleEmitterHitStructure particle="GlowDot" particlespersecond="60" emitinterval="0.7" particleamount="10" scalemin="0.9" scalemax="1.0" anglemin="0" anglemax="360" velocitymin="10" velocitymax="50" />
+      <ParticleEmitterHitStructure particle="MistSmoke" particlespersecond="20" anglemin="-10" anglemax="10" velocitymin="0" velocitymax="50" />
+      <ParticleEmitterHitItem identifiers="door,hatch,ductblock" particle="weldspark" particlespersecond="200" anglemin="-40" anglemax="40" velocitymin="200" velocitymax="800" />
+      <ParticleEmitterHitItem identifiers="door,hatch,ductblock" particle="MistSmoke" particlespersecond="20" anglemin="-10" anglemax="10" velocitymin="10" velocitymax="100" />
+      <ParticleEmitterHitCharacter particle="fleshsmoke" particlespersecond="3" anglemin="-5" anglemax="5" velocitymin="0" velocitymax="50" />
+      <sound file="Content/Items/Tools/WeldingLoop.ogg" type="OnUse" range="500.0" loop="true" />
+      <!-- when using, the contained welding fuel tank will detoriate (= lose fuel) -->
+      <StatusEffect type="OnUse" targettype="Contained" targets="weldingfueltank" Condition="-1.0" />
+      <StatusEffect type="OnUse" targettype="Contained" targets="incendiumfueltank" Condition="-0.6" />
+      <!-- welding a door, it will get stuck after a while -->
+      <StatusEffect type="OnSuccess" targettype="UseTarget" targets="weldable" Stuck="5.0" />
+      <StatusEffect type="OnSuccess" targettype="UseTarget" targets="item" Condition="-3.0">
+        <Conditional HasTag="neq weldable"/>
+      </StatusEffect>
+      <!-- do burn damage to characters -->
+      <StatusEffect type="OnSuccess" targettype="Limb">
+        <Affliction identifier="burn" amount="2.5" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" targettype="Contained" targets="oxygentank" delay="1.0" stackable="false" Condition="0" setvalue="true">
+        <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" range="2000" />
+        <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" range="2000" />
+        <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" range="2000" />
+        <Explosion range="150.0" force="3" applyfireeffects="false" >
+          <Affliction identifier="burn" strength="25" />
+          <Affliction identifier="stun" strength="5" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnUse" targettype="Contained" targets="oxygenitetank" delay="1.0" stackable="false" Condition="0" setvalue="true">
+        <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" range="2000" />
+        <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" range="2000" />
+        <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" range="2000" />
+        <Explosion range="150.0" force="6" applyfireeffects="false" >
+          <Affliction identifier="burn" strength="50" />
+          <Affliction identifier="stun" strength="10" />
+        </Explosion>
+      </StatusEffect>
+      <!-- the tool can fix structures, i.e. walls and windows -->
+      <Fixable identifier="structure" />
+      <NonFixable identifier="thalamus,ice" />
+      <LightComponent LightColor="255,229,178,100" Range="150" Flicker="0.5" />
+    </RepairTool>
+    <!-- one welding fuel or oxygen tank can be contained inside the welding tool -->
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedspritedepth="0.56" containedstateindicatorstyle="tank">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <Containable items="weldingtoolfuel,oxygensource" itempos="-16,-25" rotation="335" />
+    </ItemContainer>
+    <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
+    <Quality>
+      <QualityStat stattype="RepairToolStructureRepairMultiplier" value="0.1"/>
+      <QualityStat stattype="RepairSpeed" value="0.1"/>
+    </Quality>
+    <aitarget sightrange="500" soundrange="500" fadeouttime="1" />
+    <SkillRequirementHint identifier="mechanical" level="50" />
   </Item>
   
   <!-- JET mask from Facility Gamemode for Nukie -->
@@ -3853,7 +4120,7 @@
     <Fabricate suitablefabricators="fabricator" requiredtime="90">
       <RequiredSkill identifier="weapons" level="60" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
-      <Item identifier="steel" amount="2" />
+      <RequiredItem identifier="steel" amount="2" />
     </Fabricate>
     <Deconstruct time="30">
       <Item identifier="titaniumaluminiumalloy" amount="1" />
@@ -4771,15 +5038,15 @@
   <!-- whaling gun, muzzle-loading flintlock that uses gunpowder to fire harpoons -->
   <Item name="Whaling Gun" identifier="whalinggun" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
     <Deconstruct time="30">
-      <RequiredItem identifier="titaniumaluminiumalloy" />
-      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="physicorium" />
+      <RequiredItem identifier="titanium" />
       <RequiredItem identifier="copper" />
       <RequiredItem identifier="tin" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="180">
-      <RequiredSkill identifier="weapons" level="60" />
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="physicorium" amount="1" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
-      <RequiredItem identifier="steel" amount="2" />
       <RequiredItem identifier="copper" amount="1" />
       <RequiredItem identifier="tin" amount="1" />
     </Fabricate>

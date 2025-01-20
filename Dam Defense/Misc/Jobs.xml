@@ -162,11 +162,9 @@
       <Item identifier="pistol" equip="false">
         <Item identifier="pistolmagazine" />
       </Item>
-      <Item identifier="weldingtool">
+      <Item identifier="repairtool">
         <Item identifier="weldingfueltank"/>
       </Item>
-      <Item identifier="wrench"/>
-      <Item identifier="screwdriver"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
@@ -209,11 +207,9 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
       </Item>
-      <Item identifier="weldingtool">
+      <Item identifier="repairtool">
         <Item identifier="weldingfueltank"/>
       </Item>
-      <Item identifier="wrench"/>
-      <Item identifier="screwdriver"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
@@ -239,6 +235,7 @@
     </AppropriateOrders>
   </Job>
 
+  <!-- laborer -->
   <Job identifier="mechanic"
        minkarma="0" initialcount="3"
        uicolor="0.65,0.7,0.75"
@@ -644,10 +641,7 @@
     </ItemSet>
     <ItemSet>
       <Item identifier="idcard" equip="true">
-	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 3 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 3 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
 	  </Item>
       <Item identifier="assistantclothes" equip="true" outfit="true">
 	    <Item identifier="trashbag"/>
@@ -656,23 +650,18 @@
       <Item identifier="hardhatjanitor" equip="true">
 	    <Item identifier="oxygentank"/>
 	  </Item>
-      <Item identifier="toolbelt" equip="true">
-        <Item identifier="flashlight" >
-		  <Item identifier="batterycell"/>
-	    </Item>
-	    <Item identifier="oxygentank"/>
-	  </Item>
-      <Item identifier="flamer" >
-		<Item identifier="weldingfueltank"/>
+      <Item identifier="makeshiftflamer" equip="true" />
+      <Item identifier="watercannon" >
+		<Item identifier="batterycell"/>
 	  </Item>
       <Item identifier="weldingtool" >
 		<Item identifier="weldingfueltank"/>
 	  </Item>
-      <Item identifier="sprayer" >
-		<Item identifier="ethanol"/>
-	  </Item>
       <Item identifier="crowbar"/>
       <Item identifier="wrench"/>
+      <Item identifier="flashlight" >
+		<Item identifier="batterycell"/>
+	  </Item>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
@@ -819,16 +808,16 @@
       <Item identifier="pistol" equip="false">
         <Item identifier="pistolmagazine" />
       </Item>
+      <Item identifier="repairtool">
+        <Item identifier="weldingfueltank"/>
+      </Item>
       <Item identifier="stunbaton">
         <Item identifier="batterycell"/>
       </Item>
       <Item identifier="flashlight">
         <Item identifier="batterycell"/>
       </Item>
-      <Item identifier="weldingtool">
-        <Item identifier="weldingfueltank"/>
-      </Item>
-      <Item identifier="screwdriver"/>
+      <Item identifier="crowbar" />
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
@@ -885,16 +874,16 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
       </Item>
+      <Item identifier="repairtool">
+        <Item identifier="weldingfueltank"/>
+      </Item>
       <Item identifier="stunbaton">
         <Item identifier="batterycell"/>
       </Item>
       <Item identifier="flashlight">
         <Item identifier="batterycell"/>
       </Item>
-      <Item identifier="weldingtool">
-        <Item identifier="weldingfueltank"/>
-      </Item>
-      <Item identifier="screwdriver"/>
+      <Item identifier="crowbar" />
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>

@@ -155,6 +155,9 @@
   <!-- Diving Flashlight -->
   <entityname.divingflashlight>Diving Flashlight</entityname.divingflashlight>
   <entitydescription.divingflashlight>Double the power... double the power consumption.</entitydescription.divingflashlight>
+  <!-- Repair Tool -->
+  <entityname.repairtool>Repair Tool</entityname.repairtool>
+  <entitydescription.repairtool>All in one repair tool that can weld, wrench and screw! Can only detach or rewire a specific item, but never both.</entitydescription.repairtool>
   <!-- Boomboxes -->
   <entityname.boombox1>Country Boombox</entityname.boombox1>
   <entitydescription.boombox1>"Sweet Home Alabama" by Lynyrd Skynyrd.</entitydescription.boombox1>

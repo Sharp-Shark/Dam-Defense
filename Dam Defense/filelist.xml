@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="0.14.6" corepackage="False" steamworkshopid="3146664815" gameversion="1.7.7.0">
+<contentpackage name="Dam Defense" modversion="0.14.7" corepackage="False" steamworkshopid="3146664815" gameversion="1.7.7.0">
   <Item file="%ModDir%/Items/Jerry.xml" />
   <Item file="%ModDir%/Items/Machines.xml" />
   <Item file="%ModDir%/Items/Boomboxes.xml" />
@@ -22,7 +22,7 @@
   <Jobs file="%ModDir%/Misc/Jobs.xml" />
   <Afflictions file="%ModDir%/Misc/Afflictions.xml" />
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />
-  <Submarine file="%ModDir%/Submarines/DD Restoration.sub" />
   <Submarine file="%ModDir%/Submarines/DD Olde Towne Dam.sub" />
   <Submarine file="%ModDir%/Submarines/DD Pioneer Point Dam.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Aegaeon Cliffs Dam.sub" />
 </contentpackage>
