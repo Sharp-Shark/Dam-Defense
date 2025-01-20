@@ -66,6 +66,28 @@
     <aitarget sightrange="1000" soundrange="1000" fadeouttime="2" />
   </Item>
   <Override>
+  <!-- idcard is now a wallet and can store money (still functions like a wallet though) -->
+  <Item name="" identifier="idcard" category="Equipment,Misc" Tags="smallitem,identitycard,idcard" scale="0.35" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
+    <PreferredContainer primary="crewcab" />
+    <Price baseprice="10">
+      <Price storeidentifier="merchantoutpost" minavailable="4" />
+      <Price storeidentifier="merchantcity" minavailable="6" />
+    </Price>
+    <Sprite texture="wallet.png" depth="0.5" sourcerect="0,33,64,55" origin="0.5,0.5" />
+    <Body width="16" height="12" density="20" />
+    <IdCard slots="Card,Any" msg="ItemMsgPickUpSelect" />
+	<ItemContainer capacity="2" maxstacksize="50" hideitems="false">
+      <Containable items="money" hide="true" />
+    </ItemContainer>
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.09,0.07" anchor="TopRight" pivot="BottomRight" relativeoffset="-0.025,0.093" style="ItemUI" />
+      <Button text="Withdraw">
+        <StatusEffect type="OnUse" targettype="Character" stackable="false" duration="1">
+          <LuaHook name="DD.idcard.withdraw" />
+        </StatusEffect>
+      </Button>
+    </CustomInterface>
+  </Item>
   <!-- grenade launcher tweaks -->
   <Item name="" identifier="grenadelauncher" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="secarmcab" amount="1" spawnprobability="0.2" notcampaign="true" notpvp="true" />
@@ -299,28 +321,6 @@
     </LightComponent>
     <AiTarget sightrange="5000"/>
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
-  </Item>
-  <!-- idcard is now a wallet and can store money (still functions like a wallet though) -->
-  <Item name="" identifier="idcard" category="Equipment,Misc" Tags="smallitem,identitycard,idcard" scale="0.35" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
-    <PreferredContainer primary="crewcab" />
-    <Price baseprice="10">
-      <Price storeidentifier="merchantoutpost" minavailable="4" />
-      <Price storeidentifier="merchantcity" minavailable="6" />
-    </Price>
-    <Sprite texture="wallet.png" depth="0.5" sourcerect="0,33,64,55" origin="0.5,0.5" />
-    <Body width="16" height="12" density="20" />
-    <IdCard slots="Card,Any" msg="ItemMsgPickUpSelect" />
-	<ItemContainer capacity="2" maxstacksize="50" hideitems="false">
-      <Containable items="money" hide="true" />
-    </ItemContainer>
-    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
-      <GuiFrame relativesize="0.09,0.07" anchor="BottomCenter" pivot="BottomRight" relativeoffset="-0.025,0.093" style="ItemUI" />
-      <Button text="Withdraw">
-        <StatusEffect type="OnUse" targettype="Character" stackable="false" duration="1">
-          <LuaHook name="DD.idcard.withdraw" />
-        </StatusEffect>
-      </Button>
-    </CustomInterface>
   </Item>
   <!-- handcuff slows down wearer (25% slower) and degrades over time (lasts ~3 minute) -->
   <Item name="" identifier="handcuffs" category="Equipment" maxstacksize="8" maxstacksizecharacterinventory="1" MaxStackSizeHoldableOrWearableInventory="8" cargocontaineridentifier="metalcrate" tags="smallitem,handlocker" scale="0.5" impactsoundtag="impact_metal_light" equipconfirmationtext="handcuffequipconfirmation">
@@ -3547,7 +3547,7 @@
   </Item>
   
   <!-- multitool that does welding tool, wrench and screwdriver functionality -->
-  <Item name="Repair Tool" identifier="repairtool" category="Equipment" addedrepairspeedmultiplier="2.5" Tags="smallitem,simpletool,tool,weldingequipment,electricalrepairtool,screwdriveritem,mechanicalrepairtool,wrenchitem,wrench,screwdriver,mountableweapon" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light">
+  <Item name="Repair Tool" identifier="repairtool" category="Equipment" addedrepairspeedmultiplier="2.5" Tags="smallitem,simpletool,tool,weldingequipment,electricalrepairtool,screwdriveritem,mechanicalrepairtool,wrenchitem,mountableweapon" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light">
     <Sprite texture="%ModDir%/Items/tools.png" sourcerect="0,36,100,100" depth="0.55" origin="0.5,0.5" />
     <Deconstruct time="30">
       <Item identifier="physicorium" />
@@ -3562,8 +3562,8 @@
     </Fabricate>
     <!-- physics body -->
     <Body width="90" height="90" density="25" />
-    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="60,0" handle1="-10,2" handle2="-40,-30" msg="ItemMsgPickUpSelect" />
-    <RepairTool firedamage="10.0" structurefixamount="2.0" range="150" barrelpos="16,19" particles="weld" repairmultiple="true" repairthroughwalls="false" combatpriority="3" levelwallfixamount="-0.425" targetforce="10">
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="45,0" handle1="-5,0" msg="ItemMsgPickUpSelect" />
+    <RepairTool firedamage="10.0" structurefixamount="2.0" range="150" barrelpos="23,19" particles="weld" repairmultiple="true" repairthroughwalls="false" combatpriority="3" levelwallfixamount="-0.425" targetforce="10">
       <!-- the item must contain a welding fuel tank for it to work -->
       <RequiredItems items="weldingtoolfuel,oxygensource" type="Contained" msg="ItemMsgWeldingFuelRequired" />
       <RequiredSkill identifier="mechanical" level="50" />
@@ -3615,6 +3615,34 @@
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
       <Containable items="weldingtoolfuel,oxygensource" itempos="-16,-25" rotation="335" />
     </ItemContainer>
+	<!-- toggle between wrench or screwdriver tag -->
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <StatusEffect type="OnSpawn" targettype="This" tags="wrench" />
+      <GuiFrame relativesize="0.09,0.07" anchor="BottomCenter" pivot="BottomRight" relativeoffset="-0.025,0.093" style="ItemUI" />
+      <Button text="Wrench">
+	    <!-- logic via xml (cursed) -->
+        <StatusEffect type="OnUse" targettype="This" Condition="50" SetValue="true" disabledeltatime="true">
+		  <Conditional HasTag="wrench" />
+		</StatusEffect>
+        <StatusEffect type="OnUse" targettype="This" tags="" >
+          <sound file="%ModDir%/Sounds/hammerpull.ogg" volume="1.0" range="500" />
+		</StatusEffect>
+        <StatusEffect type="OnUse" targettype="This" tags="wrench" >
+		  <Conditional Condition="eq 100" />
+		</StatusEffect>
+        <StatusEffect type="OnUse" targettype="This" tags="screwdriver" >
+		  <Conditional Condition="eq 50" />
+		</StatusEffect>
+        <StatusEffect type="OnUse" targettype="This" Condition="100" SetValue="true" disabledeltatime="true" />
+		<!-- update labels -->
+        <StatusEffect type="OnUse" targettype="This" TargetItemComponent="CustomInterface" labels="Wrench" >
+		  <Conditional HasTag="wrench" />
+		</StatusEffect>
+        <StatusEffect type="OnUse" targettype="This" TargetItemComponent="CustomInterface" labels="Screwdriver" >
+		  <Conditional HasTag="screwdriver" />
+		</StatusEffect>
+      </Button>
+    </CustomInterface>
     <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
     <Quality>
       <QualityStat stattype="RepairToolStructureRepairMultiplier" value="0.1"/>
