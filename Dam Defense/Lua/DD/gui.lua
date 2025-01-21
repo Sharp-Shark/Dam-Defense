@@ -153,6 +153,9 @@ DD.wikiData = {
 	bloodsamplerItem = {
 		related = {'main', 'items', 'medicalSystem', 'bacterialsyringeItem', 'flusyringeItem', 'tbsyringeItem', 'gangWarEvent'},
 	},
+	brassknuckleItem = {
+		related = {'main', 'items'},
+	},
 	-- creatures
 	spitroachCreature = {
 		related = {'main', 'creatures', 'fishEvent'},
