@@ -3620,20 +3620,11 @@
       <StatusEffect type="OnSpawn" targettype="This" tags="wrench" />
       <GuiFrame relativesize="0.09,0.07" anchor="BottomCenter" pivot="BottomRight" relativeoffset="-0.025,0.093" style="ItemUI" />
       <Button text="Wrench">
-	    <!-- logic via xml (cursed) -->
-        <StatusEffect type="OnUse" targettype="This" Condition="50" SetValue="true" disabledeltatime="true">
-		  <Conditional HasTag="wrench" />
+	    <!-- lua code switches tags -->
+        <StatusEffect type="OnUse" targettype="This" >
+		  <LuaHook name="DD.repairtool.toggle" />
+          <sound file="%ModDir%/Sounds/repairtool.ogg" volume="2.0" range="1000" />
 		</StatusEffect>
-        <StatusEffect type="OnUse" targettype="This" tags="" >
-          <sound file="%ModDir%/Sounds/hammerpull.ogg" volume="1.0" range="500" />
-		</StatusEffect>
-        <StatusEffect type="OnUse" targettype="This" tags="wrench" >
-		  <Conditional Condition="eq 100" />
-		</StatusEffect>
-        <StatusEffect type="OnUse" targettype="This" tags="screwdriver" >
-		  <Conditional Condition="eq 50" />
-		</StatusEffect>
-        <StatusEffect type="OnUse" targettype="This" Condition="100" SetValue="true" disabledeltatime="true" />
 		<!-- update labels -->
         <StatusEffect type="OnUse" targettype="This" TargetItemComponent="CustomInterface" labels="Wrench" >
 		  <Conditional HasTag="wrench" />

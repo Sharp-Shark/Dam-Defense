@@ -3,7 +3,7 @@ if SERVER then return end
 DD.wikiData = {
 	-- main
 	main = {
-		related = {'events', 'jobs', 'items', 'creatures', 'medicalSystem', 'dams'},
+		related = {'events', 'jobs', 'items', 'creatures', 'medicalSystem', 'radiation', 'dams'},
 	},
 	events = {
 		related = {'main'},
@@ -12,12 +12,15 @@ DD.wikiData = {
 		related = {'main'},
 	},
 	items = {
-		related = {'main'},
+		related = {'main', 'medicalSystem'},
 	},
 	creatures = {
 		related = {'main'},
 	},
 	medicalSystem = {
+		related = {'main', 'items'},
+	},
+	radiation = {
 		related = {'main'},
 	},
 	dams = {
@@ -37,7 +40,7 @@ DD.wikiData = {
 		related = {'main', 'events', 'airdropEvent'},
 	},
 	gangWarEvent = {
-		related = {'main', 'events'},
+		related = {'main', 'events', 'bloodsamplerItem'},
 	},
 	bloodCultEvent = {
 		related = {'main', 'events', 'airdropEvent'},
@@ -46,7 +49,7 @@ DD.wikiData = {
 		related = {'main', 'events', 'mercsEvent', 'mercsevilJob', 'midazolamItem'},
 	},
 	greenskinsEvent = {
-		related = {'main', 'events', 'midazolamItem'},
+		related = {'main', 'events', 'greenskinCreature', 'midazolamItem'},
 	},
 	-- side events
 	airdropEvent = {
@@ -62,7 +65,7 @@ DD.wikiData = {
 		related = {'main', 'events', 'murderEvent'},
 	},
 	afflictionEvent = {
-		related = {'main', 'events'},
+		related = {'main', 'events', 'influenzainfectionAffliction', 'tbinfectionAffliction'},
 	},
 	blackoutEvent = {
 		related = {'main', 'events'},
@@ -74,20 +77,20 @@ DD.wikiData = {
 		related = {'main', 'events', 'deathSquadEvent', 'mercsJob', 'midazolamItem'},
 	},
 	electionEvent = {
-		related = {'main', 'events'},
+		related = {'main', 'events', 'captainJob', 'securityofficerJob', 'foremanJob', 'diverJob'},
 	},
 	withdrawEvent = {
 		related = {'main', 'events'},
 	},
 	-- jobs
 	captainJob = {
-		related = {'main', 'jobs'},
+		related = {'main', 'jobs', 'electionEvent'},
 	},
 	engineerJob = {
 		related = {'main', 'jobs'},
 	},
 	securityofficerJob = {
-		related = {'main', 'jobs'},
+		related = {'main', 'jobs', 'electionEvent'},
 	},
 	medicaldoctorJob = {
 		related = {'main', 'jobs'},
@@ -105,13 +108,13 @@ DD.wikiData = {
 		related = {'main', 'jobs'},
 	},
 	foremanJob = {
-		related = {'main', 'jobs'},
+		related = {'main', 'jobs', 'electionEvent'},
 	},
 	researcherJob = {
 		related = {'main', 'jobs'},
 	},
 	diverJob = {
-		related = {'main', 'jobs'},
+		related = {'main', 'jobs', 'electionEvent'},
 	},
 	bodyguardJob = {
 		related = {'main', 'jobs', 'vipEvent', 'midazolamItem'},
@@ -130,19 +133,25 @@ DD.wikiData = {
 		related = {'main', 'items', 'medicalSystem', 'bacterialinfectionAffliction'},
 	},
 	flusyringeItem = {
-		related = {'main', 'items', 'medicalSystem', 'fluantidoteItem'},
+		related = {'main', 'items', 'medicalSystem', 'fluantidoteItem', 'influenzainfectionAffliction'},
 	},
 	tbsyringeItem = {
-		related = {'main', 'items', 'medicalSystem', 'tbantidoteItem'},
+		related = {'main', 'items', 'medicalSystem', 'tbantidoteItem', 'tbinfectionAffliction'},
 	},
 	fluantidoteItem = {
-		related = {'main', 'items', 'medicalSystem', 'flusyringeItem'},
+		related = {'main', 'items', 'medicalSystem', 'flusyringeItem', 'influenzainfectionAffliction'},
 	},
 	tbantidoteItem = {
-		related = {'main', 'items', 'medicalSystem', 'tbsyringeItem'},
+		related = {'main', 'items', 'medicalSystem', 'tbsyringeItem', 'tbinfectionAffliction'},
 	},
 	midazolamItem = {
 		related = {'main', 'items', 'medicalSystem', 'deathSquadEvent', 'greenskinsEvent', 'vipEvent', 'mercsEvent', 'bodyguardJob', 'mercsJob', 'mercsevilJob'},
+	},
+	myxotoxinItem = {
+		related = {'main', 'items', 'medicalSystem', 'bacterialinfectionAffliction', 'tbinfectionAffliction'},
+	},
+	bloodsamplerItem = {
+		related = {'main', 'items', 'medicalSystem', 'bacterialsyringeItem', 'flusyringeItem', 'tbsyringeItem', 'gangWarEvent'},
 	},
 	-- creatures
 	spitroachCreature = {
@@ -151,15 +160,27 @@ DD.wikiData = {
 	huskCreature = {
 		related = {'main', 'creatures', 'fishEvent'},
 	},
+	greenskinCreature = {
+		related = {'main', 'creatures', 'greenskinsEvent', 'midazolamItem'},
+	},
 	-- afflictions
 	bacterialinfectionAffliction = {
-		related = {'main', 'medicalSystem', 'bacterialsyringeItem'},
+		related = {'main', 'medicalSystem', 'bacterialsyringeItem', 'myxotoxinItem'},
+	},
+	influenzainfectionAffliction = {
+		related = {'main', 'medicalSystem', 'afflictionEvent', 'flusyringeItem', 'fluantidoteItem'},
+	},
+	tbinfectionAffliction = {
+		related = {'main', 'medicalSystem', 'afflictionEvent', 'tbsyringeItem', 'tbantidoteItem', 'myxotoxinItem'},
 	},
 	-- dams (maps)
 	oldeTowneDam = {
 		related = {'main', 'dams'},
 	},
 	pioneerPointDam = {
+		related = {'main', 'dams'},
+	},
+	aegaeonCliffsDam = {
 		related = {'main', 'dams'},
 	},
 }
@@ -199,6 +220,10 @@ for key, value in pairs(DD.wikiData) do
 	elseif string.sub(key, #key - 7, #key) == 'Creature' then
 		table.insert(DD.wikiData.creatures.related, key)
 	elseif string.sub(key, #key - 9, #key) == 'Affliction' then
+		table.insert(DD.wikiData.medicalSystem.related, key)
+	end
+	
+	if DD.tableHas(value.related, 'medicalSystem') and not DD.tableHas(DD.wikiData.medicalSystem.related, key) then
 		table.insert(DD.wikiData.medicalSystem.related, key)
 	end
 end

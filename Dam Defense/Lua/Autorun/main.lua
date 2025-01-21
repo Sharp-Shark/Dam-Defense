@@ -19,6 +19,7 @@ json.serialize = json.encode
 json.parse = json.decode
 
 -- Load utilities/dependencies
+require 'DD/secret'
 require 'DD/class'
 require 'DD/utilities'
 require 'DD/saving'

@@ -143,6 +143,29 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
     end
 end, Hook.HookMethodType.Before)
 
+Hook.Add("DD.repairtool.toggle", "DD.repairtool.toggle", function(effect, deltaTime, item, targets, worldPosition)
+	if item == nil then return end
+	if item.HasTag('wrench') then
+		local tags = ''
+		for tag in item.GetTags() do
+			if tag ~= 'wrench' then tags = tags .. ',' .. tostring(tag) end
+		end
+		tags = tags .. ',screwdriver'
+		item.Tags = tags
+	else
+		local tags = ''
+		for tag in item.GetTags() do
+			if tag ~= 'screwdriver' then tags = tags .. ',' .. tostring(tag) end
+		end
+		tags = tags .. ',wrench'
+		item.Tags = tags
+	end
+	if SERVER then
+		local tags = item.SerializableProperties[Identifier("Tags")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
+	end
+end)
+
 Hook.Add("DD.brassknuckle.disarm", "DD.brassknuckle.disarm", function(effect, deltaTime, item, targets, worldPosition)
 	local character = item
 	local limb = targets[1]

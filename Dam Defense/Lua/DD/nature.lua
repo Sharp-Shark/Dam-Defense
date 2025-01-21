@@ -8,8 +8,8 @@ DD.speciesData = {
 	crawler = {initialGrowTimer = 210, grownIdentifier = 'crawler_large', initialBreedTimer = 90, eggIdentifer = 'crawleregg', populationName = 'crawler', populationCap = 12},
 	crawler_hatchling = {initialGrowTimer = 90, populationName = 'crawler'},
 	
-	spitroach = {initialBreedTimer = 180, eggIdentifer = 'spitroachegg', populationName = 'spitroach', populationCap = 6},
-	spitroach_hatchling = {initialGrowTimer = 120, populationName = 'spitroach'},
+	spitroach = {initialBreedTimer = 90, eggIdentifer = 'spitroachegg', populationName = 'spitroach', populationCap = 12},
+	spitroach_hatchling = {initialGrowTimer = 90, populationName = 'spitroach'},
 	
 	mudraptor_veteran = {populationName = 'mudraptor'},
 	mudraptor = {initialGrowTimer = 240, grownIdentifier = 'mudraptor_veteran', initialBreedTimer = 90, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 6},

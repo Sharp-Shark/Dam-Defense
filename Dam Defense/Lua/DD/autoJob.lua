@@ -131,7 +131,7 @@ Hook.Add("jobsAssigned", "DD.autoJob", function ()
 			end
 		end
 		if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
-		client.AssignedJob = JobVariant(JobPrefab.Get(job), math.random(JobPrefab.Get(job).Variants) - 1)
+		client.AssignedJob = JobVariant(JobPrefab.Get(job), variant)
 	end
 	
 	DD.autoJobExecutionCount = DD.autoJobExecutionCount + 1

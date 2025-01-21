@@ -7,7 +7,7 @@ end
 local function discordChatMessage (message, hook)
 	if CLIENT or (not Game.ServerSettings.IsPublic) then return end
 
-	local discordWebHook = "https://discord.com/api/webhooks/1128508877458133113/PLmw236dj136aewlPnAEupWJbCxXb3gYCOAfZfC1kWQj9WhhPkN4tx-daucar-99lPQI"
+	local discordWebHook = DD.discordWebHook
 	if hook ~= nil then
 		discordWebHook = hook
 	end
