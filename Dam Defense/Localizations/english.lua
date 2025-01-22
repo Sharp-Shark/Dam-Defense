@@ -19,6 +19,7 @@ return {
 	commandElectionErrorNoCaptain = 'Cannot start an election because there is no captain.',
 	commandElectionErrorNoSecurity = 'Cannot start an election because there is no security member aside from the captain.',
 	huskInfo = 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate.',
+	undeadInfo = 'You have become an undead! Try and help the blood cult by killing nonbelievers and following cultists. You can hold ragdoll to regenerate.',
 	-- eventDirector.lua
 	commandEventsNone = 'none (there are no public events)',
 	commandEvents = 'The public list of events currently is: {list}.',

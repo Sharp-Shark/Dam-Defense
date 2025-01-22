@@ -1,8 +1,6 @@
 if CLIENT and Game.IsMultiplayer then return end
 
 Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(effect, deltaTime, item, targets, worldPosition)
-    if CLIENT and Game.IsMultiplayer then return end
-	
 	local user = item.ParentInventory
 	if user == nil then return end
 	user = user.Owner
@@ -268,6 +266,12 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 		end
 	end
 	
+	-- return
+	if character.SpeciesName == 'humanundead' then
+		DD.messageClient(client, DD.stringLocalize('undeadInfo'))
+		return
+	end
+	
 	-- pop-up
 	local client = DD.findClientByCharacter(character)
 	if client == nil then return end
@@ -295,7 +299,11 @@ Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", fun
 	if (inventory.Owner == nil) or (inventory.Owner.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) < 99) then return end
 	
 	DD.giveAfflictionCharacter(character, 'cardiacarrest', 999)
-	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory, nil, nil, function (spawnedItem) end)
+	if inventory.Owner.SpeciesName == 'humanundead' then
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory.Owner.WorldPosition, nil, nil, function (spawnedItem) end)
+	else
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory, nil, nil, function (spawnedItem) end)
+	end
 end)
 
 -- When a cultist dies, he will come back as a zombie
@@ -310,14 +318,15 @@ DD.characterDeathFunctions.cultistDeath = function (character)
 	local slotItems = {}
 	for itemCount = 0, character.Inventory.Capacity do
 		local item = character.Inventory.GetItemAt(itemCount)
-		if (item ~= nil) and (tostring(item.Prefab.Identifier.Value) ~= 'handcuffs') and (tostring(item.Prefab.Identifier.Value) ~= 'bodybag') then
+		if (item ~= nil) and (itemCount ~= DD.invSlots.lefthand) and (itemCount ~= DD.invSlots.righthand) and (tostring(item.Prefab.Identifier.Value) ~= 'handcuffs') and (tostring(item.Prefab.Identifier.Value) ~= 'bodybag') then
 			slotItems[itemCount] = item
+		end
+		if (item ~= nil) and ((itemCount == DD.invSlots.lefthand) or (itemCount == DD.invSlots.righthand)) then
+			item.Drop()
 		end
 	end
 	
 	local newCharacter = DD.spawnHuman(client, 'undeadjob', character.WorldPosition, character.Name, nil, 'humanUndead')
-	DD.giveAfflictionCharacter(newCharacter, 'stun', 2)
-	DD.giveAfflictionCharacter(newCharacter, 'enlightened', 999)
 	
     -- Spawn a duffel bag at the player's feet to put the dropped items inside
 	local duffelbag
@@ -345,6 +354,57 @@ DD.characterDeathFunctions.cultistDeath = function (character)
 		Entity.Spawner.AddEntityToRemoveQueue(character)
 	end, 100)
 end
+
+-- Give undead items
+Hook.Add("character.created", 'DD.giveUndeadItems', function(createdCharacter)
+	if createdCharacter.SpeciesName ~= 'humanUndead' then return end
+	if createdCharacter.JobIdentifier ~= 'undeadjob' then
+		Timer.Wait(function ()
+			local client = DD.findClientByCharacter(createdCharacter)
+			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
+			if Game.IsMultiplayer then client.SetClientCharacter(character) end
+			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
+		end, 100)
+		return
+	end
+	Timer.Wait(function ()
+		DD.giveAfflictionCharacter(createdCharacter, 'stun', 2)
+		DD.giveAfflictionCharacter(createdCharacter, 'enlightened', 999)
+		-- Give undead weapons
+		local weapons = {
+			{identifier = 'fraggrenade', offhand = 'fraggrenade'},
+			{identifier = 'sacrificialdagger', offhand = 'sacrificialdagger'},
+			{identifier = 'cultistmace', offhand = 'cultistshield'},
+			{identifier = 'boardingaxe'},
+			{identifier = 'cultistpitchfork'},
+			{identifier = 'tommygun', script = function (spawnedItem) Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('pistoldrum'), spawnedItem.OwnInventory) end},
+		}
+		local weapon = weapons[math.random(#weapons)]
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(weapon.identifier), createdCharacter.Inventory, nil, nil, function (spawnedItem)
+			Timer.Wait(function ()
+				createdCharacter.Inventory.TryPutItem(spawnedItem, DD.invSlots.righthand, true, true, createdCharacter, true, true)
+			end, 1)
+			if weapon.script ~= nil then weapon.script(spawnedItem) end
+		end)
+		if weapon.offhand ~= nil then
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(weapon.offhand), createdCharacter.Inventory, nil, nil, function (spawnedItem)
+				Timer.Wait(function ()
+					createdCharacter.Inventory.TryPutItem(spawnedItem, DD.invSlots.lefthand, true, true, createdCharacter, true, true)
+				end, 1)
+			end)
+			if weapon.script ~= nil then weapon.script(spawnedItem) end
+		end
+		
+		if createdCharacter.Inventory.GetItemAt(DD.invSlots.innerclothes) == nil then
+			DD.giveAfflictionCharacter(createdCharacter, 'enlightened', 999)
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultistrobes'), createdCharacter.Inventory, nil, nil, function (spawnedItem)
+				Timer.Wait(function ()
+					createdCharacter.Inventory.TryPutItem(spawnedItem, DD.invSlots.innerclothes, true, true, createdCharacter, true, true)
+				end, 1)
+			end)
+		end
+	end, 100)
+end)
 
 Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
@@ -458,21 +518,13 @@ end
 
 -- Give goblin/troll the greenskin talent(s) + fix to a bug introduced by the Summer Update (Barotrauma v1.5.7.0)
 Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
-	if (createdCharacter.SpeciesName == 'humanUndead') and (createdCharacter.JobIdentifier ~= 'undeadjob') then	
-		Timer.Wait(function ()
-			local client = DD.findClientByCharacter(createdCharacter)
-			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
-			client.SetClientCharacter(character)
-			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
-		end, 100)
-	end
 	if (createdCharacter.SpeciesName ~= 'humanGoblin') and (createdCharacter.SpeciesName ~= 'humanTroll') then return end
 	
 	Timer.Wait(function ()
 		if createdCharacter.JobIdentifier ~= 'greenskinjob' then
 			local client = DD.findClientByCharacter(createdCharacter)
 			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
-			client.SetClientCharacter(character)
+			if Game.IsMultiplayer then client.SetClientCharacter(character) end
 			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
 		else
 			createdCharacter.GiveTalent('greenskinknowledge', true)

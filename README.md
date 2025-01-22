@@ -1,4 +1,4 @@
-# Dam Defense v1.0.0 BETA #11
+# Dam Defense v1.0.0
 
 Read me? How about I read you instead?
 

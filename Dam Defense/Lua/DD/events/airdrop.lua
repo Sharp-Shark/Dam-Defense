@@ -165,7 +165,7 @@ DD.eventAirdropSeparatist = DD.class(DD.eventAirdrop, nil, {
 		{identifier = 'clownmask', amount = '1'},
 		{identifier = 'piratebodyarmor', amount = '1'},
 		{identifier = 'smg', amount = '1', script = function (spawnedItem) Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smgmagazine'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end},
-		{identifier = 'antiquerevolver', amount = '1', script = function (spawnedItem) for x = 1, 6 do  Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcannonround'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end end},
+		{identifier = 'antiquerevolver', amount = '1', script = function (spawnedItem) for x = 1, 6 do Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcannonround'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end end},
 		{identifier = 'smgmagazine', amount = '2'},
 		{identifier = 'fraggrenade', amount = '1'},
 		{identifier = 'fakemoney', amount = '10'}

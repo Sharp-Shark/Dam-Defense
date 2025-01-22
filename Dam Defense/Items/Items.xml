@@ -5281,12 +5281,15 @@
       <sprite name="Cultist Left Shoe" texture="cultist.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Cultist Right Shoe" texture="cultist.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Cultist Head" texture="cultist.png" limb="Head" hidelimb="true" inheritlimbdepth="true" sourcerect="512,12,122,130" inherittexturescale="true" origin="0.525,0.68" inheritscale="true" hideotherwearables="true" hidewearablesoftype="Hair,moustache,beard,head" />
-      <StatusEffect type="OnWearing" target="Character" HideFace="true" />
 	  <!-- armor -->
       <damagemodifier afflictiontypes="bleeding,damage" armorsector="0.0,360.0" damagemultiplier="0.75" damagesound="LimbArmor" deflectprojectiles="true" />
 	  <!-- if wearer is a cultist -->
+	  <StatusEffect tags="husk" type="OnWearing" target="Character" HideFace="true" duration="0.1" stackable="false" conditionalComparison='or' >
+        <Conditional enlightened="gte 99" />
+        <Conditional speciesname="eq humanundead" />
+	  </StatusEffect>
       <StatusEffect type="OnWearing" target="Character" conditionalComparison='or'>
-        <Conditional enlightened="gte 99" TargetSelf="True"/>
+        <Conditional enlightened="gte 99" />
         <Conditional speciesname="eq humanundead" />
 		<ReduceAffliction identifier="huskstun" strength="10" />
 		<ReduceAffliction identifier="huskinfection" strength="10" />
@@ -5296,9 +5299,19 @@
 		<ReduceAffliction type="damage" strength="1" />
 		<ReduceAffliction type="bloodloss" strength="1" />
 	  </StatusEffect>
+      <StatusEffect type="OnWearing" target="This, Character" NonInteractable="true" conditionalComparison='and' >
+        <Conditional enlightened="gte 99" />
+        <Conditional speciesname="neq humanundead" />
+        <Conditional stun="gt 0" />
+	  </StatusEffect>
+      <StatusEffect type="OnWearing" target="This, Character" NonInteractable="false" conditionalComparison='and' >
+        <Conditional enlightened="gte 99" />
+        <Conditional speciesname="neq humanundead" />
+        <Conditional stun="lte 0" />
+	  </StatusEffect>
 	  <!-- if wearer is not a cultist -->
-      <StatusEffect type="OnWearing" target="Character" conditionalComparison='and' >
-        <Conditional enlightened="lt 99" TargetSelf="True"/>
+      <StatusEffect type="OnWearing" target="This, Character" NonInteractable="false" conditionalComparison='and' >
+        <Conditional enlightened="lt 99" />
         <Conditional speciesname="neq humanundead" />
         <Affliction identifier="burn" strength="0.5" dividebylimbcount="true"/>
 	  </StatusEffect>
@@ -5490,6 +5503,105 @@
       <Containable items="lifeessence" hide="true"/>
       <SlotIcon slotindex="0" texture="%ModDir%/Misc/Icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
     </ItemContainer>
+  </Item>
+  
+  <!-- cultist pitchfork (thanks Squall) -->
+  <Item name="Pitchfork" identifier="cultistpitchfork" category="Weapon,Misc" Tags="smallitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.85" impactsoundtag="impact_metal_light" RequireAimToUse="true">
+    <Deconstruct time="10">
+      <Item identifier="iron" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" >
+      <RequiredItem identifier="iron" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Items/lifeessence.png" sourcerect="96,80,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="0,204,192,48" depth="0.55" origin="0.7,0.5" />
+    <Body width="320" height="33" density="30" />
+    <MeleeWeapon slots="RightHand+LeftHand" aimable="true" AimPos="25,-60" HoldPos="50,-40" AimAngle="-90" HoldAngle="0" handle1="-60,0" handle2="-20,-5" reload="1" swing="false" range="100" combatpriority="15" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="1.3" setvalue="true" />
+	  <Attack structuredamage="2" itemdamage="4" targetimpulse="10" >
+        <Affliction identifier="lacerations" strength="20" />
+        <Affliction identifier="bleeding" strength="20" />
+        <Affliction identifier="stun" strength="0.3" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash4.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash5.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash6.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+    <StatusEffect type="OnUse" target="This" targetitemcomponent="Propulsion" usablein="Both" />
+    </MeleeWeapon>
+    <Propulsion force="500" usablein="both" applytohands="true">
+      <StatusEffect type="OnUse" target="This" targetitemcomponent="Propulsion" usablein="None" />
+    </Propulsion>
+    <aitarget sightrange="1000" soundrange="500" fadeouttime="1" />
+    <Quality>
+      <QualityStat stattype="StrikingPowerMultiplier" value="0.1" />
+    </Quality>
+  </Item>
+  
+  <!-- cultist shield -->
+  <Item name="Marauder Shield" identifier="cultistshield" category="Equipment,Misc" tags="mediumitem" health="100" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true" scale="0.75" allowasextracargo="true">
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+      <RequiredItem identifier="steel" amount="2" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="5" requiresrecipe="true" displayname="recycleitem">
+      <RequiredItem identifier="cultistshield" amount="1" mincondition="0.0" maxcondition="0.9" usecondition="false" />
+      <RequiredItem identifier="steel" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Items/lifeessence.png" sourcerect="32,80,64,64" />
+    <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="0,80,32,124" origin="0.5,0.5" depth="0.55" />
+    <Body height="120" radius="12" density="30" />
+    <Holdable slots="LeftHand" aimpos="60,-15" holdpos="45,-15" handle1="-25,0" handle2="-25,0" controlpose="false" blocksplayers="true" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.8" setvalue="true" />
+	  <StatusEffect type="OnActive" target="This" Condition="1" />
+      <StatusEffect type="OnBroken" target="This">
+        <particleemitter particle="shrapnel" drawontop="true" particleamount="15" velocitymin="100" velocitymax="500" anglemin="0" anglemax="360" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" />
+        <Sound file="Content/Sounds/Damage/ArmorBreak4.ogg" range="800" />
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnDamaged" target="This">
+        <particleemitter particle="weldspark" drawontop="true" particleamount="10" velocitymin="100" velocitymax="500" anglemin="-45" anglemax="45" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" copyentityangle="true" />
+        <Sound file="Content/Sounds/Damage/HitArmor1.ogg" range="800" forcePlaySounds="true"/>
+        <!-- an invisible explosion to make the user "flinch" -->
+        <Explosion range="100.0" force="1" showeffects="false" camerashake="1.0" />
+      </StatusEffect>
+    </Holdable>
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="Shield Worn" texture="%ModDir%/Items/lifeessence.png" canbehiddenbyotherwearables="false" sourcerect="0,80,32,124" rotation="180" inheritlimbdepth="true" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.75" origin="-0.5,0.5" />
+    </Wearable>
+  </Item>
+  
+  <!-- cultist mace -->
+  <Item name="Marauder Mace" identifier="cultistmace" category="Weapon,Misc" Tags="smallitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="true" >
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+      <RequiredItem identifier="steel" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Items/lifeessence.png" sourcerect="160,80,64,64" />
+    <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="32,144,157,30" origin="0.5,0.5" depth="0.55" />
+    <Body width="114" height="20" density="30" />
+    <MeleeWeapon slots="RightHand,LeftHand,Any" range="100" reload="1.2" controlpose="true" aimpos="45,20" handle1="-20,2" holdangle="60" combatpriority="15" >
+      <RequiredSkill identifier="weapon" level="20" />
+      <Attack targetimpulse="15" structuredamage="5" itemdamage="10" >
+        <Affliction identifier="blunttrauma" strength="15" />
+        <Affliction identifier="stun" strength="0.5" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+    </MeleeWeapon>
+    <SkillRequirementHint identifier="weapon" level="20"/>
   </Item>
   
   <!-- gang war spraycans (cyan, yellow and magenta) -->

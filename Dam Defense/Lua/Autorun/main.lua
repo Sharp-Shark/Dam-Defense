@@ -145,7 +145,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 		specialCommands['rebels'] = true
 	end
 	for event in DD.eventDirector.getEventInstances('bloodCult') do
-		if event.cultistsSet[sender] then
+		if event.cultistsSet[sender] or (DD.isClientCharacterAlive(sender) and (sender.Character.SpeciesName == 'Humanundead')) then
 			specialCommands['cultists'] = true
 			specialCommands['whisper'] = true
 		end

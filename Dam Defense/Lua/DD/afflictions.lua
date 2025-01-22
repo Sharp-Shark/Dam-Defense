@@ -110,7 +110,7 @@ Hook.Add("character.applyDamage", "DD.resetHuskRegenOnDamage", function (charact
 	local character = characterHealth.Character
 	if character == nil then return end
 	
-	if DD.isCharacterHusk(character) and
+	if (DD.isCharacterHusk(character) or character.SpeciesName == 'humanundead') and
 	(not character.IsDead) and
 	(attackResult.Damage >= 0.1) and
 	(character.CharacterHealth.GetAffliction('huskregen', true) ~= nil) and
@@ -136,7 +136,7 @@ DD.thinkFunctions.afflictions = function ()
 			end
 		end
 		-- Husk regen
-		if DD.isCharacterHusk(character) and (not character.IsDead) then
+		if (DD.isCharacterHusk(character) or character.SpeciesName == 'humanundead') and (not character.IsDead) then
 			local damage = 0
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByIdentifier('bloodloss', true)
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByType('damage', true)

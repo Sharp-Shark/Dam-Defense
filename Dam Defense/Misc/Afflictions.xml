@@ -176,7 +176,8 @@
   <Affliction name="Enlightened" identifier="enlightened" description="You have been enlightened by the light of truth. You must enlighten others, so all may know it." type="oneofus" targets="human,humangoblin,humantroll,humanundead" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" showicontoothersthreshold="999" showinhealthscannerthreshold="999" maxstrength="100">
     <Effect minstrength="0" maxstrength="99" strengthchange="-5" />
 	<Effect minstrength="99" maxstrength="100" strengthchange="1.0">
-	  <StatusEffect target="character">
+	  <StatusEffect target="character" >
+        <Affliction identifier="disguisedashusk" amount="1.0" />
 	    <Affliction identifier="timepressure" amount="0.12" />
 	    <LuaHook name="DD.enlightened.givetalent" />
 	  </StatusEffect>
@@ -445,7 +446,7 @@
   
   <!-- gives husk damage vulnerability for whenever they are downed so they are easier to kill BUT also regen the husk -->
   <Affliction
-    name="Husk regen"
+    name="Undead regen"
     identifier="huskregen"
     description="Vulnerability in exchange for rapid regeneration."
     type="debuff"
@@ -473,7 +474,7 @@
   
   <!-- slow/speed (+ stun and damage resistance) effect whenever husk hits someone -->
   <Affliction
-    name="Husk greed"
+    name="Greed"
     identifier="huskgreed"
     description="Gotta go fast."
     type="haste"

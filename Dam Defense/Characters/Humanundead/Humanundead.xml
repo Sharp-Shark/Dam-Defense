@@ -1,4 +1,4 @@
-﻿<Character specifiertags="true" skincolors="(#fce1c6, 100); (#f3c696, 100); (#f3c696, 100); (#aa7744, 100); (#f4be98, 100); (#d69a70, 100); (#ab7046, 100); (#774929, 100); (#c8a583, 100); (#a57c53, 100); (#7a5026, 100); (#4a3219, 100); (#957966, 100); (#714d34, 100); (#532d12, 100); (#26190e, 100)" haircolors="(#ded7cc, 100); (#d2a36f, 100); (#c77d52, 100); (#ac4934, 100); (#d8ba85, 100); (#cd975a, 100); (#a15837, 100); (#6a3b37, 100); (#bba981, 100); (#8b7e6c, 100); (#594349, 100); (#473637, 100); (#7b8478, 100); (#494e55, 100); (#3a3a3c, 100); (#343030, 100)" facialhaircolors="(#ded7cc, 100); (#d2a36f, 100); (#c77d52, 100); (#ac4934, 100); (#d8ba85, 100); (#cd975a, 100); (#a15837, 100); (#6a3b37, 100); (#bba981, 100); (#8b7e6c, 100); (#594349, 100); (#473637, 100); (#7b8478, 100); (#494e55, 100); (#3a3a3c, 100); (#343030, 100)" SpeciesName="Humanundead" SpeciesTranslationOverride="" DisplayName="" Group="human" Humanoid="True" HasInfo="True" CanInteract="True" CanClimb="True" Husk="False" UseHuskAppendage="True" NeedsAir="False" NeedsWater="False" CanSpeak="True" UseBossHealthBar="False" Noise="150" Visibility="150" BloodDecal="blood" BleedParticleAir="blooddrop" BleedParticleWater="waterblood" BleedParticleMultiplier="1" CanEat="True" EatingSpeed="10" UsePathFinding="True" PathFinderPriority="1" HideInSonar="False" HideInThermalGoggles="True" SonarDisruption="0" DistantSonarRange="0" DisableDistance="25000" SoundInterval="10">
+﻿<Character specifiertags="true" skincolors="(#fce1c6, 100); (#f3c696, 100); (#f3c696, 100); (#aa7744, 100); (#f4be98, 100); (#d69a70, 100); (#ab7046, 100); (#774929, 100); (#c8a583, 100); (#a57c53, 100); (#7a5026, 100); (#4a3219, 100); (#957966, 100); (#714d34, 100); (#532d12, 100); (#26190e, 100)" haircolors="(#ded7cc, 100); (#d2a36f, 100); (#c77d52, 100); (#ac4934, 100); (#d8ba85, 100); (#cd975a, 100); (#a15837, 100); (#6a3b37, 100); (#bba981, 100); (#8b7e6c, 100); (#594349, 100); (#473637, 100); (#7b8478, 100); (#494e55, 100); (#3a3a3c, 100); (#343030, 100)" facialhaircolors="(#ded7cc, 100); (#d2a36f, 100); (#c77d52, 100); (#ac4934, 100); (#d8ba85, 100); (#cd975a, 100); (#a15837, 100); (#6a3b37, 100); (#bba981, 100); (#8b7e6c, 100); (#594349, 100); (#473637, 100); (#7b8478, 100); (#494e55, 100); (#3a3a3c, 100); (#343030, 100)" SpeciesName="Humanundead" SpeciesTranslationOverride="" DisplayName="" Group="husk" Humanoid="True" HasInfo="True" CanInteract="True" CanClimb="True" Husk="False" UseHuskAppendage="True" NeedsAir="False" NeedsWater="False" CanSpeak="True" UseBossHealthBar="False" Noise="300" Visibility="150" BloodDecal="blood" BleedParticleAir="blooddrop" BleedParticleWater="waterblood" BleedParticleMultiplier="1" CanEat="True" EatingSpeed="10" UsePathFinding="True" PathFinderPriority="1" HideInSonar="False" HideInThermalGoggles="True" SonarDisruption="0" DistantSonarRange="0" DisableDistance="25000" >
   <names path="Content/Characters/Human/names.xml" />
   <ragdolls folder="default" />
   <animations folder="default" />
@@ -28,7 +28,10 @@
   <sound File="Content/Characters/Human/male_damage9.ogg" State="Damage" Range="500" Volume="1" Tags="Male" />
   <sound File="Content/Characters/Human/male_damage10.ogg" State="Damage" Range="500" Volume="1" Tags="Male" />
   <sound File="Content/Characters/Human/male_damage11.ogg" State="Damage" Range="500" Volume="1" Tags="Male" />
-  <health Vitality="100" DoesBleed="False" CrushDepth="6000" UseHealthWindow="True" BleedingReduction="0" BurnReduction="0.075" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="True" ApplyAfflictionColors="True">
+  <sound file="%ModDir%/Characters/Humanundead/undead_idle1.ogg" state="Idle" range="1000" volume="3" />
+  <sound file="%ModDir%/Characters/Humanundead/undead_idle2.ogg" state="Idle" range="1000" volume="3" />
+  <sound file="%ModDir%/Characters/Humanundead/undead_idle3.ogg" state="Idle" range="1000" volume="3" />
+  <health Vitality="150" DoesBleed="False" CrushDepth="6000" UseHealthWindow="True" BleedingReduction="0" BurnReduction="0.075" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="True" ApplyAfflictionColors="True">
     <MedUISilhouette texture="Content/UI/Health/MedUI_Silhouette.png" columns="8" rows="2" sourcerect="0,0,1008,748" />
     <MedUIExtra texture="Content/UI/Health/MedUIExtra.png" columns="4" rows="4" sourcerect="0,0,1024,1024" />
     <Limb name="Head">
@@ -62,7 +65,7 @@
       <VitalityMultiplier type="damage" multiplier="0.5" />
     </Limb>
   </health>
-  <inventory arrowslot="9" Slots="Card, Headset, Head, InnerClothes, OuterClothes, LeftHand, RightHand, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface" AccessibleWhenAlive="True" Commonness="1" />
+  <inventory arrowslot="9" Slots="Card, Headset, Head, InnerClothes, OuterClothes, LeftHand, RightHand, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface" AccessibleWhenAlive="False" Commonness="1" />
   <Heads>
     <Head tags="head1,male" sheetindex="0,0" />
     <Head tags="head2,male" sheetindex="1,0" />
