@@ -14,6 +14,11 @@ end, {
 	minimunAlivePercentage = 1.0,
 	
 	getShouldFinish = function (self)
+		-- guard clause
+		if self.killer == nil then
+			return true
+		end
+	
 		-- See if anyone is still alive
 		local anyoneAlive = false
 		for client in Client.ClientList do

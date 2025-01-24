@@ -183,9 +183,6 @@ DD.wikiData = {
 	pioneerPointDam = {
 		related = {'main', 'dams'},
 	},
-	aegaeonCliffsDam = {
-		related = {'main', 'dams'},
-	},
 }
 -- Automatically adds an object's XML description to its wiki text
 for localization in DD.localizations do

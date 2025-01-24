@@ -146,7 +146,7 @@ end, {
 		end
 	end,
 	
-	stateStartInitialTimer = 60 * 3, -- in seconds
+	stateStartInitialTimer = 60 * 1, -- in seconds
 	
 	stateMain = {
 		onChange = function (self, state)

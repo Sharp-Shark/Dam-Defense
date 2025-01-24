@@ -158,6 +158,7 @@ DD.eventAirdropSeparatist = DD.class(DD.eventAirdrop, nil, {
 	cooldown = 60 * 2,
 	weight = 1,
 	goodness = -0.5,
+	public = false,
 	
 	spawnPosition = 'dd_airdropseparatist',
 	crateIdentifier = 'explosivecrate',
@@ -182,6 +183,7 @@ DD.eventAirdropCultist = DD.class(DD.eventAirdrop, nil, {
 	cooldown = 60 * 2,
 	weight = 1,
 	goodness = -0.5,
+	public = false,
 	
 	spawnPosition = 'dd_airdropseparatist',
 	crateIdentifier = 'explosivecrate',
@@ -205,7 +207,7 @@ DD.eventAirdropArtifact = DD.class(DD.eventAirdrop, nil, {
 	name = 'airdropArtifact',
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 0.5,
+	weight = 1.5,
 	goodness = 0.5,
 	
 	spawnPosition = 'dd_airdropartifact',

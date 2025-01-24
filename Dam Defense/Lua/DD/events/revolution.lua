@@ -14,6 +14,11 @@ end, {
 	minimunAlivePercentage = 1.0,
 	
 	getShouldFinish = function (self)
+		-- guard clause
+		if self.rebels == nil then
+			return true
+		end
+	
 		-- See if security is still alive
 		local anySecurityIsAlive = false
 		for client in Client.ClientList do
@@ -160,7 +165,7 @@ end, {
 		end
 	end,
 	
-	stateStartInitialTimer = 60 * 3, -- in seconds
+	stateStartInitialTimer = 60 * 1, -- in seconds
 	
 	stateMain = {
 		onChange = function (self, state)

@@ -198,8 +198,6 @@ return {
 	wikiText_oldeTowneDam = 'The original first Dam Defense map. An old dam with a small but well-established industrial colony to its left. The basin is mostly open, with only a small but still cave system with wide passages. Despite its age, most of the ore in the basin have yet to be mined.\n\nMap by Sharp-Shark.',
 	wikiName_pioneerPointDam = 'Pioneer Point Dam',
 	wikiText_pioneerPointDam = 'The second Dam Defense map, made for smaller player counts and with a focus on verticality. A dam still in construction with a tiny pioneer settlement, eager to explore this land on the edge of civilization. The basin consists entirely out of a narrow cave system.\n\nMap by Sharp-Shark.',
-	wikiName_aegaeonCliffsDam = 'Aegaeon Cliffs Dam',
-	wikiText_aegaeonCliffsDam = 'The third Dam Defense map, [[made for smaller player counts and with a focus on verticality. A dam still in construction with a tiny pioneer settlement, eager to explore this land on the edge of civilization. The basin consists entirely out of a narrow cave system]].\n\nMap by Barry Ballast.',
 	-- end
 	[''] = '',
 }
