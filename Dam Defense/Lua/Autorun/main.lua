@@ -41,6 +41,13 @@ DD.steamWorkshopId = getSteamWorkshopId()
 -- Husk Control cuz WHY NOT?!
 Game.EnableControlHusk(true)
 
+-- Necessary for other bits of the code to work
+RelationType = LuaUserData.CreateEnumTable('Barotrauma.RelatedItem+RelationType')
+LuaUserData.RegisterType('System.Collections.Generic.Dictionary`2[[Barotrauma.RelatedItem+RelationType],[System.Collections.Generic.List`1[[Barotrauma.RelatedItem]]]]')
+RelatedItem = LuaUserData.CreateStatic('Barotrauma.RelatedItem', true)
+LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.WayPoint"], "set_IdCardTags")
+LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.Item"], "set_InventoryIconColor")
+
 -- Functions executed at round start
 DD.roundStartFunctions = {}
 local doRoundStartFunctions = function ()
@@ -56,6 +63,31 @@ DD.roundStartFunctions.main = function ()
 	end
 	if SERVER then
 		Game.ServerSettings['AllowFriendlyFire'] = true
+	end
+	
+	-- automatically put idcard tags in spawnpoints for standartization
+	local jobTags = {
+		captain = 'id_captain,id_security,id_medic,id_engineer,id_janitor',
+		diver = 'id_security,id_engineer,id_janitor',
+		securityofficer = 'id_security,id_engineer,id_janitor',
+		foreman = 'id_security,id_engineer,id_janitor',
+		researcher = 'id_medic',
+		medicaldoctor = 'id_medic',
+		engineer = 'id_engineer',
+		janitor = 'id_janitor',
+		bodyguard = '',
+		mechanic = '',
+		clown = '',
+		assistant = 'id_assistant',
+		-- other jobs
+		mercs = 'id_captain,id_security,id_medic,id_engineer,id_janitor',
+		mercsevil = 'id_jet',
+		jet = 'id_jet'
+	}
+	for waypoint in  Submarine.MainSub.GetWaypoints(false) do
+		if (waypoint.AssignedJob ~= nil) and (jobTags[tostring(waypoint.AssignedJob.Identifier)] ~= nil) then
+			waypoint['set_IdCardTags'](DD.stringSplit(jobTags[tostring(waypoint.AssignedJob.Identifier)], ','))
+		end
 	end
 
 	DD.roundData = {}
@@ -448,8 +480,6 @@ Hook.Add("chatMessage", "DD.chatMessage", function (message, sender)
 	return doChatMessageFunctions(message, sender)
 end)
 
--- Make the following properties of items changeable (this is important for DD.onGiveJobItems)
-LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.Item"], "set_InventoryIconColor")
 -- Give talents
 Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	-- Message

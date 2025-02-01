@@ -204,6 +204,6 @@ DD.eventWithStartBase = DD.class(DD.eventSMBase, nil, {
 	
 	stateMain = {
 		onChange = function (self, state) return end,
-		onThink = function (self) self.parent.finish() end,
+		onThink = function (self) return end,
 	},
 })

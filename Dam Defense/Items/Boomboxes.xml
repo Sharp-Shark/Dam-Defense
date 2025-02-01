@@ -9,7 +9,13 @@
 			<Price storeidentifier="merchantmilitary" sold="false" />
 			<Price storeidentifier="merchantmine" sold="false" />
 		</Price>
-		<Fabricate suitablefabricators="fabricator" requiredtime="60">
+        <Deconstruct time="10">
+			<Item identifier="steel" amount="2" />
+			<Item identifier="plastic" amount="2" />
+			<Item identifier="copper" amount="2" />
+			<Item identifier="fpgacircuit" amount="1" />
+        </Deconstruct>
+		<Fabricate suitablefabricators="fabricator" requiredtime="30">
 			<RequiredItem identifier="steel" amount="2" />
 			<RequiredItem identifier="plastic" amount="2" />
 			<RequiredItem identifier="copper" amount="2" />
@@ -85,7 +91,12 @@
 	</Item>
 	<!-- enter sandman -->
 	<Item name="Metal Boombox" description="" identifier="boombox3" variantof="boombox1" category="Misc" Tags="smallitemitem,instrument" scale="0.5" isshootable="true">
-		<Fabricate suitablefabricators="fabricator" requiredtime="60">
+        <Deconstruct time="10">
+			<Item identifier="steel" amount="4" />
+			<Item identifier="copper" amount="2" />
+			<Item identifier="fpgacircuit" amount="1" />
+        </Deconstruct>
+		<Fabricate suitablefabricators="fabricator" requiredtime="30">
 			<RequiredItem identifier="steel" amount="4" />
 			<RequiredItem identifier="copper" amount="2" />
 			<RequiredItem identifier="fpgacircuit" amount="1" />
@@ -103,7 +114,13 @@
 	</Item>
 	<!-- bandit radio -->
 	<Item name="Bandit Boombox" description="" identifier="boombox4" variantof="boombox1" category="Misc" Tags="smallitemitem,instrument" scale="0.5" isshootable="true">
-		<Fabricate suitablefabricators="fabricator" requiredtime="60">
+        <Deconstruct time="10">
+			<Item identifier="steel" amount="2" />
+			<Item identifier="plastic" amount="2" />
+			<Item identifier="copper" amount="2" />
+			<Item identifier="rum" amount="1" />
+        </Deconstruct>
+		<Fabricate suitablefabricators="fabricator" requiredtime="30">
 			<RequiredItem identifier="steel" amount="2" />
 			<RequiredItem identifier="plastic" amount="2" />
 			<RequiredItem identifier="copper" amount="2" />
@@ -121,7 +138,13 @@
 	</Item>
 	<!-- title3 -->
 	<Item name="Clown Boombox" description="" identifier="boombox5" variantof="boombox1" category="Misc" Tags="smallitemitem,instrument" scale="0.5" isshootable="true">
-		<Fabricate suitablefabricators="fabricator" requiredtime="60">
+        <Deconstruct time="10">
+			<Item identifier="steel" amount="2" />
+			<Item identifier="plastic" amount="2" />
+			<Item identifier="copper" amount="2" />
+			<Item identifier="bikehorn" amount="1" />
+        </Deconstruct>
+		<Fabricate suitablefabricators="fabricator" requiredtime="30">
 			<RequiredItem identifier="steel" amount="2" />
 			<RequiredItem identifier="plastic" amount="2" />
 			<RequiredItem identifier="copper" amount="2" />
@@ -139,7 +162,12 @@
 	</Item>
 	<!-- come out and play -->
 	<Item name="Punk Boombox" description="" identifier="boombox6" variantof="boombox1" category="Misc" Tags="smallitemitem,instrument" scale="0.5" isshootable="true">
-		<Fabricate suitablefabricators="fabricator" requiredtime="60">
+        <Deconstruct time="10">
+			<Item identifier="steel" amount="4" />
+			<Item identifier="copper" amount="2" />
+			<Item identifier="fpgacircuit" amount="1" />
+        </Deconstruct>
+		<Fabricate suitablefabricators="fabricator" requiredtime="30">
 			<RequiredItem identifier="steel" amount="4" />
 			<RequiredItem identifier="copper" amount="2" />
 			<RequiredItem identifier="fpgacircuit" amount="1" />
@@ -157,7 +185,13 @@
 	</Item>
 	<!-- drunken sailor -->
 	<Item name="Sailor Boombox" description="" identifier="boombox7" variantof="boombox1" category="Misc" Tags="smallitemitem,instrument" scale="0.5" isshootable="true">
-		<Fabricate suitablefabricators="fabricator" requiredtime="60">
+        <Deconstruct time="10">
+			<Item identifier="steel" amount="2" />
+			<Item identifier="plastic" amount="2" />
+			<Item identifier="copper" amount="2" />
+			<Item identifier="rum" amount="1" />
+        </Deconstruct>
+		<Fabricate suitablefabricators="fabricator" requiredtime="30">
 			<RequiredItem identifier="steel" amount="2" />
 			<RequiredItem identifier="plastic" amount="2" />
 			<RequiredItem identifier="copper" amount="2" />

@@ -366,9 +366,9 @@
   </Item>
   
   <!-- ballot box -->
-  <Item name="Ballot Box" identifier="ballotbox" category="Misc" tags="democracy" canflipx="false" canflipy="false" scale="0.5" noninteractable="true" condition="0" >
-    <Sprite texture="ballotbox.png" depth="0.75" sourcerect="0,0,148,232" origin="0.5,0.5" />
-	<BrokenSprite texture="ballotbox.png" depth="0.75" sourcerect="148,0,148,232" origin="0.5,0.5" />
+  <Item name="Ballot Box" identifier="ballotbox" category="Machine,Misc" tags="democracy" canflipx="false" canflipy="false" scale="0.5" noninteractable="true" condition="0" GrabWhenSelected="true" >
+    <Sprite texture="%ModDir%/Items/ballotbox.png" depth="0.75" sourcerect="0,0,148,232" origin="0.5,0.5" />
+	<BrokenSprite texture="%ModDir%/Items/ballotbox.png" depth="0.75" sourcerect="148,0,148,232" origin="0.5,0.5" />
     <CustomInterface canbeselected="true" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.15,0.15" style="ItemUI" anchor="Center" />
       <Button text="Vote Yes">
@@ -386,6 +386,43 @@
 	  <Containable items="money" />
 	</ItemContainer>
     <LightComponent range="125.0" lightcolor="255,200,155,100" powerconsumption="0" IsOn="false" castshadows="false" alphablend="false" pulsefrequency="0.8" pulseamount="1.0" allowingameediting="false" />
+  </Item>
+  
+  <!-- printer -->
+  <Item name="Printer" identifier="printer" category="Machine" tags="" canflipx="true" canflipy="false" scale="0.5" condition="100" GrabWhenSelected="true" >
+    <Sprite texture="%ModDir%/Items/ballotbox.png" depth="0.75" sourcerect="296,0,124,202" origin="0.5,0.5" />
+    <CustomInterface canbeselected="true" drawhudwhenequipped="false" msg="ItemMsgInteractSelect" >
+      <GuiFrame relativesize="0.2,0.3" style="ItemUI" anchor="Center" />
+	  <TextBox text="Job to Apply" propertyname="tags" maxtextlength="99" />
+      <Button text="Apply Job">
+        <StatusEffect type="OnUse" target="Contained" stackable="false" >
+          <RequiredItems items="idcard,clothing" type="Contained" />
+          <Sound file="%ModDir%/Sounds/fabricator.ogg" range="500.0" />
+          <LuaHook name="DD.idcardprinter.apply" />
+        </StatusEffect>
+      </Button>
+      <Button text="Fabricate">
+        <StatusEffect type="OnUse" target="Contained" stackable="false" >
+          <RequiredItems items="plastic,organicfiber" type="Contained" />
+          <Sound file="%ModDir%/Sounds/fabricator.ogg" range="500.0" />
+          <LuaHook name="DD.idcardprinter.create" />
+        </StatusEffect>
+      </Button>
+      <Button text="Deconstruct">
+        <StatusEffect type="OnUse" target="Contained" stackable="false" >
+          <RequiredItems items="idcard,clothing" type="Contained" />
+          <Sound file="%ModDir%/Sounds/fabricator.ogg" range="500.0" />
+          <LuaHook name="DD.idcardprinter.delete" />
+        </StatusEffect>
+      </Button>
+    </CustomInterface>
+	<ItemContainer hideitems="true" capacity="1" maxstacksize="1" drawinventory="true" canbeselected="true" drawhudwhenequipped="false" slotsperrow="1" uilabel="ID Card" allowuioverlap="false" >
+	  <GuiFrame relativesize="0.2,0.15" anchor="BottomCenter" style="ItemUI" />
+	  <Containable items="idcard,plastic,organicfiber,clothing" excludeditems="bandolier,bodyarmor,piratebodyarmor,mudraptorshell,makeshiftarmor,safetyharness,hazmatsuit" />
+	</ItemContainer>
+    <LightComponent range="0.0" lightcolor="255,255,255,111" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" pulsefrequency="0.8" pulseamount="1.0" allowingameediting="false">
+      <sprite texture="%ModDir%/Items/ballotbox.png" sourcerect="420,0,124,202" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+    </LightComponent>
   </Item>
 
   <!-- nexshops -->

@@ -92,6 +92,277 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(itemIdentifier), inventory, nil, nil, function (spawnedItem) end)
 end)
 
+-- changes the job of an idcard or clothing
+Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, deltaTime, item, targets, worldPosition)
+	local containedItem = targets[1]
+	if (containedItem == nil) or ((containedItem.Prefab.Identifier ~= 'idcard') and (not containedItem.HasTag('clothing'))) then return end
+	local identifier = item.tags
+	if (identifier == nil) or (#DD.stringSplit(tostring(identifier), ',') < 2) then return end
+	identifier = DD.tableJoin(DD.stringSplit(string.lower(DD.stringSplit(tostring(identifier), ',')[2]), ' '))
+	
+	-- custom cards that do not have a job related to them
+	local customCards = {
+		shop = {
+			name = 'Shopkeeper',
+			tags = 'id_shop',
+			clothing = {'commonerclothes1'},
+			color = Color(55, 155, 0),
+			trueColor = true,
+			shortcuts = {
+				'shop',
+				'shopowner',
+				'shopkeep',
+				'shopkeeper',
+				'store',
+				'storeowner',
+				'storekeep',
+				'storekeeper',
+				'vendor',
+				'merchant',
+				'retailer',
+				'trader',
+				'clerk',
+				'seller',
+			}
+		},
+		miner = {
+			name = 'Miner',
+			tags = 'id_miner',
+			clothing = {'minerclothes'},
+			color = Color(100, 10, 24),
+			shortcuts = {
+				'miner',
+			}
+		},
+		vip = {
+			clothing = {'vipclothes1', 'vipclothes2', 'vipclothes3'},
+			clothingOnly = true,
+			shortcuts = {
+				'vip',
+			}
+		},
+		admin = {
+			clothing = {'administratorclothes'},
+			clothingOnly = true,
+			shortcuts = {
+				'administrator',
+				'admin',
+				'nazi',
+			}
+		},
+		cultist = {
+			clothing = {'faultycultistrobes'},
+			clothingOnly = true,
+			shortcuts = {
+				'huskcultist',
+				'cultist',
+				'cultie',
+				'cult',
+				'zealot',
+				'husk',
+			}
+		},
+	}
+	local customCard
+	for key, value in pairs(customCards) do
+		if DD.tableHas(value.shortcuts, identifier) then
+			customCard = value
+		end
+	end
+	
+	-- alternative names for jobs
+	local shortcuts = {
+		-- mayor
+		mayor = 'captain',
+		cap = 'captain',
+		-- diver
+		div = 'diver',
+		-- foreman
+		headengineer = 'foreman',
+		headengi = 'foreman',
+		headeng = 'foreman',
+		chiefengineer = 'foreman',
+		chiefengi = 'foreman',
+		chiefeng = 'foreman',
+		-- researcher
+		res = 'researcher',
+		scientist = 'researcher',
+		sci = 'researcher',
+		-- medical doctor
+		doctor = 'medicaldoctor',
+		doc = 'medicaldoctor',
+		medic = 'medicaldoctor',
+		med = 'medicaldoctor',
+		-- security officer
+		enforcer = 'securityofficer',
+		security = 'securityofficer',
+		officer = 'securityofficer',
+		sec = 'securityofficer',
+		cop = 'securityofficer',
+		police = 'securityofficer',
+		-- engineer
+		engi = 'engineer',
+		eng = 'engineer',
+		-- janitor
+		jani = 'janitor',
+		jan = 'janitor',
+		-- bodyguard
+		guard = 'bodyguard',
+		goon = 'bodyguard',
+		bouncer = 'bodyguard',
+		bg = 'bodyguard',
+		-- mechanic
+		laborer = 'mechanic',
+		labor = 'mechanic',
+		labo = 'mechanic',
+		lab = 'mechanic',
+		mech = 'mechanic',
+		mec = 'mechanic',
+		worker = 'mechanic',
+		work = 'mechanic',
+		-- convict
+		convict = 'assistant',
+		prisoner = 'assistant',
+		inmate = 'assistant',
+		-- mercs
+		merc = 'mercs',
+		-- mercs evil
+		mercevil = 'mercsevil',
+		deathsquad = 'mercsevil',
+	}
+	if (shortcuts[identifier] ~= nil) and (customCard == nil) then identifier = shortcuts[identifier] end
+	
+	-- handle containedItem possibly being clothing
+	local idcard
+	if containedItem.Prefab.Identifier ~= 'idcard' then
+		if customCard then
+			if customCard.clothing == nil then return end
+			identifier = customCard.clothing[math.random(#customCard.clothing)]
+		else
+			local waypoint = DD.findRandomWaypointByJob(identifier)
+			if waypoint == nil then return end
+			
+			local jobPrefab = JobPrefab.Get(identifier)
+			local itemSet = jobPrefab.JobItems[math.random(0, #jobPrefab.JobItems)]
+			
+			for value in itemSet do
+				if value.Outfit then
+					identifier = value.ItemIdentifier
+					break
+				end
+			end
+		end
+		
+		if containedItem.OwnInventory ~= nil then
+			for slot = 0, containedItem.OwnInventory.Capacity do
+				local count = 99
+				while containedItem.OwnInventory.GetItemAt(slot) ~= nil do
+					containedItem.OwnInventory.GetItemAt(slot).Drop()
+					-- safety agaisnt infinite looping
+					count = count - 1
+					if count <= 0 then break end
+				end
+			end
+		end
+		
+		Entity.Spawner.AddEntityToRemoveQueue(containedItem)
+		Timer.Wait(function ()
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), item.OwnInventory, nil, nil, function (spawnedItem) end)
+		end, 1)
+		
+		return
+	else
+		idcard = containedItem
+	end
+	
+	-- give idcard tags
+	local jobPrefab
+	if customCard == nil then
+		-- find a spawnpoint to see what idcard tags are associated with the job
+		local waypoint = DD.findRandomWaypointByJob(identifier)
+		if waypoint == nil then return end
+		idcard.tags = DD.tableJoin(waypoint.IdCardTags, ',')
+		jobPrefab = JobPrefab.Get(waypoint.AssignedJob.Identifier)
+	else
+		if customCard.clothingOnly then return end
+		idcard.tags = customCard.tags
+	end
+	
+	-- Set the idcard's color to be the job's UIColor
+	local color = jobPrefab and jobPrefab.UIColor or customCard.color
+	if (customCard == nil) or (not customCard.trueColor) then color = Color.Lerp(color, Color.White, 0.25) end
+	idcard.SpriteColor = color
+	idcard['set_InventoryIconColor'](color)
+	
+	-- Set the description
+	local name = string.lower(tostring(jobPrefab and jobPrefab.Name or customCard.name))
+	local vowels = {a = true, e = true, i = true, o = true, u = true}
+	idcard.Description = 'This belongs to ' .. (vowels[string.lower(string.sub(name, 1, 1))] and 'an' or 'a') .. ' ' .. name .. '. Allows limited access to areas of the sub.'
+			
+	-- Sync changes for clients
+	if SERVER then
+		local item = idcard
+		local tags = item.SerializableProperties[Identifier("Tags")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
+		local description = item.SerializableProperties[Identifier("Description")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
+		local sprcolor = item.SerializableProperties[Identifier("SpriteColor")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(sprcolor, item))
+		local invColor = item.SerializableProperties[Identifier("InventoryIconColor")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
+	end
+end)
+
+-- deletes raw material to create an idcard/clothing
+Hook.Add("DD.idcardprinter.create", "DD.idcardprinter.create", function(effect, deltaTime, item, targets, worldPosition)
+	local containedItem = targets[1]
+	if containedItem == nil then return end
+	
+	local identifier
+	if containedItem.Prefab.Identifier == 'plastic' then
+		identifier = 'idcard'
+	elseif containedItem.Prefab.Identifier == 'organicfiber' then
+		identifier = 'commonerclothes2'
+	end
+	if identifier == nil then return end
+	
+	Entity.Spawner.AddEntityToRemoveQueue(containedItem)
+	Timer.Wait(function ()
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), item.OwnInventory, nil, nil, function (spawnedItem) end)
+	end, 1)
+end)
+
+-- deletes idcard/clothing to create raw material
+Hook.Add("DD.idcardprinter.delete", "DD.idcardprinter.delete", function(effect, deltaTime, item, targets, worldPosition)
+	local containedItem = targets[1]
+	if containedItem == nil then return end
+	
+	local identifier
+	if containedItem.Prefab.Identifier == 'idcard' then
+		identifier = 'plastic'
+	elseif containedItem.HasTag('clothing') then
+		identifier = 'organicfiber'
+	end
+	if identifier == nil then return end
+	
+	if containedItem.OwnInventory ~= nil then
+		for slot = 0, containedItem.OwnInventory.Capacity do
+			local count = 99
+			while containedItem.OwnInventory.GetItemAt(slot) ~= nil do
+				containedItem.OwnInventory.GetItemAt(slot).Drop()
+				-- safety agaisnt infinite looping
+				count = count - 1
+				if count <= 0 then break end
+			end
+		end
+	end
+	
+	Entity.Spawner.AddEntityToRemoveQueue(containedItem)
+	Timer.Wait(function ()
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), item.OwnInventory, nil, nil, function (spawnedItem) end)
+	end, 1)
+end)
+
 Hook.Add("DD.wifitrigger.use", "DD.wifitrigger.use", function(effect, deltaTime, item, targets, worldPosition)
 	component = item.GetComponentString('WifiComponent').TransmitSignal(Signal('true'), false)
 end)

@@ -3366,14 +3366,12 @@
   <Item name="Displacer Cannon" identifier="displacercannon" category="Weapon" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="mediumitem,weapon,gun,mountableweapon,provocativetohumanai" Scale="0.5" impactsoundtag="impact_metal_heavy">
     <Deconstruct time="30">
       <Item identifier="dementonite" amount="2" />
-      <Item identifier="fulgurium" amount="2" />
       <Item identifier="lead" />
       <Item identifier="iron" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="180" >
       <RequiredSkill identifier="electrical" level="30" />
       <RequiredItem identifier="dementonite" amount="2" />
-      <RequiredItem identifier="fulgurium" amount="2" />
       <RequiredItem identifier="lead" />
       <RequiredItem identifier="steel" />
     </Fabricate>
@@ -5517,7 +5515,7 @@
     <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="0,204,192,48" depth="0.55" origin="0.7,0.5" />
     <Body width="320" height="33" density="30" />
     <MeleeWeapon slots="RightHand+LeftHand" aimable="true" AimPos="25,-60" HoldPos="50,-40" AimAngle="-90" HoldAngle="0" handle1="-60,0" handle2="-20,-5" reload="1" swing="false" range="100" combatpriority="15" msg="ItemMsgPickUpSelect">
-      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="1.3" setvalue="true" />
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="1.1" setvalue="true" />
 	  <Attack structuredamage="2" itemdamage="4" targetimpulse="10" >
         <Affliction identifier="lacerations" strength="20" />
         <Affliction identifier="bleeding" strength="20" />

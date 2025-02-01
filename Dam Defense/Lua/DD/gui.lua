@@ -156,6 +156,9 @@ DD.wikiData = {
 	brassknuckleItem = {
 		related = {'main', 'items'},
 	},
+	printerItem = {
+		related = {'main', 'items', 'jobs'},
+	},
 	-- creatures
 	spitroachCreature = {
 		related = {'main', 'creatures', 'fishEvent'},

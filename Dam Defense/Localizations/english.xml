@@ -10,6 +10,7 @@
   <roomname.factoryrooftop>Factory rooftop</roomname.factoryrooftop>
   <roomname.hospital>Hospital</roomname.hospital>
   <roomname.hospitalrooftop>Hospital rooftop</roomname.hospitalrooftop>
+  <roomname.shop>Shop</roomname.shop>
   <roomname.brigrooftop>Brig rooftop</roomname.brigrooftop>
   <roomname.divingarmory>Diving armory</roomname.divingarmory>
   <roomname.motel>Motel</roomname.motel>
@@ -128,6 +129,9 @@
   <!-- Foldable Chair -->
   <entityname.foldablechair>Foldable Chair</entityname.foldablechair>
   <entitydescription.foldablechair>A simple foldable metal chair. Now you can sit almost wherever you want with this! Surprisingly sturdy, sturdy enough to, say, lethally whack someone in the head with.</entitydescription.foldablechair>
+  <!-- Printer -->
+  <entityname.printer>Printer</entityname.printer>
+  <entitydescription.printer>An advanced ID card and clothing printer. Capable of processing plastic into ID cards or organic fiber into clothing. It can also then deconstruct them back into plastic or fiber. Finally, it can change the job of an ID card or piece of clothing.</entitydescription.printer>
   <!-- Wifi Trigger -->
   <entityname.wifitrigger>Wifi Trigger</entityname.wifitrigger>
   <entitydescription.wifitrigger>A handheld device that contains an wifi component, allowing for convenient remote sending of signals.</entitydescription.wifitrigger>

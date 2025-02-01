@@ -210,6 +210,16 @@ DD.tableValues = function (t)
 	return build
 end
 
+-- Returns a string
+DD.tableJoin = function (t, join)
+	local str = ''
+	local join = join or ''
+	for item in t do
+		str = str .. item .. join
+	end
+	return string.sub(str, 1, #str - #join)
+end
+
 -- My version of string.format
 DD.stringReplace = function(str, tbl)
 	local formatted = ''
@@ -247,7 +257,7 @@ DD.stringReplace = function(str, tbl)
 end
 
 -- Localizes a string
-DD.stringLocalize = function(key, tbl)
+DD.stringLocalize = function (key, tbl)
 	if key == nil then error("bad argument #1 to 'stringLocalize' (string expected, got nil)\n\n" .. debug.traceback(), 1) end
 	local language
 	if CLIENT then
@@ -267,7 +277,7 @@ DD.stringLocalize = function(key, tbl)
 end
 
 -- Checks if a string has another string
-DD.stringHas = function(strMain, strSub)
+DD.stringHas = function (strMain, strSub)
 	local build = ''
 	local letter = ''
 	for letterCount = 1, #strMain do
@@ -310,7 +320,7 @@ DD.stringFind = function (str, substr)
 end
 
 -- Splits a string into a table
-DD.stringSplit = function(str, split)
+DD.stringSplit = function (str, split)
 	local tbl = {}
 	local build = ''
 	local temp = ''
@@ -407,7 +417,6 @@ DD.toArr = function (t)
 	return DD.tableValues(t)
 end
 
-
 -- Like string.sub but for array tables
 DD.arrSub = function (array, start, finish)
 	local tbl = {}
@@ -475,8 +484,8 @@ DD.giveAfflictionCharacter = function (character, identifier, amount, limb)
 end
 
 -- Returns the item whose key matches the value
-DD.find = function (arr, key, value)
-	for item in arr do
+DD.find = function (tbl, key, value)
+	for item in tbl do
 		if item[key] == value then
 			return item
 		end

@@ -1,7 +1,7 @@
-Russian localization by Squid. Squid also helped with removing unused textures and with cleaning the boombox xml.
+Russian localization by Squid. Squid also helped with removing unused textures and with cleaning the boombox XML.
 Special thanks to the Undertow discord, the Luatrauma discord and Evil Factory for helping me overcome a lot of the hurdles I came across.
 Some art and audio assets are taken from other games like TF2, Half-Life, Half-Life: Opposing Force, Blood, Gloomwood and Plague Inc: Evolved.
-VIP event was an idea suggested by Jerry Peterson and he also provided the bodyguard outfit sprites.
+VIP event was an idea suggested by Jerry Peterson and he also provided the bodyguard outfit sprites and "Jerry.xml".
 Squall (sonksquall) gave the base XML for the pitchfork (cultistpitchfork).
 Base sprite for the toolkit was taken from BTE by Chiko Eduardo.
 

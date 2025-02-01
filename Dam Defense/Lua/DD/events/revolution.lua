@@ -64,6 +64,8 @@ end, {
 	end,
 	
 	rewardSecurityForArrests = function (self, multiplier)
+		if self.rebels == nil then return end
+		
 		local arrestedRebels = 0
 		for client in self.rebels do
 			if DD.isClientCharacterAlive(client) and DD.isCharacterArrested(client.Character) then
@@ -137,7 +139,7 @@ end, {
 		end
 		
 		-- Event requires 2 (or more) rebel leaders and (1 or more) security personnel
-		if (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0) then
+		if (self.rebels == nil) or (self.security == nil) or (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0) then
 			self.fail()
 			return
 		else
@@ -169,6 +171,11 @@ end, {
 	
 	stateMain = {
 		onChange = function (self, state)
+			if self.parent.rebels == nil then
+				self.parent.fail()
+				return
+			end
+		
 			local rebelsSet = DD.toSet(self.parent.rebels)
 			for client in Client.ClientList do
 				if rebelsSet[client] then
