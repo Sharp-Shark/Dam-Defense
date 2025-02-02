@@ -57,37 +57,39 @@ local doRoundStartFunctions = function ()
 end
 DD.roundStartFunctions.main = function ()
 	DD.setAllowRespawning(true)
+	
 	if Game.RoundStarted then
 		Submarine.MainSub.LockX = true
 		Submarine.MainSub.LockY = true
-	end
-	if SERVER then
-		Game.ServerSettings['AllowFriendlyFire'] = true
+		
+		-- automatically put idcard tags in spawnpoints for standartization
+		local jobTags = {
+			captain = 'id_captain,id_security,id_medic,id_engineer,id_janitor',
+			diver = 'id_security,id_engineer,id_janitor',
+			securityofficer = 'id_security,id_engineer,id_janitor',
+			foreman = 'id_security,id_engineer,id_janitor',
+			researcher = 'id_medic',
+			medicaldoctor = 'id_medic',
+			engineer = 'id_engineer',
+			janitor = 'id_janitor',
+			bodyguard = '',
+			mechanic = '',
+			clown = '',
+			assistant = 'id_assistant',
+			-- other jobs
+			mercs = 'id_captain,id_security,id_medic,id_engineer,id_janitor',
+			mercsevil = 'id_jet',
+			jet = 'id_jet'
+		}
+		for waypoint in  Submarine.MainSub.GetWaypoints(false) do
+			if (waypoint.AssignedJob ~= nil) and (jobTags[tostring(waypoint.AssignedJob.Identifier)] ~= nil) then
+				waypoint['set_IdCardTags'](DD.stringSplit(jobTags[tostring(waypoint.AssignedJob.Identifier)], ','))
+			end
+		end
 	end
 	
-	-- automatically put idcard tags in spawnpoints for standartization
-	local jobTags = {
-		captain = 'id_captain,id_security,id_medic,id_engineer,id_janitor',
-		diver = 'id_security,id_engineer,id_janitor',
-		securityofficer = 'id_security,id_engineer,id_janitor',
-		foreman = 'id_security,id_engineer,id_janitor',
-		researcher = 'id_medic',
-		medicaldoctor = 'id_medic',
-		engineer = 'id_engineer',
-		janitor = 'id_janitor',
-		bodyguard = '',
-		mechanic = '',
-		clown = '',
-		assistant = 'id_assistant',
-		-- other jobs
-		mercs = 'id_captain,id_security,id_medic,id_engineer,id_janitor',
-		mercsevil = 'id_jet',
-		jet = 'id_jet'
-	}
-	for waypoint in  Submarine.MainSub.GetWaypoints(false) do
-		if (waypoint.AssignedJob ~= nil) and (jobTags[tostring(waypoint.AssignedJob.Identifier)] ~= nil) then
-			waypoint['set_IdCardTags'](DD.stringSplit(jobTags[tostring(waypoint.AssignedJob.Identifier)], ','))
-		end
+	if SERVER then
+		Game.ServerSettings['AllowFriendlyFire'] = true
 	end
 
 	DD.roundData = {}
