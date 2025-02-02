@@ -96,9 +96,40 @@ end)
 Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, deltaTime, item, targets, worldPosition)
 	local containedItem = targets[1]
 	if (containedItem == nil) or ((containedItem.Prefab.Identifier ~= 'idcard') and (not containedItem.HasTag('clothing'))) then return end
-	local identifier = item.tags
-	if (identifier == nil) or (#DD.stringSplit(tostring(identifier), ',') < 2) then return end
-	identifier = DD.tableJoin(DD.stringSplit(string.lower(DD.stringSplit(tostring(identifier), ',')[2]), ' '))
+	local tags = item.tags
+	if (tags == nil) or (#DD.stringSplit(tostring(tags), ',') < 2) then return end
+	tags = tostring(tags)
+	
+	-- get needed data from printer tags
+	local characterName
+	local identifier
+	for tag in DD.stringSplit(tostring(tags), ',') do
+		if string.sub(tag, 1, 5) == 'name:' then
+			characterName = string.sub(tag, 6, #tag)
+		elseif tag ~= 'light' then
+			identifier = DD.tableJoin(DD.stringSplit(string.lower(tag), ' '))
+		end
+	end
+	
+	-- special case scenario for renaming ID card without changing the job
+	if identifier == nil then
+		if containedItem.Prefab.Identifier == 'idcard' then
+			local tags = ''
+			for tag in DD.stringSplit(containedItem.Tags, ',') do
+				if string.sub(tag, 1, 5) ~= 'name:' then
+					tags = tags .. tag .. ','
+				end
+			end
+			containedItem.tags = tags .. 'name:' .. characterName
+			-- Sync changes for clients
+			if SERVER then
+				local item = idcard
+				local tags = item.SerializableProperties[Identifier("Tags")]
+				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
+			end
+		end
+		return
+	end
 	
 	-- custom cards that do not have a job related to them
 	local customCards = {
@@ -275,6 +306,17 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 		idcard = containedItem
 	end
 	
+	-- get character name from ID card
+	if characterName == nil then
+		for tag in DD.stringSplit(idcard.Tags, ',') do
+			if string.sub(tag, 1, 5) == 'name:' then
+				characterName = string.sub(tag, 6, #tag)
+				break
+			end
+		end
+		characterName = characterName or CharacterInfo('human', 'John Doe').GetRandomName(1)
+	end
+	
 	-- give idcard tags
 	local jobPrefab
 	if customCard == nil then
@@ -294,17 +336,14 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 	idcard.SpriteColor = color
 	idcard['set_InventoryIconColor'](color)
 	
-	-- Set the description
-	local name = string.lower(tostring(jobPrefab and jobPrefab.Name or customCard.name))
-	local vowels = {a = true, e = true, i = true, o = true, u = true}
-	idcard.Description = 'This belongs to ' .. (vowels[string.lower(string.sub(name, 1, 1))] and 'an' or 'a') .. ' ' .. name .. '. Allows limited access to areas of the sub.'
+	-- Set the name and jobid tags
+	local jobName = string.lower(tostring(jobPrefab and jobPrefab.Name or customCard.name))
+	idcard.tags = idcard.tags .. ',name:' .. characterName .. ',jobid:' .. jobName
 			
 	-- Sync changes for clients
 	if SERVER then
 		local item = idcard
 		local tags = item.SerializableProperties[Identifier("Tags")]
-		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
-		local description = item.SerializableProperties[Identifier("Description")]
 		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
 		local sprcolor = item.SerializableProperties[Identifier("SpriteColor")]
 		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(sprcolor, item))

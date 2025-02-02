@@ -2,6 +2,51 @@
 <Items>
 
   <Override>
+  <!-- players can hide inside windowless steel cabinet (like a clown crate) -->
+  <Item name="" identifier="mediumsteelcabinet" tags="locker,container" linkable="true" pickdistance="150" waterproof="true" scale="0.5">
+    <Sprite texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="1,1,175,374" origin="0.5,0.5" />
+    <ItemContainer capacity="20" slotsperrow="5" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.25,0.45" anchor="Center" style="ItemUI" />
+      <Containable items="smallitem,mediumitem" excludedidentifiers="mobilecontainer" />
+      <SubContainer capacity="3" maxstacksize="1">
+        <SlotIcon texture="Content/UI/CommandUIAtlas.png" sourcerect="639,926,128,80" origin="0.5,0.5" />
+        <Containable items="mobilecontainer" />
+      </SubContainer>
+    </ItemContainer>
+	<!-- component to let players hide inside -->
+    <Controller UserPos="0,0" direction="Right" canbeselected="true" hidehud="false" AllowSelectingWhenSelectedByOther="true" selectkey="Use" drawuserbehind="true" forceusertostayattached="true" msg="itemmsggoinside" >
+	  <StatusEffect type="OnActive" targettype="Character" delay="0.25" stackable="true" indetectable="true" DisableFocusingOnEntities="true" invisibletimer="0.1" setvalue="true" />
+	</Controller>
+    <!-- backwards compatibility for older versions in which mobile containers like storage containers were containable in any cabinet -->
+    <Upgrade gameversion="1.1.0.0" campaignsaveonly="true">
+      <ItemContainer>
+        <Containable items="smallitem,mediumitem" />
+        <ClearSubContainerRestrictions />
+      </ItemContainer>
+    </Upgrade>
+  </Item>
+  <Item name="" identifier="steelcabinet" tags="locker,container" linkable="true" pickdistance="150" waterproof="true" scale="0.5">
+    <Sprite texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="348,2,364,373" origin="0.5,0.5" />
+    <ItemContainer capacity="35" slotsperrow="7" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.28,0.48" anchor="Center" style="ItemUI" />
+      <Containable items="smallitem,mediumitem" excludedidentifiers="mobilecontainer" />
+      <SubContainer capacity="5" maxstacksize="1">
+        <SlotIcon texture="Content/UI/CommandUIAtlas.png" sourcerect="639,926,128,80" origin="0.5,0.5" />
+        <Containable items="mobilecontainer" />
+      </SubContainer>
+    </ItemContainer>
+	<!-- component to let players hide inside -->
+    <Controller UserPos="0,0" direction="Right" canbeselected="true" hidehud="false" AllowSelectingWhenSelectedByOther="true" selectkey="Use" drawuserbehind="false" forceusertostayattached="true" msg="itemmsggoinside" >
+      <StatusEffect type="OnActive" targettype="Character" delay="0.25" stackable="true" indetectable="true" DisableFocusingOnEntities="true" invisibletimer="0.1" setvalue="true" />
+	</Controller>
+    <!-- backwards compatibility for older versions in which mobile containers like storage containers were containable in any cabinet -->
+    <Upgrade gameversion="1.1.0.0" campaignsaveonly="true">
+      <ItemContainer>
+        <Containable items="smallitem,mediumitem" />
+        <ClearSubContainerRestrictions />
+      </ItemContainer>
+    </Upgrade>
+  </Item>
   <!-- added a special tag to identify it (for procGen.lua) -->
   <Item name="" identifier="opdeco_cabinetsdorm" tags="cabinet" allowattachitems="false" width="110" height="398" texturescale="1.0,1.0" scale="0.5" category="Decorative">
     <Upgrade gameversion="0.16.2.0" refreshrect="true" PositionY="-88" />
