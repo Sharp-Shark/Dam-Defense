@@ -221,5 +221,5 @@ DD.eventAirdropArtifact = DD.class(DD.eventAirdrop, nil, {
 	},
 	minAmount = 1,
 	maxAmount = 1,
-	message = 'An unindentified object has fallen from the sky!'
+	message = 'An unindentified object has fallen from the sky! Deconstruct it to get alien materials to make powerful weapons.'
 })

@@ -2,8 +2,8 @@
 DD.eventFish = DD.class(DD.eventBase, nil, {
 	name = 'fish',
 	isMainEvent = false,
-	cooldown = 60 * 3,
-	weight = 2,
+	cooldown = 60 * 1.5,
+	weight = 2.5,
 	goodness = -1,
 	
 	silent = false, -- if true, will not do any warning

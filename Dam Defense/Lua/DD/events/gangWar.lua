@@ -301,16 +301,18 @@ end, {
 					DD.messageClient(client, DD.stringLocalize('gangWarGangsterInfo', {gangName = gangName, rivalGangName = rivalGangName, timer = DD.numberToTime(self.stateStartInitialTimer)}), {preset = 'crit'})
 				end
 			end
-			-- spawn airdrops for gangs
-			local event = DD.eventAirdropSeparatist.new()
-			event.start()
 		end
 	end,
 	
-	stateStartInitialTimer = 60 * 1, -- in seconds
+	stateStartInitialTimer = 60 * 2, -- in seconds
 	
 	stateMain = {
 		onChange = function (self, state)
+			if (self.parent.gang1 == nil) or (self.parent.gang2 == nil) then
+				self.parent.fail()
+				return
+			end
+		
 			-- give affliction and do client messages
 			for client in Client.ClientList do
 				if self.parent.gang1Set[client] or self.parent.gang2Set[client] then
@@ -331,6 +333,11 @@ end, {
 		onThink = function (self)
 			if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 			local timesPerSecond = 2
+			
+			if (self.parent.gang1 == nil) or (self.parent.gang2 == nil) then
+				self.parent.fail()
+				return
+			end
 			
 			-- check for dead gangsters
 			for key, client in pairs(self.parent.gang1) do

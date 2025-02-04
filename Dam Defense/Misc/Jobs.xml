@@ -1249,6 +1249,40 @@
       <Order identifier="operatereactor" option="powerup" prioritymodifier="0.4"/>
     </AutonomousObjectives>
   </Job>
+  <Job identifier="miner"
+       minkarma="0" maxnumber="0"
+       uicolor="0.4,0.0,0.1"
+       vitalitymodifier="0"
+       pricemultiplier="0.8"
+       idlebehavior="Active">
+    <Jobicon>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="640,256,128,128" origin="0.5,0.5"/>
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,669,28,28" origin="0.5,0.5"/>
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="mechanical" level="55,65" primary="true"/>
+      <Skill identifier="weapons" level="55,65"/>
+      <Skill identifier="helm" level="55,65"/>
+      <Skill identifier="electrical" level="55,65"/>
+      <Skill identifier="medical" level="55,65"/>
+    </Skills>
+    <ItemSet>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="extinguishfires" prioritymodifier ="1"/>
+      <Order identifier="pumpwater" option="pumpout" prioritymodifier="1"/>
+      <Order identifier="rescue" prioritymodifier="1"/>
+      <Order identifier="repairsystems" prioritymodifier="0.5"/>
+      <Order identifier="fixleaks" prioritymodifier="0.5"/>
+      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.4"/>
+    </AutonomousObjectives>
+  </Job>
   <Job identifier="undeadjob"
        minkarma="0" maxnumber="0"
        uicolor="0.3,0.2,0.6"

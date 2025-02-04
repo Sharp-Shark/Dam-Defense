@@ -1,4 +1,4 @@
--- Pick some players to be part of a revolution tasked with killing all of security (and also trigger an eventAirdropSeparatist)
+-- Pick some players to be part of a revolution tasked with killing all of security
 DD.eventRevolution = DD.class(DD.eventWithStartBase, function (self, rebels)
 	self.rebels = rebels
 end, {
@@ -161,13 +161,10 @@ end, {
 					if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 				end
 			end
-			-- Spawn airdrops for rebels
-			local event = DD.eventAirdropSeparatist.new()
-			event.start()
 		end
 	end,
 	
-	stateStartInitialTimer = 60 * 1, -- in seconds
+	stateStartInitialTimer = 60 * 2, -- in seconds
 	
 	stateMain = {
 		onChange = function (self, state)
@@ -195,6 +192,11 @@ end, {
 		onThink = function (self)
 			if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 			local timesPerSecond = 2
+			
+			if self.parent.rebels == nil then
+				self.parent.fail()
+				return
+			end
 			
 			-- Increase time pressure
 			local timeToExplode = 15 * 60 -- in seconds

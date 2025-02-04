@@ -12,9 +12,9 @@ end, {
 	name = 'greenskins',
 	isMainEvent = true,
 	cooldown = 60 * 2,
-	weight = 0.5,
+	weight = 1.0,
 	goodness = -1.5,
-	minimunDeadPercentage  = 0.5,
+	minimunDeadPercentage  = 0.4,
 	
 	updateGreenskinList = function (self)
 		self.greenskins = {}

@@ -54,7 +54,7 @@ end, {
 			self.fail()
 			return
 		end
-		if (self.minimunAlivePercentage > alivePercentage) and (self.minimunDeadPercentage > deadPercentage) then
+		if (self.minimunAlivePercentage >= alivePercentage) and (self.minimunDeadPercentage >= deadPercentage) then
 			self.fail()
 			return
 		end
@@ -168,6 +168,7 @@ end, {
 	end,
 	
 	onThink = function (self)
+		if self.finished or self.failed then return end
 		self.states[self.state]:onThink()
 	end
 })

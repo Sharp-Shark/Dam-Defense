@@ -58,23 +58,25 @@ end
 DD.roundStartFunctions.main = function ()
 	DD.setAllowRespawning(true)
 	
-	if Game.RoundStarted then
-		Submarine.MainSub.LockX = true
-		Submarine.MainSub.LockY = true
-		
+	if Submarine.MainSub ~= nil then
+		if Game.RoundStarted then
+			Submarine.MainSub.LockX = true
+			Submarine.MainSub.LockY = true
+		end
+	
 		-- automatically put idcard tags in spawnpoints for standartization
 		local jobTags = {
 			captain = 'id_captain,id_security,id_medic,id_engineer,id_janitor',
 			diver = 'id_security,id_engineer,id_janitor',
 			securityofficer = 'id_security,id_engineer,id_janitor',
 			foreman = 'id_security,id_engineer,id_janitor',
-			researcher = 'id_medic',
+			researcher = 'id_researcher,id_medic',
 			medicaldoctor = 'id_medic',
 			engineer = 'id_engineer',
 			janitor = 'id_janitor',
-			bodyguard = '',
-			mechanic = '',
-			clown = '',
+			bodyguard = 'id_laborer',
+			mechanic = 'id_laborer',
+			clown = 'id_clown,id_laborer',
 			assistant = 'id_assistant',
 			-- other jobs
 			mercs = 'id_captain,id_security,id_medic,id_engineer,id_janitor',
@@ -499,13 +501,13 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 				character.GiveTalent('janitorialknowledge', true)
 				character.GiveTalent('greenthumb', true)
 			end
-			if (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'assistant') then
+			if (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') or (character.JobIdentifier == 'assistant') then
 				character.GiveTalent('unstoppablecuriosity', true)
 			end
 			if (character.JobIdentifier == 'captain') or (character.JobIdentifier == 'assistant') then
 				character.GiveTalent('drunkensailor', true)
 			end
-			if (character.JobIdentifier == 'medicaldoctor') or (character.JobIdentifier == 'researcher') or (character.JobIdentifier == 'securityofficer') or (character.JobIdentifier == 'janitor') or (character.JobIdentifier == 'assistant') then
+			if ((character.JobIdentifier ~= 'captain')) and (DD.isCharacterSecurity(character) or DD.isCharacterMedical(character) or (character.JobIdentifier == 'janitor') or (character.JobIdentifier == 'assistant')) then
 				character.GiveTalent('firemanscarry', true)
 			end
 			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') or (character.JobIdentifier == 'assistant') then

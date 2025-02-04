@@ -15,6 +15,7 @@
     </Price>
     <Deconstruct time="5">
       <Item identifier="organicfiber" />
+      <Item identifier="organicfiber" />
     </Deconstruct>
     <!--   <InventoryIcon texture="Content/Items/Materials/Minerals.png" sourcerect="0,0,108,166" -->
     <ContainedSprite texture="Content/Items/Materials/Minerals.png" usewhenattached="true" decorativespritebehavior="HideWhenNotVisible" depth="0.55" sourcerect="257,0,96,128" origin="0.5,0.5" />
@@ -36,7 +37,7 @@
       <Commonness commonness="0.8" cavecommonness="0.5" abysscommonness="0" leveltype="europanridge" />
       <Commonness commonness="0.8" cavecommonness="0.4" abysscommonness="0" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -59,6 +60,7 @@
     </Price>
     <Deconstruct time="5">
       <Item identifier="elastin" />
+      <Item identifier="elastin" />
     </Deconstruct>
     <ContainedSprite texture="Content/Items/Materials/Minerals.png" usewhenattached="true" decorativespritebehavior="HideWhenNotVisible" depth="0.55" sourcerect="645,1,96,128" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Materials/Minerals.png" depth="0.2" sourcerect="604,260,28,54" origin="0.5,0.5" />
@@ -76,7 +78,7 @@
       <Commonness commonness="0.6" cavecommonness="0.2" abysscommonness="0" leveltype="europanridge" />
       <Commonness commonness="0.8" cavecommonness="0.5" abysscommonness="0" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -99,6 +101,7 @@
     </Price>
     <Deconstruct time="5">
       <Item identifier="opium" />
+      <Item identifier="opium" />
     </Deconstruct>
     <ContainedSprite texture="Content/Items/Materials/Minerals.png" usewhenattached="true" decorativespritebehavior="HideWhenNotVisible" depth="0.55" sourcerect="255,127,96,128" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Materials/Minerals.png" depth="0.2" sourcerect="541,332,53,53" origin="0.5,0.5" />
@@ -114,7 +117,7 @@
       <Commonness commonness="1.5" cavecommonness="0.8" abysscommonness="0" leveltype="plateaugarden" />
       <Commonness commonness="1.0" cavecommonness="0.5" abysscommonness="0" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -137,6 +140,7 @@
     </Price>
     <Deconstruct time="5">
       <Item identifier="ethanol" />
+      <Item identifier="ethanol" />
     </Deconstruct>
     <ContainedSprite texture="Content/Items/Materials/Minerals.png" usewhenattached="true" decorativespritebehavior="HideWhenNotVisible" depth="0.55" sourcerect="640,127,96,128" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Materials/Minerals.png" depth="0.2" sourcerect="603,321,42,63" origin="0.5,0.5" />
@@ -151,7 +155,7 @@
       <Commonness commonness="1.0" cavecommonness="0.6" abysscommonness="0" leveltype="theaphoticplateau" />
       <Commonness commonness="1.2" cavecommonness="0.8" abysscommonness="0" leveltype="plateaugarden" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -174,6 +178,7 @@
     </Price>
     <Deconstruct time="5">
       <Item identifier="myxotoxin" />
+      <Item identifier="myxotoxin" />
     </Deconstruct>
     <ContainedSprite texture="Content/Items/Materials/Minerals.png" usewhenattached="true" decorativespritebehavior="HideWhenNotVisible" depth="0.55" sourcerect="252,264,106,126" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Materials/Minerals.png" depth="0.2" sourcerect="601,393,61,47" origin="0.5,0.5" />
@@ -188,7 +193,7 @@
     <LevelResource deattachduration="1" randomoffsetfromwall="40">
       <Commonness commonness="0.2" cavecommonness="0.4" abysscommonness="0" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />

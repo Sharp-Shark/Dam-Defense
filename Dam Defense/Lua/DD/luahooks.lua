@@ -123,7 +123,7 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 			containedItem.tags = tags .. 'name:' .. characterName
 			-- Sync changes for clients
 			if SERVER then
-				local item = idcard
+				local item = containedItem
 				local tags = item.SerializableProperties[Identifier("Tags")]
 				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
 			end
@@ -135,7 +135,7 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 	local customCards = {
 		shop = {
 			name = 'Shopkeeper',
-			tags = 'id_shop',
+			tags = 'id_shop,id_laborer',
 			clothing = {'commonerclothes1'},
 			color = Color(55, 155, 0),
 			trueColor = true,
@@ -158,7 +158,7 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 		},
 		miner = {
 			name = 'Miner',
-			tags = 'id_miner',
+			tags = 'id_miner,id_laborer',
 			clothing = {'minerclothes'},
 			color = Color(100, 10, 24),
 			shortcuts = {
@@ -337,8 +337,7 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 	idcard['set_InventoryIconColor'](color)
 	
 	-- Set the name and jobid tags
-	local jobName = string.lower(tostring(jobPrefab and jobPrefab.Name or customCard.name))
-	idcard.tags = idcard.tags .. ',name:' .. characterName .. ',jobid:' .. jobName
+	idcard.tags = idcard.tags .. ',name:' .. characterName .. ',jobid:' .. identifier
 			
 	-- Sync changes for clients
 	if SERVER then
@@ -585,7 +584,7 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	-- pop-up
 	local client = DD.findClientByCharacter(character)
 	if client == nil then return end
-	DD.messageClient(client, 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your objective is to have no non-cultist alive. You can convert others using "The 1998". You can extract "Life Essence" from the unconcious or the recently deceased using a "Sacrificial Dagger". Conversion and consuming "Life Essence" both lower your "Time Pressure". Long live Tchernobog! Do /cultists to get a list of fellow worshippers and /whisper to message them all.', {preset = 'crit'})
+	DD.messageClient(client, 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your objective is to have no non-cultist alive. You can convert others using "The 1998". You can extract "Life Essence" from the unconcious or the recently deceased using a "Sacrificial Dagger". Conversion and consuming "Life Essence" both lower your "Time Pressure". You can also craft a "Blood Cultist Robe" which heals, cures diseases and can bring you back from the dead. Long live Tchernobog! Do /cultists to get a list of fellow worshippers and /whisper to message them all.', {preset = 'crit'})
 
 	-- notify other cultists
 	for otherClient in Client.ClientList do

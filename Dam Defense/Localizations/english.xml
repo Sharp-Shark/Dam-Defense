@@ -177,6 +177,9 @@
   <entitydescription.boombox6>"Come Out and Play" by The Offspring.</entitydescription.boombox6>
   <entityname.boombox7>Sailor Boombox</entityname.boombox7>
   <entitydescription.boombox7>"Weigh, Hey and up She Rises" by The Irish Rovers.</entitydescription.boombox7>
+  <!-- Scrap Chunk -->
+  <entityname.scrapore>Scrap Chunk</entityname.scrapore>
+  <entitydescription.scrapore>A chunk of scrap so dense and compact, it has become a man-made ore. Can be deconstructed into scrap.</entitydescription.scrapore>
   <!-- Sharpened Volcano Fragment -->
   <entityname.sharpenedvolcanofragment>Sharpened Volcano Fragment</entityname.sharpenedvolcanofragment>
   <entitydescription.sharpenedvolcanofragment>An axe-shaped piece of sharpened magmatic rock infused with incendium. Permanently scalding, will cause burns and set targets on fire.</entitydescription.sharpenedvolcanofragment>

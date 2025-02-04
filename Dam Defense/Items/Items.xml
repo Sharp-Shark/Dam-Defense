@@ -1489,8 +1489,8 @@
       <Item identifier="titaniumaluminiumalloy" />
       <Item identifier="fulgurium" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="false" >
-      <RequiredSkill identifier="electrical" level="40" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
+      <RequiredSkill identifier="electrical" level="30" />
       <RequiredItem identifier="fpgacircuit" />
       <RequiredItem identifier="lead" amount="2"/>
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
@@ -1553,13 +1553,15 @@
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
     <Deconstruct time="30">
-      <Item identifier="physicorium" amount="2" />
+      <Item identifier="oxygeniteshard" amount="2" />
+      <Item identifier="titaniumaluminiumalloy" amount="2" />
       <Item identifier="fpgacircuit" />
       <Item identifier="lead" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="false" >
-      <RequiredSkill identifier="mechanical" level="40" />
-      <RequiredItem identifier="physicorium" amount="2" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
+      <RequiredSkill identifier="mechanical" level="30" />
+      <RequiredItem identifier="oxygeniteshard" amount="2" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
       <RequiredItem identifier="fpgacircuit" />
       <RequiredItem identifier="lead" amount="2" />
     </Fabricate>
@@ -1613,7 +1615,7 @@
       </Price>
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
-    <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="false" >
+    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
       <RequiredSkill identifier="mechanical" level="30" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="physicorium" amount="2" />
@@ -1672,7 +1674,7 @@
       <Price storeidentifier="merchantmilitary" multiplier="0.9" />
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
-    <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="false" >
+    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
       <RequiredSkill identifier="weapons" level="30" />
       <RequiredItem identifier="physicorium" amount="3" />
       <RequiredItem identifier="plastic" />
@@ -3323,6 +3325,44 @@
   </Override>
   <!-- end of overrides -->
   
+  <!-- scrap ore -->
+  <Item name="Scrap Chunk" identifier="scrapore" category="Material" Tags="smallitem,ore" maxstacksize="32" maxstacksizecharacterinventory="8" canbepicked="true" description="" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light">
+    <PreferredContainer primary="mineralcab" secondary="storagecab" />
+    <Price baseprice="50" sold="false">
+      <Price storeidentifier="merchantoutpost" multiplier="1.1" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" multiplier="0.75" />
+    </Price>
+    <Deconstruct time="5">
+      <Item identifier="scrap" />
+      <Item identifier="scrap" />
+    </Deconstruct>
+    <!-- TODO: sprite and inventory icon -->
+    <LightComponent lightcolor="150,100,50,155" range="65" powerconsumption="0" flicker="0.0" flickerspeed="0.5" pulsefrequency="0.4" pulseamount="0" ison="true" drawbehindsubs="true">
+      <LightTexture texture="Content/Lights/pointlight_rays.png" origin="0.5,0.5" />
+    </LightComponent>
+    <ContainedSprite texture="%ModDir%/Items/resources.png" usewhenattached="true" decorativespritebehavior="HideWhenNotVisible" depth="0.55" sourcerect="766,883,88,133" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/resources.png" depth="0.3" sourcerect="257,0,103,113" origin="0.5,0.5" />
+    <DecorativeSprite texture="%ModDir%/Items/resources.png" depth="0.49" sourcerect="0,0,86,147" offset="20,0" randomrotation="-20,20" randomscale="0.8,1.5" randomoffset="30,30" origin="0.5,0.5" randomgroupid="1" />
+    <DecorativeSprite texture="%ModDir%/Items/resources.png" depth="0.48" sourcerect="86,0,86,147" offset="20,0" randomrotation="-20,20" randomscale="0.8,1.5" randomoffset="30,30" origin="0.5,0.5" randomgroupid="1" />
+    <DecorativeSprite texture="%ModDir%/Items/resources.png" depth="0.51" sourcerect="86,0,86,147" offset="-20,0" randomrotation="-20,20" randomscale="0.8,1.5" randomoffset="30,30" origin="0.5,0.5" randomgroupid="2" />
+    <DecorativeSprite texture="%ModDir%/Items/resources.png" depth="0.52" sourcerect="172,0,86,147" offset="-20,0" randomrotation="-20,20" randomscale="0.8,1.5" randomoffset="30,30" origin="0.5,0.5" randomgroupid="2" />
+    <DecorativeSprite texture="%ModDir%/Items/resources.png" depth="0.491" sourcerect="172,0,86,147" offset="0,-30" randomrotation="-20,20" randomscale="0.8,1.5" randomoffset="30,10" origin="0.5,0.5" randomgroupid="3" />
+    <DecorativeSprite texture="%ModDir%/Items/resources.png" depth="0.53" sourcerect="0,0,86,147" offset="0,-30" randomrotation="-20,20" randomscale="0.8,1.5" randomoffset="30,10" origin="0.5,0.5" randomgroupid="3" />
+    <DecorativeSprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.4" sourcerect="0,0,173,131" offset="0,-40" randomrotation="-20,20" origin="0.5,0.5" />
+    <Body radius="40" width="20" density="25" />
+    <LevelResource deattachduration="1" randomoffsetfromwall="80">
+      <Commonness commonness="0.5" abysscommonness="20" />
+      <Commonness commonness="0.5" abysscommonness="0" leveltype="europanridge" />
+      <Commonness commonness="0.5" abysscommonness="0" leveltype="theaphoticplateau" />
+      <Commonness commonness="0.5" abysscommonness="0" leveltype="thegreatsea" />
+      <Commonness commonness="0.5" abysscommonness="0" leveltype="hydrothermalwastes" />
+    </LevelResource>
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attachable="true" reattachable="false" />
+  </Item>
+  
   <!-- sharpened volcano fragment (Mmmph!) -->
   <Item name="Sharpened Volcano Fragment" identifier="sharpenedvolcanofragment" category="Weapon" Tags="mediumitem,weapon,gunsmith,mountableweapon" scale="0.5" allowasextracargo="true" requireaimtouse="true" impactsoundtag="impact_metal_light">
     <Deconstruct time="30">
@@ -3339,12 +3379,12 @@
     <Body width="161" height="20" density="25" />
     <LightComponent range="100.0" lightcolor="240,80,20,192" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" flickerspeed="0.4" flicker="0.2" pulsefrequency="0.8" pulseamount="0.1" allowingameediting="false" />
 	<MeleeWeapon slots="Any,RightHand+LeftHand" aimpos="50,10" handle1="-22,-2" handle2="-32,-2" holdangle="30" aimangle="10" reload="0.8" range="155" combatPriority="40" msg="ItemMsgPickUpSelect">
-      <Attack targetimpulse="5" severlimbsprobability="7.5" itemdamage="30" structuredamage="15">
-        <Affliction identifier="lacerations" strength="10" />
-        <Affliction identifier="burn" strength="10" />
+      <Attack targetimpulse="5" severlimbsprobability="7.5" itemdamage="40" structuredamage="10">
+        <Affliction identifier="lacerations" strength="15" />
+        <Affliction identifier="burn" strength="15" />
         <Affliction identifier="burning" strength="25" />
         <Affliction identifier="bleeding" strength="5" />
-        <Affliction identifier="stun" strength="0.5" />
+        <Affliction identifier="stun" strength="0.6" />
         <StatusEffect type="OnUse" target="UseTarget">
           <Conditional entitytype="eq Character"/>
           <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
@@ -3369,7 +3409,7 @@
       <Item identifier="lead" />
       <Item identifier="iron" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="180" >
+    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
       <RequiredSkill identifier="electrical" level="30" />
       <RequiredItem identifier="dementonite" amount="2" />
       <RequiredItem identifier="lead" />

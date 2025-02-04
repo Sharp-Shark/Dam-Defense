@@ -26,8 +26,8 @@ DD.plantData = {
 	fiberplant = {itemIdentifier = 'fiberplant', weight = 1.5},
 	elastinplant = {itemIdentifier = 'elastinplant', weight = 0.5},
 	aquaticpoppy = {itemIdentifier = 'aquaticpoppy', weight = 1},
-	yeastshroom = {itemIdentifier = 'yeastshroom', weight = 1},
-	slimebacteria = {itemIdentifier = 'slimebacteria', weight = 1}
+	yeastshroom = {itemIdentifier = 'yeastshroom', weight = 0.5},
+	slimebacteria = {itemIdentifier = 'slimebacteria', weight = 1},
 }
 
 DD.spawnEggWithSaline = function (identifier, pos)
@@ -115,10 +115,12 @@ DD.spawnPlants = function ()
 		for n = 1, plantAmount do
 			local location2 = location1.linkedTo[math.random(#location1.linkedTo)]
 			local position = Vector2(DD.lerp(math.random(), location1.WorldPosition.X, location2.WorldPosition.X), DD.lerp(math.random(), location1.WorldPosition.Y, location2.WorldPosition.Y))
+			
 			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(plant.itemIdentifier), position, nil, nil, function (spawnedItem)
 				spawnedItem.Rotation = location2.Rotation
 				if SERVER then
 					Timer.Wait(function ()
+						-- sync rotation
 						local message = Networking.Start("syncEntityRotation")
 						message.WriteUInt16(spawnedItem.ID)
 						message.WriteSingle(spawnedItem.Rotation)

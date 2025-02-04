@@ -140,16 +140,18 @@ end, {
 					-- No "DD.messageClient" here since whenever the "enlightened" affliction is gained, a luahook already sends a message
 				end
 			end
-			-- Spawn airdrops for cultists
-			local event = DD.eventAirdropCultist.new()
-			event.start()
 		end
 	end,
 	
-	stateStartInitialTimer = 60 * 1, -- in seconds
+	stateStartInitialTimer = 60 * 2, -- in seconds
 	
 	stateMain = {
 		onChange = function (self, state)
+			if self.parent.cultists == nil then
+				self.parent.fail()
+				return
+			end
+		
 			-- Give affliction and do client messages
 			for client in Client.ClientList do
 				if self.parent.cultistsSet[client] then

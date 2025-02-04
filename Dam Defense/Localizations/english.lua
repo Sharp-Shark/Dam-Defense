@@ -196,9 +196,9 @@ return {
 	wikiName_tbinfectionAffliction = 'Tuberculosis Infection',
 	wikiText_tbinfectionAffliction = 'Tuberculosis also known as the White Death is a highly contagious bacterial infection which almost always leads to death if not treated. Can be treated with ABX or Myxotoxin from a colony of Myxobacteria or cured using Tuberculosis Antidote. Will cause or aggravate a pulmonary emphysema.',
 	-- wiki dams (maps)
-	wikiName_oldeTowneDam = 'Olde Towne Dam',
+	wikiName_oldeTowneDam = 'Olde Towne',
 	wikiText_oldeTowneDam = 'The original first Dam Defense map. An old dam with a small but well-established industrial colony to its left. The basin is mostly open, with only a small but still cave system with wide passages. Despite its age, most of the ore in the basin have yet to be mined.\n\nMap by Sharp-Shark.',
-	wikiName_pioneerPointDam = 'Pioneer Point Dam',
+	wikiName_pioneerPointDam = 'Pioneer Point',
 	wikiText_pioneerPointDam = 'The second Dam Defense map, made for smaller player counts and with a focus on verticality. A dam still in construction with a tiny pioneer settlement, eager to explore this land on the edge of civilization. The basin consists entirely out of a narrow cave system.\n\nMap by Sharp-Shark.',
 	-- end
 	[''] = '',
