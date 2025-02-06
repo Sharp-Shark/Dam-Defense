@@ -626,6 +626,18 @@ Timer.Wait(function ()
 end, 0)
 
 -- Evil NetConfig (TM)
+if CLIENT then return end
+
 NetConfig.MaxHealthUpdateInterval = 0
 NetConfig.LowPrioCharacterPositionUpdateInterval = 0
 NetConfig.MaxEventPacketsPerUpdate = 8
+NetConfig.RoundStartSyncDuration = 60
+NetConfig.EventRemovalTime = 30
+NetConfig.OldReceivedEventKickTime = 30
+NetConfig.OldEventKickTime = 60
+
+LuaUserData.MakePropertyAccessible(Descriptors["Barotrauma.Networking.ServerSettings"], "MinimumMidRoundSyncTimeout")
+
+if Game.ServerSettings and Game.ServerSettings.MinimumMidRoundSyncTimeout == 10 then
+    Game.ServerSettings.MinimumMidRoundSyncTimeout = 100
+end
