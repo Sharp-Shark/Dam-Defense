@@ -89,8 +89,8 @@ DD.eventBlackout = DD.class(DD.eventWithStartBase, nil, {
 			item.GetComponentString('Door').IsJammed = false
 		end
 		for item, state in pairs(self.lights) do
-			item.GetComponentString('LightComponent').flicker = state.flicker
-			item.GetComponentString('LightComponent').flickerSpeed = state.flickerSpeed
+			if state.flicker ~= nil then item.GetComponentString('LightComponent').flicker = state.flicker end
+			if state.flickerSpeed ~= nil then item.GetComponentString('LightComponent').flickerSpeed = state.flickerSpeed end
 			if SERVER then
 				local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("Flicker")]
 				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))

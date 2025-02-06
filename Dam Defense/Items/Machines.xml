@@ -755,9 +755,9 @@
 		<DecorativeSprite texture="Content/Items/Door/door.png" sourcerect="49,0,49,416" depth="0.89" origin="0.5,0.5" />
 		<DecorativeSprite texture="%ModDir%/Items/button.png" sourcerect="0,0,34,51" depth="0.75" origin="1.65,0.76" />
 		<DecorativeSprite texture="%ModDir%/Items/button.png" sourcerect="0,0,34,51" depth="0.75" origin="-0.65,0.76" />
-		<Door canbeselected="true" canbepicked="true" pickkey="Action" msg="ItemMsgForceOpenCrowbar" PickingTime="7.5" shadowscale="0.7,1" hasintegratedbuttons="true">
+		<Door canbeselected="true" canbepicked="true" pickkey="Action" msg="ItemMsgForceOpenCrowbar" PickingTime="45" shadowscale="0.7,1" hasintegratedbuttons="true">
 			<Upgrade gameversion="0.22.0.0" PickingTime="7.5" />
-			<!--<RequiredItem items="crowbar" type="Equipped" optional="true"/>-->
+			<RequiredItem items="crowbar" type="Equipped" optional="true"/>
 			<Requireditem items="idcard" type="Picked" optional="true" />
 			<Sprite texture="%ModDir%/Items/door.png" sourcerect="0,0,42,416" depth="0.05" origin="0.5,0.0" />
 			<WeldedSprite texture="Content/Items/Door/door.png" sourcerect="203,0,65,377" depth="0.0" origin="0.5,0.5" />
@@ -794,15 +794,14 @@
 	</Item>
 	
 	<!-- Secure Door -->
-	<Item name="Custom Secure Door" identifier="securedoor" tags="door,weldable" scale="0.5" health="500" requirebodyinsidetrigger="false" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" ShowNameInHealthBar="false" explosiondamagemultiplier="0.1" allowrotatingineditor="false" allowedlinks="structure,item" ondamagedthreshold="10" linkable="true">
+	<Item name="Custom Secure Door" identifier="securedoor" tags="door,weldable" scale="0.5" health="500" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" ShowNameInHealthBar="false" explosiondamagemultiplier="0.1" allowrotatingineditor="false" allowedlinks="structure,item" ondamagedthreshold="10" linkable="true">
 		<Sprite texture="Content/Items/Door/door.png" sourcerect="0,0,49,416" depth="0.51" origin="0.5,0.5" />
 		<DecorativeSprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1968,1120,80,416" depth="0.9" premultiplyalpha="false" origin="0.2,0.5" />
 		<DecorativeSprite texture="%ModDir%/Items/SupportBeamVerticalFlip.png" sourcerect="0,0,79,416" depth="0.9" premultiplyalpha="false" origin="0.8,0.5" />
 		<DecorativeSprite texture="Content/Items/Door/door.png" sourcerect="49,0,49,416" depth="0.89" origin="0.5,0.5" />
-		<Door canbeselected="true" canbepicked="false" pickkey="Action" msg="ItemMsgForceOpenCrowbar" PickingTime="7.5" shadowscale="0.7,1" hasintegratedbuttons="false">
+		<Door canbeselected="true" canbepicked="true" pickkey="Action" msg="" PickingTime="45" shadowscale="0.7,1" >
 			<Upgrade gameversion="0.22.0.0" PickingTime="7.5" />
-			<!--<RequiredItem items="crowbar" type="Equipped" optional="true"/>-->
-			<!--<Requireditem items="idcard" type="Picked" optional="true"/>-->
+			<RequiredItem items="crowbar" type="Equipped" optional="true"/>
 			<Sprite texture="%ModDir%/Items/door.png" sourcerect="0,0,42,416" depth="0.05" origin="0.5,0.0" />
 			<WeldedSprite texture="Content/Items/Door/door.png" sourcerect="203,0,65,377" depth="0.0" origin="0.5,0.5" />
 			<BrokenSprite texture="Content/Items/Door/door.png" sourcerect="271,0,121,416" depth="0.509" origin="0.5,0.0" scale="true" />
@@ -820,7 +819,6 @@
 				<sound file="Content/Items/Door/DoorBreak2.ogg" range="800" />
 			</StatusEffect>
 		</Door>
-		<trigger x="-60" y="-140" width="170" height="85" />
 		<AiTarget sightrange="1500.0" static="True" />
 		<Repairable selectkey="Action" header="mechanicalrepairsheader" fixDurationHighSkill="10" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
 			<GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />

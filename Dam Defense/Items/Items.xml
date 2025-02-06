@@ -3340,7 +3340,7 @@
       <Item identifier="scrap" />
     </Deconstruct>
     <!-- TODO: sprite and inventory icon -->
-    <LightComponent lightcolor="150,100,50,155" range="65" powerconsumption="0" flicker="0.0" flickerspeed="0.5" pulsefrequency="0.4" pulseamount="0" ison="true" drawbehindsubs="true">
+    <LightComponent lightcolor="150,100,50,155" range="100" powerconsumption="0" flicker="0.0" flickerspeed="0.5" pulsefrequency="0.4" pulseamount="0" ison="true" drawbehindsubs="true">
       <LightTexture texture="Content/Lights/pointlight_rays.png" origin="0.5,0.5" />
     </LightComponent>
     <ContainedSprite texture="%ModDir%/Items/resources.png" usewhenattached="true" decorativespritebehavior="HideWhenNotVisible" depth="0.55" sourcerect="766,883,88,133" origin="0.5,0.5" />

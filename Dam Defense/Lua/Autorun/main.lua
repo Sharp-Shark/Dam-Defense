@@ -63,6 +63,59 @@ DD.roundStartFunctions.main = function ()
 			Submarine.MainSub.LockX = true
 			Submarine.MainSub.LockY = true
 		end
+		
+		-- automations for sub editor
+		if Game.IsSubEditor then
+			for item in Item.ItemList do
+				-- improves performance for maps with lots of ores or plants
+				if item.HasTag('ore') or item.HasTag('plant') and (item.GetComponentString('LightComponent') ~= nil) then
+					item.GetComponentString('LightComponent').Range = 65
+					item.GetComponentString('LightComponent').CastShadows = false
+					item.GetComponentString('LightComponent').DrawBehindSubs = false
+				end
+				-- color location markers (dd_location)
+				if item.Prefab.Identifier == 'dd_location' then
+					if #item.linkedTo > 0 then
+						if item.linkedTo[1].HasTag('dd_plantspawn') then
+							item.SpriteColor = Color(155, 255, 155)
+							item.Scale = 0.5
+						end
+					end
+					if item.HasTag('dd_plantspawn') then
+						item.SpriteColor = Color(155, 255, 55)
+						item.Scale = 0.5
+					end
+					if item.HasTag('dd_airdrop') then
+						item.SpriteColor = Color(89,191,63)
+						item.Scale = 1.0
+					end
+					if item.HasTag('dd_airdropmedical') then
+						item.SpriteColor = JobPrefab.Get('medicaldoctor').UIColor
+						item.Scale = 1.0
+					end
+					if item.HasTag('dd_airdropsecurity') then
+						item.SpriteColor = JobPrefab.Get('securityofficer').UIColor
+						item.Scale = 1.0
+					end
+					if item.HasTag('dd_airdropseparatist') then
+						item.SpriteColor = Color(255,155,55)
+						item.Scale = 1.0
+					end
+					if item.HasTag('dd_airdropartifact') then
+						item.SpriteColor = Color(155,55,255)
+						item.Scale = 1.0
+					end
+					if item.HasTag('dd_dambasin') then
+						item.SpriteColor = Color(55,100,255)
+						item.Scale = 1.0
+					end
+					if item.HasTag('dd_wetsewer') then
+						item.SpriteColor = Color(55,255,200)
+						item.Scale = 1.0
+					end
+				end
+			end
+		end
 	
 		-- automatically put idcard tags in spawnpoints for standartization
 		local jobTags = {

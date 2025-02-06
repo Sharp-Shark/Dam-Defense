@@ -1,3 +1,60 @@
+-- Debug guard clause
+DD.expectTypes = function (funcName, values, types)
+	local funcName = funcName or 'funcName'
+	
+	local errorCount = 0
+	local text = ''
+	for key, target in pairs(types) do
+		local value = values[key]
+		
+		-- check if value is not any of the target type(s) and also build a neater string of target types for display ("nil,number,string" becomes "nil, number or string")
+		local bool = true
+		local build = ''
+		local expectedTypes = ''
+		for count = 1, #target do
+			local char = string.sub(target, count, count)
+			if char ~= ',' then
+				build = build .. char
+			end
+			if (char == ',') or (count == #target) then
+				if build == 'notnil' then
+					if value ~= nil then
+						bool = false
+					end
+					build = 'not nil'
+				else
+					if type(value) == build then
+						bool = false
+					end
+				end
+				if expectedTypes == '' then
+					expectedTypes = build
+				else
+					if count == #target then
+						expectedTypes = expectedTypes .. ' or ' .. build
+					else
+						expectedTypes = expectedTypes .. ', ' .. build
+					end
+				end
+				build = ''
+			end
+		end
+		
+		-- build error message if value type is invalid
+		if bool then
+			local index = (type(key) == 'number') and ('#' .. key) or (string.format("'%s'", tostring(key)))
+			text = text .. string.format("bad argument %s to '%s' (%s expected, got %s)\n", index, funcName, expectedTypes, type(value))
+			errorCount = errorCount + 1
+		end
+	end
+	
+	-- error if any value was of an invalid type
+	if errorCount > 0 then
+		if errorCount > 1 then text = '\n' .. text end
+		error(text .. '\n' .. debug.traceback(), 2)
+	end
+end
+
 -- Warnings are printed once mod finishes loading
 DD.warn = function (text)
 	table.insert(DD.warnings, text)
@@ -15,7 +72,7 @@ DD.sc = DD.specialChar
 
 -- https://github.com/evilfactory/LuaCsForBarotrauma/blob/master/Barotrauma/BarotraumaShared/SharedSource/Networking/NetworkMember.cs#L221
 DD.clientLogName = function (client)
-	if client == nil then error("bad argument #1 to 'clientLogName' (client expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('clientLogName', {client}, {'userdata'})
 	
 	local text = DD.sc
 	if client.Karma < 40 then
@@ -180,7 +237,7 @@ end
 
 -- Get the size of a table (for tables that aren't like an array, #t won't work)
 DD.tableSize = function (t)
-	if t == nil then error("bad argument #1 to 'tableSize' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('tableSize', {t}, {'table'})
 	local size = 0
 	for item in t do size = size + 1 end
 	return size
@@ -188,15 +245,14 @@ end
 
 -- See if table has a value
 DD.tableHas = function (t, query)
-	if t == nil then error("bad argument #1 to 'tableHas' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
-	if query == nil then error("bad argument #2 to 'tableHas' (got unexpected nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('tableHas', {t, query}, {'table', 'notnil'})
 	for value in t do if value == query then return true end end
 	return false
 end
 
 -- Returns an array of the keys of a table
 DD.tableKeys = function (t)
-	if t == nil then error("bad argument #1 to 'tableKeys' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('tableKeys', {t}, {'table'})
 	local build = {}
 	for key, value in pairs(t) do table.insert(build, key) end
 	return build
@@ -204,7 +260,7 @@ end
 
 -- Returns an array of the values of a table
 DD.tableValues = function (t)
-	if t == nil then error("bad argument #1 to 'tableValues' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('tableValues', {t}, {'table'})
 	local build = {}
 	for key, value in pairs(t) do table.insert(build, value) end
 	return build
@@ -212,6 +268,7 @@ end
 
 -- Returns a string
 DD.tableJoin = function (t, join)
+	DD.expectTypes('tableJoin', {t, join}, {'table', 'nil,string'})
 	local str = ''
 	local join = join or ''
 	for item in t do
@@ -222,6 +279,7 @@ end
 
 -- My version of string.format
 DD.stringReplace = function(str, tbl)
+	DD.expectTypes('stringReplace', {str, tbl}, {'string', 'nil,table'})
 	local formatted = ''
 	local build = ''
 	local open = false
@@ -258,7 +316,7 @@ end
 
 -- Localizes a string
 DD.stringLocalize = function (key, tbl)
-	if key == nil then error("bad argument #1 to 'stringLocalize' (string expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('stringLocalize', {key}, {'string'})
 	local language
 	if CLIENT then
 		language = string.lower(tostring(Game.Settings.CurrentConfig.language))
@@ -278,6 +336,7 @@ end
 
 -- Checks if a string has another string
 DD.stringHas = function (strMain, strSub)
+	DD.expectTypes('stringHas', {strMain, strSub}, {'string', 'string'})
 	local build = ''
 	local letter = ''
 	for letterCount = 1, #strMain do
@@ -297,6 +356,7 @@ end
 
 -- Search for any instances of a substring in a string and return a table (array) with their start positions
 DD.stringFind = function (str, substr)
+	DD.expectTypes('stringFind', {str, substr}, {'string', 'string'})
 	local tbl = {}
 	local build = ''
 	local start = 0
@@ -321,6 +381,7 @@ end
 
 -- Splits a string into a table
 DD.stringSplit = function (str, split)
+	DD.expectTypes('stringSplit', {str, split}, {'string', 'string'})
 	local tbl = {}
 	local build = ''
 	local temp = ''
@@ -347,7 +408,7 @@ end
 
 -- Turns a table into a set
 DD.toSet = function (t)
-	if t == nil then error("bad argument #1 to 'toSet' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('toSet', {t}, {'table'})
 	local build = {}
 	for value in t do
 		build[value] = true
@@ -357,8 +418,7 @@ end
 
 -- Return union between 2 sets
 DD.setUnion = function (t1, t2)
-	if t1 == nil then error("bad argument #1 to 'setUnion' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
-	if t2 == nil then error("bad argument #2 to 'setUnion' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('setUnion', {t1, t2}, {'table', 'table'})
 	local build = {}
 	for key, value in pairs(t1) do
 		build[key] = true
@@ -371,8 +431,7 @@ end
 
 -- Return intersection between 2 sets
 DD.setIntersection = function (t1, t2)
-	if t1 == nil then error("bad argument #1 to 'setIntersection' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
-	if t2 == nil then error("bad argument #2 to 'setIntersection' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('setIntersection', {t1, t2}, {'table', 'table'})
 	local build = {}
 	for key, value in pairs(t1) do
 		if t2[key] then
@@ -389,8 +448,7 @@ end
 
 -- Return subtraction between 2 sets
 DD.setSubtract = function (t1, t2)
-	if t1 == nil then error("bad argument #1 to 'setSubtract' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
-	if t2 == nil then error("bad argument #2 to 'setSubtract' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('setSubtract', {t1, t2}, {'table', 'table'})
 	local build = {}
 	for key, value in pairs(t1) do
 		if not t2[key] then
@@ -402,13 +460,13 @@ end
 
 -- Return difference between 2 sets
 DD.setXor = function (t1, t2)
-	if t1 == nil then error("bad argument #1 to 'setXor' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
-	if t2 == nil then error("bad argument #2 to 'setXor' (table expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('setXor', {t1, t2}, {'table', 'table'})
 	return DD.setSubtract(DD.setUnion(t1, t2), DD.setIntersection(t1, t2))
 end
 
 -- Xor
 DD.xor = function (b1, b2)
+	DD.expectTypes('xor', {b1, b2}, {'boolean', 'boolean'})
 	return (b1 or b2) and not (b1 and b2)
 end
 
@@ -419,6 +477,7 @@ end
 
 -- Like string.sub but for array tables
 DD.arrSub = function (array, start, finish)
+	DD.expectTypes('arrSub', {array, start, finish}, {'table', 'number', 'number'})
 	local tbl = {}
 	for count = start, finish do
 		table.insert(tbl, array[count])
@@ -428,6 +487,7 @@ end
 
 -- Shuffles a table (assumes it has an array-like structure)
 DD.arrShuffle = function (array)
+	DD.expectTypes('arrShuffle', {array}, {'table'})
 	local shuffledArray = {}
 	local originalArray = {}
 	for key, value in pairs(array) do
@@ -457,6 +517,7 @@ end
 
 -- Weighted random (weights can be floats)
 DD.weightedRandom = function(tbl, weights)
+	DD.expectTypes('weightedRandom', {tbl, weights}, {'table', 'nil,table'})
 	local weights = weights or {}
 	local maximun = 0
 	local ranges = {}
@@ -478,7 +539,7 @@ end
 
 -- Gives an affliction to a character
 DD.giveAfflictionCharacter = function (character, identifier, amount, limb)
-	if character == nil then error("bad argument #1 to 'giveAfflictionCharacter' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('giveAfflictionCharacter', {character, identifier, amount, limb}, {'userdata', 'string', 'number', 'nil,userdata'})
 	local limb = limb or character.AnimController.MainLimb
 	character.CharacterHealth.ApplyAffliction(limb, AfflictionPrefab.Prefabs[identifier].Instantiate(amount))
 end
@@ -493,7 +554,7 @@ DD.find = function (tbl, key, value)
 	return nil
 end
 
--- Return the client whose key matches the value
+-- Return the character whose key matches the value
 DD.findCharacter = function(key, value)
 	return DD.find(Character.CharacterList, key, value)
 end
@@ -503,9 +564,9 @@ DD.findClient = function(key, value)
 	return DD.find(Client.ClientList, key, value)
 end
 
--- Returns the client whose client matches
+-- Returns the client whose character matches
 DD.findClientByCharacter = function (character)
-	if character == nil then error("bad argument #1 to 'findClientByCharacter' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('findClientByCharacter', {character}, {'userdata'})
 	return DD.findClient('Character', character)
 end
 
@@ -556,6 +617,7 @@ DD.findRandomWaypointByJob = function (job)
 end
 
 DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
+	DD.expectTypes('isCharacterUsingHullOxygen', {character, ignoreHeadInWater}, {'userdata', 'nil,boolean'})
 	if character.Inventory == nil then return end
 	local headslot = character.Inventory.GetItemAt(DD.invSlots.head)
 	local suitslot = character.Inventory.GetItemAt(DD.invSlots.suit)
@@ -575,36 +637,36 @@ DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 end
 
 DD.isCharacterAntagSafe = function (character)
-	if character == nil then error("bad argument #1 to 'isCharacterAntagSafe' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('isCharacterAntagSafe', {character}, {'userdata'})
 	return DD.antagSafeJobs[tostring(character.JobIdentifier)]
 end
 
 DD.isCharacterHusk = function (character)
-	if character == nil then error("bad argument #1 to 'isCharacterHusk' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('isCharacterHusk', {character}, {'userdata'})
 	local speciesNames = {'humanhusk', 'husk', 'husk_chimera', 'husk_prowler', 'husk_exosuit', 'huskcontainer', 'crawlerhusk'}
 	return DD.tableHas(speciesNames, string.lower(tostring(character.SpeciesName)))
 end
 
 DD.isCharacterSecurity = function (character)
-	if character == nil then error("bad argument #1 to 'isCharacterSecurity' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('isCharacterSecurity', {character}, {'userdata'})
 	local jobs = {'captain', 'securityofficer', 'diver', 'foreman', 'mercs'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 
 DD.isCharacterProletariat = function (character)
-	if character == nil then error("bad argument #1 to 'isCharacterProletariat' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('isCharacterProletariat', {character}, {'userdata'})
 	local jobs = {'mechanic', 'clown'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 
 DD.isCharacterMedical = function (character)
-	if character == nil then error("bad argument #1 to 'isCharacterMedical' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('isCharacterMedical', {character}, {'userdata'})
 	local jobs = {'medicaldoctor', 'researcher'}
 	return DD.tableHas(jobs, character.JobIdentifier)
 end
 
 DD.isCharacterArrested = function (character)
-	if character == nil then error("bad argument #1 to 'isCharacterArrested' (character expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('isCharacterArrested', {character}, {'userdata'})
 	if character.IsDead then return false end
 	if character.IsHandcuffed then return true end
 	if character.CurrentHull == nil then return false end
@@ -618,17 +680,18 @@ DD.isCharacterArrested = function (character)
 end
 
 DD.isClientCharacterAlive = function (client)
-	if client == nil then error("bad argument #1 to 'isClientCharacterAlive' (client expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('isClientCharacterAlive', {client}, {'userdata'})
 	return (client.Character ~= nil) and (not client.Character.IsDead)
 end
 
 DD.lerp = function (n, a, b)
+	DD.expectTypes('lerp', {n, a, b}, {'number', 'number', 'number'})
 	return a*(1-n) + b*n
 end
 
 -- Turns a number (represents seconds) into a formatted string for hours, minutes and seconds
 DD.numberToTime = function (n, data)
-	if n == nil then error("bad argument #1 to 'numberToTime' (number expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('numberToTime', {n, data}, {'number', 'nil,table'})
 	local data = data or {}
 	local spacing = data.spacing or 1
 	local unitSpacing = data.unitSpacing or spacing
@@ -718,7 +781,7 @@ end
 -- Messages a message to a client
 DD.messageClient = function (client, text, data)
 	if CLIENT then return end
-	if client == nil then error("bad argument #1 to 'messageClient' (client expected, got nil)\n\n" .. debug.traceback(), 1) end
+	DD.expectTypes('messageClient', {client, text, data}, {'userdata', 'nil,string,number,boolean', 'nil,table'})
 	
 	local data = data or {}
 	
@@ -834,6 +897,7 @@ end
 
 -- Enables or disables respawning
 DD.setAllowRespawning = function (state)
+	DD.expectTypes('setAllowRespawning', {state}, {'boolean'})
 	Game.OverrideRespawnSub(not state)
 	DD.allowRespawning = state
 end
