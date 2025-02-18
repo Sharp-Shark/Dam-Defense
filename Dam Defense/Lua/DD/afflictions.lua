@@ -68,11 +68,13 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 		if (other ~= character) and (other.SpeciesName == 'human') and (not other.IsDead) and isOtherUsingHullOxygen and isOtherInDistance then
 			spreadDiseaseToCharacter(other, character, 'husk', 0.15)
 			for diseaseName, data in pairs(DD.diseaseData) do
-				local chance = getDiseaseStat(diseaseName, 'spreadChance')
-				if character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) > 0 then
-					spreadDiseaseToCharacter(other, character, diseaseName, chance)
-				elseif character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true) > 0 then
-					spreadDiseaseToCharacter(other, character, diseaseName, chance / 2)
+				if (not character.IsDead) or getDiseaseStat(diseaseName, 'necrotic') then
+					local chance = getDiseaseStat(diseaseName, 'spreadChance')
+					if character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) > 0 then
+						spreadDiseaseToCharacter(other, character, diseaseName, chance)
+					elseif character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true) > 0 then
+						spreadDiseaseToCharacter(other, character, diseaseName, chance / 2)
+					end
 				end
 			end
 		end
@@ -121,11 +123,26 @@ Hook.Add("character.applyDamage", "DD.resetHuskRegenOnDamage", function (charact
 	return
 end)
 
+local afflictionNetworkCooldown = {}
 DD.thinkFunctions.afflictions = function ()
 	if not Game.RoundStarted then return end
 
 	for character in Character.CharacterList do
-		-- Burning affliction reduce if a limb is underwater
+		-- Handcuffed living characters can be dragged at full speed by anyone
+		local affliction = character.CharacterHealth.GetAffliction('firemanscarrytemporary', true)
+		if (character.SelectedCharacter ~= nil) and character.SelectedCharacter.IsHandcuffed and (not character.SelectedCharacter.IsDead) then
+			local affliction = character.CharacterHealth.GetAffliction('firemanscarrytemporary', true)
+			if affliction ~= nil then
+				affliction.SetStrength(1)
+			else
+				DD.giveAfflictionCharacter(character, 'firemanscarrytemporary', 1)
+			end
+		else
+			if affliction ~= nil then
+				affliction.SetStrength(0)
+			end
+		end
+		-- Burning affliction (and some other afflictions) reduce if a limb is underwater
 		for limb in character.AnimController.Limbs do
 			if limb.InWater then
 				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'burning', 10)
@@ -177,6 +194,45 @@ DD.thinkFunctions.afflictions = function ()
 			-- after 10s of being dead, cardiac arrest will reach maxstrength
 			if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) < 1 then
 				DD.giveAfflictionCharacter(character, 'cardiacarrest', 1/60/10)
+				if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) >= 1 then
+					if SERVER then
+						Networking.CreateEntityEvent(character, Character.CharacterStatusEventData.__new(true))
+						
+						afflictionNetworkCooldown[character] = 60 * 5
+					end
+				end
+			end
+			-- after 90s of a corpse being underwater, it will despawn
+			if character.InWater then
+				local affliction = character.CharacterHealth.GetAffliction('despawn', true)
+				DD.giveAfflictionCharacter(character, 'despawn', 1/60/90)
+				-- max strength has been reached
+				if (affliction ~= nil) and (affliction.Strength >= 1) then
+					-- drop items
+					if character.Inventory ~= nil then
+						for itemCount = 0, character.Inventory.Capacity do
+							local item = character.Inventory.GetItemAt(itemCount)
+							if item ~= nil then
+								item.Drop()
+							end
+						end
+					end
+					-- despawn
+					Timer.Wait(function ()
+						Entity.Spawner.AddEntityToRemoveQueue(character)
+					end, 10)
+				end
+			end
+			
+			-- network update for dead character
+			if SERVER then
+				if (afflictionNetworkCooldown[character] ~= nil) and (afflictionNetworkCooldown[character] > 0) then
+					afflictionNetworkCooldown[character] = afflictionNetworkCooldown[character] - 1
+				else
+					Networking.CreateEntityEvent(character, Character.CharacterStatusEventData.__new(true))
+					
+					afflictionNetworkCooldown[character] = 60 * 5
+				end
 			end
 		end
 		-- Disease and immune stuff for living humans

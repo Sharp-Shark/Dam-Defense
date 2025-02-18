@@ -153,10 +153,6 @@
       <Item identifier="toolbelt" equip="true">
         <Item identifier="pistolmagazine" />
         <Item identifier="pistolmagazine" />
-        <Item identifier="flashlight">
-          <Item identifier="batterycell"/>
-        </Item>
-        <Item identifier="crowbar"/>
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="pistol" equip="false">
@@ -165,6 +161,10 @@
       <Item identifier="repairtool">
         <Item identifier="weldingfueltank"/>
       </Item>
+      <Item identifier="flashlight">
+        <Item identifier="batterycell"/>
+      </Item>
+      <Item identifier="crowbar"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
@@ -193,10 +193,6 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
-        <Item identifier="flashlight">
-          <Item identifier="batterycell"/>
-        </Item>
-        <Item identifier="crowbar"/>
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="revolver" equip="false">
@@ -210,6 +206,10 @@
       <Item identifier="repairtool">
         <Item identifier="weldingfueltank"/>
       </Item>
+      <Item identifier="flashlight">
+        <Item identifier="batterycell"/>
+      </Item>
+      <Item identifier="crowbar"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
@@ -611,6 +611,7 @@
 	    <Item identifier="trashbag"/>
 	    <Item identifier="trashbag"/>
 	  </Item>
+      <Item identifier="headset" equip="true"/>
       <Item identifier="hardhatjanitor" equip="true">
 	    <Item identifier="oxygentank"/>
 	  </Item>
@@ -647,6 +648,7 @@
 	    <Item identifier="trashbag"/>
 	    <Item identifier="trashbag"/>
 	  </Item>
+      <Item identifier="headset" equip="true"/>
       <Item identifier="hardhatjanitor" equip="true">
 	    <Item identifier="oxygentank"/>
 	  </Item>

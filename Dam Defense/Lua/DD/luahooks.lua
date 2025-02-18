@@ -1,5 +1,6 @@
 if CLIENT and Game.IsMultiplayer then return end
 
+-- blood sampler
 Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(effect, deltaTime, item, targets, worldPosition)
 	local user = item.ParentInventory
 	if user == nil then return end
@@ -401,10 +402,12 @@ Hook.Add("DD.idcardprinter.delete", "DD.idcardprinter.delete", function(effect, 
 	end, 1)
 end)
 
+-- wifi trigger
 Hook.Add("DD.wifitrigger.use", "DD.wifitrigger.use", function(effect, deltaTime, item, targets, worldPosition)
 	component = item.GetComponentString('WifiComponent').TransmitSignal(Signal('true'), false)
 end)
 
+-- whaling gun uses powder when fired
 Hook.Add("DD.whalinggun.use", "DD.whalinggun.use", function(effect, deltaTime, item, targets, worldPosition)
 	local powder = targets[#targets]
 	if powder.HasTag('whalinggunpowder') or powder.HasTag('munition_propulsion') then
@@ -412,6 +415,7 @@ Hook.Add("DD.whalinggun.use", "DD.whalinggun.use", function(effect, deltaTime, i
 	end
 end)
 
+-- some armor absorbs damage, but in return, will break down
 Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
     local character = instance
 	local hitLimb = ptable['targetLimb']
@@ -450,6 +454,7 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
     end
 end, Hook.HookMethodType.Before)
 
+-- toggles repairtool between wrench and screwdriver mode
 Hook.Add("DD.repairtool.toggle", "DD.repairtool.toggle", function(effect, deltaTime, item, targets, worldPosition)
 	if item == nil then return end
 	if item.HasTag('wrench') then
@@ -473,6 +478,7 @@ Hook.Add("DD.repairtool.toggle", "DD.repairtool.toggle", function(effect, deltaT
 	end
 end)
 
+-- fistful of frags
 Hook.Add("DD.brassknuckle.disarm", "DD.brassknuckle.disarm", function(effect, deltaTime, item, targets, worldPosition)
 	local character = item
 	local limb = targets[1]
@@ -490,6 +496,7 @@ Hook.Add("DD.brassknuckle.disarm", "DD.brassknuckle.disarm", function(effect, de
 	item.Drop(character, true, true)
 end)
 
+-- more intense and better blast jumping
 Hook.Add("DD.jumpergrenade.blastjump", "DD.jumpergrenade.blastjump", function(effect, deltaTime, item, targets, worldPosition)
 	local character = effect.user
 	local vector = Vector2.Normalize(character.WorldPosition - item.WorldPosition)
@@ -498,11 +505,13 @@ Hook.Add("DD.jumpergrenade.blastjump", "DD.jumpergrenade.blastjump", function(ef
 	character.AnimController.MainLimb.body.ApplyForce(vector * scaler)
 end)
 
+-- displacer cannon teleport
 Hook.Add("DD.displacercannon.teleport", "DD.displacercannon.teleport", function(effect, deltaTime, item, targets, worldPosition)
 	local item = targets[1]
 	effect.user.TeleportTo(item.WorldPosition)
 end)
 
+-- displacer cannon light component responds to item condition
 Hook.Add("DD.displacercannon.update", "DD.displacercannon.teleport", function(effect, deltaTime, item, targets, worldPosition)
 	local lerpFactor = (item.Condition / 100) ^ 2
 	item.GetComponentString('LightComponent').LightColor = Color(Byte(70), Byte(200), Byte(250), Byte(DD.lerp(lerpFactor, 0, 255)))
@@ -515,6 +524,7 @@ Hook.Add("DD.displacercannon.update", "DD.displacercannon.teleport", function(ef
 	end
 end)
 
+-- spraycan pepperspray
 Hook.Add("DD.spraycan.use", "DD.spraycan.use", function(effect, deltaTime, item, targets, worldPosition)
 	local limb = targets[1]
 	if limb == nil then return end
@@ -529,6 +539,7 @@ Hook.Add("DD.spraycan.use", "DD.spraycan.use", function(effect, deltaTime, item,
 	end
 end)
 
+-- smoking crystal meth makes user join the respective gang
 Hook.Add("DD.meth.use", "DD.meth.use", function(effect, deltaTime, item, targets, worldPosition)
 	if item.ParentInventory == nil then return end
 	local pipe = item.ParentInventory.Owner
@@ -553,6 +564,7 @@ Hook.Add("DD.meth.use", "DD.meth.use", function(effect, deltaTime, item, targets
 	end
 end)
 
+-- blood cult enlightened
 Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
 	if character == nil then return end
@@ -594,6 +606,7 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	end
 end)
 
+-- blood cult sacrificial dagger
 Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", function(effect, deltaTime, item, targets, worldPosition)
     if CLIENT and Game.IsMultiplayer then return end
 	
@@ -608,6 +621,9 @@ Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", fun
 	if (inventory.Owner == nil) or (inventory.Owner.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) < 99) then return end
 	
 	DD.giveAfflictionCharacter(character, 'cardiacarrest', 999)
+	if SERVER then
+		Networking.CreateEntityEvent(character, Character.CharacterStatusEventData.__new(true))
+	end
 	if inventory.Owner.SpeciesName == 'humanundead' then
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory.Owner.WorldPosition, nil, nil, function (spawnedItem) end)
 	else
@@ -681,7 +697,6 @@ Hook.Add("character.created", 'DD.giveUndeadItems', function(createdCharacter)
 		DD.giveAfflictionCharacter(createdCharacter, 'enlightened', 999)
 		-- Give undead weapons
 		local weapons = {
-			{identifier = 'fraggrenade', offhand = 'fraggrenade'},
 			{identifier = 'sacrificialdagger', offhand = 'sacrificialdagger'},
 			{identifier = 'cultistmace', offhand = 'cultistshield'},
 			{identifier = 'boardingaxe'},
@@ -715,6 +730,7 @@ Hook.Add("character.created", 'DD.giveUndeadItems', function(createdCharacter)
 	end, 100)
 end)
 
+-- time pressure
 Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
 	if character == nil then return end
@@ -890,6 +906,7 @@ Hook.Add("character.created", "DD.huskMessage", function (createdCharacter)
 	end, 100)
 end)
 
+-- radiation
 local fuelrodDecayNetworkCooldown = {}
 Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, item, targets, worldPosition)
 	local containerMultiplier = {
@@ -907,7 +924,7 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 	end
 	
 	if item.Condition <= 2 then
-		if (item.ParentInventory ~= nil) and (LuaUserData.TypeOf(item.ParentInventory.Owner) == 'Barotrauma.Item') and item.ParentInventory.Owner.HasTag('reactor') then
+		if (item.ParentInventory ~= nil) and (LuaUserData.TypeOf(item.ParentInventory.Owner) == 'Barotrauma.Item') then
 			item.Condition = 0
 		else
 			item.Condition = 2
@@ -965,10 +982,19 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 			local amount = maxAmount / distance ^ 2
 			local attackResult = limb.AddDamage(limb.SimPosition, {AfflictionPrefab.Prefabs['radiationsickness'].Instantiate(amount * #character.AnimController.Limbs)}, false, 1, 0.0, nil)
 			character.CharacterHealth.ApplyDamage(limb, attackResult, nil)
+			-- geiger counter visual effect
+			local amountfx = DD.clamp((1 - lerpFactor) * DD.invLerp(distance, maxDistance, minDistance))
+			local affliction = character.CharacterHealth.GetAffliction('geigerfx', true)
+			if (affliction ~= nil) and (amountfx >= affliction.Strength) then
+				affliction.SetStrength(amountfx)
+			else
+				DD.giveAfflictionCharacter(character, 'geigerfx', amountfx)
+			end
 		end
 	end
 end)
 
+-- ballot box
 local vote = function (bool, targets)
 	local count = 0
 	for target in targets do
@@ -995,6 +1021,7 @@ Hook.Add("DD.ballotbox.voteNo", "DD.ballotbox.voteNo", function(effect, deltaTim
 	vote(false, targets)
 end)
 
+-- for debugging/testing
 Hook.Add("DD.debug", "DD.debug", function(effect, deltaTime, item, targets, worldPosition)
 	print(item)
 	DD.tablePrint(targets, nil, 1)

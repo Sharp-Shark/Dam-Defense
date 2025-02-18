@@ -54,7 +54,7 @@ end, {
 			self.fail()
 			return
 		end
-		if (self.minimunAlivePercentage <= alivePercentage) and (self.minimunDeadPercentage <= deadPercentage) then
+		if (self.minimunAlivePercentage > alivePercentage) and (self.minimunDeadPercentage > deadPercentage) then
 			self.fail()
 			return
 		end

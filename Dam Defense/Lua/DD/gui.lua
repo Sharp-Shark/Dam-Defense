@@ -1,4 +1,5 @@
 if SERVER then return end
+
 -- Wiki data
 DD.wikiData = {
 	-- main
@@ -187,6 +188,13 @@ DD.wikiData = {
 		related = {'main', 'dams'},
 	},
 }
+if DD.isCSharpLoaded then
+	local tbl = {'openhtml'}
+	for item in DD.wikiData.main.related do
+		table.insert(tbl, item)
+	end
+	DD.wikiData.main.related = tbl
+end
 -- Automatically adds an object's XML description to its wiki text
 for localization in DD.localizations do
 	for key, value in pairs(localization) do
@@ -345,8 +353,24 @@ DD.loadPage = function (pageKey)
 		count = count + itemsPerRow
 		for value in items do
 			local button = GUI.Button(GUI.RectTransform(Vector2(1 / 4, 0.05), pageRow.RectTransform), DD.stringLocalize('wikiName_' .. value), GUI.Alignment.Center, "GUITextBox")
-			button.OnClicked = function ()
-				DD.loadPage(value)
+			if value == 'openhtml' then		
+				button.OnClicked = function ()
+					if DD.isCSharpLoaded then
+						DD.openHTML(Steam ~= nil)
+					else
+						DD.loadPage(value)
+					end
+				end
+				button.TextColor = Color(100, 255, 255)
+				button.HoverTextColor = Color(150, 255, 255)
+				button.SelectedTextColor = Color(0, 200, 200)
+				button.Color = Color(100, 255, 255)
+				button.HoverColor = Color(150, 255, 255)
+				button.PressedColor = Color(50, 200, 200)
+			else
+				button.OnClicked = function ()
+					DD.loadPage(value)
+				end
 			end
 		end
 	end

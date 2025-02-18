@@ -37,7 +37,7 @@
       <Commonness commonness="0.8" cavecommonness="0.5" abysscommonness="0" leveltype="europanridge" />
       <Commonness commonness="0.8" cavecommonness="0.4" abysscommonness="0" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgpickupselect" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -78,7 +78,7 @@
       <Commonness commonness="0.6" cavecommonness="0.2" abysscommonness="0" leveltype="europanridge" />
       <Commonness commonness="0.8" cavecommonness="0.5" abysscommonness="0" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgpickupselect" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -117,7 +117,7 @@
       <Commonness commonness="1.5" cavecommonness="0.8" abysscommonness="0" leveltype="plateaugarden" />
       <Commonness commonness="1.0" cavecommonness="0.5" abysscommonness="0" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgpickupselect" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -155,7 +155,7 @@
       <Commonness commonness="1.0" cavecommonness="0.6" abysscommonness="0" leveltype="theaphoticplateau" />
       <Commonness commonness="1.2" cavecommonness="0.8" abysscommonness="0" leveltype="plateaugarden" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgpickupselect" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -193,7 +193,7 @@
     <LevelResource deattachduration="1" randomoffsetfromwall="40">
       <Commonness commonness="0.2" cavecommonness="0.4" abysscommonness="0" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgpickupselect" handle1="0,0" pickingtime="5.0" attached="true" attachable="true" reattachable="false">
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />

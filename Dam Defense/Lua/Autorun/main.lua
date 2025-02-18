@@ -1,8 +1,10 @@
 -- Dam Defense table
-DD = {}
+if DD == nil then DD = {} end
 
 -- Set up the mod's path
 DD.path = table.pack(...)[1]
+
+test = 'hello world' -- delete this line later
 
 -- Debug mode
 DD.debugMode = false
@@ -41,6 +43,17 @@ DD.steamWorkshopId = getSteamWorkshopId()
 -- Husk Control cuz WHY NOT?!
 Game.EnableControlHusk(true)
 
+-- CSharp
+if pcall(function ()
+	DamDefenseClass = LuaUserData.RegisterType('DamDefense.DamDefenseClass')
+	DD.fullPath = DamDefenseClass.Type.Path
+	DD.openHTML = DamDefenseClass.Type.OpenHTML
+end) then
+	DD.isCSharpLoaded = true
+else
+	DD.isCSharpLoaded = false
+end
+
 -- Necessary for other bits of the code to work
 RelationType = LuaUserData.CreateEnumTable('Barotrauma.RelatedItem+RelationType')
 LuaUserData.RegisterType('System.Collections.Generic.Dictionary`2[[Barotrauma.RelatedItem+RelationType],[System.Collections.Generic.List`1[[Barotrauma.RelatedItem]]]]')
@@ -65,7 +78,7 @@ DD.roundStartFunctions.main = function ()
 		end
 		
 		-- automations for sub editor
-		if Game.IsSubEditor then
+		if CLIENT and Game.IsSingleplayer and Game.IsSubEditor then
 			for item in Item.ItemList do
 				-- improves performance for maps with lots of ores or plants
 				if item.HasTag('ore') or item.HasTag('plant') and (item.GetComponentString('LightComponent') ~= nil) then
@@ -212,6 +225,21 @@ local doCharacterDeathFunctions = function (character)
 	for name, func in pairs(DD.characterDeathFunctions) do
 		func(character)
 	end
+end
+DD.characterDeathFunctions.main = function (character)
+	-- reset talents (and more) upon death
+	local client = DD.findClientByCharacter(character)
+	if (client ~= nil) and (character.SpeciesName == 'human') then
+		local info = CharacterInfo('human', client.Name)
+		info.RecreateHead(client.CharacterInfo.Head)
+		client.CharacterInfo = info
+	end
+	
+	-- remove grow/breed timers of dead creature
+	DD.roundData.creatureGrowthTimer[character] = nil
+	DD.roundData.creatureBreedTimer[character] = nil
+
+	return true
 end
 
 -- Functions executed whenever a chat message is sent
@@ -560,7 +588,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			if (character.JobIdentifier == 'captain') or (character.JobIdentifier == 'assistant') then
 				character.GiveTalent('drunkensailor', true)
 			end
-			if ((character.JobIdentifier ~= 'captain')) and (DD.isCharacterSecurity(character) or DD.isCharacterMedical(character) or (character.JobIdentifier == 'janitor') or (character.JobIdentifier == 'assistant')) then
+			if DD.isCharacterMedical(character) or (character.JobIdentifier == 'janitor') or (character.JobIdentifier == 'assistant') then
 				character.GiveTalent('firemanscarry', true)
 			end
 			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') or (character.JobIdentifier == 'assistant') then

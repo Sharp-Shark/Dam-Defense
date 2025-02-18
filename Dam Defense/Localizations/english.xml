@@ -91,6 +91,12 @@
   <afflictionname.fever>Fever</afflictionname.fever>
   <afflictiondescription.fever>Fights infections, but too high body temperatures can be counterproductive and even lethal. Treatable with Stabilozine.</afflictiondescription.fever>
   <!-- Misc Afflictions -->
+  <afflictionname.despawn>Despawn Decay</afflictionname.despawn>
+  <afflictiondescription.despawn>The waterlogged corpse is decaying away and will soon despawn.</afflictiondescription.despawn>
+  <afflictionname.bloodlust>Bloodlust</afflictionname.bloodlust>
+  <afflictiondescription.bloodlust>Regeneration, resistance, immunity to illness and greatly increased melee strength.</afflictiondescription.bloodlust>
+  <afflictionname.pulmonaryemphysema>Pulmonary Emphysema</afflictionname.pulmonaryemphysema>
+  <afflictiondescription.pulmonaryemphysema>The lung, due to major alveoli rupture, is unable to absorb oxygen into the bloodstream.</afflictiondescription.pulmonaryemphysema>
   <afflictionname.bacterialgangrene>Bacterial Gangrene</afflictionname.bacterialgangrene>
   <afflictiondescription.bacterialgangrene>Superficial gangrene caused by bacteria, may cause bacterial infection if not treated. Apply antibiotics or wash with ethanol.</afflictiondescription.bacterialgangrene>
   <!-- Disease Afflictions -->
@@ -111,12 +117,14 @@
   <entitydescription.stabilozine>Used as an ingredient in the manufacture of various medicines. On its own, can be used to slow down the effects of most toxins and lower fever.</entitydescription.stabilozine>
   <entitydescription.adrenaline>A naturally occurring hormone. When consumed, temporarily boosts the immune system and awakens anyone unconcious. Used to manufacture medicine or combat stimulants.</entitydescription.adrenaline>
   <entitydescription.piratebodyarmor>Only craftable by rebel leaders. A set of body armor, partially fashioned out of improvised materials by the Jovian Separatists. It's heavier than it looks.</entitydescription.piratebodyarmor>
+  <entitydescription.flamer>Only craftable by janitors. An incendiary weapon that fires a stream of burning welding fuel. Particularly effective with incendium fuel tanks.</entitydescription.flamer>
+  <entitydescription.handcuffs>Useful for restraining problem players. Whilst a player is alive and detained, they will be dragged at full speed.</entitydescription.handcuffs>
   <!--<entitydescription.replaceme></entitydescription.replaceme>-->
   </Override>
   
   <!-- Trash Bag -->
   <entityname.trashbag>Trash Bag</entityname.trashbag>
-  <entitydescription.trashbag>Utilizes non-euclidean space and mysterious alchemical processes to, after having 20 items put inside it, turn into 8 scrap.</entitydescription.trashbag>
+  <entitydescription.trashbag>Only craftable by janitors. Utilizes non-euclidean space and mysterious alchemical processes to, after having 20 items put inside it, turn into 8 scrap.</entitydescription.trashbag>
   <!-- Nexcredit -->
   <entityname.money>Nexcredit</entityname.money>
   <entitydescription.money>Nexcredits (TM) can be exchanged for goods at Nexshops (TM). This message was sponsored by Nexpharma (TM).</entitydescription.money>
@@ -129,6 +137,8 @@
   <!-- Foldable Chair -->
   <entityname.foldablechair>Foldable Chair</entityname.foldablechair>
   <entitydescription.foldablechair>A simple foldable metal chair. Now you can sit almost wherever you want with this! Surprisingly sturdy, sturdy enough to, say, lethally whack someone in the head with.</entitydescription.foldablechair>
+  <entityname.foldablechairoxygenite>Oxygenite Foldable Chair</entityname.foldablechairoxygenite>
+  <entitydescription.foldablechairoxygenite>A foldable chair that has been infused with oxygenite, granting it a powerful crit-boosted explosive attack. Extra effective at lethally whacking heads.</entitydescription.foldablechairoxygenite>
   <!-- Printer -->
   <entityname.printer>Printer</entityname.printer>
   <entitydescription.printer>An advanced ID card and clothing printer. Capable of processing plastic into ID cards or organic fiber into clothing. It can also then deconstruct them back into plastic or fiber. Finally, it can change the job of an ID card or piece of clothing.</entitydescription.printer>
@@ -294,6 +304,15 @@
   <!-- The 1998 -->
   <entityname.the1998>The 1998</entityname.the1998>
   <entitydescription.the1998>Only craftable by cultists. A book containing old forbidden knowledge in an forgotten language. Harmless in the hands of most, but cultists will use these to convert others into one of them.</entitydescription.the1998>
+  <!-- Marauder Shield -->
+  <entityname.cultistshield>Marauder Shield</entityname.cultistshield>
+  <entitydescription.cultistshield>Only craftable by cultists. Medieval shield used to close in the distance to ranged heathen. Often paired with a mace.</entitydescription.cultistshield>
+  <!-- Marauder Mace -->
+  <entityname.cultistmace>Marauder Mace</entityname.cultistmace>
+  <entitydescription.cultistmace>Only craftable by cultists. Medieval mace commonly used my marauders to bash in the skulls of infidels. Often paired with a shield.</entitydescription.cultistmace>
+  <!-- Pitchfork -->
+  <entityname.cultistpitchfork>Pitchfork</entityname.cultistpitchfork>
+  <entitydescription.cultistpitchfork>Only craftable by cultists. Medieval pitchfork useful for chasing heretics and poking them until their guts pour out.</entitydescription.cultistpitchfork>
   <!-- Goblin Crate -->
   <entityname.goblincrate>Goblin Crate</entityname.goblincrate>
   <entitydescription.goblincrate>Too small for even the most nimble of humans... but maybe a goblin could fit in there.</entitydescription.goblincrate>

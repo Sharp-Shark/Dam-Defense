@@ -52,7 +52,7 @@
   </Affliction>
   
   <!-- noxious suffocant spray -->
-  <Affliction name="Noxious Spray" identifier="noxiousspray" description="" type="poison" targets="human" limbspecific="true" activationthreshold="0.0" showiconthreshold="0.0" maxstrength="1">
+  <Affliction name="Noxious Spray" identifier="noxiousspray" description="The face has been sprayed with a noxious spray that irritates and prevents breathing." type="poison" targets="human" limbspecific="true" activationthreshold="0.0" showiconthreshold="0.0" maxstrength="1">
     <Effect minstrength="0" maxstrength="1" strengthchange="-0.1" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0" minfacetint="200,180,255,100" maxfacetint="200,180,255,200" >
 	  <StatusEffect target="Character">
 	    <Conditional vitality="gt 0" />
@@ -88,6 +88,56 @@
     <Effect minstrength="0" maxstrength="1" strengthchange="-0.05" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0" />
 	<AfflictionOverlay texture="%ModDir%/Misc/magentaOverlay.png" />
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  
+  <!-- geiger counter fx when exposed to radioactive material -->
+  <Affliction name="Geiger FX" identifier="geigerfx" description="" type="fx" limbspecific="false" activationthreshold="0.0" showiconthreshold="999" maxstrength="1" >
+    <Effect minstrength="0" maxstrength="0.2" strengthchange="-1" graincolor="255,255,255,255" mingrainstrength="0.0" maxgrainstrength="0.2" >
+      <StatusEffect target="Character">
+        <Conditional IsLocalPlayer="True"/>
+        <Sound file="%ModDir%/Sounds/geiger1.ogg" loop="false" volume="2.0" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/geiger2.ogg" loop="false" volume="2.0" />
+      </StatusEffect>
+	</Effect>
+    <Effect minstrength="0.2" maxstrength="0.4" strengthchange="-1" graincolor="255,255,255,255" mingrainstrength="0.2" maxgrainstrength="0.4" >
+      <StatusEffect target="Character">
+        <Conditional IsLocalPlayer="True"/>
+        <Sound file="%ModDir%/Sounds/geiger1.ogg" loop="false" volume="2.0" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/geiger2.ogg" loop="false" volume="2.0" />
+        <Sound file="%ModDir%/Sounds/geiger3.ogg" loop="false" volume="2.0" />
+      </StatusEffect>
+	</Effect>
+    <Effect minstrength="0.4" maxstrength="0.6" strengthchange="-1" graincolor="255,255,255,255" mingrainstrength="0.4" maxgrainstrength="0.6" >
+      <StatusEffect target="Character">
+        <Conditional IsLocalPlayer="True"/>
+        <Sound file="%ModDir%/Sounds/geiger1.ogg" loop="false" volume="2.0" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/geiger2.ogg" loop="false" volume="2.0" />
+        <Sound file="%ModDir%/Sounds/geiger3.ogg" loop="false" volume="2.0" />
+        <Sound file="%ModDir%/Sounds/geiger4.ogg" loop="false" volume="2.0" />
+      </StatusEffect>
+	</Effect>
+    <Effect minstrength="0.6" maxstrength="0.8" strengthchange="-1" graincolor="255,255,255,255" mingrainstrength="0.6" maxgrainstrength="0.8" >
+      <StatusEffect target="Character">
+        <Conditional IsLocalPlayer="True"/>
+        <Sound file="%ModDir%/Sounds/geiger1.ogg" loop="false" volume="2.0" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/geiger2.ogg" loop="false" volume="2.0" />
+        <Sound file="%ModDir%/Sounds/geiger3.ogg" loop="false" volume="2.0" />
+        <Sound file="%ModDir%/Sounds/geiger4.ogg" loop="false" volume="2.0" />
+        <Sound file="%ModDir%/Sounds/geiger5.ogg" loop="false" volume="2.0" />
+      </StatusEffect>
+	</Effect>
+    <Effect minstrength="0.8" maxstrength="1" strengthchange="-1" graincolor="255,255,255,255" mingrainstrength="0.8" maxgrainstrength="1.0" >
+      <StatusEffect target="Character">
+        <Conditional IsLocalPlayer="True"/>
+        <Sound file="%ModDir%/Sounds/geiger1.ogg" loop="false" volume="2.0" selectionmode="Random" />
+        <Sound file="%ModDir%/Sounds/geiger2.ogg" loop="false" volume="2.0" />
+        <Sound file="%ModDir%/Sounds/geiger3.ogg" loop="false" volume="2.0" />
+        <Sound file="%ModDir%/Sounds/geiger4.ogg" loop="false" volume="2.0" />
+        <Sound file="%ModDir%/Sounds/geiger5.ogg" loop="false" volume="2.0" />
+        <Sound file="%ModDir%/Sounds/geiger6.ogg" loop="false" volume="2.0" />
+      </StatusEffect>
+	</Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,768,128,128" color="255,255,255,255" origin="0,0"/>
   </Affliction>
   
   <!-- notification effect, play a sound effect -->
@@ -325,6 +375,13 @@
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
 
+  <!-- temporary fireman's carry (used for example in "DD.handcuffs.update") -->
+  <Affliction name="Temporary Fireman's Carry" identifier="firemanscarrytemporary" isbuff="True" limbspecific="False" type="" activationthreshold="0.0" showiconthreshold="999" maxstrength="1" >
+    <Effect minstrength="0" maxstrength="1" strengthchange="-1">
+      <AbilityFlag flagtype="MoveNormallyWhileDragging" />
+    </Effect>
+  </Affliction>
+
   <!-- stun vulnerability -->
   <Affliction
     name="Handcuffed"
@@ -494,7 +551,7 @@
   </Affliction>
   
   <!-- Husk stun -->
-  <Affliction name="Husk stun" identifier="huskstun" description="" type="huskstun" targets="human" limbspecific="false" indicatorlimb="Torso" showiconthreshold="1" showinhealthscannerthreshold="1" karmachangeonapplied="-10" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="155,155,100,255;255,100,100,255">
+  <Affliction name="Husk stun" identifier="huskstun" description="The parasite is trying to take roost." type="huskstun" targets="human" limbspecific="false" indicatorlimb="Torso" showiconthreshold="1" showinhealthscannerthreshold="1" karmachangeonapplied="-10" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="155,155,100,255;255,100,100,255">
     <Effect minstrength="0" maxstrength="99" strengthchange="-5" minspeedmultiplier="1.0" maxspeedmultiplier="0.0" />
     <Effect minstrength="99" maxstrength="101" strengthchange="0.5">
       <StatusEffect target="Character" setvalue="true">
@@ -544,7 +601,7 @@
     showicontoothersthreshold="999"
     showinhealthscannerthreshold="999"
     treatmentthreshold="1000"
-    iconcolors="255,155,55"
+    iconcolors="255,55,55"
     MedicalSkillGain="0.005">
     <Effect strengthchange="0"
 	  minspeedmultiplier="1"
@@ -565,7 +622,12 @@
       </StatusEffect>
       <StatValue stattype="MeleeAttackMultiplier" value="2.0" />
     </Effect>
-    <Icon texture="Content/UI/TalentsIcons2.png" sheetindex="7,5" sheetelementsize="128,128"/>
+    <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="0,2" sheetelementsize="128,128"/>
+  </Affliction>
+  
+  <!-- temporary fireman's carry (used for example in "DD.handcuffs.update") -->
+  <Affliction name="Despawn Decay" identifier="despawn" limbspecific="False" indicatorlimb="Torso" type="" activationthreshold="0.0" showiconthreshold="0" maxstrength="1" iconcolors="125,125,125,255" >
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="255,255,255,255" origin="0,0"/>
   </Affliction>
   
   <!-- immune -->
@@ -617,7 +679,7 @@
     <Effect minstrength="0" maxstrength="45" multiplybymaxvitality="true" minfacetint="255,0,0,0" maxfacetint="255,0,0,50" />
     <Effect minstrength="45" maxstrength="90" multiplybymaxvitality="true" minspeedmultiplier="1" maxspeedmultiplier="0.0" minvitalitydecrease="0.0" maxvitalitydecrease="0.5"  minfacetint="255,0,0,50" maxfacetint="255,0,0,100" />
     <Effect minstrength="90" maxstrength="100" multiplybymaxvitality="true" minvitalitydecrease="0.5" maxvitalitydecrease="1.0" minfacetint="255,0,0,100" maxfacetint="255,0,0,150" >
-      <StatusEffect target="Character">
+      <StatusEffect target="Character" >
         <Affliction identifier="stun" strength="0.1"/>
       </StatusEffect>
 	</Effect>

@@ -351,6 +351,7 @@
       <sprite texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="LeftHand" sourcerect="487,1,25,16" origin="0.5,0.8" depth="0.09" inheritlimbdepth="true" inherittexturescale="true" />
       <StatusEffect type="OnWearing" target="Character" lockhands="true" SpeedMultiplier="0.75" setvalue="true">
         <Affliction identifier="handcuffed" amount="1" />
+	    <LuaHook name="DD.handcuffs.update" />
 	  </StatusEffect>
 	  <StatusEffect type="OnWearing" target="This" Condition="-0.55" />
       <StatusEffect type="OnBroken" target="This">
@@ -2051,8 +2052,8 @@
     <Sprite texture="Content/Items/JobGear/TalentGear.png" sourcerect="58,326,143,40" depth="0.6" origin="0.5,0.5" />
     <Body width="120" height="35" density="15" />
     <Wearable slots="Any,OuterClothes" msg="ItemMsgPickUpSelect">
-      <damagemodifier afflictionidentifiers="lacerations" armorsector="0.0,360.0" damagemultiplier="0.25" />
-      <damagemodifier afflictiontypes="burn" armorsector="0.0,360.0" damagemultiplier="0.25" />
+      <damagemodifier afflictionidentifiers="lacerations" armorsector="0.0,360.0" damagemultiplier="0.5" />
+      <damagemodifier afflictiontypes="burn" armorsector="0.0,360.0" damagemultiplier="0.5" />
       <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.5" />
       <SkillModifier skillidentifier="mechanical" skillvalue="15" />
       <SkillModifier skillidentifier="electrical" skillvalue="15" />
@@ -3360,7 +3361,7 @@
       <Commonness commonness="0.5" abysscommonness="0" leveltype="thegreatsea" />
       <Commonness commonness="0.5" abysscommonness="0" leveltype="hydrothermalwastes" />
     </LevelResource>
-    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgdetach" handle1="0,0" pickingtime="5.0" attachable="true" reattachable="false" />
+    <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" msg="itemmsgpickupselect" handle1="0,0" pickingtime="5.0" attachable="true" reattachable="false" />
   </Item>
   
   <!-- sharpened volcano fragment (Mmmph!) -->
@@ -3382,11 +3383,11 @@
       <Attack targetimpulse="5" severlimbsprobability="7.5" itemdamage="40" structuredamage="10">
         <Affliction identifier="lacerations" strength="15" />
         <Affliction identifier="burn" strength="15" />
-        <Affliction identifier="burning" strength="25" />
-        <Affliction identifier="bleeding" strength="5" />
-        <Affliction identifier="stun" strength="0.6" />
+        <Affliction identifier="bleeding" strength="10" />
+        <Affliction identifier="stun" strength="0.5" />
         <StatusEffect type="OnUse" target="UseTarget">
           <Conditional entitytype="eq Character"/>
+          <Affliction identifier="burning" strength="15" />
           <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
           <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
           <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
@@ -5555,10 +5556,10 @@
     <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="0,204,192,48" depth="0.55" origin="0.7,0.5" />
     <Body width="320" height="33" density="30" />
     <MeleeWeapon slots="RightHand+LeftHand" aimable="true" AimPos="25,-60" HoldPos="50,-40" AimAngle="-90" HoldAngle="0" handle1="-60,0" handle2="-20,-5" reload="1" swing="false" range="100" combatpriority="15" msg="ItemMsgPickUpSelect">
-      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="1.1" setvalue="true" />
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="1.15" setvalue="true" />
 	  <Attack structuredamage="2" itemdamage="4" targetimpulse="10" >
-        <Affliction identifier="lacerations" strength="20" />
-        <Affliction identifier="bleeding" strength="20" />
+        <Affliction identifier="lacerations" strength="15" />
+        <Affliction identifier="bleeding" strength="15" />
         <Affliction identifier="stun" strength="0.3" />
         <StatusEffect type="OnUse" target="UseTarget">
           <Conditional entitytype="eq Character" />
@@ -5579,6 +5580,9 @@
     <Quality>
       <QualityStat stattype="StrikingPowerMultiplier" value="0.1" />
     </Quality>
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="Pitchfork Worn" texture="%ModDir%/Items/lifeessence.png" canbehiddenbyotherwearables="false" sourcerect="0,252,192,48" rotation="95" inheritlimbdepth="true" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.85" origin="0.48,0.85" />
+    </Wearable>
   </Item>
   
   <!-- cultist shield -->
@@ -5630,8 +5634,8 @@
     <MeleeWeapon slots="RightHand,LeftHand,Any" range="100" reload="1.2" controlpose="true" aimpos="45,20" handle1="-20,2" holdangle="60" combatpriority="15" >
       <RequiredSkill identifier="weapon" level="20" />
       <Attack targetimpulse="15" structuredamage="5" itemdamage="10" >
-        <Affliction identifier="blunttrauma" strength="15" />
-        <Affliction identifier="stun" strength="0.5" />
+        <Affliction identifier="blunttrauma" strength="20" />
+        <Affliction identifier="stun" strength="0.8" />
         <StatusEffect type="OnUse" target="UseTarget">
           <Conditional entitytype="eq Character"/>
           <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
@@ -5962,5 +5966,20 @@
     <LightComponent range="40" lightcolor="255,199,0,58" powerconsumption="0" IsOn="true" castshadows="false" allowingameediting="false">
       <sprite texture="Content/Items/CreatureLoot/CreatureLoot.png" depth="0.025" sourcerect="410,301,88,95" origin="0.5,0.6" alpha="1.0" />
     </LightComponent>
+  </Item>
+  
+  <!-- plays flybuzz sound effect and despawns -->
+  <Item name="Flybuzz FX" identifier="flybuzzfx" tags="fx" scale="0.5" hideinmenus="true" noninteractable="true" >
+	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
+	<ItemComponent>
+	  <StatusEffect target="This" type="OnSpawn" >
+	    <Sound file="%ModDir%/Sounds/flybuzz1.ogg" volume="3.0" range="800" selectionmode="random" />
+	    <Sound file="%ModDir%/Sounds/flybuzz2.ogg" volume="3.0" range="800" />
+	    <Sound file="%ModDir%/Sounds/flybuzz3.ogg" volume="3.0" range="800" />
+	  </StatusEffect>
+	  <StatusEffect target="This" type="OnSpawn" delay="2" >
+	    <Remove />
+	  </StatusEffect>
+	</ItemComponent>
   </Item>
 </Items>

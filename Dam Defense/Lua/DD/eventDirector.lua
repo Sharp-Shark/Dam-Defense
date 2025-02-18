@@ -314,12 +314,14 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 		if (value.tbl.isMainEvent == isMainEvent) or (value.tbl.isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
 			weights[key] = math.max(0, value.tbl.weight - value.tbl.weight * value.tbl.goodness * DD.eventDirector.goodness)
 		end
-		if (value.tbl.minimunAlivePercentage <= alivePercentage) and (value.tbl.minimunDeadPercentage <= deadPercentage) then
+		if (value.tbl.minimunAlivePercentage > alivePercentage) and (value.tbl.minimunDeadPercentage > deadPercentage) then
 			weights[key] = 0
 		end
 	end
 	-- Start event
-	local event = DD.weightedRandom(DD.eventDirector.eventPool, weights).new()
+	local eventClass = DD.weightedRandom(DD.eventDirector.eventPool, weights)
+	if eventClass == nil then return end
+	local event = eventClass.new()
 	event.start(event)
 	
 	if not event.failed then

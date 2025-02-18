@@ -689,6 +689,18 @@ DD.lerp = function (n, a, b)
 	return a*(1-n) + b*n
 end
 
+DD.invLerp = function(x, a, b)
+	DD.expectTypes('invLerp', {x, a, b}, {'number', 'number', 'number'})
+	return (x - a) / (b - a)
+end
+
+DD.clamp = function(x, minimun, maximun)
+	DD.expectTypes('clamp', {x, minimun, maximun}, {'number', 'nil,number', 'nil,number'})
+	local minimun = minimun or 0
+	local maximun = maximun or 1
+	return math.max(minimun, math.min(maximun, x))
+end
+
 -- Turns a number (represents seconds) into a formatted string for hours, minutes and seconds
 DD.numberToTime = function (n, data)
 	DD.expectTypes('numberToTime', {n, data}, {'number', 'nil,table'})
@@ -781,7 +793,7 @@ end
 -- Messages a message to a client
 DD.messageClient = function (client, text, data)
 	if CLIENT then return end
-	DD.expectTypes('messageClient', {client, text, data}, {'userdata', 'nil,string,number,boolean', 'nil,table'})
+	DD.expectTypes('messageClient', {client, text, data}, {'userdata', 'nil,string,number,boolean,userdata', 'nil,table'})
 	
 	local data = data or {}
 	

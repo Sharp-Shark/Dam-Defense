@@ -182,24 +182,3 @@ DD.roundStartFunctions.nature = function ()
 	-- never use the same plant spawn location twice
 	DD.roundData.plantSpawnLocationBlacklistSet = {}
 end
-
-DD.characterDeathFunctions.corpseCleanUp = function (character)
-	local client = DD.findClientByCharacter(character)
-	if (client ~= nil) and (character.SpeciesName == 'human') then
-		local info = CharacterInfo('human', client.Name)
-		info.RecreateHead(client.CharacterInfo.Head)
-		client.CharacterInfo = info
-	end
-
-	DD.roundData.creatureGrowthTimer[character] = nil
-	DD.roundData.creatureBreedTimer[character] = nil
-	
-	local despawnBlacklist = {'human', 'humanhusk', 'humangoblin', 'humantroll', 'humanundead'}
-	if not DD.tableHas(despawnBlacklist, string.lower(tostring(character.SpeciesName))) then
-		Timer.Wait(function ()
-			Entity.Spawner.AddEntityToRemoveQueue(character)
-		end, 60*1000)
-	end
-
-	return true
-end
