@@ -4,7 +4,10 @@ if SERVER then return end
 DD.wikiData = {
 	-- main
 	main = {
-		related = {'events', 'jobs', 'items', 'creatures', 'medicalSystem', 'radiation', 'dams'},
+		related = {'events', 'jobs', 'items', 'creatures', 'medicalSystem', 'dams', 'credits'},
+	},
+	serverMessage = {
+		related = {'main'}
 	},
 	events = {
 		related = {'main'},
@@ -13,18 +16,18 @@ DD.wikiData = {
 		related = {'main'},
 	},
 	items = {
-		related = {'main', 'medicalSystem'},
+		related = {'main'},
 	},
 	creatures = {
 		related = {'main'},
 	},
 	medicalSystem = {
-		related = {'main', 'items'},
-	},
-	radiation = {
-		related = {'main'},
+		related = {'main', 'radiation'},
 	},
 	dams = {
+		related = {'main'},
+	},
+	credits = {
 		related = {'main'},
 	},
 	placeholder = {
@@ -54,7 +57,7 @@ DD.wikiData = {
 	},
 	-- side events
 	airdropEvent = {
-		related = {'main', 'events', 'revolutionEvent', 'bloodCultEvent'},
+		related = {'main', 'events', 'revolutionEvent', 'bloodCultEvent', 'radiation'},
 	},
 	fishEvent = {
 		related = {'main', 'events', 'spitroachCreature', 'huskCreature'},
@@ -180,6 +183,11 @@ DD.wikiData = {
 	tbinfectionAffliction = {
 		related = {'main', 'medicalSystem', 'afflictionEvent', 'tbsyringeItem', 'tbantidoteItem', 'myxotoxinItem'},
 	},
+	-- misc
+	radiation = {
+		parents = {'medicalSystem'},
+		related = {'main', 'medicalSystem', 'airdropEvent'},
+	},
 	-- dams (maps)
 	oldeTowneDam = {
 		related = {'main', 'dams'},
@@ -188,12 +196,15 @@ DD.wikiData = {
 		related = {'main', 'dams'},
 	},
 }
+-- Add button to open browser wiki if CSharp is loaded
 if DD.isCSharpLoaded then
 	local tbl = {'openhtml'}
 	for item in DD.wikiData.main.related do
 		table.insert(tbl, item)
 	end
 	DD.wikiData.main.related = tbl
+	
+	DD.wikiData.serverMessage.related = {'openhtml', 'main'}
 end
 -- Automatically adds an object's XML description to its wiki text
 for localization in DD.localizations do
@@ -216,36 +227,62 @@ for localization in DD.localizations do
 end
 -- Automatically links pages to their category page, if they have one
 for key, value in pairs(DD.wikiData) do
+	if value.related == nil then DD.wikiData[key].related = {} end
+	if value.parents == nil then DD.wikiData[key].parents = {} end
+	
+	-- automatically link pages to their parent page
+	if key ~= 'main' then
+		table.insert(DD.wikiData[key].parents, 'main')
+	end
 	if string.sub(key, #key - 4, #key) == 'Event' then
 		table.insert(DD.wikiData.events.related, key)
+		table.insert(DD.wikiData[key].parents, 'events')
 	elseif string.sub(key, #key - 2, #key) == 'Job' then
 		table.insert(DD.wikiData.jobs.related, key)
+		table.insert(DD.wikiData[key].parents, 'jobs')
 	elseif string.sub(key, #key - 3, #key) == 'Item' then
 		table.insert(DD.wikiData.items.related, key)
+		table.insert(DD.wikiData[key].parents, 'items')
 		local identifier = DD.stringSplit(key, 'Item')[1]
-		if ItemPrefab.GetItemPrefab(identifier).Category == 8 then
+		if DD.numberToEnum(ItemPrefab.GetItemPrefab(identifier).Category)[3] then
 			table.insert(DD.wikiData.medicalSystem.related, key)
+			table.insert(DD.wikiData[key].parents, 'medicalSystem')
 		end
 	elseif string.sub(key, #key - 2, #key) == 'Dam' then
 		table.insert(DD.wikiData.dams.related, key)
+		table.insert(DD.wikiData[key].parents, 'dams')
 	elseif string.sub(key, #key - 7, #key) == 'Creature' then
 		table.insert(DD.wikiData.creatures.related, key)
+		table.insert(DD.wikiData[key].parents, 'creatures')
 	elseif string.sub(key, #key - 9, #key) == 'Affliction' then
 		table.insert(DD.wikiData.medicalSystem.related, key)
+		table.insert(DD.wikiData[key].parents, 'medicalSystem')
 	end
 	
+	-- any page that links to medicalSystem will have the medicalSystem page link to it
 	if DD.tableHas(value.related, 'medicalSystem') and not DD.tableHas(DD.wikiData.medicalSystem.related, key) then
 		table.insert(DD.wikiData.medicalSystem.related, key)
 	end
 end
 
 -- returns the children of a component
-local function GetChildren(comp)
+local GetChildren = function (comp)
     local tbl = {}
     for value in comp.GetAllChildren() do
         table.insert(tbl, value)
     end
     return tbl
+end
+
+-- set button color
+local defaultButtonColor = Color(169, 212, 187)
+local setButtonColor = function (button, color)
+	button.TextColor = color
+	button.HoverTextColor = color
+	button.SelectedTextColor = color
+	button.Color = color
+	button.HoverColor = Color(255, 255, 255)
+	button.PressedColor = color
 end
 
 -- main frame
@@ -338,6 +375,13 @@ DD.loadPage = function (pageKey)
 	-- change values
 	pageTitle.Text = pageValueName
 	pageBody.Text = pageValueText
+	if (pageKey == 'serverMessage') and (Game.IsMultiplayer) then
+		pageTitle.Text = Game.ServerSettings.ServerName
+		pageBody.Text = Game.ServerSettings.ServerMessageText
+	end
+	if (pageKey == 'credits') and File.Exists(DD.path .. '/credits.txt') then
+		pageBody.Text = File.Read(DD.path .. '/credits.txt')
+	end
 	
 	-- link to related pages
 	pageRelated.ClearChildren()
@@ -353,20 +397,18 @@ DD.loadPage = function (pageKey)
 		count = count + itemsPerRow
 		for value in items do
 			local button = GUI.Button(GUI.RectTransform(Vector2(1 / 4, 0.05), pageRow.RectTransform), DD.stringLocalize('wikiName_' .. value), GUI.Alignment.Center, "GUITextBox")
+			if DD.tableHas(pageValue.parents, value) then
+				setButtonColor(button, Color.Lerp(defaultButtonColor, Color.White, 0.5))
+			end
 			if value == 'openhtml' then		
 				button.OnClicked = function ()
 					if DD.isCSharpLoaded then
-						DD.openHTML(Steam ~= nil)
+						DD.openHTML(true)
 					else
 						DD.loadPage(value)
 					end
 				end
-				button.TextColor = Color(100, 255, 255)
-				button.HoverTextColor = Color(150, 255, 255)
-				button.SelectedTextColor = Color(0, 200, 200)
-				button.Color = Color(100, 255, 255)
-				button.HoverColor = Color(150, 255, 255)
-				button.PressedColor = Color(50, 200, 200)
+				setButtonColor(button, Color(100, 255, 255))
 			else
 				button.OnClicked = function ()
 					DD.loadPage(value)
@@ -401,3 +443,16 @@ Hook.Patch("Barotrauma.GUI", "TogglePauseMenu", {}, function ()
 		end
 	end
 end, Hook.HookMethodType.After)
+
+-- Override server message button to open wiki
+if Game.NetLobbyScreen ~= nil then
+	local descriptionButton
+	for value in Game.NetLobbyScreen.Frame.GetAllChildren() do
+		if value.GetType() == GUI.Button and value.Text == 'Description' then
+			value.OnClicked = function ()
+				menu.Visible = true
+				DD.loadPage('serverMessage')
+			end
+		end
+	end
+end

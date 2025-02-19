@@ -784,7 +784,7 @@
   </Override>
 
   <!-- Location -->
-  <Item name="DD Location" identifier="dd_location" spritecolor="255,255,255" tags="dd_location" category="Miscellaneous" scale="1" linkable="true" allowedlinks="dd_location" noninteractable="true">
+  <Item name="DD Location" identifier="dd_location" spritecolor="255,255,255" tags="dd_location" category="Miscellaneous" scale="1" linkable="true" allowedlinks="dd_location" HiddenInGame="true" noninteractable="true">
     <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="768,128,128,128" origin="0.5,0.5" depth="0.1" />
   </Item>
   

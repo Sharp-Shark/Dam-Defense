@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using Barotrauma;
 using Steamworks;
+using HarmonyLib;
 
 namespace DamDefense {
 	public static class DamDefenseClass {
@@ -23,7 +24,9 @@ namespace DamDefense {
 			}
 			url = url + "LocalMods/DamDefense.html";
 			
-			if (useSteamBrowser)
+			FieldInfo fieldInfoInitialized = AccessTools.Field("Steamworks.SteamClient:initialized");
+			bool canUseSteamBrowser = Convert.ToBoolean(fieldInfoInitialized.GetValue(fieldInfoInitialized));
+			if (canUseSteamBrowser & useSteamBrowser)
 			{
 				Steamworks.SteamFriends.OpenWebOverlay(url);
 			}

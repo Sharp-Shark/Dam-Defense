@@ -5969,7 +5969,7 @@
   </Item>
   
   <!-- plays flybuzz sound effect and despawns -->
-  <Item name="Flybuzz FX" identifier="flybuzzfx" tags="fx" scale="0.5" hideinmenus="true" noninteractable="true" >
+  <Item name="Flybuzz FX" identifier="flybuzzfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
 	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
 	<ItemComponent>
 	  <StatusEffect target="This" type="OnSpawn" >

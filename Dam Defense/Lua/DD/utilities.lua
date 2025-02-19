@@ -684,6 +684,19 @@ DD.isClientCharacterAlive = function (client)
 	return (client.Character ~= nil) and (not client.Character.IsDead)
 end
 
+DD.numberToEnum = function (n)
+	DD.expectTypes('numberToEnum', {n}, {'number'})
+	local tbl = {}
+	local maxExponent = math.ceil(math.log(n, 2))
+	for exponent = 0, maxExponent do
+		if n >= 2 ^ (maxExponent - exponent) then
+			n = n - 2 ^ (maxExponent - exponent)
+			tbl[maxExponent - exponent] = true
+		end
+	end
+	return tbl
+end
+
 DD.lerp = function (n, a, b)
 	DD.expectTypes('lerp', {n, a, b}, {'number', 'number', 'number'})
 	return a*(1-n) + b*n
