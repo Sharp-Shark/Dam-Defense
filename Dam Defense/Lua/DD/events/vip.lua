@@ -5,7 +5,6 @@ DD.eventVIP = DD.class(DD.eventBase, function (self, vip, guard)
 end, {
 	paramType = {'client', 'client'},
 	clientKeys = {'vip', 'guard'},
-	public = false,
 	
 	name = 'vip',
 	instanceCap = 1,

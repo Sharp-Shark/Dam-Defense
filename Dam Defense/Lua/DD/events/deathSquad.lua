@@ -7,6 +7,7 @@ DD.eventDeathSquad = DD.class(DD.eventBase, function (self, nukies)
 end, {
 	paramType = {'clientList'},
 	clientKeys = {'nukies'},
+	public = false,
 	
 	name = 'deathSquad',
 	isMainEvent = true,

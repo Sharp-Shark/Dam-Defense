@@ -70,6 +70,8 @@ return {
 	-- events/nukies.lua (TBD)
 	-- events/revolution.lua (TBD)
 	-- events/serialKiller.lua (TBD)
+	
+	-- wiki
 	-- wiki misc
 	wiki_description = 'Description: {description}\n\n',
 	-- wiki main

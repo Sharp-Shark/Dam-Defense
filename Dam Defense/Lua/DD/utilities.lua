@@ -853,10 +853,10 @@ DD.spawnHuman = function (client, job, pos, name, subclass, speciesName)
 		character = Character.Create(speciesName, pos, info.Name, info, 0, true, false)
 	end
 	
-	if speciesName == 'human' then character.GiveJobItems(false) end
 	if client ~= nil then
 		client.SetClientCharacter(character)
 	end
+	if speciesName == 'human' then character.GiveJobItems(false) end
 	
 	return character
 end

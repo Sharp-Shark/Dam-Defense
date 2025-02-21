@@ -225,6 +225,7 @@ local doCharacterDeathFunctions = function (character)
 	end
 end
 DD.characterDeathFunctions.main = function (character)
+	if CLIENT then return end
 	-- reset talents (and more) upon death
 	local client = DD.findClientByCharacter(character)
 	if (client ~= nil) and (character.SpeciesName == 'human') then
@@ -651,9 +652,58 @@ Timer.Wait(function ()
 	end
 end, 1)
 
--- Evil NetConfig (TM)
+-- Server only
 if CLIENT then return end
 
+-- Server settings to be applied
+DD.serverSettings = {
+    AllowDisguises = true,
+    AllowFileTransfers = true,
+    AllowFriendlyFire = true,
+    AllowLinkingWifiToChat = false,
+    AllowModDownloads = true,
+    AllowModeVoting = false,
+	RespawnMode = 1,
+    AllowRewiring = true,
+    AllowSpectating = true,
+    AllowSubVoting = false,
+    BotCount = 0,
+    DisableBotConversations = true,
+    ExtraCargo = {},
+    GameModeIdentifier = 'sandbox',
+    KarmaEnabled = false,
+    KillableNPCs = true,
+    LockAllDefaultWires = true,
+	TraitorProbability = 0,
+    LosMode = 2, --Opaque    
+    MinRespawnRatio = 0, --Minimun players to respawn
+    ModeSelectionMode = 0, --Manual
+    MonsterEnabled = {},
+    PlayStyle = 2, --Roleplay
+    RespawnInterval = 2 * 60,
+    ShowEnemyHealthBars = 0,
+    UseRespawnShuttle = false,
+    SelectedSubmarine = 'DD Olde Towne',
+    ServerDetailsChanged = true,
+}
+
+-- Applies settings to server
+if SERVER then
+	for setting, value in pairs(DD.serverSettings) do
+		if not pcall(function ()
+			Game.ServerSettings[setting] = value
+		end) then
+			LuaUserData.MakeMethodAccessible(Descriptors['Barotrauma.Networking.ServerSettings'], 'set_' .. setting)
+			Game.ServerSettings['set_' .. setting](value)
+		end
+	end
+	-- Actually applies the settings
+	Game.ServerSettings.ForcePropertyUpdate()
+	-- Set difficulty to 0%
+	Game.NetLobbyScreen.SetLevelDifficulty(0)
+end
+
+-- Evil NetConfig (TM)
 NetConfig.MaxHealthUpdateInterval = 0
 NetConfig.LowPrioCharacterPositionUpdateInterval = 0
 NetConfig.MaxEventPacketsPerUpdate = 8
