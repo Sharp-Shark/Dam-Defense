@@ -11,18 +11,7 @@ namespace DamDefense {
 		
 		public static void OpenHTML (bool useSteamBrowser)
 		{
-			string url = "";
-			string build = "";
-			for (int i = 0; i < Path.Length; i++)
-			{
-				build = build + Path[i];
-				if (Path[i] == '/')
-				{
-					url = url + build;
-					build = "";
-				}
-			}
-			url = url + "LocalMods/_DamDefenseData/main.html";
+			string url = "https://sharp-shark.github.io/Dam-Defense/main.html#main";
 			
 			FieldInfo fieldInfoInitialized = AccessTools.Field("Steamworks.SteamClient:initialized");
 			bool canUseSteamBrowser = Convert.ToBoolean(fieldInfoInitialized.GetValue(fieldInfoInitialized));

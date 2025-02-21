@@ -17,7 +17,17 @@ local validArgs = function ()
 	end
 	return tbl
 end
-Game.AddCommand('dd_test', 'dd_test: test.', func, validArgs, false)
+Game.AddCommand('dd_test', 'Prints the arguments as table.', func, validArgs, false)
+
+-- Debug console dd_wiki
+local func = function (args)
+	local path = DD.generateWikiHTML()
+	print('Wiki was created at ' .. path)
+end
+if CLIENT and Game.IsMultiplayer then
+	func = function () return end
+end
+Game.AddCommand('dd_wiki', 'Calls the "DD.generateWikiHTML" lua method.', func, nil, false)
 
 -- Debug console dd_save
 local func = function (args)
@@ -36,7 +46,7 @@ local validArgs = function ()
 	end
 	return tbl
 end
-Game.AddCommand('dd_save', 'dd_save: manually trigger saving of certain key-values. Useful if autosaving is disabled.', func, validArgs, false)
+Game.AddCommand('dd_save', 'Manually trigger saving of certain key-values. Useful if autosaving is disabled.', func, validArgs, false)
 
 -- Debug console dd_showsave
 local func = function (args)
@@ -45,7 +55,7 @@ end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
-Game.AddCommand('dd_showsave', 'dd_dd_showsave: prints out the value of keys that are saved. Useful for debugging.', func, nil, false)
+Game.AddCommand('dd_showsave', 'Prints out the value of keys that are saved. Useful for debugging.', func, nil, false)
 
 -- Debug console dd_saveall
 local func = function (args)
@@ -54,7 +64,7 @@ end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
-Game.AddCommand('dd_saveall', 'dd_saveall: manually trigger saving of all key-values. Useful if autosaving is disabled.', func, nil, false)
+Game.AddCommand('dd_saveall', 'Manually trigger saving of all key-values. Useful if autosaving is disabled.', func, nil, false)
 
 -- Debug console dd_toggledebugmode
 local func = function (args)
@@ -69,7 +79,7 @@ end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
-Game.AddCommand('dd_toggledebugmode', 'dd_toggledebugmode: Toggles debug mode. Debug mode should only be used for debugging.', func, nil, false)
+Game.AddCommand('dd_toggledebugmode', 'Toggles debug mode. Debug mode should only be used for debugging.', func, nil, false)
 
 -- Debug console dd_toggleeventdirector
 local func = function (args)
@@ -86,7 +96,7 @@ end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
-Game.AddCommand('dd_toggleeventdirector', 'dd_toggleeventdirector: Toggles the event director. The event director is a system which automatically starts events.', func, nil, false)
+Game.AddCommand('dd_toggledirector', 'Toggles the event director. The event director is a system which automatically starts events.', func, nil, false)
 
 -- Debug console dd_startevent
 local func = function (args)
@@ -164,7 +174,7 @@ end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
-Game.AddCommand('dd_startEvent', 'dd_startEvent [eventidentifier]: manually creates and starts an event with the provided identifier.', func, validArgs, false)
+Game.AddCommand('dd_startEvent', 'dd_startEvent [eventidentifier]: Manually creates and starts an event with the provided identifier.', func, validArgs, false)
 
 -- Debug console dd_jobBan
 local func = function (args)
@@ -284,7 +294,7 @@ end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
-Game.AddCommand('dd_jobBan', 'dd_jobBan [name/number] [job] [reason]: job bans a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)
+Game.AddCommand('dd_jobBan', 'dd_jobBan [name/number] [job] [reason]: Job bans a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)
 
 -- Debug console dd_jobUnban
 local func = function (args)
@@ -383,4 +393,4 @@ end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
-Game.AddCommand('dd_jobUnban', 'dd_jobUnban [accountId] [job]: unbans a client of a job. Do not specify a job to clear all the job ban data of a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)
+Game.AddCommand('dd_jobUnban', 'dd_jobUnban [accountId] [job]: Unbans a client of a job. Do not specify a job to clear all the job ban data of a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)

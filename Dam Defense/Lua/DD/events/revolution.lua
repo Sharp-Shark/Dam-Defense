@@ -95,7 +95,6 @@ end, {
 			mechanic = 1,
 			janitor = 0.5,
 			engineer = 0.5,
-			medicaldoctor = 0.5
 		}
 		local pickRebels = self.rebels == nil -- if a list of rebels was already given in the constructor then do not mess with it
 		self.security = {}

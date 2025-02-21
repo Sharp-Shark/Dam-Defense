@@ -82,6 +82,25 @@ DD.clientLogName = function (client)
 	return text
 end
 
+-- Categories
+DD.entityCategories = {
+	structure = 0,
+	decorative = 1,
+	machine = 2,
+	medical = 3,
+	weapon = 4,
+	diving = 5,
+	equipment = 6,
+	fuel = 7,
+	electrical = 8,
+	material = 9,
+	alien = 10,
+	wrecked = 11,
+	itemAssembly = 12,
+	legacy = 13,
+	misc = 14,
+}
+
 -- Set of antag safe jobs
 DD.antagSafeJobs = {
 	captain = true,
@@ -92,6 +111,27 @@ DD.antagSafeJobs = {
 	medicaldoctor = true,
 	bodyguard = true,
 	mercs = true,
+}
+
+-- Set of security jobs
+DD.securityJobs = {
+	captain = true,
+	securityofficer = true,
+	diver = true,
+	foreman = true,
+	mercs = true,
+}
+
+-- Set of proletariat jobs
+DD.proletariatJobs = {
+	mechanic = true,
+	clown = true,
+}
+
+-- Set of medical jobs
+DD.medicalJobs = {
+	researcher = true,
+	medicaldoctor = true,
 }
 
 -- Couldn't be bothered to recall what number is used for each inventory slot so I made this table
@@ -464,6 +504,11 @@ DD.setXor = function (t1, t2)
 	return DD.setSubtract(DD.setUnion(t1, t2), DD.setIntersection(t1, t2))
 end
 
+-- Turns value into a bool (useful when you want true/false instead of true/false/nil)
+DD.toBool = function (value)
+	return value and true or false
+end
+
 -- Xor
 DD.xor = function (b1, b2)
 	DD.expectTypes('xor', {b1, b2}, {'boolean', 'boolean'})
@@ -649,20 +694,17 @@ end
 
 DD.isCharacterSecurity = function (character)
 	DD.expectTypes('isCharacterSecurity', {character}, {'userdata'})
-	local jobs = {'captain', 'securityofficer', 'diver', 'foreman', 'mercs'}
-	return DD.tableHas(jobs, character.JobIdentifier)
+	return DD.securityJobs[tostring(character.JobIdentifier)]
 end
 
 DD.isCharacterProletariat = function (character)
 	DD.expectTypes('isCharacterProletariat', {character}, {'userdata'})
-	local jobs = {'mechanic', 'clown'}
-	return DD.tableHas(jobs, character.JobIdentifier)
+	return DD.proletariatJobs[tostring(character.JobIdentifier)]
 end
 
 DD.isCharacterMedical = function (character)
 	DD.expectTypes('isCharacterMedical', {character}, {'userdata'})
-	local jobs = {'medicaldoctor', 'researcher'}
-	return DD.tableHas(jobs, character.JobIdentifier)
+	return DD.medicalJobs[tostring(character.JobIdentifier)]
 end
 
 DD.isCharacterArrested = function (character)
@@ -702,14 +744,23 @@ DD.colorToHex = function (color)
 	return build
 end
 
-DD.numberToEnum = function (n)
-	DD.expectTypes('numberToEnum', {n}, {'number'})
+DD.numberToEnum = function (n, map)
+	DD.expectTypes('numberToEnum', {n, map}, {'number', 'nil,table'})
 	local tbl = {}
 	local maxExponent = math.ceil(math.log(n, 2))
 	for exponent = 0, maxExponent do
 		if n >= 2 ^ (maxExponent - exponent) then
 			n = n - 2 ^ (maxExponent - exponent)
-			tbl[maxExponent - exponent] = true
+			if map ~= nil then
+				for key, value in pairs(map) do
+					if value == maxExponent - exponent then
+						tbl[key] = true
+						break
+					end
+				end
+			else
+				tbl[maxExponent - exponent] = true
+			end
 		end
 	end
 	return tbl

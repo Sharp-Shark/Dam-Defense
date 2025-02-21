@@ -4,8 +4,6 @@ if DD == nil then DD = {} end
 -- Set up the mod's path
 DD.path = table.pack(...)[1]
 
-test = 'hello world' -- delete this line later
-
 -- Debug mode
 DD.debugMode = false
 

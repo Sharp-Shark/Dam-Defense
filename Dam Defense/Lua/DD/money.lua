@@ -1,37 +1,3 @@
-if CLIENT then return end
-
--- Calculates the interval necessary for an amount of money to be acquired given a period of time
--- If money = 30 and period = 60 then interval = 2
-local calculateSalaryTimer = function (money, period)
-	local period = period or (60 * 5)
-	return period / money
-end
-DD.jobSalaryTimer = {
-	captain = calculateSalaryTimer(10),
-	diver = calculateSalaryTimer(7),
-	securityofficer = calculateSalaryTimer(7),
-	foreman = calculateSalaryTimer(7),
-	researcher = calculateSalaryTimer(7),
-	medicaldoctor = calculateSalaryTimer(5),
-	engineer = calculateSalaryTimer(5),
-	janitor = calculateSalaryTimer(3),
-	mechanic = calculateSalaryTimer(2),
-	clown = calculateSalaryTimer(2),
-	-- other jobs
-	mercs = calculateSalaryTimer(15),
-	mercsevil = calculateSalaryTimer(15),
-	bodyguard = calculateSalaryTimer(7),
-}
-local getCharacterSalaryTimer = function (character)
-	local jobIdentifier = tostring(character.JobIdentifier)
-	
-	if DD.roundData.characterSalaryTimer[character] ~= nil then
-		return DD.roundData.characterSalaryTimer[character]
-	else
-		return DD.jobSalaryTimer[jobIdentifier]
-	end
-end
-
 -- Event for giving people money on "/withdraw" command
 DD.eventWithdraw = DD.class(DD.eventBase, function (self, client, amount)
 	self.client = client
@@ -94,6 +60,40 @@ end, {
 		end
 	end
 })
+
+if CLIENT then return end
+
+-- Calculates the interval necessary for an amount of money to be acquired given a period of time
+-- If money = 30 and period = 60 then interval = 2
+local calculateSalaryTimer = function (money, period)
+	local period = period or (60 * 5)
+	return period / money
+end
+DD.jobSalaryTimer = {
+	captain = calculateSalaryTimer(10),
+	diver = calculateSalaryTimer(7),
+	securityofficer = calculateSalaryTimer(7),
+	foreman = calculateSalaryTimer(7),
+	researcher = calculateSalaryTimer(7),
+	medicaldoctor = calculateSalaryTimer(5),
+	engineer = calculateSalaryTimer(5),
+	janitor = calculateSalaryTimer(3),
+	mechanic = calculateSalaryTimer(2),
+	clown = calculateSalaryTimer(2),
+	-- other jobs
+	mercs = calculateSalaryTimer(15),
+	mercsevil = calculateSalaryTimer(15),
+	bodyguard = calculateSalaryTimer(7),
+}
+local getCharacterSalaryTimer = function (character)
+	local jobIdentifier = tostring(character.JobIdentifier)
+	
+	if DD.roundData.characterSalaryTimer[character] ~= nil then
+		return DD.roundData.characterSalaryTimer[character]
+	else
+		return DD.jobSalaryTimer[jobIdentifier]
+	end
+end
 
 DD.giveMoneyToClient = function (client, amount, announce)
 	if DD.roundData.bank[client] ~= nil then

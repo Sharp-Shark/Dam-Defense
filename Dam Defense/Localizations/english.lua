@@ -74,7 +74,7 @@ return {
 	wiki_description = 'Description: {description}\n\n',
 	-- wiki main
 	wikiName_main = 'Dam Defense',
-	wikiText_main = 'Dam Defense is a mod for the Sandbox mode inspired by SS13 with focus on light RP. Adds custom creatures, items, jobs, maps/submarines, machines and lua scripts.\nLong live Tchernobog!\n\nThis wiki is still a work-in-progress. If you wish to help improve it, join the discord: ' .. DD.discordInvite .. '\n\nDo "/help" in chat for a list of commands!',
+	wikiText_main = 'Dam Defense is a mod for the Sandbox mode inspired by SS13 with focus on light RP. Adds custom creatures, items, jobs, maps/submarines, machines and lua scripts.\nLong live Tchernobog!\n\nThis wiki is still a work-in-progress. If you wish to help improve it, join the discord at ' .. DD.discordInvite .. '\nThere is a browser version of this wiki at https://sharp-shark.github.io/Dam-Defense/main.html \n\nDo "/help" in chat for a list of commands!',
 	wikiName_openhtml = 'Browser Wiki',
 	wikiText_openhtml = 'Lorem ipsum dolor sit amet.',
 	wikiName_serverMessage = 'Server Message',
@@ -165,6 +165,12 @@ return {
 	wikiName_mercsevilJob = 'Death Squadder',
 	wikiText_mercsevilJob = 'An antagonic event job. They look very similar to MERCS Members, but unlike them, they are evil.',
 	-- wiki items
+	wikiName_separatistrifleItem = 'Separatist Rifle',
+	wikiText_separatistrifleItem = 'Can be purchased by Nukies at spawn. It is an AK, what else do you want me to say? Less accurate than the Marksman Rifle (the FN FAL) but shoots faster.',
+	wikiName_marksmanrifleItem = 'Marksman	Rifle',
+	wikiText_marksmanrifleItem = 'Can be purchased by Nukies at spawn. It is an FN FAL, what else do you want me to say? Shoots slower than the Separatist Rifle (the AK) but is more accurate.',
+	wikiName_sovietmagazineItem = '7.62x39mm Magazine',
+	wikiText_sovietmagazineItem = 'Can be purchased by Nukies at spawn. Ammo used by the Separatist Rifle (AK) and the Marksman Rifle (FN FAL).',
 	wikiName_brassknuckleItem = 'Brass Knuckle',
 	wikiText_brassknuckleItem = 'Made of actual brass, this one-handed melee weapon, when equipped two of them, one in each hand, has a decent attack rate and blunt damage. Whenever you hit the hand of another player, regardless of whether you are dual-wielding the brass knuckles or not, whatever item that hand is holding will be dropped (unless the item is a brass knuckle). If you act swiftly, you can grab the dropped weapon off the floor and kill your foe with their own gun. Quite humiliating!',
 	wikiName_printerItem = 'Printer',

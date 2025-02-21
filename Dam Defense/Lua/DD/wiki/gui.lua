@@ -5,10 +5,12 @@ DD.wikiData = {
 	-- main
 	main = {
 		related = {'events', 'jobs', 'items', 'medicalSystem', 'creatures', 'dams', 'credits'},
+		unforcedReciprocalRelations = true,
 		hidden = true,
 	},
 	serverMessage = {
 		related = {'main'},
+		unforcedReciprocalRelations = true,
 		hidden = true,
 	},
 	events = {
@@ -86,9 +88,11 @@ DD.wikiData = {
 	},
 	vipEvent = {
 		related = {'main', 'events', 'bodyguardJob', 'midazolamItem'},
+		identifier = 'eventVIP',
 	},
 	mercsEvent = {
 		related = {'main', 'events', 'deathSquadEvent', 'mercsJob', 'midazolamItem'},
+		identifier = 'eventMERCS',
 	},
 	electionEvent = {
 		related = {'main', 'events', 'captainJob', 'securityofficerJob', 'foremanJob', 'diverJob'},
@@ -143,12 +147,23 @@ DD.wikiData = {
 		related = {'main', 'jobs', 'mercsJob', 'deathSquadEvent', 'midazolamItem'},
 	},
 	-- items
+	separatistrifleItem = {
+		related = {'main', 'items', 'nukiesEvent', 'revolutionEvent', 'jetJob', 'sovietmagazineItem'},
+	},
+	marksmanrifleItem = {
+		related = {'main', 'items', 'nukiesEvent', 'revolutionEvent', 'jetJob', 'sovietmagazineItem'},
+	},
+	sovietmagazineItem = {
+		related = {'main', 'items', 'nukiesEvent', 'revolutionEvent', 'jetJob', 'separatistrifleItem', 'marksmanrifleItem'},
+		identifier = '762magazine',
+	},
 	brassknuckleItem = {
 		related = {'main', 'items'},
 	},
 	printerItem = {
 		related = {'main', 'items', 'jobs'},
 	},
+	-- items (medical)
 	bacterialsyringeItem = {
 		related = {'main', 'items', 'medicalSystem', 'bacterialinfectionAffliction'},
 	},
@@ -220,13 +235,14 @@ end
 for localization in DD.localizations do
 	for key, value in pairs(localization) do
 		if string.sub(key, 1, #'wikiText_') == 'wikiText_' then
+			local wikiIdentifier = DD.stringSplit(key, '_')[2]
 			local description
 			local identifier
 			if string.sub(key, #key - 2, #key) == 'Job' then
-				identifier = DD.stringSplit(DD.stringSplit(key, '_')[2], 'Job')[1]
+				identifier = DD.stringSplit(wikiIdentifier, 'Job')[1]
 				description = tostring(JobPrefab.Get(identifier).Description)
 			elseif string.sub(key, #key - 3, #key) == 'Item' then
-				identifier = DD.stringSplit(DD.stringSplit(key, '_')[2], 'Item')[1]
+				identifier = DD.wikiData[wikiIdentifier].identifier or DD.stringSplit(wikiIdentifier, 'Item')[1]
 				description = tostring(ItemPrefab.GetItemPrefab(identifier).Description)
 			end
 			if description ~= nil then
@@ -239,6 +255,7 @@ end
 for key, value in pairs(DD.wikiData) do
 	if value.related == nil then DD.wikiData[key].related = {} end
 	if value.parents == nil then DD.wikiData[key].parents = {} end
+	if value.info == nil then DD.wikiData[key].info = {} end
 	
 	-- automatically link pages to their parent page
 	if key ~= 'main' then
@@ -247,17 +264,43 @@ for key, value in pairs(DD.wikiData) do
 	if string.sub(key, #key - 4, #key) == 'Event' then
 		table.insert(DD.wikiData.events.related, key)
 		table.insert(DD.wikiData[key].parents, 'events')
+		-- get info
+		local identifier
+		if DD.wikiData[key].identifier ~= nil then
+			identifier = DD.wikiData[key].identifier
+		else
+			identifier = string.sub(key, 1, #key - #'event')
+			identifier = 'event' .. string.upper(string.sub(identifier, 1, 1)) .. string.sub(identifier, 2 , #key)
+		end
+		DD.wikiData[key].info.main = DD.toBool(DD[identifier].tbl.isMainEvent)
+		DD.wikiData[key].info.public = DD.toBool(DD[identifier].tbl.public)
 	elseif string.sub(key, #key - 2, #key) == 'Job' then
 		table.insert(DD.wikiData.jobs.related, key)
 		table.insert(DD.wikiData[key].parents, 'jobs')
+		-- get info
+		local identifier = string.sub(key, 1, #key - #'job')
+		DD.wikiData[key].info.antagSafe = DD.toBool(DD.antagSafeJobs[identifier])
+		DD.wikiData[key].info.security = DD.toBool(DD.securityJobs[identifier])
+		DD.wikiData[key].info.proletariat = DD.toBool(DD.proletariatJobs[identifier])
+		DD.wikiData[key].info.medical = DD.toBool(DD.medicalJobs[identifier])
 	elseif string.sub(key, #key - 3, #key) == 'Item' then
 		table.insert(DD.wikiData.items.related, key)
 		table.insert(DD.wikiData[key].parents, 'items')
-		local identifier = DD.stringSplit(key, 'Item')[1]
-		if DD.numberToEnum(ItemPrefab.GetItemPrefab(identifier).Category)[3] then
+		local identifier = DD.wikiData[key].identifier or DD.stringSplit(key, 'Item')[1]
+		local categoryEnum = DD.numberToEnum(ItemPrefab.GetItemPrefab(identifier).Category, DD.entityCategories)
+		if categoryEnum.medical then
 			table.insert(DD.wikiData.medicalSystem.related, key)
 			table.insert(DD.wikiData[key].parents, 'medicalSystem')
 		end
+		-- get info
+		for recipe in ItemPrefab.GetItemPrefab(identifier).FabricationRecipes do
+			if tostring(recipe.SuitableFabricatorIdentifiers[1]) == 'nexshop' then
+				DD.wikiData[key].info.nexshopCost = recipe.RequiredItems[1].amount
+			elseif tostring(recipe.SuitableFabricatorIdentifiers[1]) == 'nukieshop' then
+				DD.wikiData[key].info.nukieshopCost = recipe.RequiredItems[1].amount
+			end
+		end
+		DD.wikiData[key].info.categories = categoryEnum
 	elseif string.sub(key, #key - 2, #key) == 'Dam' then
 		table.insert(DD.wikiData.dams.related, key)
 		table.insert(DD.wikiData[key].parents, 'dams')
@@ -268,10 +311,15 @@ for key, value in pairs(DD.wikiData) do
 		table.insert(DD.wikiData.medicalSystem.related, key)
 		table.insert(DD.wikiData[key].parents, 'medicalSystem')
 	end
-	
-	-- any page that links to medicalSystem will have the medicalSystem page link to it
-	if DD.tableHas(value.related, 'medicalSystem') and not DD.tableHas(DD.wikiData.medicalSystem.related, key) then
-		table.insert(DD.wikiData.medicalSystem.related, key)
+end
+-- ensure related reciprocity
+for key, value in pairs(DD.wikiData) do
+	if (not value.unforcedReciprocalRelations) and (key ~= 'openhtml') then
+		for related in DD.wikiData[key].related do
+			if (related ~= 'openhtml') and (not DD.wikiData[related].unforcedReciprocalRelations) and (not DD.tableHas(DD.wikiData[related].related, key)) then
+				table.insert(DD.wikiData[related].related, key)
+			end
+		end
 	end
 end
 
@@ -421,12 +469,7 @@ DD.loadPage = function (pageKey)
 			end
 			if value == 'openhtml' then		
 				button.OnClicked = function ()
-					DD.generateWikiHTML()
-					if DD.isCSharpLoaded then
-						DD.openHTML(true)
-					else
-						DD.loadPage(value)
-					end
+					DD.openHTML(true)
 				end
 				setButtonColor(button, Color.Lerp(Color(123, 104, 238), Color.White, 0.65))
 			else
@@ -480,6 +523,10 @@ end
 -- Generates HTML pages
 DD.generateWikiHTML = function ()
 	-- guard clauses and retrieve needed file text
+	if not File.DirectoryExists(DD.saving.folderPath) then
+        File.CreateDirectory(DD.saving.folderPath)
+		print('Data folder not found, so one was created at ' .. DD.saving.folderPath)
+	end
 	local mainPath = DD.path .. '/Lua/DD/wiki/main.html'
 	local segmentPath = DD.path .. '/Lua/DD/wiki/segment.html'
 	if not File.Exists(mainPath) then DD.warn('File needed for HTML wiki creation was not found in ' .. mainPath) return end
@@ -489,6 +536,7 @@ DD.generateWikiHTML = function ()
 	
 	-- anchor
 	local anchor = '<a href="#{key}" style="{style}">{text}</a>'
+	local headerInfo = ' <b style="{style}">{text}</b>'
 	
 	-- adds a wiki entry to the HTML page
 	local generatePage = function (key)
@@ -501,6 +549,51 @@ DD.generateWikiHTML = function ()
 			if DD.wikiData[key].category ~= nil then
 				tbl.name = DD.stringReplace('{name} ({category})', {name = tbl.name, category = getPageFields(DD.wikiData[key].category).name})
 			end
+			-- add info to header (name)
+			local nameAppend = ''
+			local info = DD.wikiData[key].info or {}
+			for key,value in pairs(info) do
+				if key == 'main' then
+					if value then
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Major', style = 'color:tomato;'})
+					else
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Minor', style = 'color:gold;'})
+					end
+				elseif key == 'public' then
+					if value then
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Public', style = 'color:lime;'})
+					else
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Secret', style = 'color:magenta;'})
+					end
+				elseif key == 'antagSafe' then
+					if value then
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Safe', style = 'color:lime;'})
+					else
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Unsafe', style = 'color:tomato;'})
+					end
+				elseif key == 'security' then
+					if value then
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Security', style = 'color:tan;'})
+					end
+				elseif key == 'proletariat' then
+					if value then
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Proletariat', style = 'color:lightsteelblue;'})
+					end
+				elseif key == 'medical' then
+					if value then
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Medical', style = 'color:salmon;'})
+					end
+				elseif key == 'nexshopCost' then
+					if value then
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = value .. ' Credits', style = 'color:cyan;'})
+					end
+				elseif key == 'nukieshopCost' then
+					if value then
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = value .. ' Credits', style = 'color:orange;'})
+					end
+				end
+			end
+			tbl.name = tbl.name .. nameAppend
 			-- style for name (header/title)
 			tbl.nameStyle = ''
 			if (DD.wikiData[key].category ~= nil) and (DD.wikiData[DD.wikiData[key].category].color ~= nil) then
@@ -512,7 +605,7 @@ DD.generateWikiHTML = function ()
 			end
 			if string.lower(string.sub(key, #key - 2, #key)) == 'job' then
 				local job = string.sub(key, 1, #key - 3)
-				tbl.nameStyle = 'background-color:' .. DD.colorToHex(Color.Lerp(JobPrefab.Get(job).UIColor, Color.Black, 0.25)) .. ';'
+				tbl.nameStyle = 'background-color:' .. DD.colorToHex(Color.Lerp(JobPrefab.Get(job).UIColor, Color.Black, 0.3)) .. ';'
 			end
 			-- text (wiki entry body)
 			tbl.text = '&nbsp;&nbsp;' .. string.gsub(tbl.text, '\n', '<br>&nbsp;&nbsp;')
@@ -521,13 +614,14 @@ DD.generateWikiHTML = function ()
 			local joinString = ' '
 			for related in value.related do
 				if related ~= 'openhtml' then
-					local style = 'margin:8px;'
+					local style = 'margin:0px 3px;'
 					if DD.tableHas(value.parents, related) then
 						style = style .. "color:black;background-color:mediumslateblue;padding:1px;"
 					end
-					tbl.related = tbl.related .. DD.stringReplace(anchor, {key = related, style = style, text = getPageFields(related).name})
+					tbl.related = tbl.related .. DD.stringReplace(anchor, {key = related, style = style, text = getPageFields(related).name}) .. joinString
 				end
 			end
+			tbl.related = string.sub(tbl.related, 1, #tbl.related - #joinString)
 			-- prepare for next wiki entry
 			tbl.segment = '{segment}'
 			-- apply
@@ -573,4 +667,5 @@ DD.generateWikiHTML = function ()
 	-- final
 	main = string.gsub(main, '{segment}', '')
 	File.Write(DD.saving.folderPath .. 'main.html', main)
+	return DD.saving.folderPath .. 'main.html'
 end
