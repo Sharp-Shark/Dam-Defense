@@ -509,7 +509,7 @@ require 'DD/luahooks'
 require 'DD/commands'
 require 'DD/networking/client'
 require 'DD/networking/server'
-require 'DD/gui'
+require 'DD/wiki/gui'
 
 -- Save file
 DD.saving.boot()
@@ -651,7 +651,7 @@ Timer.Wait(function ()
 			print(' - ' .. warning)
 		end
 	end
-end, 0)
+end, 1)
 
 -- Evil NetConfig (TM)
 if CLIENT then return end

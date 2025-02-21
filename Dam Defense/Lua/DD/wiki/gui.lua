@@ -4,34 +4,44 @@ if SERVER then return end
 DD.wikiData = {
 	-- main
 	main = {
-		related = {'events', 'jobs', 'items', 'creatures', 'medicalSystem', 'dams', 'credits'},
+		related = {'events', 'jobs', 'items', 'medicalSystem', 'creatures', 'dams', 'credits'},
+		hidden = true,
 	},
 	serverMessage = {
-		related = {'main'}
+		related = {'main'},
+		hidden = true,
 	},
 	events = {
 		related = {'main'},
+		isCategory = true,
 	},
 	jobs = {
 		related = {'main'},
+		isCategory = true,
 	},
 	items = {
 		related = {'main'},
-	},
-	creatures = {
-		related = {'main'},
+		isCategory = true,
 	},
 	medicalSystem = {
 		related = {'main', 'radiation'},
+		isCategory = true,
+	},
+	creatures = {
+		related = {'main'},
+		isCategory = true,
 	},
 	dams = {
 		related = {'main'},
+		isCategory = true,
 	},
 	credits = {
 		related = {'main'},
+		isCategory = true,
 	},
 	placeholder = {
 		related = {'main'},
+		hidden = true,
 	},
 	-- main events
 	nukiesEvent = {
@@ -133,6 +143,12 @@ DD.wikiData = {
 		related = {'main', 'jobs', 'mercsJob', 'deathSquadEvent', 'midazolamItem'},
 	},
 	-- items
+	brassknuckleItem = {
+		related = {'main', 'items'},
+	},
+	printerItem = {
+		related = {'main', 'items', 'jobs'},
+	},
 	bacterialsyringeItem = {
 		related = {'main', 'items', 'medicalSystem', 'bacterialinfectionAffliction'},
 	},
@@ -156,12 +172,6 @@ DD.wikiData = {
 	},
 	bloodsamplerItem = {
 		related = {'main', 'items', 'medicalSystem', 'bacterialsyringeItem', 'flusyringeItem', 'tbsyringeItem', 'gangWarEvent'},
-	},
-	brassknuckleItem = {
-		related = {'main', 'items'},
-	},
-	printerItem = {
-		related = {'main', 'items', 'jobs'},
 	},
 	-- creatures
 	spitroachCreature = {
@@ -356,32 +366,41 @@ text.TextScale = 1.5
 local pageRelated = GUI.ListBox(GUI.RectTransform(Vector2(1, 0.75 * (1 - k)), menuList.Content.RectTransform))
 pageRelated.ScrollBarVisible = true
 
--- Called by "pageDropdown.OnSelected"
-DD.loadPage = function (pageKey)
-	local pageValue = DD.wikiData[pageKey]
-	local pageValueName = DD.stringLocalize('wikiName_' .. pageKey) or ('wikiName_' .. pageKey)
-	local pageValueText = DD.stringLocalize('wikiText_' .. pageKey) or ('wikiText_' .. pageKey)
+-- gets the name (title), text (body) and other relevant fields of a wiki page
+local getPageFields = function (pageKey)
+	local tbl = {
+		name = DD.stringLocalize('wikiName_' .. pageKey) or ('wikiName_' .. pageKey),
+		text = DD.stringLocalize('wikiText_' .. pageKey) or ('wikiText_' .. pageKey),
+	}
+	if (pageKey == 'serverMessage') and (Game.IsMultiplayer) then
+		tbl.name = Game.ServerSettings.ServerName
+		tbl.text = Game.ServerSettings.ServerMessageText
+	end
+	if (pageKey == 'credits') and File.Exists(DD.path .. '/credits.txt') then
+		tbl.text = File.Read(DD.path .. '/credits.txt')
+	end
 	
 	local newline = '    '
 	local build = newline
-	for count = 1, #pageValueText do
-		build = build .. string.sub(pageValueText, count, count)
+	for count = 1, #tbl.text do
+		build = build .. string.sub(tbl.text, count, count)
 		if string.sub(build, #build, #build) == '\n' then
 			build = build .. newline
 		end
 	end
-	pageValueText = build
+	tbl.text = build
+	
+	return tbl
+end
+
+-- Called by "pageDropdown.OnSelected"
+DD.loadPage = function (pageKey)
+	local pageValue = DD.wikiData[pageKey]
 	
 	-- change values
-	pageTitle.Text = pageValueName
-	pageBody.Text = pageValueText
-	if (pageKey == 'serverMessage') and (Game.IsMultiplayer) then
-		pageTitle.Text = Game.ServerSettings.ServerName
-		pageBody.Text = Game.ServerSettings.ServerMessageText
-	end
-	if (pageKey == 'credits') and File.Exists(DD.path .. '/credits.txt') then
-		pageBody.Text = File.Read(DD.path .. '/credits.txt')
-	end
+	local pageFields = getPageFields(pageKey)
+	pageTitle.Text = pageFields.name
+	pageBody.Text = pageFields.text
 	
 	-- link to related pages
 	pageRelated.ClearChildren()
@@ -398,17 +417,18 @@ DD.loadPage = function (pageKey)
 		for value in items do
 			local button = GUI.Button(GUI.RectTransform(Vector2(1 / 4, 0.05), pageRow.RectTransform), DD.stringLocalize('wikiName_' .. value), GUI.Alignment.Center, "GUITextBox")
 			if DD.tableHas(pageValue.parents, value) then
-				setButtonColor(button, Color.Lerp(defaultButtonColor, Color.White, 0.5))
+				setButtonColor(button, Color.Lerp(defaultButtonColor, Color.White, 0.65))
 			end
 			if value == 'openhtml' then		
 				button.OnClicked = function ()
+					DD.generateWikiHTML()
 					if DD.isCSharpLoaded then
 						DD.openHTML(true)
 					else
 						DD.loadPage(value)
 					end
 				end
-				setButtonColor(button, Color(100, 255, 255))
+				setButtonColor(button, Color.Lerp(Color(123, 104, 238), Color.White, 0.65))
 			else
 				button.OnClicked = function ()
 					DD.loadPage(value)
@@ -455,4 +475,102 @@ if Game.NetLobbyScreen ~= nil then
 			end
 		end
 	end
+end
+
+-- Generates HTML pages
+DD.generateWikiHTML = function ()
+	-- guard clauses and retrieve needed file text
+	local mainPath = DD.path .. '/Lua/DD/wiki/main.html'
+	local segmentPath = DD.path .. '/Lua/DD/wiki/segment.html'
+	if not File.Exists(mainPath) then DD.warn('File needed for HTML wiki creation was not found in ' .. mainPath) return end
+	if not File.Exists(segmentPath) then DD.warn('File needed for HTML wiki creation was not found in ' .. segmentPath) return end
+	local main = File.Read(mainPath)
+	local segment = File.Read(segmentPath)
+	
+	-- anchor
+	local anchor = '<a href="#{key}" style="{style}">{text}</a>'
+	
+	-- adds a wiki entry to the HTML page
+	local generatePage = function (key)
+		local value = DD.wikiData[key]
+		if not value.hidden then
+			local tbl = getPageFields(key)
+			-- key (technical)
+			tbl.key = key
+			-- name
+			if DD.wikiData[key].category ~= nil then
+				tbl.name = DD.stringReplace('{name} ({category})', {name = tbl.name, category = getPageFields(DD.wikiData[key].category).name})
+			end
+			-- style for name (header/title)
+			tbl.nameStyle = ''
+			if (DD.wikiData[key].category ~= nil) and (DD.wikiData[DD.wikiData[key].category].color ~= nil) then
+				local color = DD.wikiData[DD.wikiData[key].category].color
+				if type(color) == 'userdata' then
+					color = DD.colorToHex(color)
+				end
+				tbl.nameStyle = 'background-color:' .. color .. ';'
+			end
+			if string.lower(string.sub(key, #key - 2, #key)) == 'job' then
+				local job = string.sub(key, 1, #key - 3)
+				tbl.nameStyle = 'background-color:' .. DD.colorToHex(Color.Lerp(JobPrefab.Get(job).UIColor, Color.Black, 0.25)) .. ';'
+			end
+			-- text (wiki entry body)
+			tbl.text = '&nbsp;&nbsp;' .. string.gsub(tbl.text, '\n', '<br>&nbsp;&nbsp;')
+			-- related (links)
+			tbl.related = ''
+			local joinString = ' '
+			for related in value.related do
+				if related ~= 'openhtml' then
+					local style = 'margin:8px;'
+					if DD.tableHas(value.parents, related) then
+						style = style .. "color:black;background-color:mediumslateblue;padding:1px;"
+					end
+					tbl.related = tbl.related .. DD.stringReplace(anchor, {key = related, style = style, text = getPageFields(related).name})
+				end
+			end
+			-- prepare for next wiki entry
+			tbl.segment = '{segment}'
+			-- apply
+			local text = string.gsub(DD.stringReplace(segment, tbl), '%%', '%%%%')
+			main = string.gsub(main, '{segment}', text)
+		end
+	end
+	
+	-- discord invite
+	main = string.gsub(main, '{discordInvite}', DD.discordInvite)
+	-- main wiki entry has a custom implementation
+	main = string.gsub(main, '{mainText}', '&nbsp;&nbsp;' .. string.gsub(getPageFields('main').text, '\n', '<br>&nbsp;&nbsp;'))
+	local mainRelated = ''
+	for related in DD.wikiData.main.related do
+		if related ~= 'openhtml' then
+			mainRelated = mainRelated .. DD.stringReplace(anchor, {key = related, style = '', text = getPageFields(related).name}) .. ' | '
+		end
+	end
+	mainRelated = string.sub(mainRelated, 1 , #mainRelated - 3)
+	main = string.gsub(main, '{mainRelated}', mainRelated)
+	-- order wiki entries
+	local tbl = {}
+	for key, value in pairs(DD.wikiData) do
+		if value.isCategory then
+			tbl[key] = {key}
+		elseif type(value.parents) == 'table' then
+			local chosenParent
+			for parent in value.parents do
+				chosenParent = parent
+			end
+			if (chosenParent ~= nil) and (chosenParent ~= 'main') then
+				table.insert(tbl[chosenParent], key)
+				DD.wikiData[key].category = chosenParent
+			end
+		end
+	end
+	-- generate wiki entries
+	for category, subtbl in pairs(tbl) do
+		for item in subtbl do
+			generatePage(item)
+		end
+	end
+	-- final
+	main = string.gsub(main, '{segment}', '')
+	File.Write(DD.saving.folderPath .. 'main.html', main)
 end

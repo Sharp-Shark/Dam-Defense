@@ -22,7 +22,7 @@ namespace DamDefense {
 					build = "";
 				}
 			}
-			url = url + "LocalMods/DamDefense.html";
+			url = url + "LocalMods/_DamDefenseData/main.html";
 			
 			FieldInfo fieldInfoInitialized = AccessTools.Field("Steamworks.SteamClient:initialized");
 			bool canUseSteamBrowser = Convert.ToBoolean(fieldInfoInitialized.GetValue(fieldInfoInitialized));

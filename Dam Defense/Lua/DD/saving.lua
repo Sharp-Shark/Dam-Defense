@@ -1,7 +1,8 @@
 DD.saving = {}
 
 -- The path to the save file
-DD.saving.savePath = 'LocalMods/Dam Defense.json'
+DD.saving.folderPath = 'LocalMods/_DamDefenseData/'
+DD.saving.savePath = DD.saving.folderPath .. 'save.json'
 
 -- Auto saving
 DD.saving.autoSave = true
@@ -39,26 +40,30 @@ DD.saving.set = function (path, new)
 end
 
 -- Loads from file
-DD.saving.load = function (keys)
-	local tbl = json.parse(File.Read(DD.saving.savePath))
+DD.saving.load = function (keys, filePath)
+	local filePath = filePath or DD.saving.savePath
+	
+	local tbl = json.parse(File.Read(filePath))
 	local keys = keys or DD.saving.keys
 	for key in keys do
 		if tbl[key] ~= nil then
 			DD.saving.set(key, tbl[key])
 		end
 	end
-	return json.parse(File.Read(DD.saving.savePath))
+	return json.parse(File.Read(filePath))
 end
 
 -- Saves to file
-DD.saving.save = function (keys)
+DD.saving.save = function (keys, filePath)
+	local filePath = filePath or DD.saving.savePath
+	
 	local tbl = {}
-	if keys ~= nil then tbl = json.parse(File.Read(DD.saving.savePath)) end
+	if keys ~= nil then tbl = json.parse(File.Read(filePath)) end
 	local keys = keys or DD.saving.keys
 	for key in keys do
 		tbl[key] = DD.saving.get(key)
 	end
-	File.Write(DD.saving.savePath, json.serialize(tbl))
+	File.Write(filePath, json.serialize(tbl))
 	return json.serialize(tbl)
 end
 
@@ -72,11 +77,23 @@ DD.saving.debug = function ()
 	DD.tablePrint(json.parse(File.Read(DD.saving.savePath)), nil, 1)
 end
 
--- Create save file if none is found
+-- Does setup. Then loads and updates save file if it exists
 DD.saving.boot = function ()
+	if not File.DirectoryExists(DD.saving.folderPath) then
+        File.CreateDirectory(DD.saving.folderPath)
+		DD.warn('Data folder not found, so one was created at ' .. DD.saving.folderPath)
+	end
 	if not File.Exists(DD.saving.savePath) then
-		table.insert(DD.warnings, 'No save file was found, so one was created at ' .. DD.saving.savePath)
-		DD.saving.save()
+		if File.Exists('LocalMods/Dam Defense.json') then
+			local oldSavePath = 'LocalMods/Dam Defense.json'
+			DD.saving.load(nil, oldSavePath)
+			os.remove(oldSavePath)
+			DD.saving.save()
+			DD.warn('Old save file was moved to ' .. DD.saving.savePath)
+		else
+			DD.saving.save()
+			DD.warn('No save file was found, so one was created at ' .. DD.saving.savePath)
+		end
 	else
 		DD.saving.load()
 		DD.saving.save()

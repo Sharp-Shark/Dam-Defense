@@ -1,4 +1,5 @@
 Russian localization by Squid. Squid also helped with removing unused textures and with cleaning the boombox XML.
+Barry Ballast wrote a lot of the Dam Defense Wiki. He also contributed a lot of feedback and suggestions.
 Special thanks to the Undertow discord, the Luatrauma discord and Evil Factory for helping me overcome a lot of the hurdles I came across.
 Some art and audio assets are taken from other games like TF2, Half-Life, Half-Life: Opposing Force, Blood, Gloomwood and Plague Inc: Evolved.
 VIP event was an idea suggested by Jerry Peterson and he also provided the bodyguard outfit sprites and "Jerry.xml".

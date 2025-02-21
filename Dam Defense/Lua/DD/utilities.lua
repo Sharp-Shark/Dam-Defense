@@ -278,7 +278,7 @@ DD.tableJoin = function (t, join)
 end
 
 -- My version of string.format
-DD.stringReplace = function(str, tbl)
+DD.stringReplace = function (str, tbl)
 	DD.expectTypes('stringReplace', {str, tbl}, {'string', 'nil,table'})
 	local formatted = ''
 	local build = ''
@@ -682,6 +682,24 @@ end
 DD.isClientCharacterAlive = function (client)
 	DD.expectTypes('isClientCharacterAlive', {client}, {'userdata'})
 	return (client.Character ~= nil) and (not client.Character.IsDead)
+end
+
+DD.colorToHex = function (color)
+	local build = '#'
+	
+	local hexR = string.format('%x', color.R)
+	if #hexR == 1 then hexR = '0' .. hexR end
+	build = build .. hexR
+	
+	local hexG = string.format('%x', color.G)
+	if #hexG == 1 then hexG = '0' .. hexG end
+	build = build .. hexG
+	
+	local hexB = string.format('%x', color.B)
+	if #hexB == 1 then hexB = '0' .. hexB end
+	build = build .. hexB
+	
+	return build
 end
 
 DD.numberToEnum = function (n)
