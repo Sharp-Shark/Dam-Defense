@@ -210,7 +210,7 @@ DD.wikiData = {
 	},
 	-- misc
 	radiation = {
-		parents = {'medicalSystem'},
+		parents = {'main', 'medicalSystem'},
 		related = {'main', 'medicalSystem', 'airdropEvent'},
 	},
 	-- dams (maps)
@@ -258,7 +258,7 @@ for key, value in pairs(DD.wikiData) do
 	if value.info == nil then DD.wikiData[key].info = {} end
 	
 	-- automatically link pages to their parent page
-	if key ~= 'main' then
+	if (key ~= 'main') and not DD.tableHas(DD.wikiData[key].parents, 'main') then
 		table.insert(DD.wikiData[key].parents, 'main')
 	end
 	if string.sub(key, #key - 4, #key) == 'Event' then
