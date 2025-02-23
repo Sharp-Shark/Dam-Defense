@@ -37,7 +37,7 @@ end, {
 		local players = 0
 		local alive = 0
 		for client in Client.ClientList do
-			if client.InGame then
+			if client.InGame and (DD.isClientCharacterAlive(client) or DD.isClientRespawnable(client)) then
 				players = players + 1
 				if DD.isClientCharacterAlive(client) then
 					alive = alive + 1

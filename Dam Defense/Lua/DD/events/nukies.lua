@@ -31,7 +31,7 @@ end, {
 			self.nukiesSet = {}
 			self.nukies = {}
 			for client in DD.arrShuffle(Client.ClientList) do
-				if (not DD.isClientCharacterAlive(client)) and DD.eventDirector.isClientBelowEventCap(client) then
+				if DD.isClientRespawnable(client) and DD.eventDirector.isClientBelowEventCap(client) then
 					table.insert(self.nukies, client)
 					self.nukiesSet[client] = true
 				end

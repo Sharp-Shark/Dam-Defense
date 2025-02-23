@@ -184,24 +184,28 @@ DD.thinkFunctions.afflictions = function ()
 				end
 			end
 		end
-		-- Disease and immune stuff for dead humans
-		if (character.SpeciesName == 'human') and (character.IsDead) then
-			for diseaseName, data in pairs(DD.diseaseData) do
-				if not getDiseaseStat(diseaseName, 'necrotic') then
-					character.CharacterHealth.ReduceAfflictionOnAllLimbs(diseaseName .. 'infection', 5 * (1/60), nil)
+		-- Dead characters
+		if character.IsDead then
+			-- Specific to humans
+			if character.SpeciesName == 'human' then
+				for diseaseName, data in pairs(DD.diseaseData) do
+					if not getDiseaseStat(diseaseName, 'necrotic') then
+						character.CharacterHealth.ReduceAfflictionOnAllLimbs(diseaseName .. 'infection', 5 * (1/60), nil)
+					end
 				end
-			end
-			-- after 10s of being dead, cardiac arrest will reach maxstrength
-			if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) < 1 then
-				DD.giveAfflictionCharacter(character, 'cardiacarrest', 1/60/10)
-				if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) >= 1 then
-					if SERVER then
-						Networking.CreateEntityEvent(character, Character.CharacterStatusEventData.__new(true))
-						
-						afflictionNetworkCooldown[character] = 60 * 5
+				-- after 10s of being dead, cardiac arrest will reach maxstrength
+				if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) < 1 then
+					DD.giveAfflictionCharacter(character, 'cardiacarrest', 1/60/10)
+					if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) >= 1 then
+						if SERVER then
+							Networking.CreateEntityEvent(character, Character.CharacterStatusEventData.__new(true))
+							
+							afflictionNetworkCooldown[character] = 60 * 5
+						end
 					end
 				end
 			end
+			
 			-- after 90s of a corpse being underwater, it will despawn
 			if character.InWater then
 				local affliction = character.CharacterHealth.GetAffliction('despawn', true)

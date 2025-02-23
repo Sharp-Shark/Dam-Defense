@@ -721,6 +721,12 @@ DD.isCharacterArrested = function (character)
 	return false
 end
 
+DD.isClientRespawnable = function (client)
+	DD.expectTypes('isClientRespawnable', {client}, {'userdata'})
+	if client.UsingFreeCam or client.SpectateOnly or DD.isClientCharacterAlive(client) then return false end
+	return true
+end
+
 DD.isClientCharacterAlive = function (client)
 	DD.expectTypes('isClientCharacterAlive', {client}, {'userdata'})
 	return (client.Character ~= nil) and (not client.Character.IsDead)

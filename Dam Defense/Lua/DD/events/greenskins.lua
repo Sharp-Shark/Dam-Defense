@@ -33,7 +33,7 @@ end, {
 			self.greenskinsSet = {}
 			self.greenskins = {}
 			for client in DD.arrShuffle(Client.ClientList) do
-				if (not DD.isClientCharacterAlive(client)) and DD.eventDirector.isClientBelowEventCap(client) then
+				if DD.isClientRespawnable(client) and DD.eventDirector.isClientBelowEventCap(client) then
 					table.insert(self.greenskins, client)
 					self.greenskinsSet[client] = true
 				end
@@ -79,7 +79,7 @@ end, {
 			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 		end
 		
-		-- End event if all reactors are broken or all nukies are dead
+		-- End event if goblins are dead
 		if DD.tableSize(self.greenskins) <= 0 then
 			self.finish()
 		end

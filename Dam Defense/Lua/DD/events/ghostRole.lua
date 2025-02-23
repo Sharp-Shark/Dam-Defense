@@ -28,7 +28,7 @@ end, {
 		self.timerStarted = false
 		
 		for client in Client.ClientList do
-			if not DD.isClientCharacterAlive(client) then
+			if DD.isClientRespawnable(client) then
 				self.timerStarted = true
 				break
 			end
@@ -46,7 +46,7 @@ end, {
 			-- if there is nobody dead reset timer
 			local anyoneDead = false
 			for client in Client.ClientList do
-				if not DD.isClientCharacterAlive(client) then
+				if DD.isClientRespawnable(client) then
 					anyoneDead = true
 					break
 				end

@@ -612,9 +612,7 @@
 	    <Item identifier="trashbag"/>
 	  </Item>
       <Item identifier="headset" equip="true"/>
-      <Item identifier="hardhatjanitor" equip="true">
-	    <Item identifier="oxygentank"/>
-	  </Item>
+      <Item identifier="hardhatjanitor" equip="true" />
       <Item identifier="toolbelt" equip="true">
         <Item identifier="flashlight" >
 		  <Item identifier="batterycell"/>
@@ -649,9 +647,7 @@
 	    <Item identifier="trashbag"/>
 	  </Item>
       <Item identifier="headset" equip="true"/>
-      <Item identifier="hardhatjanitor" equip="true">
-	    <Item identifier="oxygentank"/>
-	  </Item>
+      <Item identifier="hardhatjanitor" equip="true" />
       <Item identifier="makeshiftflamer" equip="true" />
       <Item identifier="watercannon" >
 		<Item identifier="batterycell"/>
@@ -1201,6 +1197,7 @@
 	  </Item>
       <Item identifier="prisonerclothes" equip="true" outfit="true"/>
 	  <Item identifier="handcuffs" equip="true"/>
+      <Item identifier="crowbar"/>
       <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />

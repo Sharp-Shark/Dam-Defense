@@ -35,7 +35,7 @@ DD.autoJob = function ()
 			jobsLeft[tostring(jobPrefab.Identifier)] = jobPrefab.MaxNumber
 			sorted[tostring(jobPrefab.Identifier)] = {{}, {}, {}, {}}
 			for client in DD.arrShuffle(Client.ClientList) do
-				if not DD.isClientCharacterAlive(client) then
+				if DD.isClientRespawnable(client) then
 					local found = false
 					local count = 1
 					for jobVariant in client.JobPreferences do
@@ -84,7 +84,7 @@ DD.autoJob = function ()
 	end
 	-- try to give players the job they had before they died
 	for client, job in pairs(oldClientJob) do
-		if not DD.isClientCharacterAlive(client) then
+		if DD.isClientRespawnable(client) then
 			local clientFound = false
 			for otherClient in Client.ClientList do
 				if client == otherClient then clientFound = true end

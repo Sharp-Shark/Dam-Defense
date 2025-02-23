@@ -2,7 +2,7 @@ if CLIENT then return end
 
 DD.lateJoinSpawn = function ()
 	for client in Client.ClientList do
-		if (not DD.isClientCharacterAlive(client)) and (not DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation]) then
+		if DD.isClientRespawnable(client) and (not DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation]) then
 			local job = 'mechanic'
 			local pos = DD.findRandomWaypointByJob(job).WorldPosition
 			local character = DD.spawnHuman(client, job, pos)
@@ -20,7 +20,7 @@ DD.thinkFunctions.lateJoin = function ()
 		if DD.isClientCharacterAlive(client) then
 			DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
 		else
-			spectatorSet[client.AccountId.StringRepresentation] = true
+			spectatorSet[client.AccountId.StringRepresentation] = DD.isClientRespawnable(client)
 		end
 	end
 	

@@ -30,7 +30,7 @@ end, {
 		
 		if self.guard == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
-				if (not DD.isClientCharacterAlive(client)) and client.InGame then
+				if DD.isClientRespawnable(client) and client.InGame then
 					self.guard = client
 					break
 				end

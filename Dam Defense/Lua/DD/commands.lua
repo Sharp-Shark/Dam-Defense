@@ -174,7 +174,7 @@ end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
-Game.AddCommand('dd_startEvent', 'dd_startEvent [eventidentifier]: Manually creates and starts an event with the provided identifier.', func, validArgs, false)
+Game.AddCommand('dd_startevent', 'dd_startevent [eventidentifier]: Manually creates and starts an event with the provided identifier.', func, validArgs, false)
 
 -- Debug console dd_jobBan
 local func = function (args)
@@ -196,7 +196,7 @@ local func = function (args)
 			target = client
 			break
 		end
-		if client.SessionId == targetName then
+		if tostring(client.SessionId) == targetName then
 			target = client
 			break
 		end
@@ -205,6 +205,12 @@ local func = function (args)
 	-- target oopsie
 	if target == nil then
 		print('Could not find specified client.')
+		
+		local tbl = {}
+		for client in Client.ClientList do
+			tbl[client.SessionId] = client.Name
+		end
+		DD.tablePrint(tbl, nil, 1)
 		return
 	end
 	
@@ -221,6 +227,8 @@ local func = function (args)
 		end
 	end
 	jobSet['all'] = true
+	jobSet['security'] = true
+	jobSet['medical'] = true
 	-- job oopsie
 	if not jobSet[job] then
 		print(job .. ' is not a valid job.')
@@ -234,6 +242,7 @@ local func = function (args)
 	if not DD.tableHas(DD.jobBans[target.AccountId.StringRepresentation].names, target.Name) then
 		table.insert(DD.jobBans[target.AccountId.StringRepresentation].names, target.Name)
 	end
+	local pluralize = false -- pluralize is used for the message client receives when job banned
 	if job == 'all' then
 		local jobSet = {}
 		for jobPrefab in JobPrefab.Prefabs do
@@ -242,6 +251,25 @@ local func = function (args)
 				DD.jobBans[target.AccountId.StringRepresentation].reasons[tostring(jobPrefab.Identifier)] = reason
 			end
 		end
+		pluralize = true
+	elseif job == 'security' then
+		local jobSet = {}
+		for jobPrefab in JobPrefab.Prefabs do
+			if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) and DD.securityJobs[tostring(jobPrefab.Identifier)] then
+				DD.jobBans[target.AccountId.StringRepresentation][tostring(jobPrefab.Identifier)] = true
+				DD.jobBans[target.AccountId.StringRepresentation].reasons[tostring(jobPrefab.Identifier)] = reason
+			end
+		end
+		pluralize = true
+	elseif job == 'medical' then
+		local jobSet = {}
+		for jobPrefab in JobPrefab.Prefabs do
+			if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) and DD.medicalJobs[tostring(jobPrefab.Identifier)] then
+				DD.jobBans[target.AccountId.StringRepresentation][tostring(jobPrefab.Identifier)] = true
+				DD.jobBans[target.AccountId.StringRepresentation].reasons[tostring(jobPrefab.Identifier)] = reason
+			end
+		end
+		pluralize = true
 	else
 		DD.jobBans[target.AccountId.StringRepresentation][job] = true
 		DD.jobBans[target.AccountId.StringRepresentation].reasons[job] = reason
@@ -249,11 +277,11 @@ local func = function (args)
 	
 	-- give message
 	if reason ~= '' then
-		DD.messageClient(target, DD.stringReplace('You have been banned from the {jobName} job because: {reason}.', {jobName = job, reason = reason}), {preset = 'crit'})
+		DD.messageClient(target, DD.stringReplace('You have been banned from {substrThe} {jobName} job{substrS} because: {reason}.', {jobName = job, reason = reason, substrThe = pluralize and '' or 'the', substrS = pluralize and 's' or ''}), {preset = 'crit'})
 	end
 	
 	-- debug
-	local text = 'Banned ' .. DD.clientLogName(target) .. ' from the ' .. job .. ' job because: ' .. reason .. '.'
+	local text = 'Banned ' .. DD.clientLogName(target) .. ' from ' .. string.rep('the', pluralize and 0 or 1) .. ' ' .. job .. ' job' .. string.rep('s', pluralize and 1 or 0) .. ' because: ' .. reason .. '.'
 	print(text)
 	Game.Log(text, 10)
 	DD.tablePrint(DD.jobBans[target.AccountId.StringRepresentation], nil, 1)
@@ -271,7 +299,7 @@ local func = function (args)
 	DD.saving.autoSave({'jobBans'})
 end
 local validArgs = function (...)
-	local tbl = {{}, {}, {'', 'no reason specified', 'you were being an idiot', 'an admin felt like it'}}
+	local tbl = {{}, {}, {'', 'no reason specified', 'you were being an idiot', 'an admin felt like it', 'you literally asked for it'}}
 	
 	if CLIENT and Game.IsMultiplayer and (not DD.receivedCaptainWhitelist) then
 		local message = Networking.Start("requestUpdateJobBans")
@@ -282,19 +310,21 @@ local validArgs = function (...)
 		table.insert(tbl[1], client.Name)
 	end
 	
+	table.insert(tbl[2], 'all')
+	table.insert(tbl[2], 'security')
+	table.insert(tbl[2], 'medical')
 	for jobPrefab in JobPrefab.Prefabs do
 		if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
 			table.insert(tbl[2], tostring(jobPrefab.Identifier))
 		end
 	end
-	table.insert(tbl[2], 'all')
 	
 	return tbl
 end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
-Game.AddCommand('dd_jobBan', 'dd_jobBan [name/number] [job] [reason]: Job bans a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)
+Game.AddCommand('dd_jobban', 'dd_jobban [name/number] [job] [reason]: Job bans a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)
 
 -- Debug console dd_jobUnban
 local func = function (args)
@@ -305,24 +335,45 @@ local func = function (args)
 		return
 	end
 	
-	local accountId = args[1]
+	local accountId
+	local targetIdentifier = args[1]
 	local job = args[2]
 	
-	-- accountId oopsie
-	local foundAccountId = false
+	-- find accountId
 	for otherAccountId, value in pairs(DD.jobBans) do
-		if accountId == otherAccountId then
-			 foundAccountId = true
+		if targetIdentifier == otherAccountId then
+			accountId = targetIdentifier
+			foundAccountId = true
+			break
 		end
 	end
-	if not foundAccountId then
+	if accountId == nil then
+		for client in Client.ClientList do
+			if (client.Name == targetIdentifier) and (DD.jobBans[client.AccountId.StringRepresentation] ~= nil) then
+				accountId = client.AccountId.StringRepresentation
+				break
+			end
+		end
+	end
+	if accountId == nil then
 		print('Could not find specified client.')
-		DD.tablePrint(DD.jobBans, nil, 1)
+		local tbl = {}
+		for key, value in pairs(DD.jobBans) do
+			tbl[key] = value.names
+		end
+		DD.tablePrint(tbl, nil, 1)
 		return
 	end
 	
+	-- see what jobs client can be unbanned from
 	local jobSet = {}
 	for key, value in pairs(DD.jobBans[accountId]) do
+		if DD.securityJobs[key] then
+			jobSet['security'] = true
+		end
+		if DD.medicalJobs[key] then
+			jobSet['medical'] = true
+		end
 		if type(value) == 'boolean' then
 			jobSet[key] = true
 		end
@@ -340,6 +391,16 @@ local func = function (args)
 	local name = DD.jobBans[accountId].names[1]
 	if args[2] == 'all' then
 		DD.jobBans[accountId] = nil
+	elseif job == 'security' then
+		for job, value in pairs(DD.securityJobs) do
+			DD.jobBans[accountId][job] = nil
+			DD.jobBans[accountId].reasons[job] = nil
+		end
+	elseif job == 'medical' then
+		for job, value in pairs(DD.medicalJobs) do
+			DD.jobBans[accountId][job] = nil
+			DD.jobBans[accountId].reasons[job] = nil
+		end
 	else
 		DD.jobBans[accountId][job] = nil
 		DD.jobBans[accountId].reasons[job] = nil
@@ -377,20 +438,25 @@ local validArgs = function (...)
 		Networking.Send(message)
 	end
 	
+	for client in Client.ClientList do
+		table.insert(tbl[1], client.Name)
+	end
 	for accountId, value in pairs(DD.jobBans) do
 		table.insert(tbl[1], accountId)
 	end
 	
+	table.insert(tbl[2], 'all')
+	table.insert(tbl[2], 'security')
+	table.insert(tbl[2], 'medical')
 	for jobPrefab in JobPrefab.Prefabs do
 		if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
 			table.insert(tbl[2], tostring(jobPrefab.Identifier))
 		end
 	end
-	table.insert(tbl[2], 'all')
 	
 	return tbl
 end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
-Game.AddCommand('dd_jobUnban', 'dd_jobUnban [accountId] [job]: Unbans a client of a job. Do not specify a job to clear all the job ban data of a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)
+Game.AddCommand('dd_jobunban', 'dd_jobunban [accountId/name] [job]: Unbans a client of a job. Do not specify a job to clear all the job ban data of a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)
