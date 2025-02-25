@@ -160,6 +160,9 @@ DD.wikiData = {
 	brassknuckleItem = {
 		related = {'main', 'items'},
 	},
+	portablegeneratorItem = {
+		related = {'main', 'items'},
+	},
 	printerItem = {
 		related = {'main', 'items', 'jobs'},
 	},

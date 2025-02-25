@@ -112,8 +112,9 @@
   <entityname.orangejumpsuit1>Lead-lined Overalls</entityname.orangejumpsuit1>
   <entitydescription.captainspipe>Used for smoking pipe tabacco. Somehow heals damage and bloodloss at an impressive rate. Causes about as much lung damage as an entire pack of cigars.</entitydescription.captainspipe>
   <entitydescription.cigar>A finely crafted cigar. Somehow heals damage and bloodloss. Intense and frequent use may cause hard to reverse lung damage.</entitydescription.cigar>
-  <entitydescription.rum>A fine liquor made from raptor bane juice or pomegrenade extract. When drunk heals husk infection and boosts the immune system at the cost of minor organ damage. Can be poured on wounds to clear gangrene. Better drink or use this than 90% ethanol!</entitydescription.rum>
-  <entitydescription.ethanol>Medical alcohol used as an ingredient in the manufacture of various medicines. Drinking while on duty is not advised. When drunk boosts the immune system at the cost of mild organ damage. Can be poured on wounds to clear gangrene.</entitydescription.ethanol>
+  <entitydescription.rum>A fine liquor made from raptor bane juice or pomegrenade extract. When drunk heals husk infection and boosts the immune system at the cost of minor organ damage. Can be poured on wounds to clear gangrene. Better drink or use this than 90% ethanol! Can be used as a low quality generator fuel.</entitydescription.rum>
+  <entitydescription.ethanol>Medical alcohol used as an ingredient in the manufacture of various medicines. Drinking while on duty is not advised. When drunk boosts the immune system at the cost of mild organ damage. Can be poured on wounds to clear gangrene. Can be used as a low quality generator fuel.</entitydescription.ethanol>
+  <entitydescription.fertilizer>Carefully tended Europan soil guaranteed to give your plant the best living conditions. Can be used as a high quality generator fuel. Keep away from fire or heat.</entitydescription.fertilizer>
   <entitydescription.stabilozine>Used as an ingredient in the manufacture of various medicines. On its own, can be used to slow down the effects of most toxins and lower fever.</entitydescription.stabilozine>
   <entitydescription.adrenaline>A naturally occurring hormone. When consumed, temporarily boosts the immune system and awakens anyone unconcious. Used to manufacture medicine or combat stimulants.</entitydescription.adrenaline>
   <entitydescription.piratebodyarmor>Only craftable by rebel leaders. A set of body armor, partially fashioned out of improvised materials by the Jovian Separatists. It's heavier than it looks.</entitydescription.piratebodyarmor>
@@ -122,6 +123,9 @@
   <!--<entitydescription.replaceme></entitydescription.replaceme>-->
   </Override>
   
+  <!-- Combustion Fuel -->
+  <entityname.combustionfuel>Combustion Fuel</entityname.combustionfuel>
+  <entitydescription.combustionfuel>A high quality combustion fuel for generators. Keep away from fire or heat.</entitydescription.combustionfuel>
   <!-- Trash Bag -->
   <entityname.trashbag>Trash Bag</entityname.trashbag>
   <entitydescription.trashbag>Only craftable by janitors. Utilizes non-euclidean space and mysterious alchemical processes to, after having 20 items put inside it, turn into 8 scrap.</entitydescription.trashbag>
@@ -134,6 +138,9 @@
   <!-- Nexcase -->
   <entityname.moneycase>Nexcase</entityname.moneycase>
   <entitydescription.moneycase>Money? I love money! Do you love money? This Nexcase (TM) can be used to temporarily store Nexcredits (TM).</entitydescription.moneycase>
+  <!-- Portable Generator -->
+  <entityname.portablegenerator>Portable Generator</entityname.portablegenerator>
+  <entitydescription.portablegenerator>A small portable combustion generator for emergencies. Can be hooked up to as many as five appliances. Not recommended to directly connect it to the main electrical grid due to small power output. Keep out of water.</entitydescription.portablegenerator>
   <!-- Foldable Chair -->
   <entityname.foldablechair>Foldable Chair</entityname.foldablechair>
   <entitydescription.foldablechair>A simple foldable metal chair. Now you can sit almost wherever you want with this! Surprisingly sturdy, sturdy enough to, say, lethally whack someone in the head with.</entitydescription.foldablechair>

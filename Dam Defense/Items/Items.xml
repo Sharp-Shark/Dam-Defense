@@ -899,8 +899,13 @@
       <Price storeidentifier="merchantmine" />
       <Price storeidentifier="merchantarmory" multiplier="0.9" minleveldifficulty="0" />
     </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="45" amount="2" >
+      <RequiredSkill identifier="weapons" level="15" />
+      <RequiredItem identifier="fertilizer" />
+      <RequiredItem identifier="aluminium" />
+    </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="weapons" level="20" />
+      <RequiredSkill identifier="weapons" level="15" />
       <RequiredItem identifier="sodium" />
       <RequiredItem identifier="phosphorus" />
     </Fabricate>
@@ -1525,7 +1530,7 @@
       <RequiredSkill identifier="electrical" level="45" />
     </RangedWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="false" itempos="10,-5" containedspritedepths="0.562,0.561" containedstateindicatorstyle="default" containedstateindicatorslot="0">
-      <Containable items="reactorfuel" rotation="90"/>
+      <Containable items="reactorfuel" excludeditems="generatorfuel" rotation="90"/>
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="192,448,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
       <SubContainer capacity="1" maxstacksize="1">
@@ -3323,8 +3328,86 @@
     </Holdable>
     <LightComponent range="150.0" lightcolor="255,56,144,111" IsOn="true" castshadows="false" allowingameediting="false" pulseamount="0.9" pulsefrequency="0.25" />
   </Item>
+  <!-- fertilizer is flammable, recipe was tweaked and is used as generator fuel -->
+  <Item name="" identifier="fertilizer" tags="fertilizer,smallitem,reactorfuel,generatorfuel" maxstacksize="8" category="Fuel,Misc" scale="0.5" health="800">
+    <Sprite texture="Content/Items/Gardening/GrowablePlants_Temp.png" sourcerect="910,128,87,125" depth="0.55" origin="0.5,0.5" />
+    <Price baseprice="140" minleveldifficulty="1">
+      <Price storeidentifier="merchantoutpost" minavailable="1" />
+      <Price storeidentifier="merchantcity" multiplier="1.2" minavailable="1" />
+      <Price storeidentifier="merchantresearch" multiplier="0.9" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.75" />
+      <Price storeidentifier="merchantclown" minavailable="0" maxavailable="2" />
+    </Price>
+    <PreferredContainer primary="crewcab"/>
+    <PreferredContainer primary="wreckstoragecab,abandonedstoragecab,piratestoragecab,wreckcrewcab,abandonedcrewcab,piratecrewcab,outpostcrewcabinet" amount="1" spawnprobability="0.1" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="45">
+      <RequiredSkill identifier="electrical" level="20" />
+      <RequiredItem identifier="uranium" />
+      <RequiredItem identifier="carbon" />
+      <RequiredItem identifier="saltvineseed" />
+    </Fabricate>
+    <Deconstruct time="30">
+      <Item identifier="uranium" mincondition="0.9" />
+      <Item identifier="carbon" mincondition="0.9" />
+    </Deconstruct>
+    <Body width="85" height="122" density="25" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" holdangle="95" handle1="-20,55" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+	  <!-- can explode when on fire -->
+	  <StatusEffect type="OnFire" target="This" Condition="-100.0" disabledeltatime="true" delay="3" stackable="false" checkconditionalalways="true">
+        <Conditional HasStatusTag="onfire" />
+        <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" range="5000" selectionmode="All" />
+        <sound file="Content/Items/Weapons/ExplosionDebris3.ogg" range="5000" />
+        <Fire size="100" />
+        <Explosion range="250.0" structuredamage="15" force="3.0">
+          <Affliction identifier="burning" strength="20" />
+          <Affliction identifier="burn" strength="15" />
+          <Affliction identifier="stun" strength="1" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
   </Override>
   <!-- end of overrides -->
+  
+  <!-- fuel for generator -->
+  <Item name="Combustion Fuel" identifier="combustionfuel" tags="smallitem,reactorfuel,generatorfuel" maxstacksize="8" category="Fuel,Misc" scale="0.5" health="800">
+    <Sprite texture="%ModDir%/Items/tools.png" sourcerect="100,0,87,125" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="mechanical" level="10" />
+      <RequiredItem identifier="plastic" />
+      <RequiredItem identifier="ethanol" />
+      <RequiredItem identifier="ethanol" />
+      <RequiredItem identifier="ethanol" />
+      <RequiredItem identifier="ethanol" />
+    </Fabricate>
+    <Deconstruct time="30">
+      <Item identifier="plastic" />
+    </Deconstruct>
+    <Body width="85" height="122" density="25" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" holdangle="95" handle1="-20,55" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+	  <!-- can explode when on fire -->
+	  <StatusEffect type="OnFire" target="This" Condition="-100.0" disabledeltatime="true" delay="3" stackable="false" checkconditionalalways="true">
+        <Conditional HasStatusTag="onfire" />
+        <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" range="5000" selectionmode="All" />
+        <sound file="Content/Items/Weapons/ExplosionDebris3.ogg" range="5000" />
+        <Fire size="100" />
+        <Explosion range="250.0" structuredamage="15" force="3.0">
+          <Affliction identifier="burning" strength="20" />
+          <Affliction identifier="burn" strength="15" />
+          <Affliction identifier="stun" strength="5" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
   
   <!-- scrap ore -->
   <Item name="Scrap Chunk" identifier="scrapore" category="Material" Tags="smallitem,ore" maxstacksize="32" maxstacksizecharacterinventory="8" canbepicked="true" description="" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light">

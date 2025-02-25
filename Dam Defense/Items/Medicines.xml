@@ -677,8 +677,8 @@
     </MeleeWeapon>
     <SkillRequirementHint identifier="medical" level="55" />
   </AntibioticGlue>
-  <!-- ethanol when drunk gives immuneboost and when applied heals gangrene but gives acid burns -->
-  <Ethanol name="" identifier="ethanol" category="Medical,Material" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,chem,medical,petfood2" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
+  <!-- ethanol when drunk gives immuneboost and when applied heals gangrene but gives acid burns. It is also flammable and fuel for generator -->
+  <Ethanol name="" identifier="ethanol" category="Fuel,Medical,Material" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,chem,medical,petfood2,reactorfuel,generatorfuel" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="sprayer" amount="1" spawnprobability="1"/>
     <PreferredContainer secondary="wreckmedcab,abandonedmedcab" amount="1" spawnprobability="0.2" />
@@ -705,7 +705,7 @@
     <SuitableTreatment identifier="bacterialgangrene" suitability="30" />
     <Body width="30" height="55" density="20" />
     <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="32,28" holdangle="30" aimangle="120" aimable="false" msg="ItemMsgPickUpSelect">
-      <StatusEffect type="OnSecondaryUse" target="This" Condition="-30.0"/>
+	  <StatusEffect type="OnSecondaryUse" target="This" Condition="-30.0"/>
       <StatusEffect type="OnSecondaryUse" target="This,Character">
         <Conditional Condition="lte 1" />
         <!--<Use/>-->
@@ -854,7 +854,7 @@
     <SkillRequirementHint identifier="medical" level="25" />
   </Antibiotics>
   <!-- rum is ethanol with weaker damage and cures husk infection -->
-  <Rum name="" identifier="rum" category="Medical,Misc" maxstacksize="8" cargocontaineridentifier="mediccrate" description="" Tags="smallitem" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
+  <Rum name="" identifier="rum" category="Fuel,Medical,Misc" maxstacksize="8" cargocontaineridentifier="mediccrate" description="" Tags="smallitem" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer secondary="wreckmedcab,abandonedmedcab" amount="1" spawnprobability="0.01" />
     <PreferredContainer secondary="abandonedcrewcab" minamount="1" maxamount="1" spawnprobability="0.01" />
     <PreferredContainer secondary="crewcab" amount="1" spawnprobability="0.02" notcampaign="true"/>

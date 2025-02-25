@@ -63,6 +63,20 @@
       </ItemContainer>
     </Upgrade>
   </Item>
+  <!-- fire extinguisher bracket holds any item with the fireextinguisher tag -->
+  <Item name="" identifier="extinguisherbracket" category="Equipment" tags="extinguisherholder" canflipx="false" canflipy="false" scale="0.5" pickdistance="75">
+    <Sprite texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="815,349,72,204" origin="0.5,0.5" />
+    <ItemContainer hideitems="false" drawinventory="true" capacity="1" AutoInteractWithContained="true" maxstacksize="1" slotsperrow="1" itempos="35,-130" iteminterval="0,0" itemrotation="0" canbeselected="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.2,0.25" anchor="Center" minsize="140,170" maxsize="280,280" style="ItemUI" />
+      <Containable items="fireextinguisher" />
+    </ItemContainer>
+    <Upgrade gameversion="0.10.0.0" scale="*0.5" itempos="35,-130" />
+    <!-- the item used to have the (default) 64 max stack size, i.e. stack size was only limited by the max stack size of the contained items -->
+    <!-- set the stack size back in old saves/subs to prevent items from dropping from containers -->
+    <Upgrade gameversion="1.1.0.0" maxstacksize="64">
+      <ItemContainer maxstacksize="64" />
+    </Upgrade>
+  </Item>
   <!-- made immune to explosions but halved meltdowndelay -->
   <Item name="" identifier="reactor1" tags="reactor" type="Reactor" scale="0.5" linkable="true" category="Machine" damagedbyexplosions="false" explosiondamagemultiplier="0.2">
     <Upgrade gameversion="0.10.0.0" scale="*0.5" />
@@ -336,30 +350,31 @@
     </Repairable>
     <SkillRequirementHint identifier="electrical" level="50" />
   </Item>
-  <!-- fire extinguisher bracket holds any item with the fireextinguisher tag -->
-  <Item name="" identifier="extinguisherbracket" category="Equipment" tags="extinguisherholder" canflipx="false" canflipy="false" scale="0.5" pickdistance="75">
-    <Sprite texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="815,349,72,204" origin="0.5,0.5" />
-    <ItemContainer hideitems="false" drawinventory="true" capacity="1" AutoInteractWithContained="true" maxstacksize="1" slotsperrow="1" itempos="35,-130" iteminterval="0,0" itemrotation="0" canbeselected="true" msg="ItemMsgInteractSelect">
-      <GuiFrame relativesize="0.2,0.25" anchor="Center" minsize="140,170" maxsize="280,280" style="ItemUI" />
-      <Containable items="fireextinguisher" />
-    </ItemContainer>
-    <Upgrade gameversion="0.10.0.0" scale="*0.5" itempos="35,-130" />
-    <!-- the item used to have the (default) 64 max stack size, i.e. stack size was only limited by the max stack size of the contained items -->
-    <!-- set the stack size back in old saves/subs to prevent items from dropping from containers -->
-    <Upgrade gameversion="1.1.0.0" maxstacksize="64">
-      <ItemContainer maxstacksize="64" />
-    </Upgrade>
-  </Item>
   </Override>
   
   <!-- portable generator -->
-  <!-- WIP
-  <Item name="Portable Generator" identifier="portablegenerator" tags="generator" category="Electrical,Machine" description="" scale="0.3" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" >
-    <trigger />
-	<Sprite texture="%ModDir%/Items/machines.png" sourcerect="544,0,296,232" depth="0.8" canflipy="false" origin="0.5,0.5" />
+  <Item name="Portable Generator" identifier="portablegenerator" impacttolerance="0.1" tags="largeitem,generator" category="Electrical,Machine" description="" scale="0.3" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" GrabWhenSelected="true" pickdistance="150" >
+    <Sprite texture="%ModDir%/Items/machines.png" sourcerect="0,232,296,232" origin="0.5,0.45" depth="0.8" />
+    <BrokenSprite texture="%ModDir%/Items/machines.png" sourcerect="296,232,296,232" depth="0.8" origin="0.5,0.45" maxcondition="40" />
+    <BrokenSprite texture="%ModDir%/Items/machines.png" sourcerect="592,232,296,232" depth="0.8" origin="0.5,0.45" maxcondition="0" />
+    <Body width="296" height="232" density="30" />
     <aitarget sightrange="500" soundrange="7500" />
-    <Reactor canbeselected="true" firedelay="20" meltdowndelay="60" maxpoweroutput="2000" fuelconsumptionrate="0.5" vulnerabletoemp="false" msg="ItemMsgInteractSelect">
-      <StatusEffect type="InWater" target="This" condition="-5">
+	<Deconstruct time="30">
+	  <Item identifier="titaniumaluminiumalloy"/>
+	  <Item identifier="steel"/>
+	  <Item identifier="steel"/>
+	  <Item identifier="plastic"/>
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="mechanical" level="30" />
+	  <Item identifier="titaniumaluminiumalloy"/>
+	  <Item identifier="steel"/>
+	  <Item identifier="steel"/>
+	  <Item identifier="steel"/>
+	  <Item identifier="plastic"/>
+    </Fabricate>
+	<Reactor canbeselected="true" firedelay="30" meltdowndelay="30" maxpoweroutput="2000" fuelconsumptionrate="2" vulnerabletoemp="false" msg="ItemMsgInteractSelect">
+      <StatusEffect type="InWater" target="This" condition="-2" targetitemcomponent="reactor" >
         <Conditional condition="gt 10" />
       </StatusEffect>
       <GuiFrame relativesize="0.5,0.45" minsize="700,350" maxsize="2688,1166" anchor="Center" relativeoffset="0.1,0" style="ItemUI" />
@@ -388,11 +403,11 @@
         <Sprite name="TempRangeIndicator" texture="Content/UI/UIAtlasDevices.png" sourcerect="31,614,52,25" origin="0.5,0.5" size="0.6,0.6" />
       </TempRangeIndicator>
       <RequiredSkill identifier="electrical" level="50" />
-      <sound file="Content/Items/Reactor/Reactor.ogg" type="OnActive" range="2000.0" volumeproperty="FissionRate" volume="0.02" loop="true" />
+      <sound file="%ModDir%/sounds/generator.ogg" type="OnActive" range="1000.0" volumeproperty="FissionRate" volume="0.5" loop="true" />
       <StatusEffect type="OnBroken" target="This" FissionRate="0.0" disabledeltatime="true">
-        <sound file="Content/Items/Weapons/ExplosionMedium1.ogg" type="OnUse" volume="10" selectionmode="Random" range="50000" dontmuffle="true" />
-        <sound file="Content/Items/Weapons/ExplosionDebris5.ogg" range="8000" />
-        <Explosion range="500" ballastfloradamage="500" structuredamage="75" itemdamage="125" force="6.0" camerashake="2" debris="true" decal="explosion" decalsize="0.5" >
+        <sound file="Content/Items/Weapons/ExplosionMedium1.ogg" type="OnUse" volume="5" selectionmode="Random" range="25000" dontmuffle="true" />
+        <sound file="Content/Items/Weapons/ExplosionDebris5.ogg" range="4000" />
+        <Explosion range="500" ballastfloradamage="500" structuredamage="75" itemdamage="125" force="6.0" flash="false" flashrange="0" debris="true" decal="explosion" decalsize="0.5" >
           <Affliction identifier="explosiondamage" strength="20" />
           <Affliction identifier="burn" strength="20" />
           <Affliction identifier="burning" strength="20" />
@@ -403,9 +418,13 @@
       </StatusEffect>
       <StatusEffect type="OnBroken" target="Contained" Condition="0.0" setvalue="true" />
     </Reactor>
+    <LightComponent range="35.0" lightcolor="255,155,55,96" flickerspeed="0.5" flicker="0.3" powerconsumption="0" IsOn="false" castshadows="false" alphablend="false" allowingameediting="false">
+      <StatusEffect type="Always" targettype="This" target="This,Hull" Oxygen="-1000" />
+	  <IsActive targetitemcomponent="Reactor" temperature="gt 2" />
+    </LightComponent>
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.3,0.35" minsize="400,350" maxsize="480,460" anchor="Center" style="ConnectionPanel" />
-      <RequiredSkill identifier="electrical" level="70" />
+      <RequiredSkill identifier="electrical" level="50" />
       <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand" AllowWhenBroken="true">
         <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
         <Explosion range="100.0" force="1.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
@@ -413,7 +432,7 @@
         <Affliction identifier="burn" strength="5" />
       </StatusEffect>
       <RequiredItem items="screwdriver" type="Equipped" />
-      <output name="power_out" displayname="connection.powerout" maxwires="1" />
+      <output name="power_out" displayname="connection.powerout" maxwires="5" />
       <output name="temperature_out" displayname="connection.temperatureout" />
       <input name="shutdown" displayname="connection.shutdown" />
       <input name="set_fissionrate" displayname="connection.setfissionrate" />
@@ -422,7 +441,7 @@
         <StatusEffect type="OnUse" target="This">
           <ParticleEmitter particle="smoke" particlespersecond="2" scalemin="1" scalemax="2.5" anglemax="360" velocitymin="-50" velocitymax="50" mincondition="15.0" maxcondition="50.0" />
           <ParticleEmitter particle="swirlysmoke" particlespersecond="3" scalemin="1" scalemax="2" anglemin="0" anglemax="360" velocitymin="0" velocitymax="10" />
-          <sound file="Content/Items/Reactor/ReactorOverheatAlarm.ogg" type="OnUse" range="10000.0" loop="true" volume="1.0" />
+		  <sound file="Content/Items/Engine/EngineBroken.ogg" type="OnUse" range="2250.0" loop="true" volume="1.0" />
         </StatusEffect>
       </output>
       <output name="power_value_out" displayname="connection.powervalueout" />
@@ -436,18 +455,26 @@
       <SlotIcon slotindex="1" texture="%ModDir%/Misc/Icons.png" sourcerect="512,256,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="2" texture="%ModDir%/Misc/Icons.png" sourcerect="512,256,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="3" texture="%ModDir%/Misc/Icons.png" sourcerect="512,256,64,64" origin="0.5,0.5" />
-      <Containable items="ethanol">
+      <Containable items="rum,ethanol">
         <StatusEffect type="OnContaining" target="This" AvailableFuel="20.0" disabledeltatime="true" />
       </Containable>
       <Containable items="fertilizer">
         <StatusEffect type="OnContaining" target="This" AvailableFuel="80.0" disabledeltatime="true" />
       </Containable>
+      <Containable items="fuelcan">
+        <StatusEffect type="OnContaining" target="This" AvailableFuel="100.0" disabledeltatime="true" />
       </Containable>
     </ItemContainer>
-    <Repairable selectkey="Action" header="electricalrepairsheader" deteriorationspeed="0.1" mindeteriorationdelay="120" maxdeteriorationdelay="720" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairScrewdriver" hudpriority="10">
+    <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" msg="ItemMsgDetach" PickingTime="5.0" holdpos="0,-80" aimpos="20,-40" handle1="-64,64" handle2="64,64" attachable="true" reattachable="false" aimable="false" AttachedByDefault="false" >
+	  <StatusEffect type="OnImpact" target="This" >
+		<LuaHook name="DD.portablegenerator.attach" />
+	  </StatusEffect>
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.75" setvalue="true" />
+	</Holdable>
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.2" mindeteriorationdelay="120" maxdeteriorationdelay="720" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
-      <RequiredSkill identifier="electrical" level="55" />
-      <RequiredItem items="screwdriver" type="Equipped" />
+      <RequiredSkill identifier="mechanical" level="50" />
+      <RequiredItem items="wrench" type="Equipped" />
       <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand" AllowWhenBroken="true">
         <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
         <Explosion range="100.0" force="1.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
@@ -461,9 +488,8 @@
       <ParticleEmitter particle="spark" particleamount="5" emitinterval="2" particlespersecond="5" anglemax="360" distancemax="30" velocitymin="100" velocitymax="500" scalemin="0.5" scalemax="1" mincondition="0.0" maxcondition="15.0" />
       <ParticleEmitter particle="fleshsmoke" particlespersecond="2" scalemin="1" scalemax="2" mincondition="0.0" maxcondition="50.0" />
     </Repairable>
-    <SkillRequirementHint identifier="electrical" level="50" />
+    <SkillRequirementHint identifier="mechanical" level="50" />
   </Item>
-  -->
 
   <!-- foldable chair -->
   <Item name="Foldable Chair" identifier="foldablechair" width="152" height="240" scale="0.5" noninteractable="false" category="Decorative,Misc,Weapon" canflipy="false">

@@ -93,6 +93,11 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(itemIdentifier), inventory, nil, nil, function (spawnedItem) end)
 end)
 
+-- attaches generator to wall
+Hook.Add("DD.portablegenerator.attach", "DD.portablegenerator.attach", function(effect, deltaTime, item, targets, worldPosition)
+	item.GetComponentString('Holdable').AttachToWall()
+end)
+
 -- changes the job of an idcard or clothing
 Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, deltaTime, item, targets, worldPosition)
 	local containedItem = targets[1]
