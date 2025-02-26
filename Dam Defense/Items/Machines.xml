@@ -465,7 +465,7 @@
         <StatusEffect type="OnContaining" target="This" AvailableFuel="100.0" disabledeltatime="true" />
       </Containable>
     </ItemContainer>
-    <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" msg="ItemMsgDetach" PickingTime="5.0" holdpos="0,-80" aimpos="20,-40" handle1="-64,64" handle2="64,64" attachable="true" reattachable="false" aimable="false" AttachedByDefault="false" >
+    <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" msg="ItemMsgDetach" PickingTime="5.0" holdpos="0,-80" aimpos="20,-40" handle1="-64,64" handle2="64,64" attachable="true" reattachable="false" Attached="false" attachedByDefault="false" aimable="false" >
 	  <StatusEffect type="OnImpact" target="This" >
 		<LuaHook name="DD.portablegenerator.attach" />
 	  </StatusEffect>
@@ -758,7 +758,7 @@
 	<!-- spacing -->
 	<Body width="80" height="40" density="50"/>
 	<!-- spacing -->
-	<Fabricator msg="ItemMsgInteractSelect" minvoltage="0.0" powerconsumption="0.0" canbeselected="true" allowuioverlap="false" hideitems="true" drawhudwhenequipped="false" keepopenwhenequipped="false" ShowContainedStateIndicator="false">
+	<Fabricator msg="ItemMsgInteractSelect" FabricationSpeed="0.75" minvoltage="0.0" powerconsumption="0.0" canbeselected="true" allowuioverlap="false" hideitems="true" drawhudwhenequipped="false" keepopenwhenequipped="false" ShowContainedStateIndicator="false">
       <GuiFrame relativesize="0.4,0.45" style="ItemUI" anchor="Center" />
       <sound file="Content/Items/Fabricators/Fabricator.ogg" type="OnActive" range="1000.0" volumeproperty="RelativeVoltage" loop="true"/>
 	  <StatusEffect type="OnContained" target="This" setvalue="true" drawinventory="false" />

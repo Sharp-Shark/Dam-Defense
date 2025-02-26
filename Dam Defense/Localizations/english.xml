@@ -149,6 +149,9 @@
   <!-- Printer -->
   <entityname.printer>Printer</entityname.printer>
   <entitydescription.printer>An advanced ID card and clothing printer. Capable of processing plastic into ID cards or organic fiber into clothing. It can also then deconstruct them back into plastic or fiber. Finally, it can change the job of an ID card or piece of clothing.</entitydescription.printer>
+  <!-- Tool Kit -->
+  <entityname.toolkit>Tool Kit</entityname.toolkit>
+  <entitydescription.toolkit>A portable kit containing the necessary tools to repair items or manufacture items in case of emergency. Does not require power, but fabricates slightly slower.</entitydescription.toolkit>
   <!-- Wifi Trigger -->
   <entityname.wifitrigger>Wifi Trigger</entityname.wifitrigger>
   <entitydescription.wifitrigger>A handheld device that contains an wifi component, allowing for convenient remote sending of signals.</entitydescription.wifitrigger>
