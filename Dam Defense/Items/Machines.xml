@@ -354,9 +354,9 @@
   
   <!-- portable generator -->
   <Item name="Portable Generator" identifier="portablegenerator" impacttolerance="0.1" tags="largeitem,generator" category="Electrical,Machine" description="" scale="0.3" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" GrabWhenSelected="true" pickdistance="150" >
-    <Sprite texture="%ModDir%/Items/machines.png" sourcerect="0,232,296,232" origin="0.5,0.45" depth="0.8" />
-    <BrokenSprite texture="%ModDir%/Items/machines.png" sourcerect="296,232,296,232" depth="0.8" origin="0.5,0.45" maxcondition="40" />
-    <BrokenSprite texture="%ModDir%/Items/machines.png" sourcerect="592,232,296,232" depth="0.8" origin="0.5,0.45" maxcondition="0" />
+    <Sprite texture="%ModDir%/Items/machines.png" sourcerect="0,232,296,232" origin="0.5,0.45" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Items/machines.png" sourcerect="296,232,296,232" depth="0.55" origin="0.5,0.45" maxcondition="40" />
+    <BrokenSprite texture="%ModDir%/Items/machines.png" sourcerect="592,232,296,232" depth="0.55" origin="0.5,0.45" maxcondition="0" />
     <Body width="296" height="232" density="30" />
     <aitarget sightrange="500" soundrange="7500" />
 	<Deconstruct time="30">
@@ -403,7 +403,7 @@
         <Sprite name="TempRangeIndicator" texture="Content/UI/UIAtlasDevices.png" sourcerect="31,614,52,25" origin="0.5,0.5" size="0.6,0.6" />
       </TempRangeIndicator>
       <RequiredSkill identifier="electrical" level="50" />
-      <sound file="%ModDir%/sounds/generator.ogg" type="OnActive" range="1000.0" volumeproperty="FissionRate" volume="0.5" loop="true" />
+      <sound file="%ModDir%/sounds/generator.ogg" type="OnActive" range="2000.0" volumeproperty="FissionRate" volume="0.5" loop="true" />
       <StatusEffect type="OnBroken" target="This" FissionRate="0.0" disabledeltatime="true">
         <sound file="Content/Items/Weapons/ExplosionMedium1.ogg" type="OnUse" volume="5" selectionmode="Random" range="25000" dontmuffle="true" />
         <sound file="Content/Items/Weapons/ExplosionDebris5.ogg" range="4000" />
@@ -461,7 +461,7 @@
       <Containable items="fertilizer">
         <StatusEffect type="OnContaining" target="This" AvailableFuel="80.0" disabledeltatime="true" />
       </Containable>
-      <Containable items="fuelcan">
+      <Containable items="combustionfuel">
         <StatusEffect type="OnContaining" target="This" AvailableFuel="100.0" disabledeltatime="true" />
       </Containable>
     </ItemContainer>
