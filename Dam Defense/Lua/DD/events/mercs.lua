@@ -27,7 +27,7 @@ end, {
 		self.bompTriggered = false
 		
 		if self.mercs == nil then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		else
 			-- Spawn bodyguard
@@ -51,7 +51,7 @@ end, {
 		local timesPerSecond = 2
 		
 		if self.mercs == nil then
-			self.fail()
+			self.fail('"self.mercs" is nil at "onThink"')
 			return
 		end
 		
@@ -65,7 +65,7 @@ end, {
 	
 	onCharacterDeath = function (self, character)
 		if self.mercs == nil then
-			self.fail()
+			self.fail('"self.mercs" is nil at "onThink"')
 			return
 		end
 		

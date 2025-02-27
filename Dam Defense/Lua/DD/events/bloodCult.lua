@@ -129,7 +129,7 @@ end, {
 		
 		-- Event requires 2 (or more) cultists and 3 (or more) non-cultist
 		if (DD.tableSize(self.cultists) <= 1) or (DD.tableSize(nonCultistsSet) <= 2) then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		else
 			-- Give affliction and do client messages
@@ -148,7 +148,7 @@ end, {
 	stateMain = {
 		onChange = function (self, state)
 			if self.parent.cultists == nil then
-				self.parent.fail()
+				self.parent.fail('"self.parent.cultists" is nil at "stateMain.onChange"')
 				return
 			end
 		

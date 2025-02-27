@@ -16,7 +16,7 @@ end, {
 	
 	onStart = function (self)
 		if self.target == nil then
-			self.fail()
+			self.fail('"self.target" is nil at "onStart"')
 			return
 		end
 		
@@ -43,7 +43,7 @@ end, {
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 		
 		if (self.target == nil) then
-			self.fail()
+			self.fail('"self.target" is nil at "onThink"')
 			return
 		end
 		

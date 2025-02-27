@@ -78,8 +78,24 @@ end
 
 -- List all ongoing events
 DD.eventDirector.listEvents = function ()
-	for key, value in pairs(DD.eventDirector.events) do
-		print(value.name)
+	for key, event in pairs(DD.eventDirector.events) do
+		local text = ''
+		for eventClientKey in event.clientKeys do
+			text = text .. eventClientKey .. ' = '
+			if type(event[eventClientKey]) == 'table' then
+				text = text .. '{ '
+				for other in event[eventClientKey] do
+					text = text .. '"' .. other.Name .. '", '
+				end
+				text = string.sub(text, 1, #text - #', ') .. ' }'
+			else
+				text = text .. '"' .. event[eventClientKey].Name .. '"'
+			end
+			text = text .. ', '
+		end
+		if text ~= '' then text = '{ ' .. string.sub(text, 1, #text - #', ') .. ' }' end
+		text = '[' .. key ..  '] ' .. event.name .. event.seed .. ' ' .. text
+		print(text)
 	end
 	if DD.tableSize(DD.eventDirector.events) <= 0 then print('No events!') end
 end

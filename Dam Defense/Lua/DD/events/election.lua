@@ -25,7 +25,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 		end
 		
 		if ((not captainIsAlive) or (not anySecurityIsAlive) or (DD.eventDirector.mainEvent ~= nil)) and (not self.debugMode) then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		end
 		
@@ -59,7 +59,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
 			DD.messageAllClients(DD.stringLocalize('electionEndFail'), {preset = 'crit'})
-			self.fail()
+			self.fail('captain is dead')
 		end
 		
 		if self.timer <= 0 then

@@ -2832,7 +2832,7 @@
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
   <!-- spent fuel rods will glow and emit radiation -->
-  <Item name="" identifier="fuelrod" Category="Fuel" Tags="mediumitem,reactorfuel" maxstacksize="8" cargocontaineridentifier="metalcrate" scale="0.5">
+  <Item name="" identifier="fuelrod" Category="Fuel" Tags="mediumitem,reactorfuel,divingsuitfuel" maxstacksize="8" cargocontaineridentifier="metalcrate" scale="0.5">
     <PreferredContainer primary="reactorcab"/>
     <PreferredContainer secondary="nucleargun" minamount="1" maxamount="1" spawnprobability="1"/>
     <PreferredContainer secondary="wreckreactorcab,abandonedreactorcab,piratereactorcab" minamount="1" maxamount="2" spawnprobability="0.5"/>
@@ -2886,7 +2886,7 @@
       <QualityStat stattype="Condition" value="0.1"/>
     </Quality>
   </Item>
-  <Item name="" identifier="fulguriumfuelrod" Category="Fuel" Tags="mediumitem,reactorfuel" maxstacksize="8" cargocontaineridentifier="metalcrate" health="150" scale="0.5">
+  <Item name="" identifier="fulguriumfuelrod" Category="Fuel" Tags="mediumitem,reactorfuel,divingsuitfuel" maxstacksize="8" cargocontaineridentifier="metalcrate" health="150" scale="0.5">
     <PreferredContainer primary="reactorcab" />
     <PreferredContainer secondary="wreckreactorcab,abandonedreactorcab,piratereactorcab" amount="1" spawnprobability="0.2"/>
     <PreferredContainer secondary="beaconengcab" amount="1" spawnprobability="0.05"/>
@@ -2936,7 +2936,7 @@
       <QualityStat stattype="Condition" value="0.1"/>
     </Quality>
   </Item>
-  <Item name="" identifier="thoriumfuelrod" Category="Fuel" Tags="mediumitem,reactorfuel" maxstacksize="8" cargocontaineridentifier="metalcrate" health="200" scale="0.5">
+  <Item name="" identifier="thoriumfuelrod" Category="Fuel" Tags="mediumitem,reactorfuel,divingsuitfuel" maxstacksize="8" cargocontaineridentifier="metalcrate" health="200" scale="0.5">
     <PreferredContainer primary="reactorcab" />
     <PreferredContainer secondary="wreckreactorcab,abandonedreactorcab,piratereactorcab" amount="1" spawnprobability="0.1"/>
     <PreferredContainer secondary="beaconengcab" amount="1" spawnprobability="0.02"/>
@@ -2986,7 +2986,7 @@
       <QualityStat stattype="Condition" value="0.1"/>
     </Quality>
   </Item>
-  <Item name="" identifier="fulguriumfuelrodvolatile" category="Fuel" Tags="mediumitem,reactorfuel" maxstacksize="8" allowasextracargo="true" cargocontaineridentifier="metalcrate" health="400" scale="0.5">
+  <Item name="" identifier="fulguriumfuelrodvolatile" category="Fuel" Tags="mediumitem,reactorfuel,divingsuitfuel" maxstacksize="8" allowasextracargo="true" cargocontaineridentifier="metalcrate" health="400" scale="0.5">
     <PreferredContainer primary="reactorcab"/>
     <Price baseprice="400" sold="false" displaynonempty="true">
       <Price storeidentifier="merchantoutpost" />

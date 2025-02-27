@@ -47,15 +47,18 @@ end, {
 		local alivePercentage = alive / players
 		local deadPercentage = 1 - alivePercentage
 		
-		-- Enforce instance cap, main event cap and other restrictions
+		-- enforce restrictions
 		if self.isMainEvent then self.instanceCap = 1 end
-		if (DD.eventDirector.mainEventCap >= 0) and self.isMainEvent and (#DD.eventDirector.getMainEvents() >= DD.eventDirector.mainEventCap) then return end
+		if (DD.eventDirector.mainEventCap >= 0) and self.isMainEvent and (#DD.eventDirector.getMainEvents() >= DD.eventDirector.mainEventCap) then
+			self.fail('limit on main events has been reached')
+			return
+		end
 		if (self.instanceCap >= 0) and (#DD.eventDirector.getEventInstances(self.name) >= self.instanceCap) then
-			self.fail()
+			self.fail('limit on instances of this event has been reached')
 			return
 		end
 		if (self.minimunAlivePercentage > alivePercentage) and (self.minimunDeadPercentage > deadPercentage) then
-			self.fail()
+			self.fail('minimun alive percentage or minimun dead percentage were not met')
 			return
 		end
 		
@@ -103,7 +106,7 @@ end, {
 		end
 		
 		-- log event end
-		if SERVER and (not self.failed) then Game.Log(DD.stringReplace('"{eventName}" event ({seed}) has finished.', {eventName = self.name, seed = self.seed}), 12) end
+		if SERVER and not self.failed then Game.Log(DD.stringReplace('"{eventName}" event ({seed}) has finished.', {eventName = self.name, seed = self.seed}), 12) end
 		
 		-- Flags
 		self.finished = true
@@ -112,8 +115,14 @@ end, {
 	end,
 	
 	failed = false,
-	fail = function (self) -- self.fail() is like a self.cancel() but I've already named it self.fail() and it's too late to go back
-		if DD.debugMode then print('fail: ' .. self.name .. self.seed) end
+	fail = function (self, failText) -- self.fail() is like a self.cancel() but I've already named it self.fail() and it's too late to go back
+		local failText = failText or ''
+		if failText ~= '' then failText = ' (' .. failText .. ')' end
+		
+		if DD.debugMode then print('fail: ' .. self.name .. self.seed .. failText) end
+		if SERVER then
+			Game.Log(DD.stringReplace('"{eventName}" event ({seed}) has failed{failText}.', {eventName = self.name, seed = self.seed, failText = failText}), 12)
+		end
 		self.failed = true
 		self.finish()
 	end,

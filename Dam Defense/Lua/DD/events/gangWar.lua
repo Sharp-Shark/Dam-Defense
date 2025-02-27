@@ -269,7 +269,7 @@ end, {
 		
 		-- event requires 2 gangsters and 2 non-gangsters
 		if ((DD.tableSize(self.gang1) + DD.tableSize(self.gang2) < 2) or (DD.tableSize(nonGangSet) < 2)) and not self.debugMode then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		else
 			-- give affliction and do client messages
@@ -309,7 +309,7 @@ end, {
 	stateMain = {
 		onChange = function (self, state)
 			if (self.parent.gang1 == nil) or (self.parent.gang2 == nil) then
-				self.parent.fail()
+				self.parent.fail('"self.gang1" or "self.gang2" is nil at "stateMain.onChange"')
 				return
 			end
 		
@@ -335,7 +335,7 @@ end, {
 			local timesPerSecond = 2
 			
 			if (self.parent.gang1 == nil) or (self.parent.gang2 == nil) then
-				self.parent.fail()
+				self.parent.fail('"self.gang1" or "self.gang2" is nil at "stateMain.onThink"')
 				return
 			end
 			

@@ -69,7 +69,7 @@ end, {
 		end
 		
 		if (self.killer == nil) or (not anyoneAlive) or (#nonSecurity < 3) then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		else
 			local message = 'You are going to turn into a Serial Killer within {time}. Make sure when you do turn, you are somewhere secluded, where no one will see it.'
@@ -81,7 +81,7 @@ end, {
 	stateMain = {
 		onChange = function (self, state)
 			if (self.parent.killer == nil) then
-				self.parent.fail()
+				self.parent.fail('"self.parent.killer" is nil at "stateMain.onChange"')
 				return
 			end
 		
@@ -124,7 +124,7 @@ end, {
 			local timesPerSecond = 6
 		
 			if (self.parent.killer == nil) then
-				self.parent.fail()
+				self.parent.fail('"self.parent.killer" is nil at "stateMain.onThink"')
 				return
 			end
 			

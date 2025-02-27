@@ -139,7 +139,7 @@ end, {
 		
 		-- Event requires 2 (or more) rebel leaders and (1 or more) security personnel
 		if (self.rebels == nil) or (self.security == nil) or (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0) then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		else
 			-- Message
@@ -168,7 +168,7 @@ end, {
 	stateMain = {
 		onChange = function (self, state)
 			if self.parent.rebels == nil then
-				self.parent.fail()
+				self.parent.fail('"self.parent.rebels" is nil at "stateMain.onChange"')
 				return
 			end
 		
@@ -193,7 +193,7 @@ end, {
 			local timesPerSecond = 2
 			
 			if self.parent.rebels == nil then
-				self.parent.fail()
+				self.parent.fail('"self.parent.rebels" is nil at "stateMain.onThink"')
 				return
 			end
 			

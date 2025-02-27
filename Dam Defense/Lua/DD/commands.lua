@@ -98,6 +98,17 @@ if CLIENT and Game.IsMultiplayer then
 end
 Game.AddCommand('dd_toggledirector', 'Toggles the event director. The event director is a system which automatically starts events.', func, nil, false)
 
+-- Debug console dd_listevents
+local func = function (args)
+	if CLIENT then print('Server-side only!') return end
+	
+	DD.eventDirector.listEvents()
+end
+if CLIENT and Game.IsMultiplayer then
+	func = function () return end
+end
+Game.AddCommand('dd_listevents', 'Lists all active events.', func, nil, false)
+
 -- Debug console dd_startevent
 local func = function (args)
 	if CLIENT then print('Server-side only!') return end

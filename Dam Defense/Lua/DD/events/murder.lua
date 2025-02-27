@@ -41,7 +41,7 @@ end, {
 		
 		-- If couldn't find a suitable murder and/or victim cancel event
 		if (self.murderer == nil) or (self.victim == nil) then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		else
 			DD.messageClient(self.murderer, 'You hear voices in your head... aggressive yet seductive voices telling you to murder ' .. self.victim.Name .. '.', {preset = 'crit'})
@@ -55,7 +55,7 @@ end, {
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 		
 		if (self.murderer == nil) or (self.victim == nil) then
-			self.fail()
+			self.fail('"self.murderer" or "self.victim" is nil at "onThink"')
 			return
 		end
 		

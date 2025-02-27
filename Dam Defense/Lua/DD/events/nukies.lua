@@ -39,7 +39,7 @@ end, {
 		end
 		
 		if DD.tableSize(self.nukies) <= 0 then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		else
 			-- Spawn nukies and do client messages

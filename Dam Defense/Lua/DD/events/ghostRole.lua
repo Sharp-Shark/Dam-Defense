@@ -110,7 +110,7 @@ end, {
 		
 		if DD.tableSize(self.volunteers) == 0 then
 			self.informSpectators(nil, 'The "{eventName}" event countdown has finished but no one joined it, so it has been cancelled.')
-			self.fail()
+			self.fail('no volunteers')
 			return
 		end
 		

@@ -41,7 +41,7 @@ end, {
 		end
 		
 		if DD.tableSize(self.greenskins) <= 0 then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		else
 			-- Spawn greenskins and do client messages

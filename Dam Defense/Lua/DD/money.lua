@@ -22,7 +22,7 @@ end, {
 			self.amount = math.ceil(math.random() * 120)
 		end
 		if (self.client == nil) or (self.amount == nil) then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		end
 	
@@ -96,6 +96,7 @@ local getCharacterSalaryTimer = function (character)
 end
 
 DD.giveMoneyToClient = function (client, amount, announce)
+	DD.expectTypes('giveMoneyToClient', {client, amount, announce}, {'userdata', 'number', 'nil,boolean'})
 	if DD.roundData.bank[client] ~= nil then
 		DD.roundData.bank[client] = DD.roundData.bank[client] + amount
 	else

@@ -39,7 +39,7 @@ end, {
 		
 		-- event requires 6 or more players
 		if (self.vip == nil) or (self.guard == nil) or ((not ignorePlayerCount) and (DD.tableSize(Client.ClientList) <= 5)) then
-			self.fail()
+			self.fail('conditions to start could not be met')
 			return
 		else
 			-- Bounty
@@ -93,7 +93,7 @@ end, {
 		local timesPerSecond = 2
 		
 		if self.vip == nil then
-			self.fail()
+			self.fail('"self.vip" is nil at "onThink"')
 			return
 		end
 		
@@ -104,7 +104,7 @@ end, {
 	
 	onCharacterDeath = function (self, character)
 		if self.vip == nil then
-			self.fail()
+			self.fail('"self.vip" is nil at "onCharacterDeath"')
 			return
 		end
 		

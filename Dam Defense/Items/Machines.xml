@@ -373,7 +373,7 @@
 	  <Item identifier="steel"/>
 	  <Item identifier="plastic"/>
     </Fabricate>
-	<Reactor canbeselected="true" firedelay="30" meltdowndelay="30" maxpoweroutput="2000" fuelconsumptionrate="2" vulnerabletoemp="false" msg="ItemMsgInteractSelect">
+	<Reactor canbeselected="true" firedelay="30" meltdowndelay="30" maxpoweroutput="5000" fuelconsumptionrate="2" vulnerabletoemp="false" msg="ItemMsgInteractSelect">
       <StatusEffect type="InWater" target="This" condition="-2" targetitemcomponent="reactor" >
         <Conditional condition="gt 10" />
       </StatusEffect>
