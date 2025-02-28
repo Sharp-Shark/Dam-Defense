@@ -32,6 +32,8 @@
   <roomname.dambasin>Dam basin</roomname.dambasin>
   <roomname.clownroom>Clown room</roomname.clownroom>
   
+  <character.spitroach>Spitroach</character.spitroach>
+  
   <Override>
   <!-- Mayor Job -->
   <jobname.captain>Mayor</jobname.captain>

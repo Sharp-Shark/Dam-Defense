@@ -21,12 +21,12 @@ DD.eventFish = DD.class(DD.eventBase, nil, {
 		local fishTypes = {'crawler_hatchling', 'mudraptor_hatchling', 'tigerthresher_hatchling', 'husk', 'spitroach_hatchling'}
 		local fishType = fishTypes[math.random(#fishTypes)]
 		local fishNames = {
-			crawler_hatchling = 'crawler hatchlings',
-			mudraptor_hatchling = 'mudraptor hatchlings',
-			tigerthresher_hatchling = 'thresher hatchlings',
-			hammerheadspawn = 'hammerhead spawn',
-			husk = 'husks',
-			spitroach_hatchling = 'spitroach hatchlings'
+			crawler_hatchling = TextManager.Get('character.crawler'),
+			mudraptor_hatchling = TextManager.Get('character.mudraptor'),
+			tigerthresher_hatchling = TextManager.Get('character.tigerthresher'),
+			hammerheadspawn = TextManager.Get('character.hammerheadspawn'),
+			husk = TextManager.Get('character.husk'),
+			spitroach_hatchling = TextManager.Get('character.spitroach'),
 		}
 		local fishCount = 1 + math.random(3)
 	
@@ -36,9 +36,12 @@ DD.eventFish = DD.class(DD.eventBase, nil, {
 			Entity.Spawner.AddCharacterToSpawnQueue(fishType, position, function (character) return end)
 		end
 		
+		-- Get location name
+		local locationName = DD.getLocation(function (item) return item.HasTag(locationTag) end).RoomName
+		
 		-- Warn fish have been spawned
 		if not self.silent then
-			DD.messageAllClients('A total of ' .. fishCount .. ' ' .. fishNames[fishType] .. ' have been spotted ' .. locationNames[locationTag] .. '! It is adviced to kill them before they grow in numbers.', {preset = 'badinfo'})
+			DD.messageAllClients(DD.stringLocalize('fishMessage', {fishCount = fishCount, fishName = string.lower(fishNames[fishType]), locationName = locationName}), {preset = 'badinfo'})
 			for client in Client.ClientList do
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end

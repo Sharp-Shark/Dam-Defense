@@ -78,10 +78,10 @@ end, {
 			DD.roundData.characterSalaryTimer[self.vip.Character] = DD.jobSalaryTimer.captain
 			DD.roundData.salaryTimer[self.vip] = DD.roundData.characterSalaryTimer[self.vip.Character]
 			-- Messages
-			DD.messageClient(self.vip, 'You are now a VIP. A body guard, ' .. self.guard.Name ..', has been assigned to keep you safe from hostiles. Your pay grade has been raised.', {preset = 'crit'})
-			DD.messageClient(self.guard, 'You have been tasked with keeping VIP ' .. self.vip.Name .. ' alive at all costs. Failure will result in immediate termination. Your pay grade has been raised.', {preset = 'crit'})
+			DD.messageClient(self.vip, DD.stringLocalize('vipMessageBoss', {guardName = self.guard.Name}), {preset = 'crit'})
+			DD.messageClient(self.guard, DD.stringLocalize('vipMessageBodyguard', {vipName = self.vip.Name}), {preset = 'crit'})
 			local otherClients = DD.setSubtract(DD.toSet(Client.ClientList), {[self.vip] = true, [self.guard] = true})
-			DD.messageClients(DD.tableKeys(otherClients), 'A VIP is in town! Any non-medical and non-security personnel who kills ' .. self.vip.name .. ' will be rewarded with ' .. self.bounty ..' nexcredits.', {preset = 'crit'})
+			DD.messageClients(DD.tableKeys(otherClients), DD.stringLocalize('vipMessagePublic', {vipName = self.vip.Name, bounty = self.bounty}), {preset = 'crit'})
 			for client in Client.ClientList do
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
@@ -109,7 +109,7 @@ end, {
 		end
 		
 		if (self.guard ~= nil) and (self.guard.Character ~= nil) and (character == self.guard.Character) then
-			DD.messageClient(self.guard, 'You have died and are not a body guard anymore!', {preset = 'crit'})
+			DD.messageClient(self.guard, DD.stringLocalize('bodyguardDead'), {preset = 'crit'})
 			DD.roundData.characterSalaryTimer[self.guard.Character] = nil
 			self.guard = nil
 		end
@@ -129,12 +129,15 @@ end, {
 			if (murderer ~= self.vip) and (murderer ~= self.guard) then
 				DD.giveMoneyToClient(murderer, self.bounty, true)
 				rewarded = true
+				-- Start event for security to arrest murderer
+				local event = DD.eventArrest.new(murderer, 'manslaughter', false)
+				event.start()
 			end
 		end
 		if rewarded then
-			DD.messageAllClients('The VIP is dead! An anonymous person has been rewarded for their death.', {preset = 'crit'})
+			DD.messageAllClients(DD.stringLocalize('vipEnd'), {preset = 'crit'})
 		else
-			DD.messageAllClients('The VIP is dead! No one has been rewarded for their death.', {preset = 'crit'})
+			DD.messageAllClients(DD.stringLocalize('vipEndNoReward'), {preset = 'crit'})
 		end
 		if (self.guard ~= nil) and DD.isClientCharacterAlive(self.guard) then
 			DD.giveAfflictionCharacter(self.guard.Character, 'beepingbomb', 5)

@@ -65,7 +65,19 @@ end, {
 		return false
 	end,
 	
-	addClientToGang = function(self, client, gang)
+	lateJoinBlacklistSet = {},
+	lateJoinSpawn = function (self, client)
+		if self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then return end
+		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
+		
+		local job = 'mechanic'
+		local pos = DD.findRandomWaypointByJob(job).WorldPosition
+		local character = DD.spawnHuman(client, job, pos)
+		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+		character.UpdateTeam()
+	end,
+	
+	addClientToGang = function (self, client, gang)
 		if self.gang1Set[client] or self.gang2Set[client] then return end
 	
 		DD.messageClients(gang, DD.stringLocalize('gangWarRecruitmentNotice', {name = client.Name}), {preset = 'goodinfo'})
@@ -243,7 +255,7 @@ end, {
 		-- Hei, Al Capone, vê se te emenda! Já sabem do teu furo, nego, no imposto de renda.
 		self.knownGangsters = {}
 		self.knownGangstersSet = {}
-		self.doxTimer = 60 * 8
+		self.doxTimer = 60 * 5
 		self.clientDoxTimerOffset = {}
 		-- Give gangsters a timer offset
 		local amount
@@ -342,7 +354,7 @@ end, {
 			-- check for dead gangsters
 			for key, client in pairs(self.parent.gang1) do
 				if (client.Character == nil) or client.Character.IsDead then
-					DD.messageClient(client, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('antagDead'), {preset = 'crit'})
 					self.parent.gang1[key] = nil
 					self.parent.gang1Set[client] = nil
 					if client.Character ~= nil then
@@ -353,7 +365,7 @@ end, {
 			end
 			for key, client in pairs(self.parent.gang2) do
 				if (client.Character == nil) or client.Character.IsDead then
-					DD.messageClient(client, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('antagDead'), {preset = 'crit'})
 					self.parent.gang2[key] = nil
 					self.parent.gang2Set[client] = nil
 					if client.Character ~= nil then
@@ -403,7 +415,7 @@ end, {
 		if self.gang1Set[client] then
 			for key, client in pairs(self.gang1) do
 				if not DD.isClientCharacterAlive(client) then
-					DD.messageClient(client, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('antagDead'), {preset = 'crit'})
 					self.gang1[key] = nil
 					self.gang1Set[client] = nil
 					DD.roundData.characterSalaryTimer[client.Character] = nil
@@ -414,7 +426,7 @@ end, {
 		if self.gang2Set[client] then
 			for key, client in pairs(self.gang2) do
 				if not DD.isClientCharacterAlive(client) then
-					DD.messageClient(client, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('antagDead'), {preset = 'crit'})
 					self.gang2[key] = nil
 					self.gang2Set[client] = nil
 					DD.roundData.characterSalaryTimer[client.Character] = nil
@@ -427,7 +439,7 @@ end, {
 	onChatMessage = function (self, message, sender)
 		if message ~= '/gang' then return end
 		
-		local message = ''
+		local allyList = ''
 		if self.gang1Set[sender] or self.gang2Set[sender] then
 			-- Build  list
 			local list
@@ -436,14 +448,15 @@ end, {
 			elseif self.gang2Set[sender] then
 				list = self.buildList(self.gang2Set, nil, true)
 			end
-			message = 'Your fellow gang members are: ' .. list .. '. '
+			allyList = list
 		end
 		-- Build  list
 		local list
 		list = self.buildList(self.knownGangstersSet, nil, true)
-		if list == '' then list = 'empty' end
-		message = message .. 'Public list of gangsters is: ' .. list .. '. '
-		DD.messageClient(sender, message, {preset = 'command'})
+		if list == '' then list = DD.stringLocalize('empty') end
+		-- Message
+		local localizeKey = (self.gang1Set[sender] or self.gang2Set[sender]) and 'commandGangGangster' or 'commandGang'
+		DD.messageClient(sender, DD.stringLocalize(localizeKey, {allyList = allyList, gangsterList = list}), {preset = 'command'})
 		
 		return true
 	end,

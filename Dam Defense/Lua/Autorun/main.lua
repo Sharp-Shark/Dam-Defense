@@ -23,7 +23,6 @@ require 'DD/secret'
 require 'DD/class'
 require 'DD/utilities'
 require 'DD/saving'
-require 'DD/updater'
 
 -- Load localizations
 DD.localizations = {}
@@ -233,6 +232,10 @@ DD.characterDeathFunctions.main = function (character)
 		info.RecreateHead(client.CharacterInfo.Head)
 		client.CharacterInfo = info
 	end
+	if client ~= nil then
+		-- Do death message to deceased
+		DD.messageClient(client, DD.stringLocalize('deathMessage'), {preset = 'command'})
+	end
 	
 	-- remove grow/breed timers of dead creature
 	DD.roundData.creatureGrowthTimer[character] = nil
@@ -413,9 +416,9 @@ DD.chatMessageFunctions.fire = function (message, sender)
 			text = text .. DD.stringReplace(' {number}: "{name}".', {number = key, name = DD.clientLogName(client)})
 		end
 		if targetName == '' then
-			DD.messageClient(sender, DD.stringReplace('You can fire someone using their security ID number.' .. text, {name = targetName}), {preset = 'command'})
+			DD.messageClient(sender, DD.stringLocalize('commandFireError' .. text, {name = targetName}), {preset = 'command'})
 		else
-			DD.messageClient(sender, DD.stringReplace('No member of security named {name} was found. You can fire someone using their security ID number.' .. text, {name = targetName}), {preset = 'command'})
+			DD.messageClient(sender, DD.stringLocalize('commandFireErrorClientNotFound', {name = targetName}) .. text, {preset = 'command'})
 		end
 		return true
 	end

@@ -16,6 +16,18 @@ end, {
 	goodness = -2.0,
 	minimunDeadPercentage  = 0.6,
 	
+	lateJoinBlacklistSet = {},
+	lateJoinSpawn = function (self, client)
+		if self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then return end
+		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
+		
+		local job = 'mercsevil'
+		local pos = DD.findRandomWaypointByJob(job).WorldPosition
+		local character = DD.spawnHuman(client, job, pos)
+		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+		character.UpdateTeam()
+	end,
+	
 	onStart = function (self)
 		self.nukiesWon = false
 	
@@ -53,7 +65,7 @@ end, {
 			end
 			-- Messages
 			local otherClients = DD.setSubtract(DD.toSet(Client.ClientList), self.nukiesSet)
-			DD.messageClients(DD.tableKeys(otherClients), 'A Mobile Emergency Rescue and Combat Squadder has been sent to assist security in restoring order to the dam.', {preset = 'crit'})
+			DD.messageClients(DD.tableKeys(otherClients), DD.stringLocalize('deathSquadMessage'), {preset = 'crit'})
 			-- Mobile Task Force Unit Epsilon-11, designated Nine Tailed Fox has entered the facility. All remaining survivors are advised to stay in the evacuation shelter or any other safe area until the unit has secured has secured the facility. We’ll start escorting personnel out when the SCPs have been recontained.
 			for character in Character.CharacterList do
 				DD.giveAfflictionCharacter(character, 'announcementfx', 999)
@@ -91,7 +103,7 @@ end, {
 					anyNukieIsAlive = true
 				end
 			else
-				DD.messageClient(nukie, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+				DD.messageClient(nukie, DD.stringLocalize('antagDead'), {preset = 'crit'})
 				self.nukies[key] = nil
 				self.nukiesSet[nukie] = nil
 			end
@@ -125,7 +137,7 @@ end, {
 		if self.nukiesSet[client] then
 			for key, nukie in pairs(self.nukies) do
 				if not DD.isClientCharacterAlive(nukie) then
-					DD.messageClient(nukie, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+					DD.messageClient(nukie, DD.stringLocalize('antagDead'), {preset = 'crit'})
 					self.nukies[key] = nil
 					self.nukiesSet[nukie] = nil
 				end
@@ -144,13 +156,13 @@ end, {
 			end
 		end
 		if self.nukiesWon then
-			DD.messageAllClients('MERCS Death Squadders have won this round! Round ending in 10 seconds.', {preset = 'crit'})
+			DD.messageAllClients(DD.stringLocalize('deathSquadEndVictory'), {preset = 'crit'})
 			DD.roundData.roundEnding = true
 			Timer.Wait(function ()
 				Game.EndGame()
 			end, 10 * 1000)
 		else
-			DD.messageAllClients('All MERCS Death Squadders have been neutralized.', {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('deathSquadEnd'), {preset = 'goodinfo'})
 		end
 	end
 })

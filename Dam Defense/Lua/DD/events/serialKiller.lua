@@ -45,6 +45,21 @@ end, {
 		return false
 	end,
 	
+	lateJoinBlacklistSet = {},
+	lateJoinSpawn = function (self, client)
+		if self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then return end
+		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
+		
+		local speciesName = 'humanUndead'
+		local undeadInfo = DD.stringLocalize('undeadInfo')
+		local job = 'undeadjob'
+		local pos = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
+		local character = DD.spawnHuman(client, job, pos, nil, nil, speciesName)
+		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+		character.UpdateTeam()
+		DD.messageClient(client, undeadInfo, {preset = 'crit'})
+	end,
+	
 	onStart = function (self)
 		self.killerWon = false
 		self.killsLeftToWin = 0 -- killer automatically wins once this value is equal to or lower than 0
@@ -72,8 +87,7 @@ end, {
 			self.fail('conditions to start could not be met')
 			return
 		else
-			local message = 'You are going to turn into a Serial Killer within {time}. Make sure when you do turn, you are somewhere secluded, where no one will see it.'
-			DD.messageClient(self.killer, DD.stringReplace(message, {time = DD.numberToTime(self.stateStartInitialTimer)}), {preset = 'crit'})
+			DD.messageClient(self.killer, DD.stringLocalize('serialKillerMessageSecret', {timer = DD.numberToTime(self.stateStartInitialTimer)}), {preset = 'crit'})
 			if self.killer.Character ~= nil then DD.giveAfflictionCharacter(self.killer.Character, 'notificationfx', 999) end
 		end
 	end,
@@ -105,10 +119,10 @@ end, {
 				end)
 			end, 1)
 			-- Message
-			DD.messageClient(self.parent.killer, 'You are a serial killer! Your mask grants you unnatural resilience and power. You must kill your target ', {preset = 'crit'})
+			DD.messageClient(self.parent.killer, DD.stringLocalize('serialKillerMessageKiller'), {preset = 'crit'})
 			for client in Client.ClientList do
 				if client ~= self.parent.killer then
-					DD.messageClient(client, 'A serial killer is roaming the area, however it is unknown who they are. Be careful!', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('serialKillerMessagePublic'), {preset = 'crit'})
 				end
 			end
 			-- Halloween SFX
@@ -195,9 +209,16 @@ end, {
 	end,
 	
 	onChatMessage = function (self, message, sender)
-		if (not DD.isClientCharacterAlive(sender)) and (string.sub(message, 1, 1) ~= '/') then
-			DD.messageClient(self.killer, message, {type = 'Dead', sender = sender.Name})
+		if  string.sub(message, 1, 1) == '/' then return end
+		if sender == self.killer then
+			for character in Character.CharacterList do
+				if character.SpeciesName == 'humanUndead' then
+					DD.messageClient(client, message, {type = 'Dead', sender = sender.Name})
+				end
+			end
 		end
+		if DD.isClientCharacterAlive(sender) and sender.Character.SpeciesName ~= 'humanUndead' then return end
+		DD.messageClient(self.killer, message, {type = 'Dead', sender = sender.Name})
 	end,
 	
 	onFinish = function (self)
@@ -206,18 +227,18 @@ end, {
 			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 		end
 		if self.killerWon then
-			DD.messageAllClients('Serial killer has won this round! Round ending in 10 seconds.', {preset = 'crit'})
+			DD.messageAllClients('serialKillerEndVictory', {preset = 'crit'})
 			DD.roundData.roundEnding = true
 			Timer.Wait(function ()
 				Game.EndGame()
 			end, 10 * 1000)
 		else
 			if not DD.isClientCharacterAlive(self.killer) then
-				DD.messageAllClients('The serial killer has been eliminated.', {preset = 'goodinfo'})
-				if self.killer ~= nil then DD.messageClient(self.killer, 'You have died and are not an antagonist anymore!', {preset = 'crit'}) end
+				DD.messageAllClients('serialKillerEndArrested', {preset = 'goodinfo'})
+				if self.killer ~= nil then DD.messageClient(self.killer, DD.stringLocalize('antagDead'), {preset = 'crit'}) end
 			elseif DD.isCharacterArrested(self.killer.Character) then
-				DD.messageAllClients('The serial killer has been arrested.', {preset = 'goodinfo'})
-				if self.killer ~= nil then DD.messageClient(self.killer, 'You been arrested and are not an antagonist anymore!', {preset = 'crit'}) end
+				DD.messageAllClients('serialKillerEnd', {preset = 'goodinfo'})
+				if self.killer ~= nil then DD.messageClient(self.killer, DD.stringLocalize('antagArrested'), {preset = 'crit'}) end
 			end
 		end
 	end,
@@ -232,6 +253,14 @@ end, {
 			end
 			if self.killer.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
 				self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+			end
+		end
+	end,
+	
+	onFinishAlways = function (self)
+		for character in Character.CharacterList do
+			if character.SpeciesName == 'humanUndead' then
+				DD.giveAfflictionCharacter(character, 'timepressure', 999)
 			end
 		end
 	end

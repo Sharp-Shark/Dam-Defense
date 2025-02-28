@@ -1,13 +1,27 @@
 if CLIENT then return end
 
+DD.getCustomLateJoinSpawn = function ()
+	if DD.eventDirector.mainEvent == nil then return nil end
+	return DD.eventDirector.mainEvent.lateJoinSpawn
+end
+
+DD.getCustomLateJoinBlacklistSet = function ()
+	if DD.eventDirector.mainEvent == nil then return {} end
+	return DD.eventDirector.mainEvent.lateJoinBlacklistSet or {}
+end
+
 DD.lateJoinSpawn = function ()
 	for client in Client.ClientList do
-		if DD.isClientRespawnable(client) and (not DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation]) then
-			local job = 'mechanic'
-			local pos = DD.findRandomWaypointByJob(job).WorldPosition
-			local character = DD.spawnHuman(client, job, pos)
-			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
-			character.UpdateTeam()
+		if DD.isClientRespawnable(client) then
+			if DD.getCustomLateJoinSpawn() ~= nil then
+				DD.getCustomLateJoinSpawn()(client)
+			elseif not DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then
+				local job = 'mechanic'
+				local pos = DD.findRandomWaypointByJob(job).WorldPosition
+				local character = DD.spawnHuman(client, job, pos)
+				character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+				character.UpdateTeam()
+			end
 		end
 	end
 end
@@ -28,6 +42,12 @@ DD.thinkFunctions.lateJoin = function ()
 	if not DD.allowRespawning then
 		local lateJoinSet = DD.setSubtract(spectatorSet, DD.lateJoinBlacklistSet)
 		
+		local localizeKey = 'lateJoinMessage'
+		if DD.getCustomLateJoinSpawn() ~= nil then
+			lateJoinSet = DD.setSubtract(spectatorSet, DD.getCustomLateJoinBlacklistSet())
+			useCustomLateJoinRespawn = 'lateJoinMessageCustom'
+		end
+		
 		if DD.tableSize(lateJoinSet) > 0 then
 			if DD.lateJoinTimer <= 0 then
 				DD.lateJoinSpawn()
@@ -36,7 +56,7 @@ DD.thinkFunctions.lateJoin = function ()
 				if DD.lateJoinTimer == Game.ServerSettings.RespawnInterval then
 					for client in Client.ClientList do
 						if lateJoinSet[client.AccountId.StringRepresentation] then
-							DD.messageClient(client, DD.stringLocalize('lateJoinMessage', {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'crit'})
+							DD.messageClient(client, DD.stringLocalize(localizeKey, {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'crit'})
 						else
 							DD.messageClient(client, DD.stringLocalize('lateJoinAnnounceTimer', {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'info'})
 						end
@@ -47,7 +67,7 @@ DD.thinkFunctions.lateJoin = function ()
 		end
 	end
 	if resetLateJoinTimer then
-		DD.lateJoinTimer = 60
+		DD.lateJoinTimer = Game.ServerSettings.RespawnInterval
 	end
 end
 
@@ -57,7 +77,14 @@ DD.roundStartFunctions.lateJoin = function ()
 end
 
 Hook.Add("client.connected", "DD.lateJoinClientConnect", function (connectedClient)
-	if (not DD.allowRespawning) and (not DD.lateJoinBlacklistSet[connectedClient.AccountId.StringRepresentation]) then
-		DD.messageClient(connectedClient, DD.stringLocalize('lateJoinMessage', {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'crit'})
+	if DD.allowRespawning then return end
+	
+	local localizeKey = 'lateJoinMessage'
+	if DD.getCustomLateJoinSpawn() ~= nil then
+		localizeKey = 'lateJoinMessageCustom'
+		if DD.getCustomLateJoinBlacklistSet()[connectedClient.AccountId.StringRepresentation] then return end
+	else
+		if DD.lateJoinBlacklistSet[connectedClient.AccountId.StringRepresentation] then return end
 	end
+	DD.messageClient(connectedClient, DD.stringLocalize(localizeKey, {timer = DD.numberToTime(DD.lateJoinTimer)}), {preset = 'crit'})
 end)

@@ -16,6 +16,23 @@ end, {
 	goodness = -1.5,
 	minimunDeadPercentage  = 0.4,
 	
+	lateJoinSpawn = function (self, client)
+		-- Is Troll
+		local conversionTrollPercentage = 20
+		local isTroll = math.random(100) <= conversionTrollPercentage
+		local speciesName = 'humanGoblin'
+		if isTroll then speciesName = 'humanTroll' end
+		
+		local greenskinInfo = DD.stringLocalize('greenskinInfo')
+		
+		local job = 'greenskinjob'
+		local pos = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
+		local character = DD.spawnHuman(client, job, pos, nil, nil, speciesName)
+		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+		character.UpdateTeam()
+		DD.messageClient(client, greenskinInfo, {preset = 'crit'})
+	end,
+	
 	updateGreenskinList = function (self)
 		self.greenskins = {}
 		for client in Client.ClientList do

@@ -10,7 +10,7 @@ DD.eventAffliction = DD.class(DD.eventBase, nil, {
 	minamount = 0,
 	maxamount = 0,
 	ratio = 0,
-	message = 'It is suspected there may be an outbreak in the region. However, it is not yet known what the disease is.',
+	message = DD.stringLocalize('afflictionMessage'),
 	
 	onStart = function (self)
 		local infected = 0

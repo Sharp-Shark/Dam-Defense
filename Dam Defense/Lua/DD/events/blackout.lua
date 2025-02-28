@@ -63,8 +63,7 @@ DD.eventBlackout = DD.class(DD.eventWithStartBase, nil, {
 			self.timer = 60 * 2
 		
 			-- Warn players about event
-			local message = 'Unusual magnetic interference is causing issues with eletrical systems. It is expected to go away on its own in {timer}.'
-			DD.messageAllClients(DD.stringReplace(message, {timer = DD.numberToTime(self.timer)}), {preset = 'badinfo'})
+			DD.messageAllClients(DD.stringLocalize('blackoutMessage', {timer = DD.numberToTime(self.timer)}), {preset = 'badinfo'})
 			for client in Client.ClientList do
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end

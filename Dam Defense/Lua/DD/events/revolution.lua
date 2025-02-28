@@ -47,6 +47,18 @@ end, {
 		return false
 	end,
 	
+	lateJoinBlacklistSet = {},
+	lateJoinSpawn = function (self, client)
+		if self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then return end
+		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
+		
+		local job = 'mechanic'
+		local pos = DD.findRandomWaypointByJob(job).WorldPosition
+		local character = DD.spawnHuman(client, job, pos)
+		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+		character.UpdateTeam()
+	end,
+	
 	buildRebelList = function (self, excludeSet, useClientLogName)
 		local excludeSet = excludeSet or {}
 		local clients = DD.setSubtract(self.rebelsSet, excludeSet)
@@ -156,7 +168,7 @@ end, {
 						rebelList = ''
 					end
 					-- Rebel message
-					DD.messageClient(client, 'You are a rebel leader! Your objective is to kill the captain and security. You have ' .. DD.numberToTime(self.stateStartInitialTimer) ..' until people become aware of the revolution, so start preparing now. Try to enlist non-security personnel to your cause.' .. rebelList .. ' Do /rebels to get info pertinent to this event.', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('', {timer = DD.numberToTime(self.stateStartInitialTimer), rebelList = rebelList}), {preset = 'crit'})
 					if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 				end
 			end
@@ -175,13 +187,13 @@ end, {
 			local rebelsSet = DD.toSet(self.parent.rebels)
 			for client in Client.ClientList do
 				if rebelsSet[client] then
-					DD.messageClient(client, 'Everyone, including security, has heard rumours about your conspiracy and are now aware of the revolution. The cat is out of the bag, so be careful! They do not know who the rebels are yet, but the list of rebels will be public in ' .. DD.numberToTime(self.parent.rebelsDoxTimer) ..'. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('revolutionMessageRebels', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
 				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
 					-- Sec message
-					DD.messageClient(client, "There have been rumours of a conspiracy agaisnt the captain and security. A revolution comes this way, so be prepared to arrest and even kill any rebels. List of rebels will be pubic in " .. DD.numberToTime(self.parent.rebelsDoxTimer) .. '. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('revolutionMessageSecurity', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
 				else
 					-- Neutral message
-					DD.messageClient(client, "There have been rumours of a revolution. You should ally yourself with the rebels or security. Has security ever treated you well though? List of rebels will be pubic in " .. DD.numberToTime(self.parent.rebelsDoxTimer) .. '. Do /rebels to get info pertinent to this event.', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('revolutionMessagePublic', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
 				end
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
@@ -220,7 +232,7 @@ end, {
 					anyRebelIsAlive = true
 				else
 					if (not DD.isClientCharacterAlive(rebel)) or (rebel.Character.SpeciesName ~= 'human') then
-						DD.messageClient(rebel, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+						DD.messageClient(rebel, DD.stringLocalize('antagDead'), {preset = 'crit'})
 						self.parent.rebels[key] = nil
 						self.parent.rebelsSet[rebel] = nil
 					end
@@ -246,7 +258,7 @@ end, {
 					local rebelList = self.parent.buildRebelList()
 					
 					local message = ''
-					message = 'The Nexascanner (TM) has finished its "rebel search algorithm" and found the rebel leaders to be: ' .. rebelList .. '. Do /rebels to get a list of rebel leaders.'
+					message = DD.stringLocalize('revolutionMessageDoxx', {rebelList = rebelList})
 					DD.messageAllClients(message, {preset = 'crit'})
 				end
 			end
@@ -258,7 +270,7 @@ end, {
 		if client == nil then return end
 		for key, rebel in pairs(self.rebels) do
 			if not DD.isClientCharacterAlive(rebel) then
-				DD.messageClient(rebel, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+				DD.messageClient(rebel, DD.stringLocalize('antagDead'), {preset = 'crit'})
 				self.rebels[key] = nil
 				self.rebelsSet[rebel] = nil
 			end
@@ -272,12 +284,12 @@ end, {
 			-- Build rebel list
 			local rebelList = self.buildRebelList(nil, true)
 			local message = ''
-			message = 'The rebel leaders are: ' .. rebelList .. '.'
-			if not self.rebelsDoxHappened then message = message .. ' The list of rebel leaders will be public in ' .. DD.numberToTime(self.rebelsDoxTimer) .. '.' end
+			message = DD.stringLocalize('commandRebels', {rebelList = rebelList})
+			if not self.rebelsDoxHappened then message = message .. ' ' .. DD.stringLocalize('commandRebelsTimer', {timer = DD.numberToTime(self.rebelsDoxTimer)}) end
 			DD.messageClient(sender, message, {preset = 'command'})
 		else
 			local message = ''
-			message = 'The list of rebel leaders will be public in ' .. DD.numberToTime(self.rebelsDoxTimer) .. '.'
+			message = DD.stringLocalize('commandRebelsTimer', {timer = DD.numberToTime(self.rebelsDoxTimer)})
 			DD.messageClient(sender, message, {preset = 'command'})
 		end
 		
@@ -290,14 +302,14 @@ end, {
 			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 		end
 		if self.rebelsWon then
-			DD.messageAllClients('Rebels have won this round! Round ending in 10 seconds.', {preset = 'crit'})
+			DD.messageAllClients(DD.stringLocalize('revolutionEndVictory'), {preset = 'crit'})
 			DD.roundData.roundEnding = true
 			Timer.Wait(function ()
 				Game.EndGame()
 			end, 10 * 1000)
 		else
 			self.rewardSecurityForArrests(5)
-			DD.messageAllClients('All rebels have been eliminated or arrested.', {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('revolutionEnd'), {preset = 'goodinfo'})
 		end
 	end,
 	

@@ -288,7 +288,8 @@ local func = function (args)
 	
 	-- give message
 	if reason ~= '' then
-		DD.messageClient(target, DD.stringReplace('You have been banned from {substrThe} {jobName} job{substrS} because: {reason}.', {jobName = job, reason = reason, substrThe = pluralize and '' or 'the', substrS = pluralize and 's' or ''}), {preset = 'crit'})
+		local localizeKey = pluralize and 'jobbanNoticePlural' or 'jobbanNoticeSingular'
+		DD.messageClient(target, DD.stringLocalize(localizeKey, {jobName = job, reason = reason}), {preset = 'crit'})
 	end
 	
 	-- debug

@@ -15,6 +15,18 @@ end, {
 	goodness = -1.5,
 	minimunDeadPercentage  = 0.4,
 	
+	lateJoinBlacklistSet = {},
+	lateJoinSpawn = function (self, client)
+		if self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then return end
+		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
+		
+		local job = 'jet'
+		local pos = DD.findRandomWaypointByJob(job).WorldPosition
+		local character = DD.spawnHuman(client, job, pos)
+		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+		character.UpdateTeam()
+	end,
+	
 	onStart = function (self)
 		self.nukiesWon = false
 	
@@ -50,9 +62,9 @@ end, {
 					local character = DD.spawnHuman(client, job, pos)
 					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 					character.UpdateTeam()
-					DD.messageClient(client, 'You are a nukie! Work with your fellow nukies to explode the reactor and win the round.', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('deathSquadMessageNukies'), {preset = 'crit'})
 				else
-					DD.messageClient(client, 'Intel reports nukie activity on the area. Keep the crew, and most importantly the reactor safe from them!', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('deathSquadMessagePublic'), {preset = 'crit'})
 				end
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
@@ -89,7 +101,7 @@ end, {
 					anyNukieIsAlive = true
 				end
 			else
-				DD.messageClient(nukie, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+				DD.messageClient(nukie, DD.stringLocalize('antagDead'), {preset = 'crit'})
 				self.nukies[key] = nil
 				self.nukiesSet[nukie] = nil
 			end
@@ -123,7 +135,7 @@ end, {
 		if self.nukiesSet[client] then
 			for key, nukie in pairs(self.nukies) do
 				if not DD.isClientCharacterAlive(nukie) then
-					DD.messageClient(nukie, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+					DD.messageClient(nukie, DD.stringLocalize('antagDead'), {preset = 'crit'})
 					self.nukies[key] = nil
 					self.nukiesSet[nukie] = nil
 				end
@@ -142,27 +154,13 @@ end, {
 			end
 		end
 		if self.nukiesWon then
-			DD.messageAllClients('Nukies have won this round! Round ending in 10 seconds.', {preset = 'crit'})
+			DD.messageAllClients(DD.stringLocalize('deathSquadEndVictory'), {preset = 'crit'})
 			DD.roundData.roundEnding = true
 			Timer.Wait(function ()
 				Game.EndGame()
 			end, 10 * 1000)
 		else
-			DD.messageAllClients('All nukies have been neutralized.', {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('deathSquadEnd'), {preset = 'goodinfo'})
 		end
 	end
-})
-
--- Nukies ghost role event
-DD.eventGhostRoleNukies = DD.class(DD.eventGhostRole, nil, {
-	paramType = {},
-	clientKeys = {'volunteers'},
-	
-	name = 'ghostRoleNukies',
-	isMainEvent = true,
-	cooldown = 60 * 3,
-	weight = 2,
-	goodness = -1.5,
-	
-	eventClass = DD.eventNukies
 })

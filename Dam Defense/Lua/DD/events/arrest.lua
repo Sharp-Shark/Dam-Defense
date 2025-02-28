@@ -21,18 +21,18 @@ end, {
 		end
 		
 		if self.isTargetKnown then
-			DD.messageClient(self.target, 'You have been charged with ' .. self.charge .. '! Try to avoid security.', {preset = 'crit'})
+			DD.messageClient(self.target, DD.stringLocalize('arrestMessageTargetKnownTarget', {charge = self.charge}), {preset = 'crit'})
 		else
-			DD.messageClient(self.target, 'Security is after an unknown criminal who was charged with ' .. self.charge .. '. The criminal is you, but they do not know that for now.', {preset = 'crit'})
+			DD.messageClient(self.target, DD.stringLocalize('arrestMessageTargetUnknownTarget', {charge = self.charge}), {preset = 'crit'})
 		end
 		for client in Client.ClientList do
 			if client ~= self.target then
 				local preset = 'info'
 				if (client.Character ~= nil) and (client.Character.SpeciesName == 'human') and DD.isCharacterSecurity(client.Character) then preset = 'crit' end
 				if self.isTargetKnown then
-					DD.messageClient(client, self.target.Name .. ' has been charged with ' .. self.charge .. ' and must be lawfully arrested!', {preset = preset})
+					DD.messageClient(client, DD.stringLocalize('arrestMessageSecurityKnownTarget', {target = self.target.Name, charge = self.charge}), {preset = preset})
 				else
-					DD.messageClient(client, 'An unknown criminal has been charged with ' .. self.charge .. '! Find out who they are and lawfully arrest them.', {preset = preset})
+					DD.messageClient(client, DD.stringLocalize('arrestMessageSecurityUnknownTarget', {charge = self.charge}), {preset = preset})
 				end
 			end
 			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
@@ -59,9 +59,9 @@ end, {
 	onFinish = function (self)
 		if DD.isClientCharacterAlive(self.target) and DD.isCharacterArrested(self.target.Character) then
 			DD.giveMoneyToSecurity(5, true)
-			DD.messageAllClients('Justice at last! The criminal known as ' .. self.target.Name .. ' who was charged with ' .. self.charge .. ' has been arrested.', {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('arrestMessageEndArrested', {target = self.target.Name, charge = self.charge}), {preset = 'goodinfo'})
 		else
-			DD.messageAllClients('Security failed to arrest ' .. self.target.Name .. ' who was charged with ' .. self.charge .. ' and they are now dead.', {preset = 'info'})
+			DD.messageAllClients(DD.stringLocalize('arrestMessageEnd', {target = self.target.Name, charge = self.charge}), {preset = 'info'})
 		end
 	end
 })
@@ -75,25 +75,25 @@ DD.eventArrest1984 = DD.class(DD.eventArrest, function (self)
 		end
 	end
 	local sillyCharges = {
-		'being a silly goober',
-		'promiscuity',
-		'indecent display',
-		'public urination',
-		'just being generally unpleasent',
-		'bad vibes',
-		'existing',
-		'being a real goofball',
-		'being real mood killer',
-		'liking hitler and kicking puppies',
-		'being hella sus',
-		'not liking Breaking Bad',
-		'being bad to the bone (panana-nana)',
-		'blatant homosexuality',
-		'blatant heterosexuality',
-		'making bad dad jokes',
-		'being like, totally super lame bro',
-		'cronic uncoolness',
-		'skill issue'
+		DD.stringLocalize('arrestSillyCharge1'),
+		DD.stringLocalize('arrestSillyCharge2'),
+		DD.stringLocalize('arrestSillyCharge3'),
+		DD.stringLocalize('arrestSillyCharge4'),
+		DD.stringLocalize('arrestSillyCharge5'),
+		DD.stringLocalize('arrestSillyCharge6'),
+		DD.stringLocalize('arrestSillyCharge7'),
+		DD.stringLocalize('arrestSillyCharge8'),
+		DD.stringLocalize('arrestSillyCharge9'),
+		DD.stringLocalize('arrestSillyCharge10'),
+		DD.stringLocalize('arrestSillyCharge11'),
+		DD.stringLocalize('arrestSillyCharge12'),
+		DD.stringLocalize('arrestSillyCharge13'),
+		DD.stringLocalize('arrestSillyCharge14'),
+		DD.stringLocalize('arrestSillyCharge15'),
+		DD.stringLocalize('arrestSillyCharge16'),
+		DD.stringLocalize('arrestSillyCharge17'),
+		DD.stringLocalize('arrestSillyCharge18'),
+		DD.stringLocalize('arrestSillyCharge19'),
 	}
 	self.charge = sillyCharges[math.random(#sillyCharges)]
 	self.isTargetKnown = true

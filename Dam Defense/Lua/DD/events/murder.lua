@@ -44,8 +44,8 @@ end, {
 			self.fail('conditions to start could not be met')
 			return
 		else
-			DD.messageClient(self.murderer, 'You hear voices in your head... aggressive yet seductive voices telling you to murder ' .. self.victim.Name .. '.', {preset = 'crit'})
-			DD.messageClient(self.victim, 'You hear voices in your head... calm yet worried voices warning someone wants to murder you.', {preset = 'crit'})
+			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurderer' ,{victimName = self.victim.Name}), {preset = 'crit'})
+			DD.messageClient(self.victim, DD.stringLocalize('murderMessageVictim'), {preset = 'crit'})
 			if self.murderer.Character ~= nil then DD.giveAfflictionCharacter(self.murderer.Character, 'notificationfx', 999) end
 			if self.victim.Character ~= nil then DD.giveAfflictionCharacter(self.victim.Character, 'notificationfx', 999) end
 		end
@@ -96,20 +96,20 @@ end, {
 	onFinish = function (self)
 		if self.murdererWon then
 			DD.giveMoneyToClient(self.murderer, 5, true)
-			DD.messageAllClients('The murderer has succeeded and ' .. self.victim.Name .. ' is now dead! They must be brought to justice!', {preset = 'badinfo'})
-			DD.messageClient(self.murderer, 'You hear voices in your head... joyful voices thanking you for killing ' .. self.victim.Name .. '. Well done.', {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('murderEndMurdererVictory', {victimName = self.victim.Name}), {preset = 'badinfo'})
+			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurdererVictory', {victimName = self.victim.Name}), {preset = 'goodinfo'})
 			-- Start event for security to arrest murderer
 			local event = DD.eventArrest.new(self.murderer, 'manslaughter', false)
 			event.start()
 		elseif self.murdererDied then
-			DD.messageAllClients(self.murderer.Name .. ' has failed to murder ' .. self.victim.Name ..' and is now dead! Life goes on...', {preset = 'info'})
-			DD.messageClient(self.murderer, 'You have died and are not tasked with murdering ' .. self.victim.Name .. ' anymore!', {preset = 'crit'})
+			DD.messageAllClients(DD.stringLocalize('murderEndMurdererDead', {self.murderer.Name, victimName = self.victim.Name}), {preset = 'info'})
+			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurdererDead', {victimName = self.victim.Name}), {preset = 'crit'})
 		elseif self.murdererArrested then
 			DD.giveMoneyToSecurity(5, true)
-			DD.messageAllClients(self.murderer.Name .. ' has failed to murder ' .. self.victim.Name ..' and has been lawfully arrested! Life goes on...', {preset = 'goodinfo'})
-			DD.messageClient(self.murderer, 'You hear voices in your head... aggressive yet disappointed voices berrating you for your failure. You do not need to murder ' .. self.victim.Name .. ' anymore.', {preset = 'crit'})
+			DD.messageAllClients(DD.stringLocalize('murderEndMurdererArrested', {self.murderer.Name, victimName = self.victim.Name}), {preset = 'goodinfo'})
+			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurdererArrested', {victimName = self.victim.Name}), {preset = 'crit'})
 		elseif self.victimDied then
-			DD.messageClient(self.murderer, 'You hear voices in your head... aggressive yet disappointed voices berrating you for your failure. Although ' .. self.victim.Name .. ' died, it was not by your hand.', {preset = 'info'})
+			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurdererUnrelatedDeath', {victimName = self.victim.Name}), {preset = 'info'})
 		end
 	end
 })

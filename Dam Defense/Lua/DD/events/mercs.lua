@@ -38,7 +38,7 @@ end, {
 			character.UpdateTeam()
 			-- Messages
 			local otherClients = DD.setSubtract(DD.toSet(Client.ClientList), {[self.mercs] = true})
-			DD.messageClients(DD.tableKeys(otherClients), 'A Mobile Emergency Rescue and Combat Squadder has been sent to assist security in restoring order to the dam.', {preset = 'crit'})
+			DD.messageClients(DD.tableKeys(otherClients), DD.stringLocalize('deathSquadMessage'), {preset = 'crit'})
 			-- Mobile Task Force Unit Epsilon-11, designated Nine Tailed Fox has entered the facility. All remaining survivors are advised to stay in the evacuation shelter or any other safe area until the unit has secured has secured the facility. We’ll start escorting personnel out when the SCPs have been recontained.
 			for character in Character.CharacterList do
 				DD.giveAfflictionCharacter(character, 'announcementfx', 999)

@@ -28,7 +28,7 @@ end, {
 	},
 	minAmount = 32,
 	maxAmount = 40,
-	message = 'Airdrop with {amount} items for crafting arrived at the radio tower above the factory. Crate despawns in {minutes} minutes!',
+	message = DD.stringLocalize('airdropMessage'),
 	
 	onStart = function (self)
 		local spawnPosition = self.spawnPosition
@@ -122,7 +122,7 @@ DD.eventAirdropMedical = DD.class(DD.eventAirdrop, nil, {
 	},
 	minAmount = 8,
 	maxAmount = 12,
-	message = 'Airdrop with {amount} items for crafting arrived at hospital rooftops. Crate despawns in {minutes} minutes!'
+	message = DD.stringLocalize('airdropMedicalMessage'),
 })
 
 -- Security airdrop with guns and ammo
@@ -148,7 +148,7 @@ DD.eventAirdropSecurity = DD.class(DD.eventAirdrop, nil, {
 	},
 	minAmount = 16,
 	maxAmount = 20,
-	message = 'Airdrop with {amount} items worth of ammo arrived at the prison rooftops. Crate despawns in {minutes} minutes!'
+	message = DD.stringLocalize('airdropSecurityMessage'),
 })
 
 -- Separatist airdrop with guns
@@ -173,7 +173,7 @@ DD.eventAirdropSeparatist = DD.class(DD.eventAirdrop, nil, {
 	},
 	minAmount = 8,
 	maxAmount = 12,
-	message = 'Airdrop with {amount} items for crafting arrived at the radio tower above the slums. Crate despawns in {minutes} minutes!'
+	message = DD.stringLocalize('airdropAntagMessage'),
 })
 
 -- Cultist airdrop with guns
@@ -199,7 +199,7 @@ DD.eventAirdropCultist = DD.class(DD.eventAirdrop, nil, {
 	},
 	minAmount = 3,
 	maxAmount = 6,
-	message = 'Airdrop with {amount} items for crafting arrived at the radio tower above the slums. Crate despawns in {minutes} minutes!'
+	message = DD.stringLocalize('airdropAntagMessage'),
 })
 
 -- Artifact airdrop
@@ -221,5 +221,5 @@ DD.eventAirdropArtifact = DD.class(DD.eventAirdrop, nil, {
 	},
 	minAmount = 1,
 	maxAmount = 1,
-	message = 'An unindentified object has fallen from the sky! Deconstruct it to get alien materials to make powerful weapons.'
+	message = DD.stringLocalize('airdropArtifactMessage'),
 })

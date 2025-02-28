@@ -1,6 +1,7 @@
 -- english localization by Sharp-Shark
 return {
 	-- main.lua
+	deathMessage = 'You have died! You can type /possess in chat to control a creature. Do /freecam to go back to spectating. If you want a full list of commands, do /help in chat.',
 	matchHasGoneOnForTooLong = 'The match has gone on for too long and respawning has been automatically disabled.',
 	allTheCrewIsDead = 'All of the crew is dead! Round ending in 10 seconds.',
 	commandHelp = 'List of chat commands:\n{list}.',
@@ -8,11 +9,13 @@ return {
 	commandInfoMonster = 'You are a monster and your objective is to antagonize the humans.',
 	commandPossessErrorDead = 'You have to be dead to use this command.',
 	commandPossessErrorNothingNearby = 'No nearby character fit to be possessed was found.',
-	commandPossess = 'Do /freecam to go back to spectating. You cannot respawn unless you are spectating.',
+	commandPossess = 'Do "/freecam" to go back to spectating. You cannot respawn unless you are spectating.',
 	commandFreecamErrorDead = 'You are already spectating.',
 	commandFreecamErrorHuman = 'You cannot become a spectator whilst controlling a human.',
 	commandFire = 'The captain has decided to fire {name} from the security force!',
 	commandFireAdmin = 'Nexpharma (TM) has decided to fire {name} from the security force!',
+	commandFireError = 'You can fire someone using their security ID number.',
+	commandFireErrorClientNotFound = 'No member of security named {name} was found. You can fire someone using their security ID number.',
 	commandElectionErrorAlreadyOngoing = 'Cannot start an election because one is already ongoing.',
 	commandElectionErrorMainEvent = 'Cannot start an election because a main event is ongoing.',
 	commandElectionErrorLimitReached = 'Limit reached! You cannot start more than one election per round.',
@@ -26,8 +29,9 @@ return {
 	commandMyEventsNone = 'none (you are in no events)',
 	commandMyEvents = 'The events you are currently in are: {list}.',
 	-- latejoin.lua
-	lateJoinMessage = 'Respawning is currently disabled, however you and anyone who just joined will be spawned in as a laborer within {timer}.',
-	lateJoinAnnounceTimer = 'Late-join spawn will occur within {timer}.',
+	lateJoinMessage = 'Regular respawning is currently disabled, however you and anyone who just joined will be spawned in as a laborer within {timer}.',
+	lateJoinMessageCustom = 'Regular respawning is currently disabled due to a main event. Instead you will have a custom event-specific respawn within {timer}.',
+	lateJoinAnnounceTimer = 'Irregular respawn will occur within {timer}.',
 	-- money.lua
 	giveMoneyToClient = 'You have received {amount} Nexcredits (TM).',
 	commandCreditsError = 'You have no Nexaccount (TM).',
@@ -38,12 +42,55 @@ return {
 	commandWithdrawErrorCooldown = 'You have to wait {timer} before you can withdraw again.',
 	commandWithdrawErrorInvalidAmount = 'You have tried to withdraw an invalid amount and thusly failed. Do "/credits" to see how many credits you have.',
 	commandWithdraw = 'A Nexcase (TM) with {amount} Nexcredits (TM) has been teleported to you by Nexmail (TM). It will be teleported back in {seconds} seconds along with anything left inside!',
-	-- events/affliction.lua (TBD)
-	-- events/airdrop.lua (TBD)
-	-- events/arrest.lua (TBD)
-	-- events/blackout.lua (TBD)
-	-- events/bloodCult.lua (TBD)
+	-- events/affliction.lua
+	afflictionMessage = 'It is suspected there may be an outbreak in the region. However, it is not yet known what the disease is.',
+	-- events/airdrop.lua
+	airdropMessage = 'Airdrop with {amount} items for crafting arrived at the radio tower above the factory. Crate despawns in {minutes} minutes!',
+	airdropMedicalMessage = 'Airdrop with {amount} items for crafting arrived at hospital rooftops. Crate despawns in {minutes} minutes!',
+	airdropSecurityMessage = 'Airdrop with {amount} items worth of ammo arrived at the prison rooftops. Crate despawns in {minutes} minutes!',
+	airdropAntagMessage = 'Airdrop with {amount} items for crafting arrived at the radio tower above the slums. Crate despawns in {minutes} minutes!',
+	airdropArtifactMessage = 'An unindentified object has fallen from the sky! Deconstruct it to get alien materials to make powerful weapons.',
+	-- events/arrest.lua
+	arrestMessageTargetKnownTarget = 'You have been charged with {charge}! Try to avoid security.',
+	arrestMessageTargetUnknownTarget = 'Security is after an unknown criminal who was charged with {charge}. The criminal is you, but they do not know that for now.',
+	arrestMessageSecurityKnownTarget = '{target} has been charged with {charge} and must be lawfully arrested!',
+	arrestMessageSecurityUnknownTarget = 'An unknown criminal has been charged with {charge} and must be lawfully arrested!',
+	arrestMessageEndArrested = 'Justice at last! The criminal known as {target} who was charged with {charge} has been arrested.',
+	arrestMessageEnd = 'Security failed to arrest {target} who was charged with {charge} and they are now dead.',
+	arrestSillyCharge1 = 'being a silly goober',
+	arrestSillyCharge2 = 'promiscuity',
+	arrestSillyCharge3 = 'indecent display',
+	arrestSillyCharge4 = 'public urination',
+	arrestSillyCharge5 = 'just being generally unpleasent',
+	arrestSillyCharge6 = 'bad vibes',
+	arrestSillyCharge7 = 'existing',
+	arrestSillyCharge8 = 'being a real goofball',
+	arrestSillyCharge9 = 'being real mood killer',
+	arrestSillyCharge10 = 'liking hitler and kicking puppies',
+	arrestSillyCharge11 = 'being hella sus',
+	arrestSillyCharge12 = 'not liking Breaking Bad',
+	arrestSillyCharge13 = 'being bad to the bone (panana-nana)',
+	arrestSillyCharge14 = 'blatant homosexuality',
+	arrestSillyCharge15 = 'blatant heterosexuality',
+	arrestSillyCharge16 = 'making bad dad jokes',
+	arrestSillyCharge17 = 'being like, totally super lame bro',
+	arrestSillyCharge18 = 'cronic uncoolness',
+	arrestSillyCharge19 = 'skill issue',
+	-- events/blackout.lua
+	blackoutMessage = 'Unusual magnetic interference is causing issues with eletrical systems. It is expected to go away on its own in {timer}.',
+	-- events/bloodCult.lua
+	bloodCultCultistInfo = 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your objective is to have no non-cultist alive. You can convert others using "The 1998". You can extract "Life Essence" from the unconcious or the recently deceased using a "Sacrificial Dagger". Conversion and consuming "Life Essence" both lower your "Time Pressure". You can also craft a "Blood Cultist Robe" which heals, cures diseases and can bring you back from the dead. Long live Tchernobog! Do /cultists to get a list of fellow worshippers and /whisper to message them all.',
 	bloodCultRecruitmentNotice = 'The cult has just recruited {name}!',
+	bloodCultMessageCultist = 'Nexpharma intelligence has discovered the existance of your blood cult and now everyone is aware of your conspiracy, exert caution! They do not know who the individual cultists are at the moment though.',
+	bloodCultMessageSecurity = 'Intel reports a blood cult chapter has started in this region. Identify and neutralize all of them before they convert or kill everyone. Any mentions of "Tchernobog" should be met with suspicion.',
+	bloodCultMessagePublic = 'There have been rumours of cultists in the area. If you were not worried about hooded figures in the sewers saying strange chants before, you should be now.',
+	bloodCultEndVictory = 'The blood cult has won this round, long live Tchernobog! Round ending in 10 seconds.',
+	bloodCultEnd = 'The local blood cult chapter has been eliminated.',
+	commandCultists = 'The cultists are: {cultistList}.',
+	-- events/deathSquad.lua
+	deathSquadMessage = 'A Mobile Emergency Rescue and Combat Squadder has been sent to assist security in restoring order to the dam.',
+	deathSquadEndVictory = 'MERCS Death Squadders have won this round! Round ending in 10 seconds.',
+	deathSquadEnd = 'All MERCS Death Squadders have been neutralized.',
 	-- events/election.lua
 	electionStart = 'Time for democracy, vote yes to replace the current captain, vote no to keep him! Head to your nearest ballot box, insert your desired amount of Nexcredits (TM) and press "Vote Yes" or "Vote No". You have {timer} to vote with your wallet!',
 	electionVoteCast = 'New votes have been cast!',
@@ -51,8 +98,9 @@ return {
 	electionEndYesFail = 'The election has ended and it has been democratically decided to replace the current captain with a new one, however due to a lack of a proper replacement, the decision will sadly be ignored.',
 	electionEndNo = 'The election has ended and it has been democratically decided to keep the current captain!',
 	electionEndFail = 'The election has ended because the captain has died or some other failure in the process.',
-	-- events/fish.lua (TBD)
-	-- events/gangWar.lua (still need to add localization for "/gang")
+	-- events/fish.lua
+	fishMessage = 'A total of {fishCount} {fishName} have been spotted {locationName}! It is adviced to kill them before they grow in numbers.',
+	-- events/gangWar.lua
 	gangWarDoxx = 'The Nexbank (TM) has found unusual activity in the account of {name}, and as such has determined they are a gang member. Do /gang to get the public list of gang members.',
 	gangWarGangsterInfo = 'You are a gang member of the {gangName}. Your sole objective is to eliminate the rival gang, known as {rivalGangName}. You have {timer} until everyone becomes aware of the gang war. Your gang may try and ally itself with the proletariat and security alike to gain an edge. Beware security gets a reward for arresting gangsters. Your pay grade has been raised. Do /gang for a list of fellow and known gangsters.',
 	gangWarGangsterReveal = 'Everyone is now aware there are two rival gangs in the area, but they do not know who the gangsters are yet. Keep your cool, wise guy!',
@@ -62,14 +110,58 @@ return {
 	gangWarEndSecurity = 'Both gangs have been arrested and security has been promptly rewarded! Life goes on.',
 	gangWarEndNeutral = 'Both gangs have been eliminated! Life goes on.',
 	gangWarRecruitmentNotice = 'Your gang has just recruited {name}!',
+	commandGangGangster = 'Your fellow gang members are: {allyList}. Public list of gangsters is: {gangsterList}.',
+	commandGang = 'Public list of gangsters is: {gangsterList}.',
 	-- events/ghostRole.lua (TBD)
 	-- events/greenskins.lua
 	greenskinInfo = 'You are a kind of amphibious nimble critter that like playing games with their prey. Put masks on humans to turn them into goblins. Hide in goblin crates to regenerate.',
 	greenskinsEventEndDefeat = 'All greenskins have been eliminated.',
-	-- events/murder.lua (TBD)
-	-- events/nukies.lua (TBD)
-	-- events/revolution.lua (TBD)
-	-- events/serialKiller.lua (TBD)
+	-- events/murder.lua
+	murderMessageMurderer = 'You hear voices in your head... aggressive yet seductive voices telling you to murder {victimName}. You will be paid 5 nexcredits if you succeed.',
+	murderMessageVictim = 'You hear voices in your head... calm yet worried voices warning someone wants to murder you.',
+	murderEndMurdererVictory = 'The murderer has succeeded and {victimName} is now dead! They must be brought to justice!',
+	murderEndMurdererDead = '{murdererName} has failed to murder {victimName} and is now dead! Life goes on...',
+	murderEndMurdererArrested ='{murdererName} has failed to murder {victimName} and has been lawfully arrested! Life goes on...',
+	murderMessageMurdererVictory = 'You hear voices in your head... joyful voices thanking you for killing {victimName}. Well done.',
+	murderMessageMurdererDead = 'You have died and are not tasked with murdering {victimName} anymore!',
+	murderMessageMurdererArrested = 'You hear voices in your head... aggressive yet disappointed voices berrating you for your failure. You do not need to murder {victimName} anymore.',
+	murderMessageMurdererUnrelatedDeath = 'You hear voices in your head... aggressive yet disappointed voices berrating you for your failure. Although {victimName} died, it was not by your hand.',
+	-- events/nukies.lua
+	deathSquadMessageNukies = 'You are a nukie! Work with your fellow nukies to explode the reactor and win the round.',
+	deathSquadMessagePublic = 'Intel reports nukie activity on the area. Keep the crew, and most importantly the reactor safe from them!',
+	deathSquadEndVictory = 'Nukies have won this round! Round ending in 10 seconds.',
+	deathSquadEnd = 'All nukies have been neutralized.',
+	-- events/revolution.lua
+	revolutionMessageSecret = 'You are a rebel leader! Your objective is to kill the captain and security. You have {timer} until people become aware of the revolution, so start preparing now. Try to enlist non-security personnel to your cause.{rebelList} Do /rebels to get info pertinent to this event.',
+	revolutionMessageRebels = 'Everyone, including security, has heard rumours about your conspiracy and are now aware of the revolution. The cat is out of the bag, so be careful! They do not know who the rebels are yet, but the list of rebels will be public in {timer}. Do /rebels to get info pertinent to this event.',
+	revolutionMessageSecurity = "There have been rumours of a conspiracy agaisnt the captain and security. A revolution comes this way, so be prepared to arrest and even kill any rebels. List of rebels will be pubic in {timer}. Do /rebels to get info pertinent to this event.",
+	revolutionMessagePublic = "There have been rumours of a revolution. You should ally yourself with the rebels or security. Has security ever treated you well though? List of rebels will be public in {timer}. Do /rebels to get info pertinent to this event.",
+	revolutionMessageDoxx = 'The Nexascanner (TM) has finished its "rebel search algorithm" and found the rebel leaders to be: {rebelList}. Do /rebels to get a list of rebel leaders.',
+	revolutionEndVictory = 'Rebels have won this round! Round ending in 10 seconds.',
+	revolutionEnd = 'All rebels have been eliminated or arrested.',
+	commandRebelsTimer = ' The list of rebel leaders will be public in {timer}.',
+	commandRebels = 'The rebel leaders are: {rebelList}.',
+	-- events/serialKiller.lua
+	serialKillerMessageSecret = 'You are going to turn into a Serial Killer within {timer}. Make sure when you do turn, you are somewhere secluded, where no one will see it.',
+	serialKillerMessageKiller = 'You are a serial killer! Your mask grants you unnatural resilience and power. You must kill your target ',
+	serialKillerMessagePublic = 'A serial killer is roaming the area, however it is unknown who they are. Be careful!',
+	serialKillerEndVictory = 'Serial killer has won this round! Round ending in 10 seconds.',
+	serialKillerEndArrested = 'The serial killer has been eliminated.',
+	serialKillerEnd = 'The serial killer has been arrested.',
+	-- events/vip.lua (TBD)
+	vipMessageBoss = 'You are now a VIP. A body guard, {guardName}, has been assigned to keep you safe from hostiles. Your pay grade has been raised.',
+	vipMessageBodyguard = 'You have been tasked with keeping VIP {vipName} alive at all costs. Failure will result in immediate termination. Your pay grade has been raised.',
+	vipMessagePublic = 'A VIP is in town! Any non-medical and non-security personnel who kills {vipName} will be rewarded with {bounty} nexcredits.',
+	vipEnd = 'The VIP is dead! An anonymous person has been rewarded for their death.',
+	vipEndNoReward = 'The VIP is dead! No one has been rewarded for their death.',
+	-- console commands
+	jobbanNoticeSingular = 'You have been banned from the {jobName} job because: {reason}.',
+	jobbanNoticePlural = 'You have been banned from {jobName} jobs because: {reason}.',
+	-- misc
+	bodyguardDead = 'You have died and are not a body guard anymore!',
+	antagDead = 'You have died and are not an antagonist anymore!',
+	antagArrested = 'You have died and are not an antagonist anymore!',
+	empty = 'empty',
 	
 	-- wiki
 	-- wiki misc

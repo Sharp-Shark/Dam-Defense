@@ -38,6 +38,21 @@ end, {
 		return false
 	end,
 	
+	lateJoinBlacklistSet = {},
+	lateJoinSpawn = function (self, client)
+		if self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then return end
+		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
+		
+		local speciesName = 'humanUndead'
+		local undeadInfo = DD.stringLocalize('undeadInfo')
+		local job = 'undeadjob'
+		local pos = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
+		local character = DD.spawnHuman(client, job, pos, nil, nil, speciesName)
+		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+		character.UpdateTeam()
+		DD.messageClient(client, undeadInfo, {preset = 'crit'})
+	end,
+	
 	buildCultistList = function (self, excludeSet, useClientLogName)
 		local excludeSet = excludeSet or {}
 		local clients = DD.setSubtract(self.cultistsSet, excludeSet)
@@ -155,11 +170,11 @@ end, {
 			-- Give affliction and do client messages
 			for client in Client.ClientList do
 				if self.parent.cultistsSet[client] then
-					DD.messageClient(client, 'Nexpharma intelligence has discovered the existance of your blood cult and now everyone is aware of your conspiracy, exert caution! They do not know who the individual cultists are at the moment though.', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('bloodCultMessageCultist'), {preset = 'crit'})
 				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
-					DD.messageClient(client, 'Intel reports a blood cult chapter has started in this region. Identify and neutralize all of them before they convert or kill everyone. Any mentions of "Tchernobog" should be met with suspicion.', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('bloodCultMessageSecurity'), {preset = 'crit'})
 				else
-					DD.messageClient(client, 'There have been rumours of cultists in the area. If you were not worried about hooded figures in the sewers saying strange chants before, you should be now.', {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('bloodCultMessagePublic'), {preset = 'crit'})
 				end
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
@@ -181,7 +196,7 @@ end, {
 		if self.cultistsSet[client] then
 			for key, cultist in pairs(self.cultists) do
 				if not DD.isClientCharacterAlive(cultist) then
-					DD.messageClient(cultist, 'You have died and are not an antagonist anymore!', {preset = 'crit'})
+					DD.messageClient(cultist, DD.stringLocalize('antagDead'), {preset = 'crit'})
 					self.cultists[key] = nil
 					self.cultistsSet[cultist] = nil
 				end
@@ -197,8 +212,8 @@ end, {
 			-- Build cultist list
 			local cultistList = self.buildCultistList(nil, true)
 			local message = ''
-			message = 'The cultists are: ' .. cultistList .. '.'
-			DD.messageClient(sender, message, {preset = 'command'})
+			message = 
+			DD.messageClient(sender, DD.stringReplace('commandCultists', {cultistList = cultistList}), {preset = 'command'})
 		else
 			self.bloodWhisper(string.sub(message, 10), sender)
 		end
@@ -208,22 +223,25 @@ end, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
-		for character in Character.CharacterList do
-			if character.SpeciesName == 'humanUndead' then
-				DD.giveAfflictionCharacter(character, 'timepressure', 999)
-			end
-		end
 		for client in Client.ClientList do
 			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 		end
 		if self.cultistsWon then
-			DD.messageAllClients('The blood cult has won this round, long live Tchernobog! Round ending in 10 seconds.', {preset = 'crit'})
+			DD.messageAllClients(DD.stringLocalize('bloodCultEndVictory'), {preset = 'crit'})
 			DD.roundData.roundEnding = true
 			Timer.Wait(function ()
 				Game.EndGame()
 			end, 10 * 1000)
 		else
-			DD.messageAllClients('The local blood cult chapter has been eliminated.', {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('bloodCultEnd'), {preset = 'goodinfo'})
+		end
+	end,
+	
+	onFinishAlways = function (self)
+		for character in Character.CharacterList do
+			if character.SpeciesName == 'humanUndead' then
+				DD.giveAfflictionCharacter(character, 'timepressure', 999)
+			end
 		end
 	end
 })
