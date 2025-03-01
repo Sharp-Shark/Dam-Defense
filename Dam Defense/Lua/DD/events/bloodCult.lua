@@ -211,9 +211,7 @@ end, {
 		if message == '/cultists' then
 			-- Build cultist list
 			local cultistList = self.buildCultistList(nil, true)
-			local message = ''
-			message = 
-			DD.messageClient(sender, DD.stringReplace('commandCultists', {cultistList = cultistList}), {preset = 'command'})
+			DD.messageClient(sender, DD.stringLocalize('commandCultists', {cultistList = cultistList}), {preset = 'command'})
 		else
 			self.bloodWhisper(string.sub(message, 10), sender)
 		end

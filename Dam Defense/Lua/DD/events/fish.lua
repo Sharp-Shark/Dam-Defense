@@ -37,11 +37,12 @@ DD.eventFish = DD.class(DD.eventBase, nil, {
 		end
 		
 		-- Get location name
-		local locationName = DD.getLocation(function (item) return item.HasTag(locationTag) end).RoomName
+		local locationName = tostring(DD.getLocation(function (item) return item.HasTag(locationTag) end).CurrentHull.RoomName)
+		if TextManager.Get(locationName) ~= nil then locationName = tostring(TextManager.Get(locationName)) end
 		
 		-- Warn fish have been spawned
 		if not self.silent then
-			DD.messageAllClients(DD.stringLocalize('fishMessage', {fishCount = fishCount, fishName = string.lower(fishNames[fishType]), locationName = locationName}), {preset = 'badinfo'})
+			DD.messageAllClients(DD.stringLocalize('fishMessage', {fishCount = fishCount, fishName = string.lower(tostring(fishNames[fishType])), locationName = locationName}), {preset = 'badinfo'})
 			for client in Client.ClientList do
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end

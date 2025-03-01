@@ -26,6 +26,9 @@ end, {
 		local character = DD.spawnHuman(client, job, pos)
 		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 		character.UpdateTeam()
+		
+		table.insert(self.nukies, client)
+		self.nukiesSet[cleint] = true
 	end,
 	
 	onStart = function (self)

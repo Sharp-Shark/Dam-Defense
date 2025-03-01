@@ -99,7 +99,7 @@ return {
 	electionEndNo = 'The election has ended and it has been democratically decided to keep the current captain!',
 	electionEndFail = 'The election has ended because the captain has died or some other failure in the process.',
 	-- events/fish.lua
-	fishMessage = 'A total of {fishCount} {fishName} have been spotted {locationName}! It is adviced to kill them before they grow in numbers.',
+	fishMessage = 'A total of {fishCount} {fishName} have been spotted in the {locationName}! It is adviced to kill them before they grow in numbers.',
 	-- events/gangWar.lua
 	gangWarDoxx = 'The Nexbank (TM) has found unusual activity in the account of {name}, and as such has determined they are a gang member. Do /gang to get the public list of gang members.',
 	gangWarGangsterInfo = 'You are a gang member of the {gangName}. Your sole objective is to eliminate the rival gang, known as {rivalGangName}. You have {timer} until everyone becomes aware of the gang war. Your gang may try and ally itself with the proletariat and security alike to gain an edge. Beware security gets a reward for arresting gangsters. Your pay grade has been raised. Do /gang for a list of fellow and known gangsters.',

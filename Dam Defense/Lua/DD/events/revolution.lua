@@ -168,7 +168,7 @@ end, {
 						rebelList = ''
 					end
 					-- Rebel message
-					DD.messageClient(client, DD.stringLocalize('', {timer = DD.numberToTime(self.stateStartInitialTimer), rebelList = rebelList}), {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('revolutionMessageSecret', {timer = DD.numberToTime(self.stateStartInitialTimer), rebelList = rebelList}), {preset = 'crit'})
 					if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 				end
 			end

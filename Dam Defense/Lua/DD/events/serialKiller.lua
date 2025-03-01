@@ -234,10 +234,10 @@ end, {
 			end, 10 * 1000)
 		else
 			if not DD.isClientCharacterAlive(self.killer) then
-				DD.messageAllClients('serialKillerEndArrested', {preset = 'goodinfo'})
+				DD.messageAllClients(DD.stringLocalize('serialKillerEndArrested'), {preset = 'goodinfo'})
 				if self.killer ~= nil then DD.messageClient(self.killer, DD.stringLocalize('antagDead'), {preset = 'crit'}) end
 			elseif DD.isCharacterArrested(self.killer.Character) then
-				DD.messageAllClients('serialKillerEnd', {preset = 'goodinfo'})
+				DD.messageAllClients(DD.stringLocalize('serialKillerEnd'), {preset = 'goodinfo'})
 				if self.killer ~= nil then DD.messageClient(self.killer, DD.stringLocalize('antagArrested'), {preset = 'crit'}) end
 			end
 		end
