@@ -8,8 +8,6 @@
 			html {
 				margin: 0px;
 				font-size: 105%;
-				scroll-behavior: smooth;
-				scroll-padding: 59px;
 			}
 			body {
 				margin: 0px;
@@ -37,19 +35,65 @@
 				font-weight: bold;
 				text-shadow: 0 0 6px #000000;
 			}
-			.main {
+			.container {
+				width: 100%;
+				display: grid;
+				grid-template-areas: "sidebar content";
+				grid-template-columns: 300px auto;
+			}
+			.sidebar {
+				grid-area: sidebar;
+				height: 100vh;
+				float: left;
+				overflow: scroll;
+				scroll-behavior: smooth;
+				scroll-padding: 59px;
+				border-style: none solid none  none ;
+				border-width: 2px;
+				border-color: grey;
+			}
+			.content {
+				grid-area: content;
+				background-color: black;
+				height: 100vh;
+				float: left;
+				overflow: scroll;
+				scroll-behavior: smooth;
+			}
+			.top {
+				margin: 0px;
+				padding: 10px;
 				background-image: linear-gradient(180deg, #1c2833, black);
+			}
+			#search {
+				margin: 10px;
+				padding: 2px;
+				color: white;
+				font-size: 110%;
+				background-color: black;
+				border: 2px solid grey;
+				width: 80%;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="main" >
+		<div class="container" >
+		<nav class="sidebar" >
+		<div style="margin:0px;top:0px;position:sticky;padding:4px;background-color:black;" >
+		<input id="search" placeholder="Search..." ></input><br>
+		</div>
+		<div id='searchable' style="margin:10px;">
+		{sidebar}
+		</div>
+		</nav>
+		<div class="content" >
+		<div class="top" >
 		<h1 id="main" class="big" >Welcome to the Dam Defense Wiki!</h1>
 		<br>
 		<p style="font-size:145%;margin:20px">{mainText}</p>
 		<br>
 		</div>
-		<center style="font-size:200%;position:sticky;top:0px;background-color:black;margin:0px">{mainRelated}<br><hr></center>
+		<center style="font-size:200%;top:0px;background-color:black;margin:0px">{mainRelated}<br><hr></center>
 		{segment}
 		<hr>
 		<center>
@@ -59,5 +103,23 @@
 		But the real question is: will you sharp, or will you shark?
 		</center>
 		<br>
+		</div>
+		</div>
+		<script>
+			function search () {
+				let query = document.getElementById('search').value.toLowerCase();
+				let children = document.getElementById('searchable').children;
+				for (let child of children) {
+					let name = child.id.slice(8).toLowerCase().replace('_', ' ');
+					console.log(name, query);
+					if (name.includes(query)) {
+						child.hidden = false;
+					} else {
+						child.hidden = true;
+					};
+				};
+			};
+			document.getElementById('search').addEventListener('input', search);
+		</script>
 	</body>
 </html>

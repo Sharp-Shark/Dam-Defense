@@ -8,8 +8,6 @@
 			html {
 				margin: 0px;
 				font-size: 105%;
-				scroll-behavior: smooth;
-				scroll-padding: 59px;
 			}
 			body {
 				margin: 0px;
@@ -37,19 +35,65 @@
 				font-weight: bold;
 				text-shadow: 0 0 6px #000000;
 			}
-			.main {
+			.container {
+				width: 100%;
+				display: grid;
+				grid-template-areas: "sidebar content";
+				grid-template-columns: 300px auto;
+			}
+			.sidebar {
+				grid-area: sidebar;
+				height: 100vh;
+				float: left;
+				overflow: scroll;
+				scroll-behavior: smooth;
+				scroll-padding: 59px;
+				border-style: none solid none  none ;
+				border-width: 2px;
+				border-color: grey;
+			}
+			.content {
+				grid-area: content;
+				background-color: black;
+				height: 100vh;
+				float: left;
+				overflow: scroll;
+				scroll-behavior: smooth;
+			}
+			.top {
+				margin: 0px;
+				padding: 10px;
 				background-image: linear-gradient(180deg, #1c2833, black);
+			}
+			#search {
+				margin: 10px;
+				padding: 2px;
+				color: white;
+				font-size: 110%;
+				background-color: black;
+				border: 2px solid grey;
+				width: 80%;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="main" >
+		<div class="container" >
+		<nav class="sidebar" >
+		<div style="margin:0px;top:0px;position:sticky;padding:4px;background-color:black;" >
+		<input id="search" placeholder="Search..." ></input><br>
+		</div>
+		<div id='searchable' style="margin:10px;">
+		<div id=sidebar_events><a href="#events" style="margin:10px;">Events</a><br></div><div id=sidebar_nukies_event>&nbsp;&nbsp;↪<a href="#nukiesEvent" style="margin:10px;">Nukies Event</a><br></div><div id=sidebar_serial_killer_event>&nbsp;&nbsp;↪<a href="#serialKillerEvent" style="margin:10px;">Serial Killer Event</a><br></div><div id=sidebar_revolution_event>&nbsp;&nbsp;↪<a href="#revolutionEvent" style="margin:10px;">Revolution Event</a><br></div><div id=sidebar_gang_war_event>&nbsp;&nbsp;↪<a href="#gangWarEvent" style="margin:10px;">Gang War Event</a><br></div><div id=sidebar_blood_cult_event>&nbsp;&nbsp;↪<a href="#bloodCultEvent" style="margin:10px;">Blood Cult Event</a><br></div><div id=sidebar_death_squad_event>&nbsp;&nbsp;↪<a href="#deathSquadEvent" style="margin:10px;">Death Squad Event</a><br></div><div id=sidebar_greenskins_event>&nbsp;&nbsp;↪<a href="#greenskinsEvent" style="margin:10px;">Greenskins Event</a><br></div><div id=sidebar_airdrop_event>&nbsp;&nbsp;↪<a href="#airdropEvent" style="margin:10px;">Airdrop Event</a><br></div><div id=sidebar_fish_event>&nbsp;&nbsp;↪<a href="#fishEvent" style="margin:10px;">Fish Event</a><br></div><div id=sidebar_murder_event>&nbsp;&nbsp;↪<a href="#murderEvent" style="margin:10px;">Murder Event</a><br></div><div id=sidebar_arrest_event>&nbsp;&nbsp;↪<a href="#arrestEvent" style="margin:10px;">Arrest Event</a><br></div><div id=sidebar_outbreak_event>&nbsp;&nbsp;↪<a href="#afflictionEvent" style="margin:10px;">Outbreak Event</a><br></div><div id=sidebar_blackout_event>&nbsp;&nbsp;↪<a href="#blackoutEvent" style="margin:10px;">Blackout Event</a><br></div><div id=sidebar_vip_event>&nbsp;&nbsp;↪<a href="#vipEvent" style="margin:10px;">VIP Event</a><br></div><div id=sidebar_mercs_event>&nbsp;&nbsp;↪<a href="#mercsEvent" style="margin:10px;">MERCS Event</a><br></div><div id=sidebar_election_event>&nbsp;&nbsp;↪<a href="#electionEvent" style="margin:10px;">Election Event</a><br></div><div id=sidebar_withdraw_event>&nbsp;&nbsp;↪<a href="#withdrawEvent" style="margin:10px;">Withdraw Event</a><br></div><div id=sidebar_jobs><a href="#jobs" style="margin:10px;">Jobs</a><br></div><div id=sidebar_mayor>&nbsp;&nbsp;↪<a href="#captainJob" style="margin:10px;">Mayor</a><br></div><div id=sidebar_engineer>&nbsp;&nbsp;↪<a href="#engineerJob" style="margin:10px;">Engineer</a><br></div><div id=sidebar_enforcer>&nbsp;&nbsp;↪<a href="#securityofficerJob" style="margin:10px;">Enforcer</a><br></div><div id=sidebar_medical_doctor>&nbsp;&nbsp;↪<a href="#medicaldoctorJob" style="margin:10px;">Medical Doctor</a><br></div><div id=sidebar_convict>&nbsp;&nbsp;↪<a href="#assistantJob" style="margin:10px;">Convict</a><br></div><div id=sidebar_laborer>&nbsp;&nbsp;↪<a href="#mechanicJob" style="margin:10px;">Laborer</a><br></div><div id=sidebar_janitor>&nbsp;&nbsp;↪<a href="#janitorJob" style="margin:10px;">Janitor</a><br></div><div id=sidebar_clown>&nbsp;&nbsp;↪<a href="#clownJob" style="margin:10px;">Clown</a><br></div><div id=sidebar_head_engineer>&nbsp;&nbsp;↪<a href="#foremanJob" style="margin:10px;">Head Engineer</a><br></div><div id=sidebar_researcher>&nbsp;&nbsp;↪<a href="#researcherJob" style="margin:10px;">Researcher</a><br></div><div id=sidebar_diver>&nbsp;&nbsp;↪<a href="#diverJob" style="margin:10px;">Diver</a><br></div><div id=sidebar_bodyguard>&nbsp;&nbsp;↪<a href="#bodyguardJob" style="margin:10px;">Bodyguard</a><br></div><div id=sidebar_nukie>&nbsp;&nbsp;↪<a href="#jetJob" style="margin:10px;">Nukie</a><br></div><div id=sidebar_mercs_member>&nbsp;&nbsp;↪<a href="#mercsJob" style="margin:10px;">MERCS Member</a><br></div><div id=sidebar_death_squadder>&nbsp;&nbsp;↪<a href="#mercsevilJob" style="margin:10px;">Death Squadder</a><br></div><div id=sidebar_items><a href="#items" style="margin:10px;">Items</a><br></div><div id=sidebar_separatist_rifle>&nbsp;&nbsp;↪<a href="#separatistrifleItem" style="margin:10px;">Separatist Rifle</a><br></div><div id=sidebar_marksman_rifle>&nbsp;&nbsp;↪<a href="#marksmanrifleItem" style="margin:10px;">Marksman Rifle</a><br></div><div id=sidebar_7.62x39mm_magazine>&nbsp;&nbsp;↪<a href="#sovietmagazineItem" style="margin:10px;">7.62x39mm Magazine</a><br></div><div id=sidebar_brass_knuckle>&nbsp;&nbsp;↪<a href="#brassknuckleItem" style="margin:10px;">Brass Knuckle</a><br></div><div id=sidebar_portable_generator>&nbsp;&nbsp;↪<a href="#portablegeneratorItem" style="margin:10px;">Portable Generator</a><br></div><div id=sidebar_printer>&nbsp;&nbsp;↪<a href="#printerItem" style="margin:10px;">Printer</a><br></div><div id=sidebar_medical_system><a href="#medicalSystem" style="margin:10px;">Medical System</a><br></div><div id=sidebar_live_bacteria>&nbsp;&nbsp;↪<a href="#bacterialsyringeItem" style="margin:10px;">Live Bacteria</a><br></div><div id=sidebar_live_influenza>&nbsp;&nbsp;↪<a href="#flusyringeItem" style="margin:10px;">Live Influenza</a><br></div><div id=sidebar_live_tuberculosis>&nbsp;&nbsp;↪<a href="#tbsyringeItem" style="margin:10px;">Live Tuberculosis</a><br></div><div id=sidebar_influenza_antidote>&nbsp;&nbsp;↪<a href="#fluantidoteItem" style="margin:10px;">Influenza Antidote</a><br></div><div id=sidebar_tuberculosis_antidote>&nbsp;&nbsp;↪<a href="#tbantidoteItem" style="margin:10px;">Tuberculosis Antidote</a><br></div><div id=sidebar_midazolam>&nbsp;&nbsp;↪<a href="#midazolamItem" style="margin:10px;">Midazolam</a><br></div><div id=sidebar_myxotoxin>&nbsp;&nbsp;↪<a href="#myxotoxinItem" style="margin:10px;">Myxotoxin</a><br></div><div id=sidebar_blood_sampler>&nbsp;&nbsp;↪<a href="#bloodsamplerItem" style="margin:10px;">Blood Sampler</a><br></div><div id=sidebar_bacterial_infection>&nbsp;&nbsp;↪<a href="#bacterialinfectionAffliction" style="margin:10px;">Bacterial Infection</a><br></div><div id=sidebar_influenza_infection>&nbsp;&nbsp;↪<a href="#influenzainfectionAffliction" style="margin:10px;">Influenza Infection</a><br></div><div id=sidebar_tuberculosis_infection>&nbsp;&nbsp;↪<a href="#tbinfectionAffliction" style="margin:10px;">Tuberculosis Infection</a><br></div><div id=sidebar_radioactivity>&nbsp;&nbsp;↪<a href="#radiation" style="margin:10px;">Radioactivity</a><br></div><div id=sidebar_creatures><a href="#creatures" style="margin:10px;">Creatures</a><br></div><div id=sidebar_spitroach>&nbsp;&nbsp;↪<a href="#spitroachCreature" style="margin:10px;">Spitroach</a><br></div><div id=sidebar_husks>&nbsp;&nbsp;↪<a href="#huskCreature" style="margin:10px;">Husks</a><br></div><div id=sidebar_greenskins>&nbsp;&nbsp;↪<a href="#greenskinCreature" style="margin:10px;">Greenskins</a><br></div><div id=sidebar_dams/maps><a href="#dams" style="margin:10px;">Dams/Maps</a><br></div><div id=sidebar_olde_towne>&nbsp;&nbsp;↪<a href="#oldeTowneDam" style="margin:10px;">Olde Towne</a><br></div><div id=sidebar_pioneer_point>&nbsp;&nbsp;↪<a href="#pioneerPointDam" style="margin:10px;">Pioneer Point</a><br></div><div id=sidebar_restoration>&nbsp;&nbsp;↪<a href="#restorationDam" style="margin:10px;">Restoration</a><br></div><div id=sidebar_credits><a href="#credits" style="margin:10px;">Credits</a><br></div>
+		</div>
+		</nav>
+		<div class="content" >
+		<div class="top" >
 		<h1 id="main" class="big" >Welcome to the Dam Defense Wiki!</h1>
 		<br>
 		<p style="font-size:145%;margin:20px">&nbsp;&nbsp;    Dam Defense is a mod for the Sandbox mode inspired by SS13 with focus on light RP. Adds custom creatures, items, jobs, maps/submarines, machines and lua scripts.<br>&nbsp;&nbsp;    Long live Tchernobog!<br>&nbsp;&nbsp;    <br>&nbsp;&nbsp;    This wiki is still a work-in-progress. If you wish to help improve it, join the discord at https://discord.gg/qxXzrVeRHD<br>&nbsp;&nbsp;    There is a browser version of this wiki at https://sharp-shark.github.io/Dam-Defense/main.html <br>&nbsp;&nbsp;    <br>&nbsp;&nbsp;    Do "/help" in chat for a list of commands!</p>
 		<br>
 		</div>
-		<center style="font-size:200%;position:sticky;top:0px;background-color:black;margin:0px"><a href="#events" style="">Events</a> | <a href="#jobs" style="">Jobs</a> | <a href="#items" style="">Items</a> | <a href="#medicalSystem" style="">Medical System</a> | <a href="#creatures" style="">Creatures</a> | <a href="#dams" style="">Dams/Maps</a> | <a href="#credits" style="">Credits</a><br><hr></center>
+		<center style="font-size:200%;top:0px;background-color:black;margin:0px"><a href="#events" style="">Events</a> | <a href="#jobs" style="">Jobs</a> | <a href="#items" style="">Items</a> | <a href="#medicalSystem" style="">Medical System</a> | <a href="#creatures" style="">Creatures</a> | <a href="#dams" style="">Dams/Maps</a> | <a href="#credits" style="">Credits</a><br><hr></center>
 				<center><h1 id="events" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >Events</h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    In the Dam Defense mod there are several in-game events powered by Lua scripts, which are chosen semi-randomly on a set timer. Events are sorted into 2 categories, Main Events and Side Events. Main events disable respawning while they are happening, usually have some sort of inherent round ending capability and there can only be one main event at a time. Meanwhile, side events do not disable respawning, do not have any way to end the round by themselves and there can be many side events happening at the same time.<br>&nbsp;&nbsp;    <br>&nbsp;&nbsp;    That was the short explanation, which should suffice for 99% of players, but if you are one of the few more inquisitive players, here is a longer and slightly technical explanation: there is an Event Director which knows a list of events. Events have multiple properties relevant to the Event Director, such as if they are main events (there can only be one main event at a time), the maximun instances of that event that can exist at any one time, for how much time no other events will be started when this one starts (cooldown) and the "goodness" of the event (Event Director will try to not do too keep a balance of disruptive and beneficial events).<br>&nbsp;&nbsp;    Additionally, there is a event cooldown timer specifically for side events and one for main events. Side events do not interfer with the main event timer, but the main event timer will reset the side event timer. The side event timer will start elapsing as soon as a side event is started, but the main event timer will only start elapsing if there are no ongoing main events.</p>
 		<br>
@@ -58,7 +102,7 @@
 				<center><h1 id="nukiesEvent" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >Nukies Event (Events) <b style="color:tomato;">Major</b> <b style="color:lime;">Public</b></h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    A main event where several Jovian Elite Troopers (abbreviated: JET or Nukies) attempt to siege the dam and blow up its reactor or kill all employees to claim victory. JETs spawn high up on a cliff at the right of the dam basin, in a room with a bunch of Nukie Vending Machines. They Spawn with 50 counterfeit nexcredits to spend at their vending machines to buy weaponry, supplies, and equipment. All Nukies spawn with plasma cutters, armor, a diving mask with oxygen, a combat stim autoinjector and a powerful Antique Revolver.<br>&nbsp;&nbsp;    Note that the reactor is immune to explosions, meaning to destroy it, the Nukies must cause it to meltdown. It is imperative for all to protect the reactor when this event occurs because if the Nukies do cause a meltdown, the round will immediately end and victory will be given to them.</p>
 		<br>
-		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#events" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Events</a> <a href="#jetJob" style="margin:0px 3px;">Nukie</a> <a href="#separatistrifleItem" style="margin:0px 3px;">Separatist Rifle</a> <a href="#marksmanrifleItem" style="margin:0px 3px;">Marksman	Rifle</a> <a href="#sovietmagazineItem" style="margin:0px 3px;">7.62x39mm Magazine</a></div></center>
+		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#events" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Events</a> <a href="#jetJob" style="margin:0px 3px;">Nukie</a> <a href="#separatistrifleItem" style="margin:0px 3px;">Separatist Rifle</a> <a href="#marksmanrifleItem" style="margin:0px 3px;">Marksman Rifle</a> <a href="#sovietmagazineItem" style="margin:0px 3px;">7.62x39mm Magazine</a></div></center>
 		<br>
 				<center><h1 id="serialKillerEvent" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >Serial Killer Event (Events) <b style="color:tomato;">Major</b> <b style="color:magenta;">Secret</b></h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    A main event, where one person without an antag-safe job is randomly chosen to be the Serial Killer (abbreviated: SK). They win once they have killed enough players, but they will be periodically be assigned a specific target that if they kill, will reset their time pressure and award them with 5 Nexcredits.<br>&nbsp;&nbsp;    When the person is chosen, they are told they will turn into the SK in one (1) minute, to give them time to prepare and isolate themselves, as when the timer is up a Creepy Mask will be automatically placed on their face.<br>&nbsp;&nbsp;    This mask can be taken off, but when worn, the mask provides the Blood Lust effect. This affliction increases run speed, melee stun and damage, provides quick passive regeneration, grants a 35% damage resistance and makes the user immune to oxygen loss. However, the mask does not give any resistances to fire, making the SK weak to it. The SK has a three (3) times damage and stun multiplier to his melee attacks, making him dangerous in melee combat and deadly if you are alone. The Creepy Mask also provides the wearer with thermal vision, allowing him to see people and creatures through walls.<br>&nbsp;&nbsp;    The SK can also at all times hear the text messages of any dead players, letting him communicate with them to find survivors or for other information if they are willing to collaborate with you (note that as an SK you should generally use text chat to communicate with ghosts as they an always see the text pop up, unlike voice chat which is dependent on where they are spectating).<br>&nbsp;&nbsp;    Anyone who is not the SK who wears the Creepy Mask will instantly have their head explode.</p>
@@ -68,7 +112,7 @@
 				<center><h1 id="revolutionEvent" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >Revolution Event (Events) <b style="color:tomato;">Major</b> <b style="color:magenta;">Secret</b></h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    A main event where a few players without an antag-safe job are randomly chosen to be the leaders of a revolution. The rebel leaders win once all of security (which includes the head engineer, the security officers, the diver and the captain) are killed. Rebels leaders should not kill anyone else but instead recruit them to their fight for freedom.<br>&nbsp;&nbsp;     Rebel leaders can craft Separatist Rifles, Marksman Rifles, Separatist Body Armor and Separatist Rifle Magazines, all powerful and cheap items for combat.<br>&nbsp;&nbsp;    Initially no one knows who the rebel leaders are but themselves (if you forget who your comrades are, do "/rebels"), but eventually, after about 10 minutes, Nexpharma will uncover all the rebel leaders to everyone (if you forget who the rebel leaders are, do "/rebels"). As such, it is imperative that rebel leaders take benefit of this window of opportunity where their affiliation is still secret.</p>
 		<br>
-		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#events" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Events</a> <a href="#airdropEvent" style="margin:0px 3px;">Airdrop Event</a> <a href="#separatistrifleItem" style="margin:0px 3px;">Separatist Rifle</a> <a href="#marksmanrifleItem" style="margin:0px 3px;">Marksman	Rifle</a> <a href="#sovietmagazineItem" style="margin:0px 3px;">7.62x39mm Magazine</a></div></center>
+		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#events" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Events</a> <a href="#airdropEvent" style="margin:0px 3px;">Airdrop Event</a> <a href="#separatistrifleItem" style="margin:0px 3px;">Separatist Rifle</a> <a href="#marksmanrifleItem" style="margin:0px 3px;">Marksman Rifle</a> <a href="#sovietmagazineItem" style="margin:0px 3px;">7.62x39mm Magazine</a></div></center>
 		<br>
 				<center><h1 id="gangWarEvent" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >Gang War Event (Events) <b style="color:tomato;">Major</b> <b style="color:magenta;">Secret</b></h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    A main event where a few players without an antag-safe job are randomly chosen to be part of one out of two rival gangs. A gang wins once it has eliminated all the members of the enemy gang, and they do not need kill anyone else to win, although they still often do. Security can win this event by arresting all of the gang members and will be rewarded well for doing so, but they can also instead be neutral or even ally themselves with a gang.<br>&nbsp;&nbsp;    Gang members can craft crystal meth and spray cans of their respective gang color, UZIs and ballistic backwards cap (a stylish helmet). Commoners can join a gang by smoking crystal meth out of a captains pipe.<br>&nbsp;&nbsp;    As time passes, the Nexpharma equivalent to the IRS will uncover who the gangsters are. Medical can also work with security to see if someone is a gang member by using blood samplers; whoever returns positive on the crystal meth test is a gang member.<br>&nbsp;&nbsp;    It is important to note that if a gang wins this event, the round will not end.</p>
@@ -208,7 +252,7 @@
 				<center><h1 id="jetJob" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;background-color:#b20000;" >Nukie (Jobs) <b style="color:tomato;">Unsafe</b></h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    Description: Jovian Elite Troops. Destroy that dam and kill every single bastard inside who isn't allied with the separatists.<br>&nbsp;&nbsp;    <br>&nbsp;&nbsp;    An antagonic event job. Their objective is to meltdown the reactor or to kill everyone, if they do one of these, they win and the round ends.</p>
 		<br>
-		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#jobs" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Jobs</a> <a href="#nukiesEvent" style="margin:0px 3px;">Nukies Event</a> <a href="#separatistrifleItem" style="margin:0px 3px;">Separatist Rifle</a> <a href="#marksmanrifleItem" style="margin:0px 3px;">Marksman	Rifle</a> <a href="#sovietmagazineItem" style="margin:0px 3px;">7.62x39mm Magazine</a></div></center>
+		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#jobs" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Jobs</a> <a href="#nukiesEvent" style="margin:0px 3px;">Nukies Event</a> <a href="#separatistrifleItem" style="margin:0px 3px;">Separatist Rifle</a> <a href="#marksmanrifleItem" style="margin:0px 3px;">Marksman Rifle</a> <a href="#sovietmagazineItem" style="margin:0px 3px;">7.62x39mm Magazine</a></div></center>
 		<br>
 				<center><h1 id="mercsJob" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;background-color:#3535b2;" >MERCS Member (Jobs) <b style="color:lime;">Safe</b> <b style="color:tan;">Security</b></h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    Description: Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Restore order in the dam and protect it. Mission failure will result in subject termination.<br>&nbsp;&nbsp;    <br>&nbsp;&nbsp;    An antag safe and also a member of security event job. They look very similar to Death Squadders, but unlike them, they are good.</p>
@@ -223,14 +267,14 @@
 				<center><h1 id="items" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >Items</h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    Lamp Oil, Rope, Bombs? You want it? It is yours, my friend. As long as you have enough rupees. </p>
 		<br>
-		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#separatistrifleItem" style="margin:0px 3px;">Separatist Rifle</a> <a href="#marksmanrifleItem" style="margin:0px 3px;">Marksman	Rifle</a> <a href="#sovietmagazineItem" style="margin:0px 3px;">7.62x39mm Magazine</a> <a href="#brassknuckleItem" style="margin:0px 3px;">Brass Knuckle</a> <a href="#portablegeneratorItem" style="margin:0px 3px;">Portable Generator</a> <a href="#printerItem" style="margin:0px 3px;">Printer</a> <a href="#bacterialsyringeItem" style="margin:0px 3px;">Live Bacteria</a> <a href="#flusyringeItem" style="margin:0px 3px;">Live Influenza</a> <a href="#tbsyringeItem" style="margin:0px 3px;">Live Tuberculosis</a> <a href="#fluantidoteItem" style="margin:0px 3px;">Influenza Antidote</a> <a href="#tbantidoteItem" style="margin:0px 3px;">Tuberculosis Antidote</a> <a href="#midazolamItem" style="margin:0px 3px;">Midazolam</a> <a href="#myxotoxinItem" style="margin:0px 3px;">Myxotoxin</a> <a href="#bloodsamplerItem" style="margin:0px 3px;">Blood Sampler</a></div></center>
+		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#separatistrifleItem" style="margin:0px 3px;">Separatist Rifle</a> <a href="#marksmanrifleItem" style="margin:0px 3px;">Marksman Rifle</a> <a href="#sovietmagazineItem" style="margin:0px 3px;">7.62x39mm Magazine</a> <a href="#brassknuckleItem" style="margin:0px 3px;">Brass Knuckle</a> <a href="#portablegeneratorItem" style="margin:0px 3px;">Portable Generator</a> <a href="#printerItem" style="margin:0px 3px;">Printer</a> <a href="#bacterialsyringeItem" style="margin:0px 3px;">Live Bacteria</a> <a href="#flusyringeItem" style="margin:0px 3px;">Live Influenza</a> <a href="#tbsyringeItem" style="margin:0px 3px;">Live Tuberculosis</a> <a href="#fluantidoteItem" style="margin:0px 3px;">Influenza Antidote</a> <a href="#tbantidoteItem" style="margin:0px 3px;">Tuberculosis Antidote</a> <a href="#midazolamItem" style="margin:0px 3px;">Midazolam</a> <a href="#myxotoxinItem" style="margin:0px 3px;">Myxotoxin</a> <a href="#bloodsamplerItem" style="margin:0px 3px;">Blood Sampler</a></div></center>
 		<br>
 				<center><h1 id="separatistrifleItem" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >Separatist Rifle (Items) <b style="color:orange;">16 Credits</b></h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    Description: Only craftable by rebel leaders. Classic soviet 7.62x39mm design used by freedom fighters, terrorists or both depending on who you ask.<br>&nbsp;&nbsp;    <br>&nbsp;&nbsp;    Can be purchased by Nukies at spawn. It is an AK, what else do you want me to say? Less accurate than the Marksman Rifle (the FN FAL) but shoots faster.</p>
 		<br>
 		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#items" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Items</a> <a href="#nukiesEvent" style="margin:0px 3px;">Nukies Event</a> <a href="#revolutionEvent" style="margin:0px 3px;">Revolution Event</a> <a href="#jetJob" style="margin:0px 3px;">Nukie</a> <a href="#sovietmagazineItem" style="margin:0px 3px;">7.62x39mm Magazine</a></div></center>
 		<br>
-				<center><h1 id="marksmanrifleItem" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >Marksman	Rifle (Items) <b style="color:orange;">16 Credits</b></h1></center>
+				<center><h1 id="marksmanrifleItem" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >Marksman Rifle (Items) <b style="color:orange;">16 Credits</b></h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    Description: Only craftable by rebel leaders. Precision 7.62x39mm semi-automatic rifle. The right arm of the free world.<br>&nbsp;&nbsp;    <br>&nbsp;&nbsp;    Can be purchased by Nukies at spawn. It is an FN FAL, what else do you want me to say? Shoots slower than the Separatist Rifle (the AK) but is more accurate.</p>
 		<br>
 		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#items" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Items</a> <a href="#nukiesEvent" style="margin:0px 3px;">Nukies Event</a> <a href="#revolutionEvent" style="margin:0px 3px;">Revolution Event</a> <a href="#jetJob" style="margin:0px 3px;">Nukie</a> <a href="#sovietmagazineItem" style="margin:0px 3px;">7.62x39mm Magazine</a></div></center>
@@ -238,7 +282,7 @@
 				<center><h1 id="sovietmagazineItem" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >7.62x39mm Magazine (Items) <b style="color:orange;">4 Credits</b></h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    Description: Only craftable by rebel leaders. A magazine containing 30 rounds of soviet 7.62x39mm.<br>&nbsp;&nbsp;    <br>&nbsp;&nbsp;    Can be purchased by Nukies at spawn. Ammo used by the Separatist Rifle (AK) and the Marksman Rifle (FN FAL).</p>
 		<br>
-		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#items" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Items</a> <a href="#nukiesEvent" style="margin:0px 3px;">Nukies Event</a> <a href="#revolutionEvent" style="margin:0px 3px;">Revolution Event</a> <a href="#jetJob" style="margin:0px 3px;">Nukie</a> <a href="#separatistrifleItem" style="margin:0px 3px;">Separatist Rifle</a> <a href="#marksmanrifleItem" style="margin:0px 3px;">Marksman	Rifle</a></div></center>
+		<center><div style="width:50%"><a href="#main" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Dam Defense</a> <a href="#items" style="margin:0px 3px;color:black;background-color:mediumslateblue;padding:1px;">Items</a> <a href="#nukiesEvent" style="margin:0px 3px;">Nukies Event</a> <a href="#revolutionEvent" style="margin:0px 3px;">Revolution Event</a> <a href="#jetJob" style="margin:0px 3px;">Nukie</a> <a href="#separatistrifleItem" style="margin:0px 3px;">Separatist Rifle</a> <a href="#marksmanrifleItem" style="margin:0px 3px;">Marksman Rifle</a></div></center>
 		<br>
 				<center><h1 id="brassknuckleItem" style="background-color:#5b48ce;color:white;width:100%;padding-top:2px;padding-bottom:2px;" >Brass Knuckle (Items)</h1></center>
 		<p style="margin:20px;" >&nbsp;&nbsp;    Description: Don't bring a gun to a fist fight or you may have the dishonor of being killed with your own firearm. Truly a fistful of frags.<br>&nbsp;&nbsp;    <br>&nbsp;&nbsp;    Made of actual brass, this one-handed melee weapon, when equipped two of them, one in each hand, has a decent attack rate and blunt damage. Whenever you hit the hand of another player, regardless of whether you are dual-wielding the brass knuckles or not, whatever item that hand is holding will be dropped (unless the item is a brass knuckle). If you act swiftly, you can grab the dropped weapon off the floor and kill your foe with their own gun. Quite humiliating!</p>
@@ -374,5 +418,23 @@
 		But the real question is: will you sharp, or will you shark?
 		</center>
 		<br>
+		</div>
+		</div>
+		<script>
+			function search () {
+				let query = document.getElementById('search').value.toLowerCase();
+				let children = document.getElementById('searchable').children;
+				for (let child of children) {
+					let name = child.id.slice(8).toLowerCase().replace('_', ' ');
+					console.log(name, query);
+					if (name.includes(query)) {
+						child.hidden = false;
+					} else {
+						child.hidden = true;
+					};
+				};
+			};
+			document.getElementById('search').addEventListener('input', search);
+		</script>
 	</body>
 </html>

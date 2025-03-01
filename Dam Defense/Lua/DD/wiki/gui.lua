@@ -539,6 +539,7 @@ DD.generateWikiHTML = function ()
 	
 	-- anchor
 	local anchor = '<a href="#{key}" style="{style}">{text}</a>'
+	local sidebar = '<a href="#{key}" style="margin:10px;">{text}</a><br>'
 	local headerInfo = ' <b style="{style}">{text}</b>'
 	
 	-- adds a wiki entry to the HTML page
@@ -627,8 +628,16 @@ DD.generateWikiHTML = function ()
 			tbl.related = string.sub(tbl.related, 1, #tbl.related - #joinString)
 			-- prepare for next wiki entry
 			tbl.segment = '{segment}'
+			-- sidebar
+			local sidebarTbl =  {key = key, text = getPageFields(key).name}
+			local sidebarText = DD.stringReplace(sidebar, sidebarTbl)
+			if DD.wikiData[key].category ~= nil then
+				sidebarText = '&nbsp;&nbsp;↪' .. sidebarText
+			end
+			sidebarText = DD.stringReplace('<div id={id}>{text}</div>', {id = 'sidebar_' .. string.gsub(string.lower(getPageFields(key).name), ' ', '_'), text = sidebarText}) .. '{sidebar}'
 			-- apply
 			local text = string.gsub(DD.stringReplace(segment, tbl), '%%', '%%%%')
+			main = string.gsub(main, '{sidebar}', sidebarText)
 			main = string.gsub(main, '{segment}', text)
 		end
 	end
@@ -669,6 +678,7 @@ DD.generateWikiHTML = function ()
 	end
 	-- final
 	main = string.gsub(main, '{segment}', '')
+	main = string.gsub(main, '{sidebar}', '')
 	File.Write(DD.saving.folderPath .. 'main.html', main)
 	return DD.saving.folderPath .. 'main.html'
 end

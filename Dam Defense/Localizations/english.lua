@@ -261,7 +261,7 @@ return {
 	-- wiki items
 	wikiName_separatistrifleItem = 'Separatist Rifle',
 	wikiText_separatistrifleItem = 'Can be purchased by Nukies at spawn. It is an AK, what else do you want me to say? Less accurate than the Marksman Rifle (the FN FAL) but shoots faster.',
-	wikiName_marksmanrifleItem = 'Marksman	Rifle',
+	wikiName_marksmanrifleItem = 'Marksman Rifle',
 	wikiText_marksmanrifleItem = 'Can be purchased by Nukies at spawn. It is an FN FAL, what else do you want me to say? Shoots slower than the Separatist Rifle (the AK) but is more accurate.',
 	wikiName_sovietmagazineItem = '7.62x39mm Magazine',
 	wikiText_sovietmagazineItem = 'Can be purchased by Nukies at spawn. Ammo used by the Separatist Rifle (AK) and the Marksman Rifle (FN FAL).',
