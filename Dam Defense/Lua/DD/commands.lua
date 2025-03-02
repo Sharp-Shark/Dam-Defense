@@ -156,6 +156,11 @@ local func = function (args)
 	
 	local event = eventClass.new(unpack(eventArgs))
 	event.start()
+	
+	if event.isMainEvent then
+		DD.eventDirector.mainEvent = event
+	end
+	
 	if event.failed then print('Event failed. This usually happens because the conditions necessary for it to occur were not met.') end
 end
 local validArgs = function (...)

@@ -150,17 +150,19 @@ end, {
 })
 
 -- Base for state machine event
-DD.eventSMBase = DD.class(DD.eventBase, nil, {
+DD.eventSMBase = DD.class(DD.eventBase, function (self)
+	local tbl = {}
+	for key, state in pairs(self.states) do
+		if type(state) == 'string' then
+			tbl[key] = self[state]
+		end
+		tbl[key].parent = self
+	end
+	self.states = tbl
+end, {
 	start = function (self)
 		DD.eventBase.tbl.start(self)
 		if self.failed then return end
-		
-		for key, state in pairs(self.states) do
-			if type(state) == 'string' then
-				self.states[key] = self[state]
-			end
-			self.states[key].parent = self
-		end
 		
 		self.changeState('start')
 	end,

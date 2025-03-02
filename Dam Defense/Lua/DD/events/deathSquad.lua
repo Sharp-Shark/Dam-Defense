@@ -28,7 +28,7 @@ end, {
 		character.UpdateTeam()
 		
 		table.insert(self.nukies, client)
-		self.nukiesSet[cleint] = true
+		self.nukiesSet[client] = true
 	end,
 	
 	onStart = function (self)
