@@ -499,19 +499,25 @@
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
 	  </Item>
       <Item identifier="doctorsuniform1" equip="true" outfit="true"/>
-      <Item identifier="healthscanner" equip="true"/>
+      <Item identifier="divingmask" equip="true"/>
       <Item identifier="headset" equip="true"/>
       <Item identifier="toolbelt" equip="true">
         <Item identifier="pistolmagazine" />
         <Item identifier="pistolmagazine" />
+        <Item identifier="healgundrum" />
+        <Item identifier="healgundrum" />
         <Item identifier="flashlight" >
 		  <Item identifier="batterycell"/>
 	    </Item>
+        <Item identifier="oxygentank" />
 	  </Item>
       <Item identifier="pistol" equip="false">
         <Item identifier="pistolmagazine" />
       </Item>
-      <Item identifier="syringegun"/>
+      <Item identifier="healgun" equip="false">
+        <Item identifier="healgundrum" />
+      </Item>
+      <Item identifier="disposabledivingmask"/>
       <Item identifier="antibloodloss1"/>
       <Item identifier="antidama1"/>
       <Item identifier="antidama1"/>
@@ -519,7 +525,6 @@
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Medic/medic_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Medic/medic_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -530,7 +535,7 @@
 	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
 	  </Item>
       <Item identifier="doctorsuniform2" equip="true" outfit="true"/>
-      <Item identifier="healthscanner" equip="true"/>
+      <Item identifier="divingmask" equip="true"/>
       <Item identifier="headset" equip="true"/>
       <Item identifier="toolbelt" equip="true">
         <Item identifier="revolverround" />
@@ -545,9 +550,12 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
+        <Item identifier="healgundrum" />
+        <Item identifier="healgundrum" />
         <Item identifier="flashlight" >
 		  <Item identifier="batterycell"/>
 	    </Item>
+        <Item identifier="oxygentank" />
 	  </Item>
       <Item identifier="revolver" equip="false">
         <Item identifier="revolverround" />
@@ -557,7 +565,10 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
       </Item>
-      <Item identifier="syringegun"/>
+      <Item identifier="healgun" equip="false">
+        <Item identifier="healgundrum" />
+      </Item>
+      <Item identifier="disposabledivingmask"/>
       <Item identifier="antibloodloss1"/>
       <Item identifier="antidama1"/>
       <Item identifier="antidama1"/>
@@ -565,7 +576,6 @@
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Medic/medic_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Medic/medic_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -1088,6 +1098,14 @@
       <Item identifier="toolbelt" equip="true">
         <Item identifier="pistolmagazine" />
         <Item identifier="pistolmagazine" />
+        <Item identifier="chloralhydrate" />
+        <Item identifier="chloralhydrate" />
+        <Item identifier="chloralhydrate" />
+        <Item identifier="chloralhydrate" />
+        <Item identifier="chloralhydrate" />
+        <Item identifier="chloralhydrate" />
+        <Item identifier="chloralhydrate" />
+        <Item identifier="chloralhydrate" />
         <Item identifier="flashlight" >
 		  <Item identifier="batterycell"/>
 	    </Item>
@@ -1105,7 +1123,11 @@
       <Item identifier="bloodsampler"/>
       <Item identifier="bloodsampler"/>
       <Item identifier="bloodsampler"/>
+      <Item identifier="antibloodloss1"/>
       <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
     </ItemSet>
@@ -1131,6 +1153,14 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
+        <Item identifier="sulphuricacidsyringe" />
+        <Item identifier="sulphuricacidsyringe" />
+        <Item identifier="sulphuricacidsyringe" />
+        <Item identifier="sulphuricacidsyringe" />
+        <Item identifier="sulphuricacidsyringe" />
+        <Item identifier="sulphuricacidsyringe" />
+        <Item identifier="sulphuricacidsyringe" />
+        <Item identifier="sulphuricacidsyringe" />
         <Item identifier="flashlight" >
 		  <Item identifier="batterycell"/>
 	    </Item>
@@ -1153,7 +1183,11 @@
       <Item identifier="bloodsampler"/>
       <Item identifier="bloodsampler"/>
       <Item identifier="bloodsampler"/>
+      <Item identifier="antibloodloss1"/>
       <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
     </ItemSet>
