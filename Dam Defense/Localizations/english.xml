@@ -183,7 +183,7 @@
   <entitydescription.healgun>A rapid-fire pneumatic syringe gun tailored for a special high-capacity drum. Built-in health scanner.</entitydescription.healgun>
   <!-- Blood Sampler -->
   <entityname.healgundrum>Heal Gun Drum</entityname.healgundrum>
-  <entitydescription.healgundrum>Drum with 50 harmless healing syringes. These can heal damage and bloodloss.</entitydescription.healgundrum>
+  <entitydescription.healgundrum>Drum with 50 harmless healing syringes. These can heal damage, bloodloss, burns and bleeding.</entitydescription.healgundrum>
   <!-- Diving Flashlight -->
   <entityname.divingflashlight>Diving Flashlight</entityname.divingflashlight>
   <entitydescription.divingflashlight>Double the power... double the power consumption.</entitydescription.divingflashlight>
@@ -304,6 +304,9 @@
   <!-- Water Cannon -->
   <entityname.watercannon>Water Cannon</entityname.watercannon>
   <entitydescription.watercannon>Pumps in water, stores it and then fires it at a high pressure. Useful for crowd control, cleaning, extinguishing fires or for propulsion in the air or water. Requires a battery to fire and to refill.</entitydescription.watercannon>
+  <!-- Baseball Bat -->
+  <entityname.baseballbat>Baseball Bat</entityname.baseballbat>
+  <entitydescription.baseballbat>Hard to stab a guy in the back when he's beating your head in.</entitydescription.baseballbat>
   <!-- Brass Knuckle -->
   <entityname.brassknuckle>Brass Knuckle</entityname.brassknuckle>
   <entitydescription.brassknuckle>Don't bring a gun to a fist fight or you may have the dishonor of being killed with your own firearm. Truly a fistful of frags.</entitydescription.brassknuckle>

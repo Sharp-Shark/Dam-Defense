@@ -1353,8 +1353,8 @@
     <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="86,12" spread="0" unskilledspread="10" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
-      <Sound file="Content/Items/Weapons/SyringeGun1.ogg" type="OnUse" volume="0.75" range="2000" selectionmode="Random" />
-      <Sound file="Content/Items/Weapons/SyringeGun2.ogg" type="OnUse" volume="0.75" range="2000" />
+      <Sound file="%ModDir%/Sounds/healgunshoot1.ogg" type="OnUse" volume="0.75" range="1000" selectionmode="Random" />
+      <Sound file="%ModDir%/Sounds/healgunshoot2.ogg" type="OnUse" volume="0.75" range="1000" />
       <!--"Use" contained magazine to spawn projectiles.-->
       <StatusEffect type="OnUse" target="Contained">
         <Use />
@@ -1378,25 +1378,30 @@
   <Item name="Heal Gun Drum" identifier="healgundrum" maxstacksize="8" maxstacksizecharacterinventory="2" scale="0.5" category="Medical" allowasextracargo="true" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,healgunammo" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="healgun" minamount="1" maxamount="1" spawnprobability="1"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30" amount="1">
-      <RequiredSkill identifier="medical" level="20" />
+      <RequiredSkill identifier="medical" level="30" />
       <RequiredItem identifier="steel" />
-      <RequiredItem identifier="antidama1" />
-      <RequiredItem identifier="stabilozine" />
       <RequiredItem identifier="antibloodloss1" />
+      <RequiredItem identifier="antidama1" />
+      <RequiredItem identifier="adrenaline" />
+      <RequiredItem identifier="stabilozine" />
     </Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30" displayname="recycleitem">
-      <RequiredSkill identifier="medical" level="20" />
+      <RequiredSkill identifier="medical" level="30" />
       <RequiredItem identifier="healgundrum" mincondition="0.0" maxcondition="0.1" usecondition="false"/>
-      <RequiredItem identifier="antidama1" />
-      <RequiredItem identifier="stabilozine" />
       <RequiredItem identifier="antibloodloss1" />
+      <RequiredItem identifier="antidama1" />
+      <RequiredItem identifier="adrenaline" />
+      <RequiredItem identifier="stabilozine" />
     </Fabricate>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="10" />
+	</Fabricate>
     <Deconstruct time="15">
       <Item identifier="steel" />
     </Deconstruct>
     <Sprite texture="launcher.png" sourcerect="135,268,53,33" depth="0.55" origin="0.5,0.5" />
     <Body width="53" height="33" density="25" />
-    <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="pistolround" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
+    <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="healgunround" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="syringe">
       <Containable items="healgunround" />
       <StatusEffect type="OnUse" target="This" condition="-2" disabledeltatime="true">
         <SpawnItem identifiers="healgunround" spawnposition="ThisInventory" />
@@ -1406,25 +1411,26 @@
   </Item>
 
   <!-- heal gun ammo -->
-  <Morphine name="Heal Gun Round" identifier="healgunround" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,chem,medical,syringe" scale="0.3" impactsoundtag="impact_metal_light" hideinmenus="true">
-    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
-    <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,37,69" depth="0.6" origin="0.5,0.5" />
-    <InventoryIcon texture="bloodsampler.png" sourcerect="0,24,88,88" origin="0.5,0.5" />
-    <Sprite texture="bloodsampler.png" sourcerect="0,0,88,24" depth="0.55" origin="0.5,0.5" />
-	<Body width="88" height="24" density="10.2" waterdragcoefficient="1" />
+  <Morphine name="Heal Gun Round" identifier="healgunround" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,chem,medical,syringe" scale="0.5" impactsoundtag="impact_metal_light" hideinmenus="true">
+    <Sprite texture="launcher.png" sourcerect="135,301,88,15" depth="0.55" origin="0.5,0.5" />
+	<Body width="88" height="15" density="10.2" waterdragcoefficient="1" />
     <Projectile characterusable="false" launchimpulse="20" sticktocharacters="true" >
       <StatusEffect type="OnImpact" target="UseTarget" >
         <Conditional entitytype="eq Character" />
-        <Sound type="OnImpact" file="Content/Items/Medical/Syringe.ogg" volume="0.75" range="500" />
+        <Sound type="OnImpact" file="%ModDir%/Sounds/healgunhit.ogg" range="500" />
         <ReduceAffliction type="damage" amount="5" />
         <ReduceAffliction identifier="bloodloss" amount="3" />
+        <ReduceAffliction type="burn" amount="2" />
+        <ReduceAffliction type="bleeding" amount="2" />
       </StatusEffect>
       <StatusEffect type="OnImpact" target="UseTarget" duration="1" >
         <Conditional entitytype="eq Character" />
         <ReduceAffliction type="damage" amount="5" />
         <ReduceAffliction identifier="bloodloss" amount="3" />
+        <ReduceAffliction type="burn" amount="2" />
+        <ReduceAffliction type="bleeding" amount="2" />
       </StatusEffect>
-      <StatusEffect type="OnImpact" target="This" >
+      <StatusEffect type="OnImpact" target="This" delay="0.5" >
         <Remove />
       </StatusEffect>
     </Projectile>

@@ -279,19 +279,40 @@
     </ItemSet>
     <ItemSet>
       <Item identifier="idcard" equip="true">
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
 	  </Item>
       <Item identifier="bluejumpsuit2" equip="true" outfit="true"/>
-      <Item identifier="baseballcap" equip="true" />
+      <Item identifier="divingmask" equip="true" />
       <Item identifier="toolbelt" equip="true"/>
-      <Item identifier="crowbar"/>
-      <Item identifier="screwdriver"/>
-      <Item identifier="divingmask" >
+      <Item identifier="plasmacutter" >
 		<Item identifier="oxygentank"/>
 	  </Item>
+      <Item identifier="crowbar"/>
+      <Item identifier="divingflashlight" >
+		<Item identifier="batterycell"/>
+	  </Item>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="oxygentank"/>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <ItemSet>
+      <Item identifier="idcard" equip="true">
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	  </Item>
+      <Item identifier="mechanicseparatistsuniform1" equip="true" outfit="true"/>
+      <Item identifier="ironhelmet" equip="true" />
+      <Item identifier="toolbelt" equip="true"/>
+      <Item identifier="baseballbat"/>
+      <Item identifier="wrench"/>
+      <Item identifier="crowbar"/>
       <Item identifier="flashlight" >
 		<Item identifier="batterycell"/>
 	  </Item>

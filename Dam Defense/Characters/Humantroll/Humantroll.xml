@@ -89,5 +89,9 @@
       <Affliction identifier="stun" strength="9" />
       <Affliction identifier="explosiondamage" strength="150" />
     </Explosion>
+	<SpawnItem identifier="goblinmask" spawnposition="This" count="1" />
+  </StatusEffect>
+  <StatusEffect type="OnDeath" target="This" delay="0.1" >
+    <RemoveCharacter />
   </StatusEffect>
 </Character>

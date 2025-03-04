@@ -5334,6 +5334,32 @@
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
   
+  <!-- think fast chucklenuts -->
+  <Item name="Baseball Bat" identifier="baseballbat" category="Weapon" Tags="smallitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="true" >
+    <Deconstruct time="10">
+      <Item identifier="aluminium" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30" >
+      <RequiredItem identifier="aluminium" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Items/melee.png" sourcerect="104,23,64,64" />
+    <Sprite texture="%ModDir%/Items/melee.png" sourcerect="0,0,179,23" origin="0.5,0.5" depth="0.55" />
+    <Body width="179" height="23" density="30" />
+    <MeleeWeapon slots="RightHand,Any" range="100" reload="0.6" controlpose="true" aimpos="16,2" handle1="-30,2" holdangle="90" aimangle="-10" combatpriority="15" >
+      <RequiredSkill identifier="weapons" level="15" />
+      <Attack targetimpulse="15" structuredamage="2" itemdamage="8" >
+        <Affliction identifier="blunttrauma" strength="10" />
+        <Affliction identifier="stun" strength="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="%ModDir%/Sounds/baseballbathit1.ogg" type="OnUse" selectionmode="random" range="500"/>
+          <Sound file="%ModDir%/Sounds/baseballbathit2.ogg" type="OnUse" range="500"/>
+        </StatusEffect>
+      </Attack>
+    </MeleeWeapon>
+    <SkillRequirementHint identifier="weapons" level="15"/>
+  </Item>
+  
   <!-- fistful of frags reference? -->
   <Item name="Brass Knuckle" identifier="brassknuckle" category="Weapon,Misc" Tags="smallitem,weapon,gunsmith,mountableweapon" cargocontaineridentifier="metalcrate" scale="0.4" impactsoundtag="impact_metal_light" RequireAimToUse="True">
     <Deconstruct time="10">
@@ -5345,8 +5371,8 @@
       <RequiredItem identifier="copper" />
       <RequiredItem identifier="zinc" />
     </Fabricate>
-    <InventoryIcon texture="brassknuckles.png" sourcerect="0,0,64,64" origin="0.5,0.5" />
-    <Sprite texture="brassknuckles.png" sourcerect="64,0,40,26" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="melee.png" sourcerect="0,23,64,64" origin="0.5,0.5" />
+    <Sprite texture="melee.png" sourcerect="64,23,40,26" depth="0.55" origin="0.5,0.5" />
     <Body width="30" height="15" density="25" />
     <MeleeWeapon slots="Any,RightHand,LeftHand" aimangle="-50" aimpos="30,-30" handle1="0,6" holdangle="90" reload="0.75" range="50" combatPriority="20" msg="ItemMsgPickUpSelect">
       <Attack targetimpulse="2" severlimbsprobability="0.1" itemdamage="3" structuredamage="2" structuresoundtype="StructureSlash">
@@ -5715,7 +5741,7 @@
     <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="32,144,157,30" origin="0.5,0.5" depth="0.55" />
     <Body width="114" height="20" density="30" />
     <MeleeWeapon slots="RightHand,LeftHand,Any" range="100" reload="1.2" controlpose="true" aimpos="45,20" handle1="-20,2" holdangle="60" combatpriority="15" >
-      <RequiredSkill identifier="weapon" level="20" />
+      <RequiredSkill identifier="weapons" level="20" />
       <Attack targetimpulse="15" structuredamage="5" itemdamage="10" >
         <Affliction identifier="blunttrauma" strength="20" />
         <Affliction identifier="stun" strength="0.8" />
@@ -5726,7 +5752,7 @@
         </StatusEffect>
       </Attack>
     </MeleeWeapon>
-    <SkillRequirementHint identifier="weapon" level="20"/>
+    <SkillRequirementHint identifier="weapons" level="20"/>
   </Item>
   
   <!-- gang war spraycans (cyan, yellow and magenta) -->
@@ -5988,10 +6014,9 @@
   <Item name="Spitroach Spit" identifier="spitroachspit" category="Misc" scale="0.35" sonarsize="2" hideinmenus="true" >
     <Sprite texture="spitroach.png" sourcerect="114,0,42,49" depth="0.6" origin="0.5,0.5" />
     <Body radius="15" density="15" />
-    <Projectile characterusable="false" launchimpulse="15" maxtargetstohit="1" sticktocharacters="true" sticktoitems="true" sticktodoors="true" sticktostructures="true" penetration="0.25" friendlyfire="false" damagedoors="true">
-      <Attack structuredamage="5" itemdamage="7.5" severlimbsprobability="0">
-        <Affliction identifier="blunttrauma" strength="5" />
-        <Affliction identifier="stun" strength="0.15" />
+    <Projectile characterusable="false" launchimpulse="20" maxtargetstohit="1" sticktocharacters="true" sticktoitems="true" sticktodoors="true" sticktostructures="true" penetration="0.5" friendlyfire="false" damagedoors="true">
+      <Attack structuredamage="5" itemdamage="10" severlimbsprobability="0">
+        <Affliction identifier="stun" strength="0.1" />
       </Attack>
       <StatusEffect type="OnActive" target="This" lifetime="0.5">
         <ParticleEmitter particle="ammotrailwater" copyentityangle="true" anglemin="0" anglemax="0" particleamount="5" velocitymin="-10" velocitymax="-100" scalemin="0.25" scalemax="0.5" />
@@ -6000,17 +6025,16 @@
 	  <StatusEffect type="OnImpact" target="This" disabledeltatime="true" condition="-100" />
 	  <StatusEffect type="OnBroken" target="This" disabledeltatime="true">
         <Explosion range="60.0" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" ballastfloradamage="0" structuredamage="0" itemdamage="0" force="4" severlimbsprobability="0" debris="false" decal="blood" decalsize="1" penetration="0.5">
-          <Affliction identifier="spitroachacid" strength="15" dividebylimbcount="true"/>
-          <Affliction identifier="stun" strength="0.15" />
+          <Affliction identifier="acidburn" strength="5" dividebylimbcount="true"/>
         </Explosion>
         <Remove />
       </StatusEffect>
     </Projectile>
-	<LightComponent range="30.0" lightcolor="255,0,0,255" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" allowingameediting="false" />
+	<LightComponent range="30.0" lightcolor="255,0,0,128" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" allowingameediting="false" />
   </Item>
   
   <!-- egg layed by spitroach that spitroach hatchlings hatch out of -->
-  <Item name="Spitroach Egg" identifier="spitroachegg" hideinmenus="true" health="60" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true" category="Misc" spritecolor="185,230,240,255" scale="0.5" impactsoundtag="impact_soft">
+  <Item name="Spitroach Egg" identifier="spitroachegg" hideinmenus="true" health="60" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true" category="Misc" spritecolor="185,230,240,255" scale="0.4" impactsoundtag="impact_soft">
     <Sprite texture="spitroach.png" depth="0.18" sourcerect="0,0,114,145" origin="0.5,0.5" />
     <Price baseprice="370" sold="false"/>
     <Deconstruct time="10">
@@ -6031,9 +6055,9 @@
         <particleemitter particle="mudrapeggbrownchunks" particleamount="8" velocitymin="100" velocitymax="1000" anglemin="0" anglemax="360" scalemin="0.2" scalemax="0.5" />
       </StatusEffect>
       <StatusEffect type="OnFire" target="This" Condition="-5.0"/>      
-      <!-- spawn a thresher and remove the item if scale is above 0.95 -->
+      <!-- spawn a spitroach and remove the item if scale is above 0.6 -->
       <StatusEffect type="Always" target="This" Condition="0" setvalue="true">
-        <Conditional Scale="gte 0.95" />
+        <Conditional Scale="gte 0.6" />
         <SpawnCharacter speciesname="Spitroach_hatchling" />
         <Remove />
       </StatusEffect>      

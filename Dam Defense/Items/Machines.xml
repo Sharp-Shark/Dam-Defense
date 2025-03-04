@@ -571,6 +571,7 @@
 	<!-- light component -->
     <LightComponent range="100.0" lightcolor="200,255,155" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" flickerspeed="0.4" flicker="0.2" pulsefrequency="0.8" pulseamount="0.1" allowingameediting="false">
       <StatusEffect type="Always" target="This" >
+	    <sound file="%ModDir%/Sounds/critboosted.ogg" type="OnActive" range="800.0" loop="true" />
         <ParticleEmitter particle="critboosted" scalemin="0.1" scalemax="0.15" particlespersecond="2" anglemin="0" anglemax="360" velocitymin="10" velocitymax="15" />
       </StatusEffect>
 	</LightComponent>

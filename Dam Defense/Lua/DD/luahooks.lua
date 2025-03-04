@@ -831,21 +831,6 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 	
 end)
 
--- Remove goblin/troll and spawn his mask on the floor
-DD.characterDeathFunctions.greenskinDeath = function (character)
-	if (character.SpeciesName ~= 'humanGoblin') and (character.SpeciesName ~= 'humanTroll') then return end
-	if character.JobIdentifier ~= 'greenskinjob' then return end
-
-	local client = DD.findClientByCharacter(character)
-	if client ~= nil then
-		client.SetClientCharacter(nil)
-	end
-	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('goblinmask'), character.WorldPosition)
-	Entity.Spawner.AddEntityToRemoveQueue(character)
-
-	return true
-end
-
 -- Give goblin/troll the greenskin talent(s) + fix to a bug introduced by the Summer Update (Barotrauma v1.5.7.0)
 Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
 	if (createdCharacter.SpeciesName ~= 'humanGoblin') and (createdCharacter.SpeciesName ~= 'humanTroll') then return end

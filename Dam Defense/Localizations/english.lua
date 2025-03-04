@@ -292,7 +292,7 @@ return {
 	wikiText_bloodsamplerItem = 'Can be used on people to test them for diseases and for crystal meth (positive on crystal meth indicates player is a gang member, relevant to Gang War Event). Non medical jobs will have their test results partially randomized, so only doctors can fully utilize this item to this end. Can also be used by anyone to take live samples of diseases from infected individuals if their infectious load is high enough. Live samples can usually be used to make antidotes... or for bioterrorism.',
 	-- wiki creatures
 	wikiName_spitroachCreature = 'Spitroach',
-	wikiText_spitroachCreature = 'An annoying cowardly pest that breeds and grows fast. They run up close, spit their acid, run away and repeat, usually in a synchronized group motion. When no targets are in sight, they spit on their walls, causing leaks and trouble.',
+	wikiText_spitroachCreature = 'An annoying cowardly pest that breeds and grows fast. They run up close, spit their acid, run away and repeat, usually in a synchronized group motion. When no targets are in sight, they spit on their walls, causing leaks and trouble. Immune to acid burns.',
 	wikiName_huskCreature = 'Husks',
 	wikiText_huskCreature = 'A diver infected with the Velonaceps Calyx parasite. Contagious and disruptive enemies capable of ending rounds by themselves occasionally due to their infectious nature. After some time has elapsed they will grow into husk prowlers, a stronger and more savage form.',
 	wikiName_greenskinCreature = 'Greenskins',
