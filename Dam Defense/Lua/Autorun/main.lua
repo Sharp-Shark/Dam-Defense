@@ -70,15 +70,47 @@ DD.roundStartFunctions.main = function ()
 	
 	if Submarine.MainSub ~= nil then
 		if Game.RoundStarted then
+			-- lock sub
 			Submarine.MainSub.LockX = true
 			Submarine.MainSub.LockY = true
 		end
 		
 		-- automations for sub editor
 		if CLIENT and Game.IsSingleplayer and Game.IsSubEditor then
+			local isValidConnection = function (connection)
+				if (connection.Name ~= 'power') and (connection.Name ~= 'power_in') then return false end
+			
+				local item = connection.Item
+				if item.HasTag('junctionbox') then return false end
+				
+				local tags = {
+					'oxygengenerator',
+					'medicalfabricator',
+					'deconstructor',
+					'fabricator',
+				}
+				for tag in tags do
+					if item.HasTag(tag) then
+						return true
+					end
+				end
+				
+				local attribute = item.Prefab.ConfigElement.GetAttribute('nameidentifier')
+				if (attribute ~= nil) and (attribute.Value == 'lamp') then return true end
+				if item.Prefab.Identifier == 'lamp' then return true end
+				
+				return false
+			end
 			for item in Item.ItemList do
+				-- do not lock some wires
+				local component = item.GetComponentString('Wire')
+				if component ~= nil then
+					if (#component.connections == 2) and (isValidConnection(component.connections[1]) or isValidConnection(component.connections[2])) then
+						component.NoAutoLock = true
+					end
+				end
 				-- improves performance for maps with lots of ores or plants
-				if item.HasTag('ore') or item.HasTag('plant') and (item.GetComponentString('LightComponent') ~= nil) then
+				if (item.HasTag('ore') or item.HasTag('plant')) and (item.GetComponentString('LightComponent') ~= nil) then
 					item.GetComponentString('LightComponent').Range = 65
 					item.GetComponentString('LightComponent').CastShadows = false
 					item.GetComponentString('LightComponent').DrawBehindSubs = false
