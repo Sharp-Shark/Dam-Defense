@@ -21,23 +21,25 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 			Entity.Spawner.AddEntityToRemoveQueue(item)
 			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('huskeggs'), inventory, nil, nil, function (spawnedItem) end)
 		end
+		if character.IsDead then
+			local inventory = item.ParentInventory
+			Entity.Spawner.AddEntityToRemoveQueue(item)
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('anthraxsyringe'), inventory, nil, nil, function (spawnedItem) end)
+		end
 		return
 	end
 	
 	local characterInfection = character.CharacterHealth.GetAfflictionStrengthByType('infection', true)
-	local characterHusk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
-	if characterHusk < 35 then characterHusk = 0 end
 	
 	local getCharacterInfection = function (character, diseaseName)
 		local total = 0
-		total = total + character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'payload', true)
 		total = total + character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		return total
 	end
 	
 	local inventory = item.ParentInventory
 	
-	local testResults = {['Crystal meth'] = false, ['Husk infection'] = false}
+	local testResults = {['Crystal meth'] = false}
 	for event in DD.eventDirector.events do
 		if event.name == 'gangWar' then
 			if event.gang1Set[client] or event.gang2Set[client] then
@@ -45,16 +47,12 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 			end
 		end
 	end
-	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true) > 0 then
-		testResults['Husk infection'] = true
-	end
 	
 	local characterInfections = {}
-	characterInfections.husk = character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
 	for diseaseName, data in pairs(DD.diseaseData) do
-		characterInfections[diseaseName] = getCharacterInfection(character, diseaseName)
+		characterInfections[diseaseName] = character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		if characterInfections[diseaseName] > 0 then
-			testResults[diseaseName .. ' infection'] = true
+			testResults[DD.diseaseData[diseaseName].displayName .. ' infection'] = true
 		else
 			testResults[DD.diseaseData[diseaseName].displayName .. ' infection'] = false
 		end
@@ -72,25 +70,33 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 	if userClient ~= nil then
 		local text = ''
 		for name, value in pairs(testResults) do
-			local bool = value
-			if not DD.isCharacterMedical(user) then
-				bool = DD.xor(bool, math.random() < 1/3)
-			end
-			if bool then
+			if value then
 				text = text .. name .. ': ' .. 'positive. '
 			end
 		end
 		text = string.sub(text, 1, #text - 1)
 		if text == '' then text = 'Negative on all tests.' end
+		if not DD.isCharacterMedical(user) then text = 'No test results due to lack of medical expertise.' end
 		DD.messageClient(userClient, text, {preset = 'bloodsample'})
 	end
 	
 	if winnerName == '' then return end
 	local itemIdentifier = winnerName .. 'syringe'
-	if winnerName == 'husk' then itemIdentifier = 'huskeggs' end
+	if DD.diseaseData[winnerName].item ~= nil then itemIdentifier = DD.diseaseData[winnerName].item end
 	
-	if characterInfection + characterHusk <= 0 then return end
+	if characterInfection <= 0 then return end
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(itemIdentifier), inventory, nil, nil, function (spawnedItem) end)
+end)
+
+-- heal gun healing is cut by a 1/3 if target has been recently attacked
+Hook.Add("DD.healgunround.heal", "DD.healgunround.heal", function(effect, deltaTime, item, targets, worldPosition)
+	local character = targets[1]
+	
+	local multiplier = DD.lerp(math.max(0, 5 - character.CharacterHealth.GetAfflictionStrengthByIdentifier('recentlyattacked', true)) / 5, 1/3, 1)
+	character.CharacterHealth.ReduceAfflictionOnAllLimbs('damage', 10 * multiplier, nil, effect.user)
+	character.CharacterHealth.ReduceAfflictionOnAllLimbs('bloodloss', 6 * multiplier, nil, effect.user)
+	character.CharacterHealth.ReduceAfflictionOnAllLimbs('burn', 4 * multiplier, nil, effect.user)
+	character.CharacterHealth.ReduceAfflictionOnAllLimbs('bleeding', 4 * multiplier, nil, effect.user)
 end)
 
 -- attaches generator to wall
@@ -424,6 +430,10 @@ end)
 Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
     local character = instance
 	local hitLimb = ptable['targetLimb']
+	
+	-- flag character as recently attacked for 10 seconds
+	DD.giveAfflictionCharacter(character, 'recentlyattacked', 10)
+	
 	if hitLimb == nil then return end
 	local afflictions = ptable['attack'].Afflictions
 	local penetration = ptable['penetration']
@@ -671,6 +681,7 @@ DD.characterDeathFunctions.cultistDeath = function (character)
 			if itemCount == DD.invSlots.innerclothing then
 				for itemCount = 0, item.OwnInventory.Capacity do
 					local item = item.OwnInventory.GetItemAt(itemCount)
+					item.Drop()
 					duffelbag.OwnInventory.TryPutItem(item, character, nil, true, true)
 				end
 				item.NonInteractable = true
@@ -822,6 +833,7 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 		-- Put other items in the duffel bag
 		for item in dropItems do
 			if not foundSlot then
+				item.Drop()
 				duffelbag.OwnInventory.TryPutItem(item, character, nil, true, true)
 			end
 		end

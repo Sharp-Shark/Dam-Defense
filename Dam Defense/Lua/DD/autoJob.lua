@@ -122,6 +122,7 @@ end
 -- Overrides the jobs the players chose, assuming auto jobs is activated
 Hook.Add("jobsAssigned", "DD.autoJob", function ()
 	DD.autoJob()
+	DD.autoJobExecutionCount = DD.autoJobExecutionCount + 1
 	
 	for client, job in pairs(DD.clientJob) do
 		local variant
@@ -133,6 +134,31 @@ Hook.Add("jobsAssigned", "DD.autoJob", function ()
 		if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
 		client.AssignedJob = JobVariant(JobPrefab.Get(job), variant)
 	end
-	
-	DD.autoJobExecutionCount = DD.autoJobExecutionCount + 1
 end)
+
+-- replace vanilla respawn
+Hook.Patch("Barotrauma.Networking.RespawnManager", "RespawnCharacters", {"Barotrauma.Networking.RespawnManager+TeamSpecificState"}, function(instance, ptable)
+	DD.autoJob()
+	DD.autoJobExecutionCount = DD.autoJobExecutionCount + 1
+	
+    for client in Client.ClientList do
+		if DD.isClientRespawnable(client) then
+			local job = DD.clientJob[client]
+
+			local variant
+			for jobVariant in client.JobPreferences do
+				if tostring(jobVariant.Prefab.Identifier) == job then
+					variant = jobVariant.Variant
+				end
+			end
+			if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
+			
+			local pos = DD.findRandomWaypointByJob(job).WorldPosition
+			local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
+			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+			character.UpdateTeam()
+		end
+	end
+	
+	ptable.PreventExecution = true
+end, Hook.HookMethodType.Before)

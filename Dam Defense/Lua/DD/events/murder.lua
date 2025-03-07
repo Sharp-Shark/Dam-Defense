@@ -102,11 +102,11 @@ end, {
 			local event = DD.eventArrest.new(self.murderer, 'manslaughter', false)
 			event.start()
 		elseif self.murdererDied then
-			DD.messageAllClients(DD.stringLocalize('murderEndMurdererDead', {self.murderer.Name, victimName = self.victim.Name}), {preset = 'info'})
+			DD.messageAllClients(DD.stringLocalize('murderEndMurdererDead', {murdererName = self.murderer.Name, victimName = self.victim.Name}), {preset = 'info'})
 			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurdererDead', {victimName = self.victim.Name}), {preset = 'crit'})
 		elseif self.murdererArrested then
 			DD.giveMoneyToSecurity(5, true)
-			DD.messageAllClients(DD.stringLocalize('murderEndMurdererArrested', {self.murderer.Name, victimName = self.victim.Name}), {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('murderEndMurdererArrested', {murdererName = self.murderer.Name, victimName = self.victim.Name}), {preset = 'goodinfo'})
 			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurdererArrested', {victimName = self.victim.Name}), {preset = 'crit'})
 		elseif self.victimDied then
 			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurdererUnrelatedDeath', {victimName = self.victim.Name}), {preset = 'info'})

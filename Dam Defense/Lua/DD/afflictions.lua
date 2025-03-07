@@ -1,58 +1,54 @@
 -- Warning: how the mod interacts with husk is hard-coded since husk infection is different from the mod's diseases in some pretty fundamental ways
 if CLIENT and Game.IsMultiplayer then return end
 
+--[[
+displayName: self-explanatory
+immune: multiplier for effective the immune system is at fighting the disease
+immuneVisibility: multiplier for how quickly the immune system will respond to this disease
+immuneVisibleStrength: strength needed for affliction to be recognized by immune system
+spreadChance: chance for spreading the disease when a spread event occurs
+necrotic: can corpses spread the disease
+item: item obtained when blood sampler is used on an infected
+--]]
 DD.diseaseData = {
-	flu = {displayName = 'Flu', immune = 3, immuneVisibility = 0.5, spreadChance = 0.3, symptomChance = 1.0},
-	bacterial = {displayName = 'Bacterial', immune = 3, immuneVisibility = 0.5, spreadChance = 0.15, necrotic = true, symptomChance = 1.0},
-	tb = {displayName = 'Tuberculosis', immune = 1.5, immuneVisibility = 0.5, spreadChance = 0.3, necrotic = true, symptomChance = 1.0}
+	flu = {displayName = 'Flu', immune = 2, immuneVisibility = 1, immuneVisibleStrength = 50, spreadChance = 0.5},
+	bacterial = {displayName = 'Bacterial', immune = 2, immuneVisibility = 1, immuneVisibleStrength = 50, spreadChance = 0.1, necrotic = true},
+	tb = {displayName = 'Tuberculosis', immune = 1, immuneVisibility = 1, immuneVisibleStrength = 50, spreadChance = 0.2, necrotic = true},
+	anthrax = {displayName = 'Anthrax', immune = 0, immuneVisibility = 2, immuneVisibleStrength = 50, spreadChance = 0.1, necrotic = true, spreadToCorpses = true},
+	husk = {displayName = 'Velonaceps Calyx', immune = 0, immuneVisibility = 0.5, immuneVisibleStrength = 35, spreadChance = 0.1, necrotic = true, item = 'huskeggs'},
 }
 local getDiseaseStat = function (diseaseName, statName)
 	local stat = DD.diseaseData[diseaseName][statName]
 	if stat == nil then
-		if statName == 'immune' then return 2.5 end
+		if statName == 'immune' then return 1 end
 		if statName == 'immuneVisibility' then return 1 end
+		if statName == 'immuneVisibleStrength' then return 1 end
 		if statName == 'spreadChance' then return 0 end
 		if statName == 'necrotic' then return false end
-		if statName == 'symptomChance' then return 1.0 end
+		if statName == 'spreadToCorpses' then return false end
+		if statName == 'item' then return diseaseName .. 'syringe' end
 	else
 		return stat
 	end
 end
 
--- Although this is a luahook (<LuaHook name="..." />) I'm keeping it in this file instead of luahooks.lua
-Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, deltaTime, item, targets, worldPosition)
-    if CLIENT and Game.IsMultiplayer then return end
-	if targets[1] == nil then return end
-	local character = targets[1]
-	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) >= 1 then return end
+-- spread infections
+local spreadInfections = function(character, ignoreSpreaderAirborneProtection)
+	if (character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) >= 1) and not ignoreSpreaderAirborneProtection then return end
 	
 	local spreadDiseaseToCharacter = function (toCharacter, fromCharacter, diseaseName, chance)
+		-- chance to give disease
+		local chance = chance
+		if fromCharacter.IsDead then chance = chance / 2 end
 		-- Get fromCharacter infection amount
-		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
-		amount = amount + fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'payload', true)
-		amount = amount + fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
+		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		amount = amount * math.random()
 		-- If toCharacter is already infected, do not infect
 		local infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
-		local hidden = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)
-		-- Edge case for husk
-		if diseaseName == 'husk' then
-			amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
-			infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true)
-			hidden = 0
-		end
-		-- If the infection is hidden lower the chance
-		local chance = chance
-		if (amount - fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true)) <= 0 then
-			chance = chance * 0.5
-		end
 		-- Spread
-		if (infection + hidden <= 0) and (math.random() <= chance) and (amount > 0) then
-			if diseaseName == 'husk' then
-				DD.giveAfflictionCharacter(toCharacter, 'huskinfection', amount)
-			else
-				DD.giveAfflictionCharacter(toCharacter, diseaseName .. 'hidden', amount)
-			end
+		if fromCharacter.IsDead and (fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) <= getDiseaseStat(diseaseName, 'immuneVisibleStrength')) then return end
+		if (infection <= 0) and (math.random() <= chance) and (amount > 0) then
+			DD.giveAfflictionCharacter(toCharacter, diseaseName .. 'infection', math.min(getDiseaseStat(diseaseName, 'immuneVisibleStrength'), amount))
 		end
 	end
 	
@@ -65,45 +61,66 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 	for other in Character.CharacterList do
 		local isOtherUsingHullOxygen = other.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) <= 0
 		local isOtherInDistance = affectedHulls[other.CurrentHull] and (Vector2.Distance(character.WorldPosition, other.WorldPosition) < 750)
-		if (other ~= character) and (other.SpeciesName == 'human') and (not other.IsDead) and isOtherUsingHullOxygen and isOtherInDistance then
-			spreadDiseaseToCharacter(other, character, 'husk', 0.15)
+		if (other ~= character) and isOtherUsingHullOxygen and isOtherInDistance then
 			for diseaseName, data in pairs(DD.diseaseData) do
-				if (not character.IsDead) or getDiseaseStat(diseaseName, 'necrotic') then
+				if ((not character.IsDead) or getDiseaseStat(diseaseName, 'necrotic')) and ((not other.IsDead) or getDiseaseStat(diseaseName, 'spreadToCorpses')) then
 					local chance = getDiseaseStat(diseaseName, 'spreadChance')
 					if character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) > 0 then
 						spreadDiseaseToCharacter(other, character, diseaseName, chance)
-					elseif character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'hidden', true) > 0 then
-						spreadDiseaseToCharacter(other, character, diseaseName, chance / 2)
 					end
 				end
 			end
 		end
 	end
+end
+
+-- Although this is a luahook (<LuaHook name="..." />) I'm keeping it in this file instead of luahooks.lua
+Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, deltaTime, item, targets, worldPosition)
+    if CLIENT and Game.IsMultiplayer then return end
+	if targets[1] == nil then return end
+	local character = targets[1]
+	spreadInfections(character)
 end)
 
 Hook.Add("afflictionUpdate", "DD.bacterialgangrene", function (affliction, characterHealth, limb)
 	local character = characterHealth.Character
 	if (character.SpeciesName ~= 'human') or (character.IsDead) then return end
 	
-	-- End infection incubation and give payload
-	if affliction.Prefab.AfflictionType == 'infectionhidden' then
-		if (math.random() * 2 * 10^3 < 1) or (affliction.Strength >= affliction.Prefab.MaxStrength) then
-			local name = DD.stringSplit(tostring(affliction.Prefab.Identifier), 'hidden')[1]
-			if math.random() < getDiseaseStat(name, 'symptomChance') then
-				DD.giveAfflictionCharacter(character, name .. 'payload', affliction.Strength * (0.5 + math.random()))
-			end
-			affliction.SetStrength(0)
+	-- Bacterial gangrene from bleeding
+	if (affliction.Prefab.AfflictionType == 'bleeding') or (affliction.Prefab.Identifier == 'bitewounds') then
+		if affliction.Strength > 1 then
+			DD.giveAfflictionCharacter(character, 'bacterialgangrene', 5 / 60 / 90, limb)
 		end
 	end
-
-	-- Bacterial gangrene from burns (only regular burns) and bleeding
-	if (affliction.Prefab.Identifier ~= 'burn') and (affliction.Prefab.AfflictionType ~= 'bleeding') then return end
-	--local characterBurn = character.CharacterHealth.GetAfflictionStrengthByType('burn', true)
-	local characterBurn = character.CharacterHealth.GetAfflictionStrengthByIdentifier('burn', true)
-	local characterBleeding = character.CharacterHealth.GetAfflictionStrengthByType('bleeding', true)
-	if ((characterBurn > 8) or (characterBleeding > 8)) and
-	(math.random() * 10^4 < 1) then
-		DD.giveAfflictionCharacter(character, 'bacterialgangrene', 0.1, limb)
+	-- Bacterial gangrene will spread from limb to limb
+	if affliction.Prefab.Identifier == 'bacterialgangrene' then
+		if affliction.Strength <= 5 then
+			local bleeding = character.CharacterHealth.GetAffliction('bleeding', limb)
+			local bitewounds = character.CharacterHealth.GetAffliction('bitewounds', limb)
+			if (character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialgangrene', true) < 35) and
+			((bleeding == nil) or (bleeding.Strength <= 1)) and
+			((bitewounds == nil) or (bitewounds.Strength <= 1)) then
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'bacterialgangrene', 1 / 60)
+			end
+		elseif affliction.Strength >= affliction.Prefab.MaxStrength then
+			local winnerLimb = nil
+			local winnerStrength = -1
+			for limb in character.AnimController.Limbs do
+				local strength = character.CharacterHealth.GetAffliction('bacterialgangrene', limb)
+				if strength ~= nil then
+					strength = strength.Strength
+				else
+					strength = 0
+				end
+				if (strength < affliction.Prefab.MaxStrength) and (strength > winnerStrength) then
+					winnerLimb = limb
+					winnerStrength = strength
+				end
+			end
+			if winnerLimb ~= nil then
+				DD.giveAfflictionCharacter(character, 'bacterialgangrene', 1 / 60, winnerLimb)
+			end
+		end
 	end
 end)
 
@@ -124,6 +141,7 @@ Hook.Add("character.applyDamage", "DD.resetHuskRegenOnDamage", function (charact
 end)
 
 local afflictionNetworkCooldown = {}
+local corpseSpreadCooldown = {}
 DD.thinkFunctions.afflictions = function ()
 	if not Game.RoundStarted then return end
 
@@ -206,84 +224,99 @@ DD.thinkFunctions.afflictions = function ()
 				end
 			end
 			
+			-- corpse sickness
+			if character.SpeciesName == 'human' then
+				for diseaseName, data in pairs(DD.diseaseData) do
+					if getDiseaseStat(diseaseName, 'necrotic') and (character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) > 0) then
+						DD.giveAfflictionCharacter(character, diseaseName .. 'infection', 1/60)
+					end
+				end
+			else
+				DD.giveAfflictionCharacter(character, 'anthraxinfection', 1/60)
+			end
+			
 			-- after 90s of a corpse being underwater, it will despawn
 			if character.InWater then
 				local affliction = character.CharacterHealth.GetAffliction('despawn', true)
 				DD.giveAfflictionCharacter(character, 'despawn', 1/60/90)
 				-- max strength has been reached
 				if (affliction ~= nil) and (affliction.Strength >= 1) then
+					affliction.SetStrength(0)
 					-- drop items
 					if character.Inventory ~= nil then
-						for itemCount = 0, character.Inventory.Capacity do
-							local item = character.Inventory.GetItemAt(itemCount)
-							if item ~= nil then
-								item.Drop()
+						Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('duffelbag'), character.WorldPosition, nil, nil, function (spawnedItem)
+							for itemCount = 0, character.Inventory.Capacity do
+								local item = character.Inventory.GetItemAt(itemCount)
+								if item ~= nil then
+									item.Drop()
+									spawnedItem.OwnInventory.TryPutItem(item, character, nil, true, true)
+								end
 							end
-						end
+						end)
 					end
 					-- despawn
 					Timer.Wait(function ()
 						Entity.Spawner.AddEntityToRemoveQueue(character)
+						corpseSpreadCooldown[character] = nil
+						afflictionNetworkCooldown[character] = nil
 					end, 10)
+				end
+			else
+				-- spread corpse infections
+				if corpseSpreadCooldown[character] == nil then
+					corpseSpreadCooldown[character] = 60 * 60
+				elseif corpseSpreadCooldown[character] > 0 then
+					corpseSpreadCooldown[character] = corpseSpreadCooldown[character] - 1
+				else
+					spreadInfections(character, true)
+					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('flybuzzfx'), character.WorldPosition, nil, nil, function (spawnedItem) end)
+				
+					corpseSpreadCooldown[character] = 60 * math.random(12, 16)
 				end
 			end
 			
-			-- network update for dead character
+			-- network update for dead character (and also spread infections)
 			if SERVER then
 				if (afflictionNetworkCooldown[character] ~= nil) and (afflictionNetworkCooldown[character] > 0) then
 					afflictionNetworkCooldown[character] = afflictionNetworkCooldown[character] - 1
 				else
 					Networking.CreateEntityEvent(character, Character.CharacterStatusEventData.__new(true))
-					
+				
 					afflictionNetworkCooldown[character] = 60 * 5
 				end
 			end
 		end
 		-- Disease and immune stuff for living humans
 		if (character.SpeciesName == 'human') and (not character.IsDead) then
-			local characterBacterialInfection = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialinfection', true)
-			local characterBacterialGangrene = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialgangrene', true)
-			
-			local characterInfection = character.CharacterHealth.GetAfflictionStrengthByType('infection', true)
-			characterInfection = characterInfection + math.max(0, character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true) - 35)
-			
+			local characterGangrene = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialgangrene', true)
+			if characterGangrene >= 200 then
+				DD.giveAfflictionCharacter(character, 'bacterialinfection', 1 / 60)
+			end
+		
 			local characterImmune = character.CharacterHealth.GetAfflictionStrengthByType('immune', true)
 			characterImmune = characterImmune - character.CharacterHealth.GetAfflictionStrengthByType('immunedebuff', true)
-			characterImmune = characterImmune - math.min(50, characterInfection / 2)
 			characterImmune = math.max(0, characterImmune)
 			
-			-- Broad Bacterial Infection from bacterial gangrene (septic shock)
-			if characterBacterialGangrene > 5 and
-			(math.random() * 10^6 < characterBacterialGangrene ^ 2) then
-				DD.giveAfflictionCharacter(character, 'bacterialpayload', characterBacterialGangrene)
-			end
-			-- Broad Bacterial Infection from other infections
-			if (characterInfection - characterBacterialInfection > 20) and
-			(math.random() * 10^6 < (character.MaxVitality - character.Vitality)) then
-				DD.giveAfflictionCharacter(character, 'bacterialpayload', (character.MaxVitality - character.Vitality) * math.random())
-			end
 			-- Infection recognized by immune-system
 			local characterInfectionRecognized = 0
 			for diseaseName, data in pairs(DD.diseaseData) do
-				characterInfectionRecognized = characterInfectionRecognized + character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) * getDiseaseStat(diseaseName, 'immuneVisibility')
+				characterInfectionRecognized = characterInfectionRecognized + math.max(0, (character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) - getDiseaseStat(diseaseName, 'immuneVisibleStrength')) * getDiseaseStat(diseaseName, 'immuneVisibility'))
 			end
-			characterInfectionRecognized = characterInfectionRecognized + math.max(0, character.CharacterHealth.GetAfflictionStrengthByIdentifier('huskinfection', true) - 35)
 			-- Immunu-response
 			if characterInfectionRecognized > 0 then
-				local amount = math.random() * (0.5 + math.max(0, character.Vitality / character.MaxVitality)) * (characterInfectionRecognized / 100) * (1/60)
-				amount = amount + amount * character.CharacterHealth.GetAfflictionStrengthByIdentifier('immuneboost', true) / 50
-				DD.giveAfflictionCharacter(character, 'immuneresponse', 5 * amount)
-				if character.CharacterHealth.GetAfflictionStrengthByIdentifier('fever', true) < characterInfectionRecognized then
-					DD.giveAfflictionCharacter(character, 'fever', 5 * amount)
-				elseif character.CharacterHealth.GetAfflictionStrengthByIdentifier('fever', true) > characterInfectionRecognized + 1 then
-					character.CharacterHealth.ReduceAfflictionOnAllLimbs('fever', 5 / 60, nil)
-				end
-				for diseaseName, data in pairs(DD.diseaseData) do
-					character.CharacterHealth.ReduceAfflictionOnAllLimbs(diseaseName .. 'infection', characterImmune * (getDiseaseStat(diseaseName, 'immune') / 100) * (1/60), nil)
-				end
+				local amount = characterInfectionRecognized / 150
+				DD.giveAfflictionCharacter(character, 'immuneresponse', 2 * amount / 60)
+				DD.giveAfflictionCharacter(character, 'fever', 1 * amount / 60)
 			else
-				character.CharacterHealth.ReduceAfflictionOnAllLimbs('immuneresponse', 5 / 60, nil)
-				character.CharacterHealth.ReduceAfflictionOnAllLimbs('fever', 10 / 60, nil)
+				if character.CharacterHealth.GetAfflictionStrengthByType('infection', true) <= 0 then
+					character.CharacterHealth.ReduceAfflictionOnAllLimbs('immuneresponse', 2 / 60, nil)
+					character.CharacterHealth.ReduceAfflictionOnAllLimbs('fever', 1 / 60, nil)
+				end
+			end
+			if characterImmune > 0 then
+				for diseaseName, data in pairs(DD.diseaseData) do
+					character.CharacterHealth.ReduceAfflictionOnAllLimbs(diseaseName .. 'infection', characterImmune * getDiseaseStat(diseaseName, 'immune') / 100 / 60, nil)
+				end
 			end
 		end
 	end

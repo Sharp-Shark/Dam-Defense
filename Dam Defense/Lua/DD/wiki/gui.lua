@@ -176,11 +176,17 @@ DD.wikiData = {
 	tbsyringeItem = {
 		related = {'main', 'items', 'medicalSystem', 'tbantidoteItem', 'tbinfectionAffliction'},
 	},
+	anthraxsyringeItem = {
+		related = {'main', 'items', 'medicalSystem', 'anthraxantidoteItem', 'anthraxinfectionAffliction'},
+	},
 	fluantidoteItem = {
 		related = {'main', 'items', 'medicalSystem', 'flusyringeItem', 'influenzainfectionAffliction'},
 	},
 	tbantidoteItem = {
 		related = {'main', 'items', 'medicalSystem', 'tbsyringeItem', 'tbinfectionAffliction'},
+	},
+	anthraxantidoteItem = {
+		related = {'main', 'items', 'medicalSystem', 'anthraxsyringeItem', 'anthraxinfectionAffliction'},
 	},
 	midazolamItem = {
 		related = {'main', 'items', 'medicalSystem', 'deathSquadEvent', 'greenskinsEvent', 'vipEvent', 'mercsEvent', 'bodyguardJob', 'mercsJob', 'mercsevilJob'},
@@ -210,6 +216,9 @@ DD.wikiData = {
 	},
 	tbinfectionAffliction = {
 		related = {'main', 'medicalSystem', 'afflictionEvent', 'tbsyringeItem', 'tbantidoteItem', 'myxotoxinItem'},
+	},
+	anthraxinfectionAffliction = {
+		related = {'main', 'medicalSystem', 'afflictionEvent', 'anthraxsyringeItem', 'anthraxantidoteItem', 'myxotoxinItem'},
 	},
 	-- misc
 	radiation = {

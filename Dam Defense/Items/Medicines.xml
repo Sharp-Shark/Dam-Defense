@@ -227,10 +227,10 @@
         <ReduceAffliction identifier="bloodloss" amount="1.25" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnSuccess" target="Limb" duration="10">
-        <ReduceAffliction identifier="bacterialgangrene" amount="0.5" />
+        <ReduceAffliction identifier="bacterialgangrene" amount="0.8" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="Limb" duration="10">
-        <ReduceAffliction identifier="bacterialgangrene" amount="0.3" />
+        <ReduceAffliction identifier="bacterialgangrene" amount="0.5" />
       </StatusEffect>
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
@@ -344,8 +344,8 @@
       <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
         <ReduceAffliction type="damage" amount="7.5" />
         <ReduceAffliction type="burn" amount="7.5" />
-        <Affliction identifier="bacterialhidden" amount="0.1" probability="0.0625" /> <!-- 1 in 16 chance -->
-        <Affliction identifier="tbhidden" amount="0.1" probability="0.01" /> <!-- 1 in 100 chance -->
+        <Affliction identifier="bacterialinfection" amount="0.1" probability="0.0625" /> <!-- 1 in 16 chance -->
+        <Affliction identifier="tbinfection" amount="0.1" probability="0.01" /> <!-- 1 in 100 chance -->
       </StatusEffect>  
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -377,8 +377,8 @@
       <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
         <Affliction identifier="psychosisresistance" amount="50" />
         <Affliction identifier="haste" amount="100" />
-        <Affliction identifier="bacterialhidden" amount="0.1" probability="0.0625" /> <!-- 1 in 16 chance -->
-        <Affliction identifier="tbhidden" amount="0.1" probability="0.01" /> <!-- 1 in 100 chance -->
+        <Affliction identifier="bacterialinfection" amount="0.1" probability="0.0625" /> <!-- 1 in 16 chance -->
+        <Affliction identifier="tbinfection" amount="0.1" probability="0.01" /> <!-- 1 in 100 chance -->
       </StatusEffect>
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -517,7 +517,7 @@
       </StatusEffect>
     </Holdable>
   </Item>
-  <!-- adrenaline boosts immune-response -->
+  <!-- adrenaline -->
   <Adrenaline name="" identifier="adrenaline" category="Medical,Material" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,chem,medical,syringe" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="medfabcab" secondary="medcontainer"/>
@@ -556,12 +556,6 @@
         <Affliction identifier="nausea" amount="4.0" />
         <Affliction identifier="organdamage" amount="2.0" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="5">
-        <Affliction identifier="immuneboost" amount="12" />
-      </StatusEffect>
-      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="5">
-        <Affliction identifier="immuneboost" amount="8" />
-      </StatusEffect>
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
         <Remove />
@@ -599,11 +593,11 @@
       <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="30">
         <Affliction identifier="stabilozineeffect" amount="4" />
-        <ReduceAffliction identifier="fever" amount="5" />
+        <ReduceAffliction identifier="fever" amount="4" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="30">
         <Affliction identifier="stabilozineeffect" amount="2" />
-        <ReduceAffliction identifier="fever" amount="4" />
+        <ReduceAffliction identifier="fever" amount="2" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
         <Conditional entitytype="eq Character"/>
@@ -716,8 +710,7 @@
 	  <!-- When Ethanol is drunk -->
       <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10">
         <Affliction identifier="drunk" amount="12.0" />
-        <Affliction identifier="organdamage" amount="3.0" />
-        <Affliction identifier="immuneboost" amount="12.0" />
+        <Affliction identifier="organdamage" amount="1.0" />
         <ReduceAffliction identifier="psychosis" amount="12.0" />
         <ReduceAffliction identifier="hallucinating" amount="12.0" />
         <Affliction identifier="psychosisresistance" amount="185" />
@@ -788,6 +781,7 @@
     <SuitableTreatment identifier="huskinfection" suitability="30" />
     <SuitableTreatment identifier="bacterialinfection" suitability="50" />
     <SuitableTreatment identifier="tbinfection" suitability="50" />
+    <SuitableTreatment identifier="anthraxinfection" suitability="50" />
     <SuitableTreatment identifier="bacterialgangrene" suitability="50" />
     <Body width="35" height="65" density="10.2" waterdragcoefficient="1"/>
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
@@ -795,44 +789,18 @@
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
-        <Conditional huskinfection="lt 75.0" />
-        <ReduceAffliction identifier="huskinfection" amount="2" />
-      </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
         <Affliction identifier="organdamage" amount="0.5" />
-      </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
-        <ReduceAffliction identifier="bacterialinfection" amount="4" />
-        <ReduceAffliction identifier="tbinfection" amount="2" />
-      </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="10.0">
-        <ReduceAffliction identifier="bacterialgangrene" amount="4" />
-      </StatusEffect>
-      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
-        <Affliction identifier="huskinfectionresistance" amount="600" />
-      </StatusEffect>
-      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="60.0">
-        <Conditional huskinfection="lt 75.0" />
-        <ReduceAffliction identifier="huskinfection" amount="1" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="Limb" duration="60.0">
         <Affliction identifier="organdamage" amount="1.0" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="60.0">
-        <ReduceAffliction identifier="bacterialinfection" amount="2" />
-        <ReduceAffliction identifier="tbinfection" amount="1" />
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="10">
+        <Affliction identifier="antibiotics" amount="5" />
+        <Affliction identifier="drunkweakness" amount="5" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="10.0">
-        <ReduceAffliction identifier="bacterialgangrene" amount="2" />
-      </StatusEffect>
-      <StatusEffect type="OnFailure" target="UseTarget" disabledeltatime="true">
-        <Affliction identifier="huskinfectionresistance" amount="300" />
-      </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="5">
-        <ReduceAffliction identifier="drunkweakness" amount="10" />
-      </StatusEffect>
-      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="5">
-        <ReduceAffliction identifier="drunkweakness" amount="20" />
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="10">
+        <Affliction identifier="antibiotics" amount="4" />
+        <Affliction identifier="drunkweakness" amount="10" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
         <Conditional entitytype="eq Character"/>
@@ -889,8 +857,7 @@
 	  <!-- When Rum is drunk -->
       <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10">
         <Affliction identifier="drunk" amount="6.0" />
-        <Affliction identifier="organdamage" amount="1.5" />
-        <Affliction identifier="immuneboost" amount="12.0" />
+        <Affliction identifier="organdamage" amount="1.0" />
         <ReduceAffliction identifier="psychosis" amount="12.0" />
         <ReduceAffliction identifier="hallucinating" amount="12.0" />
         <Affliction identifier="psychosisresistance" amount="185" />
@@ -1008,6 +975,7 @@
     <SuitableTreatment type="damage" suitability="-33" />>
     <SuitableTreatment identifier="bacterialinfection" suitability="25" />
     <SuitableTreatment identifier="tbinfection" suitability="25" />
+    <SuitableTreatment identifier="anthraxinfection" suitability="25" />
     <SuitableTreatment identifier="bacterialgangrene" suitability="25" />
     <Body width="35" height="65" density="10.2" waterdragcoefficient="1"/>
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
@@ -1017,28 +985,16 @@
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="120.0">
         <Affliction identifier="organdamage" amount="0.25" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="120.0">
-        <ReduceAffliction identifier="bacterialinfection" amount="1" />
-        <ReduceAffliction identifier="tbinfection" amount="0.5" />
-      </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="20.0">
-        <ReduceAffliction identifier="bacterialgangrene" amount="1" />
-      </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="Limb" duration="120.0">
         <Affliction identifier="organdamage" amount="0.5" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="120.0">
-        <ReduceAffliction identifier="bacterialinfection" amount="0.5" />
-        <ReduceAffliction identifier="tbinfection" amount="0.25" />
-      </StatusEffect>
-      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="20.0">
-        <ReduceAffliction identifier="bacterialgangrene" amount="0.5" />
-      </StatusEffect>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="10">
-        <ReduceAffliction identifier="drunkweakness" amount="5" />
+        <Affliction identifier="antibiotics" amount="3" />
+        <Affliction identifier="drunkweakness" amount="5" />
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="10">
-        <ReduceAffliction identifier="drunkweakness" amount="10" />
+        <Affliction identifier="antibiotics" amount="2" />
+        <Affliction identifier="drunkweakness" amount="10" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
         <Conditional entitytype="eq Character"/>
@@ -1127,7 +1083,7 @@
       <!--Can't fail, but can't use OnUse for projectiles-->
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnSuccess" target="UseTarget" duration="1.0">
-        <Affliction identifier="fluhidden" amount="0.1" />
+        <Affliction identifier="fluinfection" amount="0.1" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
         <Conditional entitytype="eq Character"/>
@@ -1172,6 +1128,7 @@
     </Deconstruct>
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="0,56,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="0,69,36,69" depth="0.6" origin="0.5,0.5" />
+    <SuitableTreatment identifier="fluinfection" suitability="100" />
     <Body width="35" height="70" density="20" />
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
       <!--Can't fail, but can't use OnUse for projectiles-->
@@ -1181,6 +1138,92 @@
       </StatusEffect>
       <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="60.0">
         <ReduceAffliction identifier="fluinfection" amount="3" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+        <Affliction identifier="stun" amount="0.1" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </MeleeWeapon>
+    <Projectile characterusable="false" launchimpulse="20.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" />
+  </Item>
+  
+  <!-- syringe with bacteria -->
+  <Item name="Live Bacteria" identifier="bacterialsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
+    <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
+    <PreferredContainer secondary="medfabcab"/>
+    <Price baseprice="400">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantcity" multiplier="1.3" />
+      <Price storeidentifier="merchantresearch" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchanthusk" minavailable="2" maxavailable="6">
+        <Reputation faction="huskcult" min="30"/>
+      </Price>
+    </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="8" />
+	</Fabricate>
+    <InventoryIcon texture="MedicinesInventory.png" sourcerect="56,0,56,56" origin="0.5,0.5" />
+    <Sprite texture="Medicines.png" sourcerect="36,0,36,69" depth="0.6" origin="0.5,0.5" />
+    <Body width="35" height="70" density="20" />
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" duration="1.0">
+        <Affliction identifier="bacterialinfection" amount="0.1" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+        <Affliction identifier="stun" amount="0.1" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </MeleeWeapon>
+    <Projectile characterusable="false" launchimpulse="20.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" />
+  </Item>
+  
+  <!-- syringe with tuberculosis -->
+  <Item name="Live Tuberculosis" identifier="tbsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
+    <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
+    <PreferredContainer secondary="medfabcab"/>
+    <Price baseprice="400">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantcity" multiplier="1.3" />
+      <Price storeidentifier="merchantresearch" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchanthusk" minavailable="2" maxavailable="6">
+        <Reputation faction="huskcult" min="30"/>
+      </Price>
+    </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="12" />
+	</Fabricate>
+    <InventoryIcon texture="MedicinesInventory.png" sourcerect="224,0,56,56" origin="0.5,0.5" />
+    <Sprite texture="Medicines.png" sourcerect="144,0,36,69" depth="0.6" origin="0.5,0.5" />
+    <Body width="35" height="70" density="20" />
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" duration="1.0">
+        <Affliction identifier="tbinfection" amount="0.1" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
         <Conditional entitytype="eq Character"/>
@@ -1225,6 +1268,7 @@
     </Deconstruct>
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="224,56,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="144,69,36,69" depth="0.6" origin="0.5,0.5" />
+    <SuitableTreatment identifier="tbinfection" suitability="100" />
     <Body width="35" height="70" density="20" />
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
       <!--Can't fail, but can't use OnUse for projectiles-->
@@ -1250,51 +1294,8 @@
     <Projectile characterusable="false" launchimpulse="20.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" />
   </Item>
   
-  <!-- syringe with bacteria -->
-  <Item name="Live Bacteria" identifier="bacterialsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
-    <Upgrade gameversion="0.10.0.0" scale="0.5" />
-    <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
-    <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
-    <PreferredContainer secondary="medfabcab"/>
-    <Price baseprice="400">
-      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.2" />
-      <Price storeidentifier="merchantcity" multiplier="1.3" />
-      <Price storeidentifier="merchantresearch" minavailable="1" />
-      <Price storeidentifier="merchantmilitary" sold="false" multiplier="1.2" />
-      <Price storeidentifier="merchantmine" sold="false" multiplier="1.3" />
-      <Price storeidentifier="merchanthusk" minavailable="2" maxavailable="6">
-        <Reputation faction="huskcult" min="30"/>
-      </Price>
-    </Price>
-    <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="8" />
-	</Fabricate>
-    <InventoryIcon texture="MedicinesInventory.png" sourcerect="56,0,56,56" origin="0.5,0.5" />
-    <Sprite texture="Medicines.png" sourcerect="36,0,36,69" depth="0.6" origin="0.5,0.5" />
-    <Body width="35" height="70" density="20" />
-    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
-      <!--Can't fail, but can't use OnUse for projectiles-->
-      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
-      <StatusEffect type="OnSuccess" target="UseTarget" duration="1.0">
-        <Affliction identifier="bacterialhidden" amount="0.1" />
-      </StatusEffect>
-      <StatusEffect type="OnSuccess" target="UseTarget">
-        <Conditional entitytype="eq Character"/>
-        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
-      </StatusEffect>
-      <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
-        <Affliction identifier="stun" amount="0.1" />
-      </StatusEffect>
-      <!-- Remove the item when fully used -->
-      <StatusEffect type="OnBroken" target="This">
-        <Remove />
-      </StatusEffect>
-    </MeleeWeapon>
-    <Projectile characterusable="false" launchimpulse="20.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" />
-  </Item>
-  
-  <!-- syringe with tuberculosis -->
-  <Item name="Live Tuberculosis" identifier="tbsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+  <!-- syringe with anthrax -->
+  <Item name="Live Anthrax" identifier="anthraxsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
     <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
@@ -1312,14 +1313,68 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="12" />
 	</Fabricate>
-    <InventoryIcon texture="MedicinesInventory.png" sourcerect="224,0,56,56" origin="0.5,0.5" />
-    <Sprite texture="Medicines.png" sourcerect="144,0,36,69" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon texture="MedicinesInventory.png" sourcerect="112,0,56,56" origin="0.5,0.5" />
+    <Sprite texture="Medicines.png" sourcerect="72,0,36,69" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="70" density="20" />
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
       <!--Can't fail, but can't use OnUse for projectiles-->
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnSuccess" target="UseTarget" duration="1.0">
-        <Affliction identifier="tbhidden" amount="0.1" />
+        <Affliction identifier="anthraxinfection" amount="0.1" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+        <Affliction identifier="stun" amount="0.1" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </MeleeWeapon>
+    <Projectile characterusable="false" launchimpulse="20.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" />
+  </Item>
+  
+  <!-- anthrax antidote -->
+  <Item name="Anthrax Antidote" identifier="anthraxantidote" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
+    <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
+    <PreferredContainer secondary="medfabcab"/>
+    <Price baseprice="400">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantcity" multiplier="1.3" />
+      <Price storeidentifier="merchantresearch" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchanthusk" minavailable="2" maxavailable="6">
+        <Reputation faction="huskcult" min="30"/>
+      </Price>
+    </Price>
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" >
+      <RequiredSkill identifier="medical" level="40" />
+      <RequiredItem identifier="anthraxsyringe" />
+      <RequiredItem identifier="alienblood" />
+      <RequiredItem identifier="stabilozine" />
+    </Fabricate>
+    <Deconstruct time="10">
+      <RequiredItem identifier="alienblood" />
+      <RequiredItem identifier="stabilozine" />
+    </Deconstruct>
+    <InventoryIcon texture="MedicinesInventory.png" sourcerect="112,56,56,56" origin="0.5,0.5" />
+    <Sprite texture="Medicines.png" sourcerect="72,69,36,69" depth="0.6" origin="0.5,0.5" />
+    <SuitableTreatment identifier="anthraxinfection" suitability="100" />
+    <Body width="35" height="70" density="20" />
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
+        <ReduceAffliction identifier="anthraxinfection" amount="3" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="60.0">
+        <ReduceAffliction identifier="anthraxinfection" amount="3" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
         <Conditional entitytype="eq Character"/>
@@ -1418,17 +1473,7 @@
       <StatusEffect type="OnImpact" target="UseTarget" >
         <Conditional entitytype="eq Character" />
         <Sound type="OnImpact" file="%ModDir%/Sounds/healgunhit.ogg" range="500" />
-        <ReduceAffliction type="damage" amount="5" />
-        <ReduceAffliction identifier="bloodloss" amount="3" />
-        <ReduceAffliction type="burn" amount="2" />
-        <ReduceAffliction type="bleeding" amount="2" />
-      </StatusEffect>
-      <StatusEffect type="OnImpact" target="UseTarget" duration="1" >
-        <Conditional entitytype="eq Character" />
-        <ReduceAffliction type="damage" amount="5" />
-        <ReduceAffliction identifier="bloodloss" amount="3" />
-        <ReduceAffliction type="burn" amount="2" />
-        <ReduceAffliction type="bleeding" amount="2" />
+		<LuaHook name="DD.healgunround.heal" />
       </StatusEffect>
       <StatusEffect type="OnImpact" target="This" delay="0.5" >
         <Remove />

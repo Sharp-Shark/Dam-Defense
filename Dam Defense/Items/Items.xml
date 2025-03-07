@@ -5132,7 +5132,7 @@
     </Fabricate>
     <InventoryIcon texture="flaregun.png" sourcerect="140,0,64,64" origin="0.5,0.5" />
     <Sprite texture="flaregun.png" sourcerect="0,53,23,11" depth="0.55" origin="0.5,0.5" />
-    <Body width="38" height="15" density="30" />
+    <Body width="23" height="11" density="30" />
     <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
     <Projectile characterusable="false" launchimpulse="15.0" sticktocharacters="true" sticktoitems="true" sticktostructures="true" sticktodoors="true">
       <Attack penetration="0.25" severlimbsprobability="0">
@@ -5192,7 +5192,7 @@
       <RequiredItem identifier="tin" amount="1" />
     </Fabricate>
     <Sprite texture="whalinggun.png" sourcerect="0,0,240,64" depth="0.55" origin="0.5,0.5" />
-    <Body width="180" height="30" density="25" />
+    <Body width="24" height="64" density="25" />
 	<Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="whalinggun.png" sourcerect="0,0,240,64" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.75" />
     </Wearable>
@@ -5250,7 +5250,7 @@
     </Fabricate>
     <InventoryIcon texture="whalinggun.png" sourcerect="249,0,55,55" origin="0.5,0.5" />
     <Sprite texture="whalinggun.png" sourcerect="0,64,190,28" depth="0.55" origin="0.5,0.5" />
-    <Body width="160" height="20" density="30" />
+    <Body width="190" height="28" density="30" />
     <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
     <Rope sourcepullforce="300" targetpullforce="100" projectilepullforce="5" maxlength="1500" snaponcollision="false" spritewidth="3" tile="true" origin="0.05,0.5" targetminmass="30" lerpforces="true" snapanimduration="0.5">
       <Sprite texture="Content/Map/Thalamus/thalamus.png" sourcerect="617,352,174,32" depth="0.57" origin="0.5,0.5" />
@@ -5288,7 +5288,7 @@
       <RequiredItem identifier="steel" />
     </Fabricate>
     <Sprite texture="watercannon.png" depth="0.55" sourcerect="0,0,216,80" origin="0.5,0.5" />
-    <Body width="100" height="30" density="8" />
+    <Body width="216" height="80" density="8" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="60,-30" holdpos="20,-50" holdangle="15" handle1="-60,15" handle2="20,10" msg="ItemMsgPickUpSelect" />
     <RepairTool TargetForce="100" wateramount="100.0" extinguishamount="60.0" range="400" barrelpos="21,9" repairmultiple="true" repairthroughholes="true" hititems="false" IgnoreCharacters="false">
       <RequiredItem items="batterycell" type="Contained" />
@@ -6080,11 +6080,11 @@
 	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
 	<ItemComponent>
 	  <StatusEffect target="This" type="OnSpawn" >
-	    <Sound file="%ModDir%/Sounds/flybuzz1.ogg" volume="3.0" range="800" selectionmode="random" />
-	    <Sound file="%ModDir%/Sounds/flybuzz2.ogg" volume="3.0" range="800" />
-	    <Sound file="%ModDir%/Sounds/flybuzz3.ogg" volume="3.0" range="800" />
+	    <Sound file="%ModDir%/Sounds/flybuzz1.ogg" volume="4.0" range="800" selectionmode="random" />
+	    <Sound file="%ModDir%/Sounds/flybuzz2.ogg" volume="4.0" range="800" />
+	    <Sound file="%ModDir%/Sounds/flybuzz3.ogg" volume="4.0" range="800" />
 	  </StatusEffect>
-	  <StatusEffect target="This" type="OnSpawn" delay="2" >
+	  <StatusEffect target="This" type="OnSpawn" delay="3" >
 	    <Remove />
 	  </StatusEffect>
 	</ItemComponent>

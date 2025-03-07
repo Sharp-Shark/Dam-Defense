@@ -86,12 +86,12 @@
   <jobdescription.mercsevil>Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Explode the reactor and kill any personnel related to the dam. Mission failure will result in subject termination.</jobdescription.mercsevil>
   
   <!-- Immune Afflictions -->
-  <afflictionname.immuneboost>Immune-boost</afflictionname.immuneboost>
-  <afflictiondescription.immuneboost>The immunse-system has been boosted and will react faster.</afflictiondescription.immuneboost>
+  <afflictionname.antibiotics>Antibiotics</afflictionname.antibiotics>
+  <afflictiondescription.antibiotics>Antibiotics are circulating in the bloodstream and fending off infections, especially those of a bacterial nature.</afflictiondescription.antibiotics>
   <afflictionname.immuneresponse>Immune-response</afflictionname.immuneresponse>
   <afflictiondescription.immuneresponse>The body is working hard at fighting an infection.</afflictiondescription.immuneresponse>
   <afflictionname.fever>Fever</afflictionname.fever>
-  <afflictiondescription.fever>Fights infections, but too high body temperatures can be counterproductive and even lethal. Treatable with Stabilozine.</afflictiondescription.fever>
+  <afflictiondescription.fever>Fights infections, but too high body temperatures can be counterproductive. Treatable with Stabilozine.</afflictiondescription.fever>
   <!-- Misc Afflictions -->
   <afflictionname.despawn>Despawn Decay</afflictionname.despawn>
   <afflictiondescription.despawn>The waterlogged corpse is decaying away and will soon despawn.</afflictiondescription.despawn>
@@ -100,25 +100,28 @@
   <afflictionname.pulmonaryemphysema>Pulmonary Emphysema</afflictionname.pulmonaryemphysema>
   <afflictiondescription.pulmonaryemphysema>The lung, due to major alveoli rupture, is unable to absorb oxygen into the bloodstream.</afflictiondescription.pulmonaryemphysema>
   <afflictionname.bacterialgangrene>Bacterial Gangrene</afflictionname.bacterialgangrene>
-  <afflictiondescription.bacterialgangrene>Superficial gangrene caused by bacteria, may cause bacterial infection if not treated. Apply antibiotics or wash with ethanol.</afflictiondescription.bacterialgangrene>
+  <afflictiondescription.bacterialgangrene.dormant>Dormant bacterial gangrene. Treat the bite wounds or bleeding now and this will heal by itself.</afflictiondescription.bacterialgangrene.dormant>
+  <afflictiondescription.bacterialgangrene.active>Active bacterial gangrene. Apply antibiotics or wash with ethanol before this worsens and bacterial sepsis occurs.</afflictiondescription.bacterialgangrene.active>
   <!-- Disease Afflictions -->
   <afflictionname.fluinfection>Flu Infection</afflictionname.fluinfection>
-  <afflictiondescription.fluinfection>Vry contagious pulmonary infection. Usually not lethal on its own. Causes vulnerability to opportunistic bacterial infections and shortness of air.</afflictiondescription.fluinfection>
+  <afflictiondescription.fluinfection>Vry contagious pulmonary infection. Usually not lethal on its own. Causes shortness of air.</afflictiondescription.fluinfection>
   <afflictionname.bacterialinfection>Bacterial Infection</afflictionname.bacterialinfection>
   <afflictiondescription.bacterialinfection>A broad unspecific bacterial infection. Usually not lethal on its own. Treatable with Broad-spectrum Antibiotics</afflictiondescription.bacterialinfection>
   <afflictionname.tbinfection>Tuberculosis Infection</afflictionname.tbinfection>
   <afflictiondescription.tbinfection>A very lethal bacterial lung infection, also highly transmissible. If untreated, will very likely result in death. Treatable with Broad-spectrum Antibiotics</afflictiondescription.tbinfection>
+  <afflictionname.anthraxinfection>Anthrax Infection</afflictionname.anthraxinfection>
+  <afflictiondescription.anthraxinfection>A very lethal bacterial infection found in corpses. If untreated, will very likely result in death. Treatable with Broad-spectrum Antibiotics</afflictiondescription.anthraxinfection>
   
   <Override>
   <entityname.ironhelmet>Makeshift Helmet</entityname.ironhelmet><!-- Iron Helmet now is called Makeshift Helmet -->
   <entityname.orangejumpsuit1>Lead-lined Overalls</entityname.orangejumpsuit1>
   <entitydescription.captainspipe>Used for smoking pipe tabacco. Somehow heals damage and bloodloss at an impressive rate. Causes about as much lung damage as an entire pack of cigars.</entitydescription.captainspipe>
   <entitydescription.cigar>A finely crafted cigar. Somehow heals damage and bloodloss. Intense and frequent use may cause hard to reverse lung damage.</entitydescription.cigar>
-  <entitydescription.rum>A fine liquor made from raptor bane juice or pomegrenade extract. When drunk heals husk infection and boosts the immune system at the cost of minor organ damage. Can be poured on wounds to clear gangrene. Better drink or use this than 90% ethanol! Can be used as a low quality generator fuel.</entitydescription.rum>
-  <entitydescription.ethanol>Medical alcohol used as an ingredient in the manufacture of various medicines. Drinking while on duty is not advised. When drunk boosts the immune system at the cost of mild organ damage. Can be poured on wounds to clear gangrene. Can be used as a low quality generator fuel.</entitydescription.ethanol>
+  <entitydescription.rum>A fine liquor made from raptor bane juice or pomegrenade extract. Heals husk infection when drunk. Can be poured on wounds to clear gangrene. Can be used as a low quality generator fuel.</entitydescription.rum>
+  <entitydescription.ethanol>Medical alcohol used as an ingredient in the manufacture of various medicines. Drinking while on duty is not advised. Can be poured on wounds to clear gangrene. Can be used as a low quality generator fuel.</entitydescription.ethanol>
   <entitydescription.fertilizer>Carefully tended Europan soil guaranteed to give your plant the best living conditions. Can be used as a high quality generator fuel. Keep away from fire or heat.</entitydescription.fertilizer>
   <entitydescription.stabilozine>Used as an ingredient in the manufacture of various medicines. On its own, can be used to slow down the effects of most toxins and lower fever.</entitydescription.stabilozine>
-  <entitydescription.adrenaline>A naturally occurring hormone. When consumed, temporarily boosts the immune system and awakens anyone unconcious. Used to manufacture medicine or combat stimulants.</entitydescription.adrenaline>
+  <entitydescription.adrenaline>A naturally occurring hormone. When consumed awakens anyone unconcious. Used to manufacture medicine or combat stimulants.</entitydescription.adrenaline>
   <entitydescription.piratebodyarmor>Only craftable by rebel leaders. A set of body armor, partially fashioned out of improvised materials by the Jovian Separatists. It's heavier than it looks.</entitydescription.piratebodyarmor>
   <entitydescription.flamer>Only craftable by janitors. An incendiary weapon that fires a stream of burning welding fuel. Particularly effective with incendium fuel tanks.</entitydescription.flamer>
   <entitydescription.handcuffs>Useful for restraining problem players. Whilst a player is alive and detained, they will be dragged at full speed.</entitydescription.handcuffs>
@@ -159,7 +162,7 @@
   <entitydescription.wifitrigger>A handheld device that contains an wifi component, allowing for convenient remote sending of signals.</entitydescription.wifitrigger>
   <!-- Myxotoxin -->
   <entityname.myxotoxin>Myxotoxin</entityname.myxotoxin>
-  <entitydescription.myxotoxin>Toxin with antibiotic properties extracted from a colony of myxobacteria. Side-effects include internal damage and alcohol sensitivity. Can be further processed into ABX.</entitydescription.myxotoxin>
+  <entitydescription.myxotoxin>Minor toxin with antibiotic properties extracted from a colony of myxobacteria. Side-effects include internal damage and alcohol sensitivity. Can be further processed into ABX.</entitydescription.myxotoxin>
   <!-- Live Influenza -->
   <entityname.flusyringe>Live Influenza</entityname.flusyringe>
   <entitydescription.flusyringe>A syringe containing a live sample of influenza that was taken from someone using a blood sampler. Can be made into Influenza Antidote in a medical fabricator.</entitydescription.flusyringe>
@@ -171,16 +174,22 @@
   <entitydescription.bacterialsyringe>A syringe containing a live sample of bacteria that was taken from someone using a blood sampler. Can be made into Broad-spectrum Antibiotics in a medical fabricator.</entitydescription.bacterialsyringe>
   <!-- Live Tuberculosis -->
   <entityname.tbsyringe>Live Tuberculosis</entityname.tbsyringe>
-  <entitydescription.tbsyringe>A syringe containing a live sample of tuberculosis that was taken from someone using a blood sampler. Can be made into Broad-spectrum Antibiotics in a medical fabricator.</entitydescription.tbsyringe>
+  <entitydescription.tbsyringe>A syringe containing a live sample of tuberculosis that was taken from someone using a blood sampler. Can be made into Broad-spectrum Antibiotics or Tuberculosis Antidote in a medical fabricator.</entitydescription.tbsyringe>
   <!-- Tuberculosis Antidote -->
   <entityname.tbantidote>Tuberculosis Antidote</entityname.tbantidote>
   <entitydescription.tbantidote>A concoction of tuberculosis parts and antibodies. Quickly heals any ongoing tuberculosis infection and gives temporary immunity to it aswell.</entitydescription.tbantidote>
+  <!-- Live Anthrax -->
+  <entityname.anthraxsyringe>Live Anthrax</entityname.anthraxsyringe>
+  <entitydescription.anthraxsyringe>A syringe containing a live sample of anthrax that was taken from someone using a blood sampler. Can be made into Anthrax Antidote in a medical fabricator.</entitydescription.anthraxsyringe>
+  <!-- Anthrax Antidote -->
+  <entityname.anthraxantidote>Anthrax Antidote</entityname.anthraxantidote>
+  <entitydescription.anthraxantidote>A concoction of anthrax parts and antibodies. Quickly heals any ongoing anthrax infection and gives temporary immunity to it aswell.</entitydescription.anthraxantidote>
   <!-- Blood Sampler -->
   <entityname.bloodsampler>Blood Sampler</entityname.bloodsampler>
   <entitydescription.bloodsampler>Can be used on infected people to extract a live sample of their infection. Live disease samples can be turned into their antidotes in a medical fabricator.</entitydescription.bloodsampler>
   <!-- Heal Gun -->
   <entityname.healgun>Heal Gun</entityname.healgun>
-  <entitydescription.healgun>A rapid-fire pneumatic syringe gun tailored for a special high-capacity drum. Built-in health scanner.</entitydescription.healgun>
+  <entitydescription.healgun>A rapid-fire pneumatic syringe gun tailored for a special high-capacity drum. Built-in health scanner. Recently attacked players receive reduced healing from this gun.</entitydescription.healgun>
   <!-- Blood Sampler -->
   <entityname.healgundrum>Heal Gun Drum</entityname.healgundrum>
   <entitydescription.healgundrum>Drum with 50 harmless healing syringes. These can heal damage, bloodloss, burns and bleeding.</entitydescription.healgundrum>

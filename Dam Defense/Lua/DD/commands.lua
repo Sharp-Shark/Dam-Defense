@@ -24,7 +24,7 @@ local func = function (args)
 	local path = DD.generateWikiHTML()
 	print('Wiki was created at ' .. path)
 end
-if CLIENT and Game.IsMultiplayer then
+if SERVER then
 	func = function () return end
 end
 Game.AddCommand('dd_wiki', 'Calls the "DD.generateWikiHTML" lua method.', func, nil, false)
