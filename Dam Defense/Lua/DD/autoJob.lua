@@ -143,8 +143,13 @@ Hook.Patch("Barotrauma.Networking.RespawnManager", "RespawnCharacters", {"Barotr
 	
     for client in Client.ClientList do
 		if DD.isClientRespawnable(client) then
+			-- reset talents (and more) before respawn
+			local info = CharacterInfo('human', client.Name)
+			info.RecreateHead(client.CharacterInfo.Head)
+			client.CharacterInfo = info
+			
+			-- get job and job variant
 			local job = DD.clientJob[client]
-
 			local variant
 			for jobVariant in client.JobPreferences do
 				if tostring(jobVariant.Prefab.Identifier) == job then
@@ -153,6 +158,7 @@ Hook.Patch("Barotrauma.Networking.RespawnManager", "RespawnCharacters", {"Barotr
 			end
 			if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
 			
+			-- spawn character
 			local pos = DD.findRandomWaypointByJob(job).WorldPosition
 			local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
 			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)

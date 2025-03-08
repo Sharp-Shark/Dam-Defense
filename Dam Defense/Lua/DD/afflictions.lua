@@ -42,13 +42,13 @@ local spreadInfections = function(character, ignoreSpreaderAirborneProtection)
 		if fromCharacter.IsDead then chance = chance / 2 end
 		-- Get fromCharacter infection amount
 		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
-		amount = amount * math.random()
+		amount = math.random() * math.min(getDiseaseStat(diseaseName, 'immuneVisibleStrength'), amount)
 		-- If toCharacter is already infected, do not infect
 		local infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
 		-- Spread
 		if fromCharacter.IsDead and (fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) <= getDiseaseStat(diseaseName, 'immuneVisibleStrength')) then return end
 		if (infection <= 0) and (math.random() <= chance) and (amount > 0) then
-			DD.giveAfflictionCharacter(toCharacter, diseaseName .. 'infection', math.min(getDiseaseStat(diseaseName, 'immuneVisibleStrength'), amount))
+			DD.giveAfflictionCharacter(toCharacter, diseaseName .. 'infection', amount)
 		end
 	end
 	
@@ -244,15 +244,24 @@ DD.thinkFunctions.afflictions = function ()
 					affliction.SetStrength(0)
 					-- drop items
 					if character.Inventory ~= nil then
-						Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('duffelbag'), character.WorldPosition, nil, nil, function (spawnedItem)
+						-- humans (or previously human humanoids) have their items put in a duffelbag when they despawn
+						if character.IsHumanoid and (string.lower(string.sub(tostring(character.SpeciesName), 1, 5)) == 'human') then
+							Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('duffelbag'), character.WorldPosition, nil, nil, function (spawnedItem)
+								for itemCount = 0, character.Inventory.Capacity do
+									local item = character.Inventory.GetItemAt(itemCount)
+									if item ~= nil then
+										item.Drop()
+										spawnedItem.OwnInventory.TryPutItem(item, character, nil, true, true)
+									end
+								end
+							end)
+						-- creatures just have their items dropped on the floor
+						else
 							for itemCount = 0, character.Inventory.Capacity do
 								local item = character.Inventory.GetItemAt(itemCount)
-								if item ~= nil then
-									item.Drop()
-									spawnedItem.OwnInventory.TryPutItem(item, character, nil, true, true)
-								end
+								if item ~= nil then item.Drop() end
 							end
-						end)
+						end
 					end
 					-- despawn
 					Timer.Wait(function ()
@@ -264,7 +273,7 @@ DD.thinkFunctions.afflictions = function ()
 			else
 				-- spread corpse infections
 				if corpseSpreadCooldown[character] == nil then
-					corpseSpreadCooldown[character] = 60 * 60
+					corpseSpreadCooldown[character] = 60 * 90
 				elseif corpseSpreadCooldown[character] > 0 then
 					corpseSpreadCooldown[character] = corpseSpreadCooldown[character] - 1
 				else

@@ -257,16 +257,11 @@ local doCharacterDeathFunctions = function (character)
 end
 DD.characterDeathFunctions.main = function (character)
 	if CLIENT then return end
-	-- reset talents (and more) upon death
+	
+	-- Do death message to deceased
 	local client = DD.findClientByCharacter(character)
-	if (client ~= nil) and (character.SpeciesName == 'human') then
-		local info = CharacterInfo('human', client.Name)
-		info.RecreateHead(client.CharacterInfo.Head)
-		client.CharacterInfo = info
-	end
 	if client ~= nil then
-		-- Do death message to deceased
-		DD.messageClient(client, DD.stringLocalize('deathMessage'), {preset = 'command'})
+		DD.messageClient(client, DD.stringLocalize('deathMessage'), {preset = 'crit'})
 	end
 	
 	-- remove grow/breed timers of dead creature

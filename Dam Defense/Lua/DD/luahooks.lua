@@ -681,8 +681,10 @@ DD.characterDeathFunctions.cultistDeath = function (character)
 			if itemCount == DD.invSlots.innerclothing then
 				for itemCount = 0, item.OwnInventory.Capacity do
 					local item = item.OwnInventory.GetItemAt(itemCount)
-					item.Drop()
-					duffelbag.OwnInventory.TryPutItem(item, character, nil, true, true)
+					if item ~= nil then
+						item.Drop()
+						duffelbag.OwnInventory.TryPutItem(item, character, nil, true, true)
+					end
 				end
 				item.NonInteractable = true
 				if SERVER then
@@ -703,7 +705,7 @@ Hook.Add("character.created", 'DD.giveUndeadItems', function(createdCharacter)
 		Timer.Wait(function ()
 			local client = DD.findClientByCharacter(createdCharacter)
 			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
-			if Game.IsMultiplayer then client.SetClientCharacter(character) end
+			if Game.IsMultiplayer and (client ~= nil) then client.SetClientCharacter(character) end
 			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
 		end, 100)
 		return
@@ -851,7 +853,7 @@ Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
 		if createdCharacter.JobIdentifier ~= 'greenskinjob' then
 			local client = DD.findClientByCharacter(createdCharacter)
 			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
-			if Game.IsMultiplayer then client.SetClientCharacter(character) end
+			if Game.IsMultiplayer and (client ~= nil) then client.SetClientCharacter(character) end
 			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
 		else
 			createdCharacter.GiveTalent('greenskinknowledge', true)
