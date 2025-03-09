@@ -2,10 +2,13 @@ DD.jobBans = {}
 
 if CLIENT then return end
 
+DD.lateJoinBlacklistSet = {}
 DD.autoJobExecutionCount = 0
 DD.clientJob = {}
 
-DD.roundEndFunctions.autoJob = function ()
+DD.roundEndFunctions.spawning = function ()
+	DD.lateJoinBlacklistSet = {}
+	
 	DD.autoJobExecutionCount = 0
 	DD.clientJob = {}
 end
@@ -136,33 +139,77 @@ Hook.Add("jobsAssigned", "DD.autoJob", function ()
 	end
 end)
 
+-- think function
+DD.thinkFunctions.spawning = function ()
+	if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) then return end
+	
+	local spectatorSet = {}
+	for client in Client.ClientList do
+		if DD.isClientCharacterAlive(client) then
+			DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
+		else
+			spectatorSet[client.AccountId.StringRepresentation] = DD.isClientRespawnable(client)
+		end
+	end
+end
+
 -- replace vanilla respawn
 Hook.Patch("Barotrauma.Networking.RespawnManager", "RespawnCharacters", {"Barotrauma.Networking.RespawnManager+TeamSpecificState"}, function(instance, ptable)
-	DD.autoJob()
-	DD.autoJobExecutionCount = DD.autoJobExecutionCount + 1
-	
-    for client in Client.ClientList do
-		if DD.isClientRespawnable(client) then
-			-- reset talents (and more) before respawn
-			local info = CharacterInfo('human', client.Name)
-			info.RecreateHead(client.CharacterInfo.Head)
-			client.CharacterInfo = info
-			
-			-- get job and job variant
-			local job = DD.clientJob[client]
-			local variant
-			for jobVariant in client.JobPreferences do
-				if tostring(jobVariant.Prefab.Identifier) == job then
-					variant = jobVariant.Variant
+	if DD.respawningState == 'default' then
+		DD.autoJob()
+		DD.autoJobExecutionCount = DD.autoJobExecutionCount + 1
+		
+		for client in Client.ClientList do
+			if DD.isClientRespawnable(client) and client.InGame then
+				-- reset talents (and more) before respawn
+				local info = CharacterInfo('human', client.Name)
+				info.RecreateHead(client.CharacterInfo.Head)
+				client.CharacterInfo = info
+				
+				-- get job and job variant
+				local job = DD.clientJob[client]
+				local variant
+				for jobVariant in client.JobPreferences do
+					if tostring(jobVariant.Prefab.Identifier) == job then
+						variant = jobVariant.Variant
+					end
+				end
+				if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
+				
+				-- spawn character
+				local pos = DD.findRandomWaypointByJob(job).WorldPosition
+				local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
+				character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+				character.UpdateTeam()
+			end
+		end
+	elseif DD.respawningState == 'latejoin' then
+		for client in Client.ClientList do
+			if DD.isClientRespawnable(client) then
+				if (DD.eventDirector.mainEvent ~= nil) and (DD.eventDirector.mainEvent.lateJoinSpawn ~= nil) then
+					-- if statement condition function does something and returns true if it succeeds (function has side-effects and is not pure)
+					if not DD.eventDirector.mainEvent.lateJoinSpawn(client) then
+						DD.messageClient(client, DD.stringLocalize('latejoinMessageNoRespawnCustom'), {preset = 'crit'})
+					end
+				elseif not DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then
+					-- get job and job variant
+					local job = 'mechanic'
+					local variant
+					for jobVariant in client.JobPreferences do
+						if tostring(jobVariant.Prefab.Identifier) == job then
+							variant = jobVariant.Variant
+						end
+					end
+					if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
+					
+					local pos = DD.findRandomWaypointByJob(job).WorldPosition
+					local character = DD.spawnHuman(client, job, pos)
+					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+					character.UpdateTeam()
+				else
+					DD.messageClient(client, DD.stringLocalize('latejoinMessageNoRespawn'), {preset = 'crit'})
 				end
 			end
-			if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
-			
-			-- spawn character
-			local pos = DD.findRandomWaypointByJob(job).WorldPosition
-			local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
-			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
-			character.UpdateTeam()
 		end
 	end
 	

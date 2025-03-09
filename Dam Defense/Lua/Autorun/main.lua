@@ -11,7 +11,7 @@ DD.debugMode = false
 DD.warnings = {}
 
 -- Allow respawing
-DD.allowRespawning = true
+DD.respawningState = 'default'
 
 -- Json
 json = dofile(DD.path .. "/Lua/json.lua")
@@ -66,7 +66,7 @@ local doRoundStartFunctions = function ()
 	end
 end
 DD.roundStartFunctions.main = function ()
-	DD.setAllowRespawning(true)
+	DD.setRespawning('default')
 	
 	if Submarine.MainSub ~= nil then
 		if Game.RoundStarted then
@@ -261,7 +261,11 @@ DD.characterDeathFunctions.main = function (character)
 	-- Do death message to deceased
 	local client = DD.findClientByCharacter(character)
 	if client ~= nil then
-		DD.messageClient(client, DD.stringLocalize('deathMessage'), {preset = 'crit'})
+		Timer.Wait(function ()
+			if (client ~= nil) and not DD.isClientCharacterAlive(client) then
+				DD.messageClient(client, DD.stringLocalize('deathMessage'), {preset = 'crit'})
+			end
+		end, 1000)
 	end
 	
 	-- remove grow/breed timers of dead creature
@@ -282,39 +286,71 @@ local doChatMessageFunctions = function (message, sender)
 end
 -- lists commands
 DD.chatMessageFunctions.help = function (message, sender)
-	if string.sub(message, 1, 1) ~= '/' then return end
+	if (string.sub(message, 1, 1) ~= '/') and (string.sub(message, 1, 1) ~= '!') then return end
 	
-	commands = {'help', 'jobinfo', 'events', 'myevents', 'credits', 'withdraw', 'possess', 'freecam', 'election'}
+	local specialCommands = {'help', 'info', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'gang', 'fire'}
 	
-	local specialCommands = {rebels = false, cultists = false, whisper = false, gang = false, fire = false}
-	for event in DD.eventDirector.getEventInstances('revolution') do
-		specialCommands['rebels'] = true
+	local tbl = {}
+	for command in specialCommands do
+		tbl[command] = false
 	end
-	for event in DD.eventDirector.getEventInstances('bloodCult') do
-		if event.cultistsSet[sender] or (DD.isClientCharacterAlive(sender) and (sender.Character.SpeciesName == 'Humanundead')) then
-			specialCommands['cultists'] = true
-			specialCommands['whisper'] = true
+	specialCommands = tbl
+	
+	specialCommands['help'] = true
+	if Game.RoundStarted then
+		specialCommands['events'] = true
+		if DD.isClientCharacterAlive(sender) then
+			specialCommands['info'] = true
+			if sender.Character.SpeciesName == 'human' then
+				specialCommands['credits'] = true
+				specialCommands['withdraw'] = true
+				if (DD.roundData.electionBlacklistSet == nil) or (not DD.roundData.electionBlacklistSet[sender.AccountId.StringRepresentation]) then
+					specialCommands['election'] = true
+				end
+			else
+				specialCommands['freecam'] = true
+			end
+		else
+			specialCommands['possess'] = true
+		end
+		if (DD.isClientCharacterAlive(sender) and (sender.Character.JobIdentifier == 'captain')) or sender.HasPermission(ClientPermissions.ConsoleCommands) then
+			specialCommands['fire'] = true
+		end
+		-- event related commands
+		if #DD.eventDirector.getEventInstances('revolution') > 0 then
+			specialCommands['rebels'] = true
+		end
+		for event in DD.eventDirector.getEventInstances('bloodCult') do
+			if event.cultistsSet[sender] or (DD.isClientCharacterAlive(sender) and (sender.Character.SpeciesName == 'Humanundead')) then
+				specialCommands['cultists'] = true
+				specialCommands['whisper'] = true
+			end
+		end
+		if #DD.eventDirector.getEventInstances('gangWar') > 0 then
+			specialCommands['gang'] = true
 		end
 	end
-	for event in DD.eventDirector.getEventInstances('gangWar') do
-		specialCommands['gang'] = true
-	end
-	if (DD.isClientCharacterAlive(sender) and (sender.Character.JobIdentifier == 'captain')) or sender.HasPermission(ClientPermissions.ConsoleCommands) then
-		specialCommands['fire'] = true
-	end
-	for specialCommand, value in pairs(specialCommands) do
+	
+	local commands = {}
+	for command, value in pairs(specialCommands) do
 		if value then
-			table.insert(commands, specialCommand)
+			table.insert(commands, command)
 		end
 	end
 	
+	local isValid = true
 	local isMisspell = true
-	for command in commands do
+	for command, value in pairs(specialCommands) do
 		if string.sub(message, 1, #command + 1) == '/' .. command then
 			isMisspell = false
+			isValid = value
 		end
 	end
-	if (not isMisspell) and (message ~= '/help') then
+	if (not isMisspell) and (string.sub(message, 1, 5) ~= '/help') then
+		if not isValid then
+			DD.messageClient(sender, DD.stringLocalize('commandHelpInvalid', {command = message}), {preset = 'commandError'})
+			return true
+		end
 		return
 	end
 	if isMisspell then
@@ -332,14 +368,28 @@ DD.chatMessageFunctions.help = function (message, sender)
 	
 	return true
 end
-DD.chatMessageFunctions.jobinfo = function (message, sender)
-	if message ~= '/jobinfo' then return end
+DD.chatMessageFunctions.jobinfo = function (message, sender, special)
+	if (message ~= '/info') and (not special) then return end
 	if not DD.isClientCharacterAlive(sender) then return end
 	
+	local preset = special and 'crit' or 'command'
+	
 	if sender.Character.SpeciesName == 'human' then
-		DD.messageClient(sender, JobPrefab.Get(sender.Character.JobIdentifier).Description, {preset = 'command'})
+		DD.messageClient(sender, JobPrefab.Get(sender.Character.JobIdentifier).Description, {preset = preset})
 	else
-		DD.messageClient(sender, DD.stringLocalize('commandInfoMonster'), {preset = 'command'})
+		if DD.isCharacterHusk(sender.Character) then
+			DD.messageClient(sender, DD.stringLocalize('huskInfo'), {preset = preset})
+		elseif sender.Character.SpeciesName == 'humanUndead' then
+			local undeadInfo = DD.stringLocalize('undeadInfo')
+			if #DD.eventDirector.getEventInstances('bloodCult') >= 1 then
+				undeadInfo = undeadInfo .. ' ' .. DD.stringLocalize('undeadInfoBloodCult')
+			end
+			DD.messageClient(sender, undeadInfo, {preset = preset})
+		elseif (sender.Character.SpeciesName == 'humanGoblin') or (sender.Character.SpeciesName == 'humanTroll') then
+			DD.messageClient(sender, DD.stringLocalize('greenskinInfo'), {preset = preset})
+		else
+			DD.messageClient(sender, DD.stringLocalize('commandInfoMonster'), {preset = preset})
+		end
 	end
 	
 	return true
@@ -366,6 +416,8 @@ DD.chatMessageFunctions.possess = function (message, sender)
 		local message = DD.stringLocalize('commandPossess')
 		DD.messageClient(sender, message, {preset = 'command'})
 		sender.SetClientCharacter(winner)
+		
+		DD.chatMessageFunctions.jobinfo('', sender, true)
 	else
 		local message = DD.stringLocalize('commandPossessErrorNothingNearby')
 		DD.messageClient(sender, message, {preset = 'command'})
@@ -467,7 +519,17 @@ DD.chatMessageFunctions.fire = function (message, sender)
 		Timer.Wait(function ()
 			if client ~= DD.findClientByCharacter(character) then return end
 			local seed = seed
+			
+			-- get job and job variant
 			local job = 'mechanic'
+			local variant
+			for jobVariant in client.JobPreferences do
+				if tostring(jobVariant.Prefab.Identifier) == job then
+					variant = jobVariant.Variant
+				end
+			end
+			if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
+						
 			local pos = DD.findRandomWaypointByJob(job).WorldPosition
 			local character = DD.spawnHuman(client, job, pos)
 			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
@@ -481,6 +543,10 @@ DD.chatMessageFunctions.fire = function (message, sender)
 end
 DD.chatMessageFunctions.election = function (message, sender)
 	if message ~= '/election' then return end
+	if (not DD.isClientCharacterAlive(sender)) or (sender.Character.SpeciesName ~= 'human') then
+		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorDead'), {preset = 'command'})
+		return true
+	end
 	if #DD.eventDirector.getEventInstances('election') > 0 then
 		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorAlreadyOngoing'), {preset = 'command'})
 		return true
@@ -531,8 +597,7 @@ require 'DD/nature'
 require 'DD/procGen'
 require 'DD/afflictions'
 require 'DD/eventDirector'
-require 'DD/latejoin'
-require 'DD/autoJob'
+require 'DD/spawning'
 require 'DD/money'
 require 'DD/luahooks'
 require 'DD/commands'
@@ -696,7 +761,7 @@ DD.serverSettings = {
 	RespawnMode = 1,
     AllowRewiring = true,
     AllowSpectating = true,
-    AllowSubVoting = false,
+    AllowSubVoting = true,
     BotCount = 0,
     DisableBotConversations = true,
     ExtraCargo = {},
@@ -710,7 +775,7 @@ DD.serverSettings = {
     ModeSelectionMode = 0, --Manual
     MonsterEnabled = {},
     PlayStyle = 2, --Roleplay
-    RespawnInterval = 2 * 60,
+    RespawnInterval = 1.5 * 60,
     ShowEnemyHealthBars = 0,
     UseRespawnShuttle = false,
     SelectedSubmarine = 'DD Olde Towne',

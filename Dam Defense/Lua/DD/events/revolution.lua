@@ -52,11 +52,22 @@ end, {
 		if self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then return end
 		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
 		
+		-- get job and job variant
 		local job = 'mechanic'
+		local variant
+		for jobVariant in client.JobPreferences do
+			if tostring(jobVariant.Prefab.Identifier) == job then
+				variant = jobVariant.Variant
+			end
+		end
+		if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
+		
 		local pos = DD.findRandomWaypointByJob(job).WorldPosition
 		local character = DD.spawnHuman(client, job, pos)
 		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 		character.UpdateTeam()
+		
+		return true
 	end,
 	
 	buildRebelList = function (self, excludeSet, useClientLogName)
@@ -212,7 +223,9 @@ end, {
 			-- Increase time pressure
 			local timeToExplode = 15 * 60 -- in seconds
 			for client in self.parent.rebels do
-				DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
+				if DD.isClientCharacterAlive(client) then
+					DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
+				end
 			end
 			
 			-- See if security is still alive

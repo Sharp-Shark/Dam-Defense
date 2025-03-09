@@ -28,6 +28,9 @@ end, {
 	start = function (self)
 		if DD.debugMode then print('start: ' .. self.name .. self.seed) end
 		
+		-- Reset some values
+		if type(self.lateJoinBlacklistSet) == 'table' then self.lateJoinBlacklistSet = {} end
+		
 		-- Flags
 		self.started = true
 		self.failed = false
@@ -44,6 +47,7 @@ end, {
 				end
 			end
 		end
+		players = math.max(1, players)
 		local alivePercentage = alive / players
 		local deadPercentage = 1 - alivePercentage
 		
@@ -57,7 +61,7 @@ end, {
 			self.fail('limit on instances of this event has been reached')
 			return
 		end
-		if (self.minimunAlivePercentage > alivePercentage) and (self.minimunDeadPercentage > deadPercentage) then
+		if (self.minimunAlivePercentage > alivePercentage) or (self.minimunDeadPercentage > deadPercentage) then
 			self.fail('minimun alive percentage or minimun dead percentage were not met')
 			return
 		end

@@ -31,6 +31,8 @@ end, {
 		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 		character.UpdateTeam()
 		DD.messageClient(client, greenskinInfo, {preset = 'crit'})
+		
+		return true
 	end,
 	
 	updateGreenskinList = function (self)

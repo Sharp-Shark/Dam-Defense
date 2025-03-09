@@ -996,8 +996,12 @@ DD.setLightState = function (item, state)
 end
 
 -- Enables or disables respawning
-DD.setAllowRespawning = function (state)
-	DD.expectTypes('setAllowRespawning', {state}, {'boolean'})
-	Game.OverrideRespawnSub(not state)
-	DD.allowRespawning = state
+DD.setRespawning = function (state)
+	DD.expectTypes('setRespawning', {state}, {'string'})
+	if string.sub(state, #state - 7, #state) == 'disabled' then
+		Game.OverrideRespawnSub(true)
+	else
+		Game.OverrideRespawnSub(false)
+	end
+	DD.respawningState = state
 end

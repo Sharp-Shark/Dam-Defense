@@ -58,6 +58,8 @@ end, {
 		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 		character.UpdateTeam()
 		DD.messageClient(client, undeadInfo, {preset = 'crit'})
+		
+		return true
 	end,
 	
 	onStart = function (self)
@@ -227,7 +229,7 @@ end, {
 			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 		end
 		if self.killerWon then
-			DD.messageAllClients('serialKillerEndVictory', {preset = 'crit'})
+			DD.messageAllClients(DD.stringLocalize('serialKillerEndVictory'), {preset = 'crit'})
 			DD.roundData.roundEnding = true
 			Timer.Wait(function ()
 				Game.EndGame()

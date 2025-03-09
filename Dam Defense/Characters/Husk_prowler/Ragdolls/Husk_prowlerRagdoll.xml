@@ -12,9 +12,9 @@
 		<Affliction identifier="huskgreed" strength="9999" />
       </StatusEffect>
       <Affliction identifier="bitewounds" strength="16" />
-      <Affliction identifier="bleeding" strength="12" />
+      <Affliction identifier="bleeding" strength="10" />
       <Affliction identifier="huskinfection" strength="5" />
-      <Affliction identifier="huskstun" strength="15" />
+      <Affliction identifier="huskstun" strength="20" />
       <Affliction identifier="stun" strength="0.5" />
     </attack>
   </limb>

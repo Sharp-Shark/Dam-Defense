@@ -14,7 +14,7 @@ end, {
 	cooldown = 60 * 3,
 	weight = 0.5,
 	goodness = -2.0,
-	minimunDeadPercentage  = 0.6,
+	minimunDeadPercentage  = 0.4,
 	
 	lateJoinBlacklistSet = {},
 	lateJoinSpawn = function (self, client)
@@ -29,6 +29,8 @@ end, {
 		
 		table.insert(self.nukies, client)
 		self.nukiesSet[client] = true
+		
+		return true
 	end,
 	
 	onStart = function (self)
@@ -59,17 +61,18 @@ end, {
 			return
 		else
 			-- Spawn nukies and do client messages
-			for client in self.nukies do
-				local job = 'mercsevil'
-				local pos = DD.findRandomWaypointByJob(job).WorldPosition
-				local character = DD.spawnHuman(client, job, pos)
-				character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
-				character.UpdateTeam()
+			for client in Client.ClientList do
+				if self.nukiesSet[client] then
+					local job = 'mercsevil'
+					local pos = DD.findRandomWaypointByJob(job).WorldPosition
+					local character = DD.spawnHuman(client, job, pos)
+					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+					character.UpdateTeam()
+					DD.messageClient(client, DD.stringLocalize('deathSquadMessageNukies'), {preset = 'crit'})
+				else
+					DD.messageClient(client, DD.stringLocalize('deathSquadMessagePublic'), {preset = 'crit'})
+				end
 			end
-			-- Messages
-			local otherClients = DD.setSubtract(DD.toSet(Client.ClientList), self.nukiesSet)
-			DD.messageClients(DD.tableKeys(otherClients), DD.stringLocalize('deathSquadMessage'), {preset = 'crit'})
-			-- Mobile Task Force Unit Epsilon-11, designated Nine Tailed Fox has entered the facility. All remaining survivors are advised to stay in the evacuation shelter or any other safe area until the unit has secured has secured the facility. We’ll start escorting personnel out when the SCPs have been recontained.
 			for character in Character.CharacterList do
 				DD.giveAfflictionCharacter(character, 'announcementfx', 999)
 			end

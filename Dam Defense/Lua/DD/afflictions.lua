@@ -15,7 +15,7 @@ DD.diseaseData = {
 	bacterial = {displayName = 'Bacterial', immune = 2, immuneVisibility = 1, immuneVisibleStrength = 50, spreadChance = 0.1, necrotic = true},
 	tb = {displayName = 'Tuberculosis', immune = 1, immuneVisibility = 1, immuneVisibleStrength = 50, spreadChance = 0.2, necrotic = true},
 	anthrax = {displayName = 'Anthrax', immune = 0, immuneVisibility = 2, immuneVisibleStrength = 50, spreadChance = 0.1, necrotic = true, spreadToCorpses = true},
-	husk = {displayName = 'Velonaceps Calyx', immune = 0, immuneVisibility = 0.5, immuneVisibleStrength = 35, spreadChance = 0.1, necrotic = true, item = 'huskeggs'},
+	husk = {displayName = 'Velonaceps Calyx', immune = 0, immuneVisibility = 4, immuneVisibleStrength = 25, spreadChance = 0.1, necrotic = true, item = 'huskeggs'},
 }
 local getDiseaseStat = function (diseaseName, statName)
 	local stat = DD.diseaseData[diseaseName][statName]
@@ -36,17 +36,22 @@ end
 local spreadInfections = function(character, ignoreSpreaderAirborneProtection)
 	if (character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) >= 1) and not ignoreSpreaderAirborneProtection then return end
 	
-	local spreadDiseaseToCharacter = function (toCharacter, fromCharacter, diseaseName, chance)
-		-- chance to give disease
-		local chance = chance
-		if fromCharacter.IsDead then chance = chance / 2 end
+	local spreadDiseaseToCharacter = function (toCharacter, fromCharacter, diseaseName)
 		-- Get fromCharacter infection amount
 		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
-		amount = math.random() * math.min(getDiseaseStat(diseaseName, 'immuneVisibleStrength'), amount)
+		if DD.isCharacterHusk(fromCharacter) and (diseaseName == 'husk') then
+			amount = 100
+		end
+		if amount <= 0 then return end
+		if fromCharacter.IsDead and (amount <= getDiseaseStat(diseaseName, 'immuneVisibleStrength')) then return end
 		-- If toCharacter is already infected, do not infect
 		local infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
+		-- chance to give disease
+		local chance = getDiseaseStat(diseaseName, 'spreadChance')
+		if fromCharacter.IsDead then chance = chance / 2 end
+		-- randomize amount of disease given
+		amount = math.random() * math.min(getDiseaseStat(diseaseName, 'immuneVisibleStrength'), amount)
 		-- Spread
-		if fromCharacter.IsDead and (fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) <= getDiseaseStat(diseaseName, 'immuneVisibleStrength')) then return end
 		if (infection <= 0) and (math.random() <= chance) and (amount > 0) then
 			DD.giveAfflictionCharacter(toCharacter, diseaseName .. 'infection', amount)
 		end
@@ -64,10 +69,7 @@ local spreadInfections = function(character, ignoreSpreaderAirborneProtection)
 		if (other ~= character) and isOtherUsingHullOxygen and isOtherInDistance then
 			for diseaseName, data in pairs(DD.diseaseData) do
 				if ((not character.IsDead) or getDiseaseStat(diseaseName, 'necrotic')) and ((not other.IsDead) or getDiseaseStat(diseaseName, 'spreadToCorpses')) then
-					local chance = getDiseaseStat(diseaseName, 'spreadChance')
-					if character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) > 0 then
-						spreadDiseaseToCharacter(other, character, diseaseName, chance)
-					end
+					spreadDiseaseToCharacter(other, character, diseaseName)
 				end
 			end
 		end
@@ -231,7 +233,7 @@ DD.thinkFunctions.afflictions = function ()
 						DD.giveAfflictionCharacter(character, diseaseName .. 'infection', 1/60)
 					end
 				end
-			else
+			elseif (not DD.isCharacterHusk(character)) and (not character.IsHumanoid) then
 				DD.giveAfflictionCharacter(character, 'anthraxinfection', 1/60)
 			end
 			
@@ -273,7 +275,7 @@ DD.thinkFunctions.afflictions = function ()
 			else
 				-- spread corpse infections
 				if corpseSpreadCooldown[character] == nil then
-					corpseSpreadCooldown[character] = 60 * 90
+					corpseSpreadCooldown[character] = 60 * 60 * 1.5
 				elseif corpseSpreadCooldown[character] > 0 then
 					corpseSpreadCooldown[character] = corpseSpreadCooldown[character] - 1
 				else

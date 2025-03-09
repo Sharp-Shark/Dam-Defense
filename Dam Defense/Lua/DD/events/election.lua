@@ -106,7 +106,17 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 					Timer.Wait(function ()
 						if client ~= DD.findClientByCharacter(character) then return end
 						local seed = seed
+						
+						-- get job and job variant
 						local job = 'mechanic'
+						local variant
+						for jobVariant in client.JobPreferences do
+							if tostring(jobVariant.Prefab.Identifier) == job then
+								variant = jobVariant.Variant
+							end
+						end
+						if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
+						
 						local pos = DD.findRandomWaypointByJob(job).WorldPosition
 						local character = DD.spawnHuman(client, job, pos)
 						character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
@@ -122,7 +132,17 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 					Timer.Wait(function ()
 						if client ~= DD.findClientByCharacter(character) then return end
 						local seed = seed
+						
+						-- get job and job variant
 						local job = 'captain'
+						local variant
+						for jobVariant in client.JobPreferences do
+							if tostring(jobVariant.Prefab.Identifier) == job then
+								variant = jobVariant.Variant
+							end
+						end
+						if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
+						
 						local pos = DD.findRandomWaypointByJob(job).WorldPosition
 						local character = DD.spawnHuman(client, job, pos)
 						character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)

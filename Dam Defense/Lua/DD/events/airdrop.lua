@@ -43,7 +43,7 @@ end, {
 		else
 			position = spawnPosition
 		end
-		local amount = math.random(maxAmount - minAmount) + minAmount
+		local amount = math.random(minAmount, maxAmount)
 		if maxAmount <= 0 then amount = 0 end
 		
 		-- Spawn crate at airdrop pos and fill it with items
@@ -151,62 +151,11 @@ DD.eventAirdropSecurity = DD.class(DD.eventAirdrop, nil, {
 	message = DD.stringLocalize('airdropSecurityMessage'),
 })
 
--- Separatist airdrop with guns
-DD.eventAirdropSeparatist = DD.class(DD.eventAirdrop, nil, {
-	name = 'airdropSeparatist',
-	isMainEvent = false,
-	cooldown = 60 * 2,
-	weight = 1,
-	goodness = -0.5,
-	public = false,
-	
-	spawnPosition = 'dd_airdropseparatist',
-	crateIdentifier = 'explosivecrate',
-	items = {
-		{identifier = 'clownmask', amount = '1'},
-		{identifier = 'piratebodyarmor', amount = '1'},
-		{identifier = 'smg', amount = '1', script = function (spawnedItem) Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smgmagazine'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end},
-		{identifier = 'antiquerevolver', amount = '1', script = function (spawnedItem) for x = 1, 6 do Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcannonround'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end end},
-		{identifier = 'smgmagazine', amount = '2'},
-		{identifier = 'fraggrenade', amount = '1'},
-		{identifier = 'fakemoney', amount = '10'}
-	},
-	minAmount = 8,
-	maxAmount = 12,
-	message = DD.stringLocalize('airdropAntagMessage'),
-})
-
--- Cultist airdrop with guns
-DD.eventAirdropCultist = DD.class(DD.eventAirdrop, nil, {
-	name = 'airdropCultist',
-	isMainEvent = false,
-	cooldown = 60 * 2,
-	weight = 1,
-	goodness = -0.5,
-	public = false,
-	
-	spawnPosition = 'dd_airdropseparatist',
-	crateIdentifier = 'explosivecrate',
-	items = {
-		{identifier = 'bloodcultistrobes', amount = '1', script = function (spawnedItem)
-			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('sacrificialdagger'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end)
-			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('the1998'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end)
-		end},
-		{identifier = 'tommygun', amount = '1', script = function (spawnedItem)
-			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('pistoldrum'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end)
-		end},
-		{identifier = 'fakemoney', amount = '10'}
-	},
-	minAmount = 3,
-	maxAmount = 6,
-	message = DD.stringLocalize('airdropAntagMessage'),
-})
-
 -- Artifact airdrop
 DD.eventAirdropArtifact = DD.class(DD.eventAirdrop, nil, {
 	name = 'airdropArtifact',
 	isMainEvent = false,
-	cooldown = 60 * 3,
+	cooldown = 60 * 2,
 	weight = 2,
 	goodness = 0.5,
 	

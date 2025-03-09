@@ -41,9 +41,9 @@ DD.eventAfflictionFlu = DD.class(DD.eventAffliction, nil, {
 	weight = 0.4,
 	goodness = -0.5,
 	
-	identifier = 'fluhidden',
-	minamount = 5,
-	maxamount = 50,
+	identifier = 'fluinfection',
+	minamount = 1,
+	maxamount = 10,
 	ratio = 1/5
 })
 
@@ -55,9 +55,9 @@ DD.eventAfflictionTB = DD.class(DD.eventAffliction, nil, {
 	weight = 0.3,
 	goodness = -1.5,
 	
-	identifier = 'tbhidden',
-	minamount = 5,
-	maxamount = 50,
+	identifier = 'tbinfection',
+	minamount = 1,
+	maxamount = 10,
 	ratio = 1/5
 })
 

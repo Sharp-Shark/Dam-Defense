@@ -4,8 +4,9 @@ return {
 	deathMessage = 'You have died! You can type /possess in chat to control a creature. Do /freecam to go back to spectating. If you want a full list of commands, do /help in chat.',
 	matchHasGoneOnForTooLong = 'The match has gone on for too long and respawning has been automatically disabled.',
 	allTheCrewIsDead = 'All of the crew is dead! Round ending in 10 seconds.',
-	commandHelp = 'List of chat commands:\n{list}.',
+	commandHelp = 'List of chat commands:\n{list}',
 	commandHelpMisspell = '"{command}" is not a valid chat command. Do "/help" for a list of chat commands.',
+	commandHelpInvalid = '"{command}" is a valid chat command, but it is unusable by you in the current context. Do "/help" for a list of chat commands.',
 	commandInfoMonster = 'You are a monster and your objective is to antagonize the humans.',
 	commandPossessErrorDead = 'You have to be dead to use this command.',
 	commandPossessErrorNothingNearby = 'No nearby character fit to be possessed was found.',
@@ -16,22 +17,21 @@ return {
 	commandFireAdmin = 'Nexpharma (TM) has decided to fire {name} from the security force!',
 	commandFireError = 'You can fire someone using their security ID number.',
 	commandFireErrorClientNotFound = 'No member of security named {name} was found. You can fire someone using their security ID number.',
+	commandElectionErrorDead = 'Cannot start an election without being a living citizen.',
 	commandElectionErrorAlreadyOngoing = 'Cannot start an election because one is already ongoing.',
 	commandElectionErrorMainEvent = 'Cannot start an election because a main event is ongoing.',
 	commandElectionErrorLimitReached = 'Limit reached! You cannot start more than one election per round.',
 	commandElectionErrorNoCaptain = 'Cannot start an election because there is no captain.',
 	commandElectionErrorNoSecurity = 'Cannot start an election because there is no security member aside from the captain.',
 	huskInfo = 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate.',
-	undeadInfo = 'You have become an undead! Try and help the blood cult by killing nonbelievers and following cultists. You can hold ragdoll to regenerate.',
+	undeadInfo = 'You have become an undead! Try and help the antagonist(s). You can do a creature attack and use anything you are holding. You can hold ragdoll to regenerate.',
+	undeadInfoBloodCult = 'Do /cultists to get a list of fellow worshippers and /whisper to message them all.',
 	-- eventDirector.lua
 	commandEventsNone = 'none (there are no public events)',
-	commandEvents = 'The public list of events currently is: {list}.',
-	commandMyEventsNone = 'none (you are in no events)',
-	commandMyEvents = 'The events you are currently in are: {list}.',
+	commandEvents = 'The list of events currently is:\n{list}',
 	-- latejoin.lua
-	lateJoinMessage = 'Regular respawning is currently disabled, however you and anyone who just joined will be spawned in as a laborer within {timer}.',
-	lateJoinMessageCustom = 'Regular respawning is currently disabled due to a main event. Instead you will have a custom event-specific respawn within {timer}.',
-	lateJoinAnnounceTimer = 'Irregular respawn will occur within {timer}.',
+	latejoinMessageNoRespawn = 'Late join respawning is temporarily enabled because of a main event. You will not respawn because you were alive when the event started. When the event ends, respawning will return to regular.',
+	latejoinMessageNoRespawnCustom = 'Custom respawning is temporarily enabled because of a main event. You will not be respawned again by the event. When the event ends, respawning will return to regular.',
 	-- money.lua
 	giveMoneyToClient = 'You have received {amount} Nexcredits (TM).',
 	commandCreditsError = 'You have no Nexaccount (TM).',
@@ -88,7 +88,8 @@ return {
 	bloodCultEnd = 'The local blood cult chapter has been eliminated.',
 	commandCultists = 'The cultists are: {cultistList}.',
 	-- events/deathSquad.lua
-	deathSquadMessage = 'A Mobile Emergency Rescue and Combat Squadder has been sent to assist security in restoring order to the dam.',
+	deathSquadMessageNukies = 'You are a MERCS Death Squadder! Work with your squadmates to explode the reactor and win the round.',
+	deathSquadMessagePublic = 'A Mobile Emergency Rescue and Combat Squadder has been sent to assist security in restoring order to the dam.',
 	deathSquadEndVictory = 'MERCS Death Squadders have won this round! Round ending in 10 seconds.',
 	deathSquadEnd = 'All MERCS Death Squadders have been neutralized.',
 	-- events/election.lua
@@ -127,10 +128,10 @@ return {
 	murderMessageMurdererArrested = 'You hear voices in your head... aggressive yet disappointed voices berrating you for your failure. You do not need to murder {victimName} anymore.',
 	murderMessageMurdererUnrelatedDeath = 'You hear voices in your head... aggressive yet disappointed voices berrating you for your failure. Although {victimName} died, it was not by your hand.',
 	-- events/nukies.lua
-	deathSquadMessageNukies = 'You are a nukie! Work with your fellow nukies to explode the reactor and win the round.',
-	deathSquadMessagePublic = 'Intel reports nukie activity on the area. Keep the crew, and most importantly the reactor safe from them!',
-	deathSquadEndVictory = 'Nukies have won this round! Round ending in 10 seconds.',
-	deathSquadEnd = 'All nukies have been neutralized.',
+	nukiesMessageNukies = 'You are a nukie! Work with your fellow nukies to explode the reactor and win the round.',
+	nukiesMessagePublic = 'Intel reports nukie activity on the area. Keep the crew, and most importantly the reactor safe from them!',
+	nukiesEndVictory = 'Nukies have won this round! Round ending in 10 seconds.',
+	nukiesEnd = 'All nukies have been neutralized.',
 	-- events/revolution.lua
 	revolutionMessageSecret = 'You are a rebel leader! Your objective is to kill the captain and security. You have {timer} until people become aware of the revolution, so start preparing now. Try to enlist non-security personnel to your cause.{rebelList} Do /rebels to get info pertinent to this event.',
 	revolutionMessageRebels = 'Everyone, including security, has heard rumours about your conspiracy and are now aware of the revolution. The cat is out of the bag, so be careful! They do not know who the rebels are yet, but the list of rebels will be public in {timer}. Do /rebels to get info pertinent to this event.',
@@ -161,6 +162,8 @@ return {
 	bodyguardDead = 'You have died and are not a body guard anymore!',
 	antagDead = 'You have died and are not an antagonist anymore!',
 	antagArrested = 'You have died and are not an antagonist anymore!',
+	secret = 'secret',
+	target = 'target',
 	empty = 'empty',
 	
 	-- wiki
@@ -208,7 +211,7 @@ return {
 	wikiText_greenskinsEvent = 'A main event where all dead players respawn as Goblins and Trolls in the sewers of the town. Note that this event does not have an associated announcement to go with it and it can very easily catch you by surprise. Always be wary for sightings of goblins.\nBoth Goblins and Trolls appear as green hairless humanoids wearing green clown masks. They are immune to all forms of stun, move swiftly in water, explode upon death, and can also put masks on both living and dead humans to instantly convert them into a greenskin. Goblins are weaker and smaller than humans, but are faster than them, making them effective hit and run fighters when they have stun capability. Trolls, however are slower, tankier and dumber, being unable to use any items, but to compensate have a very powerful melee attack.\nGreenskins spawn with midazolam, methamphetamine, a few goblin masks, and eight (8) goblin crates. Goblins and Trolls can drop goblin crates on the ground to both hide inside of and also heal themselves of regular damage. Midazolam instantly heals and stuns, for more information view its wiki page.',
 	-- wiki side events
 	wikiName_airdropEvent = 'Airdrop Event',
-	wikiText_airdropEvent = 'This is a side event where a box of supplies is dropped onto one of three buildings, either the Prison, Hospital, or Factory. The contents of the supplies will change depending on where the box was dropped. For example the Prison airdrop will contain ammunition.\nSome airdrop events can only occur in tandem with main events, like the illicit airdrops that happen over the Slums at the start of the Blood Cult and Revolution events. Important: currently these event related airdrops have been disabled to avoid giving the secrecy of those events away. This may be reverted at a later date if a solution is found.\nThere is yet another different kind of airdrop event: the artifact airdrop event, where a dangerous alien artifact will fall on a random place in the map. Adventurous players can try to deconstruct these artifact for rare otherwise unobtainable alien materials, which can be used to craft powerful experimental equipment, medicine and weapons.',
+	wikiText_airdropEvent = 'This is a side event where a box of supplies is dropped onto one of three buildings, either the Prison, Hospital, or Factory. The contents of the supplies will change depending on where the box was dropped. For example the Prison airdrop will contain ammunition.\nThere is yet another different kind of airdrop event: the artifact airdrop event, where a dangerous alien artifact will fall on a random place in the map. Adventurous players can try to deconstruct these artifact for rare otherwise unobtainable alien materials, which can be used to craft powerful experimental equipment, medicine and weapons.',
 	wikiName_fishEvent = 'Fish Event',
 	wikiText_fishEvent = 'This is a side event that can spawn a variety of monsters either in the dam basin or in the sewers under the town. Monsters will always be of the same type for each individual event, and can either be: Crawler Hatchlings, Mudraptor Hatchlings, Tiger Thresher Hatchlings, Spitroach hatchlings, or most rare, Husks.\nMost creatures have growth stages, where over time they grow in size from hatchlings to larger varieties and, when mature, lay eggs which will spawn more hatchlings. For this reason it is recommended to deal with monsters as early as you can. Mudraptors in particular can be dangerous if enough of them evolve to Veteran Mudraptors.',
 	wikiName_murderEvent = 'Murder Event',

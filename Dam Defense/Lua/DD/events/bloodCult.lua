@@ -44,13 +44,15 @@ end, {
 		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
 		
 		local speciesName = 'humanUndead'
-		local undeadInfo = DD.stringLocalize('undeadInfo')
+		local undeadInfo = DD.stringLocalize('undeadInfo') .. ' ' .. DD.stringLocalize('undeadInfoBloodCult')
 		local job = 'undeadjob'
 		local pos = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
 		local character = DD.spawnHuman(client, job, pos, nil, nil, speciesName)
 		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 		character.UpdateTeam()
 		DD.messageClient(client, undeadInfo, {preset = 'crit'})
+		
+		return true
 	end,
 	
 	buildCultistList = function (self, excludeSet, useClientLogName)
@@ -94,7 +96,7 @@ end, {
 		end
 		local title = self.cultistTitles[sender]
 		for client in Client.ClientList do
-			if self.cultistsSet[client] then
+			if self.cultistsSet[client] or (DD.isClientCharacterAlive(client) and client.Character.SpeciesName == 'humanUndead') then
 				DD.messageClient(client, message, {sender = sender.Name .. title, sendMain = false, sendAnother = true, color = Color(255, 55, 55)})
 			end
 		end
@@ -206,7 +208,7 @@ end, {
 	
 	onChatMessage = function (self, message, sender)
 		if (string.sub(message, 1, 8) ~= '/whisper') and (message ~= '/cultists') then return end
-		if not self.cultistsSet[sender] then return end
+		if (not self.cultistsSet[sender]) and not (DD.isClientCharacterAlive(sender) and sender.Character.SpeciesName == 'humanUndead') then return end
 		
 		if message == '/cultists' then
 			-- Build cultist list

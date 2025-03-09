@@ -3063,8 +3063,6 @@
         <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="3000" />
         <Explosion range="300.0" ballastfloradamage="60" structuredamage="90" itemdamage="300" force="8" severlimbsprobability="0.3" debris="true" decal="explosion" decalsize="0.3">
           <Affliction identifier="explosiondamage" strength="75" dividebylimbcount="true"/>
-          <Affliction identifier="burn" strength="10" probability="0.2" dividebylimbcount="false"/>
-          <Affliction identifier="bleeding" strength="20" probability="0.05" dividebylimbcount="false"/>
           <Affliction identifier="stun" strength="5" />
         </Explosion>
       </StatusEffect>
@@ -3106,8 +3104,6 @@
         <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="3000" />
         <Explosion range="300.0" ballastfloradamage="60" structuredamage="90" itemdamage="300" force="8" severlimbsprobability="0.3" debris="true" decal="explosion" decalsize="0.3">
           <Affliction identifier="explosiondamage" strength="75" dividebylimbcount="true"/>
-          <Affliction identifier="burn" strength="10" probability="0.2" dividebylimbcount="false"/>
-          <Affliction identifier="bleeding" strength="20" probability="0.05" dividebylimbcount="false"/>
           <Affliction identifier="stun" strength="5" />
           <Affliction identifier="burning" strength="200" />
         </Explosion>
@@ -3124,7 +3120,6 @@
           <Affliction identifier="stun" strength="0.5" />
           <Affliction identifier="burning" strength="200" />
         </Explosion>
-        <Fire />
       </StatusEffect>
       <StatusEffect type="Always" target="This">
         <Conditional hastag="neq artifactcontainer" targetcontainer="true" />
@@ -3185,8 +3180,6 @@
         <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="3000" />
         <Explosion range="300.0" ballastfloradamage="60" structuredamage="90" itemdamage="300" force="8" severlimbsprobability="0.3" debris="true" decal="explosion" decalsize="0.3">
           <Affliction identifier="explosiondamage" strength="75" dividebylimbcount="true"/>
-          <Affliction identifier="burn" strength="10" probability="0.2" dividebylimbcount="false"/>
-          <Affliction identifier="bleeding" strength="20" probability="0.05" dividebylimbcount="false"/>
           <Affliction identifier="stun" strength="5" />
           <Affliction identifier="electricshock" strength="89" />
         </Explosion>
@@ -3256,8 +3249,6 @@
         <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="3000" />
         <Explosion range="300.0" ballastfloradamage="60" structuredamage="90" itemdamage="300" force="8" severlimbsprobability="0.3" debris="true" decal="explosion" decalsize="0.3">
           <Affliction identifier="explosiondamage" strength="75" dividebylimbcount="true"/>
-          <Affliction identifier="burn" strength="10" probability="0.2" dividebylimbcount="false"/>
-          <Affliction identifier="bleeding" strength="20" probability="0.05" dividebylimbcount="false"/>
           <Affliction identifier="stun" strength="5" />
         </Explosion>
       </StatusEffect>
@@ -3304,8 +3295,6 @@
         <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="3000" />
         <Explosion range="300.0" ballastfloradamage="60" structuredamage="90" itemdamage="300" force="8" severlimbsprobability="0.3" debris="true" decal="explosion" decalsize="0.3">
           <Affliction identifier="explosiondamage" strength="75" dividebylimbcount="true"/>
-          <Affliction identifier="burn" strength="10" probability="0.2" dividebylimbcount="false"/>
-          <Affliction identifier="bleeding" strength="20" probability="0.05" dividebylimbcount="false"/>
           <Affliction identifier="stun" strength="5" />
           <Affliction identifier="psychosis" strength="200" />
         </Explosion>

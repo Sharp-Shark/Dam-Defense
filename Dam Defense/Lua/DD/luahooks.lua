@@ -602,16 +602,10 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 		end
 	end
 	
-	-- return
-	if character.SpeciesName == 'humanundead' then
-		DD.messageClient(client, DD.stringLocalize('undeadInfo'))
-		return
-	end
-	
 	-- pop-up
 	local client = DD.findClientByCharacter(character)
 	if client == nil then return end
-	DD.messageClient(client, DD.stringLocalize('bloodCultCultistInfo'), {preset = 'crit'})
+	if character.SpeciesName ~= 'humanundead' then DD.messageClient(client, DD.stringLocalize('bloodCultCultistInfo'), {preset = 'crit'}) end
 
 	-- notify other cultists
 	for otherClient in Client.ClientList do
@@ -667,6 +661,15 @@ DD.characterDeathFunctions.cultistDeath = function (character)
 	end
 	
 	local newCharacter = DD.spawnHuman(client, 'undeadjob', character.WorldPosition, character.Name, nil, 'humanUndead')
+	
+	-- message
+	if client ~= nil then
+		local undeadInfo = DD.stringLocalize('undeadInfo')
+		if #DD.eventDirector.getEventInstances('bloodCult') >= 1 then
+			undeadInfo = undeadInfo .. ' ' .. DD.stringLocalize('undeadInfoBloodCult')
+		end
+		DD.messageClient(client, undeadInfo, {preset = 'crit'})
+	end
 	
     -- Spawn a duffel bag at the player's feet to put the dropped items inside
 	local duffelbag

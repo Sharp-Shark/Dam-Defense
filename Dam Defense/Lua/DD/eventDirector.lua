@@ -330,7 +330,7 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 		if (value.tbl.isMainEvent == isMainEvent) or (value.tbl.isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
 			weights[key] = math.max(0, value.tbl.weight - value.tbl.weight * value.tbl.goodness * DD.eventDirector.goodness)
 		end
-		if (value.tbl.minimunAlivePercentage > alivePercentage) and (value.tbl.minimunDeadPercentage > deadPercentage) then
+		if (value.tbl.minimunAlivePercentage > alivePercentage) or (value.tbl.minimunDeadPercentage > deadPercentage) then
 			weights[key] = 0
 		end
 	end
@@ -357,9 +357,25 @@ end
 DD.thinkFunctions.eventDirector = function ()
 	-- Respawning is disabled if there are ongoing main events
 	if ((#DD.eventDirector.getMainEvents() > 0) and DD.eventDirector.mainEventsDisableRespawning) then
-		DD.setAllowRespawning(false)
+		local canAnyoneRespawn = false
+		for client in Client.ClientList do
+			if DD.isClientRespawnable(client) then
+				if (DD.eventDirector.mainEvent ~= nil) and (DD.eventDirector.mainEvent.lateJoinSpawn ~= nil) then
+					if (DD.eventDirector.mainEvent.lateJoinBlacklistSet == nil) or not DD.eventDirector.mainEvent.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then
+						canAnyoneRespawn = true
+					end
+				elseif not DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then
+					canAnyoneRespawn = true
+				end
+			end
+		end
+		if canAnyoneRespawn then
+			DD.setRespawning('latejoin')
+		else
+			DD.setRespawning('latejoin-disabled')
+		end
 	else
-		DD.setAllowRespawning(true)
+		DD.setRespawning('default')
 	end
 	
 	if (DD.eventDirector.mainEvent ~= nil) and DD.eventDirector.mainEvent.finished then
@@ -399,38 +415,31 @@ end
 DD.chatMessageFunctions.events = function (message, sender)
 	if message ~= '/events' then return end
 	
+	local clientEventsSet = DD.toSet(DD.eventDirector.getClientEvents(sender))
+	
 	local list = ''
 	for event in DD.eventDirector.events do
 		if event.public then
-			list = list .. event.name .. ', '
+			if ((event.name == 'arrest') or (event.name == 'arrest1984')) and (event.isTargetKnown or (event.target == sender)) then
+				list = list .. ' - ' .. event.name .. DD.stringReplace(' ({target} is {targetName})', {target = DD.stringLocalize('target'), targetName = DD.clientLogName(event.target)}) .. '\n'
+			else
+				list = list .. ' - ' ..  event.name .. '\n'
+			end
+		elseif clientEventsSet[event] then
+			if (event.name == 'murder') and (event.murderer == sender) then
+				list = list .. ' - ' .. event.name .. DD.stringReplace(' ({secret}) ({target} is {victimName})', {secret = DD.stringLocalize('secret'), target = DD.stringLocalize('target'), victimName = DD.clientLogName(event.victim)}) .. '\n'
+			else
+				list = list .. ' - ' .. event.name .. ' (' .. DD.stringLocalize('secret') .. ')' .. '\n'
+			end
 		end
 	end
-	list = string.sub(list, 1, #list - 2)
+	list = string.sub(list, 1, #list - 1)
 	
 	if list == '' then
 		list = DD.stringLocalize('commandEventsNone')
 	end
 	
 	DD.messageClient(sender, DD.stringLocalize('commandEvents', {list = list}), {preset = 'command'})
-	
-	return true
-end
-
--- Lists to the message sender the events they're a participant of
-DD.chatMessageFunctions.myEvents = function (message, sender)
-	if message ~= '/myevents' then return end
-	
-	local list = ''
-	for event in DD.eventDirector.getClientEvents(sender) do
-		list = list .. event.name .. ', '
-	end
-	list = string.sub(list, 1, #list - 2)
-	
-	if list == '' then
-		list = DD.stringLocalize('commandMyEventsNone')
-	end
-	
-	DD.messageClient(sender, DD.stringLocalize('commandMyEvents', {list = list}), {preset = 'command'})
 	
 	return true
 end

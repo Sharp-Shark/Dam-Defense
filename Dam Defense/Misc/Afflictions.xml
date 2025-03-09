@@ -405,7 +405,7 @@
     activationthreshold="0"
     showiconthreshold="65"
     showicontoothersthreshold="65"
-    showinhealthscannerthreshold="35"
+    showinhealthscannerthreshold="1"
     karmachangeonapplied="-1"
     maxstrength="100"
     transferbuffs="true"
@@ -667,9 +667,9 @@
     treatmentthreshold="90"
     iconcolors="114,114,114,255;114,193,193,255"
     MedicalSkillGain="0.005">
-    <Effect minstrength="0" maxstrength="45" minfacetint="255,0,0,0" maxfacetint="255,0,0,50" />
-    <Effect minstrength="45" maxstrength="99" minspeedmultiplier="1" maxspeedmultiplier="0.8" minfacetint="255,0,0,50" maxfacetint="255,0,0,100" />
-    <Effect minstrength="99" maxstrength="100" minspeedmultiplier="0.8" maxspeedmultiplier="0.0" minfacetint="255,0,0,100" maxfacetint="255,0,0,150" >
+    <Effect minstrength="0" maxstrength="45" minfacetint="255,0,0,0" maxfacetint="255,0,0,100" />
+    <Effect minstrength="45" maxstrength="99" minspeedmultiplier="1" maxspeedmultiplier="0.8" minfacetint="255,0,0,100" maxfacetint="255,0,0,200" />
+    <Effect minstrength="99" maxstrength="100" minspeedmultiplier="0.8" maxspeedmultiplier="0.0" minfacetint="255,0,0,200" maxfacetint="255,0,0,200" >
       <StatusEffect target="Character" >
 	    <Conditional stun="lt 1" />
         <Affliction identifier="stun" strength="1"/>

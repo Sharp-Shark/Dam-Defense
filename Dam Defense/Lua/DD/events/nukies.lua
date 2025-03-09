@@ -13,7 +13,7 @@ end, {
 	cooldown = 60 * 2,
 	weight = 3,
 	goodness = -1.5,
-	minimunDeadPercentage  = 0.4,
+	minimunDeadPercentage  = 0.2,
 	
 	lateJoinBlacklistSet = {},
 	lateJoinSpawn = function (self, client)
@@ -28,6 +28,8 @@ end, {
 		
 		table.insert(self.nukies, client)
 		self.nukiesSet[client] = true
+		
+		return true
 	end,
 	
 	onStart = function (self)
@@ -65,9 +67,9 @@ end, {
 					local character = DD.spawnHuman(client, job, pos)
 					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 					character.UpdateTeam()
-					DD.messageClient(client, DD.stringLocalize('deathSquadMessageNukies'), {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('nukiesMessageNukies'), {preset = 'crit'})
 				else
-					DD.messageClient(client, DD.stringLocalize('deathSquadMessagePublic'), {preset = 'crit'})
+					DD.messageClient(client, DD.stringLocalize('nukiesMessagePublic'), {preset = 'crit'})
 				end
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
@@ -157,13 +159,13 @@ end, {
 			end
 		end
 		if self.nukiesWon then
-			DD.messageAllClients(DD.stringLocalize('deathSquadEndVictory'), {preset = 'crit'})
+			DD.messageAllClients(DD.stringLocalize('nukiesEndVictory'), {preset = 'crit'})
 			DD.roundData.roundEnding = true
 			Timer.Wait(function ()
 				Game.EndGame()
 			end, 10 * 1000)
 		else
-			DD.messageAllClients(DD.stringLocalize('deathSquadEnd'), {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('nukiesEnd'), {preset = 'goodinfo'})
 		end
 	end
 })
