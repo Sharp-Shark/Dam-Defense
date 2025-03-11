@@ -57,6 +57,7 @@ LuaUserData.RegisterType('System.Collections.Generic.Dictionary`2[[Barotrauma.Re
 RelatedItem = LuaUserData.CreateStatic('Barotrauma.RelatedItem', true)
 LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.WayPoint"], "set_IdCardTags")
 LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.Item"], "set_InventoryIconColor")
+LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.DamageModifier"], "set_DamageMultiplier")
 
 -- Functions executed at round start
 DD.roundStartFunctions = {}

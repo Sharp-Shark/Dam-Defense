@@ -321,16 +321,16 @@
   <entitydescription.brassknuckle>Don't bring a gun to a fist fight or you may have the dishonor of being killed with your own firearm. Truly a fistful of frags.</entitydescription.brassknuckle>
   <!-- Blood Cultist Robes -->
   <entityname.bloodcultistrobes>Blood Cultist Robes</entityname.bloodcultistrobes>
-  <entitydescription.bloodcultistrobes>Only craftable by cultists. A simple hooded garment that grants passive regeneration and immunity to disease when worn by the "enlightened" members of the Blood Cult. The robe also serves to conceal their identity whilst letting other fellows cultists recognize them as their own.</entitydescription.bloodcultistrobes>
+  <entitydescription.bloodcultistrobes>Only craftable by cultists. A simple hooded garment that blood cultists regeneration, immunity to disease and revives them if they die. The robe also serves to conceal their identity whilst letting other fellows cultists recognize them as their own.</entitydescription.bloodcultistrobes>
   <!-- Life Essence -->
   <entityname.lifeessence>Life Essence</entityname.lifeessence>
-  <entitydescription.lifeessence>A magically forever beating human heart with a red glow. Can be consumed to treat bloodloss, bleeding and damage or used to overcharge certain cultist items.</entitydescription.lifeessence>
+  <entitydescription.lifeessence>A magically forever beating human heart with a red glow. Can be consumed by cultists to reset time pressure and heal..</entitydescription.lifeessence>
   <!-- Human Heart -->
   <entityname.humanheart>Human Heart</entityname.humanheart>
-  <entitydescription.humanheart>A human heart. If it's still beating, it soon won't be. Can be used by trained doctors to treat bloodloss, bleeding and damage or just deconstructed.</entitydescription.humanheart>
+  <entitydescription.humanheart>A human heart. If it's still beating, it soon won't be. Can be used by trained doctors to treat bloodloss.</entitydescription.humanheart>
   <!-- Sacrificial Dagger -->
   <entityname.sacrificialdagger>Sacrificial Dagger</entityname.sacrificialdagger>
-  <entitydescription.sacrificialdagger>Only craftable by cultists. A crooked dagger imbued with an eery magic. Cultists can use these on the dying to rip out their still beating life essence.</entitydescription.sacrificialdagger>
+  <entitydescription.sacrificialdagger>Only craftable by cultists. A crooked dagger imbued with an eery magic. Cultists can use these on the dying or recently deceased to rip out their still beating life essence.</entitydescription.sacrificialdagger>
   <!-- The 1998 -->
   <entityname.the1998>The 1998</entityname.the1998>
   <entitydescription.the1998>Only craftable by cultists. A book containing old forbidden knowledge in an forgotten language. Harmless in the hands of most, but cultists will use these to convert others into one of them.</entitydescription.the1998>

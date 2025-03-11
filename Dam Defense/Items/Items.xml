@@ -2216,13 +2216,17 @@
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredSkill identifier="mechanical" level="20" />
       <RequiredItem identifier="organicfiber" amount="2" />
-      <RequiredItem identifier="iron" amount="6" />
+      <RequiredItem identifier="iron" amount="5" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="15" displayname="recycleitem">
+      <RequiredItem identifier="makeshiftarmor" mincondition="0.0" maxcondition="0.1" usecondition="false"/>
+      <RequiredItem identifier="iron" amount="2" />
     </Fabricate>
     <InventoryIcon texture="Content/Items/Diving/MakeshiftArmor.png" sourcerect="448,0,64,64" origin="0.5,0.5" />
     <Sprite name="Makeshift Armor Item" texture="Content/Items/Diving/MakeshiftArmor.png" sourcerect="167,25,86,126" depth="0.55" origin="0.5,0.5" />
     <Body width="62" height="120" density="30" />
     <Wearable slots="OuterClothes" msg="ItemMsgPickUpSelect">
-      <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="0.7" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="0.8" setvalue="true" disabledeltatime="true" />
       <damagemodifier afflictionidentifiers="gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="bitewounds, lacerations" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
@@ -2241,8 +2245,6 @@
       <sprite name="Makeshift Armor Left Leg" texture="Content/Items/Diving/MakeshiftArmor.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Makeshift Armor Left Shoe" texture="Content/Items/Diving/MakeshiftArmor.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Makeshift Armor Right Shoe" texture="Content/Items/Diving/MakeshiftArmor.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <StatValue stattype="FlowResistance" value="0.5" />
-      <StatValue stattype="PropulsionSpeed" value="-0.3" />
     </Wearable>
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
   </Item>
@@ -2264,8 +2266,12 @@
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredSkill identifier="mechanical" level="20" />
-      <RequiredItem identifier="iron" amount="4" />
-    </Fabricate> 
+      <RequiredItem identifier="iron" amount="3" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" displayname="recycleitem">
+      <RequiredItem identifier="ironhelmet" mincondition="0.0" maxcondition="0.1" usecondition="false"/>
+      <RequiredItem identifier="iron" amount="1" />
+    </Fabricate>
     <Body width="70" height="80" density="30"/>
     <Sprite name="Makeshift Helmet Item" texture="Content/Items/Jobgear/headgears.png" sourcerect="249,529,90,102" depth="0.6" origin="0.5,0.5" />
     <Wearable slots="Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
@@ -5384,7 +5390,7 @@
   </Item>
   
   <!-- crudux cruo! -->
-  <Item name="Blood Cultist Robes" identifier="bloodcultistrobes" inventoryiconcolor="255,200,155,255" category="Equipment,Misc" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
+  <Item name="Blood Cultist Robes" identifier="bloodcultistrobes" inventoryiconcolor="255,200,155,255" category="Equipment,Misc" tags="smallitem,clothing,cultistitem" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
     <PreferredContainer primary="crewcab"/>
     <Price baseprice="150" canbespecial="false" sold="false">
       <Price storeidentifier="merchanthusk" minavailable="1" maxavailable="4" sold="true">
@@ -5454,20 +5460,27 @@
 	  </StatusEffect>
     </Wearable>
 	<ItemContainer capacity="2">
-      <Containable items="smallitem" />
+      <SlotIcon slotindex="2" texture="%ModDir%/Misc/Icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
+      <Containable items="smallitem" excludeditems="bloodcultistrobes,lifeessence" />
+      <SubContainer capacity="1">
+        <Containable items="lifeessence" />
+      </SubContainer>
     </ItemContainer>
   </Item>
   
   <!-- blood! -->
-  <Item name="Life Essence" identifier="lifeessence" category="Medical,Misc" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,medical" useinhealthinterface="true" description="" scale="0.35" impactsoundtag="impact_soft">
+  <Item name="Life Essence" identifier="lifeessence" category="Medical,Misc" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,medical,cultistitem" useinhealthinterface="true" description="" scale="0.35" impactsoundtag="impact_soft">
     <SuitableTreatment type="bloodloss" suitability="100" />
-    <SuitableTreatment type="damage" suitability="100" />
-    <SuitableTreatment type="bleeding" suitability="100" />
-    <SuitableTreatment type="timepressure" suitability="150" />
 	<LightComponent range="20.0" lightcolor="255,0,0,100" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" pulsefrequency="0.65" pulseamount="1.0" allowingameediting="false" />
     <Sprite texture="lifeessence.png" sourcerect="0,0,56,76" depth="0.6" origin="0.5,0.5" />
     <Body width="80" height="45" density="11" />
-    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="-12,-8" msg="ItemMsgPickUpSelect">
+	<Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="32,15" holdangle="0" handle1="-12,-8" aimangle="90" aimable="false" msg="ItemMsgPickUpSelect">      <StatusEffect type="OnSecondaryUse" target="This" Condition="-10.0" />
+      <StatusEffect type="OnSecondaryUse" target="This" Condition="-50.0" />
+	  <StatusEffect type="OnSecondaryUse" target="This,Character" disabledeltatime="true">
+        <Conditional Condition="lte 1" />
+        <Use/>
+      </StatusEffect>
+	  <!-- medical usage -->
       <StatusEffect tags="medical" type="OnUse" target="This" Condition="-100.0" disabledeltatime="true">
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
       </StatusEffect>
@@ -5475,10 +5488,15 @@
 	    <Conditional enlightened="gte 99" />
 		<ReduceAffliction identifier="timepressure" amount="5" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnUse" target="UseTarget, This" duration="20">
-        <ReduceAffliction type="bloodloss" amount="5" />
-        <ReduceAffliction type="damage" amount="5" />
-        <ReduceAffliction type="bleeding" amount="5" />
+      <StatusEffect tags="medical" type="OnUse" target="UseTarget, This" duration="1">
+        <Conditional enlightened="gte 99" />
+        <ReduceAffliction type="damage" amount="100" />
+        <ReduceAffliction type="bleeding" amount="100" />
+        <ReduceAffliction type="burn" amount="100" />
+        <ReduceAffliction type="oxygenlow" amount="100" />
+      </StatusEffect>
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget, This" duration="1">
+        <ReduceAffliction type="bloodloss" amount="100" />
       </StatusEffect>
       <!-- Remove the item when fully used -->
       <StatusEffect type="OnBroken" target="This">
@@ -5495,8 +5513,6 @@
       <Item identifier="carbon" />
     </Deconstruct>
     <SuitableTreatment type="bloodloss" suitability="100" />
-    <SuitableTreatment type="damage" suitability="100" />
-    <SuitableTreatment type="bleeding" suitability="100" />
     <Sprite texture="lifeessence.png" sourcerect="56,0,56,76" depth="0.6" origin="0.5,0.5" />
     <Body width="80" height="45" density="11" />
 	<!-- Cannot be combined -->
@@ -5507,11 +5523,9 @@
         <Conditional Condition="gt 0"/>
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget, This" duration="20">
+      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget, This" duration="1">
         <Conditional Condition="gt 0"/>
-        <ReduceAffliction type="bloodloss" amount="5" />
-        <ReduceAffliction type="damage" amount="5" />
-        <ReduceAffliction type="bleeding" amount="5" />
+        <ReduceAffliction type="bloodloss" amount="100" />
       </StatusEffect>
 	  <!-- Heart will stop beating after 2 minutes and thusly lose any medical utility -->
 	  <StatusEffect type="Always" target="This" Condition="-0.83" />
@@ -5521,7 +5535,7 @@
   </Item>
   
   <!-- sacrifice! -->
-  <Item name="Sacrificial Dagger" identifier="sacrificialdagger" category="Weapon,Misc" Tags="smallitem,weapon,gunsmith,mountableweapon,sharptool" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+  <Item name="Sacrificial Dagger" identifier="sacrificialdagger" category="Weapon,Misc" Tags="smallitem,weapon,gunsmith,mountableweapon,sharptool,cultistitem" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1" spawnprobability="0.25" />
     <PreferredContainer secondary="abandonedstoragecab" amount="1" spawnprobability="0.05" />
     <PreferredContainer secondary="beaconsupplycab" amount="1" spawnprobability="0.05" />
@@ -5550,18 +5564,6 @@
         <Conditional entitytype="eq Character" />
 		<LuaHook name="DD.sacrificialdagger.sacrifice" />
       </StatusEffect>
-	  <StatusEffect type="OnUse" target="UseTarget, Contained" disabledeltatime="true" condition="-9" comparison="AND" >
-	    <Conditional EntityType="character" />
-	    <Conditional Vitality="gt 0" />
-        <RequiredItem items="lifeessence" type="Contained" />
-	  </StatusEffect>
-	  <StatusEffect type="OnUse" target="Limb" disabledeltatime="true" comparison="AND" >
-	    <Conditional EntityType="limb" />
-        <RequiredItem items="lifeessence" type="Contained" />
-		<Affliction identifier="burn" strength="16" />
-        <Affliction identifier="stun" strength="0.8" />
-        <Explosion range="50.0" force="0.1" shockwave="false" sparks="false" flames="false" smoke="true" underwaterbubble="false" camerashake="6.0" />
-      </StatusEffect>
       <Attack targetimpulse="2" severlimbsprobability="0.1" itemdamage="3" structuredamage="2" structuresoundtype="StructureSlash">
         <Affliction identifier="lacerations" strength="10" />
         <Affliction identifier="bleeding" strength="10" />
@@ -5577,10 +5579,6 @@
         </StatusEffect>
       </Attack>
     </MeleeWeapon>
-    <ItemContainer capacity="1" maxstacksize="1" hideitems="true">
-      <Containable items="lifeessence" hide="true"/>
-      <SlotIcon slotindex="0" texture="%ModDir%/Misc/Icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
-    </ItemContainer>
     <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
     <Quality>
       <QualityStat stattype="StrikingPowerMultiplier" value="0.1" />
@@ -5589,7 +5587,7 @@
   </Item>
 
   <!-- maranax pallex! -->
-  <Item name="The 1998" identifier="the1998" category="Misc" cargocontaineridentifier="metalcrate" allowasextracargo="true" Tags="smallitem,skillbook" maxstacksize="1" scale="0.5" impactsoundtag="impact_soft">
+  <Item name="The 1998" identifier="the1998" category="Misc" cargocontaineridentifier="metalcrate" allowasextracargo="true" Tags="smallitem,cultistitem" maxstacksize="1" scale="0.5" impactsoundtag="impact_soft">
     <Deconstruct time="10">
       <Item identifier="carbon" />
     </Deconstruct>
@@ -5600,46 +5598,17 @@
     <Sprite texture="book.png" sourcerect="0,56,32,39" depth="0.6" origin="0.5,0.5" />
     <Body width="28" height="36" density="20" />
     <MeleeWeapon slots="Any,RightHand+LeftHand" HitOnlyCharacters="true" reload="1" range="50" combatpriority="6" DisableWhenRangedWeaponEquipped="false" controlpose="true" aimpos="40,-20" handle1="5,0" handle2="6,1" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect">
-	  <!-- increase condtion over time -->
-	  <StatusEffect type="Always" TargetType="This" Condition="25" />
-	  <StatusEffect type="Always" TargetType="This" Condition="75">
-	    <RequiredItems items="lifeessence" type="Contained" />
-	  </StatusEffect>
-	  <StatusEffect type="Always" TargetType="Contained" Condition="-5">
-        <Conditional Condition="lt 100" TargetContainer="true" />
-	  </StatusEffect>
 	  <!-- attack -->
 	  <Attack structuredamage="0" itemdamage="0" targetimpulse="5">
         <Affliction identifier="stun" strength="0.8" />
         <StatusEffect type="OnUse" target="UseTarget">
           <Conditional entitytype="eq Character"/>
+		  <LuaHook name="DD.the1998.use" />
           <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
           <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
         </StatusEffect>
       </Attack>
-	  <!-- cultists when they use this book will say a chant in an forgotten knowledge and enlighten nearby players -->
-      <StatusEffect type="OnUse" TargetType="This, Character" comparison="AND" Condition="0" setvalue="true" disabledeltatime="true">
-        <Conditional enlightened="gte 99" TargetSelf="True"/>
-	    <Conditional EntityType="character" />
-        <Conditional Condition="gte 100"/>
-        <Sound file="%ModDir%/Sounds/cultist1.ogg" selectionmode="random" range="500" volume="3.0"/>
-        <Sound file="%ModDir%/Sounds/cultist2.ogg" range="500" volume="2.5" />
-        <Sound file="%ModDir%/Sounds/cultist3.ogg" range="500" volume="2.5" />
-        <Sound file="%ModDir%/Sounds/cultist4.ogg" range="500" volume="2.5" />
-        <Sound file="%ModDir%/Sounds/cultist5.ogg" range="500" volume="2.5" />
-        <Sound file="%ModDir%/Sounds/cultist6.ogg" range="500" volume="2.5" />
-        <Sound file="%ModDir%/Sounds/cultist7.ogg" range="500" volume="2.5" />
-        <Explosion range="250.0" force="1.5" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0">
-		  <!-- due to affliction decay, will take atleast 3 hits to enlighten, if not more -->
-          <Affliction identifier="enlightened" strength="50" />
-          <Affliction identifier="enlighteneddecaypause" strength="999" />
-		</Explosion>
-      </StatusEffect>
     </MeleeWeapon>
-    <ItemContainer capacity="1" maxstacksize="1" hideitems="true">
-      <Containable items="lifeessence" hide="true"/>
-      <SlotIcon slotindex="0" texture="%ModDir%/Misc/Icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
-    </ItemContainer>
   </Item>
   
   <!-- cultist pitchfork (thanks Squall) -->
@@ -5698,7 +5667,7 @@
     <InventoryIcon texture="%ModDir%/Items/lifeessence.png" sourcerect="32,80,64,64" />
     <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="0,80,32,124" origin="0.5,0.5" depth="0.55" />
     <Body height="120" radius="12" density="30" />
-    <Holdable slots="LeftHand" aimpos="60,-15" holdpos="45,-15" handle1="-25,0" handle2="-25,0" controlpose="false" blocksplayers="true" msg="ItemMsgPickUpSelect">
+    <Holdable slots="LeftHand" aimpos="60,-15" holdpos="45,-15" handle1="-20,0" handle2="-20,0" controlpose="false" blocksplayers="true" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.8" setvalue="true" />
 	  <StatusEffect type="OnActive" target="This" Condition="1" />
       <StatusEffect type="OnBroken" target="This">
@@ -6064,8 +6033,51 @@
     </LightComponent>
   </Item>
   
+  <!-- special effect -->
+  <Item identifier="bloodculthitfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
+	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
+	<ItemComponent>
+	  <StatusEffect target="This" type="OnSpawn" >
+	    <Explosion range="250.0" force="1.5" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+	  </StatusEffect>
+	  <StatusEffect target="This" type="OnSpawn" delay="3" >
+	    <Remove />
+	  </StatusEffect>
+	</ItemComponent>
+  </Item>
+  <Item identifier="bloodcultconvertfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
+	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
+	<ItemComponent>
+	  <StatusEffect target="This" type="OnSpawn" >
+        <Sound file="%ModDir%/Sounds/cultist1.ogg" selectionmode="random" range="500" volume="3.0"/>
+        <Sound file="%ModDir%/Sounds/cultist2.ogg" range="500" volume="2.5" />
+        <Sound file="%ModDir%/Sounds/cultist3.ogg" range="500" volume="2.5" />
+        <Sound file="%ModDir%/Sounds/cultist4.ogg" range="500" volume="2.5" />
+        <Sound file="%ModDir%/Sounds/cultist5.ogg" range="500" volume="2.5" />
+        <Sound file="%ModDir%/Sounds/cultist6.ogg" range="500" volume="2.5" />
+        <Sound file="%ModDir%/Sounds/cultist7.ogg" range="500" volume="2.5" />
+	  </StatusEffect>
+	  <StatusEffect target="This" type="OnSpawn" delay="3" >
+	    <Remove />
+	  </StatusEffect>
+	</ItemComponent>
+  </Item>
+  
+  <!-- plays break sound effect and despawns -->
+  <Item identifier="armorbreakfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
+	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
+	<ItemComponent>
+	  <StatusEffect target="This" type="OnSpawn" >
+	    <Sound file="%ModDir%/Sounds/armorbreak.ogg" volume="3.0" range="800" />
+	  </StatusEffect>
+	  <StatusEffect target="This" type="OnSpawn" delay="3" >
+	    <Remove />
+	  </StatusEffect>
+	</ItemComponent>
+  </Item>
+  
   <!-- plays flybuzz sound effect and despawns -->
-  <Item name="Flybuzz FX" identifier="flybuzzfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
+  <Item identifier="flybuzzfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
 	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
 	<ItemComponent>
 	  <StatusEffect target="This" type="OnSpawn" >

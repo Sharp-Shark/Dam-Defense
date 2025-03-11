@@ -5,18 +5,16 @@ DD.speciesData = {
 	tigerthresher_hatchling = {initialGrowTimer = 120, populationName = 'thresher'},
 	
 	crawler_large = {populationName = 'crawler'},
-	crawler = {initialGrowTimer = 210, grownIdentifier = 'crawler_large', initialBreedTimer = 90, eggIdentifer = 'crawleregg', populationName = 'crawler', populationCap = 8},
+	crawler = {initialGrowTimer = 210, grownIdentifier = 'crawler_large', initialBreedTimer = 90, eggIdentifer = 'crawleregg', populationName = 'crawler', populationCap = 6},
 	crawler_hatchling = {initialGrowTimer = 90, populationName = 'crawler'},
 	
-	spitroach = {initialBreedTimer = 90, eggIdentifer = 'spitroachegg', populationName = 'spitroach', populationCap = 8},
+	spitroach = {initialBreedTimer = 90, eggIdentifer = 'spitroachegg', populationName = 'spitroach', populationCap = 6},
 	spitroach_hatchling = {initialGrowTimer = 90, populationName = 'spitroach'},
 	
 	mudraptor_veteran = {populationName = 'mudraptor'},
 	mudraptor = {initialGrowTimer = 240, grownIdentifier = 'mudraptor_veteran', initialBreedTimer = 90, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 4},
 	mudraptor_unarmored = {initialGrowTimer = 120, grownIdentifier = 'mudraptor', initialBreedTimer = 60, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 4},
 	mudraptor_hatchling = {initialGrowTimer = 120, grownIdentifier = 'mudraptor_unarmored', populationName = 'mudraptor'},
-	
-	hammerheadspawn = {initialBreedTimer = 45, hatchlingIdentifier = 'hammerheadspawn', populationName = 'hammerhead', populationCap = 30},
 	
 	husk_prowler = {populationName = 'husk'},
 	husk = {initialGrowTimer = 180, grownIdentifier = 'husk_prowler', populationName = 'husk'},

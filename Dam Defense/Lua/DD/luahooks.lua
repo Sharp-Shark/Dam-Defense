@@ -427,11 +427,12 @@ Hook.Add("DD.whalinggun.use", "DD.whalinggun.use", function(effect, deltaTime, i
 end)
 
 -- some armor absorbs damage, but in return, will break down
+-- this hook also applies the recentlyattacked affliction which serves as a flag
 Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
     local character = instance
 	local hitLimb = ptable['targetLimb']
 	
-	-- flag character as recently attacked for 10 seconds
+	-- flag affliction
 	DD.giveAfflictionCharacter(character, 'recentlyattacked', 10)
 	
 	if hitLimb == nil then return end
@@ -462,11 +463,31 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
 		end
     end
 
-    armor.Condition = armor.Condition - damage
-
-    if armor.Condition <= 0 then
-        Entity.Spawner.AddEntityToRemoveQueue(armor)
-    end
+	if armor.Condition > 0 then
+		armor.Condition = armor.Condition - damage
+		if armor.Condition <= 0 then
+			for v in armor.GetComponentString('Wearable').DamageModifiers do
+				if v.AfflictionIdentifiers == 'gunshotwound' then
+					v['set_DamageMultiplier'](1)
+					break
+				end
+			end
+			-- Sound effect
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('armorbreakfx'), armor.WorldPosition, nil, nil, function (spawnedItem) end)
+			-- Make armor grey when it is broken
+			local color = Color(155, 155, 155)
+			armor.SpriteColor = color
+			armor['set_InventoryIconColor'](color)
+			-- Sync changes for clients
+			if SERVER then
+				local item = armor
+				local sprcolor = item.SerializableProperties[Identifier("SpriteColor")]
+				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(sprcolor, item))
+				local invColor = item.SerializableProperties[Identifier("InventoryIconColor")]
+				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
+			end
+		end
+	end
 end, Hook.HookMethodType.Before)
 
 -- toggles repairtool between wrench and screwdriver mode
@@ -588,6 +609,16 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	if character.HasTalent('enlightenedmind') then return end
     character.GiveTalent('enlightenedmind', true)
 	
+	-- heal a character when he gets converted using a book
+	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlighteneddecaypause') > 0 then
+		character.SetAllDamage(0, 0, 0)
+		character.Oxygen = 100
+		character.Bloodloss = 0
+		character.SetStun(0, true)
+		
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultconvertfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+	end
+	
 	-- play tchernobog sfx and flashes a image 1 second after player transforms
 	Timer.Wait(function ()
 		DD.giveAfflictionCharacter(character, 'enlightenedfx', 999)
@@ -638,6 +669,22 @@ Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", fun
 	else
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory, nil, nil, function (spawnedItem) end)
 	end
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodculthitfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultconvertfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+end)
+
+
+-- blood cult the 1998
+Hook.Add("DD.the1998.use", "DD.the1998.use", function(effect, deltaTime, item, targets, worldPosition)
+    if CLIENT and Game.IsMultiplayer then return end
+	
+	if item.SpeciesName ~= 'human' then return end
+	if item.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) > 99 then return end
+	if effect.user.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) < 99 then return end
+	
+	DD.giveAfflictionCharacter(item, 'enlighteneddecaypause', 999)
+	DD.giveAfflictionCharacter(item, 'enlightened', 30)
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodculthitfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
 end)
 
 -- When a cultist dies, he will come back as a zombie
@@ -678,6 +725,8 @@ DD.characterDeathFunctions.cultistDeath = function (character)
 	end)
 	-- Give items back to player after a delay
 	Timer.Wait(function ()
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodculthitfx'), newCharacter.WorldPosition, nil, nil, function (spawnedItem) end)
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultconvertfx'), newCharacter.WorldPosition, nil, nil, function (spawnedItem) end)
 		-- Give clothing items to their correct slot
 		for itemCount, item in pairs(slotItems) do
 			newCharacter.Inventory.TryPutItem(item, itemCount, true, true, newCharacter, true, true)
@@ -718,11 +767,9 @@ Hook.Add("character.created", 'DD.giveUndeadItems', function(createdCharacter)
 		DD.giveAfflictionCharacter(createdCharacter, 'enlightened', 999)
 		-- Give undead weapons
 		local weapons = {
-			{identifier = 'sacrificialdagger', offhand = 'sacrificialdagger'},
 			{identifier = 'cultistmace', offhand = 'cultistshield'},
 			{identifier = 'boardingaxe'},
 			{identifier = 'cultistpitchfork'},
-			{identifier = 'tommygun', script = function (spawnedItem) Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('pistoldrum'), spawnedItem.OwnInventory) end},
 		}
 		local weapon = weapons[math.random(#weapons)]
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(weapon.identifier), createdCharacter.Inventory, nil, nil, function (spawnedItem)
