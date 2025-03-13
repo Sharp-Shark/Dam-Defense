@@ -213,8 +213,8 @@ end, {
 	onChatMessage = function (self, message, sender)
 		if  string.sub(message, 1, 1) == '/' then return end
 		if sender == self.killer then
-			for character in Character.CharacterList do
-				if character.SpeciesName == 'humanUndead' then
+			for client in Client.ClientList do
+				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'humanUndead') then
 					DD.messageClient(client, message, {type = 'Dead', sender = sender.Name})
 				end
 			end

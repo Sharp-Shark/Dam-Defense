@@ -468,7 +468,7 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
 		if armor.Condition <= 0 then
 			for v in armor.GetComponentString('Wearable').DamageModifiers do
 				if v.AfflictionIdentifiers == 'gunshotwound' then
-					v['set_DamageMultiplier'](1)
+					v['set_DamageMultiplier'](0.5)
 					break
 				end
 			end

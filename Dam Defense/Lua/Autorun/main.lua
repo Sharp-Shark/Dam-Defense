@@ -496,7 +496,7 @@ DD.chatMessageFunctions.fire = function (message, sender)
 			text = text .. DD.stringReplace(' {number}: "{name}".', {number = key, name = DD.clientLogName(client)})
 		end
 		if targetName == '' then
-			DD.messageClient(sender, DD.stringLocalize('commandFireError' .. text, {name = targetName}), {preset = 'command'})
+			DD.messageClient(sender, DD.stringLocalize('commandFireError', {name = targetName}) .. text, {preset = 'command'})
 		else
 			DD.messageClient(sender, DD.stringLocalize('commandFireErrorClientNotFound', {name = targetName}) .. text, {preset = 'command'})
 		end

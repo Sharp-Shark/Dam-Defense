@@ -2220,7 +2220,7 @@
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="15" displayname="recycleitem">
       <RequiredItem identifier="makeshiftarmor" mincondition="0.0" maxcondition="0.1" usecondition="false"/>
-      <RequiredItem identifier="iron" amount="2" />
+      <RequiredItem identifier="iron" amount="1" />
     </Fabricate>
     <InventoryIcon texture="Content/Items/Diving/MakeshiftArmor.png" sourcerect="448,0,64,64" origin="0.5,0.5" />
     <Sprite name="Makeshift Armor Item" texture="Content/Items/Diving/MakeshiftArmor.png" sourcerect="167,25,86,126" depth="0.55" origin="0.5,0.5" />
