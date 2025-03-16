@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="1.2.3" corepackage="False" steamworkshopid="3146664815" gameversion="1.7.7.0">
+<contentpackage name="Dam Defense" modversion="1.2.4" corepackage="False" steamworkshopid="3146664815" gameversion="1.7.7.0">
   <Other file="%ModDir%/CSharp/Client/DamDefense.cs" />
+  <Text file="%ModDir%/Localizations/english.xml" />
   <Item file="%ModDir%/Items/Jerry.xml" />
   <Item file="%ModDir%/Items/Machines.xml" />
   <Item file="%ModDir%/Items/Boomboxes.xml" />
@@ -19,10 +20,10 @@
   <Character file="%ModDir%/Characters/Humantroll/Humantroll.xml" />
   <Character file="%ModDir%/Characters/Humangoblin/Humangoblin.xml" />
   <Talents file="%ModDir%/Misc/Talents.xml" />
-  <Text file="%ModDir%/Localizations/english.xml" />
   <Jobs file="%ModDir%/Misc/Jobs.xml" />
   <Afflictions file="%ModDir%/Misc/Afflictions.xml" />
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />
   <Submarine file="%ModDir%/Submarines/DD Olde Towne.sub" />
   <Submarine file="%ModDir%/Submarines/DD Pioneer Point.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Cliffhanger.sub" />
 </contentpackage>

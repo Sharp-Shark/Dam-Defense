@@ -232,6 +232,9 @@ DD.wikiData = {
 	pioneerPointDam = {
 		related = {'main', 'dams'},
 	},
+	cliffhangerDam = {
+		related = {'main', 'dams'},
+	},
 }
 -- Add button to open browser wiki if CSharp is loaded
 if DD.isCSharpLoaded then

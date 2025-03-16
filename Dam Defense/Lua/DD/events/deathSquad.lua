@@ -24,7 +24,7 @@ end, {
 		local job = 'mercsevil'
 		local pos = DD.findRandomWaypointByJob(job).WorldPosition
 		local character = DD.spawnHuman(client, job, pos)
-		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team2, true)
 		character.UpdateTeam()
 		
 		table.insert(self.nukies, client)
@@ -66,7 +66,7 @@ end, {
 					local job = 'mercsevil'
 					local pos = DD.findRandomWaypointByJob(job).WorldPosition
 					local character = DD.spawnHuman(client, job, pos)
-					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team2, true)
 					character.UpdateTeam()
 					DD.messageClient(client, DD.stringLocalize('deathSquadMessageNukies'), {preset = 'crit'})
 				else

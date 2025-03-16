@@ -45,38 +45,22 @@ end, {
 		return false
 	end,
 	
-	lateJoinBlacklistSet = {},
-	lateJoinSpawn = function (self, client)
-		if self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then return end
-		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
-		
-		local speciesName = 'humanUndead'
-		local undeadInfo = DD.stringLocalize('undeadInfo')
-		local job = 'undeadjob'
-		local pos = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
-		local character = DD.spawnHuman(client, job, pos, nil, nil, speciesName)
-		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
-		character.UpdateTeam()
-		DD.messageClient(client, undeadInfo, {preset = 'crit'})
-		
-		return true
-	end,
-	
 	onStart = function (self)
 		self.killerWon = false
 		self.killsLeftToWin = 0 -- killer automatically wins once this value is equal to or lower than 0
-		self.timePressurePauseTimer = 0
 		
 		local anyoneAlive = false
 		for client in DD.arrShuffle(Client.ClientList) do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterArrested(client.Character)) and (not DD.isCharacterAntagSafe(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
-				self.killer = client
-			elseif DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
-				anyoneAlive = true
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
+				if (not DD.isCharacterArrested(client.Character)) and (not DD.isCharacterAntagSafe(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
+					self.killer = client
+				else
+					anyoneAlive = true
+				end
 				self.killsLeftToWin = self.killsLeftToWin + 1
 			end
 		end
-		self.killsLeftToWin = math.ceil(self.killsLeftToWin * 0.8)
+		self.killsLeftToWin = math.ceil(self.killsLeftToWin * 0.7)
 		
 		local nonSecurity = {}
 		for client in Client.ClientList do
@@ -100,13 +84,13 @@ end, {
 				self.parent.fail('"self.parent.killer" is nil at "stateMain.onChange"')
 				return
 			end
-		
-			self.parent.murderCooldown = 60
+			
 			-- Give affliction
-			DD.giveAfflictionCharacter(self.parent.killer.Character, 'serialkiller', 999)
-			DD.giveAfflictionCharacter(self.parent.killer.Character, 'bloodlust', 1)
-			-- Give time pressure immunity
-			DD.giveAfflictionCharacter(self.parent.killer.Character, 'timepressureimmunity', 60 * 3) -- 3 minutes of time pressure immunity
+			if DD.isClientCharacterAlive(self.parent.killer) then
+				DD.giveAfflictionCharacter(self.parent.killer.Character, 'serialkiller', 999)
+				DD.giveAfflictionCharacter(self.parent.killer.Character, 'bloodlust', 1)
+				DD.giveAfflictionCharacter(self.parent.killer.Character, 'serialkiller', 999)
+			end
 			-- Remove item at headslot
 			if self.parent.killer.Character.Inventory.GetItemAt(DD.invSlots.head) ~= nil then
 				self.parent.killer.Character.Inventory.GetItemAt(DD.invSlots.head).drop()
@@ -144,38 +128,8 @@ end, {
 				return
 			end
 			
-			-- give serial killer "flag" affliction
-			if DD.isClientCharacterAlive(self.parent.killer) and (self.parent.killer.Character.CharacterHealth.GetAffliction('serialkiller', true) == nil) then
-				DD.giveAfflictionCharacter(self.parent.killer.Character, 'serialkiller', 999)
-			end
-			
-			local timeToExplode = 5 * 60 -- in seconds
-			if self.parent.timePressurePauseTimer > 0 then
-				self.parent.timePressurePauseTimer = self.parent.timePressurePauseTimer - 1/timesPerSecond
-			else
-				DD.giveAfflictionCharacter(self.parent.killer.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
-			end
-			if (self.parent.murder == nil) or (self.parent.murder.finished) then
-				-- if last murder resulted in a victory for the murderer, reset time pressure
-				if (self.parent.murder ~= nil) and self.parent.murder.murdererWon and (self.parent.killer.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil) then
-					self.parent.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
-				end
-				-- when murderCooldown reaches 0, start a new murder event
-				if self.parent.murderCooldown <= 0 then
-					local victim = nil
-					for client in DD.arrShuffle(Client.ClientList) do
-						if DD.isClientCharacterAlive(client) and (client ~= self.parent.killer) and (client.Character.SpeciesName == 'human') then
-							victim = client
-							break
-						end
-					end
-					self.parent.murder = DD.eventMurder.new(self.parent.killer, victim)
-					self.parent.murder.start()
-					self.parent.murderCooldown = 30
-				else
-					self.parent.murderCooldown = self.parent.murderCooldown - (1 / timesPerSecond)
-				end
-			end
+			local timeToExplode = 10 * 60 -- in seconds
+			DD.giveAfflictionCharacter(self.parent.killer.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 			
 			-- bloodlust when creepy mask is being worn
 			if DD.isClientCharacterAlive(self.parent.killer) and (self.parent.killer.Character.Inventory.GetItemAt(2) ~= nil) and (self.parent.mask.ID == self.parent.killer.Character.Inventory.GetItemAt(2).ID) then
@@ -206,20 +160,16 @@ end, {
 		end
 		if (character.LastAttacker == self.killer.Character) and (character.SpeciesName == 'human') then
 			self.killsLeftToWin = self.killsLeftToWin - 1
-			self.timePressurePauseTimer = 60 * 2
+			-- Halloween SFX
+			for character in Character.CharacterList do
+				DD.giveAfflictionCharacter(character, 'killerfx', 999)
+			end
 		end
 	end,
 	
 	onChatMessage = function (self, message, sender)
-		if  string.sub(message, 1, 1) == '/' then return end
-		if sender == self.killer then
-			for client in Client.ClientList do
-				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'humanUndead') then
-					DD.messageClient(client, message, {type = 'Dead', sender = sender.Name})
-				end
-			end
-		end
-		if DD.isClientCharacterAlive(sender) and sender.Character.SpeciesName ~= 'humanUndead' then return end
+		if string.sub(message, 1, 1) == '/' then return end
+		if DD.isClientCharacterAlive(sender) then return end
 		DD.messageClient(self.killer, message, {type = 'Dead', sender = sender.Name})
 	end,
 	
@@ -260,10 +210,5 @@ end, {
 	end,
 	
 	onFinishAlways = function (self)
-		for character in Character.CharacterList do
-			if character.SpeciesName == 'humanUndead' then
-				DD.giveAfflictionCharacter(character, 'timepressure', 999)
-			end
-		end
 	end
 })

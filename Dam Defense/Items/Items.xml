@@ -214,7 +214,7 @@
       <!-- Grenade launcher ammo explodes on impact -->
       <StatusEffect type="OnImpact" target="This" disabledeltatime="true">
         <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
-        <Explosion range="300.0" force="50.0" flames="false" smoke="true" sparks="false" underwaterbubble="false" shockwave="true" severlimbsprobability="0.0" penetration="1.0" >
+        <Explosion range="300.0" force="5.0" flames="false" smoke="true" sparks="false" underwaterbubble="false" shockwave="true" severlimbsprobability="0.0" penetration="1.0" >
           <Affliction identifier="stun" strength="0.5" />
         </Explosion>
         <Remove />
@@ -1495,7 +1495,7 @@
       <Item identifier="titaniumaluminiumalloy" />
       <Item identifier="fulgurium" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
+    <Fabricate suitablefabricators="fabricator" requiredtime="60" >
       <RequiredSkill identifier="electrical" level="30" />
       <RequiredItem identifier="fpgacircuit" />
       <RequiredItem identifier="lead" amount="2"/>
@@ -1564,7 +1564,7 @@
       <Item identifier="fpgacircuit" />
       <Item identifier="lead" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
+    <Fabricate suitablefabricators="fabricator" requiredtime="60" >
       <RequiredSkill identifier="mechanical" level="30" />
       <RequiredItem identifier="oxygeniteshard" amount="2" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
@@ -1621,7 +1621,7 @@
       </Price>
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
-    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
+    <Fabricate suitablefabricators="fabricator" requiredtime="60" >
       <RequiredSkill identifier="mechanical" level="30" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="physicorium" amount="2" />
@@ -1680,9 +1680,9 @@
       <Price storeidentifier="merchantmilitary" multiplier="0.9" />
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
-    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
+    <Fabricate suitablefabricators="fabricator" requiredtime="60" >
       <RequiredSkill identifier="weapons" level="30" />
-      <RequiredItem identifier="physicorium" amount="3" />
+      <RequiredItem identifier="physicorium" amount="2" />
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="rubber" />
     </Fabricate>
@@ -3488,7 +3488,7 @@
       <Item identifier="lead" />
       <Item identifier="iron" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="120" >
+    <Fabricate suitablefabricators="fabricator" requiredtime="60" >
       <RequiredSkill identifier="electrical" level="30" />
       <RequiredItem identifier="dementonite" amount="2" />
       <RequiredItem identifier="lead" />
@@ -3671,8 +3671,8 @@
       <Item identifier="titanium" />
       <Item identifier="plastic" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="60">
-      <RequiredSkill identifier="mechanical" level="50" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="mechanical" level="30" />
       <RequiredItem identifier="physicorium" />
       <RequiredItem identifier="titaniumaluminiumalloy" />
       <RequiredItem identifier="plastic" />
@@ -3758,6 +3758,53 @@
     </Quality>
     <aitarget sightrange="500" soundrange="500" fadeouttime="1" />
     <SkillRequirementHint identifier="mechanical" level="50" />
+  </Item>
+  
+  <!-- Merasmus -->
+  <Item name="Wizard Hat" identifier="merasmushat" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.5">
+    <Sprite name="Wizard Hat" texture="%ModDir%/Items/wizard.png" depth="0.6" sourcerect="412,113,120,118" origin="0.5,0.5" />
+    <Body width="120" height="80" density="15" />
+    <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect">
+      <sprite name="Wizard Hat Wearable" texture="%ModDir%/Items/wizard.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="412,113,120,118" origin="0.75,1.1" />
+    </Wearable>
+  </Item>
+  <Item name="Wizard Robes" identifier="merasmusrobes" inventoryiconcolor="155,155,155,255" category="Equipment" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/Items/wizard.png" sourcerect="470,0,62,48" />
+    <Sprite texture="%ModDir%/Items/wizard.png" sourcerect="415,48,117,65" depth="0.6" origin="0.5,0.5" />
+    <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
+    <Wearable slots="Any,InnerClothes" variants="1" msg="ItemMsgPickUpSelect">
+      <sprite name="Cultist Torso" texture="%ModDir%/Items/wizard.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+	  <!--
+      <sprite name="Cultist Right Hand" texture="%ModDir%/Items/wizard.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Hand" texture="%ModDir%/Items/wizard.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+	  -->
+      <sprite name="Cultist Right Lower Arm" texture="%ModDir%/Items/wizard.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Lower Arm" texture="%ModDir%/Items/wizard.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Right Upper Arm" texture="%ModDir%/Items/wizard.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Upper Arm" texture="%ModDir%/Items/wizard.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Waist" texture="%ModDir%/Items/wizard.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Right Thigh" texture="%ModDir%/Items/wizard.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Thigh" texture="%ModDir%/Items/wizard.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Right Leg" texture="%ModDir%/Items/wizard.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Leg" texture="%ModDir%/Items/wizard.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Shoe" texture="%ModDir%/Items/wizard.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Right Shoe" texture="%ModDir%/Items/wizard.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+    </Wearable>
+	<ItemContainer capacity="1">
+      <Containable items="smallitem" />
+    </ItemContainer>
+  </Item>
+  <!-- wizard staff -->
+  <Item name="Wizard Staff" identifier="merasmusstaff" category="Weapon,Misc" Tags="smallitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.6" impactsoundtag="impact_metal_light" RequireAimToUse="true" >
+    <InventoryIcon texture="%ModDir%/Items/wizard.png" sourcerect="468,244,64,64" />
+    <Sprite texture="%ModDir%/Items/wizard.png" sourcerect="0,256,215,52" origin="0.5,0.5" depth="0.55" />
+    <Body width="114" height="20" density="30" />
+	<Holdable slots="RightHand" controlpose="true" aimable="true" AimPos="50,-10" HoldPos="-50,-40" AimAngle="100" HoldAngle="90" handle1="30,-3" />
+    <RangedWeapon reload="1" combatpriority="50" msg="ItemMsgPickUpSelect" >
+    </RangedWeapon>
   </Item>
   
   <!-- JET mask from Facility Gamemode for Nukie -->
@@ -5174,14 +5221,14 @@
   <!-- whaling gun, muzzle-loading flintlock that uses gunpowder to fire harpoons -->
   <Item name="Whaling Gun" identifier="whalinggun" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
     <Deconstruct time="30">
-      <RequiredItem identifier="physicorium" />
-      <RequiredItem identifier="titanium" />
-      <RequiredItem identifier="copper" />
-      <RequiredItem identifier="tin" />
+      <Item identifier="physicorium" amount="2" />
+      <Item identifier="titanium" />
+      <Item identifier="copper" />
+      <Item identifier="tin" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="180">
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="weapons" level="30" />
-      <RequiredItem identifier="physicorium" amount="1" />
+      <RequiredItem identifier="physicorium" amount="2" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
       <RequiredItem identifier="copper" amount="1" />
       <RequiredItem identifier="tin" amount="1" />

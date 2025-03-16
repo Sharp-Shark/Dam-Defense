@@ -432,6 +432,12 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
     local character = instance
 	local hitLimb = ptable['targetLimb']
 	
+	-- prevent undead from attacking cultists and other undead
+	if (ptable['attacker'] ~= nil) and (ptable['attacker'].SpeciesName == 'humanundead') and
+	((character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) > 99) or (character.SpeciesName == 'humanundead')) then
+		ptable.PreventExecution = true
+	end
+	
 	-- flag affliction
 	DD.giveAfflictionCharacter(character, 'recentlyattacked', 10)
 	
@@ -534,11 +540,26 @@ end)
 
 -- more intense and better blast jumping
 Hook.Add("DD.jumpergrenade.blastjump", "DD.jumpergrenade.blastjump", function(effect, deltaTime, item, targets, worldPosition)
+	local normalizedDot = function (vector1, vector2)
+		return math.cos(math.atan2(vector1.y, vector1.x) - math.atan2(vector2.y, vector2.x))
+	end
+
 	local character = effect.user
-	local vector = Vector2.Normalize(character.WorldPosition - item.WorldPosition)
-	local distance = Vector2.Distance(character.WorldPosition, item.WorldPosition)
-	local scaler = 5000 / math.max(1, distance - 300)
-	character.AnimController.MainLimb.body.ApplyForce(vector * scaler)
+	local vector = Vector2.Normalize(character.AnimController.MainLimb.WorldPosition - item.WorldPosition + Vector2(0, 100))
+	local distance = Vector2.Distance(character.AnimController.MainLimb.WorldPosition, item.WorldPosition)
+	local scaler = 600
+	if distance <= 400 then
+		character.Stun = math.max(0.5, character.Stun)
+		local velocity = character.AnimController.Collider.LinearVelocity
+		character.AnimController.Collider.LinearVelocity = velocity * normalizedDot(vector, velocity)
+		character.AnimController.Collider.ApplyForce(vector * scaler)
+		for limb in character.AnimController.Limbs do
+			velocity = limb.body.LinearVelocity
+			limb.body.LinearVelocity = velocity * normalizedDot(vector, velocity)
+			limb.body.ApplyForce(vector * scaler)
+		end
+		DD.giveAfflictionCharacter(character, 'blastjumping', 2)
+	end
 end)
 
 -- displacer cannon teleport
@@ -708,6 +729,8 @@ DD.characterDeathFunctions.cultistDeath = function (character)
 	end
 	
 	local newCharacter = DD.spawnHuman(client, 'undeadjob', character.WorldPosition, character.Name, nil, 'humanUndead')
+	newCharacter.SetOriginalTeamAndChangeTeam(CharacterTeamType.None, true)
+	newCharacter.UpdateTeam()
 	
 	-- message
 	if client ~= nil then
@@ -758,6 +781,8 @@ Hook.Add("character.created", 'DD.giveUndeadItems', function(createdCharacter)
 			local client = DD.findClientByCharacter(createdCharacter)
 			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
 			if Game.IsMultiplayer and (client ~= nil) then client.SetClientCharacter(character) end
+			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+			character.UpdateTeam()
 			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
 		end, 100)
 		return
@@ -867,6 +892,8 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 	local speciesName = 'humanGoblin'
 	if isTroll then speciesName = 'humanTroll' end
 	local newCharacter = DD.spawnHuman(client, 'greenskinjob', character.WorldPosition, character.Name, nil, speciesName)
+	newCharacter.SetOriginalTeamAndChangeTeam(CharacterTeamType.None, true)
+	newCharacter.UpdateTeam()
 
     -- Spawn a duffel bag at the player's feet to put the dropped items inside
 	local duffelbag
@@ -903,6 +930,8 @@ Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
 		if createdCharacter.JobIdentifier ~= 'greenskinjob' then
 			local client = DD.findClientByCharacter(createdCharacter)
 			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
+			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+			character.UpdateTeam()
 			if Game.IsMultiplayer and (client ~= nil) then client.SetClientCharacter(character) end
 			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
 		else

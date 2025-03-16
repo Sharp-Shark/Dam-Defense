@@ -148,6 +148,10 @@ DD.thinkFunctions.afflictions = function ()
 	if not Game.RoundStarted then return end
 
 	for character in Character.CharacterList do
+		local affliction = character.CharacterHealth.GetAffliction('blastjumping', true)
+		if (affliction ~= nil) and (affliction.Strength <= 1) and (character.AnimController.OnGround or character.AnimController.InWater or character.AnimController.IsClimbing) then
+			affliction.SetStrength(0)
+		end
 		-- Handcuffed living characters can be dragged at full speed by anyone
 		local affliction = character.CharacterHealth.GetAffliction('firemanscarrytemporary', true)
 		if (character.SelectedCharacter ~= nil) and character.SelectedCharacter.IsHandcuffed and (not character.SelectedCharacter.IsDead) then

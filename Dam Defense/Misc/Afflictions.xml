@@ -333,6 +333,28 @@
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
   </Affliction>
   </Override>
+  
+  <Affliction name="Blast Jumping" identifier="blastjumping" description="" type="buff" limbspecific="false" showiconthreshold="999" maxstrength="2">
+    <Effect minstrength="0" maxstrength="1" strengthchange="0" >
+	  <StatusEffect target="Character" DisableImpactDamageTimer="1.0" disabledeltatime="true" setvalue="true" />
+      <StatusEffect target="character" targetlimbs="leftfoot" >
+        <ParticleEmitter particle="flamethrower_co" particlespersecond="10" scalemin="0.4" scalemax="0.6" distancemin="0" distancemax="20" />
+      </StatusEffect>
+      <StatusEffect target="character" targetlimbs="rightfoot" >
+        <ParticleEmitter particle="flamethrower_co" particlespersecond="10" scalemin="0.4" scalemax="0.6" distancemin="0" distancemax="20" />
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="1" maxstrength="2" strengthchange="-1" >
+	  <StatusEffect target="Character" DisableImpactDamageTimer="1.0" disabledeltatime="true" setvalue="true" />
+      <StatusEffect target="character" targetlimbs="leftfoot" >
+        <ParticleEmitter particle="flamethrower_co" particlespersecond="10" scalemin="0.4" scalemax="0.6" distancemin="0" distancemax="20" />
+      </StatusEffect>
+      <StatusEffect target="character" targetlimbs="rightfoot" >
+        <ParticleEmitter particle="flamethrower_co" particlespersecond="10" scalemin="0.4" scalemax="0.6" distancemin="0" distancemax="20" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
+  </Affliction>
 
   <!-- used for Foldable Chair AND HIS NAME IS JOHN CENA -->
   <Affliction

@@ -48,7 +48,7 @@ end, {
 		local job = 'undeadjob'
 		local pos = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
 		local character = DD.spawnHuman(client, job, pos, nil, nil, speciesName)
-		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.None, true)
 		character.UpdateTeam()
 		DD.messageClient(client, undeadInfo, {preset = 'crit'})
 		
@@ -238,9 +238,11 @@ end, {
 	end,
 	
 	onFinishAlways = function (self)
-		for character in Character.CharacterList do
-			if character.SpeciesName == 'humanUndead' then
-				DD.giveAfflictionCharacter(character, 'timepressure', 999)
+		if not self.cultistsWon then
+			for character in Character.CharacterList do
+				if character.SpeciesName == 'humanUndead' then
+					DD.giveAfflictionCharacter(character, 'timepressure', 999)
+				end
 			end
 		end
 	end
