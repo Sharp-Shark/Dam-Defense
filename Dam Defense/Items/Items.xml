@@ -588,16 +588,13 @@
         <Reputation faction="separatists" min="50"/>
       </Price>
     </Price>
-    <Deconstruct time="20">
-      <RequiredItem identifier="phosphorus" />
+    <Deconstruct time="10">
       <RequiredItem identifier="organicfiber" />
     </Deconstruct>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="5" />
 	</Fabricate>
-    <Fabricate suitablefabricators="fabricator" requiredtime="60">
-      <RequiredSkill identifier="weapons" level="10" />
-      <RequiredItem identifier="phosphorus" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
       <RequiredItem identifier="rum" />
       <RequiredItem identifier="organicfiber" />
     </Fabricate>
@@ -631,7 +628,7 @@
         <sound file="Content/Sounds/Damage/GlassImpact2.ogg" selectionmode="All" range="2000" />
         <sound file="Content/Items/Weapons/ExplosionDebris3.ogg" selectionmode="All" range="2000" />
         <ParticleEmitter particle="iceshards" anglemin="0" anglemax="360" particleamount="20" velocitymin="500" velocitymax="800" scalemin="0.5" scalemax="0.5" />
-        <Explosion range="500.0" ballastfloradamage="200" structuredamage="0" itemdamage="100" force="2.0" severlimbsprobability="0" debris="true" underwaterbubble="false">
+        <Explosion range="300.0" ballastfloradamage="200" structuredamage="0" itemdamage="100" force="2.0" severlimbsprobability="0" debris="true" underwaterbubble="false">
           <Affliction identifier="burning" strength="200" dividebylimbcount="true"/>
 		  <Affliction identifier="burn" strength="30" dividebylimbcount="true" />
           <Affliction identifier="stun" strength="0.5" />
@@ -2169,13 +2166,13 @@
     </Price>
     <Deconstruct time="20">
       <RequiredItem identifier="organicfiber" amount="2" />
-      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="steel" amount="1" />
       <RequiredItem identifier="lead" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="organicfiber" amount="2" />
-      <RequiredItem identifier="steel" amount="3" />
+      <RequiredItem identifier="steel" amount="2" />
       <RequiredItem identifier="lead" />
     </Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="320,640,64,64" origin="0.5,0.5" />
@@ -4597,9 +4594,8 @@
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="16" />
 	</Fabricate>
-    <Fabricate suitablefabricators="fabricator" requiredtime="45" requiresrecipe="true">
+    <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
-      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
       <RequiredItem identifier="steel" amount="2" />
       <RequiredItem identifier="tin" />
     </Fabricate>
@@ -4662,9 +4658,8 @@
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="16" />
 	</Fabricate>
-    <Fabricate suitablefabricators="fabricator" requiredtime="75" requiresrecipe="true">
+    <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
-      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
       <RequiredItem identifier="steel" amount="2" />
       <RequiredItem identifier="tin" />
     </Fabricate>
@@ -4867,15 +4862,13 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
       <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2" />
     </Price>
-    <Fabricate suitablefabricators="fabricator" requiredtime="60" requiresrecipe="true" >
+    <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="true" >
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="steel" />
       <RequiredItem identifier="plastic" />
-      <RequiredItem identifier="titaniumaluminiumalloy" />
     </Fabricate>
     <Deconstruct time="10">
       <Item identifier="plastic" />
-      <Item identifier="titaniumaluminiumalloy" />
     </Deconstruct>
     <InventoryIcon texture="uzi.png" sourcerect="56,56,126,56" origin="0.5,0.5" />
     <Sprite texture="uzi.png" sourcerect="0,0,184,56" depth="0.55" origin="0.5,0.5" />

@@ -88,11 +88,11 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(itemIdentifier), inventory, nil, nil, function (spawnedItem) end)
 end)
 
--- heal gun healing is cut by a 1/3 if target has been recently attacked
+-- heal gun healing is cut by a 1/2 if target has been recently attacked
 Hook.Add("DD.healgunround.heal", "DD.healgunround.heal", function(effect, deltaTime, item, targets, worldPosition)
 	local character = targets[1]
 	
-	local multiplier = DD.lerp(math.max(0, 5 - character.CharacterHealth.GetAfflictionStrengthByIdentifier('recentlyattacked', true)) / 5, 1/3, 1)
+	local multiplier = DD.lerp(math.max(0, 5 - character.CharacterHealth.GetAfflictionStrengthByIdentifier('recentlyattacked', true)) / 5, 1/2, 1)
 	character.CharacterHealth.ReduceAfflictionOnAllLimbs('damage', 10 * multiplier, nil, effect.user)
 	character.CharacterHealth.ReduceAfflictionOnAllLimbs('bloodloss', 6 * multiplier, nil, effect.user)
 	character.CharacterHealth.ReduceAfflictionOnAllLimbs('burn', 4 * multiplier, nil, effect.user)
@@ -439,7 +439,7 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
 	end
 	
 	-- flag affliction
-	DD.giveAfflictionCharacter(character, 'recentlyattacked', 10)
+	DD.giveAfflictionCharacter(character, 'recentlyattacked', 999)
 	
 	if hitLimb == nil then return end
 	local afflictions = ptable['attack'].Afflictions

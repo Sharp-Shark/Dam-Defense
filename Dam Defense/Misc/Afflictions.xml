@@ -32,7 +32,7 @@
   </Override>
   
   <!-- if a player has been recently attacked, the heal gun will heal them less -->
-  <Affliction name="Heal Gun Reduced" identifier="recentlyattacked" type="recentlyattacked" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.0" showiconthreshold="999" showinhealthscannerthreshold="0" maxstrength="10" >
+  <Affliction name="Heal Gun Reduced" identifier="recentlyattacked" type="recentlyattacked" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.0" showiconthreshold="999" showinhealthscannerthreshold="0" maxstrength="5" >
     <Effect minstrength="0" maxstrength="10" strengthchange="-1.0" />
 	<icon texture="%ModDir%/Misc/Icons.png" sourcerect="0,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>

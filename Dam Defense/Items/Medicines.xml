@@ -129,7 +129,7 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="10" />
+      <RequiredItem tag="money" amount="8" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
       <RequiredSkill identifier="medical" level="30" />
@@ -708,12 +708,10 @@
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
       </StatusEffect>
 	  <!-- When Ethanol is drunk -->
-      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10">
-        <Affliction identifier="drunk" amount="12.0" />
-        <Affliction identifier="organdamage" amount="1.0" />
-        <ReduceAffliction identifier="psychosis" amount="12.0" />
-        <ReduceAffliction identifier="hallucinating" amount="12.0" />
-        <Affliction identifier="psychosisresistance" amount="185" />
+      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10" duration="10">
+        <Affliction identifier="drunk" amount="1.2" />
+        <Affliction identifier="organdamage" amount="0.1" />
+        <ReduceAffliction identifier="psychosis" amount="10.0" />
       </StatusEffect>
       <!-- When Ethanol is used in Health GUI -->
       <StatusEffect type="OnUse" target="This, Limb" duration="5">
@@ -855,13 +853,11 @@
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
       </StatusEffect>
 	  <!-- When Rum is drunk -->
-      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10">
-        <Affliction identifier="drunk" amount="6.0" />
-        <Affliction identifier="organdamage" amount="1.0" />
-        <ReduceAffliction identifier="psychosis" amount="12.0" />
-        <ReduceAffliction identifier="hallucinating" amount="12.0" />
-        <Affliction identifier="psychosisresistance" amount="185" />
-        <ReduceAffliction identifier="huskinfection" amount="12.0" />
+      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10" duration="10">
+        <Affliction identifier="drunk" amount="1.2" />
+        <Affliction identifier="organdamage" amount="0.1" />
+        <ReduceAffliction identifier="psychosis" amount="10.0" />
+        <ReduceAffliction identifier="huskinfection" amount="11.0" />
       </StatusEffect>
       <!-- When Rum is used in Health GUI -->
       <StatusEffect type="OnUse" target="This, Limb" duration="5">
