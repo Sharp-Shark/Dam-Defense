@@ -84,6 +84,7 @@ DD.jobSalaryTimer = {
 	mercs = calculateSalaryTimer(15),
 	mercsevil = calculateSalaryTimer(15),
 	bodyguard = calculateSalaryTimer(7),
+	wizard = calculateSalaryTimer(2),
 }
 local getCharacterSalaryTimer = function (character)
 	local jobIdentifier = tostring(character.JobIdentifier)

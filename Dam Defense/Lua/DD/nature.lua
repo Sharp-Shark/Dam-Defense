@@ -112,7 +112,8 @@ DD.spawnPlants = function ()
 		local plantAmount = math.floor(math.random() * 4) + 5
 		for n = 1, plantAmount do
 			local location2 = location1.linkedTo[math.random(#location1.linkedTo)]
-			local position = Vector2(DD.lerp(math.random(), location1.WorldPosition.X, location2.WorldPosition.X), DD.lerp(math.random(), location1.WorldPosition.Y, location2.WorldPosition.Y))
+			local lerpFactor = math.random()
+			local position = Vector2(DD.lerp(lerpFactor, location1.WorldPosition.X, location2.WorldPosition.X), DD.lerp(lerpFactor, location1.WorldPosition.Y, location2.WorldPosition.Y))
 			
 			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(plant.itemIdentifier), position, nil, nil, function (spawnedItem)
 				spawnedItem.Rotation = location2.Rotation

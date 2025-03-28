@@ -47,7 +47,14 @@ end, {
 			-- Spawn bodyguard
 			local job = 'bodyguard'
 			local pos = self.vip.Character.WorldPosition
-			local character = DD.spawnHuman(self.guard, job, pos)
+			local subclass
+			if self.vip.Character.JobIdentifier == 'jet' then
+				job = 'jet'
+				subclass = 1
+			elseif  self.vip.Character.JobIdentifier == 'mercsevil' then
+				job = 'mercsevil'
+			end
+			local character = DD.spawnHuman(self.guard, job, pos, nil, subclass)
 			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 			character.UpdateTeam()
 			-- Remove item at innerclothing

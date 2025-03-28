@@ -203,7 +203,7 @@
       <Price storeidentifier="merchantmedical" multiplier="0.9"/>
     </Price>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="4" />
+      <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" amount="2" >
       <RequiredSkill identifier="medical" level="5" />
@@ -265,7 +265,7 @@
     <SuitableTreatment identifier="opiateaddiction" suitability="-20" />
     <SuitableTreatment identifier="oxygenlow" suitability="-20" />
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="4" />
+      <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="4" />
@@ -534,7 +534,7 @@
       <RequiredItem tag="money" amount="5" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="4" />
+      <RequiredItem tag="fakemoney" amount="6" />
 	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="129,448,62,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="301,209,37,72" depth="0.6" origin="0.5,0.5" />
@@ -746,7 +746,7 @@
       <RequiredItem tag="money" amount="5" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="4" />
+      <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" >
       <RequiredSkill identifier="medical" level="30" />
@@ -894,7 +894,7 @@
       <RequiredItem tag="money" amount="2" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="2" />
+      <RequiredItem tag="fakemoney" amount="1" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="7.5" amount="1">
       <RequiredSkill identifier="medical" level="5" />

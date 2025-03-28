@@ -111,6 +111,7 @@ DD.antagSafeJobs = {
 	medicaldoctor = true,
 	bodyguard = true,
 	mercs = true,
+	wizard = true,
 }
 
 -- Set of security jobs
@@ -367,6 +368,18 @@ DD.stringLocalize = function (key, tbl)
 	if DD.localizations[language][key] == nil then language = 'english' end
 	
 	local str = DD.localizations[language][key]
+	if str == nil then
+		-- debugging
+		local text = ''
+		if SERVER then
+			text = text .. '[SV LUA ERROR] '
+		elseif CLIENT then
+			text = text .. '[CL LUA ERROR] '
+		end
+		text = text .. string.format("bad argument #1 to 'stringLocalize' (no localization matches for key '%s')", key)
+		print(DD.sc .. 'color:red' .. DD.sc .. text .. '\n\n' .. debug.traceback() .. DD.sc .. 'end' .. DD.sc)
+		return text .. '\n\nSee debug console for stack traceback.'
+	end
 	if tbl == nil then
 		return str
 	else
@@ -903,7 +916,7 @@ DD.messageClient = function (client, text, data)
 		sendAnother = true		
 	end
 	if data.preset == 'info' then
-		sender = '[Neutral Info]'
+		sender = '[Info]'
 		color = Color(155, 200, 100)
 		messageType = 'ServerMessageBoxInGame'
 		icon = 'WorkshopMenu.InfoButton'

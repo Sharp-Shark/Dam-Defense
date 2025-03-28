@@ -15,25 +15,33 @@ end, {
 	goodness = -1.5,
 	minimunDeadPercentage  = 0.2,
 	
+	respawnTickets = 0,
 	lateJoinBlacklistSet = {},
 	lateJoinSpawn = function (self, client)
 		if self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then return end
+		if self.respawnTickets < 1 then
+			DD.messageClient(client, DD.stringLocalize('lateJoinMessageNoTickets'), {preset = 'crit'})
+			return true
+		end
 		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
 		
 		local job = 'jet'
 		local pos = DD.findRandomWaypointByJob(job).WorldPosition
-		local character = DD.spawnHuman(client, job, pos)
+		local character = DD.spawnHuman(client, job, pos, nil, 0)
 		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team2, true)
 		character.UpdateTeam()
 		
 		table.insert(self.nukies, client)
 		self.nukiesSet[client] = true
 		
+		self.respawnTickets = self.respawnTickets - 1
+		
 		return true
 	end,
 	
 	onStart = function (self)
 		self.nukiesWon = false
+		self.respawnTickets = 0
 	
 		-- Find reactors
 		self.reactors = {}
@@ -64,7 +72,7 @@ end, {
 				if self.nukiesSet[client] then
 					local job = 'jet'
 					local pos = DD.findRandomWaypointByJob(job).WorldPosition
-					local character = DD.spawnHuman(client, job, pos)
+					local character = DD.spawnHuman(client, job, pos, nil, 0)
 					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team2, true)
 					character.UpdateTeam()
 					DD.messageClient(client, DD.stringLocalize('nukiesMessageNukies'), {preset = 'crit'})
@@ -113,7 +121,7 @@ end, {
 		end
 		
 		-- Increase time pressure
-		local timeToExplode = 12 * 60 -- in seconds
+		local timeToExplode = 10 * 60 -- in seconds
 		for client in self.nukies do
 			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 		end
@@ -145,6 +153,11 @@ end, {
 					self.nukiesSet[nukie] = nil
 				end
 			end	
+		else
+			if (character.LastAttacker ~= nil) and self.nukiesSet[DD.findClientByCharacter(character.LastAttacker)] then
+				self.respawnTickets = self.respawnTickets + 1
+				DD.messageAllClients(DD.stringLocalize('nukiesTicketGained', {tickets = self.respawnTickets}), {preset = 'info'})
+			end
 		end
 	end,
 	

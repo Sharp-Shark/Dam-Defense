@@ -19,6 +19,7 @@ require 'DD/events/gangWar'
 require 'DD/events/mercs'
 require 'DD/events/deathSquad'
 require 'DD/events/election'
+require 'DD/events/wizard'
 
 -- Event director table
 DD.eventDirector = {}
@@ -46,6 +47,7 @@ DD.eventDirector.eventPool = {
 	DD.eventVIP,
 	DD.eventMERCS,
 	DD.eventElection,
+	DD.eventWizard,
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}
@@ -88,7 +90,7 @@ DD.eventDirector.listEvents = function ()
 					text = text .. '"' .. other.Name .. '", '
 				end
 				text = string.sub(text, 1, #text - #', ') .. ' }'
-			else
+			elseif event[eventClientKey] ~= nil then
 				text = text .. '"' .. event[eventClientKey].Name .. '"'
 			end
 			text = text .. ', '

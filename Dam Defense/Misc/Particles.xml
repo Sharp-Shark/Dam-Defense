@@ -1,5 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <prefabs>
+  <!-- wizard staff particles -->
+  <chargemerasmusstaff
+    lifetime="0.08"
+    startdelaymin="0"
+    startdelaymax="0"
+    angularvelocitymin="0"
+    angularvelocitymax="0"
+    startrotationmin="0"
+    startrotationmax="359"
+    rotatetodirection="False"
+    drag="0"
+    waterdrag="0"
+    velocitychange="0,0"
+    velocitychangewater="0,0"
+    collisionradius="1"
+    usecollision="False"
+    deleteoncollision="False"
+    friction="0.5"
+    restitution="0.5"
+    startsizemin="1.5,1.5"
+    startsizemax="1.5,1.5"
+    growtime="0.02"
+    startcolor="255,255,255,255"
+    endcolor="20,20,20,0"
+    drawtarget="Both"
+    drawontop="True"
+    blendstate="Additive"
+    loopanim="False"
+    lifetimemin="0"
+    middlecolor="255,255,255,255"
+    usemiddlecolor="False"
+    animduration="1"
+    sizechangemin="0,0"
+    sizechangemax="0,0"
+    priority="0">
+    <sprite name="chargenucleargun" texture="%ModDir%/Misc/ParticleAtlas.png" sourcerect="0,0,70,70" origin="0.5,0.5" />
+  </chargemerasmusstaff>
+  <muzzleflashmerasmusstaff
+    startsizemin="0.6,0.6"
+    startsizemax="0,1.4"
+    sizechangemin="0,0"
+    sizechangemax="0,0"
+    startrotationmin="0"
+    startrotationmax="360"
+    startcolor="255,255,255,255"
+    endcolor="20,20,20,0"
+    growtime="0"
+    lifetime="0.2"
+    velocitychange="0,0"
+    startdelaymin="0"
+    startdelaymax="0"
+    angularvelocitymin="-10"
+    angularvelocitymax="20"
+    rotatetodirection="False"
+    drag="0"
+    waterdrag="0"
+    velocitychangewater="0,0"
+    collisionradius="1"
+    usecollision="False"
+    deleteoncollision="False"
+    friction="0.5"
+    restitution="0.5"
+    drawtarget="Both"
+    blendstate="Additive"
+    animduration="1"
+    loopanim="True"
+    drawontop="True"
+    lifetimemin="0.1"
+    middlecolor="255,0,0,0"
+    usemiddlecolor="False"
+    priority="0">
+    <sprite
+      texture="%ModDir%/Misc/ParticleAtlas.png"
+      sourcerect="0,70,64,64" />
+  </muzzleflashmerasmusstaff>
   <!-- foldable chair crit -->
   <crit lifetime="0.8" startdelaymin="0" startdelaymax="0" startrotationmin="0" startrotationmax="0" rotatetodirection="False" drag="0.0" waterdrag="0.0" velocitychange="0,0.5" velocitychangewater="0,0.5" collisionradius="1" usecollision="False" deleteoncollision="False" friction="0.0" restitution="1.0" startsizemin="0.5,0.5" startsizemax="0.5,0.5" sizechangemin="0,0" sizechangemax="0.1,0.1" growtime="0.2" startcolor="255,255,255,255" endcolor="255,255,255,0" drawtarget="Both" blendstate="Additive" animduration="0.8" loopanim="True" drawontop="True" lifetimemin="0.8" middlecolor="255,255,255,255" usemiddlecolor="False" priority="0">
     <animatedsprite texture="%ModDir%/Misc/crit.png" sourcerect="0,0,204,124" origin="0.5,0.8" premultiplyalpha="false" />

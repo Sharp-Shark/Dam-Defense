@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="DD Restoration" modversion="1.0.5" corepackage="False" steamworkshopid="3420072790" gameversion="1.7.7.0" expectedhash="8C84B63EE4BE093A7AD05C4D3433800A">
+<contentpackage name="DD Restoration" modversion="1.1.10" corepackage="False" steamworkshopid="3420072790" gameversion="1.7.7.0">
   <Submarine file="%ModDir%/DD Restoration.sub" />
 </contentpackage>

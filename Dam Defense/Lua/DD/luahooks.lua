@@ -520,6 +520,67 @@ Hook.Add("DD.repairtool.toggle", "DD.repairtool.toggle", function(effect, deltaT
 	end
 end)
 
+-- wizard staff and spellbooks
+Hook.Patch("Barotrauma.Items.Components.RangedWeapon", "Use", function(instance, ptable)
+    local item = instance.Item
+	if item.Prefab.Identifier == 'merasmusstaff' then
+		local character = ptable['character']
+		if character == nil then
+			ptable.PreventExecution = true
+		else
+			local book = character.Inventory.GetItemAt(DD.invSlots.lefthand)
+			if (book == nil) or (not book.HasTag('merasmusspellbook')) or (character.CharacterHealth.GetAfflictionStrengthByIdentifier('wizard', true) < 1) then
+				ptable.PreventExecution = true
+				return
+			end
+			local identifier = string.sub(tostring(book.Prefab.Identifier), 1, #tostring(book.Prefab.Identifier) - 4)
+			if item.OwnInventory.GetItemAt(0) ~= nil then
+				if tostring(item.OwnInventory.GetItemAt(0).Prefab.Identifier) == identifier then
+					return
+				else
+					Entity.Spawner.AddEntityToRemoveQueue(item.OwnInventory.GetItemAt(0))
+				end
+			end
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), item.OwnInventory, nil, nil, function (spawnedItem) end)	
+		end
+	end
+end, Hook.HookMethodType.Before)
+Hook.Add("DD.staff.use", "DD.staff.use", function(effect, deltaTime, item, targets, worldPosition)
+	local character = targets[1]
+	local phrases = {
+		'Basbus Brontu!',
+		'Bontu Barsoma!',
+		'Babmo Bibrundo!',
+		'Bravus Abimbus!',
+		'Barbo Cabarto!',
+		'Abo Alabasbas!',
+		'Lesbo Barrabus!',
+		'Barraparraf Brubus!',
+		'Binto Bartum!',
+		'Bemilus Bronte!',
+		'Mictor Ate!',
+	}
+	character.Speak(phrases[math.random(#phrases)], ChatMessageType.Default)
+end)
+Hook.Add("DD.staff.update", "DD.staff.update", function(effect, deltaTime, item, targets, worldPosition)
+	local character = targets[1]
+	if character == nil then return end
+	local book = character.Inventory.GetItemAt(DD.invSlots.lefthand)
+	if (book == nil) or (not book.HasTag('merasmusspellbook')) or (character.CharacterHealth.GetAfflictionStrengthByIdentifier('wizard', true) < 1) then
+		item.Condition = 0
+	else
+		item.Condition = 100
+	end 
+end)
+-- Wizard death
+DD.characterDeathFunctions.wizardDeath = function (character)
+	if character.JobIdentifier ~= 'wizard' then return end
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('wizardfx'), character.WorldPosition, nil, nil, function (spawnedItem) end)
+	Timer.Wait(function ()
+		Entity.Spawner.AddEntityToRemoveQueue(character)
+	end, 100)
+end
+
 -- fistful of frags
 Hook.Add("DD.brassknuckle.disarm", "DD.brassknuckle.disarm", function(effect, deltaTime, item, targets, worldPosition)
 	local character = item
@@ -536,6 +597,36 @@ Hook.Add("DD.brassknuckle.disarm", "DD.brassknuckle.disarm", function(effect, de
 	if item == nil then return end
 	if item.Prefab.Identifier == 'brassknuckle' then return end
 	item.Drop(character, true, true)
+end)
+
+-- barricade
+Hook.Patch("Barotrauma.Items.Components.Holdable", "OnPicked", {'Barotrauma.Character'}, function(instance, ptable)
+    local item = instance.Item
+	if item.Prefab.Identifier == 'barricade' then
+		if item.linkedTo[1] ~= nil then
+			item.Condition = item.linkedTo[1].Condition
+			Entity.Spawner.AddItemToRemoveQueue(item.linkedTo[1])
+		end
+	end
+end, Hook.HookMethodType.Before)
+Hook.Patch("Barotrauma.Items.Components.Holdable", "AttachToWall", function(instance, ptable)
+    local item = instance.Item
+	if item.Prefab.Identifier == 'barricade' then
+		if item.Condition <= 0 then
+			ptable.PreventExecution = true
+			return
+		end
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('barricadestatic'), item.WorldPosition, item.Condition, nil, function (spawnedItem)
+			spawnedItem.Condition = item.Condition
+			item.AddLinked(spawnedItem)
+			spawnedItem.AddLinked(item)
+		end)
+	end
+end, Hook.HookMethodType.Before)
+Hook.Add("DD.barricade.break", "DD.barricade.break", function(effect, deltaTime, item, targets, worldPosition)
+	if item.linkedTo[1] ~= nil then
+		item.linkedTo[1].Condition = 0
+	end
 end)
 
 -- more intense and better blast jumping
@@ -563,8 +654,14 @@ Hook.Add("DD.jumpergrenade.blastjump", "DD.jumpergrenade.blastjump", function(ef
 end)
 
 -- displacer cannon teleport
-Hook.Add("DD.displacercannon.teleport", "DD.displacercannon.teleport", function(effect, deltaTime, item, targets, worldPosition)
+Hook.Add("DD.displacercannon.teleport", "DD.displacercannon.teleport", function(effect, deltaTime, item, targets, worldPosition, element)
+	local magic = element.GetAttributeBool("magic", false)
+
 	local item = targets[1]
+	if magic then
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('wizardfx'), effect.user.WorldPosition, nil, nil, function (spawnedItem) end)
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('wizardfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+	end
 	effect.user.TeleportTo(item.WorldPosition)
 end)
 

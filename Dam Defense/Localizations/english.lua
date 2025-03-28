@@ -32,6 +32,7 @@ return {
 	-- latejoin.lua
 	latejoinMessageNoRespawn = 'Late join respawning is temporarily enabled because of a main event. You will not respawn because you were alive when the event started. When the event ends, respawning will return to regular.',
 	latejoinMessageNoRespawnCustom = 'Custom respawning is temporarily enabled because of a main event. You will not be respawned again by the event. When the event ends, respawning will return to regular.',
+	lateJoinMessageNoTickets = 'Late join respawning is temporarily enabled because of a main event. You cannot be respawned because there are no respawn tickets. When the event ends, respawning will return to regular.',
 	-- money.lua
 	giveMoneyToClient = 'You have received {amount} Nexcredits (TM).',
 	commandCreditsError = 'You have no Nexaccount (TM).',
@@ -113,7 +114,7 @@ return {
 	gangWarRecruitmentNotice = 'Your gang has just recruited {name}!',
 	commandGangGangster = 'Your fellow gang members are: {allyList}. Public list of gangsters is: {gangsterList}.',
 	commandGang = 'Public list of gangsters is: {gangsterList}.',
-	-- events/ghostRole.lua (TBD)
+	-- events/ghostRole.lua
 	-- events/greenskins.lua
 	greenskinInfo = 'You are a kind of amphibious nimble critter that like playing games with their prey. Put masks on humans to turn them into goblins. Hide in goblin crates to regenerate.',
 	greenskinsEventEndDefeat = 'All greenskins have been eliminated.',
@@ -132,6 +133,7 @@ return {
 	nukiesMessagePublic = 'Intel reports nukie activity on the area. Keep the crew, and most importantly the reactor safe from them!',
 	nukiesEndVictory = 'Nukies have won this round! Round ending in 10 seconds.',
 	nukiesEnd = 'All nukies have been neutralized.',
+	nukiesTicketGained = 'Nukies have gained a respawn ticket by eliminating a defender! They now have {tickets} ticket(s).',
 	-- events/revolution.lua
 	revolutionMessageSecret = 'You are a rebel leader! Your objective is to kill the captain and security. You have {timer} until people become aware of the revolution, so start preparing now. Try to enlist non-security personnel to your cause.{rebelList} Do /rebels to get info pertinent to this event.',
 	revolutionMessageRebels = 'Everyone, including security, has heard rumours about your conspiracy and are now aware of the revolution. The cat is out of the bag, so be careful! They do not know who the rebels are yet, but the list of rebels will be public in {timer}. Do /rebels to get info pertinent to this event.',
@@ -149,12 +151,15 @@ return {
 	serialKillerEndVictory = 'Serial killer has won this round! Round ending in 10 seconds.',
 	serialKillerEndArrested = 'The serial killer has been eliminated.',
 	serialKillerEnd = 'The serial killer has been arrested.',
-	-- events/vip.lua (TBD)
+	-- events/vip.lua
 	vipMessageBoss = 'You are now a VIP. A body guard, {guardName}, has been assigned to keep you safe from hostiles. Your pay grade has been raised.',
 	vipMessageBodyguard = 'You have been tasked with keeping VIP {vipName} alive at all costs. Failure will result in immediate termination. Your pay grade has been raised.',
 	vipMessagePublic = 'A VIP is in town! Any non-medical and non-security personnel who kills {vipName} will be rewarded with {bounty} nexcredits.',
 	vipEnd = 'The VIP is dead! An anonymous person has been rewarded for their death.',
 	vipEndNoReward = 'The VIP is dead! No one has been rewarded for their death.',
+	-- events/wizard.lua
+	wizardEndVictory = 'The wizard has won this round! Round ending in 10 seconds.',
+	wizardEnd = 'The wizard has been slain!',
 	-- console commands
 	jobbanNoticeSingular = 'You have been banned from the {jobName} job because: {reason}.',
 	jobbanNoticePlural = 'You have been banned from {jobName} jobs because: {reason}.',

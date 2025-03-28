@@ -151,6 +151,51 @@
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <SkillRequirementHint identifier="weapons" level="60" />
   </Item>
+  <!-- 40mm frag greande deals less damage -->
+  <Item name="" identifier="40mmgrenade" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,grenade" Scale="0.5" impactsoundtag="impact_metal_light">
+    <PreferredContainer primary="grenadelauncher" amount="6" spawnprobability="1" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,piratearmcab" minamount="1" maxamount="2" spawnprobability="0.2" />
+    <PreferredContainer primary="secarmcab" secondary="armcab" />
+    <Price baseprice="100" sold="false">
+      <Price storeidentifier="merchantoutpost" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.9" minavailable="4" />
+      <Price storeidentifier="merchantmine" multiplier="1.25" />
+      <Price storeidentifier="merchantarmory" sold="true" multiplier="0.9" minavailable="4" />
+    </Price>
+    <Deconstruct time="5">
+      <Item identifier="iron" />
+      <Item identifier="sodium" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="uex" />
+    </Fabricate>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="704,960,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="215,286,41,17" depth="0.55" origin="0.5,0.5" />
+    <Body width="38" height="15" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" launchimpulse="20.0" sticktocharacters="false">
+      <Attack structuredamage="40" penetration="1" severlimbsprobability="5">
+        <Affliction identifier="explosiondamage" strength="50" />
+      </Attack>
+      <sound file="Content/Items/Weapons/FragGrenade40mmShot1.ogg" type="OnImpact" range="3000" selectionmode="Random" />
+      <sound file="Content/Items/Weapons/FragGrenade40mmShot2.ogg" type="OnImpact" range="3000" />
+      <!--Grenade launcher ammo explodes on impact-->
+      <StatusEffect type="OnImpact" target="This" Condition="-100.0" disabledeltatime="true">
+        <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
+        <Explosion range="300.0" ballastfloradamage="80" structuredamage="20" levelwalldamage="120" itemdamage="400" force="5.0" severlimbsprobability="0.4" debris="true" decal="explosion" decalsize="0.3">
+          <Affliction identifier="burn" strength="50" />
+          <Affliction identifier="bleeding" strength="100" probability="0.05" />
+          <Affliction identifier="stun" strength="0.5" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
   <!-- 40mm rubber round -->
   <Item name="" identifier="40mmrubberround" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,grenade" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="grenadelauncher" amount="6" spawnprobability="1" />
@@ -592,7 +637,7 @@
       <RequiredItem identifier="organicfiber" />
     </Deconstruct>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="5" />
+      <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20">
       <RequiredItem identifier="rum" />
@@ -630,7 +675,7 @@
         <ParticleEmitter particle="iceshards" anglemin="0" anglemax="360" particleamount="20" velocitymin="500" velocitymax="800" scalemin="0.5" scalemax="0.5" />
         <Explosion range="300.0" ballastfloradamage="200" structuredamage="0" itemdamage="100" force="2.0" severlimbsprobability="0" debris="true" underwaterbubble="false">
           <Affliction identifier="burning" strength="200" dividebylimbcount="true"/>
-		  <Affliction identifier="burn" strength="30" dividebylimbcount="true" />
+		  <Affliction identifier="burn" strength="50" dividebylimbcount="true" />
           <Affliction identifier="stun" strength="0.5" />
         </Explosion>
         <!--<Fire size="50" />-->
@@ -956,8 +1001,8 @@
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="5" />
 	</Fabricate>
-    <Fabricate suitablefabricators="fabricator" requiredtime="60">
-      <RequiredSkill identifier="weapons" level="30" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="weapons" level="15" />
       <RequiredItem identifier="iron" />
       <RequiredItem identifier="uex" />
     </Fabricate>
@@ -1915,9 +1960,6 @@
       <Item identifier="steel" />
       <Item identifier="titanium" />
     </Deconstruct>
-    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="8" />
-	</Fabricate>
     <Fabricate requiresrecipe="true">
       <RequiredItem identifier="titanium" amount="2" />
       <RequiredItem identifier="steel" />
@@ -2007,7 +2049,7 @@
       <Item identifier="organicfiber" amount="2" />
     </Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="8" />
+      <RequiredItem tag="fakemoney" amount="6" />
 	</Fabricate>
     <Price baseprice="65">
       <Price storeidentifier="merchantoutpost" minavailable="4" />
@@ -2346,7 +2388,7 @@
       <RequiredItem tag="money" amount="8" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="5">
-      <RequiredItem tag="fakemoney" amount="4" />
+      <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" amount="6">
       <RequiredSkill identifier="weapons" level="30" />
@@ -2665,7 +2707,7 @@
     <PreferredContainer secondary="wrecksecarmcab" minamount="1" maxamount="6" spawnprobability="0.02"/>    
     <Price baseprice="50" sold="false" />
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="6">
-      <RequiredItem tag="fakemoney" amount="4" />
+      <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="6">
       <RequiredItem tag="money" amount="8" />
@@ -3757,15 +3799,25 @@
     <SkillRequirementHint identifier="mechanical" level="50" />
   </Item>
   
-  <!-- Merasmus -->
-  <Item name="Wizard Hat" identifier="merasmushat" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.5">
-    <Sprite name="Wizard Hat" texture="%ModDir%/Items/wizard.png" depth="0.6" sourcerect="412,113,120,118" origin="0.5,0.5" />
+  <!-- Merasmus/Wizard -->
+  <Item name="Wizard Hat" identifier="merasmushat" category="Equipment,Misc" tags="merasmusitem,smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.5">
+    <Deconstruct time="10">
+      <Item identifier="calcium" />
+    </Deconstruct>
+	<Sprite name="Wizard Hat" texture="%ModDir%/Items/wizard.png" depth="0.6" sourcerect="412,113,120,118" origin="0.5,0.5" />
     <Body width="120" height="80" density="15" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect">
       <sprite name="Wizard Hat Wearable" texture="%ModDir%/Items/wizard.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="412,113,120,118" origin="0.75,1.1" />
-    </Wearable>
+      <damagemodifier afflictiontypes="bleeding,damage" armorsector="0.0,360.0" damagemultiplier="0.8" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="stun,burn" armorsector="0.0,360.0" damagemultiplier="0.7" damagesound="LimbArmor" deflectprojectiles="true" />
+	  <!-- if wearer is not a wizard -->
+      <StatusEffect type="OnWearing" target="Character">
+        <Conditional wizard="lt 1"/>
+        <Affliction identifier="timepressure" strength="999" />
+	  </StatusEffect>
+	</Wearable>
   </Item>
-  <Item name="Wizard Robes" identifier="merasmusrobes" inventoryiconcolor="155,155,155,255" category="Equipment" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
+  <Item name="Wizard Robes" identifier="merasmusrobes" inventoryiconcolor="155,155,155,255" category="Equipment,Misc" tags="merasmusitem,smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
     <Deconstruct time="10">
       <Item identifier="organicfiber" />
     </Deconstruct>
@@ -3774,10 +3826,8 @@
     <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
     <Wearable slots="Any,InnerClothes" variants="1" msg="ItemMsgPickUpSelect">
       <sprite name="Cultist Torso" texture="%ModDir%/Items/wizard.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-	  <!--
-      <sprite name="Cultist Right Hand" texture="%ModDir%/Items/wizard.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Left Hand" texture="%ModDir%/Items/wizard.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-	  -->
+      <damagemodifier afflictiontypes="bleeding,damage" armorsector="0.0,360.0" damagemultiplier="0.8" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="stun,burn" armorsector="0.0,360.0" damagemultiplier="0.7" damagesound="LimbArmor" deflectprojectiles="true" />
       <sprite name="Cultist Right Lower Arm" texture="%ModDir%/Items/wizard.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Cultist Left Lower Arm" texture="%ModDir%/Items/wizard.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Cultist Right Upper Arm" texture="%ModDir%/Items/wizard.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
@@ -3789,19 +3839,132 @@
       <sprite name="Cultist Left Leg" texture="%ModDir%/Items/wizard.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Cultist Left Shoe" texture="%ModDir%/Items/wizard.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Cultist Right Shoe" texture="%ModDir%/Items/wizard.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+	  <!-- wizard regen -->
+      <StatusEffect type="OnWearing" target="Character" conditionalComparison='or'>
+        <Conditional wizard="gt 0"/>
+        <Conditional speciesname="eq humanundead" />
+		<ReduceAffliction identifier="huskstun" strength="10" />
+		<ReduceAffliction identifier="huskinfection" strength="10" />
+		<ReduceAffliction type="infection" strength="10" />
+		<ReduceAffliction type="immunedebuff" strength="10" />
+		<ReduceAffliction type="bleeding" strength="1" />
+		<ReduceAffliction type="damage" strength="1" />
+		<ReduceAffliction type="burn" strength="1" />
+		<ReduceAffliction type="bloodloss" strength="1" />
+	  </StatusEffect>
+	  <!-- if wearer is not a wizard -->
+      <StatusEffect type="OnWearing" target="This, Character" conditionalComparison='and' >
+        <Conditional wizard="lt 1"/>
+        <Affliction identifier="burn" strength="0.5" dividebylimbcount="true"/>
+	  </StatusEffect>
     </Wearable>
-	<ItemContainer capacity="1">
-      <Containable items="smallitem" />
+	<ItemContainer capacity="3">
+      <Containable items="smallitem" excludeditems="bloodcultistrobes,merasmusrobes" />
     </ItemContainer>
   </Item>
   <!-- wizard staff -->
-  <Item name="Wizard Staff" identifier="merasmusstaff" category="Weapon,Misc" Tags="smallitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.6" impactsoundtag="impact_metal_light" RequireAimToUse="true" >
-    <InventoryIcon texture="%ModDir%/Items/wizard.png" sourcerect="468,244,64,64" />
-    <Sprite texture="%ModDir%/Items/wizard.png" sourcerect="0,256,215,52" origin="0.5,0.5" depth="0.55" />
-    <Body width="114" height="20" density="30" />
-	<Holdable slots="RightHand" controlpose="true" aimable="true" AimPos="50,-10" HoldPos="-50,-40" AimAngle="100" HoldAngle="90" handle1="30,-3" />
-    <RangedWeapon reload="1" combatpriority="50" msg="ItemMsgPickUpSelect" >
+  <Item name="Wizard Staff" identifier="merasmusstaff" category="Weapon,Misc" Tags="merasmusitem,smallitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.6" impactsoundtag="impact_metal_light" RequireAimToUse="true" >
+    <Deconstruct time="10">
+      <Item identifier="carbon" />
+    </Deconstruct>
+	<InventoryIcon texture="%ModDir%/Items/wizard.png" sourcerect="468,244,64,64" />
+    <Sprite texture="%ModDir%/Items/wizard.png" sourcerect="532,0,52,215" origin="0.5,0.5" depth="0.55" />
+    <Body width="52" height="215" density="30" />
+	<Holdable slots="RightHand" controlpose="true" aimable="true" AimPos="50,0" HoldPos="40,-50" AimAngle="10" HoldAngle="0" handle1="4,30" />
+	<RangedWeapon barrelpos="0,88" reload="1" combatpriority="100" drawhudwhenequipped="true" crosshairscale="0.2" msg="ItemMsgPickUpSelect" maxchargetime="1" ChargeSoundWindupPitchSlide="0.5,2.0" >
+	  <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="muzzleflashmerasmusstaff" scalemin="4.0" scalemax="4.0" particleamount="20" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" colormultiplier="200,200,200,255" />
+      <ParticleEmitterCharge particle="chargemerasmusstaff" particlespersecond="60" scalemultiplier="0.75,0.75" scalemin="1.0" scalemax="1.0" anglemax="360" colormultiplier="200,200,200,255" />
+      <Sound file="%ModDir%/Sounds/teleport.ogg" type="OnUse" volume="3.0" range="3000" />
+      <ChargeSound file="%ModDir%/Sounds/displacercannoncharge.ogg" range="1000" />
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="Character">
+	    <Conditional wizard="gt 0" />
+        <LuaHook name="DD.staff.use" />
+      </StatusEffect>
     </RangedWeapon>
+	<ItemComponent>
+	  <StatusEffect type="OnContained" target="Character">
+        <Conditional entitytype="eq Character" />
+	    <LuaHook name="DD.staff.update" />
+	  </StatusEffect>
+	</ItemComponent>
+    <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="merasmusspell" />
+    </ItemContainer>
+  </Item>
+  <!-- fireball spell book -->
+  <Item name="Scrungly Spellbook" identifier="merasmusfireballbook" spritecolor="255,155,55,255" inventoryiconcolor="255,155,55,255" category="Misc" cargocontaineridentifier="metalcrate" allowasextracargo="true" Tags="merasmusitem,merasmusspellbook,smallitem" maxstacksize="1" scale="0.5" impactsoundtag="impact_soft">
+    <Deconstruct time="10">
+      <Item identifier="carbon" />
+    </Deconstruct>
+    <InventoryIcon texture="book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
+    <Sprite texture="book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
+    <Body width="28" height="36" density="20" />
+    <Holdable slots="Any,LeftHand" aimable="false" aimpos="40,-20" handle1="5,0" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect" />
+  </Item>
+  <!-- teleport spell book -->
+  <Item name="Blink Spellbook" identifier="merasmusteleportbook" spritecolor="100,255,255,255" inventoryiconcolor="100,255,255,255" category="Misc" cargocontaineridentifier="metalcrate" allowasextracargo="true" Tags="merasmusitem,merasmusspellbook,smallitem" maxstacksize="1" scale="0.5" impactsoundtag="impact_soft">
+    <Deconstruct time="10">
+      <Item identifier="carbon" />
+    </Deconstruct>
+    <InventoryIcon texture="book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
+    <Sprite texture="book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
+    <Body width="28" height="36" density="20" />
+    <Holdable slots="Any,LeftHand" aimable="false" aimpos="40,-20" handle1="5,0" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect" />
+  </Item>
+  <!-- fireball spell -->
+  <Item name="Scrungly" identifier="merasmusfireball" tags="merasmusitem,merasmusspell" category="Misc" scale="0.5" hideinmenus="true" >
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="640,768,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="110,414,31,62" depth="0.55" origin="0.5,0.5" />
+    <Body width="35" height="60" density="20" />
+    <Projectile characterusable="false" launchimpulse="20" maxtargetstohit="1" sticktocharacters="true" sticktoitems="true" sticktodoors="true" sticktostructures="true" penetration="0.5" damagedoors="true">
+      <Attack structuredamage="20" itemdamage="80" severlimbsprobability="0">
+        <Affliction identifier="stun" strength="0.1" />
+      </Attack>
+      <StatusEffect type="OnActive" target="This" lifetime="0.5">
+        <ParticleEmitter particle="ammotrailwater" copyentityangle="true" anglemin="0" anglemax="0" particleamount="5" velocitymin="-10" velocitymax="-100" scalemin="0.25" scalemax="0.5" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="This" Condition="0.0" setvalue="true" />
+      <StatusEffect type="OnBroken" target="This" Condition="-100.0">
+        <sound file="Content/Items/Weapons/ExplosionMedium1.ogg" range="3000" />
+        <sound file="Content/Items/Weapons/ExplosionMedium2.ogg" range="3000" />
+        <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="3000" />
+        <Explosion range="200.0" ballastfloradamage="60" structuredamage="8" itemdamage="32" force="5" severlimbsprobability="0.3" debris="false">
+          <Affliction identifier="explosiondamage" strength="12" dividebylimbcount="true"/>
+          <Affliction identifier="burn" strength="6" dividebylimbcount="false"/>
+          <Affliction identifier="stun" strength="1" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <sound file="Content/Items/Weapons/ExplosionDebris1.ogg" range="2000" />
+        <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
+      </StatusEffect>
+    </Projectile>
+	<LightComponent range="30.0" lightcolor="255,155,55,128" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" allowingameediting="false" />
+  </Item>
+  <Item name="Blink" identifier="merasmusteleport" tags="merasmusitem,merasmusspell" category="Misc" scale="0.5" hideinmenus="true" >
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="143,414,113,9" depth="0.55" origin="0.5,0.5" />
+    <Body width="170" height="10" density="20" />
+    <Projectile characterusable="false" hitscan="true" removeonhit="true">
+	  <!-- telefrag -->
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <sound file="%ModDir%/Sounds/displacerteleport.ogg" volume="3.0" range="3000" />
+        <ParticleEmitter particle="weldspark" particleamount="5" anglemin="0" anglemax="360" velocitymin="300" velocitymax="350" scalemin="1.5" scalemax="1.9" drawontop="true" colormultiplier="150,255,195,180" />
+	  </StatusEffect>
+	  <!-- teleport -->
+      <StatusEffect type="OnImpact" target="This">
+		<LuaHook name="DD.displacercannon.teleport" magic="true" />
+	  </StatusEffect>
+	  <!-- remove -->
+      <StatusEffect type="OnNotContained" target="This">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
   </Item>
   
   <!-- JET mask from Facility Gamemode for Nukie -->
@@ -4217,7 +4380,7 @@
       <Item identifier="steel" />
     </Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="5" />
+      <RequiredItem tag="fakemoney" amount="4" />
 	</Fabricate>
     <Holdable slots="Any,RightHand,LeftHand" aimpos="35,-10" handle1="-15,-20" aimable="true" displaycontainedstatus="true">
 	  <StatusEffect type="OnUse" targettype="This" Stackable="false" duration="0.1">
@@ -4241,12 +4404,12 @@
     <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab"/>
     <PreferredContainer secondary="outpostcrewcabinet"/>
     <Deconstruct time="10">
-      <Item identifier="revolver" />
+      <Item identifier="pipegun" />
       <Item identifier="toolbox" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="20" />
-      <Item identifier="revolver" />
+      <Item identifier="pipegun" />
       <Item identifier="toolbox" />
     </Fabricate>
     <Price baseprice="60">
@@ -4260,7 +4423,7 @@
     <Sprite texture="Content/Items/Tools/tools.png" sourcerect="314,1,94,74" origin="0.5,0.5" depth="0.6" />
     <Body width="90" height="60" density="20" />
     <Holdable slots="RightHand,LeftHand" controlpose="true" aimpos="60,-30" handle1="0,32" holdangle="90" aimangle="0" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon barrelpos="35,-4" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.5">
+    <RangedWeapon barrelpos="35,15" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="1.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <Sound file="Content/Items/Weapons/Revolver1.ogg" type="OnUse" range="3000" selectionmode="Random" />
@@ -4271,19 +4434,23 @@
         <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
         <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
       </StatusEffect>
-      <RequiredItems items="revolverammo" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredItems items="revolverammo,rifleammo,shotgunammo,handcannonammo,flaregunammo" type="Contained" msg="ItemMsgAmmoRequired" />
       <RequiredSkill identifier="weapons" level="40" />
     </RangedWeapon>
-    <ItemContainer capacity="12" maxstacksize="32" hideitems="true" containedstateindicatorstyle="bullet" keepopenwhenequipped="true" movableframe="true" QuickUseMovesItemsInside="false">
-	  <Containable items="smallitem" />
+    <ItemContainer capacity="6" maxstacksize="12" hideitems="true" containedstateindicatorstyle="bullet" containedspritedepth="0.56" keepopenwhenequipped="true" movableframe="true" QuickUseMovesItemsInside="false">
+      <Containable items="revolverammo,rifleammo,shotgunammo,handcannonammo,flaregunammo" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="3" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="4" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="5" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="6" maxstacksize="64">
+        <Containable items="smallitem" excludeditems="revolverammo,rifleammo,shotgunammo,handcannonammo,flaregunammo" />
+      </SubContainer>
 	</ItemContainer>
     <aitarget sightrange="1000" soundrange="1000" fadeouttime="2" />
-    <Upgrade gameversion="0.10.0.0" scale="0.5" />
-    <!-- the item used to have the (default) 64 max stack size, i.e. stack size was only limited by the max stack size of the contained items -->
-    <!-- set the stack size back in old saves/subs to prevent items from dropping from containers -->
-    <Upgrade gameversion="1.1.0.0" maxstacksize="64">
-      <ItemContainer maxstacksize="64" />
-    </Upgrade>
+    <SkillRequirementHint identifier="weapons" level="40" />
   </Item>
   
   <!-- antique revolver is ike handcannon but is easier to craft, fires 1.5x slower and deals 1.5x more damage (same DPS as handcannon) -->
@@ -4420,7 +4587,7 @@
       <RequiredItem tag="money" amount="8" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="5">
-      <RequiredItem tag="fakemoney" amount="4" />
+      <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="6">
       <RequiredSkill identifier="weapons" level="30" />
@@ -4548,7 +4715,7 @@
 	<BrokenSprite texture="pipegun.png" sourcerect="0,44,172,44" depth="0.55" mincondition="0" maxcondition="95" fadein="false" />
     <Body width="220" height="50" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-8" handle1="-23,3" handle2="25,20" holdangle="-30" />
-    <RangedWeapon reload="1.3" holdtrigger="true" barrelpos="100,15" spread="2" unskilledspread="8" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="1.2" holdtrigger="true" barrelpos="100,15" spread="2" unskilledspread="8" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -4556,14 +4723,14 @@
       <Sound file="Content/Items/Weapons/ShotgunShot2.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/ShotgunShot3.ogg" type="OnUse" range="3000" />
       <Sound file="Content/Items/Weapons/ShotgunShot4.ogg" type="OnUse" range="3000" />
-	  <StatusEffect type="OnUse" target="This" Delay="0.6" Condition="0" setvalue="true" >
+	  <StatusEffect type="OnUse" target="This" Delay="0.5" Condition="0" setvalue="true" >
         <Explosion range="50.0" force="0.0" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="0.0" />
         <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
         <Sound file="Content/Items/Weapons/ShotgunLoad1.ogg" type="OnUse" range="500" selectionmode="Random" />
         <Sound file="Content/Items/Weapons/ShotgunLoad2.ogg" type="OnUse" range="500" />
         <Sound file="Content/Items/Weapons/ShotgunLoad3.ogg" type="OnUse" range="500" />
 	  </StatusEffect>
-	  <StatusEffect type="OnUse" target="This" Delay="1.2" Condition="100" setvalue="true" />
+	  <StatusEffect type="OnUse" target="This" Delay="1.1" Condition="100" setvalue="true" />
       <StatusEffect type="OnUse" target="This">
         <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="12.0" />
       </StatusEffect>
@@ -4592,7 +4759,7 @@
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="16" />
+      <RequiredItem tag="fakemoney" amount="15" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
@@ -4656,7 +4823,7 @@
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="16" />
+      <RequiredItem tag="fakemoney" amount="15" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
@@ -4721,7 +4888,7 @@
       <Price storeidentifier="merchantmine" multiplier="1.25" />
     </Price>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="4" />
+      <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
@@ -4811,7 +4978,7 @@
 	<Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="tommy.png" sourcerect="0,0,211,57" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.85" />
     </Wearable>
-    <RangedWeapon weapondamagemodifier="1.1" reload="0.12" holdtrigger="true" barrelpos="90,12" spread="4" unskilledspread="10" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon weapondamagemodifier="1.1" reload="0.12" holdtrigger="true" barrelpos="90,12" spread="5" unskilledspread="10" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -4930,9 +5097,6 @@
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="titaniumaluminiumalloy" />
     </Fabricate>
-    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="5" />
-	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="12" />
 	</Fabricate>
@@ -5032,9 +5196,6 @@
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="4" />
-	</Fabricate>
-    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-      <RequiredItem tag="fakemoney" amount="2" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2">
       <RequiredSkill identifier="weapons" level="20" />
@@ -5429,6 +5590,52 @@
     </Quality>
   </Item>
   
+  <!-- barricade -->
+  <Item name="Barricade" identifier="barricade" category="Equipment,Misc" tags="barricade" linkable="true" allowedlinks="barricadestatic" health="200" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" scale="0.75" allowasextracargo="true" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" explosiondamagemultiplier="0.35" ondamagedthreshold="2" >
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" >
+      <RequiredItem identifier="steel" amount="2" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" displayname="recycleitem">
+      <RequiredItem identifier="barricade" amount="1" mincondition="0.0" maxcondition="0.9" usecondition="false" />
+      <RequiredItem identifier="steel" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Items/tools.png" sourcerect="252,0,64,64" />
+    <Sprite texture="%ModDir%/Items/tools.png" sourcerect="188,0,32,124" origin="0.5,0.5" depth="0.55" />
+    <Body height="120" width="32" density="30" />
+    <Holdable selectkey="Select" pickkey="Use" slots="LeftHand+RightHand" aimpos="60,0" holdpos="45,-15" handle1="-5,-15" handle2="-5,15" controlpose="false" blocksplayers="true" attachable="true" aimable="true" msg="ItemMsgDetachWrench" PickingTime="5.0">
+      <RequiredItem items="wrench,deattachtool" excludeditems="multitool" type="Equipped" />
+	  <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.8" setvalue="true" />
+      <StatusEffect type="OnBroken" target="This">
+        <particleemitter particle="shrapnel" drawontop="true" particleamount="15" velocitymin="100" velocitymax="500" anglemin="0" anglemax="360" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" />
+        <Sound file="%ModDir%/Sounds/armorbreak.ogg" volume="2.0" range="800" />
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnDamaged" target="This">
+        <particleemitter particle="weldspark" drawontop="true" particleamount="10" velocitymin="100" velocitymax="500" anglemin="-45" anglemax="45" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" copyentityangle="true" />
+        <Sound file="Content/Sounds/Damage/HitArmor1.ogg" range="800" forcePlaySounds="true"/>
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <Item name="Barricade Static" identifier="barricadestatic" NonPlayerTeamInteractable="true" category="Equipment,Misc" tags="barricade" linkable="true" allowedlinks="barricade" health="200" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" scale="0.75" allowasextracargo="true" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" explosiondamagemultiplier="0.35" ondamagedthreshold="2" >
+    <Sprite texture="%ModDir%/Items/tools.png" sourcerect="220,0,32,124" origin="0.5,0.5" depth="0.54" />
+    <Body height="150" width="16" density="30" bodytype="static" />
+	<ItemComponent>
+      <StatusEffect type="OnBroken" target="This">
+	    <LuaHook name="DD.barricade.break" />
+        <particleemitter particle="shrapnel" drawontop="true" particleamount="15" velocitymin="100" velocitymax="500" anglemin="0" anglemax="360" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" />
+        <Sound file="%ModDir%/Sounds/armorbreak.ogg" volume="2.0" range="800" />
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnDamaged" target="This">
+        <particleemitter particle="weldspark" drawontop="true" particleamount="10" velocitymin="100" velocitymax="500" anglemin="-45" anglemax="45" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" copyentityangle="true" />
+        <Sound file="Content/Sounds/Damage/HitArmor1.ogg" range="800" forcePlaySounds="true"/>
+      </StatusEffect>
+	</ItemComponent>
+  </Item>
+  
   <!-- crudux cruo! -->
   <Item name="Blood Cultist Robes" identifier="bloodcultistrobes" inventoryiconcolor="255,200,155,255" category="Equipment,Misc" tags="smallitem,clothing,cultistitem" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
     <PreferredContainer primary="crewcab"/>
@@ -5501,7 +5708,7 @@
     </Wearable>
 	<ItemContainer capacity="2">
       <SlotIcon slotindex="2" texture="%ModDir%/Misc/Icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
-      <Containable items="smallitem" excludeditems="bloodcultistrobes,lifeessence" />
+      <Containable items="smallitem" excludeditems="merasmusrobes,bloodcultistrobes,lifeessence" />
       <SubContainer capacity="1">
         <Containable items="lifeessence" />
       </SubContainer>
@@ -5706,7 +5913,7 @@
     </Fabricate>
     <InventoryIcon texture="%ModDir%/Items/lifeessence.png" sourcerect="32,80,64,64" />
     <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="0,80,32,124" origin="0.5,0.5" depth="0.55" />
-    <Body height="120" radius="12" density="30" />
+    <Body height="120" width="15" density="30" />
     <Holdable slots="LeftHand" aimpos="60,-15" holdpos="45,-15" handle1="-20,0" handle2="-20,0" controlpose="false" blocksplayers="true" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.8" setvalue="true" />
 	  <StatusEffect type="OnActive" target="This" Condition="1" />
@@ -6089,13 +6296,27 @@
 	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
 	<ItemComponent>
 	  <StatusEffect target="This" type="OnSpawn" >
-        <Sound file="%ModDir%/Sounds/cultist1.ogg" selectionmode="random" range="500" volume="3.0"/>
+        <Sound file="%ModDir%/Sounds/cultist1.ogg" selectionmode="random" range="500" volume="2.5"/>
         <Sound file="%ModDir%/Sounds/cultist2.ogg" range="500" volume="2.5" />
         <Sound file="%ModDir%/Sounds/cultist3.ogg" range="500" volume="2.5" />
         <Sound file="%ModDir%/Sounds/cultist4.ogg" range="500" volume="2.5" />
         <Sound file="%ModDir%/Sounds/cultist5.ogg" range="500" volume="2.5" />
         <Sound file="%ModDir%/Sounds/cultist6.ogg" range="500" volume="2.5" />
         <Sound file="%ModDir%/Sounds/cultist7.ogg" range="500" volume="2.5" />
+	  </StatusEffect>
+	  <StatusEffect target="This" type="OnSpawn" delay="3" >
+	    <Remove />
+	  </StatusEffect>
+	</ItemComponent>
+  </Item>
+  
+  <!-- wizard -->
+  <Item identifier="wizardfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
+	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
+	<ItemComponent>
+	  <StatusEffect target="This" type="OnSpawn" >
+        <Sound file="%ModDir%/Sounds/teleport.ogg" range="500" volume="3.0"/>
+	    <Explosion range="250.0" force="1.5" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
 	  </StatusEffect>
 	  <StatusEffect target="This" type="OnSpawn" delay="3" >
 	    <Remove />

@@ -207,8 +207,5 @@ end, {
 				self.killer.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
 			end
 		end
-	end,
-	
-	onFinishAlways = function (self)
 	end
 })

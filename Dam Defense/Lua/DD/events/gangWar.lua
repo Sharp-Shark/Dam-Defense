@@ -46,7 +46,7 @@ end, {
 		end
 		
 		-- end event
-		if ((not gang1Alive) and (not gang2live)) and not self.debugMode then
+		if ((not gang1Alive) and (not gang2Alive)) and not self.debugMode then
 			return true
 		end
 		if (not anyGangsterNotArrested) and not self.debugMode then
@@ -176,6 +176,12 @@ end, {
 	
 	onStart = function (self)
 		self.winnerGang = nil
+		
+		-- gang war event only happens once per round
+		if DD.roundData.gangWarEventPreventExecution then
+			self.fail('"DD.roundData.gangWarEventPreventExecution" is true')
+			return
+		end
 	
 		-- gang names
 		local gangNames = {
@@ -266,7 +272,7 @@ end, {
 		-- Hei, Al Capone, vê se te emenda! Já sabem do teu furo, nego, no imposto de renda.
 		self.knownGangsters = {}
 		self.knownGangstersSet = {}
-		self.doxTimer = 60 * 5
+		self.doxTimer = 60 * 2
 		self.clientDoxTimerOffset = {}
 		-- Give gangsters a timer offset
 		local amount
@@ -406,7 +412,7 @@ end, {
 			end
 			
 			-- Increase time pressure
-			local timeToExplode = 12 * 60 -- in seconds
+			local timeToExplode = 10 * 60 -- in seconds
 			for client in self.parent.gang1 do
 				DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 			end
@@ -473,22 +479,24 @@ end, {
 	end,
 	
 	onFinish = function (self)
+		DD.roundData.gangWarEventPreventExecution = true
+	
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
 		for client in Client.ClientList do
 			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 		end
 		self.rewardSecurityForArrests(5)
 		if self.winnerGang == 'gang1' then
-			DD.messageAllClients(DD.stringLocalize('gangWarEndGang', {gangName = self.gang1Name, rivalGangName = self.gang2Name}), {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('gangWarEndGang', {gangName = self.gang1Name, rivalGangName = self.gang2Name}), {preset = 'crit'})
 		elseif self.winnerGang == 'gang2' then
-			DD.messageAllClients(DD.stringLocalize('gangWarEndGang', {gangName = self.gang2Name, rivalGangName = self.gang1Name}), {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('gangWarEndGang', {gangName = self.gang2Name, rivalGangName = self.gang1Name}), {preset = 'crit'})
 		elseif self.winnerGang == 'security' then
 			for client in Client.ClientList do
 				DD.giveMoneyToClient(client, 10, true)
 			end
-			DD.messageAllClients(DD.stringLocalize('gangWarEndSecurity'), {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('gangWarEndSecurity'), {preset = 'crit'})
 		else
-			DD.messageAllClients(DD.stringLocalize('gangWarEndNeutral'), {preset = 'goodinfo'})
+			DD.messageAllClients(DD.stringLocalize('gangWarEndNeutral'), {preset = 'crit'})
 		end
 	end,
 	

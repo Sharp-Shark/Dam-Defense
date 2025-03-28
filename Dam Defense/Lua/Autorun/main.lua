@@ -667,6 +667,16 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	if client ~= nil then
 		DD.messageClient(client, JobPrefab.Get(character.JobIdentifier).Description, {preset = 'info'})
 	end
+	-- Wizard
+	if character.JobIdentifier == 'wizard' then
+		DD.giveAfflictionCharacter(character, 'wizard', 1)
+		local item = character.Inventory.GetItemAt(DD.invSlots.head)
+		item.NonInteractable = true
+		if SERVER then
+			local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
+			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
+		end
+	end
 	-- Give Talents
 	if character.SpeciesName == 'human' then
 		Timer.Wait(function ()

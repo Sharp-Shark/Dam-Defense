@@ -184,7 +184,7 @@ Hook.Patch("Barotrauma.Networking.RespawnManager", "RespawnCharacters", {"Barotr
 			end
 		end
 	elseif DD.respawningState == 'latejoin' then
-		for client in Client.ClientList do
+		for client in DD.arrShuffle(Client.ClientList) do
 			if DD.isClientRespawnable(client) then
 				if (DD.eventDirector.mainEvent ~= nil) and (DD.eventDirector.mainEvent.lateJoinSpawn ~= nil) then
 					-- if statement condition function does something and returns true if it succeeds (function has side-effects and is not pure)

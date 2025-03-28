@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="1.2.5" corepackage="False" steamworkshopid="3146664815" gameversion="1.7.7.0">
+<contentpackage name="Dam Defense" modversion="1.2.6" corepackage="False" steamworkshopid="3146664815" gameversion="1.7.7.0">
   <Other file="%ModDir%/CSharp/Client/DamDefense.cs" />
   <Text file="%ModDir%/Localizations/english.xml" />
   <Item file="%ModDir%/Items/Jerry.xml" />
