@@ -653,6 +653,49 @@ Hook.Add("DD.jumpergrenade.blastjump", "DD.jumpergrenade.blastjump", function(ef
 	end
 end)
 
+-- debug draw
+if CLIENT and not Game.IsMultiplayer then
+	DD.gui = {linePoint1 = Vector2(), linePoint2 = Vector2()}
+	Hook.Patch("Barotrauma.GUI", "Draw", function (instance, ptable)
+		local spriteBatch = ptable["spriteBatch"]
+		GUI.GUI.DrawLine(spriteBatch, Screen.Selected.Cam.WorldToScreen(DD.gui.linePoint1), Screen.Selected.Cam.WorldToScreen(DD.gui.linePoint2), Color.Red, 0, 1)
+	end)
+end
+
+-- casts a raycast to repair barricades (static barricades otherwise do not collide)
+if CLIENT then LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.Items.Components.RepairTool"], "FixItemProjSpecific") end
+Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, ptable)
+	local item = instance.Item
+	if not item.HasTag('weldingequipment') then return end
+	local component = item.GetComponentString('RepairTool')
+	local pos = item.WorldPosition
+	local deltaPos = component.TransformedBarrelPos
+	local angle = (item.body.Dir == 1) and item.body.Rotation or (item.body.Rotation + math.pi)
+	local point1 = pos + deltaPos
+	local point2 = pos + deltaPos + component.range * Vector2(math.cos(angle), math.sin(angle))
+	
+	if CLIENT then
+		DD.gui.linePoint1 = point1
+		DD.gui.linePoint2 = point2
+	end
+	
+	local collisionCategory =  bit32.bor(Physics.CollisionCharacter, Physics.CollisionWall)
+	local result = DD.raycast(Submarine.MainSub, point1, point2, collisionCategory, callback)
+	
+	local blacklist = {}
+	for entity in result.bodies do
+		if LuaUserData.IsTargetType(entity, 'Barotrauma.Item') then
+			if entity.HasTag('barricade') then
+				entity.Condition = math.min(200, entity.Condition + 1)
+			else
+				break
+			end
+		elseif LuaUserData.IsTargetType(entity, 'Barotrauma.Structure') then
+			break
+		end
+	end
+end, Hook.HookMethodType.Before)
+
 -- displacer cannon teleport
 Hook.Add("DD.displacercannon.teleport", "DD.displacercannon.teleport", function(effect, deltaTime, item, targets, worldPosition, element)
 	local magic = element.GetAttributeBool("magic", false)
@@ -734,7 +777,7 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 		character.Bloodloss = 0
 		character.SetStun(0, true)
 		
-		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultconvertfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
 	end
 	
 	-- play tchernobog sfx and flashes a image 1 second after player transforms
@@ -787,8 +830,8 @@ Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", fun
 	else
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory, nil, nil, function (spawnedItem) end)
 	end
-	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodculthitfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
-	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultconvertfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
 end)
 
 
@@ -802,7 +845,7 @@ Hook.Add("DD.the1998.use", "DD.the1998.use", function(effect, deltaTime, item, t
 	
 	DD.giveAfflictionCharacter(item, 'enlighteneddecaypause', 999)
 	DD.giveAfflictionCharacter(item, 'enlightened', 30)
-	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodculthitfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
 end)
 
 -- When a cultist dies, he will come back as a zombie
@@ -845,8 +888,8 @@ DD.characterDeathFunctions.cultistDeath = function (character)
 	end)
 	-- Give items back to player after a delay
 	Timer.Wait(function ()
-		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodculthitfx'), newCharacter.WorldPosition, nil, nil, function (spawnedItem) end)
-		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultconvertfx'), newCharacter.WorldPosition, nil, nil, function (spawnedItem) end)
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), newCharacter.WorldPosition, nil, nil, function (spawnedItem) end)
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultfx'), newCharacter.WorldPosition, nil, nil, function (spawnedItem) end)
 		-- Give clothing items to their correct slot
 		for itemCount, item in pairs(slotItems) do
 			newCharacter.Inventory.TryPutItem(item, itemCount, true, true, newCharacter, true, true)

@@ -178,7 +178,7 @@ DD.eventDirector.getClientRelations = function (client)
 	
 	local antagSafe = {}
 	for client in Client.ClientList do
-		if (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
+		if (client.Character ~= nil) and DD.antagSafeJobs[tostring(client.Character.JobIdentifier)] then
 			antagSafe[client] = true
 		end
 	end

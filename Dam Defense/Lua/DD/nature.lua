@@ -5,10 +5,10 @@ DD.speciesData = {
 	tigerthresher_hatchling = {initialGrowTimer = 120, populationName = 'thresher'},
 	
 	crawler_large = {populationName = 'crawler'},
-	crawler = {initialGrowTimer = 210, grownIdentifier = 'crawler_large', initialBreedTimer = 90, eggIdentifer = 'crawleregg', populationName = 'crawler', populationCap = 6},
+	crawler = {initialGrowTimer = 210, grownIdentifier = 'crawler_large', initialBreedTimer = 90, eggIdentifer = 'crawleregg', populationName = 'crawler', populationCap = 4},
 	crawler_hatchling = {initialGrowTimer = 90, populationName = 'crawler'},
 	
-	spitroach = {initialBreedTimer = 90, eggIdentifer = 'spitroachegg', populationName = 'spitroach', populationCap = 6},
+	spitroach = {initialBreedTimer = 90, eggIdentifer = 'spitroachegg', populationName = 'spitroach', populationCap = 4},
 	spitroach_hatchling = {initialGrowTimer = 90, populationName = 'spitroach'},
 	
 	mudraptor_veteran = {populationName = 'mudraptor'},

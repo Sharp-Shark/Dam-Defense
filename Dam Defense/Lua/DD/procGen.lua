@@ -150,7 +150,7 @@ DD.roundStartFunctions.procGen = function ()
 							if identifier ~= nil then
 								for n = 1, amount do
 									Timer.Wait(function ()
-									Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), inventory, nil, nil, function (spawnedItem) end)
+										Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), inventory, nil, nil, function (spawnedItem) end)
 									end, delay)
 									delay = delay + 10
 								end

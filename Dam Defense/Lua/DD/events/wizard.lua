@@ -10,7 +10,7 @@ end, {
 	instanceCap = 1,
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 1,
+	weight = 2,
 	goodness = -1,
 	
 	onStart = function (self)
@@ -29,12 +29,6 @@ end, {
 			end
 		end
 		
-		-- wizard event only happens once per round
-		if DD.roundData.wizardEventPreventExecution and (not ignorePlayerCount) then
-			self.fail('"DD.roundData.wizardEventPreventExecution" is true')
-			return
-		end
-		
 		-- event requires 6 or more players
 		if (self.wizard == nil) or ((not ignorePlayerCount) and (DD.tableSize(Client.ClientList) <= 5)) then
 			self.fail('conditions to start could not be met')
@@ -46,7 +40,7 @@ end, {
 			if waypoint == nil then waypoint = DD.findRandomWaypointByJob('clown') end
 			local pos = waypoint.WorldPosition
 			local character = DD.spawnHuman(self.wizard, job, pos)
-			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team2, true)
+			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 			character.UpdateTeam()
 		end
 	end,
@@ -89,8 +83,6 @@ end, {
 	end,
 	
 	onFinish = function (self)
-		DD.roundData.wizardEventPreventExecution = true
-		
 		if self.wizardWon then
 			DD.messageAllClients(DD.stringLocalize('wizardEndVictory'), {preset = 'crit'})
 			DD.roundData.roundEnding = true

@@ -97,7 +97,7 @@
   <afflictiondescription.fever>Fights infections, but too high body temperatures can be counterproductive. Treatable with Stabilozine.</afflictiondescription.fever>
   <!-- Misc Afflictions -->
   <afflictionname.despawn>Despawn Decay</afflictionname.despawn>
-  <afflictiondescription.despawn>The waterlogged corpse is decaying away and will soon despawn.</afflictiondescription.despawn>
+  <afflictiondescription.despawn>The corpse is decaying away and will soon despawn.</afflictiondescription.despawn>
   <afflictionname.bloodlust>Bloodlust</afflictionname.bloodlust>
   <afflictiondescription.bloodlust>Regeneration, resistance, immunity to illness and greatly increased melee strength.</afflictiondescription.bloodlust>
   <afflictionname.pulmonaryemphysema>Pulmonary Emphysema</afflictionname.pulmonaryemphysema>

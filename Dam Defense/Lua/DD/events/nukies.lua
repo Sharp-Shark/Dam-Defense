@@ -35,6 +35,7 @@ end, {
 		self.nukiesSet[client] = true
 		
 		self.respawnTickets = self.respawnTickets - 1
+		DD.messageAllClients(DD.stringLocalize('nukiesTicketLost', {tickets = self.respawnTickets}), {preset = 'info'})
 		
 		return true
 	end,

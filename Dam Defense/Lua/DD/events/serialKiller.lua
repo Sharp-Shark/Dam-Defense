@@ -52,7 +52,7 @@ end, {
 		local anyoneAlive = false
 		for client in DD.arrShuffle(Client.ClientList) do
 			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
-				if (not DD.isCharacterArrested(client.Character)) and (not DD.isCharacterAntagSafe(client.Character)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
+				if (not DD.isCharacterArrested(client.Character)) and (not DD.isClientAntagExempt(client)) and (self.killer == nil) and DD.eventDirector.isClientBelowEventCap(client) then
 					self.killer = client
 				else
 					anyoneAlive = true

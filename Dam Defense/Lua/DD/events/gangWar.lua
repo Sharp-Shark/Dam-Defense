@@ -255,7 +255,7 @@ end, {
 			if DD.tableSize(self.gang1) + DD.tableSize(self.gang2) >= math.ceil(#Client.ClientList / 3) then
 				break
 			end
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterArrested(client.Character)) and (not DD.isCharacterAntagSafe(client.Character)) then
+			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterArrested(client.Character)) and (not DD.isClientAntagExempt(client)) then
 				-- do not add client to a gang if he's already in one
 				if not (self.gang1Set[client] or self.gang2Set[client]) then
 					if DD.tableSize(self.gang1) <= DD.tableSize(self.gang2) then

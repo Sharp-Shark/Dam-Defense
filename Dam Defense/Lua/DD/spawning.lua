@@ -79,7 +79,7 @@ DD.autoJob = function ()
 			if not (jobsLeft['captain'] > 0) then break end
 			for client in sorted['captain'][n] do
 				if not (jobsLeft['captain'] > 0) then break end
-				if (DD.clientJob[client] == nil) and (not DD.isClientBannedFromJob(client, job)) then
+				if (DD.clientJob[client] == nil) and (not DD.isClientBannedFromJob(client, 'captain')) then
 					assignClientJob(client, 'captain', true)
 				end
 			end

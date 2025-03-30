@@ -279,6 +279,8 @@ end
 -- Functions executed whenever a chat message is sent
 DD.chatMessageFunctions = {}
 local doChatMessageFunctions = function (message, sender)
+	if CLIENT then return end
+
 	local returnValue
 	for name, func in pairs(DD.chatMessageFunctions) do
 		if returnValue == nil then returnValue = func(message, sender) end
@@ -289,7 +291,23 @@ end
 DD.chatMessageFunctions.help = function (message, sender)
 	if (string.sub(message, 1, 1) ~= '/') and (string.sub(message, 1, 1) ~= '!') then return end
 	
-	local specialCommands = {'help', 'info', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'gang', 'fire'}
+	local specialCommands = {'help', 'info', 'neverantag', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'gang', 'fire'}
+	local commandText = {
+		help = 'Gives a list of commands. List of commands given will only include commands relevant for the current context.',
+		info = 'Gives relevant job and role information.',
+		neverantag = 'Toggles between being antag exempt and being antag eligible. Being dead or having an antag safe job may make you exempt/eligible despite of whatever you set this to.',
+		events = 'Gives a list of public and personal events. Some events are secret and will not be listed here.',
+		credits = 'Informs the amount of credits currently in the bank account. Do /withdraw to withdraw credits. There is no /deposit command, so withdrawing cannot be undone.',
+		withdraw = 'Withdraws an amount of credits from the bank account. If no amount of credits is specified, all the credits will be withdrawn. Credits cannot be deposited.',
+		possess = 'Possess the nearest creature that is not already being controlled by a player. Do /freecam to go into spectating. Will not respawn whilst controlling a creature.',
+		freecam = 'Goes into spectating. Can be used whilst controlling a creature. If you turn into a husk, you can use this stop being the husk and become eligible to respawning.',
+		election = 'Starts an election event to replace the current mayor/captain. Insert your money into a ballot box and either choose YES to remove the captain or NO to keep him.',
+		rebels = 'Lists rebel leaders if you are a rebel leader or if enough time has elapsed. This command also informs how much more time needs to elapse.',
+		cultists = 'Lists fellow blood cultists. List will not include undead zombies, but undead zombies are allied to cultists and can also use this command.',
+		whisper = 'Globally and secretly send a text message to all blood cultists and undead zombies. Command can be used by both cultists and zombies.',
+		gang = 'Lists fellow gang members and also the public list of gangsters. If someone is a gangster but is not in your gang, they are an enemy gangster. Kill them!',
+		fire = 'Usable by the mayor to lethally fire members of security or to kill himself. Type /fire without arguments to see what number relates to each guard. Numbers can be used in place of names.',
+	}
 	
 	local tbl = {}
 	for command in specialCommands do
@@ -359,6 +377,11 @@ DD.chatMessageFunctions.help = function (message, sender)
 		return true
 	end
 	
+	if specialCommands[string.sub(message, 7, #message)] then
+		DD.messageClient(sender, '/' .. string.sub(message, 7, #message) .. ' - ' .. commandText[string.sub(message, 7, #message)], {preset = 'command'})
+		return true
+	end
+	
 	local list = ''
 	for command in commands do
 		list = list .. ' - /' .. command .. '\n'
@@ -392,6 +415,21 @@ DD.chatMessageFunctions.jobinfo = function (message, sender, special)
 			DD.messageClient(sender, DD.stringLocalize('commandInfoMonster'), {preset = preset})
 		end
 	end
+	
+	return true
+end
+DD.antagExemptClients = {}
+DD.chatMessageFunctions.neverantag = function (message, sender)
+	if message ~= '/neverantag' then return end
+	
+	if DD.antagExemptClients[sender.AccountId.StringRepresentation] then
+		DD.messageClient(sender, DD.stringLocalize('commandNeverantagExempt'), {preset = 'command'})
+		DD.antagExemptClients[sender.AccountId.StringRepresentation] = nil
+	else
+		DD.messageClient(sender, DD.stringLocalize('commandNeverantagEligible'), {preset = 'command'})
+		DD.antagExemptClients[sender.AccountId.StringRepresentation] = true
+	end
+	DD.saving.autoSave({'antagExemptClients'})
 	
 	return true
 end
@@ -542,6 +580,7 @@ DD.chatMessageFunctions.fire = function (message, sender)
 	
 	return true
 end
+DD.electionCommandUsableAfter = 0
 DD.chatMessageFunctions.election = function (message, sender)
 	if message ~= '/election' then return end
 	if (not DD.isClientCharacterAlive(sender)) or (sender.Character.SpeciesName ~= 'human') then
@@ -550,6 +589,10 @@ DD.chatMessageFunctions.election = function (message, sender)
 	end
 	if #DD.eventDirector.getEventInstances('election') > 0 then
 		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorAlreadyOngoing'), {preset = 'command'})
+		return true
+	end
+	if DD.thinkCounter <= DD.electionCommandUsableAfter then
+		DD.messageClient(sender, DD.stringLocalize('commandElectionErrorCooldown', {timer = DD.numberToTime(math.ceil((DD.electionCommandUsableAfter - DD.thinkCounter) / 60))}), {preset = 'command'})
 		return true
 	end
 	if #DD.eventDirector.getMainEvents() > 0 then

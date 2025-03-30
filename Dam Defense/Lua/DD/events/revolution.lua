@@ -128,7 +128,7 @@ end, {
 			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterArrested(client.Character)) and (DD.tableSize(self.rebels) < math.ceil(#Client.ClientList / 3)) and DD.eventDirector.isClientBelowEventCap(client) then
 				chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
 			end
-			if DD.isClientCharacterAlive(client) and DD.isCharacterAntagSafe(client.Character) then
+			if DD.isClientCharacterAlive(client) and DD.isClientAntagExempt(client) then
 				chance = -1
 			end
 			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and DD.isCharacterSecurity(client.Character) then
@@ -146,7 +146,7 @@ end, {
 					chance = jobChances[tostring(client.Character.JobIdentifier)] or -1
 					if chance ~= -1 then chance = 1 end
 				end
-				if DD.isClientCharacterAlive(client) and DD.isCharacterAntagSafe(client.Character) then
+				if DD.isClientCharacterAlive(client) and DD.isClientAntagExempt(client) then
 					chance = -1
 				end
 				if self.rebelsSet[rebel] then chance = -1 end -- avoid adding a player to the rebel list twice
@@ -199,7 +199,7 @@ end, {
 			for client in Client.ClientList do
 				if rebelsSet[client] then
 					DD.messageClient(client, DD.stringLocalize('revolutionMessageRebels', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
-				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
+				elseif (client.Character ~= nil) and DD.isClientAntagExempt(client) then
 					-- Sec message
 					DD.messageClient(client, DD.stringLocalize('revolutionMessageSecurity', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
 				else

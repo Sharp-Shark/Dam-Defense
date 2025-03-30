@@ -126,7 +126,7 @@ end, {
 			self.cultistsSet = {}
 			self.cultists = {}
 			for client in DD.arrShuffle(Client.ClientList) do
-				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterArrested(client.Character)) and (not DD.isCharacterAntagSafe(client.Character)) then
+				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterArrested(client.Character)) and (not DD.isClientAntagExempt(client)) then
 					table.insert(self.cultists, client)
 					self.cultistsSet[client] = true
 				end
@@ -173,7 +173,7 @@ end, {
 			for client in Client.ClientList do
 				if self.parent.cultistsSet[client] then
 					DD.messageClient(client, DD.stringLocalize('bloodCultMessageCultist'), {preset = 'crit'})
-				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
+				elseif (client.Character ~= nil) and DD.isCharacterSecurity(client.Character) then
 					DD.messageClient(client, DD.stringLocalize('bloodCultMessageSecurity'), {preset = 'crit'})
 				else
 					DD.messageClient(client, DD.stringLocalize('bloodCultMessagePublic'), {preset = 'crit'})

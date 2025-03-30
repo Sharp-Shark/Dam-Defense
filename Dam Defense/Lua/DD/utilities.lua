@@ -111,6 +111,12 @@ DD.antagSafeJobs = {
 	medicaldoctor = true,
 	bodyguard = true,
 	mercs = true,
+}
+
+-- Set of antag exempt jobs (antag exempt jobs may be an antag role, but will never be assigned any additional antag roles)
+DD.antagExemptJobs = {
+	jet = true,
+	mercsevil = true,
 	wizard = true,
 }
 
@@ -734,6 +740,14 @@ DD.isCharacterArrested = function (character)
 	return false
 end
 
+DD.isClientAntagExempt = function (client)
+	DD.expectTypes('isCharacterAntagExempt', {client}, {'userdata'})
+	if DD.isClientCharacterAlive(client) then
+		return DD.antagExemptClients[client.AccountId.StringRepresentation] or DD.isCharacterAntagSafe(client.Character) or DD.antagExemptJobs[tostring(client.Character.JobIdentifier)]
+	end
+	return false
+end
+
 DD.isClientRespawnable = function (client)
 	DD.expectTypes('isClientRespawnable', {client}, {'userdata'})
 	if client.UsingFreeCam or client.SpectateOnly or DD.isClientCharacterAlive(client) then return false end
@@ -836,6 +850,25 @@ DD.numberToTime = function (n, data)
 	if text == '' then text = '0' .. string.rep(' ', unitSpacing) .. 's' end
 	
 	return text
+end
+
+-- Thanks Evil Factory for this raycast function
+DD.raycast = function (submarine, point1, point2, collisionCategory, callback)
+	local callback = callback or function (result, fixture, point, normal, fraction)
+		result.hit = true
+		table.insert(result.bodies, 1, fixture.Body.UserData)
+		-- dependant on the last fixture that was hit
+		result.body = fixture.Body.UserData
+        result.point = point
+		result.normal = normal
+		return fraction
+	end
+	
+	local result = {hit = false, bodies = {}}
+    Game.World.RayCast(function(fixture, point, normal, fraction)
+		return callback(result, fixture, point, normal, fraction)
+    end, Submarine.GetRelativeSimPositionFromWorldPosition(point1, submarine, submarine), Submarine.GetRelativeSimPositionFromWorldPosition(point2, submarine, submarine), collisionCategory)
+    return result
 end
 
 -- Spawns a human with a job somewhere

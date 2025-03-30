@@ -81,6 +81,9 @@
     <SuitableTreatment type="damage" suitability="50" />
     <SuitableTreatment type="burn" suitability="1" />
     <SuitableTreatment identifier="drunk" suitability="-20" />
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="10" />
+	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
       <RequiredSkill identifier="medical" level="35" />
       <RequiredItem identifier="chloralhydrate" amount="1" />

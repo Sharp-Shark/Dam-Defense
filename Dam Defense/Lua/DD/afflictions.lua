@@ -143,7 +143,6 @@ Hook.Add("character.applyDamage", "DD.resetHuskRegenOnDamage", function (charact
 end)
 
 local afflictionNetworkCooldown = {}
-local corpseSpreadCooldown = {}
 DD.thinkFunctions.afflictions = function ()
 	if not Game.RoundStarted then return end
 
@@ -212,11 +211,6 @@ DD.thinkFunctions.afflictions = function ()
 		if character.IsDead then
 			-- Specific to humans
 			if character.SpeciesName == 'human' then
-				for diseaseName, data in pairs(DD.diseaseData) do
-					if not getDiseaseStat(diseaseName, 'necrotic') then
-						character.CharacterHealth.ReduceAfflictionOnAllLimbs(diseaseName .. 'infection', 5 * (1/60), nil)
-					end
-				end
 				-- after 10s of being dead, cardiac arrest will reach maxstrength
 				if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) < 1 then
 					DD.giveAfflictionCharacter(character, 'cardiacarrest', 1/60/10)
@@ -230,64 +224,44 @@ DD.thinkFunctions.afflictions = function ()
 				end
 			end
 			
-			-- corpse sickness
-			if character.SpeciesName == 'human' then
-				for diseaseName, data in pairs(DD.diseaseData) do
-					if getDiseaseStat(diseaseName, 'necrotic') and (character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) > 0) then
-						DD.giveAfflictionCharacter(character, diseaseName .. 'infection', 1/60)
-					end
-				end
-			elseif (not DD.isCharacterHusk(character)) and (not character.IsHumanoid) then
-				DD.giveAfflictionCharacter(character, 'anthraxinfection', 1/60)
+			-- after 60s a corpse will despawn
+			if (affliction == nil) or (affliction.Strength < 1) then
+				affliction = character.CharacterHealth.GetAffliction('despawn', true)
 			end
-			
-			-- after 90s of a corpse being underwater, it will despawn
-			if character.InWater then
-				local affliction = character.CharacterHealth.GetAffliction('despawn', true)
-				DD.giveAfflictionCharacter(character, 'despawn', 1/60/90)
-				-- max strength has been reached
-				if (affliction ~= nil) and (affliction.Strength >= 1) then
-					affliction.SetStrength(0)
-					-- drop items
-					if character.Inventory ~= nil then
-						-- humans (or previously human humanoids) have their items put in a duffelbag when they despawn
-						if character.IsHumanoid and (string.lower(string.sub(tostring(character.SpeciesName), 1, 5)) == 'human') then
-							Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('duffelbag'), character.WorldPosition, nil, nil, function (spawnedItem)
-								for itemCount = 0, character.Inventory.Capacity do
-									local item = character.Inventory.GetItemAt(itemCount)
-									if item ~= nil then
-										item.Drop()
-										spawnedItem.OwnInventory.TryPutItem(item, character, nil, true, true)
-									end
-								end
-							end)
-						-- creatures just have their items dropped on the floor
-						else
+			DD.giveAfflictionCharacter(character, 'despawn', 1/60/60)
+			-- max strength has been reached
+			if (affliction ~= nil) and (affliction.Strength >= 1) then
+				affliction.SetStrength(0)
+				-- despawnburn
+				if affliction.Identifier == 'despawnburn' then
+					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), character.WorldPosition, nil, nil, function (spawnedItem) end)
+				end
+				-- drop items
+				if character.Inventory ~= nil then
+					-- humans (or previously human humanoids) have their items put in a duffelbag when they despawn
+					if character.IsHumanoid and (string.lower(string.sub(tostring(character.SpeciesName), 1, 5)) == 'human') then
+						Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('duffelbag'), character.WorldPosition, nil, nil, function (spawnedItem)
 							for itemCount = 0, character.Inventory.Capacity do
 								local item = character.Inventory.GetItemAt(itemCount)
-								if item ~= nil then item.Drop() end
+								if item ~= nil then
+									item.Drop()
+									spawnedItem.OwnInventory.TryPutItem(item, character, nil, true, true)
+								end
 							end
+						end)
+					-- creatures just have their items dropped on the floor
+					else
+						for itemCount = 0, character.Inventory.Capacity do
+							local item = character.Inventory.GetItemAt(itemCount)
+							if item ~= nil then item.Drop() end
 						end
 					end
-					-- despawn
-					Timer.Wait(function ()
-						Entity.Spawner.AddEntityToRemoveQueue(character)
-						corpseSpreadCooldown[character] = nil
-						afflictionNetworkCooldown[character] = nil
-					end, 10)
 				end
-			else
-				-- spread corpse infections
-				if corpseSpreadCooldown[character] == nil then
-					corpseSpreadCooldown[character] = 60 * 60 * 1.5
-				elseif corpseSpreadCooldown[character] > 0 then
-					corpseSpreadCooldown[character] = corpseSpreadCooldown[character] - 1
-				else
-					spreadInfections(character, true)
-					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('flybuzzfx'), character.WorldPosition, nil, nil, function (spawnedItem) end)
-				
-					corpseSpreadCooldown[character] = 60 * math.random(12, 16)
-				end
+				-- despawn
+				Timer.Wait(function ()
+					Entity.Spawner.AddEntityToRemoveQueue(character)
+					afflictionNetworkCooldown[character] = nil
+				end, 10)
 			end
 			
 			-- network update for dead character (and also spread infections)

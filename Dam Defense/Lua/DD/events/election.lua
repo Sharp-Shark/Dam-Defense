@@ -29,7 +29,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 			return
 		end
 		
-		self.timer = 60 * 4
+		self.timer = 60 * 2
 		
 		self.yesVotes = 0
 		self.noVotes = 0
@@ -48,6 +48,9 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 		for client in Client.ClientList do
 			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 		end
+		
+		-- /election command will only be usable after DD.thinkCounter is greater than this value
+		DD.electionCommandUsableAfter = DD.thinkCounter + self.cooldown * 60
 	end,
 	
 	onThink = function (self)

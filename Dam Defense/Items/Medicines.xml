@@ -1,6 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
   <Override>
+  <!-- crimson acid nerfed -->
+  <Item name="" identifier="sulphuricacidsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,chem,syringe" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <PreferredContainer secondary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0" />
+    <PreferredContainer primary="toxcab" secondary="toxcontainer"/>
+    <Price baseprice="160" sold="false">
+      <Price storeidentifier="merchantoutpost" multiplier="1.25" />
+      <Price storeidentifier="merchantcity" multiplier="1.25" />
+      <Price storeidentifier="merchantresearch" multiplier="0.9" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" />
+      <Price storeidentifier="merchantmine" multiplier="1.1" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9"  />
+    </Price>
+    <Fabricate suitablefabricators="medicalfabricator" amount="2" requiredtime="5" requiresrecipe="true">
+      <RequiredSkill identifier="medical" level="30" />
+      <RequiredItem identifier="sulphuricacid" count="2" />
+      <RequiredItem identifier="alienblood" count="1" />
+      <RequiredItem identifier="plastic" count="1" />
+    </Fabricate>
+    <Deconstruct time="5">
+      <Item identifier="sulphuricacid" />
+    </Deconstruct>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="64,960,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="263,210,37,72" depth="0.6" origin="0.5,0.5" />
+    <Body width="35" height="65" density="10.2" waterdragcoefficient="1"/>
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" duration="10.0">
+        <Conditional mass="lt 3000" />
+        <!-- Make sure it's effective regardless of the size of the enemy, 0 damage flat and 40% max health damage to an enemy without resistances -->
+        <Affliction identifier="acidburn" amount="4.0" MultiplyByMaxVitality="true" />
+        <Affliction identifier="slow" amount="20" MultiplyByMaxVitality="true" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget" duration="20.0">
+        <!-- Latcher and heavier monsters take longer and more doses to kill, 0 damage flat and 20% max health damage. -->
+        <Conditional mass="gte 3000" />
+        <Affliction identifier="acidburn" amount="1.0" MultiplyByMaxVitality="true" />
+        <Affliction identifier="slow" amount="20" MultiplyByMaxVitality="true" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+        <Affliction identifier="stun" amount="0.1" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </MeleeWeapon>
+    <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon"/>
+  </Item>
   <!-- antirad cheaper to craft -->
   <AntiRad name="" identifier="antirad" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
@@ -16,6 +68,9 @@
       <Price storeidentifier="merchantmine"/>
       <Price storeidentifier="merchantmedical" minavailable="2" multiplier="0.9"/>
     </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="5" />
+	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30" >
       <RequiredSkill identifier="medical" level="20" />
       <RequiredItem identifier="stabilozine" />
@@ -129,7 +184,7 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="8" />
+      <RequiredItem tag="money" amount="6" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
       <RequiredSkill identifier="medical" level="30" />
@@ -431,7 +486,7 @@
       <Price storeidentifier="merchantmine"/>
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="8" />
+      <RequiredItem tag="money" amount="4" />
 	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="511,957,64,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Misc/Misc.png" sourcerect="105,73,50,30" depth="0.55" origin="0.5,0.5" />
@@ -531,7 +586,7 @@
       <Price storeidentifier="merchantmedical" multiplier="0.9" minavailable="4" />
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="5" />
+      <RequiredItem tag="money" amount="8" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="6" />
@@ -647,7 +702,7 @@
     <SuitableTreatment identifier="bacterialgangrene" suitability="60" />
     <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <RequiredSkill identifier="medical" level="55" />
-      <StatusEffect type="OnUse" target="This" Condition="-21.0">
+      <StatusEffect type="OnUse" target="This" Condition="-10.0">
         <Sound file="Content/Items/Medical/Bandage1.ogg" range="500" />
         <Sound file="Content/Items/Medical/Bandage2.ogg" range="500" />
       </StatusEffect>
@@ -708,9 +763,9 @@
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
       </StatusEffect>
 	  <!-- When Ethanol is drunk -->
-      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10" duration="10">
-        <Affliction identifier="drunk" amount="1.2" />
-        <Affliction identifier="organdamage" amount="0.1" />
+      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10">
+        <Affliction identifier="organdamage" amount="1" />
+        <Affliction identifier="drunk" amount="12" />
         <ReduceAffliction identifier="psychosis" amount="10.0" />
       </StatusEffect>
       <!-- When Ethanol is used in Health GUI -->
@@ -853,10 +908,12 @@
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
       </StatusEffect>
 	  <!-- When Rum is drunk -->
-      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10" duration="10">
-        <Affliction identifier="drunk" amount="1.2" />
-        <Affliction identifier="organdamage" amount="0.1" />
+      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10">
+        <Affliction identifier="drunk" amount="12" />
+        <Affliction identifier="organdamage" amount="1" />
         <ReduceAffliction identifier="psychosis" amount="10.0" />
+      </StatusEffect>
+      <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10" duration="10">
         <ReduceAffliction identifier="huskinfection" amount="11.0" />
       </StatusEffect>
       <!-- When Rum is used in Health GUI -->
@@ -1167,7 +1224,7 @@
       </Price>
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="8" />
+      <RequiredItem tag="money" amount="10" />
 	</Fabricate>
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="56,0,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="36,0,36,69" depth="0.6" origin="0.5,0.5" />
@@ -1210,7 +1267,7 @@
       </Price>
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="12" />
+      <RequiredItem tag="money" amount="15" />
 	</Fabricate>
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="224,0,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="144,0,36,69" depth="0.6" origin="0.5,0.5" />
@@ -1306,9 +1363,6 @@
         <Reputation faction="huskcult" min="30"/>
       </Price>
     </Price>
-    <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="12" />
-	</Fabricate>
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="112,0,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="72,0,36,69" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="70" density="20" />

@@ -396,7 +396,6 @@
       <sprite texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="LeftHand" sourcerect="487,1,25,16" origin="0.5,0.8" depth="0.09" inheritlimbdepth="true" inherittexturescale="true" />
       <StatusEffect type="OnWearing" target="Character" lockhands="true" SpeedMultiplier="0.75" setvalue="true">
         <Affliction identifier="handcuffed" amount="1" />
-	    <LuaHook name="DD.handcuffs.update" />
 	  </StatusEffect>
 	  <StatusEffect type="OnWearing" target="This" Condition="-0.55" />
       <StatusEffect type="OnBroken" target="This">
@@ -1076,6 +1075,9 @@
       <Item identifier="titaniumaluminiumalloy" />
       <Item identifier="plastic" />
     </Deconstruct>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="16" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="60" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="steel" amount="2" />
@@ -1206,6 +1208,9 @@
       <Item identifier="titaniumaluminiumalloy" />
       <Item identifier="plastic" />
     </Deconstruct>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="16" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="60" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="steel" amount="2" />
@@ -2132,6 +2137,9 @@
       <Item identifier="ballisticfiber" />
       <Item identifier="plastic" />
     </Deconstruct>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="20" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="weapons" level="45" />
       <RequiredItem identifier="ballisticfiber" amount="3" />
@@ -2171,6 +2179,9 @@
     <Deconstruct time="40">
       <Item identifier="ballisticfiber" amount="3" />
     </Deconstruct>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="20" />
+	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="weapons" level="45" />
       <RequiredItem identifier="ballisticfiber" amount="4" />
@@ -2622,7 +2633,7 @@
       <Item identifier="plastic" />
     </Deconstruct>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="12" />
+      <RequiredItem tag="money" amount="8" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="45" />
@@ -3453,6 +3464,9 @@
       <Price storeidentifier="merchantmilitary" />
       <Price storeidentifier="merchantmine" multiplier="0.75" />
     </Price>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredItem tag="money" amount="2" />
+	</Fabricate>
     <Deconstruct time="5">
       <Item identifier="scrap" />
       <Item identifier="scrap" />
@@ -3928,21 +3942,22 @@
       <StatusEffect type="OnActive" target="This" lifetime="0.5">
         <ParticleEmitter particle="ammotrailwater" copyentityangle="true" anglemin="0" anglemax="0" particleamount="5" velocitymin="-10" velocitymax="-100" scalemin="0.25" scalemax="0.5" />
       </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" condition="-35" />
       <StatusEffect type="OnImpact" target="This" Condition="0.0" setvalue="true" />
-      <StatusEffect type="OnBroken" target="This" Condition="-100.0">
+      <StatusEffect type="OnBroken" target="This">
+        <sound file="Content/Items/Weapons/ExplosionDebris1.ogg" range="2000" />
+        <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
         <sound file="Content/Items/Weapons/ExplosionMedium1.ogg" range="3000" />
         <sound file="Content/Items/Weapons/ExplosionMedium2.ogg" range="3000" />
         <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="3000" />
-        <Explosion range="200.0" ballastfloradamage="60" structuredamage="8" itemdamage="32" force="5" severlimbsprobability="0.3" debris="false">
+        <Explosion range="200.0" ballastfloradamage="60" structuredamage="10" itemdamage="40" force="5" severlimbsprobability="0.3" debris="false">
           <Affliction identifier="explosiondamage" strength="12" dividebylimbcount="true"/>
           <Affliction identifier="burn" strength="6" dividebylimbcount="false"/>
           <Affliction identifier="stun" strength="1" />
         </Explosion>
         <Remove />
-      </StatusEffect>
-      <StatusEffect type="OnBroken" target="This">
-        <sound file="Content/Items/Weapons/ExplosionDebris1.ogg" range="2000" />
-        <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
       </StatusEffect>
     </Projectile>
 	<LightComponent range="30.0" lightcolor="255,155,55,128" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" allowingameediting="false" />
@@ -5098,7 +5113,7 @@
       <RequiredItem identifier="titaniumaluminiumalloy" />
     </Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="12" />
+      <RequiredItem tag="money" amount="8" />
 	</Fabricate>
     <Deconstruct time="10">
       <Item identifier="plastic" />
@@ -5439,9 +5454,8 @@
     <Deconstruct time="5">
       <RequiredItem identifier="steel" />
 	</Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="6">
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="1">
       <RequiredSkill identifier="weapons" level="20" />
-      <RequiredItem identifier="steel" />
       <RequiredItem identifier="steel" />
     </Fabricate>
     <InventoryIcon texture="whalinggun.png" sourcerect="249,0,55,55" origin="0.5,0.5" />
@@ -5619,7 +5633,8 @@
       </StatusEffect>
     </Holdable>
   </Item>
-  <Item name="Barricade Static" identifier="barricadestatic" NonPlayerTeamInteractable="true" category="Equipment,Misc" tags="barricade" linkable="true" allowedlinks="barricade" health="200" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" scale="0.75" allowasextracargo="true" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" explosiondamagemultiplier="0.35" ondamagedthreshold="2" >
+  <!-- NonPlayerTeamInteractable="true" -->
+  <Item name="Barricade Static" identifier="barricadestatic" InteractDistance="0.1" category="Equipment,Misc" tags="barricade" linkable="true" allowedlinks="barricade" health="200" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" scale="0.75" allowasextracargo="true" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" explosiondamagemultiplier="0.35" ondamagedthreshold="2" >
     <Sprite texture="%ModDir%/Items/tools.png" sourcerect="220,0,32,124" origin="0.5,0.5" depth="0.54" />
     <Body height="150" width="16" density="30" bodytype="static" />
 	<ItemComponent>
@@ -6281,18 +6296,7 @@
   </Item>
   
   <!-- special effect -->
-  <Item identifier="bloodculthitfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
-	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
-	<ItemComponent>
-	  <StatusEffect target="This" type="OnSpawn" >
-	    <Explosion range="250.0" force="1.5" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
-	  </StatusEffect>
-	  <StatusEffect target="This" type="OnSpawn" delay="3" >
-	    <Remove />
-	  </StatusEffect>
-	</ItemComponent>
-  </Item>
-  <Item identifier="bloodcultconvertfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
+  <Item identifier="bloodcultfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
 	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
 	<ItemComponent>
 	  <StatusEffect target="This" type="OnSpawn" >
@@ -6310,13 +6314,25 @@
 	</ItemComponent>
   </Item>
   
+  <Item identifier="smokefx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
+	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
+	<ItemComponent>
+	  <StatusEffect target="This" type="OnSpawn" >
+	    <Explosion range="250.0" force="0" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+	  </StatusEffect>
+	  <StatusEffect target="This" type="OnSpawn" delay="3" >
+	    <Remove />
+	  </StatusEffect>
+	</ItemComponent>
+  </Item>
+  
   <!-- wizard -->
   <Item identifier="wizardfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
 	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>
 	<ItemComponent>
 	  <StatusEffect target="This" type="OnSpawn" >
         <Sound file="%ModDir%/Sounds/teleport.ogg" range="500" volume="3.0"/>
-	    <Explosion range="250.0" force="1.5" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+	    <Explosion range="250.0" force="0" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
 	  </StatusEffect>
 	  <StatusEffect target="This" type="OnSpawn" delay="3" >
 	    <Remove />

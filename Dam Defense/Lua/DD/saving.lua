@@ -12,6 +12,7 @@ DD.saving.keys = {
 	'debugMode',
 	'eventDirector.enabled',
 	'jobBans',
+	'antagExemptClients',
 }
 
 -- Get any value from the table DD
