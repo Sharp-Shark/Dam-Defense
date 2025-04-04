@@ -31,7 +31,7 @@ DD.eventDirector.eventPool = {
 	DD.eventSerialKiller,
 	DD.eventBloodCult,
 	DD.eventGreenskins,
-	DD.eventGangWar,
+--	DD.eventGangWar, (removed gang war event until it is reworked)
 	DD.eventDeathSquad,
 	-- Side events
 	DD.eventFish,

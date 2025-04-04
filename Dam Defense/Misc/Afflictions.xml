@@ -231,7 +231,7 @@
   <!-- cultist affliction gained from book 1998 by Jerry Peterson (enlightened is affliction, enlightenedmind is talent) -->
   <Affliction name="Enlightened" identifier="enlightened" description="You have been enlightened by the light of truth. You must enlighten others, so all may know it." type="oneofus" targets="human,humangoblin,humantroll,humanundead" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" showicontoothersthreshold="999" showinhealthscannerthreshold="999" maxstrength="100">
     <Effect minstrength="0" maxstrength="99" strengthchange="-5" />
-	<Effect minstrength="99" maxstrength="100" strengthchange="1.0">
+	<Effect minstrength="99" maxstrength="100" strengthchange="1.0" tag="enlightened">
 	  <StatusEffect target="character" >
         <Affliction identifier="disguisedashusk" amount="1.0" />
 	    <Affliction identifier="timepressure" amount="0.12" />
@@ -243,12 +243,14 @@
   
   <!-- hidden affliction applied on wizard that does nothing, just exists to flag him for statuseffects or conditionals -->
   <Affliction name="Wizard" identifier="wizard" description="" type="magic" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" maxstrength="1">
+    <Effect minstrength="0" maxstrength="1" tag="wizard" />
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
   
   <!-- hidden affliction applied on serial killer that does nothing, just exists to flag him for statuseffects or conditionals -->
   <Affliction name="Serial Killer" identifier="serialkiller" description="" type="oneofus" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" maxstrength="1">
-    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+    <Effect minstrength="0" maxstrength="1" tag="serialkiller" />
+	<icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
 
   <!-- JUDGEMENT -->

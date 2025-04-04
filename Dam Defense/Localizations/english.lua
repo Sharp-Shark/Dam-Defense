@@ -174,6 +174,20 @@ return {
 	secret = 'secret',
 	target = 'target',
 	empty = 'empty',
+	-- info text
+	gui_neutral = 'Neutral',
+	gui_hostile = 'Hostile',
+	gui_friendly = 'Friendly',
+	gui_comrade = 'Comrade',
+	gui_cultist = 'Brethren',
+	gui_target = 'Target',
+	gui_serialkiller = 'Serial Killer',
+	gui_wizard = 'Wizard',
+	gui_wanted = 'Wanted',
+	gui_bodyguard = 'Bodyguard',
+	gui_protect = 'Protect',
+	gui_security = 'Security',
+	gui_medical = 'Medical',
 	
 	-- wiki
 	-- wiki misc

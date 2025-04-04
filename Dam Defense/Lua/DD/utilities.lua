@@ -292,7 +292,7 @@ end
 
 -- See if table has a value
 DD.tableHas = function (t, query)
-	DD.expectTypes('tableHas', {t, query}, {'table', 'notnil'})
+	DD.expectTypes('tableHas', {t, query}, {'table,userdata', 'notnil'})
 	for value in t do if value == query then return true end end
 	return false
 end

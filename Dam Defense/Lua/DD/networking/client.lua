@@ -14,3 +14,7 @@ Networking.Receive("syncEntityRotation", function (message, client)
 	if entity == nil then return end
 	entity.Rotation = rotation
 end)
+
+Networking.Receive("updateGUICharacterRole", function (message, client)
+	DD.gui.characterRole = json.parse(message.ReadString())
+end)

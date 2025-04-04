@@ -647,7 +647,7 @@ require 'DD/luahooks'
 require 'DD/commands'
 require 'DD/networking/client'
 require 'DD/networking/server'
-require 'DD/wiki/gui'
+require 'DD/gui/gui'
 
 -- Save file
 DD.saving.boot()

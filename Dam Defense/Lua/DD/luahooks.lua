@@ -653,15 +653,6 @@ Hook.Add("DD.jumpergrenade.blastjump", "DD.jumpergrenade.blastjump", function(ef
 	end
 end)
 
--- debug draw
-if CLIENT and not Game.IsMultiplayer then
-	DD.gui = {linePoint1 = Vector2(), linePoint2 = Vector2()}
-	Hook.Patch("Barotrauma.GUI", "Draw", function (instance, ptable)
-		local spriteBatch = ptable["spriteBatch"]
-		GUI.GUI.DrawLine(spriteBatch, Screen.Selected.Cam.WorldToScreen(DD.gui.linePoint1), Screen.Selected.Cam.WorldToScreen(DD.gui.linePoint2), Color.Red, 0, 1)
-	end)
-end
-
 -- casts a raycast to repair barricades (static barricades otherwise do not collide)
 if CLIENT then LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.Items.Components.RepairTool"], "FixItemProjSpecific") end
 Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, ptable)
@@ -674,9 +665,9 @@ Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, p
 	local point1 = pos + deltaPos
 	local point2 = pos + deltaPos + component.range * Vector2(math.cos(angle), math.sin(angle))
 	
-	if CLIENT then
-		DD.gui.linePoint1 = point1
-		DD.gui.linePoint2 = point2
+	if DD.gui ~= nil then
+		DD.gui.debugLine.point1 = point1
+		DD.gui.debugLine.point2 = point2
 	end
 	
 	local collisionCategory =  bit32.bor(Physics.CollisionCharacter, Physics.CollisionWall)

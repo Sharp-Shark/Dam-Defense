@@ -64,3 +64,30 @@ Networking.Receive("requestUpdateJobBans", function (message, client)
 		Networking.Send(message, client.Connection)
 	end
 end)
+
+Networking.Receive("requestUpdateGUICharacterRole", function (message, client)
+	local characterRole = {}
+	local assignClientRole = function (client, role)
+		if not DD.isClientCharacterAlive(client) then return end
+		if characterRole[tostring(client.Character.ID)] == nil then characterRole[tostring(client.Character.ID)] = {} end
+		characterRole[tostring(client.Character.ID)][role] = true
+	end
+	for event in DD.eventDirector.events do
+		if (event.name == 'revolution') and (event.rebelsSet[client] or event.rebelsDoxHappened) then
+			for client in event.rebels do
+				assignClientRole(client, 'rebel')
+			end
+		elseif (event.name == 'murder') and (event.murderer == client) then
+			assignClientRole(event.victim, 'victim')
+		elseif (event.name == 'vip') and ((event.vip == client) or (event.guard == client)) then
+			assignClientRole(event.vip, 'vip')
+			assignClientRole(event.guard, 'guard')
+		elseif ((event.name == 'arrest') or (event.name == 'arrest1984')) and event.isTargetKnown then
+			assignClientRole(event.target, 'arresttarget')
+		end
+	end
+
+	local message = Networking.Start("updateGUICharacterRole")
+	message.WriteString(json.serialize(characterRole))
+	Networking.Send(message, client.Connection)
+end)

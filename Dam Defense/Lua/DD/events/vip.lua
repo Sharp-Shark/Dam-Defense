@@ -133,7 +133,7 @@ end, {
 		local rewarded = false
 		if (self.vip.Character ~= nil) and (self.vip.Character.LastAttacker ~= nil) and not DD.isCharacterAntagSafe(self.vip.Character.LastAttacker) then
 			local murderer = DD.findClientByCharacter(self.vip.Character.LastAttacker)
-			if (murderer ~= self.vip) and (murderer ~= self.guard) then
+			if (murderer ~= nil) and (murderer ~= self.vip) and (murderer ~= self.guard) then
 				DD.giveMoneyToClient(murderer, self.bounty, true)
 				rewarded = true
 				-- Start event for security to arrest murderer
