@@ -6295,6 +6295,19 @@
     </LightComponent>
   </Item>
   
+  <!-- corpse -->
+  <Item name="Corpse" identifier="corpse" sonarsize="2" tags="mediumitem" category="Misc" canbepicked="true" scale="0.5" impactsoundtag="impact_soft">
+    <Deconstruct time="10" chooserandom="true" amount="2">
+      <Item identifier="carbon" commonness="0.8"/>
+      <Item identifier="yeastshroom" commonness="0.1"/>
+      <Item identifier="slimebacteria" commonness="0.1"/>
+    </Deconstruct>
+    <AiTarget sightrange="1000" static="true" />
+    <Sprite texture="%ModDir%/Items/corpse.png" depth="0.18" sourcerect="0,0,190,92" origin="0.5,0.5" />
+    <Body width="180" height="86" density="20" friction="1.0" restitution="0.01" angulardamping="1.0" />
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false" msg="ItemMsgPickUpSelect" />
+  </Item>
+  
   <!-- special effect -->
   <Item identifier="bloodcultfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true" >
 	<Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1"/>

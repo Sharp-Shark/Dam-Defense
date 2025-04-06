@@ -788,7 +788,10 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	-- pop-up
 	local client = DD.findClientByCharacter(character)
 	if client == nil then return end
-	if character.SpeciesName ~= 'humanundead' then DD.messageClient(client, DD.stringLocalize('bloodCultCultistInfo'), {preset = 'crit'}) end
+	if character.SpeciesName ~= 'humanundead' then
+		DD.messageClient(client, DD.stringLocalize('bloodCultCultistInfo'), {preset = 'crit'})
+		return
+	end
 
 	-- notify other cultists
 	for otherClient in Client.ClientList do

@@ -703,6 +703,7 @@ DD.gui = {
 	},
 	characterRole = {}
 }
+
 -- get text to be displayed below name
 local getInfoText = function (character, pov)
 	local pov = pov or Character.Controlled
@@ -778,7 +779,7 @@ local getInfoText = function (character, pov)
 		assignText('protect', 3)
 	end
 	local job = tostring(character.JobIdentifier)
-	if character.Info.IsDisguisedAsAnother then
+	if (character.Info ~= nil) and character.Info.IsDisguisedAsAnother then
 		if character.Inventory.GetItemInLimbSlot(InvSlotType.Card) ~= nil then
 			local identifier = tostring(character.Inventory.GetItemInLimbSlot(InvSlotType.Card).GetComponentString('IdCard').OwnerJobId)
 			if DD.securityJobs[identifier] then
@@ -798,28 +799,31 @@ local getInfoText = function (character, pov)
 	return text
 end
 -- override getNameColor. Name color is also used for color of text below name
+local guiCharacterInfoTextColorTable = {
+	[''] = GUI.GUIStyle.TextColorNormal,
+	neutral = GUI.GUIStyle.TextColorNormal,
+	hostile = GUI.GUIStyle.Red,
+	friendly = Color.SkyBlue,
+	comrade = Color.SkyBlue,
+	cultist = Color(160, 120, 200),
+	target = GUI.GUIStyle.Yellow,
+	serialkiller = Color(160, 120, 200),
+	wizard = Color(120, 200, 160),
+	wanted = GUI.GUIStyle.Orange,
+	bodyguard = Color.SkyBlue,
+	protect = Color(200, 120, 160),
+	security = JobPrefab.Get('securityofficer').UIColor,
+	medical = JobPrefab.Get('medicaldoctor').UIColor,
+}
+local guiCharacterInfoText = {}
+local guiCharacterInfoColor = {}
 Hook.Patch("Barotrauma.Character", "GetNameColor", function(instance, ptable)
 	ptable.PreventExecution = true
-	local tbl = {
-		[''] = GUI.GUIStyle.TextColorNormal,
-		neutral = GUI.GUIStyle.TextColorNormal,
-		hostile = GUI.GUIStyle.Red,
-		friendly = Color.SkyBlue,
-		comrade = Color.SkyBlue,
-		cultist = Color(160, 120, 200),
-		target = GUI.GUIStyle.Yellow,
-		serialkiller = Color(160, 120, 200),
-		wizard = Color(120, 200, 160),
-		wanted = GUI.GUIStyle.Orange,
-		bodyguard = Color.SkyBlue,
-		protect = Color(200, 120, 160),
-		security = JobPrefab.Get('securityofficer').UIColor,
-		medical = JobPrefab.Get('medicaldoctor').UIColor,
-	}
-	local color = tbl[getInfoText(instance) or '']
+	local color = guiCharacterInfoColor[instance] or GUI.GUIStyle.TextColorNormal
 	ptable['ReturnValue'] = color
 	return color
 end, Hook.HookMethodType.Before)
+
 -- main gui hook
 local DefaultHudInfoHeight = 78
 local hudInfoHeights = {}
@@ -845,7 +849,9 @@ end)
 GameMain = LuaUserData.CreateStatic('Barotrauma.GameMain')
 GUIColor = LuaUserData.RegisterType('Barotrauma.GUIColor')
 local requestUpdateGUICharacterRoleCooldown = 60 * 5
+local updateCharacterInfo = 0
 Hook.Patch("Barotrauma.Character", "DrawFront", function (instance, ptable)
+	-- send network request for character role information
 	if Game.IsMultiplayer then
 		if requestUpdateGUICharacterRoleCooldown > 0 then
 			requestUpdateGUICharacterRoleCooldown = requestUpdateGUICharacterRoleCooldown - 1
@@ -855,6 +861,23 @@ Hook.Patch("Barotrauma.Character", "DrawFront", function (instance, ptable)
 			requestUpdateGUICharacterRoleCooldown = 60 * 5
 		end
 	end
+	-- update character name info
+	if updateCharacterInfo > 0 then
+		updateCharacterInfo = updateCharacterInfo - 1
+	else
+		updateCharacterInfo = 60
+		
+		for character in Character.CharacterList do
+			local text = getInfoText(character) or ''
+			if text == '' then
+				guiCharacterInfoText[character] = ''
+			else
+				guiCharacterInfoText[character] = DD.stringLocalize('gui_' .. text)
+			end
+			guiCharacterInfoColor[character] = guiCharacterInfoTextColorTable[text]
+		end
+	end
+	-- declare variables
 	local character = instance
 	local spriteBatch = ptable["spriteBatch"]
 	local cam = ptable['cam']
@@ -862,7 +885,7 @@ Hook.Patch("Barotrauma.Character", "DrawFront", function (instance, ptable)
 	local viewportSize = Vector2(cam.WorldView.Width, cam.WorldView.Height);
 	if hudInfoHeights[character] == nil then hudInfoHeights[character] = DefaultHudInfoHeight end
 	-- verify text should be rendered
-	if GUI.DisableHUD or character.IsDead or (character.SpeciesName ~= 'human') and (character.SpeciesName ~= 'humanundead') or (cam.Zoom <= 0.4) then return end
+	if GUI.DisableHUD or character.IsDead or (character.InvisibleTimer > 0) or (character.SpeciesName ~= 'human') and (character.SpeciesName ~= 'humanundead') or (cam.Zoom <= 0.4) then return end
 	if Character.Controlled ~= nil then
 		if (Character.Controlled.FocusedCharacter == character) or (Character.Controlled == character) then return end
 		if (character.WorldPosition.X > cam.WorldView.X and character.WorldPosition.X < cam.WorldView.Right and
@@ -878,9 +901,8 @@ Hook.Patch("Barotrauma.Character", "DrawFront", function (instance, ptable)
 		end
 	end
 	-- get localized text and text color
-	local text = getInfoText(character)
+	local text = guiCharacterInfoText[character] or ''
 	if text == '' then return end
-	text = DD.stringLocalize('gui_' .. text)
 	local textColor = character.GetNameColor()
 	-- get transparency
 	local hoverRange = 300;

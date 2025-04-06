@@ -32,46 +32,20 @@ local getDiseaseStat = function (diseaseName, statName)
 	end
 end
 
--- spread infections
-local spreadInfections = function(character, ignoreSpreaderAirborneProtection)
-	if (character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) >= 1) and not ignoreSpreaderAirborneProtection then return end
-	
-	local spreadDiseaseToCharacter = function (toCharacter, fromCharacter, diseaseName)
-		-- Get fromCharacter infection amount
-		local amount = fromCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
-		if DD.isCharacterHusk(fromCharacter) and (diseaseName == 'husk') then
-			amount = 100
+local airborneSpread = function (entity, targets, range, callback)
+	if entity.CurrentHull == nil then return end
+	local affectedHulls = {[entity.CurrentHull] = true}
+	for hull in entity.CurrentHull.GetConnectedHulls(false, 3, true) do affectedHulls[hull] = true end
+
+	for target in targets do
+		local usingHullOxygen = true
+		local inDistance = true
+		if (LuaUserData.TypeOf(entity) == 'Barotrauma.Character') or (LuaUserData.TypeOf(entity) == 'Barotrauma.AICharacter') then
+			usingHullOxygen = target.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) <= 0
+			inDistance = affectedHulls[target.CurrentHull] and (Vector2.Distance(entity.WorldPosition, target.WorldPosition) < range)
 		end
-		if amount <= 0 then return end
-		if fromCharacter.IsDead and (amount <= getDiseaseStat(diseaseName, 'immuneVisibleStrength')) then return end
-		-- If toCharacter is already infected, do not infect
-		local infection = toCharacter.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
-		-- chance to give disease
-		local chance = getDiseaseStat(diseaseName, 'spreadChance')
-		if fromCharacter.IsDead then chance = chance / 2 end
-		-- randomize amount of disease given
-		amount = math.random() * math.min(getDiseaseStat(diseaseName, 'immuneVisibleStrength'), amount)
-		-- Spread
-		if (infection <= 0) and (math.random() <= chance) and (amount > 0) then
-			DD.giveAfflictionCharacter(toCharacter, diseaseName .. 'infection', amount)
-		end
-	end
-	
-	local hull = character.CurrentHull
-	if hull == nil then return end
-	
-	local affectedHulls = {[hull] = true}
-	for otherHull in character.CurrentHull.GetConnectedHulls(false, 3, true) do affectedHulls[otherHull] = true end
-	
-	for other in Character.CharacterList do
-		local isOtherUsingHullOxygen = other.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) <= 0
-		local isOtherInDistance = affectedHulls[other.CurrentHull] and (Vector2.Distance(character.WorldPosition, other.WorldPosition) < 750)
-		if (other ~= character) and isOtherUsingHullOxygen and isOtherInDistance then
-			for diseaseName, data in pairs(DD.diseaseData) do
-				if ((not character.IsDead) or getDiseaseStat(diseaseName, 'necrotic')) and ((not other.IsDead) or getDiseaseStat(diseaseName, 'spreadToCorpses')) then
-					spreadDiseaseToCharacter(other, character, diseaseName)
-				end
-			end
+		if (target ~= entity) and usingHullOxygen and inDistance then
+			callback(target)
 		end
 	end
 end
@@ -81,7 +55,30 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
     if CLIENT and Game.IsMultiplayer then return end
 	if targets[1] == nil then return end
 	local character = targets[1]
-	spreadInfections(character)
+	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) >= 1 then return end
+	
+	local hull = character.CurrentHull
+	if hull == nil then return end
+	
+	local affectedHulls = {[hull] = true}
+	for otherHull in character.CurrentHull.GetConnectedHulls(false, 3, true) do affectedHulls[otherHull] = true end
+	
+	local callback = function (other)
+		if other.IsDead then return end
+		for diseaseName, data in pairs(DD.diseaseData) do
+			local toCharacterInfection = other.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
+			local fromCharacterInfection = character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
+			if DD.isCharacterHusk(other) and (diseaseName == 'husk') then
+				fromCharacterInfection = 100
+			end
+			fromCharacterInfection = math.random() * math.min(getDiseaseStat(diseaseName, 'immuneVisibleStrength'), fromCharacterInfection)
+			if (toCharacterInfection <= 0) and (math.random() <= getDiseaseStat(diseaseName, 'spreadChance')) and (fromCharacterInfection > 0) then
+				DD.giveAfflictionCharacter(other, diseaseName .. 'infection', fromCharacterInfection)
+			end
+		end
+	end
+	
+	airborneSpread(character, Character.CharacterList, 750, callback)
 end)
 
 Hook.Add("afflictionUpdate", "DD.bacterialgangrene", function (affliction, characterHealth, limb)
@@ -225,9 +222,7 @@ DD.thinkFunctions.afflictions = function ()
 			end
 			
 			-- after 60s a corpse will despawn
-			if (affliction == nil) or (affliction.Strength < 1) then
-				affliction = character.CharacterHealth.GetAffliction('despawn', true)
-			end
+			affliction = character.CharacterHealth.GetAffliction('despawn', true)
 			DD.giveAfflictionCharacter(character, 'despawn', 1/60/60)
 			-- max strength has been reached
 			if (affliction ~= nil) and (affliction.Strength >= 1) then
