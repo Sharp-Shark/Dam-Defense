@@ -511,7 +511,7 @@
     </Holdable>
   </Item>
   <!-- flamer now uses afterburn instead of starting fires -->
-  <Item name="" identifier="flamer" category="Equipment,Weapon" Tags="mediumitem,weapon,gun,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
+  <Item name="" identifier="flamer" category="Equipment,Weapon" Tags="mediumitem,weapon,gun,mountableweapon,flamer" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="secarmcab" amount="1" spawnprobability="0.2" notcampaign="true"/>
     <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab" amount="1" spawnprobability="0.1"/>
@@ -3885,7 +3885,7 @@
     <Sprite texture="%ModDir%/Items/wizard.png" sourcerect="532,0,52,215" origin="0.5,0.5" depth="0.55" />
     <Body width="52" height="215" density="30" />
 	<Holdable slots="RightHand" controlpose="true" aimable="true" AimPos="50,0" HoldPos="40,-50" AimAngle="10" HoldAngle="0" handle1="4,30" />
-	<RangedWeapon barrelpos="0,88" reload="1" combatpriority="100" drawhudwhenequipped="true" crosshairscale="0.2" msg="ItemMsgPickUpSelect" maxchargetime="1" ChargeSoundWindupPitchSlide="0.5,2.0" >
+	<RangedWeapon barrelpos="0,88" reload="1.2" combatpriority="100" drawhudwhenequipped="true" crosshairscale="0.2" msg="ItemMsgPickUpSelect" maxchargetime="0.8" ChargeSoundWindupPitchSlide="0.5,2.0" >
 	  <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflashmerasmusstaff" scalemin="4.0" scalemax="4.0" particleamount="20" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" colormultiplier="200,200,200,255" />
@@ -3922,6 +3922,16 @@
   </Item>
   <!-- teleport spell book -->
   <Item name="Blink Spellbook" identifier="merasmusteleportbook" spritecolor="100,255,255,255" inventoryiconcolor="100,255,255,255" category="Misc" cargocontaineridentifier="metalcrate" allowasextracargo="true" Tags="merasmusitem,merasmusspellbook,smallitem" maxstacksize="1" scale="0.5" impactsoundtag="impact_soft">
+    <Deconstruct time="10">
+      <Item identifier="carbon" />
+    </Deconstruct>
+    <InventoryIcon texture="book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
+    <Sprite texture="book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
+    <Body width="28" height="36" density="20" />
+    <Holdable slots="Any,LeftHand" aimable="false" aimpos="40,-20" handle1="5,0" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect" />
+  </Item>
+  <!-- blast jump spell book -->
+  <Item name="Fling Spellbook" identifier="merasmusblastjumpbook" spritecolor="200,200,255,255" inventoryiconcolor="200,200,255,255" category="Misc" cargocontaineridentifier="metalcrate" allowasextracargo="true" Tags="merasmusitem,merasmusspellbook,smallitem" maxstacksize="1" scale="0.5" impactsoundtag="impact_soft">
     <Deconstruct time="10">
       <Item identifier="carbon" />
     </Deconstruct>
@@ -3969,11 +3979,32 @@
 	  <!-- telefrag -->
       <StatusEffect type="OnImpact" target="UseTarget">
         <sound file="%ModDir%/Sounds/displacerteleport.ogg" volume="3.0" range="3000" />
-        <ParticleEmitter particle="weldspark" particleamount="5" anglemin="0" anglemax="360" velocitymin="300" velocitymax="350" scalemin="1.5" scalemax="1.9" drawontop="true" colormultiplier="150,255,195,180" />
+        <ParticleEmitter particle="merasmusstaffspark" particleamount="5" anglemin="0" anglemax="360" velocitymin="300" velocitymax="350" scalemin="1.5" scalemax="1.9" drawontop="true" colormultiplier="100,255,255,180" />
 	  </StatusEffect>
 	  <!-- teleport -->
       <StatusEffect type="OnImpact" target="This">
 		<LuaHook name="DD.displacercannon.teleport" magic="true" />
+	  </StatusEffect>
+	  <!-- remove -->
+      <StatusEffect type="OnNotContained" target="This">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+  <Item name="Flick" identifier="merasmusblastjump" tags="merasmusitem,merasmusspell" category="Misc" scale="0.5" hideinmenus="true" >
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="143,414,113,9" depth="0.55" origin="0.5,0.5" />
+    <Body width="170" height="10" density="20" />
+    <Projectile characterusable="false" hitscan="true" removeonhit="true">
+	  <!-- telefrag -->
+      <ParticleEmitter particle="tracermerasmusstaff" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1,0.75" colormultiplier="195,195,255,180" />
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <sound file="%ModDir%/Sounds/displacerteleport.ogg" volume="3.0" range="3000" />
+        <ParticleEmitter particle="merasmusstaffspark" particleamount="5" anglemin="0" anglemax="360" velocitymin="300" velocitymax="350" scalemin="1.5" scalemax="1.9" drawontop="true" colormultiplier="195,195,255,180" />
+	  </StatusEffect>
+	  <!-- teleport -->
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Character" />
+		<LuaHook name="DD.merasmusblastjump.blastjump" />
 	  </StatusEffect>
 	  <!-- remove -->
       <StatusEffect type="OnNotContained" target="This">
@@ -4635,7 +4666,7 @@
   </Item>
 
   <!-- makeshift flamer -->
-  <Item name="Makeshift Flamer" identifier="makeshiftflamer" category="Equipment,Weapon" Tags="mediumitem,fireextinguisher,provocative,weapon,gun,mountableweapon" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
+  <Item name="Makeshift Flamer" identifier="makeshiftflamer" category="Equipment,Weapon" Tags="mediumitem,fireextinguisher,provocative,weapon,gun,mountableweapon,flamer" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
     <Upgrade gameversion="0.9.600.0" Tags="mediumitem,fireextinguisher,provocative" />
     <PreferredContainer primary="extinguisherholder" spawnprobability="1.0"/>
     <PreferredContainer secondary="engcab,reactorcab"/>
@@ -5931,7 +5962,7 @@
     <Body height="120" width="15" density="30" />
     <Holdable slots="LeftHand" aimpos="60,-15" holdpos="45,-15" handle1="-20,0" handle2="-20,0" controlpose="false" blocksplayers="true" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.8" setvalue="true" />
-	  <StatusEffect type="OnActive" target="This" Condition="1" />
+	  <StatusEffect type="OnActive" target="This" Condition="2" />
       <StatusEffect type="OnBroken" target="This">
         <particleemitter particle="shrapnel" drawontop="true" particleamount="15" velocitymin="100" velocitymax="500" anglemin="0" anglemax="360" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" />
         <Sound file="Content/Sounds/Damage/ArmorBreak4.ogg" range="800" />
@@ -6296,14 +6327,30 @@
   </Item>
   
   <!-- corpse -->
-  <Item name="Corpse" identifier="corpse" sonarsize="2" tags="mediumitem" category="Misc" canbepicked="true" scale="0.5" impactsoundtag="impact_soft">
+  <Item name="Corpse" identifier="corpse" sonarsize="2" tags="mediumitem,corpse" category="Misc" canbepicked="true" scale="0.5" impactsoundtag="impact_soft">
     <Deconstruct time="10" chooserandom="true" amount="2">
       <Item identifier="carbon" commonness="0.8"/>
       <Item identifier="yeastshroom" commonness="0.1"/>
       <Item identifier="slimebacteria" commonness="0.1"/>
     </Deconstruct>
     <AiTarget sightrange="1000" static="true" />
-    <Sprite texture="%ModDir%/Items/corpse.png" depth="0.18" sourcerect="0,0,190,92" origin="0.5,0.5" />
+    <ItemComponent>
+      <StatusEffect type="Always" target="This" Interval="8">
+		<LuaHook name="DD.afflictions.spread" />
+	    <Sound file="%ModDir%/Sounds/flybuzz1.ogg" volume="4.0" range="800" selectionmode="random" />
+	    <Sound file="%ModDir%/Sounds/flybuzz2.ogg" volume="4.0" range="800" />
+	    <Sound file="%ModDir%/Sounds/flybuzz3.ogg" volume="4.0" range="800" />
+		<Conditional InWater="eq False" />
+      </StatusEffect>
+	  <StatusEffect type="InWater" target="This" condition="-2" />
+	  <StatusEffect type="OnSpawn" target="This">
+	    <LuaHook name="DD.corpse.register" />
+	  </StatusEffect>
+	  <StatusEffect type="OnBroken" target="This">
+	    <Remove />
+	  </StatusEffect>
+    </ItemComponent>
+    <Sprite texture="%ModDir%/Items/corpse.png" depth="0.57" sourcerect="0,0,190,92" origin="0.5,0.5" />
     <Body width="180" height="86" density="20" friction="1.0" restitution="0.01" angulardamping="1.0" />
     <Holdable slots="RightHand+LeftHand" holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false" msg="ItemMsgPickUpSelect" />
   </Item>

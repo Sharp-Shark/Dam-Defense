@@ -213,6 +213,8 @@
   <entitydescription.merasmusfireballbook>A spellbook that when equipped with a staff can be used to shoot scrungly nitroglycerin fireballs.</entitydescription.merasmusfireballbook>
   <entityname.merasmusteleportbook>Blink Spellbook</entityname.merasmusteleportbook>
   <entitydescription.merasmusteleportbook>A spellbook that when equipped with a staff can be used to teleport. Does not telefrag or deal damage.</entitydescription.merasmusteleportbook>
+  <entityname.merasmusblastjumpbook>Fling Spellbook</entityname.merasmusblastjumpbook>
+  <entitydescription.merasmusblastjumpbook>A spellbook that when equipped with a staff can be used to fling people into the air. Harmless but annoying.</entitydescription.merasmusblastjumpbook>
   <!-- Boomboxes -->
   <entityname.boombox1>Country Boombox</entityname.boombox1>
   <entitydescription.boombox1>"Sweet Home Alabama" by Lynyrd Skynyrd.</entitydescription.boombox1>
@@ -335,9 +337,9 @@
   <entitydescription.brassknuckle>Don't bring a gun to a fist fight or you may have the dishonor of being killed with your own firearm. Truly a fistful of frags.</entitydescription.brassknuckle>
   <!-- Barricade -->
   <entityname.barricade>Barricade</entityname.barricade>
-  <entitydescription.barricade>Steel beam that can be attached to a wall to provide cover in a gunfight.</entitydescription.barricade>
+  <entitydescription.barricade>Steel beam that can be attached to a wall to provide cover in a gunfight. Repaired using a welding tool.</entitydescription.barricade>
   <entityname.barricadestatic>Barricade Static</entityname.barricadestatic>
-  <entitydescription.barricadestatic>Steel beam that has been attached to a wall to provide cover in a gunfight.</entitydescription.barricadestatic>
+  <entitydescription.barricadestatic>Steel beam that has been attached to a wall to provide cover in a gunfight. Repaired using a welding tool.</entitydescription.barricadestatic>
   <!-- Blood Cultist Robes -->
   <entityname.bloodcultistrobes>Blood Cultist Robes</entityname.bloodcultistrobes>
   <entitydescription.bloodcultistrobes>Only craftable by cultists. A simple hooded garment that blood cultists regeneration, immunity to disease and revives them if they die. The robe also serves to conceal their identity whilst letting other fellows cultists recognize them as their own.</entitydescription.bloodcultistrobes>
@@ -380,4 +382,7 @@
   <!-- Nexsuit -->
   <entityname.nexsuit>Nexsuit</entityname.nexsuit>
   <entitydescription.nexsuit>Nexpharma proprietary suit exclusive to their elite paramilitary group, the Mobile Emergency Rescue and Combat Squad, or MERCS. In actuality, it's just a PUCS adapted for combat.</entitydescription.nexsuit>
+  <!-- Corpse -->
+  <entityname.corpse>Corpse</entityname.corpse>
+  <entitydescription.corpse>A rotting source of illness. Dispose of it by throwing it into the sewer or by using a flamer.</entitydescription.corpse>
 </infotexts>

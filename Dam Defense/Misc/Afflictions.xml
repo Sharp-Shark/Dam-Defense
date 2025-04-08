@@ -819,6 +819,7 @@
     name="Anthrax Infection"
     identifier="anthraxinfection"
     type="infection"
+    targets="human"
     limbspecific="false" indicatorlimb="Torso"
     maxstrength="200"
     showiconthreshold="50"

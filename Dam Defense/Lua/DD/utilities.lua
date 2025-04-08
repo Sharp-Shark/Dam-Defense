@@ -705,6 +705,11 @@ DD.isCharacterAntagSafe = function (character)
 	return DD.antagSafeJobs[tostring(character.JobIdentifier)]
 end
 
+DD.isCharacterHumanoid = function (character)
+	DD.expectTypes('isCharacterHumanoid', {character}, {'userdata'})
+	return character.IsHumanoid and (string.lower(string.sub(tostring(character.SpeciesName), 1, 5)) == 'human')
+end
+
 DD.isCharacterHusk = function (character)
 	DD.expectTypes('isCharacterHusk', {character}, {'userdata'})
 	local speciesNames = {'humanhusk', 'husk', 'husk_chimera', 'husk_prowler', 'husk_exosuit', 'huskcontainer', 'crawlerhusk'}

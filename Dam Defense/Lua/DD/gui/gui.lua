@@ -707,7 +707,7 @@ DD.gui = {
 -- get text to be displayed below name
 local getInfoText = function (character, pov)
 	local pov = pov or Character.Controlled
-	local text
+	local text = ''
 	local priotiy = 0
 	local assignText = function (thisText, thisPriotiy)
 		if (thisPriotiy or 0) >= priotiy then
@@ -721,19 +721,39 @@ local getInfoText = function (character, pov)
 	end
 	-- for spectators
 	if pov == nil then
+		if characterHasRole(character, 'arresttarget') then
+			assignText('wanted', 1)
+		end
+		if character.TeamID ~= CharacterTeamType.Team1 then
+			if character.TeamID == CharacterTeamType.FriendlyNPC then
+				assignText('friendly', 2)
+			else
+				assignText('hostile', 2)
+			end
+		end
+		if DD.isCharacterSecurity(character) then
+			assignText('security')
+		elseif DD.isCharacterMedical(character) then
+			assignText('medical')
+		end
+		if characterHasRole(character, 'rebel') then
+			assignText('rebel', 3)
+		end
+		if DD.tableHas(character.CharacterHealth.GetActiveAfflictionTags(), 'enlightened') then
+			assignText('cultist', 3)
+		end
 		if DD.tableHas(character.CharacterHealth.GetActiveAfflictionTags(), 'serialkiller') then
-			return 'serialkiller'
+			assignText('serialkiller', 3)
 		end
 		if DD.tableHas(character.CharacterHealth.GetActiveAfflictionTags(), 'wizard') then
-			return 'wizard'
+			assignText('wizard', 3)
 		end
-		return ''
+		return text
 	end
 	-- for the living
 	if DD.tableHas(pov.CharacterHealth.GetActiveAfflictionTags(), 'enlightened') then
 		if DD.tableHas(character.CharacterHealth.GetActiveAfflictionTags(), 'enlightened') then
-			if priotiy < 1 then text = 'cultist' priotiy = 1 end
-			assignText('cultist', 3)
+			assignText('comradecultist', 3)
 		else
 			assignText('target', 1)
 		end
@@ -744,7 +764,7 @@ local getInfoText = function (character, pov)
 	if characterHasRole(character, 'victim') then
 		assignText('target', 1)
 	end
-	if characterHasRole(character, 'arresttarget') then
+	if characterHasRole(character, 'arresttarget') and not character.Info.IsDisguisedAsAnother then
 		assignText('wanted', 1)
 	end
 	if character.TeamID == CharacterTeamType.FriendlyNPC then
@@ -788,32 +808,34 @@ local getInfoText = function (character, pov)
 				assignText('medical')
 			end
 		end
-	else
-		if DD.isCharacterSecurity(character) then
-			assignText('security')
-		elseif DD.isCharacterMedical(character) then
-			assignText('medical')
-		end
+	end
+	if DD.isCharacterSecurity(character) then
+		assignText('security')
+	elseif DD.isCharacterMedical(character) then
+		assignText('medical')
 	end
 	
 	return text
 end
 -- override getNameColor. Name color is also used for color of text below name
+GameMain = LuaUserData.CreateStatic('Barotrauma.GameMain')
+GUIColor = LuaUserData.RegisterType('Barotrauma.GUIColor')
 local guiCharacterInfoTextColorTable = {
 	[''] = GUI.GUIStyle.TextColorNormal,
 	neutral = GUI.GUIStyle.TextColorNormal,
 	hostile = GUI.GUIStyle.Red,
 	friendly = Color.SkyBlue,
 	comrade = Color.SkyBlue,
-	cultist = Color(160, 120, 200),
+	comradecultist = Color(160, 120, 200),
 	target = GUI.GUIStyle.Yellow,
-	serialkiller = Color(160, 120, 200),
+	cultist = Color(160, 120, 200),
+	rebel = GUI.GUIStyle.Orange,
 	wizard = Color(120, 200, 160),
 	wanted = GUI.GUIStyle.Orange,
 	bodyguard = Color.SkyBlue,
 	protect = Color(200, 120, 160),
-	security = JobPrefab.Get('securityofficer').UIColor,
-	medical = JobPrefab.Get('medicaldoctor').UIColor,
+	security = Color.Lerp(JobPrefab.Get('securityofficer').UIColor, GUI.GUIStyle.TextColorNormal, 0.25),
+	medical = Color.Lerp(JobPrefab.Get('medicaldoctor').UIColor, GUI.GUIStyle.TextColorNormal, 0.25),
 }
 local guiCharacterInfoText = {}
 local guiCharacterInfoColor = {}
@@ -846,8 +868,6 @@ Hook.Patch("Barotrauma.GUI", "Draw", function (instance, ptable)
 		end
 	end
 end)
-GameMain = LuaUserData.CreateStatic('Barotrauma.GameMain')
-GUIColor = LuaUserData.RegisterType('Barotrauma.GUIColor')
 local requestUpdateGUICharacterRoleCooldown = 60 * 5
 local updateCharacterInfo = 0
 Hook.Patch("Barotrauma.Character", "DrawFront", function (instance, ptable)
@@ -891,6 +911,8 @@ Hook.Patch("Barotrauma.Character", "DrawFront", function (instance, ptable)
 		if (character.WorldPosition.X > cam.WorldView.X and character.WorldPosition.X < cam.WorldView.Right and
 		character.WorldPosition.Y < cam.WorldView.Y and character.WorldPosition.Y > cam.WorldView.Y - cam.WorldView.Height) then
 			if not Character.Controlled.CanSeeTarget(character) then return end
+		else
+			return
 		end
 		if Character.Controlled.Submarine then
 			local yPos = Character.Controlled.AnimController.FloorY - 1.5

@@ -521,6 +521,8 @@ Hook.Add("DD.repairtool.toggle", "DD.repairtool.toggle", function(effect, deltaT
 end)
 
 -- wizard staff and spellbooks
+LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.WayPoint"], "set_IdCardTags")
+LuaUserData.MakeMethodAccessible(Descriptors['Barotrauma.Items.Components.RangedWeapon'], 'set_MaxChargeTime')
 Hook.Patch("Barotrauma.Items.Components.RangedWeapon", "Use", function(instance, ptable)
     local item = instance.Item
 	if item.Prefab.Identifier == 'merasmusstaff' then
@@ -540,6 +542,12 @@ Hook.Patch("Barotrauma.Items.Components.RangedWeapon", "Use", function(instance,
 				else
 					Entity.Spawner.AddEntityToRemoveQueue(item.OwnInventory.GetItemAt(0))
 				end
+			end
+			local component = item.GetComponentString('RangedWeapon')
+			if identifier == 'merasmusblastjump' then
+				component.Reload = 0.1
+			else
+				component.Reload = 1.2
 			end
 			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), item.OwnInventory, nil, nil, function (spawnedItem) end)	
 		end
@@ -610,17 +618,20 @@ Hook.Patch("Barotrauma.Items.Components.Holdable", "OnPicked", {'Barotrauma.Char
 	end
 end, Hook.HookMethodType.Before)
 Hook.Patch("Barotrauma.Items.Components.Holdable", "AttachToWall", function(instance, ptable)
+	if CLIENT and Game.IsSingleplayer and Game.IsSubEditor then return end
     local item = instance.Item
 	if item.Prefab.Identifier == 'barricade' then
 		if item.Condition <= 0 then
 			ptable.PreventExecution = true
 			return
 		end
-		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('barricadestatic'), item.WorldPosition, item.Condition, nil, function (spawnedItem)
-			spawnedItem.Condition = item.Condition
-			item.AddLinked(spawnedItem)
-			spawnedItem.AddLinked(item)
-		end)
+		if (item.linkedTo[1] == nil) and (Entity.Spawner ~= nil) then
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('barricadestatic'), item.WorldPosition, item.Condition, nil, function (spawnedItem)
+				spawnedItem.Condition = item.Condition
+				item.AddLinked(spawnedItem)
+				spawnedItem.AddLinked(item)
+			end)
+		end
 	end
 end, Hook.HookMethodType.Before)
 Hook.Add("DD.barricade.break", "DD.barricade.break", function(effect, deltaTime, item, targets, worldPosition)
@@ -652,9 +663,38 @@ Hook.Add("DD.jumpergrenade.blastjump", "DD.jumpergrenade.blastjump", function(ef
 		DD.giveAfflictionCharacter(character, 'blastjumping', 2)
 	end
 end)
+Hook.Add("DD.merasmusblastjump.blastjump", "DD.merasmusblastjump.blastjump", function(effect, deltaTime, item, targets, worldPosition)
+	local normalizedDot = function (vector1, vector2)
+		return math.cos(math.atan2(vector1.y, vector1.x) - math.atan2(vector2.y, vector2.x))
+	end
+
+	local user = effect.user
+	local character = targets[1]
+	local vector
+	local deltaX = character.WorldPosition.X - user.WorldPosition.X
+	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('blastjumping') > 0 then
+		vector = Vector2.Normalize(Vector2(deltaX / math.abs(deltaX), 1))
+	else
+		vector =  Vector2.Normalize(Vector2(deltaX / math.abs(deltaX), 10))
+	end
+	local distance = Vector2.Distance(character.AnimController.MainLimb.WorldPosition, item.WorldPosition)
+	local scaler = 400
+	
+	if distance <= 400 then
+		character.Stun = math.max(1, character.Stun)
+		local velocity = character.AnimController.Collider.LinearVelocity
+		character.AnimController.Collider.LinearVelocity = Vector2()
+		character.AnimController.Collider.ApplyForce(vector * scaler)
+		for limb in character.AnimController.Limbs do
+			velocity = limb.body.LinearVelocity
+			limb.body.LinearVelocity = Vector2()
+			limb.body.ApplyForce(vector * scaler)
+		end
+		DD.giveAfflictionCharacter(character, 'blastjumping', 2)
+	end
+end)
 
 -- casts a raycast to repair barricades (static barricades otherwise do not collide)
-if CLIENT then LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.Items.Components.RepairTool"], "FixItemProjSpecific") end
 Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, ptable)
 	local item = instance.Item
 	if not item.HasTag('weldingequipment') then return end
@@ -670,7 +710,7 @@ Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, p
 		DD.gui.debugLine.point2 = point2
 	end
 	
-	local collisionCategory =  bit32.bor(Physics.CollisionCharacter, Physics.CollisionWall)
+	local collisionCategory = bit32.bor(Physics.CollisionCharacter, Physics.CollisionWall)
 	local result = DD.raycast(Submarine.MainSub, point1, point2, collisionCategory, callback)
 	
 	local blacklist = {}
@@ -678,6 +718,38 @@ Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, p
 		if LuaUserData.IsTargetType(entity, 'Barotrauma.Item') then
 			if entity.HasTag('barricade') then
 				entity.Condition = math.min(200, entity.Condition + 1)
+			else
+				break
+			end
+		elseif LuaUserData.IsTargetType(entity, 'Barotrauma.Structure') then
+			break
+		end
+	end
+end, Hook.HookMethodType.Before)
+-- cast a raycast to burn corpses
+Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, ptable)
+	local item = instance.Item
+	if not item.HasTag('flamer') then return end
+	local component = item.GetComponentString('RepairTool')
+	local pos = item.WorldPosition
+	local deltaPos = component.TransformedBarrelPos
+	local angle = (item.body.Dir == 1) and item.body.Rotation or (item.body.Rotation + math.pi)
+	local point1 = pos + deltaPos
+	local point2 = pos + deltaPos + component.range * Vector2(math.cos(angle), math.sin(angle))
+	
+	if DD.gui ~= nil then
+		DD.gui.debugLine.point1 = point1
+		DD.gui.debugLine.point2 = point2
+	end
+	
+	local collisionCategory =  bit32.bor(Physics.CollisionItem, Physics.CollisionWall)
+	local result = DD.raycast(Submarine.MainSub, point1, point2, collisionCategory, callback)
+	
+	local blacklist = {}
+	for entity in result.bodies do
+		if LuaUserData.IsTargetType(entity, 'Barotrauma.Item') then
+			if entity.HasTag('corpse') then
+				entity.Condition = entity.Condition - 2
 			else
 				break
 			end
@@ -697,6 +769,10 @@ Hook.Add("DD.displacercannon.teleport", "DD.displacercannon.teleport", function(
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('wizardfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
 	end
 	effect.user.TeleportTo(item.WorldPosition)
+	
+	if magic then
+		DD.giveAfflictionCharacter(effect.user, 'blastjumping', 2)
+	end
 end)
 
 -- displacer cannon light component responds to item condition

@@ -694,6 +694,7 @@
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
+	  <Item identifier="oxygentank"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -1429,11 +1430,39 @@
 	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
 	  </Item>
       <Item identifier="merasmushat" equip="true"/>
-      <Item identifier="merasmusrobes" equip="true" outfit="true"/>
+      <Item identifier="merasmusrobes" equip="true" outfit="true">
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+	  </Item>
       <Item identifier="merasmusstaff" equip="true"/>
+      <Item identifier="revolver" equip="false">
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+      </Item>
       <Item identifier="merasmusfireballbook"/>
+      <Item identifier="merasmusblastjumpbook"/>
       <Item identifier="merasmusteleportbook"/>
-      <Item identifier="disposabledivingmask"/>
+      <Item identifier="midazolam"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />

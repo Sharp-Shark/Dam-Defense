@@ -14,7 +14,7 @@ DD.diseaseData = {
 	flu = {displayName = 'Flu', immune = 2, immuneVisibility = 1, immuneVisibleStrength = 50, spreadChance = 0.5},
 	bacterial = {displayName = 'Bacterial', immune = 2, immuneVisibility = 1, immuneVisibleStrength = 50, spreadChance = 0.1, necrotic = true},
 	tb = {displayName = 'Tuberculosis', immune = 1, immuneVisibility = 1, immuneVisibleStrength = 50, spreadChance = 0.2, necrotic = true},
-	anthrax = {displayName = 'Anthrax', immune = 0, immuneVisibility = 2, immuneVisibleStrength = 50, spreadChance = 0.1, necrotic = true, spreadToCorpses = true},
+	anthrax = {displayName = 'Anthrax', immune = 0, immuneVisibility = 2, immuneVisibleStrength = 50, spreadChance = 0.1, necrotic = true},
 	husk = {displayName = 'Velonaceps Calyx', immune = 0, immuneVisibility = 4, immuneVisibleStrength = 25, spreadChance = 0.1, necrotic = true, item = 'huskeggs'},
 }
 local getDiseaseStat = function (diseaseName, statName)
@@ -39,29 +39,18 @@ local airborneSpread = function (entity, targets, range, callback)
 
 	for target in targets do
 		local usingHullOxygen = true
-		local inDistance = true
-		if (LuaUserData.TypeOf(entity) == 'Barotrauma.Character') or (LuaUserData.TypeOf(entity) == 'Barotrauma.AICharacter') then
+		if (LuaUserData.TypeOf(target) == 'Barotrauma.Character') or (LuaUserData.TypeOf(target) == 'Barotrauma.AICharacter') then
 			usingHullOxygen = target.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) <= 0
-			inDistance = affectedHulls[target.CurrentHull] and (Vector2.Distance(entity.WorldPosition, target.WorldPosition) < range)
 		end
+		local inDistance = affectedHulls[target.CurrentHull] and (Vector2.Distance(entity.WorldPosition, target.WorldPosition) < range)
 		if (target ~= entity) and usingHullOxygen and inDistance then
 			callback(target)
 		end
 	end
 end
 
--- Although this is a luahook (<LuaHook name="..." />) I'm keeping it in this file instead of luahooks.lua
-Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, deltaTime, item, targets, worldPosition)
-    if CLIENT and Game.IsMultiplayer then return end
-	if targets[1] == nil then return end
-	local character = targets[1]
+local characterSpreadAfflictions = function (character)
 	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) >= 1 then return end
-	
-	local hull = character.CurrentHull
-	if hull == nil then return end
-	
-	local affectedHulls = {[hull] = true}
-	for otherHull in character.CurrentHull.GetConnectedHulls(false, 3, true) do affectedHulls[otherHull] = true end
 	
 	local callback = function (other)
 		if other.IsDead then return end
@@ -77,8 +66,59 @@ Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, delt
 			end
 		end
 	end
-	
 	airborneSpread(character, Character.CharacterList, 750, callback)
+end
+
+local corpseItems = {}
+for item in Item.ItemList do
+	if item.HasTag('corpse') then
+		table.insert(corpseItems, item)
+	end
+end
+Hook.Add("DD.corpse.register", "DD.corpse.register", function(effect, deltaTime, item, targets, worldPosition, element)
+	table.insert(corpseItems, item)
+end)
+local itemSpreadAfflictions = function (item)
+	local callback = function (other)
+		if other.IsDead then return end
+		for diseaseName, data in pairs(DD.diseaseData) do
+			local characterInfection = other.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true)
+			if (characterInfection <= 0) and (math.random() <= getDiseaseStat(diseaseName, 'spreadChance') / 2) and item.HasTag(diseaseName) then
+				DD.giveAfflictionCharacter(other, diseaseName .. 'infection', 1)
+			end
+		end
+	end
+	airborneSpread(item, Character.CharacterList, 750, callback)
+	
+	local callback = function (other)
+		local tags = ''
+		for diseaseName, data in pairs(DD.diseaseData) do
+			if (not other.HasTag(diseaseName)) and (math.random() <= getDiseaseStat(diseaseName, 'spreadChance') / 2) and item.HasTag(diseaseName) then
+				tags = tags .. ',' .. diseaseName
+			end
+		end
+		if tags ~= '' then
+			other.Tags = other.Tags .. tags
+			if SERVER then
+				local prop = other.SerializableProperties[Identifier("Tags")]
+				Networking.CreateEntityEvent(other, Item.ChangePropertyEventData(prop, other))
+			end
+		end
+	end
+	airborneSpread(item, corpseItems, 750, callback)
+end
+
+-- Although this is a luahook (<LuaHook name="..." />) I'm keeping it in this file instead of luahooks.lua
+Hook.Add("DD.afflictions.spread", "DD.afflictions.spread", function(effect, deltaTime, item, targets, worldPosition, element)
+    if CLIENT and Game.IsMultiplayer then return end
+	if targets[1] == nil then return end
+	local entity = targets[1]
+	
+	if LuaUserData.TypeOf(entity) == 'Barotrauma.Item' then
+		itemSpreadAfflictions(entity)
+	else
+		characterSpreadAfflictions(entity)
+	end
 end)
 
 Hook.Add("afflictionUpdate", "DD.bacterialgangrene", function (affliction, characterHealth, limb)
@@ -227,9 +267,25 @@ DD.thinkFunctions.afflictions = function ()
 			-- max strength has been reached
 			if (affliction ~= nil) and (affliction.Strength >= 1) then
 				affliction.SetStrength(0)
-				-- despawnburn
-				if affliction.Identifier == 'despawnburn' then
-					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), character.WorldPosition, nil, nil, function (spawnedItem) end)
+				-- corpse
+				local diseaseSet = {}
+				local tags = ''
+				for diseaseName, data in pairs(DD.diseaseData) do
+					if getDiseaseStat(diseaseName, 'necrotic') and ((character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection') > 0) or 
+					(DD.isCharacterHusk(character) and diseaseName == 'husk') or
+					((not DD.isCharacterHusk(character)) and (not DD.isCharacterHumanoid(character)) and diseaseName == 'anthrax')) then
+						diseaseSet[diseaseName] = true
+						tags = tags .. ',' .. diseaseName
+					end
+				end
+				if character.Mass > 9 then
+					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('corpse'), character.WorldPosition, nil, nil, function (spawnedItem)
+						spawnedItem.Tags = spawnedItem.Tags .. tags
+						if SERVER then
+							local prop = spawnedItem.SerializableProperties[Identifier("Tags")]
+							Networking.CreateEntityEvent(spawnedItem, Item.ChangePropertyEventData(prop, spawnedItem))
+						end
+					end)
 				end
 				-- drop items
 				if character.Inventory ~= nil then
