@@ -533,15 +533,15 @@
     showicontoothersthreshold="999"
     showinhealthscannerthreshold="999"
     iconcolors="60,140,195,255;60,107,195,255;60,0,195,255">
-    <Effect minstrength="0" maxstrength="1" resistancefor="damage,burn" minresistance="0.0" maxresistance="-3.0" />
-    <Effect minstrength="1" maxstrength="10" resistancefor="damage,burn" minresistance="-3.0" maxresistance="-3.0" />
-    <Effect minstrength="10" maxstrength="11" resistancefor="damage,burn" minresistance="-3.0" maxresistance="-3.0">
+    <Effect minstrength="0" maxstrength="1" resistancefor="damage,burn" minresistance="0.0" maxresistance="-2.0" />
+    <Effect minstrength="1" maxstrength="10" resistancefor="damage,burn" minresistance="-2.0" maxresistance="-2.0" />
+    <Effect minstrength="10" maxstrength="11" resistancefor="damage,burn" minresistance="-2.0" maxresistance="-2.0">
       <StatusEffect target="Character" setvalue="true">
         <Affliction identifier="stun" amount="1" />
       </StatusEffect>
       <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true">
-        <ReduceAffliction type="damage" strength="20.0"/>
-        <ReduceAffliction type="bloodloss" strength="10.0"/>
+        <ReduceAffliction type="damage" strength="10.0"/>
+        <ReduceAffliction type="bloodloss" strength="5.0"/>
       </StatusEffect>
 	</Effect>
     <Icon texture="Content/UI/TalentsIcons3.png" sheetindex="0,1" sheetelementsize="128,128" color="255,255,255,255" origin="0,0"/>

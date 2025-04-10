@@ -15,7 +15,7 @@ require 'DD/events/serialKiller'
 require 'DD/events/bloodCult'
 require 'DD/events/greenskins'
 require 'DD/events/vip'
-require 'DD/events/gangWar'
+require 'DD/events/gang'
 require 'DD/events/mercs'
 require 'DD/events/deathSquad'
 require 'DD/events/election'
@@ -31,7 +31,6 @@ DD.eventDirector.eventPool = {
 	DD.eventSerialKiller,
 	DD.eventBloodCult,
 	DD.eventGreenskins,
---	DD.eventGangWar, (removed gang war event until it is reworked)
 	DD.eventDeathSquad,
 	-- Side events
 	DD.eventFish,
@@ -48,6 +47,7 @@ DD.eventDirector.eventPool = {
 	DD.eventMERCS,
 	DD.eventElection,
 	DD.eventWizard,
+	DD.eventGang,
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}
@@ -263,19 +263,6 @@ DD.eventDirector.getClientRelations = function (client)
 				targets = DD.setUnion(targets, others)
 			else
 				targets = DD.setUnion(targets, {[event.killer] = true})
-			end
-		elseif event.name == 'gangWar' then
-			if event.gang1Set[client] then
-				targets = DD.setUnion(targets, event.gang2Set)
-				targets = DD.setUnion(targets, security)
-			end
-			if event.gang2Set[client] then
-				targets = DD.setUnion(targets, event.gang1Set)
-				targets = DD.setUnion(targets, security)
-			end
-			if security[client] then
-				targets = DD.setUnion(targets, event.gang1Set)
-				targets = DD.setUnion(targets, event.gang2Set)
 			end
 		end
 	end

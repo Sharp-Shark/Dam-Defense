@@ -172,8 +172,8 @@ Hook.Add("character.applyDamage", "DD.resetHuskRegenOnDamage", function (charact
 	(not character.IsDead) and
 	(attackResult.Damage >= 0.1) and
 	(character.CharacterHealth.GetAffliction('huskregen', true) ~= nil) and
-	(character.CharacterHealth.GetAffliction('huskregen', true).Strength > 5) then
-		character.CharacterHealth.GetAffliction('huskregen', true).SetStrength(5)
+	(character.CharacterHealth.GetAffliction('huskregen', true).Strength > 1) then
+		character.CharacterHealth.GetAffliction('huskregen', true).SetStrength(1)
 	end
 
 	return
@@ -218,11 +218,7 @@ DD.thinkFunctions.afflictions = function ()
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByIdentifier('bloodloss', true)
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByType('damage', true)
 			if ((character.Vitality < 0) or character.IsRagdolled) and (damage >= 1) then
-				if character.Vitality < 0 then
-					DD.giveAfflictionCharacter(character, 'huskregen', 0.5 * (1/60) * character.MaxVitality / 100)
-				else
-					DD.giveAfflictionCharacter(character, 'huskregen', 1 * (1/60) * character.MaxVitality / 100)
-				end
+				DD.giveAfflictionCharacter(character, 'huskregen', 1 * (1/60) * character.MaxVitality / 100)
 			else
 				local affliction = character.CharacterHealth.GetAffliction('huskregen', true)
 				if (affliction ~= nil) and ((damage < 1) or (affliction.Strength <= 10)) then

@@ -38,6 +38,8 @@ return {
 	lateJoinMessageNoTickets = 'Late join respawning is temporarily enabled because of a main event. You cannot be respawned because there are no respawn tickets. When the event ends, respawning will return to regular.',
 	-- money.lua
 	giveMoneyToClient = 'You have received {amount} Nexcredits (TM).',
+	giveMoneyToClientWithReason = 'You have received {amount} Nexcredits (TM) for {reason}.',
+	giveMoneyReasonCorpseDisposal = 'disposing of a corpse',
 	commandCreditsError = 'You have no Nexaccount (TM).',
 	commandCredits = 'You have {amount} Nexcredits (TM) in your Nexaccount (TM). Your next reward will be in {timer}.',
 	commandWithdrawError = 'You have no Nexaccount (TM).',
@@ -105,18 +107,12 @@ return {
 	electionEndFail = 'The election has ended because the captain has died or some other failure in the process.',
 	-- events/fish.lua
 	fishMessage = 'A total of {fishCount} {fishName} have been spotted in the {locationName}! It is adviced to kill them before they grow in numbers.',
-	-- events/gangWar.lua
-	gangWarDoxx = 'The Nexbank (TM) has found unusual activity in the account of {name}, and as such has determined they are a gang member. Do /gang to get the public list of gang members.',
-	gangWarGangsterInfo = 'You are a gang member of the {gangName}. Your sole objective is to eliminate the rival gang, known as {rivalGangName}. You have {timer} until everyone becomes aware of the gang war. Your gang may try and ally itself with the proletariat and security alike to gain an edge. Beware security gets a reward for arresting gangsters. Your pay grade has been raised. Do /gang for a list of fellow and known gangsters.',
-	gangWarGangsterReveal = 'Everyone is now aware there are two rival gangs in the area, but they do not know who the gangsters are yet. Keep your cool, wise guy!',
-	gangWarSecurityInfo = 'Two rival gangs are in the area. Their objective does not involve destroying the dam, however they may still cause havoc in the process of eliminating their rivals. Security will be rewarded at event end 5 nexcredits per arrested gangster. Despite that, you may try and stay neutral, or even ally yourself with one of the gangs. Do /gang for a list of known gangsters.',
-	gangWarCommonerInfo = 'Two rival gangs are in the area. Their objective does not involve destroying the dam, however they may still cause havoc in the process of eliminating their rivals. You may try and stay neutral, or even ally yourself with one of the gangs. Do /gang for a list of known gangsters.',
-	gangWarEndGang = 'The {gangName} has won agaisnt the {rivalGangName}! Life goes on.',
-	gangWarEndSecurity = 'Both gangs have been arrested and security has been promptly rewarded! Life goes on.',
-	gangWarEndNeutral = 'Both gangs have been eliminated! Life goes on.',
-	gangWarRecruitmentNotice = 'Your gang has just recruited {name}!',
-	commandGangGangster = 'Your fellow gang members are: {allyList}. Public list of gangsters is: {gangsterList}.',
-	commandGang = 'Public list of gangsters is: {gangsterList}.',
+	-- events/gang.lua
+	gangEnd = 'Don {bossName} of the {gangName} has just died! God bless his soul.',
+	gangRecruitmentNotice = 'Your gang has just recruited {name}!',
+	gangTreasonNotice = 'The traitorous {name} has just left our gang for another one!',
+	gangGangsterInfo = "You are now a member of the {gangName}. Listen to the orders given by {bossName}, he's the boss of your gang! Do /gang for a list of gang mates.",
+	commandGang = 'Your fellow gang members are: {gangsterList}.',
 	-- events/ghostRole.lua
 	-- events/greenskins.lua
 	greenskinInfo = 'You are a kind of amphibious nimble critter that like playing games with their prey. Put masks on humans to turn them into goblins. Hide in goblin crates to regenerate.',
@@ -188,6 +184,9 @@ return {
 	gui_wanted = 'Wanted',
 	gui_bodyguard = 'Bodyguard',
 	gui_protect = 'Protect',
+	gui_gangleader = 'Gang Leader',
+	gui_boss = 'The Boss',
+	gui_subordinate = 'Subordinate',
 	gui_security = 'Security',
 	gui_medical = 'Medical',
 	
@@ -226,8 +225,6 @@ return {
 	wikiText_serialKillerEvent = 'A main event, where one person without an antag-safe job is randomly chosen to be the Serial Killer (abbreviated: SK). They win once they have killed enough players, but they will be periodically be assigned a specific target that if they kill, will reset their time pressure and award them with 5 Nexcredits.\nWhen the person is chosen, they are told they will turn into the SK in one (1) minute, to give them time to prepare and isolate themselves, as when the timer is up a Creepy Mask will be automatically placed on their face.\nThis mask can be taken off, but when worn, the mask provides the Blood Lust effect. This affliction increases run speed, melee stun and damage, provides quick passive regeneration, grants a 35% damage resistance and makes the user immune to oxygen loss. However, the mask does not give any resistances to fire, making the SK weak to it. The SK has a three (3) times damage and stun multiplier to his melee attacks, making him dangerous in melee combat and deadly if you are alone. The Creepy Mask also provides the wearer with thermal vision, allowing him to see people and creatures through walls.\nThe SK can also at all times hear the text messages of any dead players, letting him communicate with them to find survivors or for other information if they are willing to collaborate with you (note that as an SK you should generally use text chat to communicate with ghosts as they an always see the text pop up, unlike voice chat which is dependent on where they are spectating).\nAnyone who is not the SK who wears the Creepy Mask will instantly have their head explode.',
 	wikiName_revolutionEvent = 'Revolution Event',
 	wikiText_revolutionEvent = 'A main event where a few players without an antag-safe job are randomly chosen to be the leaders of a revolution. The rebel leaders win once all of security (which includes the head engineer, the security officers, the diver and the captain) are killed. Rebels leaders should not kill anyone else but instead recruit them to their fight for freedom.\n Rebel leaders can craft Separatist Rifles, Marksman Rifles, Separatist Body Armor and Separatist Rifle Magazines, all powerful and cheap items for combat.\nInitially no one knows who the rebel leaders are but themselves (if you forget who your comrades are, do "/rebels"), but eventually, after about 10 minutes, Nexpharma will uncover all the rebel leaders to everyone (if you forget who the rebel leaders are, do "/rebels"). As such, it is imperative that rebel leaders take benefit of this window of opportunity where their affiliation is still secret.',
-	wikiName_gangWarEvent = 'Gang War Event',
-	wikiText_gangWarEvent = 'A main event where a few players without an antag-safe job are randomly chosen to be part of one out of two rival gangs. A gang wins once it has eliminated all the members of the enemy gang, and they do not need kill anyone else to win, although they still often do. Security can win this event by arresting all of the gang members and will be rewarded well for doing so, but they can also instead be neutral or even ally themselves with a gang.\nGang members can craft crystal meth and spray cans of their respective gang color, UZIs and ballistic backwards cap (a stylish helmet). Commoners can join a gang by smoking crystal meth out of a captains pipe.\nAs time passes, the Nexpharma equivalent to the IRS will uncover who the gangsters are. Medical can also work with security to see if someone is a gang member by using blood samplers; whoever returns positive on the crystal meth test is a gang member.\nIt is important to note that if a gang wins this event, the round will not end.',
 	wikiName_bloodCultEvent = 'Blood Cult Event',
 	wikiText_bloodCultEvent = 'A main event where a few players without an antag-safe job are randomly chosen to be part of a blood cult. The blood cult wins once there are no non-cultists alive. This can achieved either by killing the heretics or by converting them into their fatih. To do the latter, the cultist will need to whack the nonbeliever with "The 1998" book a few times. Doing so will also reset the time pressure of all cultists.\n Aside from the book, cultists can also craft a Blood Cultist Robe and a Sacrificial Dagger. The robe can only be worn by cultists and provides regeneration. Additionally if a cultist dies whilst wearing the robe, he will come back to life as an undead. The sacrificial dagger can be used on anyone on a critical health state or who has died less than 15 seconds ago. Doing so, will extract their life essence.\nLife essence can be consumed to reset the time pressure of the user and to heal them.\nThe unfaithful are unable to tell who is and who is not a cultist, but the cultists can know who their kin is by using the chat command "/cultists". Additionally, cultists can also secretly and remotely communicate with their brothers via telepathy with the "/whisper" command.',
 	wikiName_deathSquadEvent = 'Death Squad Event',
@@ -249,6 +246,10 @@ return {
 	wikiText_blackoutEvent = 'This is a side event where all lights in the map turn off and every door connected to buttons opens. All other objects that require power, like pumps and fabricators, will be unaffected though. This can pose serious security risks to the dam if happening in tandem with a main event.',
 	wikiName_vipEvent = 'VIP Event',
 	wikiText_vipEvent = 'This is a side event where a random non security player is chosen to become a VIP and a player is spawned in as their bodyguard. The VIP and bodyguard earn both a hefty salary for staying alive. The bodyguard must keep the VIP alive at all costs. Failure will result in immediate termination via explosive brain implant. Any non security member who kills the VIP will be awarded a big cash prize.',
+	wikiName_gangEvent = 'Gang Event',
+	wikiText_gangEvent = 'Lorem ipsum dolor sit amet.',
+	wikiName_wizardEvent = 'Wizard Event',
+	wikiText_wizardEvent = 'Lorem ipsum dolor sit amet.',
 	wikiName_mercsEvent = 'MERCS Event',
 	wikiText_mercsEvent = 'This is a side event where a player will be spawned as a member of the Mobile Emergency Rescue and Combat Squad (abbreviated: MERCS). Their goal is to assist security and they are essentially a super cop, even counting as a member of security. They look very similar to the Death Squadders, but have an entirely different objective.',
 	wikiName_electionEvent = 'Election Event',
@@ -319,7 +320,7 @@ return {
 	wikiName_midazolamItem = 'Midazolam',
 	wikiText_midazolamItem =  'A medical item that when used, greatly heals damage and slightly treats burns, but also instantly stuns and slightly drunkens. It can be crafted in a medical fabricator using chloral hydrate, tonic liquid and ethanol. It does not require too much medical skill or time to craft either. It can be used both to quickly heal an ally, at the downside of stunning them briefly, or on an enemy, by playing into the stun to do tactical plays whilst they are unconcious. Bodyguards (VIP Event), MERCS (MERCS and Death Squad Event), Goblins and Trolls (Greenskin Event) all spawn with this item.',
 	wikiName_bloodsamplerItem = 'Blood Sampler',
-	wikiText_bloodsamplerItem = 'Can be used by medical to test people for diseases and for crystal meth (positive on crystal meth indicates player is a gang member, relevant to Gang War Event). Medical and non medical jobs can also use the blood sampler take live samples of diseases from infected individuals. Live samples can usually be used to make antidotes... or for bioterrorism.',
+	wikiText_bloodsamplerItem = 'Can be used by medical to test people for diseases and for crystal meth (positive on crystal meth indicates player is a gang member, relevant to Gang Event). Medical and non medical jobs can also use the blood sampler take live samples of diseases from infected individuals. Live samples can usually be used to make antidotes... or for bioterrorism.',
 	-- wiki creatures
 	wikiName_spitroachCreature = 'Spitroach',
 	wikiText_spitroachCreature = 'An annoying cowardly pest that breeds and grows fast. They run up close, spit their acid, run away and repeat, usually in a synchronized group motion. When no targets are in sight, they spit on their walls, causing leaks and trouble. Immune to acid burns.',

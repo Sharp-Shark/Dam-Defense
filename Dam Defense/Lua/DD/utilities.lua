@@ -118,6 +118,7 @@ DD.antagExemptJobs = {
 	jet = true,
 	mercsevil = true,
 	wizard = true,
+	gangster = true,
 }
 
 -- Set of security jobs

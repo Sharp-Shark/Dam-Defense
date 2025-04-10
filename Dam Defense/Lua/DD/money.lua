@@ -81,10 +81,12 @@ DD.jobSalaryTimer = {
 	mechanic = calculateSalaryTimer(2),
 	clown = calculateSalaryTimer(2),
 	-- other jobs
-	mercs = calculateSalaryTimer(15),
-	mercsevil = calculateSalaryTimer(15),
+	mercs = calculateSalaryTimer(10),
+	mercsevil = calculateSalaryTimer(10),
 	bodyguard = calculateSalaryTimer(7),
+	gangster = calculateSalaryTimer(10),
 	wizard = calculateSalaryTimer(2),
+	jet = calculateSalaryTimer(2),
 }
 local getCharacterSalaryTimer = function (character)
 	local jobIdentifier = tostring(character.JobIdentifier)
@@ -97,14 +99,18 @@ local getCharacterSalaryTimer = function (character)
 end
 
 DD.giveMoneyToClient = function (client, amount, announce)
-	DD.expectTypes('giveMoneyToClient', {client, amount, announce}, {'userdata', 'number', 'nil,boolean'})
+	DD.expectTypes('giveMoneyToClient', {client, amount, announce}, {'userdata', 'number', 'nil,boolean,string'})
 	if DD.roundData.bank[client] ~= nil then
 		DD.roundData.bank[client] = DD.roundData.bank[client] + amount
 	else
 		DD.roundData.bank[client] = amount
 	end
 	if announce then
-		DD.messageClient(client, DD.stringLocalize('giveMoneyToClient', {amount = amount}), {preset = 'command'})
+		if type(announce) == 'string' then
+			DD.messageClient(client, DD.stringLocalize('giveMoneyToClientWithReason', {amount = amount, reason = announce}), {preset = 'command'})
+		else
+			DD.messageClient(client, DD.stringLocalize('giveMoneyToClient', {amount = amount}), {preset = 'command'})
+		end
 	end
 end
 

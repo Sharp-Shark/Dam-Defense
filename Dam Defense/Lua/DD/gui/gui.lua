@@ -55,9 +55,6 @@ DD.wikiData = {
 	revolutionEvent = {
 		related = {'main', 'events', 'airdropEvent'},
 	},
-	gangWarEvent = {
-		related = {'main', 'events', 'bloodsamplerItem'},
-	},
 	bloodCultEvent = {
 		related = {'main', 'events', 'airdropEvent'},
 	},
@@ -89,6 +86,12 @@ DD.wikiData = {
 	vipEvent = {
 		related = {'main', 'events', 'bodyguardJob', 'midazolamItem'},
 		identifier = 'eventVIP',
+	},
+	wizardEvent = {
+		related = {'main', 'events'},
+	},
+	gangEvent = {
+		related = {'main', 'events', 'bloodsamplerItem'},
 	},
 	mercsEvent = {
 		related = {'main', 'events', 'deathSquadEvent', 'mercsJob', 'midazolamItem'},
@@ -195,7 +198,7 @@ DD.wikiData = {
 		related = {'main', 'items', 'medicalSystem', 'bacterialinfectionAffliction', 'tbinfectionAffliction'},
 	},
 	bloodsamplerItem = {
-		related = {'main', 'items', 'medicalSystem', 'bacterialsyringeItem', 'flusyringeItem', 'tbsyringeItem', 'gangWarEvent'},
+		related = {'main', 'items', 'medicalSystem', 'bacterialsyringeItem', 'flusyringeItem', 'tbsyringeItem', 'gangEvent'},
 	},
 	-- creatures
 	spitroachCreature = {
@@ -745,6 +748,9 @@ local getInfoText = function (character, pov)
 		if DD.tableHas(character.CharacterHealth.GetActiveAfflictionTags(), 'serialkiller') then
 			assignText('serialkiller', 3)
 		end
+		if characterHasRole(character, 'gangleader') then
+			assignText('gangleader', 3)
+		end
 		if DD.tableHas(character.CharacterHealth.GetActiveAfflictionTags(), 'wizard') then
 			assignText('wizard', 3)
 		end
@@ -773,8 +779,15 @@ local getInfoText = function (character, pov)
 	if characterHasRole(character, 'rebel') then
 		if characterHasRole(Character.Controlled, 'rebel') then
 			assignText('comrade', 2)
-		elseif DD.isCharacterSecurity(Character.Controlled) and not character.Info.IsDisguisedAsAnother then
-			assignText('wanted', 2)
+		elseif not character.Info.IsDisguisedAsAnother then
+			assignText('rebel', 2)
+		end
+	end
+	if characterHasRole(character, 'goon') then
+		if characterHasRole(Character.Controlled, 'boss') then
+			assignText('subordinate', 2)
+		else
+			assignText('comrade', 2)
 		end
 	end
 	if DD.isCharacterSecurity(character) and characterHasRole(Character.Controlled, 'rebel') then
@@ -794,6 +807,12 @@ local getInfoText = function (character, pov)
 	end
 	if characterHasRole(character, 'guard') then
 		assignText('bodyguard', 3)
+	end
+	if characterHasRole(character, 'boss') then
+		assignText('boss', 3)
+	end
+	if characterHasRole(character, 'gangleader') then
+		assignText('gangleader', 3)
 	end
 	if characterHasRole(character, 'vip') then
 		assignText('protect', 3)
@@ -833,7 +852,10 @@ local guiCharacterInfoTextColorTable = {
 	wizard = Color(120, 200, 160),
 	wanted = GUI.GUIStyle.Orange,
 	bodyguard = Color.SkyBlue,
-	protect = Color(200, 120, 160),
+	protect = Color.SkyBlue,
+	gangleader = GUI.GUIStyle.Orange,
+	boss = Color.SkyBlue,
+	subordinate = Color.SkyBlue,
 	security = Color.Lerp(JobPrefab.Get('securityofficer').UIColor, GUI.GUIStyle.TextColorNormal, 0.25),
 	medical = Color.Lerp(JobPrefab.Get('medicaldoctor').UIColor, GUI.GUIStyle.TextColorNormal, 0.25),
 }

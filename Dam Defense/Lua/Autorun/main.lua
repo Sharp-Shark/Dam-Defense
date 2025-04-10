@@ -305,7 +305,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 		rebels = 'Lists rebel leaders if you are a rebel leader or if enough time has elapsed. This command also informs how much more time needs to elapse.',
 		cultists = 'Lists fellow blood cultists. List will not include undead zombies, but undead zombies are allied to cultists and can also use this command.',
 		whisper = 'Globally and secretly send a text message to all blood cultists and undead zombies. Command can be used by both cultists and zombies.',
-		gang = 'Lists fellow gang members and also the public list of gangsters. If someone is a gangster but is not in your gang, they are an enemy gangster. Kill them!',
+		gang = 'Lists fellow gang members and the name of your boss. Be cautious with enemy gangs.',
 		fire = 'Usable by the mayor to lethally fire members of security or to kill himself. Type /fire without arguments to see what number relates to each guard. Numbers can be used in place of names.',
 	}
 	
@@ -345,8 +345,10 @@ DD.chatMessageFunctions.help = function (message, sender)
 				specialCommands['whisper'] = true
 			end
 		end
-		if #DD.eventDirector.getEventInstances('gangWar') > 0 then
-			specialCommands['gang'] = true
+		for event in DD.eventDirector.getEventInstances('gang') do
+			if event.gangstersSet[sender] then
+				specialCommands['gang'] = true
+			end
 		end
 	end
 	
@@ -710,10 +712,23 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	if client ~= nil then
 		DD.messageClient(client, JobPrefab.Get(character.JobIdentifier).Description, {preset = 'info'})
 	end
-	-- Wizard
+	-- Event related jobs
 	if character.JobIdentifier == 'wizard' then
 		DD.giveAfflictionCharacter(character, 'wizard', 1)
 		local item = character.Inventory.GetItemAt(DD.invSlots.head)
+		item.NonInteractable = true
+		if SERVER then
+			local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
+			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
+		end
+	elseif character.JobIdentifier == 'gangster' then
+		local item = character.Inventory.GetItemAt(DD.invSlots.head)
+		item.NonInteractable = true
+		if SERVER then
+			local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
+			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
+		end
+		local item = character.Inventory.GetItemAt(DD.invSlots.innerclothes)
 		item.NonInteractable = true
 		if SERVER then
 			local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
@@ -733,7 +748,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			if (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') or (character.JobIdentifier == 'assistant') then
 				character.GiveTalent('unstoppablecuriosity', true)
 			end
-			if (character.JobIdentifier == 'captain') or (character.JobIdentifier == 'assistant') then
+			if (character.JobIdentifier == 'captain') or (character.JobIdentifier == 'gangster') or (character.JobIdentifier == 'assistant') then
 				character.GiveTalent('drunkensailor', true)
 			end
 			if DD.isCharacterMedical(character) or (character.JobIdentifier == 'janitor') or (character.JobIdentifier == 'assistant') then
@@ -742,6 +757,9 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') or (character.JobIdentifier == 'assistant') then
 				character.GiveTalent('daringdolphin', true)
 				character.GiveTalent('ballastdenizen', true)
+			end
+			if character.JobIdentifier == 'gangster' then
+				character.GiveTalent('gangknowledge', true)
 			end
 		end, 1000)
 	end

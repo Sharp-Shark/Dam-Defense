@@ -37,8 +37,8 @@ end, {
 			end
 		end
 		
-		-- event requires 6 or more players
-		if (self.vip == nil) or (self.guard == nil) or ((not ignorePlayerCount) and (DD.tableSize(Client.ClientList) <= 5)) then
+		-- event requires 5 or more players
+		if (self.vip == nil) or (self.guard == nil) or ((not ignorePlayerCount) and (DD.tableSize(Client.ClientList) <= 4)) then
 			self.fail('conditions to start could not be met')
 			return
 		else

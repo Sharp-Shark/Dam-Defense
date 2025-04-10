@@ -41,8 +41,8 @@ Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(
 	
 	local testResults = {['Crystal meth'] = false}
 	for event in DD.eventDirector.events do
-		if event.name == 'gangWar' then
-			if event.gang1Set[client] or event.gang2Set[client] then
+		if event.name == 'gang' then
+			if event.gangstersSet[client] then
 				testResults['Crystal meth'] = true
 			end
 		end
@@ -730,6 +730,7 @@ end, Hook.HookMethodType.Before)
 Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, ptable)
 	local item = instance.Item
 	if not item.HasTag('flamer') then return end
+	local user = item.GetRootInventoryOwner()
 	local component = item.GetComponentString('RepairTool')
 	local pos = item.WorldPosition
 	local deltaPos = component.TransformedBarrelPos
@@ -750,6 +751,13 @@ Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, p
 		if LuaUserData.IsTargetType(entity, 'Barotrauma.Item') then
 			if entity.HasTag('corpse') then
 				entity.Condition = entity.Condition - 2
+				if entity.Condition <= 0 then
+					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), entity.WorldPosition - Vector2(0, 86) / 4, nil, nil, function (spawnedItem) end)
+					local client = DD.findClientByCharacter(user)
+					if client ~= nil then
+						DD.giveMoneyToClient(client, 2, DD.stringLocalize('giveMoneyReasonCorpseDisposal'))
+					end
+				end
 			else
 				break
 			end
@@ -817,13 +825,8 @@ Hook.Add("DD.meth.use", "DD.meth.use", function(effect, deltaTime, item, targets
 	local color = DD.stringSplit(tostring(item.Prefab.Identifier), 'meth')[1]
 	
 	for event in DD.eventDirector.events do
-		if event.name == 'gangWar' then
-			local gangNumber
-			if event.gang1Color == color then
-				event.addClientToGang(client, event.gang1)
-			elseif event.gang2Color == color then
-				event.addClientToGang(client, event.gang2)
-			end
+		if (event.name == 'gang') and (event.gangColor == color) then
+			event.addClientToGang(client)
 		end
 	end
 end)

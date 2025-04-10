@@ -211,17 +211,17 @@
         <Affliction identifier="chemaddiction" amount="0.5" />
         <ReduceAffliction identifier="chemwithdrawal" amount="3" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" disabledeltatime="true">
+      <StatusEffect statuseffecttags="medical" type="OnSuccess" target="UseTarget" disabledeltatime="true">
         <Affliction identifier="haste" amount="420" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="30.0">
+      <StatusEffect statuseffecttags="medical" type="OnFailure" target="UseTarget" duration="30.0">
         <Affliction identifier="organdamage" amount="1" />
         <ReduceAffliction identifier="oxygenlow" amount="1.5" />
         <ReduceAffliction identifier="stun" amount="0.75" />
         <Affliction identifier="chemaddiction" amount="1" />
         <ReduceAffliction identifier="chemwithdrawal" amount="3" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" disabledeltatime="true">
+      <StatusEffect statuseffecttags="medical" type="OnFailure" target="UseTarget" disabledeltatime="true">
         <Affliction identifier="haste" amount="300" />
       </StatusEffect>
       <StatusEffect type="OnSuccess" target="UseTarget">
@@ -604,10 +604,10 @@
       <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
         <Affliction identifier="stun" amount="0.1" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" disabledeltatime="true" allowwhenbroken="true">
+      <StatusEffect statuseffecttags="medical" type="OnSuccess" target="UseTarget" disabledeltatime="true" allowwhenbroken="true">
         <Affliction identifier="adrenalinerush" amount="8" />
       </StatusEffect>
-      <StatusEffect tags="medical" type="OnSuccess" delay="8" target="UseTarget" duration="10.0">
+      <StatusEffect statuseffecttags="medical" type="OnSuccess" delay="8" target="UseTarget" duration="10.0">
         <Affliction identifier="nausea" amount="4.0" />
         <Affliction identifier="organdamage" amount="2.0" />
       </StatusEffect>

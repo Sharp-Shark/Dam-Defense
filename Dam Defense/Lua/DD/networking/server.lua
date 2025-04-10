@@ -74,8 +74,17 @@ Networking.Receive("requestUpdateGUICharacterRole", function (message, client)
 	end
 	for event in DD.eventDirector.events do
 		if (event.name == 'revolution') and (event.rebelsSet[client] or event.rebelsDoxHappened or not DD.isClientCharacterAlive(client)) then
-			for client in event.rebels do
-				assignClientRole(client, 'rebel')
+			for rebel in event.rebels do
+				assignClientRole(rebel, 'rebel')
+			end
+		elseif event.name == 'gang' then
+			if event.gangstersSet[client] then
+				assignClientRole(event.boss, 'boss')
+				for goon in event.goons do
+					assignClientRole(goon, 'goon')
+				end
+			else
+				assignClientRole(event.boss, 'gangleader')
 			end
 		elseif (event.name == 'murder') and (event.murderer == client) then
 			assignClientRole(event.victim, 'victim')

@@ -82,6 +82,9 @@
   <!-- Wizard Job -->
   <jobname.wizard>Wizard</jobname.wizard>
   <jobdescription.wizard>A master at casting spells, your main objective is to cause chaos and mayhem using magic. You are free to be good or evil.</jobdescription.wizard>
+  <!-- Gangster Job -->
+  <jobname.gangster>Gangster</jobname.gangster>
+  <jobdescription.gangster>The don of a mafia, your main objective is to grow your gang using crystal meth and thus gain power and influence. You are free to be good or evil.</jobdescription.gangster>
   <!-- MERCS Job -->
   <jobname.mercs>MERCS Member</jobname.mercs>
   <jobdescription.mercs>Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Restore order in the dam and protect it. Mission failure will result in subject termination.</jobdescription.mercs>
@@ -267,6 +270,9 @@
   <!-- Backwards Cap (for gang members) -->
   <entityname.backwardscap>Ballistic Cap</entityname.backwardscap>
   <entitydescription.backwardscap>Only craftable by gang members. Appears to be a backwards cap and bandana, but is lined with a ballistic fiber. Thug life.</entitydescription.backwardscap>
+  <!-- Gangster Hat (for gang leader) -->
+  <entityname.bosshat>Gangster Hat</entityname.bosshat>
+  <entitydescription.bosshat>A fashionable trilby hat for a mafia boss. Lined with ballistic fiber on the inside and has a built-in diving mask.</entitydescription.bosshat>
   <!-- Storage Guntainer -->
   <entityname.toolboxgun>Storage Guntainer</entityname.toolboxgun>
   <entitydescription.toolboxgun>A portable guntainer for storing tools and supplies.</entitydescription.toolboxgun>
