@@ -158,7 +158,6 @@ return {
 	vipEnd = 'The VIP is dead! An anonymous person has been rewarded for their death.',
 	vipEndNoReward = 'The VIP is dead! No one has been rewarded for their death.',
 	-- events/wizard.lua
-	wizardEndVictory = 'The wizard has won this round! Round ending in 10 seconds.',
 	wizardEnd = 'The wizard has been slain!',
 	-- console commands
 	jobbanNoticeSingular = 'You have been banned from the {jobName} job because: {reason}.',
@@ -247,9 +246,9 @@ return {
 	wikiName_vipEvent = 'VIP Event',
 	wikiText_vipEvent = 'This is a side event where a random non security player is chosen to become a VIP and a player is spawned in as their bodyguard. The VIP and bodyguard earn both a hefty salary for staying alive. The bodyguard must keep the VIP alive at all costs. Failure will result in immediate termination via explosive brain implant. Any non security member who kills the VIP will be awarded a big cash prize.',
 	wikiName_gangEvent = 'Gang Event',
-	wikiText_gangEvent = 'Lorem ipsum dolor sit amet.',
+	wikiText_gangEvent = 'This a side event where a player is spawned in as a mafioso gang leader. His objective is to grow his gang and obtain power and influence in whatever way he deems fit. He is not necessarily an antagonist and this is not a round ending event.\nThe gang leader and the gang leader only can craft items specific to the event for cheap, such as the UZI, ballistic cap, crystal meth and spraycans. The crystal meth is very important, because when smoked in a pipe by a player without an antag-safe job, they will be recruited to the gang of the respective color.',
 	wikiName_wizardEvent = 'Wizard Event',
-	wikiText_wizardEvent = 'Lorem ipsum dolor sit amet.',
+	wikiText_wizardEvent = 'This is a side event where a player is spawned in as a wizard. His objective is to cause chaos and mayhem, although this does not mean the wizard is an antagonist, for he can act good or evil.\nThe wizard spawns with, amongst other items, a staff and some spellbooks. When the staff and a spellbook are both held at once, spells can be cast.',
 	wikiName_mercsEvent = 'MERCS Event',
 	wikiText_mercsEvent = 'This is a side event where a player will be spawned as a member of the Mobile Emergency Rescue and Combat Squad (abbreviated: MERCS). Their goal is to assist security and they are essentially a super cop, even counting as a member of security. They look very similar to the Death Squadders, but have an entirely different objective.',
 	wikiName_electionEvent = 'Election Event',

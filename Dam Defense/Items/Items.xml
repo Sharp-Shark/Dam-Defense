@@ -3462,7 +3462,7 @@
       <Price storeidentifier="merchantmine" multiplier="0.75" />
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
-      <RequiredItem tag="money" amount="2" />
+      <RequiredItem tag="money" amount="1" />
     </Fabricate>
     <Deconstruct time="5">
       <Item identifier="scrap" />

@@ -184,6 +184,10 @@ end, {
 			self.fail('"self.boss" is nil at "onThink"')
 			return
 		end
+		
+		if not DD.isClientCharacterAlive(self.boss) then
+			self.finish()
+		end
 	end,
 	
 	onCharacterDeath = function (self, character)

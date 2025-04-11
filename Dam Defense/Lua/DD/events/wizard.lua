@@ -4,7 +4,7 @@ DD.eventWizard = DD.class(DD.eventBase, function (self, wizard)
 end, {
 	paramType = {'client'},
 	clientKeys = {'wizard'},
-	public = false,
+	public = true,
 	
 	name = 'wizard',
 	instanceCap = 1,
@@ -14,8 +14,6 @@ end, {
 	goodness = -1,
 	
 	onStart = function (self)
-		self.wizardWon = false
-		
 		-- pick client to be wizard
 		local ignorePlayerCount = false
 		if self.wizard ~= nil then
@@ -54,19 +52,7 @@ end, {
 			return
 		end
 		
-		-- see if anyone else is alive
-		local anyoneAlive = false
-		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (client ~= self.wizard) then
-				anyoneAlive = true
-				break
-			end
-		end
-		
 		if not DD.isClientCharacterAlive(self.wizard) then
-			self.finish()
-		elseif not anyoneAlive then
-			self.wizardWon = true
 			self.finish()
 		end
 	end,
@@ -83,15 +69,7 @@ end, {
 	end,
 	
 	onFinish = function (self)
-		if self.wizardWon then
-			DD.messageAllClients(DD.stringLocalize('wizardEndVictory'), {preset = 'crit'})
-			DD.roundData.roundEnding = true
-			Timer.Wait(function ()
-				Game.EndGame()
-			end, 10 * 1000)
-		else
-			DD.messageAllClients(DD.stringLocalize('wizardEnd'), {preset = 'goodinfo'})
-			if self.wizard ~= nil then DD.messageClient(self.wizard, DD.stringLocalize('antagDead'), {preset = 'crit'}) end
-		end
+		DD.messageAllClients(DD.stringLocalize('wizardEnd'), {preset = 'goodinfo'})
+		if self.wizard ~= nil then DD.messageClient(self.wizard, DD.stringLocalize('antagDead'), {preset = 'crit'}) end
 	end,
 })

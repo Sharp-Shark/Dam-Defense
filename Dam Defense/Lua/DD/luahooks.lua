@@ -755,7 +755,7 @@ Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, p
 					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), entity.WorldPosition - Vector2(0, 86) / 4, nil, nil, function (spawnedItem) end)
 					local client = DD.findClientByCharacter(user)
 					if client ~= nil then
-						DD.giveMoneyToClient(client, 2, DD.stringLocalize('giveMoneyReasonCorpseDisposal'))
+						DD.giveMoneyToClient(client, 1, DD.stringLocalize('giveMoneyReasonCorpseDisposal'))
 					end
 				end
 			else
