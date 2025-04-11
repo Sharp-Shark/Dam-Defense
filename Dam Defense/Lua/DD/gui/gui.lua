@@ -582,7 +582,7 @@ DD.generateWikiHTML = function ()
 	
 	-- anchor
 	local anchor = '<a href="#{key}" style="{style}">{text}</a>'
-	local sidebar = '<a href="#{key}" style="margin:10px;">{text}</a><br>'
+	local sidebar = '<a href="#{key}" style="margin:10px;">{text}</a>'
 	local headerInfo = ' <b style="{style}">{text}</b>'
 	
 	-- adds a wiki entry to the HTML page
@@ -646,7 +646,7 @@ DD.generateWikiHTML = function ()
 				tbl.class = tbl.class .. 'autogen '
 			end
 			if info.isOverride then
-				nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Override', style = 'color:mediumorchid;'})
+				nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = 'Overriden', style = 'color:mediumorchid;'})
 				tbl.class = tbl.class .. 'override '
 			end
 			tbl.name = tbl.name .. nameAppend
@@ -685,15 +685,16 @@ DD.generateWikiHTML = function ()
 			local sidebarTbl =  {key = key, text = getPageFields(key).name}
 			local sidebarText = DD.stringReplace(sidebar, sidebarTbl)
 			local sidebarStyle = ''
+			if info.isAutogen then
+				sidebarText = sidebarText .. '<b style="color:limegreen;">•</b>'
+			end
 			if info.isOverride then
-				sidebarStyle = sidebarStyle .. 'color:mediumorchid;'
-			elseif info.isAutogen then
-				sidebarStyle = sidebarStyle .. 'color:limegreen;'
+				sidebarText = sidebarText .. '<b style="color:mediumorchid;">•</b>'
 			end
 			if DD.wikiData[key].category ~= nil then
 				sidebarText = '&nbsp;&nbsp;↪' .. sidebarText
 			end
-			sidebarText = DD.stringReplace('<div id={id} class="{class}" style="{style}">{text}</div>', {id = 'sidebar_' .. string.gsub(string.lower(getPageFields(key).name), ' ', '_'), text = sidebarText, class = tbl.class, style = sidebarStyle}) .. '{sidebar}'
+			sidebarText = DD.stringReplace('<div id={id} class="{class}" style="{style}">{text}<br></div>', {id = 'sidebar_' .. string.gsub(string.lower(getPageFields(key).name), ' ', '_'), text = sidebarText, class = tbl.class, style = sidebarStyle}) .. '{sidebar}'
 			-- apply
 			local text = string.gsub(DD.stringReplace(segment, tbl), '%%', '%%%%')
 			main = string.gsub(main, '{sidebar}', sidebarText)
