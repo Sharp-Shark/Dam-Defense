@@ -9,7 +9,7 @@ end, {
 	name = 'mercs',
 	instanceCap = 1,
 	isMainEvent = false,
-	cooldown = 60 * 1,
+	cooldown = 60 * 3,
 	weight = 1.0,
 	goodness = 2.0,
 	minimunDeadPercentage  = 0.3,

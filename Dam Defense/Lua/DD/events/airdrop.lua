@@ -7,9 +7,9 @@ DD.eventAirdrop = DD.class(DD.eventBase, function (self, spawnPosition, items, m
 end, {
 	name = 'airdrop',
 	isMainEvent = false,
-	cooldown = 60 * 2,
-	weight = 2.5,
-	goodness = 1,
+	cooldown = 60 * 1,
+	weight = 3,
+	goodness = 1.5,
 	
 	spawnPosition = 'dd_airdrop',
 	crateIdentifier = 'metalcrate',

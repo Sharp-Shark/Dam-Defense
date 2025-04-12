@@ -68,6 +68,7 @@ end)
 Networking.Receive("requestUpdateGUICharacterRole", function (message, client)
 	local characterRole = {}
 	local assignClientRole = function (client, role)
+		if client == nil then return end
 		if not DD.isClientCharacterAlive(client) then return end
 		if characterRole[tostring(client.Character.ID)] == nil then characterRole[tostring(client.Character.ID)] = {} end
 		characterRole[tostring(client.Character.ID)][role] = true

@@ -421,8 +421,11 @@ end)
 -- whaling gun uses powder when fired
 Hook.Add("DD.whalinggun.use", "DD.whalinggun.use", function(effect, deltaTime, item, targets, worldPosition)
 	local powder = targets[#targets]
-	if powder.HasTag('whalinggunpowder') or powder.HasTag('munition_propulsion') then
-		powder.Condition = powder.Condition - 50
+	for target in targets do
+		if (LuaUserData.TypeOf(target) == 'Barotrauma.Item') and (target.HasTag('whalinggunpowder') or target.HasTag('munition_propulsion')) then
+			target.Condition = target.Condition - 50
+			break
+		end
 	end
 end)
 
@@ -1294,8 +1297,10 @@ end)
 local vote = function (bool, targets)
 	local count = 0
 	for target in targets do
-		count = count + 1
-		Entity.Spawner.AddItemToRemoveQueue(target)
+		if (LuaUserData.TypeOf(target) == 'Barotrauma.Item') and (target.HasTag('money')) then
+			count = count + 1
+			Entity.Spawner.AddItemToRemoveQueue(target)
+		end
 	end
 	if count == 0 then return end
 	

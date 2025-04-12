@@ -17,7 +17,7 @@ DD.speciesData = {
 	mudraptor_hatchling = {initialGrowTimer = 120, grownIdentifier = 'mudraptor_unarmored', populationName = 'mudraptor'},
 	
 	husk_prowler = {populationName = 'husk'},
-	husk = {initialGrowTimer = 180, grownIdentifier = 'husk_prowler', populationName = 'husk'},
+	husk = {initialGrowTimer = 240, grownIdentifier = 'husk_prowler', populationName = 'husk'},
 }
 
 DD.plantData = {

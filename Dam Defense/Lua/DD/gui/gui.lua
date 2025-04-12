@@ -894,6 +894,7 @@ local guiCharacterInfoTextColorTable = {
 	target = GUI.GUIStyle.Yellow,
 	cultist = Color(160, 120, 200),
 	rebel = GUI.GUIStyle.Orange,
+	serialkiller = Color(160, 120, 200),
 	wizard = Color(120, 200, 160),
 	wanted = GUI.GUIStyle.Orange,
 	bodyguard = Color.SkyBlue,

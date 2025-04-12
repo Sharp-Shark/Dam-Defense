@@ -8,7 +8,7 @@ end, {
 	
 	name = 'revolution',
 	isMainEvent = true,
-	cooldown = 60 * 6,
+	cooldown = 60 * 8,
 	weight = 2,
 	goodness = -1,
 	minimunAlivePercentage = 1.0,

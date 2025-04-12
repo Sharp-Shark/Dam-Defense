@@ -137,17 +137,16 @@ end, {
 			return
 		end
 		
-		-- set goons table (initially empty)
-		self.goons = {}
-		self.goonsSet = {}
-		self.gangsters = {self.boss}
-		self.gangstersSet = {[self.boss] = true}
-		
 		-- event requires 5 or more players
 		if (self.boss == nil) or ((not ignorePlayerCount) and (DD.tableSize(Client.ClientList) <= 4)) then
 			self.fail('conditions to start could not be met')
 			return
 		else
+			-- set goons table (initially empty)
+			self.goons = {}
+			self.goonsSet = {}
+			self.gangsters = {self.boss}
+			self.gangstersSet = {[self.boss] = true}
 			-- Remove color and name from available list
 			for key, color in pairs(DD.roundData.gangEventAvailableColors) do
 				if self.gangColor == color then

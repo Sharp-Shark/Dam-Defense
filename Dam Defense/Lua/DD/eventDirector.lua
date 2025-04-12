@@ -368,7 +368,7 @@ DD.thinkFunctions.eventDirector = function ()
 	end
 	
 	if (DD.eventDirector.mainEvent ~= nil) and DD.eventDirector.mainEvent.finished then
-		DD.eventDirector.cooldown = DD.eventDirector.mainEvent.cooldown / 2
+		DD.eventDirector.cooldown = 60 * 2
 		DD.eventDirector.mainEventCooldown = DD.eventDirector.mainEvent.cooldown
 		DD.eventDirector.mainEvent = nil
 	end
@@ -393,11 +393,11 @@ end
 
 -- Called at round start
 DD.roundStartFunctions.eventDirector = function ()
-	DD.eventDirector.goodness = 0
+	DD.eventDirector.goodness = -3 -- negative goodness means lots of bad events happened, and thus event director will favour good events
 	DD.eventDirector.mainEvent = nil
 	DD.eventDirector.events = {}
-	DD.eventDirector.cooldown = 60 * 1
-	DD.eventDirector.mainEventCooldown = 60 * 4
+	DD.eventDirector.cooldown = 60 * 4
+	DD.eventDirector.mainEventCooldown = 60 * 8
 end
 
 -- Lists to the message sender all of the publicly known events

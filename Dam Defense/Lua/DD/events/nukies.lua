@@ -10,7 +10,7 @@ end, {
 	
 	name = 'nukies',
 	isMainEvent = true,
-	cooldown = 60 * 2,
+	cooldown = 60 * 4,
 	weight = 3,
 	goodness = -1.5,
 	minimunDeadPercentage  = 0.2,

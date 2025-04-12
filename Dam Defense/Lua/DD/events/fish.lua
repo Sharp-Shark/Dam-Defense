@@ -2,7 +2,7 @@
 DD.eventFish = DD.class(DD.eventBase, nil, {
 	name = 'fish',
 	isMainEvent = false,
-	cooldown = 60 * 1.5,
+	cooldown = 60 * 2,
 	weight = 2.5,
 	goodness = -1,
 	

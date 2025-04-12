@@ -11,7 +11,7 @@ end, {
 	
 	name = 'deathSquad',
 	isMainEvent = true,
-	cooldown = 60 * 3,
+	cooldown = 60 * 4,
 	weight = 0.5,
 	goodness = -2.0,
 	minimunDeadPercentage  = 0.4,

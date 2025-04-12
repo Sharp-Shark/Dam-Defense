@@ -279,7 +279,7 @@
     </Reactor>
     <LightComponent range="300.0" lightcolor="255,186,152,119" powerconsumption="0" IsOn="false" castshadows="false" allowingameediting="false">
       <IsActive targetitemcomponent="Reactor" temperature="gt 2" />
-      <sprite texture="Content/Map/Outposts/Art/GenericAssets2.png" depth="0.025" sourcerect="649,336,575,849" alphablend="false" origin="0.5,0.5" alpha="1.0" />
+      <sprite texture="Content/Map/Outposts/Art/GenericAssets2.png" depth="0.025" sourcerect="649,761,575,425" alphablend="false" origin="0.5,0.0" alpha="1.0" />
     </LightComponent>
     <LightComponent range="400" lightcolor="255,0,0,250" powerconsumption="0" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1">
       <IsActive targetitemcomponent="Reactor" temperaturecritical="eq true" />
