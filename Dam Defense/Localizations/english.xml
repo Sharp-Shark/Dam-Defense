@@ -121,7 +121,7 @@
   <Override>
   <entityname.ironhelmet>Makeshift Helmet</entityname.ironhelmet><!-- Iron Helmet now is called Makeshift Helmet -->
   <entityname.orangejumpsuit1>Lead-lined Overalls</entityname.orangejumpsuit1>
-  <entitydescription.captainspipe>Used for smoking pipe tabacco. Somehow heals damage and bloodloss at an impressive rate. Causes about as much lung damage as an entire pack of cigars.</entitydescription.captainspipe>
+  <entitydescription.captainspipe>Used for smoking pipe tabacco or crystal meth. Somehow heals damage and bloodloss at an impressive rate. Causes about as much lung damage as an entire pack of cigars.</entitydescription.captainspipe>
   <entitydescription.cigar>A finely crafted cigar. Somehow heals damage and bloodloss. Intense and frequent use may cause hard to reverse lung damage.</entitydescription.cigar>
   <entitydescription.rum>A fine liquor made from raptor bane juice or pomegrenade extract. Heals husk infection when drunk. Can be poured on wounds to clear gangrene. Can be used as a low quality generator fuel.</entitydescription.rum>
   <entitydescription.ethanol>Medical alcohol used as an ingredient in the manufacture of various medicines. Drinking while on duty is not advised. Can be poured on wounds to clear gangrene. Can be used as a low quality generator fuel.</entitydescription.ethanol>
@@ -149,6 +149,19 @@
   <!-- Nexcase -->
   <entityname.moneycase>Nexcase</entityname.moneycase>
   <entitydescription.moneycase>Money? I love money! Do you love money? This Nexcase (TM) can be used to temporarily store Nexcredits (TM).</entitydescription.moneycase>
+  <!-- Nexshop -->
+  <entityname.nexshop1>Nexshop</entityname.nexshop1>
+  <entityname.nexshop2>Nexshop</entityname.nexshop2>
+  <entitydescription.nexshop1>The Nexshop (TM) is an always functioning vending machine to give you the goods you need.</entitydescription.nexshop1>
+  <entitydescription.nexshop2>The Nexshop (TM) is an always functioning vending machine to give you the goods you need.</entitydescription.nexshop2>
+  <!-- Nukieshop -->
+  <entityname.nukieshop1>Nukieshop</entityname.nukieshop1>
+  <entityname.nukieshop2>Nukieshop</entityname.nukieshop2>
+  <entitydescription.nukieshop1>A vending machine located in the nukie spawn. They can use it to exchange counterfeit nexcredits for weaponry, medicine and tools.</entitydescription.nukieshop1>
+  <entitydescription.nukieshop2>A vending machine located in the nukie spawn. They can use it to exchange counterfeit nexcredits for weaponry, medicine and tools.</entitydescription.nukieshop2>
+  <!-- Ballot Box -->
+  <entityname.ballotbox>Ballot Box</entityname.ballotbox>
+  <entitydescription.ballotbox>An intelligent ballot box. When money is inserted and the button labelled "YES" or "NO" is pressed, it will cast the votes accordingly.</entitydescription.ballotbox>
   <!-- Portable Generator -->
   <entityname.portablegenerator>Portable Generator</entityname.portablegenerator>
   <entitydescription.portablegenerator>A small portable combustion generator for emergencies. Can be hooked up to as many as five appliances. Not recommended to directly connect it to the main electrical grid due to small power output. Keep out of water.</entitydescription.portablegenerator>
@@ -273,6 +286,8 @@
   <!-- Gangster Hat (for gang leader) -->
   <entityname.bosshat>Gangster Hat</entityname.bosshat>
   <entitydescription.bosshat>A fashionable trilby hat for a mafia boss. Lined with ballistic fiber on the inside and has a built-in diving mask.</entitydescription.bosshat>
+  <entityname.bossclothes>Gangster Suit</entityname.bossclothes>
+  <entitydescription.bossclothes>A stylish suit worn by the don of a local mafia.</entitydescription.bossclothes>
   <!-- Storage Guntainer -->
   <entityname.toolboxgun>Storage Guntainer</entityname.toolboxgun>
   <entitydescription.toolboxgun>A portable guntainer for storing tools and supplies.</entitydescription.toolboxgun>

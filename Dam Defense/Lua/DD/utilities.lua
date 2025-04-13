@@ -134,12 +134,20 @@ DD.securityJobs = {
 DD.proletariatJobs = {
 	mechanic = true,
 	clown = true,
+	assistant = true,
 }
 
 -- Set of medical jobs
 DD.medicalJobs = {
 	researcher = true,
 	medicaldoctor = true,
+}
+
+-- Set of staff jobs (anyone who is to be let inside the dam)
+DD.staffJobs = {
+	engineer = true,
+	janitor = true,
+	miner = true,
 }
 
 -- Couldn't be bothered to recall what number is used for each inventory slot so I made this table
@@ -722,14 +730,19 @@ DD.isCharacterSecurity = function (character)
 	return DD.securityJobs[tostring(character.JobIdentifier)]
 end
 
-DD.isCharacterProletariat = function (character)
-	DD.expectTypes('isCharacterProletariat', {character}, {'userdata'})
-	return DD.proletariatJobs[tostring(character.JobIdentifier)]
-end
-
 DD.isCharacterMedical = function (character)
 	DD.expectTypes('isCharacterMedical', {character}, {'userdata'})
 	return DD.medicalJobs[tostring(character.JobIdentifier)]
+end
+
+DD.isCharacterStaff = function (character)
+	DD.expectTypes('isCharacterStaff', {character}, {'userdata'})
+	return DD.staffJobs[tostring(character.JobIdentifier)] or DD.isCharacterMedical(character) or DD.isCharacterSecurity(character)
+end
+
+DD.isCharacterProletariat = function (character)
+	DD.expectTypes('isCharacterProletariat', {character}, {'userdata'})
+	return DD.proletariatJobs[tostring(character.JobIdentifier)]
 end
 
 DD.isCharacterArrested = function (character)
@@ -1045,6 +1058,22 @@ DD.setLightState = function (item, state)
 		local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("IsOn")]
 		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
 	end
+end
+
+-- Gets a child or attribute of an element by following an arbitrary path
+DD.elementGetByPath = function (parent, path)
+	local arr = DD.stringSplit(path, '.')
+	local element = parent
+	for i in arr do
+		if element == nil then return end
+		if element.GetChildElement(i) == nil then
+			if element.GetAttribute(i) ~= nil then return element.GetAttribute(i).value end
+			return
+		else
+			element = element.GetChildElement(i)
+		end
+	end
+	return element
 end
 
 -- Enables or disables respawning

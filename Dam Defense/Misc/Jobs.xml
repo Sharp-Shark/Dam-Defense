@@ -1225,11 +1225,10 @@
     </AppropriateOrders>
   </Job>
   
-  <!-- These jobs cannot be picked! -->
   <Override>
   <Job identifier="assistant"
-       minkarma="0" maxnumber="0"
-       uicolor="1.0,0.5,0.3"
+       minkarma="0"
+	   uicolor="1.0,0.5,0.3"
        vitalitymodifier="0"
        pricemultiplier="1"
        idlebehavior="Active">
@@ -1252,7 +1251,6 @@
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="prisonerclothes" equip="true" outfit="true"/>
-	  <Item identifier="handcuffs" equip="true"/>
       <Item identifier="crowbar"/>
       <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
@@ -1270,6 +1268,8 @@
     </AutonomousObjectives>
   </Job>
   </Override>
+  
+  <!-- These jobs cannot be picked! -->
   <Job identifier="shopkeeper"
        minkarma="0" maxnumber="0"
        uicolor="0.21,0.61,0.0"

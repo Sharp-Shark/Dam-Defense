@@ -319,7 +319,7 @@
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
     </Item>
     <!-- alien flare can now be shot out of a rifle or grenade launcher -->
-    <Item name="" identifier="alienflare" category="Equipment,Alien" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="metalcrate" Scale="0.5" tags="smallitem,light,provocative" impactsoundtag="impact_soft" isshootable="true" damagedbymonsters="true" health="10">
+    <Item name="" identifier="alienflare" category="Equipment,Alien" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="metalcrate" Scale="0.5" tags="smallitem,light,provocative,grenade" impactsoundtag="impact_soft" isshootable="true" damagedbymonsters="true" health="10">
       <PreferredContainer primary="divingcab" />
       <PreferredContainer secondary="abandonedstoragecab,piratestoragecab,wreckstoragecab" amount="1" spawnprobability="0.01" />
       <PreferredContainer primary="ruinstorage,ruinstoragesmall" minamount="1" maxamount="3" spawnprobability="0.2" />
@@ -2216,13 +2216,13 @@
         <Price storeidentifier="merchantmine" multiplier="0.9" />
       </Price>
       <Deconstruct time="20">
-        <RequiredItem identifier="organicfiber" amount="2" />
-        <RequiredItem identifier="steel" amount="1" />
+        <RequiredItem identifier="organicfiber" />
+        <RequiredItem identifier="steel" />
         <RequiredItem identifier="lead" />
       </Deconstruct>
       <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
         <RequiredSkill identifier="weapons" level="20" />
-        <RequiredItem identifier="organicfiber" amount="2" />
+        <RequiredItem identifier="organicfiber" />
         <RequiredItem identifier="steel" amount="2" />
         <RequiredItem identifier="lead" />
       </Fabricate>
@@ -3373,7 +3373,7 @@
       <LightComponent range="150.0" lightcolor="255,56,144,111" IsOn="true" castshadows="false" allowingameediting="false" pulseamount="0.9" pulsefrequency="0.25" />
     </Item>
     <!-- fertilizer is flammable, recipe was tweaked and is used as generator fuel -->
-    <Item name="" identifier="fertilizer" tags="fertilizer,smallitem,reactorfuel,generatorfuel" maxstacksize="8" category="Fuel,Misc" scale="0.5" health="800">
+    <Item name="" identifier="fertilizer" tags="fertilizer,smallitem,generatorfuel" maxstacksize="8" category="Fuel,Misc" scale="0.5" health="800">
       <Sprite texture="Content/Items/Gardening/GrowablePlants_Temp.png" sourcerect="910,128,87,125" depth="0.55" origin="0.5,0.5" />
       <Price baseprice="140" minleveldifficulty="1">
         <Price storeidentifier="merchantoutpost" minavailable="1" />
@@ -3418,7 +3418,7 @@
   </Override>
   <!-- end of overrides -->
   <!-- fuel for generator -->
-  <Item name="Combustion Fuel" identifier="combustionfuel" tags="smallitem,reactorfuel,generatorfuel" maxstacksize="8" category="Fuel,Misc" scale="0.5" health="800">
+  <Item name="Combustion Fuel" identifier="combustionfuel" tags="smallitem,generatorfuel" maxstacksize="8" category="Fuel,Misc" scale="0.5" health="800">
     <Sprite texture="%ModDir%/Items/tools.png" sourcerect="100,0,87,125" depth="0.55" origin="0.5,0.5" />
     <Fabricate suitablefabricators="fabricator" requiredtime="30">
       <RequiredSkill identifier="mechanical" level="10" />
@@ -4785,13 +4785,12 @@
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
-      <RequiredItem identifier="steel" amount="2" />
-      <RequiredItem identifier="tin" />
+      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="plastic" />
     </Fabricate>
     <Deconstruct time="35">
-      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
-      <RequiredItem identifier="steel" amount="1" />
-      <RequiredItem identifier="tin" />
+      <Item identifier="iron" />
+      <Item identifier="plastic" />
     </Deconstruct>
     <InventoryIcon texture="separatistrifle.png" sourcerect="0,0,224,48" origin="0.5,0.5" />
     <Sprite texture="separatistrifle.png" sourcerect="0,0,224,48" depth="0.55" origin="0.5,0.5" />
@@ -4848,13 +4847,12 @@
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
-      <RequiredItem identifier="steel" amount="2" />
-      <RequiredItem identifier="tin" />
+      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="plastic" />
     </Fabricate>
     <Deconstruct time="35">
-      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
-      <RequiredItem identifier="steel" amount="1" />
-      <RequiredItem identifier="tin" />
+      <Item identifier="iron" />
+      <Item identifier="plastic" />
     </Deconstruct>
     <InventoryIcon texture="separatistrifle.png" sourcerect="0,48,208,50" origin="0.5,0.5" />
     <Sprite texture="separatistrifle.png" sourcerect="0,48,224,50" depth="0.55" origin="0.5,0.5" />
@@ -4912,18 +4910,16 @@
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
-      <RequiredItem identifier="phosphorus" />
-      <RequiredItem tag="advmunition_tip" description="fabricationdescription.advmunition_tip" />
+      <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
       <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
-      <RequiredItem tag="advmunition_jacket" description="fabricationdescription.advmunition_jacket" />
+      <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
       <RequiredItem identifier="steel" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" displayname="recycleitem" requiresrecipe="true">
       <RequiredSkill identifier="weapons" level="20" />
-      <RequiredItem identifier="phosphorus" />
-      <RequiredItem tag="advmunition_tip" description="fabricationdescription.advmunition_tip" />
+      <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
       <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
-      <RequiredItem tag="advmunition_jacket" description="fabricationdescription.advmunition_jacket" />
+      <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
       <RequiredItem identifier="762magazine" mincondition="0.0" maxcondition="0.1" usecondition="false" />
     </Fabricate>
     <Deconstruct time="15">
@@ -5052,6 +5048,7 @@
       <RequiredItem identifier="plastic" />
     </Fabricate>
     <Deconstruct time="10">
+      <Item identifier="iron" />
       <Item identifier="plastic" />
     </Deconstruct>
     <InventoryIcon texture="uzi.png" sourcerect="56,56,126,56" origin="0.5,0.5" />
@@ -6086,7 +6083,7 @@
     </Wearable>
   </Item>
   <!-- gangster boss outfit -->
-  <Item name="Gangster Outfit" identifier="bossclothes" nameidentifier="bossoutfit" category="Equipment" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
+  <Item name="Gangster Outfit" identifier="bossclothes" nameidentifier="bossclothes" category="Equipment" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
     <Deconstruct time="10">
       <Item identifier="organicfiber" />
     </Deconstruct>

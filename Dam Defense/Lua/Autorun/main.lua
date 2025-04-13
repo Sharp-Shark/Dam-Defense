@@ -650,6 +650,7 @@ require 'DD/commands'
 require 'DD/networking/client'
 require 'DD/networking/server'
 require 'DD/gui/gui'
+require 'DD/gui/wiki'
 
 -- Save file
 DD.saving.boot()
