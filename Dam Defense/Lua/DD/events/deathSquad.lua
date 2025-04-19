@@ -11,10 +11,10 @@ end, {
 	
 	name = 'deathSquad',
 	isMainEvent = true,
-	cooldown = 60 * 4,
+	cooldown = 60 * 3,
 	weight = 0.5,
-	goodness = -2.0,
-	minimunDeadPercentage  = 0.4,
+	goodness = -5,
+	minimunDeadPercentage  = 0.3,
 	
 	lateJoinBlacklistSet = {},
 	lateJoinSpawn = function (self, client)

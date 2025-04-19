@@ -101,8 +101,8 @@ DD.eventAirdropMedical = DD.class(DD.eventAirdrop, nil, {
 	name = 'airdropMedical',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 1.5,
-	goodness = 1.5,
+	weight = 2,
+	goodness = 1,
 	
 	spawnPosition = 'dd_airdropmedical',
 	crateIdentifier = 'mediccrate',
@@ -130,8 +130,8 @@ DD.eventAirdropSecurity = DD.class(DD.eventAirdrop, nil, {
 	name = 'airdropSecurity',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 1,
-	goodness = 1.2,
+	weight = 1.5,
+	goodness = 2,
 	
 	spawnPosition = 'dd_airdropsecurity',
 	crateIdentifier = 'securemetalcrate',
@@ -156,8 +156,8 @@ DD.eventAirdropArtifact = DD.class(DD.eventAirdrop, nil, {
 	name = 'airdropArtifact',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 2,
-	goodness = 0.5,
+	weight = 1.5,
+	goodness = 0,
 	
 	spawnPosition = 'dd_airdropartifact',
 	crateIdentifier = 'none',

@@ -3,7 +3,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 	name = 'election',
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 1.5,
+	weight = 1,
 	goodness = -1,
 	
 	-- set this to false unless testing the event

@@ -698,6 +698,22 @@
       <sprite texture="%ModDir%/Items/shop.png" sourcerect="721,0,238,396" depth="0.1" origin="0.5,0.5" alpha="1.0" />
     </LightComponent>
   </Item>
+  <!-- Security Nexshop -->
+  <Item name="Security Nexshop" identifier="secnexshop" tags="secnexshop" width="209" height="130" texturescale="1.0,1.0" scale="0.5" category="Machine,Decorative">
+    <sprite texture="%ModDir%/Items/machines.png" sourcerect="544,0,209,130" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
+    <Fabricator canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect" createbuttontext="campaignstoretab.buy">
+      <RequiredItem identifier="idcard" type="Picked" msg="ItemMsgUnauthorizedAccess" />
+      <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
+      <sound file="%ModDir%/Sounds/shop.ogg" type="OnActive" range="200.0" loop="true"/>
+    </Fabricator>
+    <ItemContainer capacity="5" canbeselected="true" hideitems="true" slotsperrow="5" uilabel="" allowuioverlap="true">
+	  <Containable items="money" excludedidentifiers="fakemoney" />
+	</ItemContainer>
+    <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true"/>
+    <LightComponent range="0.0" lightcolor="0,255,255,111" IsOn="true" castshadows="false" alphablend="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Items/machines.png" sourcerect="753,0,209,130" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+    </LightComponent>
+  </Item>
   <!-- nukieshops -->
   <Item name="Nukieshop" identifier="nukieshop1" tags="nukieshop" width="238" height="396" texturescale="1.0,1.0" scale="0.5" category="Machine,Decorative">
     <sprite texture="shop.png" sourcerect="1,400,238,396" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />

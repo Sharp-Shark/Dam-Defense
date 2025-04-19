@@ -8,7 +8,7 @@ return {
 	commandHelpMisspell = '"{command}" is not a valid chat command. Do "/help" for a list of chat commands.',
 	commandHelpInvalid = '"{command}" is a valid chat command, but it is unusable by you in the current context. Do "/help" for a list of chat commands.',
 	commandInfoMonster = 'You are a monster and your objective is to antagonize the humans.',
-	commandNeverantagExempt = 'You are not exempt from being an antag. Does not apply whilst you are dead.',
+	commandNeverantagExempt = 'You are now exempt from being an antag. Does not apply whilst you are dead.',
 	commandNeverantagEligible = 'You are now eligible to being an antag. Does not apply whilst you have an antag safe job.',
 	commandPossessErrorDead = 'You have to be dead to use this command.',
 	commandPossessErrorNothingNearby = 'No nearby character fit to be possessed was found.',

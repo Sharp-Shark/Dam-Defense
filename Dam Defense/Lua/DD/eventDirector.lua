@@ -58,6 +58,10 @@ DD.eventDirector.eventsPerClientCap = 2 -- how many events a single client can b
 DD.eventDirector.mainEventCap = 1 -- how many main events can be active at the same time (negative values means it is uncapped)
 DD.eventDirector.canMainEventBeRegularEvent = false -- can a main event be called when a regular event is to be started
 DD.eventDirector.mainEventsDisableRespawning = true -- if there is any active main event then respawning will be disabled
+DD.eventDirector.goodnessBiasInitial = -3 -- offsets goodness
+DD.eventDirector.goodnessBiasGrowth = 1 / 60 / 10  -- per second
+DD.eventDirector.cooldownDecrementInitial = 1 -- per second
+DD.eventDirector.cooldownDecrementGrowth = 1 / 60 / 20 -- per second
 
 -- Debug function
 DD.eventDirector.debug = function (list)
@@ -125,6 +129,8 @@ DD.eventDirector.getClientEvents = function (client)
 	
 	return events
 end
+
+-- Sees if client is below configured event cap
 DD.eventDirector.isClientBelowEventCap = function (client)
 	if DD.eventDirector.eventsPerClientCap <= 0 then return true end
 	
@@ -294,6 +300,18 @@ Hook.Add("character.death", "DD.friendlyFireDetector", function(character)
 	return true
 end)
 
+
+-- calculates the weight of an event
+local calculateEventWeight = function (eventClass)
+	if ((eventClass.tbl.isMainEvent ~= isMainEvent) and not (eventClass.tbl.isMainEvent and DD.eventDirector.canMainEventBeRegularEvent)) or
+	(eventClass.tbl.minimunAlivePercentage > alivePercentage) or (eventClass.tbl.minimunDeadPercentage > deadPercentage) then
+		return 0
+	end
+	local directorGoodness = DD.eventDirector.goodness + DD.eventDirector.goodnessBiasInitial + DD.eventDirector.goodnessBiasGrowth * DD.roundTimer
+	local weight = eventClass.tbl.weight / math.max(0.5, math.abs(eventClass.tbl.goodness + directorGoodness))
+	return math.max(0, weight)
+end
+
 -- Start a new event
 DD.eventDirector.startNewEvent = function (isMainEvent)
 	local isMainEvent = isMainEvent
@@ -315,12 +333,10 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 
 	-- Get weights
 	local weights = {}
-	for key, value in pairs(DD.eventDirector.eventPool) do
-		if (value.tbl.isMainEvent == isMainEvent) or (value.tbl.isMainEvent and DD.eventDirector.canMainEventBeRegularEvent) then
-			weights[key] = math.max(0, value.tbl.weight - value.tbl.weight * value.tbl.goodness * DD.eventDirector.goodness)
-		end
-		if (value.tbl.minimunAlivePercentage > alivePercentage) or (value.tbl.minimunDeadPercentage > deadPercentage) then
-			weights[key] = 0
+	for key, eventClass in pairs(DD.eventDirector.eventPool) do
+		local weight = calculateEventWeight(eventClass)
+		if weight > 0 then
+			weights[key] = weight
 		end
 	end
 	-- Start event
@@ -330,7 +346,7 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 	event.start(event)
 	
 	if not event.failed then
-		DD.eventDirector.goodness = DD.eventDirector.goodness + event.goodness / 2
+		DD.eventDirector.goodness = DD.eventDirector.goodness + event.goodness
 		DD.eventDirector.cooldown = event.cooldown
 		if isMainEvent then
 			DD.eventDirector.mainEventCooldown = event.cooldown
@@ -377,23 +393,28 @@ DD.thinkFunctions.eventDirector = function ()
 	if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) then return end
 	local timesPerSecond = 2
 	
+	-- get current cooldown value decrement amount
+	local cooldownDecrement = math.round(DD.eventDirector.cooldownDecrementInitial + DD.roundTimer * DD.eventDirector.cooldownDecrementGrowth, 1)
+	
+	-- main event
 	if (DD.eventDirector.mainEvent == nil) and (DD.eventDirector.mainEventCooldown <= 0) then
 		DD.eventDirector.startNewEvent(true)
-		DD.eventDirector.mainEventCooldown = 1
+		DD.eventDirector.mainEventCooldown = 1 -- I don't know if this line is needed, but I rather play it safe
 	else
-		DD.eventDirector.mainEventCooldown = DD.eventDirector.mainEventCooldown - 1 / timesPerSecond
+		DD.eventDirector.mainEventCooldown = DD.eventDirector.mainEventCooldown - cooldownDecrement / timesPerSecond
 	end
 	
+	-- side/minor events
 	if DD.eventDirector.cooldown <= 0 then
 		DD.eventDirector.startNewEvent()
 	else
-		DD.eventDirector.cooldown = DD.eventDirector.cooldown - 1 / timesPerSecond
+		DD.eventDirector.cooldown = DD.eventDirector.cooldown - cooldownDecrement / timesPerSecond
 	end
 end
 
 -- Called at round start
 DD.roundStartFunctions.eventDirector = function ()
-	DD.eventDirector.goodness = -3 -- negative goodness means lots of bad events happened, and thus event director will favour good events
+	DD.eventDirector.goodness = 0
 	DD.eventDirector.mainEvent = nil
 	DD.eventDirector.events = {}
 	DD.eventDirector.cooldown = 60 * 4

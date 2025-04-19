@@ -68,6 +68,9 @@
       <Price storeidentifier="merchantmine"/>
       <Price storeidentifier="merchantmedical" minavailable="2" multiplier="0.9"/>
     </Price>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="3" />
+	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="5" />
 	</Fabricate>
@@ -322,6 +325,9 @@
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="2" />
+	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="4" />
 	</Fabricate>
@@ -453,6 +459,9 @@
       <Price storeidentifier="merchantmine" sold="false" />
     </Price>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="190" fabricationlimitmin="0" fabricationlimitmax="10"/>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="1" />
+	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="2" />
 	</Fabricate>
@@ -485,6 +494,9 @@
       <Price storeidentifier="merchantmilitary"/>
       <Price storeidentifier="merchantmine"/>
     </Price>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="2" />
+	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="4" />
 	</Fabricate>
@@ -538,6 +550,9 @@
     <Fabricate suitablefabricators="fabricator" requiredtime="5" requiresrecipe="true">
       <RequiredItem identifier="pipetobacco" />
     </Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="1" />
+	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="1" />
 	</Fabricate>
@@ -585,6 +600,9 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
       <Price storeidentifier="merchantmedical" multiplier="0.9" minavailable="4" />
     </Price>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="4" />
+	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="8" />
 	</Fabricate>
@@ -631,6 +649,9 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
       <Price storeidentifier="merchantmedical" multiplier="0.9" minavailable="15" />
     </Price>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="1" />
+	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="2" />
 	</Fabricate>
@@ -797,6 +818,9 @@
       <Price storeidentifier="merchanthusk" minavailable="0" maxavailable="2"/>
     </Price>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="60" fabricationlimitmin="5" fabricationlimitmax="10"/>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="3" />
+	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="5" />
 	</Fabricate>
@@ -914,7 +938,7 @@
         <ReduceAffliction identifier="psychosis" amount="10.0" />
       </StatusEffect>
       <StatusEffect type="OnSecondaryUse" target="UseTarget" disabledeltatime="false" delay="10" duration="10">
-        <ReduceAffliction identifier="huskinfection" amount="11.0" />
+        <ReduceAffliction identifier="huskinfection" amount="4.0" />
       </StatusEffect>
       <!-- When Rum is used in Health GUI -->
       <StatusEffect type="OnUse" target="This, Limb" duration="5">
@@ -949,6 +973,9 @@
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="2" />
+	</Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="1" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="1" />
@@ -1474,6 +1501,9 @@
       <RequiredItem identifier="adrenaline" />
       <RequiredItem identifier="stabilozine" />
     </Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="5" />
+	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="10" />
 	</Fabricate>

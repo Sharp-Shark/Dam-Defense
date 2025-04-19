@@ -154,6 +154,9 @@
   <entityname.nexshop2>Nexshop</entityname.nexshop2>
   <entitydescription.nexshop1>The Nexshop (TM) is an always functioning vending machine to give you the goods you need.</entitydescription.nexshop1>
   <entitydescription.nexshop2>The Nexshop (TM) is an always functioning vending machine to give you the goods you need.</entitydescription.nexshop2>
+  <!-- Security Nexshop -->
+  <entityname.secnexshop>Security Nexshop</entityname.secnexshop>
+  <entitydescription.secnexshop>A security Nexshop (TM) vending machine for law enforcement to buy weapons and ammo from at a discounted price. Immune to spoof counterfeit credits.</entitydescription.secnexshop>
   <!-- Nukieshop -->
   <entityname.nukieshop1>Nukieshop</entityname.nukieshop1>
   <entityname.nukieshop2>Nukieshop</entityname.nukieshop2>

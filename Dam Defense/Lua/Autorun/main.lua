@@ -316,6 +316,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 	specialCommands = tbl
 	
 	specialCommands['help'] = true
+	specialCommands['neverantag'] = true
 	if Game.RoundStarted then
 		specialCommands['events'] = true
 		if DD.isClientCharacterAlive(sender) then
@@ -425,10 +426,10 @@ DD.chatMessageFunctions.neverantag = function (message, sender)
 	if message ~= '/neverantag' then return end
 	
 	if DD.antagExemptClients[sender.AccountId.StringRepresentation] then
-		DD.messageClient(sender, DD.stringLocalize('commandNeverantagExempt'), {preset = 'command'})
+		DD.messageClient(sender, DD.stringLocalize('commandNeverantagEligible'), {preset = 'command'})
 		DD.antagExemptClients[sender.AccountId.StringRepresentation] = nil
 	else
-		DD.messageClient(sender, DD.stringLocalize('commandNeverantagEligible'), {preset = 'command'})
+		DD.messageClient(sender, DD.stringLocalize('commandNeverantagExempt'), {preset = 'command'})
 		DD.antagExemptClients[sender.AccountId.StringRepresentation] = true
 	end
 	DD.saving.autoSave({'antagExemptClients'})

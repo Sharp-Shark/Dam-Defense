@@ -279,6 +279,10 @@ DD.generateWikiHTML = function ()
 					if value then
 						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = value .. ' Credits', style = 'color:cyan;'})
 					end
+				elseif key == 'secnexshopCost' then
+					if value then
+						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = value .. ' Credits', style = 'color:aquamarine;'})
+					end
 				elseif key == 'nukieshopCost' then
 					if value then
 						nameAppend = nameAppend .. DD.stringReplace(headerInfo, {text = value .. ' Credits', style = 'color:orange;'})

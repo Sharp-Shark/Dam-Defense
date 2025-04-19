@@ -9,10 +9,10 @@ end, {
 	name = 'mercs',
 	instanceCap = 1,
 	isMainEvent = false,
-	cooldown = 60 * 3,
+	cooldown = 60 * 2,
 	weight = 1.0,
-	goodness = 2.0,
-	minimunDeadPercentage  = 0.3,
+	goodness = 3,
+	minimunDeadPercentage = 0.05,
 	
 	onStart = function (self)
 		if self.mercs == nil then
@@ -38,7 +38,7 @@ end, {
 			character.UpdateTeam()
 			-- Messages
 			local otherClients = DD.setSubtract(DD.toSet(Client.ClientList), {[self.mercs] = true})
-			DD.messageClients(DD.tableKeys(otherClients), DD.stringLocalize('deathSquadMessage'), {preset = 'crit'})
+			DD.messageClients(DD.tableKeys(otherClients), DD.stringLocalize('deathSquadMessagePublic'), {preset = 'crit'})
 			-- Mobile Task Force Unit Epsilon-11, designated Nine Tailed Fox has entered the facility. All remaining survivors are advised to stay in the evacuation shelter or any other safe area until the unit has secured has secured the facility. We’ll start escorting personnel out when the SCPs have been recontained.
 			for character in Character.CharacterList do
 				DD.giveAfflictionCharacter(character, 'announcementfx', 999)

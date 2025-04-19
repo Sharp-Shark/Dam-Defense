@@ -1227,7 +1227,7 @@
   
   <Override>
   <Job identifier="assistant"
-       minkarma="0"
+       minkarma="0" maxnumber="2"
 	   uicolor="1.0,0.5,0.3"
        vitalitymodifier="0"
        pricemultiplier="1"
@@ -1247,11 +1247,23 @@
     </Skills>
     <ItemSet>
       <Item identifier="idcard" equip="true" />
-      <Item identifier="divingmask" equip="true">
-	    <Item identifier="oxygentank"/>
-	  </Item>
+      <Item identifier="divingmask" equip="true" />
       <Item identifier="prisonerclothes" equip="true" outfit="true"/>
       <Item identifier="crowbar"/>
+      <Item identifier="cigar"/>
+      <Item identifier="oxygentank"/>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <ItemSet>
+      <Item identifier="idcard" equip="true" />
+      <Item identifier="captainscap2" equip="true" />
+      <Item identifier="prisonerclothes" equip="true" outfit="true"/>
+      <Item identifier="brassknuckle"/>
+      <Item identifier="brassknuckle"/>
+      <Item identifier="meth"/>
       <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />

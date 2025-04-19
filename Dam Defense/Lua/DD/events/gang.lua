@@ -9,8 +9,9 @@ end, {
 	name = 'gang',
 	isMainEvent = false,
 	cooldown = 60 * 4,
-	weight = 1.5,
-	goodness = -1,
+	weight = 2,
+	goodness = -2,
+	minimunDeadPercentage = 0.05,
 	
 	removeClientFromGang = function (self, client, treason)
 		-- remove from gang

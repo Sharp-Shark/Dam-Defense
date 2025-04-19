@@ -10,8 +10,9 @@ end, {
 	instanceCap = 1,
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 1.5,
-	goodness = -1,
+	weight = 2,
+	goodness = -3,
+	minimunDeadPercentage = 0.05,
 	
 	onStart = function (self)
 		-- pick client to be wizard

@@ -10,10 +10,10 @@ end, {
 	
 	name = 'nukies',
 	isMainEvent = true,
-	cooldown = 60 * 4,
+	cooldown = 60 * 3,
 	weight = 3,
-	goodness = -1.5,
-	minimunDeadPercentage  = 0.2,
+	goodness = -4,
+	minimunDeadPercentage = 0.2,
 	
 	respawnTickets = 0,
 	lateJoinBlacklistSet = {},

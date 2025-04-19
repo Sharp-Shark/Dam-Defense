@@ -10,7 +10,7 @@ end, {
 	isMainEvent = true,
 	cooldown = 60 * 4,
 	weight = 1,
-	goodness = -0.5,
+	goodness = -1,
 	minimunAlivePercentage = 1.0,
 	
 	getShouldFinish = function (self)

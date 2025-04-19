@@ -4,7 +4,7 @@ DD.eventFish = DD.class(DD.eventBase, nil, {
 	isMainEvent = false,
 	cooldown = 60 * 2,
 	weight = 2.5,
-	goodness = -1,
+	goodness = -2,
 	
 	silent = false, -- if true, will not do any warning
 	locationTag = nil,

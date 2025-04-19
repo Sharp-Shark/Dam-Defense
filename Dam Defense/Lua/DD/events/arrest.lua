@@ -102,5 +102,5 @@ end, {
 	isMainEvent = false,
 	cooldown = 60 * 2,
 	weight = 0.5,
-	goodness = -0.5
+	goodness = -1,
 })

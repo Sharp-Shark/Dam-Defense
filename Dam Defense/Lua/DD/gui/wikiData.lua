@@ -295,6 +295,7 @@ local autogenRelated = {
 	nukieshop1Item = {'fakemoneyItem'},
 	fakemoneyItem = {'moneyItem'},
 	nukieshop1Item = {'nukiesEvent'},
+	secnexshopItem = {'captainJob', 'diverJob', 'securityofficerJob', 'foremanJob', 'mercsJob'},
 }
 local autogenRelations = {
 	portablegeneratorItem = {'generatorfuel'},
@@ -456,6 +457,11 @@ for key, value in pairs(DD.wikiData) do
 				DD.wikiData[key].info.nexshopCost = recipe.RequiredItems[1].amount
 				if not DD.tableHas(DD.wikiData['nexshop1Item'].related, key) then
 					table.insert(DD.wikiData['nexshop1Item'].related, key)
+				end
+			elseif tostring(recipe.SuitableFabricatorIdentifiers[1]) == 'secnexshop' then
+				DD.wikiData[key].info.secnexshopCost = recipe.RequiredItems[1].amount
+				if not DD.tableHas(DD.wikiData['secnexshopItem'].related, key) then
+					table.insert(DD.wikiData['secnexshopItem'].related, key)
 				end
 			elseif tostring(recipe.SuitableFabricatorIdentifiers[1]) == 'nukieshop' then
 				DD.wikiData[key].info.nukieshopCost = recipe.RequiredItems[1].amount

@@ -28,7 +28,7 @@
     </ItemContainer>
   </Item>
   <!-- money -->
-  <Item name="Nexcredit" identifier="money" category="Equipment,Misc" maxstacksize="50" maxstacksizecharacterinventory="10" Tags="smallitem,money" scale="0.35" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
+  <Item name="Nexcredit" identifier="money" category="Equipment,Misc" maxstacksize="50" maxstacksizecharacterinventory="10" Tags="smallitem,money,realmoney" scale="0.35" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
     <Sprite texture="wallet.png" depth="0.5" sourcerect="0,0,64,32" origin="0.5,0.5" />
     <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
     <Body width="16" height="12" density="20" />
@@ -105,6 +105,9 @@
         <Item identifier="steel" />
         <Item identifier="titaniumaluminiumalloy" />
       </Deconstruct>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="4" />
+      </Fabricate>
       <Fabricate suitablefabricators="fabricator" requiredtime="60">
         <RequiredSkill identifier="weapons" level="20" />
         <RequiredItem identifier="plastic" />
@@ -187,9 +190,9 @@
         <StatusEffect type="OnImpact" target="This" Condition="-100.0" disabledeltatime="true">
           <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
           <Explosion range="300.0" ballastfloradamage="80" structuredamage="20" levelwalldamage="120" itemdamage="400" force="5.0" severlimbsprobability="0.4" debris="true" decal="explosion" decalsize="0.3">
-            <Affliction identifier="burn" strength="50" />
+            <Affliction identifier="burn" strength="60" />
             <Affliction identifier="bleeding" strength="100" probability="0.05" />
-            <Affliction identifier="stun" strength="0.5" />
+            <Affliction identifier="stun" strength="0.6" />
           </Explosion>
           <Remove />
         </StatusEffect>
@@ -212,6 +215,9 @@
       <Deconstruct time="5">
         <Item identifier="rubber" />
       </Deconstruct>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="4">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="4">
         <RequiredSkill identifier="weapons" level="20" />
         <RequiredItem identifier="rubber" />
@@ -240,6 +246,9 @@
         <RequiredItem identifier="silicon" />
         <RequiredItem identifier="phosphorus" />
       </Deconstruct>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="8">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="8">
         <RequiredSkill identifier="weapons" level="20" />
         <RequiredItem identifier="plastic" />
@@ -281,6 +290,9 @@
         <Price storeidentifier="merchantarmory" multiplier="1.25" minavailable="8" />
       </Price>
       <Deconstruct time="5" />
+      <Fabricate suitablefabricators="secnexshop" requiredtime="10" amount="12">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="12">
         <RequiredItem identifier="flashpowder" amount="2" />
         <RequiredItem identifier="plastic" />
@@ -381,6 +393,9 @@
         <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
       </Price>
       <Deconstruct time="5" />
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1">
         <RequiredItem tag="money" amount="5" />
       </Fabricate>
@@ -421,6 +436,9 @@
         <Item identifier="steel" />
         <Item identifier="plastic" />
       </Deconstruct>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="fabricator" requiredtime="10">
         <RequiredSkill identifier="weapons" level="30" />
         <RequiredItem identifier="steel" amount="2" />
@@ -1073,6 +1091,9 @@
         <Item identifier="titaniumaluminiumalloy" />
         <Item identifier="plastic" />
       </Deconstruct>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="4" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1">
         <RequiredItem tag="money" amount="16" />
       </Fabricate>
@@ -1134,6 +1155,9 @@
         <Item identifier="steel" />
         <Item identifier="titaniumaluminiumalloy" />
       </Deconstruct>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="4" />
+      </Fabricate>
       <Fabricate suitablefabricators="fabricator" requiredtime="60">
         <RequiredSkill identifier="weapons" level="25" />
         <RequiredItem identifier="steel" amount="3" />
@@ -1206,6 +1230,9 @@
         <Item identifier="titaniumaluminiumalloy" />
         <Item identifier="plastic" />
       </Deconstruct>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="4" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1">
         <RequiredItem tag="money" amount="16" />
       </Fabricate>
@@ -2135,6 +2162,9 @@
         <Item identifier="ballisticfiber" />
         <Item identifier="plastic" />
       </Deconstruct>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="5" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1">
         <RequiredItem tag="money" amount="20" />
       </Fabricate>
@@ -2177,6 +2207,9 @@
       <Deconstruct time="40">
         <Item identifier="ballisticfiber" amount="3" />
       </Deconstruct>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="5" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1">
         <RequiredItem tag="money" amount="20" />
       </Fabricate>
@@ -2346,6 +2379,9 @@
         <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
         <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="12" />
       </Price>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="6">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="6">
         <RequiredItem tag="money" amount="8" />
       </Fabricate>
@@ -2393,6 +2429,9 @@
         <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
         <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="12" />
       </Price>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="6">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="6">
         <RequiredItem tag="money" amount="8" />
       </Fabricate>
@@ -2416,7 +2455,7 @@
         <Attack structuredamage="1" targetforce="4" itemdamage="2" severlimbsprobability="0.5">
           <Affliction identifier="gunshotwound" strength="8" />
           <Affliction identifier="bleeding" strength="6" />
-          <Affliction identifier="stun" strength="0.1" />
+          <Affliction identifier="stun" strength="0.075" />
         </Attack>
         <StatusEffect type="OnImpact" target="UseTarget">
           <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -2444,6 +2483,9 @@
         <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
         <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="12" />
       </Price>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="6">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="6">
         <RequiredItem tag="money" amount="8" />
       </Fabricate>
@@ -2461,7 +2503,7 @@
         <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="150,150,200,200" scalemultiplier="1,0.5" />
         <Attack structuredamage="0" targetforce="4" itemdamage="0" severlimbsprobability="0">
           <Affliction identifier="blunttrauma" strength="8" />
-          <Affliction identifier="stun" strength="0.1" />
+          <Affliction identifier="stun" strength="0.075" />
         </Attack>
         <StatusEffect type="OnImpact" target="UseTarget">
           <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="150,150,200,130" />
@@ -2484,6 +2526,9 @@
         <Price storeidentifier="merchantmine" multiplier="1.25" minavailable="12" />
         <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="60" />
       </Price>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="6">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="6">
         <RequiredItem tag="money" amount="4" />
       </Fabricate>
@@ -2529,7 +2574,10 @@
         <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="6" />
       </Price>
       <Deconstruct time="5" />
-      <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="1">
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="2">
+        <RequiredItem tag="realmoney" amount="1" />
+      </Fabricate>
+      <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="2">
         <RequiredItem tag="money" amount="2" />
       </Fabricate>
       <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2">
@@ -2581,6 +2629,9 @@
         <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.9" minavailable="0" maxavailable="4" />
         <Price storeidentifier="merchantmine" multiplier="1.25" />
       </Price>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="1">
         <RequiredItem tag="money" amount="8" />
       </Fabricate>
@@ -2631,6 +2682,9 @@
         <Item identifier="steel" />
         <Item identifier="plastic" />
       </Deconstruct>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1">
         <RequiredItem tag="money" amount="8" />
       </Fabricate>
@@ -2697,7 +2751,7 @@
         <Attack structuredamage="1" targetforce="4" itemdamage="1" severlimbsprobability="0.15" penetration="0.2">
           <Affliction identifier="lacerations" strength="8" />
           <Affliction identifier="bleeding" strength="6" />
-          <Affliction identifier="stun" strength="0.3" />
+          <Affliction identifier="stun" strength="0.2" />
           <Affliction identifier="radiationsickness" strength="5" />
         </Attack>
         <StatusEffect type="OnImpact" target="UseTarget">
@@ -2718,6 +2772,9 @@
       <Price baseprice="50" sold="false" />
       <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="6">
         <RequiredItem tag="fakemoney" amount="3" />
+      </Fabricate>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="6">
+        <RequiredItem tag="realmoney" amount="2" />
       </Fabricate>
       <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="6">
         <RequiredItem tag="money" amount="8" />
@@ -4081,6 +4138,9 @@
       <Item identifier="ballisticfiber" />
       <Item identifier="ballisticfiber" />
     </Deconstruct>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="5" />
+    </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="divingmask" />
@@ -4139,6 +4199,9 @@
       <Item identifier="ballisticfiber" />
       <Item identifier="ballisticfiber" />
     </Deconstruct>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="5" />
+    </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="divingmask" />
@@ -4256,6 +4319,9 @@
       <Item identifier="fpgacircuit" amount="1" />
       <Item identifier="divingmask" />
     </Deconstruct>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="5" />
+    </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="40">
       <RequiredItem identifier="plastic" amount="2" />
       <RequiredItem identifier="ballisticfiber" amount="2" />
@@ -4360,6 +4426,9 @@
       <RequiredSkill identifier="medical" level="30" />
       <Item identifier="rubber" />
       <Item identifier="oxygentank" />
+    </Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="2" />
     </Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="5" />
@@ -4558,6 +4627,9 @@
       <Item identifier="steel" />
       <RequiredItem identifier="copper" />
     </Deconstruct>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="5" />
+    </Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
       <RequiredItem tag="fakemoney" amount="10" />
     </Fabricate>
@@ -4610,6 +4682,9 @@
   <Item name="Breaching Slug" identifier="shotgunslugbreaching" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="12" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,shotgunammo" Scale="0.5" impactsoundtag="impact_metal_light">
     <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="6">
       <RequiredItem tag="money" amount="8" />
+    </Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="6">
+      <RequiredItem tag="realmoney" amount="2" />
     </Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="5">
       <RequiredItem tag="fakemoney" amount="3" />
@@ -4972,6 +5047,9 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
       <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2" />
     </Price>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="4" />
+    </Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="16" />
     </Fabricate>
@@ -5113,6 +5191,9 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="8" />
     </Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="2" />
+    </Fabricate>
     <Deconstruct time="10">
       <Item identifier="plastic" />
       <Item identifier="titanium" />
@@ -5166,6 +5247,9 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="8" />
     </Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="2" />
+    </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2">
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
@@ -5207,6 +5291,9 @@
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="4" />
+    </Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="1" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2">
       <RequiredSkill identifier="weapons" level="20" />
@@ -5277,6 +5364,9 @@
       <Item identifier="copper" />
       <Item identifier="zinc" />
     </Deconstruct>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredItem tag="realmoney" amount="2" />
+    </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="40">
       <RequiredSkill identifier="weapons" level="25" />
       <RequiredItem identifier="steel" />
@@ -5329,6 +5419,9 @@
       <Item identifier="carbon" />
       <Item identifier="phosphorus" />
     </Deconstruct>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="12">
+      <RequiredItem tag="realmoney" amount="1" />
+    </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="12">
       <RequiredSkill identifier="weapons" level="20" />
       <Item identifier="plastic" />

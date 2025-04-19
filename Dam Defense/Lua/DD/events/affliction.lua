@@ -53,7 +53,7 @@ DD.eventAfflictionTB = DD.class(DD.eventAffliction, nil, {
 	isMainEvent = false,
 	cooldown = 60 * 2,
 	weight = 0.2,
-	goodness = -2,
+	goodness = -3,
 	
 	identifier = 'tbinfection',
 	minamount = 1,

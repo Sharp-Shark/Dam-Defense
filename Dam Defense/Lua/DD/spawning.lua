@@ -31,7 +31,6 @@ DD.autoJob = function ()
 	end
 	
 	local jobsLeft = {}
-	jobsLeft['assistant'] = 100
 	local sorted = {}
 	for jobPrefab in JobPrefab.Prefabs do
 		if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
