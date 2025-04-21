@@ -625,17 +625,17 @@
 	  minspeedmultiplier="1"
 	  maxspeedmultiplier="1.15"
 	  resistancefor="damage,bleeding,bloodloss,stun"
-	  minresistance="0.35"
-	  maxresistance="0.35">
+	  minresistance="0.4"
+	  maxresistance="0.4">
       <StatusEffect target="Character">
-        <ReduceAffliction type="stun" strength="0.2"/>
-        <ReduceAffliction type="damage" strength="0.5"/>
-        <ReduceAffliction type="poison" strength="1"/>
-        <ReduceAffliction type="infection" strength="1"/>
-        <ReduceAffliction identifier="drunk" strength="0.5"/>
-        <ReduceAffliction identifier="bacterialgangrene" strength="0.5"/>
-        <ReduceAffliction identifier="bloodloss" strength="0.5"/>
-        <ReduceAffliction identifier="bleeding" strength="0.5"/>
+        <ReduceAffliction type="stun" strength="0.5"/>
+        <ReduceAffliction type="damage" strength="2"/>
+        <ReduceAffliction type="poison" strength="2"/>
+        <ReduceAffliction type="infection" strength="2"/>
+        <ReduceAffliction identifier="drunk" strength="2"/>
+        <ReduceAffliction identifier="bacterialgangrene" strength="2"/>
+        <ReduceAffliction identifier="bloodloss" strength="2"/>
+        <ReduceAffliction identifier="bleeding" strength="2"/>
         <ReduceAffliction identifier="oxygenlow" strength="15.0"/>
       </StatusEffect>
       <StatValue stattype="MeleeAttackMultiplier" value="2.0" />

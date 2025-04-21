@@ -145,7 +145,7 @@ end, {
 		local nonCultistsSet = DD.setSubtract(aliveSet, self.cultistsSet)
 		
 		-- Event requires 2 (or more) cultists and 3 (or more) non-cultist
-		if (DD.tableSize(self.cultists) <= 1) or (DD.tableSize(nonCultistsSet) <= 2) then
+		if (DD.tableSize(self.cultists) <= 1) or ((DD.tableSize(nonCultistsSet) <= 2) and not self.manuallyTriggered) then
 			self.fail('conditions to start could not be met')
 			return
 		else

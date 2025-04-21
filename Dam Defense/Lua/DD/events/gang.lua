@@ -97,10 +97,7 @@ end, {
 		end
 		
 		-- pick client to be boss
-		local ignorePlayerCount = false
-		if self.boss ~= nil then
-			ignorePlayerCount = true
-		else
+		if self.boss == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
 				if DD.isClientRespawnable(client) and client.InGame then
 					self.boss = client
@@ -139,7 +136,7 @@ end, {
 		end
 		
 		-- event requires 5 or more players
-		if (self.boss == nil) or ((not ignorePlayerCount) and (DD.tableSize(Client.ClientList) <= 4)) then
+		if (self.boss == nil) or ((not self.manuallyTriggered) and (DD.tableSize(Client.ClientList) <= 4)) then
 			self.fail('conditions to start could not be met')
 			return
 		else

@@ -5,6 +5,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 	cooldown = 60 * 3,
 	weight = 1,
 	goodness = -1,
+	minimunTimeElapsed = 10 * 60,
 	
 	-- set this to false unless testing the event
 	debugMode = false,

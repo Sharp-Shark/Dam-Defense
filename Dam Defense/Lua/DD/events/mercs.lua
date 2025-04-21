@@ -1,18 +1,19 @@
--- Has a non-security player be tasked with killing with another non-security player
+-- Spawn a MERCS (supercop) to assist security
 DD.eventMERCS = DD.class(DD.eventBase, function (self, mercs)
 	self.mercs = mercs
 end, {
 	paramType = {'client'},
 	clientKeys = {'mercs'},
-	public = false,
+	public = true,
 	
 	name = 'mercs',
 	instanceCap = 1,
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 1.0,
+	weight = 1,
 	goodness = 3,
-	minimunDeadPercentage = 0.05,
+	minimunDeadPercentage = 0.2,
+	minimunTimeElapsed = 15 * 60,
 	
 	onStart = function (self)
 		if self.mercs == nil then
@@ -23,8 +24,6 @@ end, {
 				end
 			end
 		end
-		
-		self.bompTriggered = false
 		
 		if self.mercs == nil then
 			self.fail('conditions to start could not be met')
@@ -53,9 +52,6 @@ end, {
 		if self.mercs == nil then
 			self.fail('"self.mercs" is nil at "onThink"')
 			return
-		end
-		
-		if not self.bompTriggered then
 		end
 		
 		if not DD.isClientCharacterAlive(self.mercs) then

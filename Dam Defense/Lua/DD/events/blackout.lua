@@ -5,6 +5,7 @@ DD.eventBlackout = DD.class(DD.eventWithStartBase, nil, {
 	cooldown = 60 * 3,
 	weight = 0.8,
 	goodness = -1,
+	minimunTimeElapsed = 5 * 60,
 	
 	onStart = function (self)
 		self.doors = {}

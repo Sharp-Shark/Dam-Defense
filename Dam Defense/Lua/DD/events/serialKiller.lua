@@ -69,7 +69,7 @@ end, {
 			end
 		end
 		
-		if (self.killer == nil) or (not anyoneAlive) or (#nonSecurity < 3) then
+		if (self.killer == nil) or (not anyoneAlive) or ((#nonSecurity < 3) and not self.manuallyTriggered) then
 			self.fail('conditions to start could not be met')
 			return
 		else

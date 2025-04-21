@@ -224,7 +224,7 @@ end, {
 			local timeToExplode = 15 * 60 -- in seconds
 			for client in self.parent.rebels do
 				if DD.isClientCharacterAlive(client) then
-					DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
+					DD.giveAfflictionCharacter(client.Character, 'timepressure', 60 / timeToExplode / timesPerSecond)
 				end
 			end
 			

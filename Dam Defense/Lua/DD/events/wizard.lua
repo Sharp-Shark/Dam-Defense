@@ -13,13 +13,11 @@ end, {
 	weight = 2,
 	goodness = -3,
 	minimunDeadPercentage = 0.05,
+	minimunTimeElapsed = 10 * 60,
 	
 	onStart = function (self)
 		-- pick client to be wizard
-		local ignorePlayerCount = false
-		if self.wizard ~= nil then
-			ignorePlayerCount = true
-		else
+		if self.wizard == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
 				if DD.isClientRespawnable(client) and client.InGame then
 					self.wizard = client
@@ -29,7 +27,7 @@ end, {
 		end
 		
 		-- event requires 5 or more players
-		if (self.wizard == nil) or ((not ignorePlayerCount) and (DD.tableSize(Client.ClientList) <= 4)) then
+		if (self.wizard == nil) or ((not self.manuallyTriggered) and (DD.tableSize(Client.ClientList) <= 4)) then
 			self.fail('conditions to start could not be met')
 			return
 		else

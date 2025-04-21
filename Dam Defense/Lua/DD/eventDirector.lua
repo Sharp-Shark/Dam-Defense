@@ -20,6 +20,7 @@ require 'DD/events/mercs'
 require 'DD/events/deathSquad'
 require 'DD/events/election'
 require 'DD/events/wizard'
+require 'DD/events/chimera'
 
 -- Event director table
 DD.eventDirector = {}
@@ -48,6 +49,7 @@ DD.eventDirector.eventPool = {
 	DD.eventElection,
 	DD.eventWizard,
 	DD.eventGang,
+	DD.eventChimera,
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}
@@ -59,9 +61,9 @@ DD.eventDirector.mainEventCap = 1 -- how many main events can be active at the s
 DD.eventDirector.canMainEventBeRegularEvent = false -- can a main event be called when a regular event is to be started
 DD.eventDirector.mainEventsDisableRespawning = true -- if there is any active main event then respawning will be disabled
 DD.eventDirector.goodnessBiasInitial = -3 -- offsets goodness
-DD.eventDirector.goodnessBiasGrowth = 1 / 60 / 10  -- per second
+DD.eventDirector.goodnessBiasGrowth = 1 / 60 / 5  -- per second
 DD.eventDirector.cooldownDecrementInitial = 1 -- per second
-DD.eventDirector.cooldownDecrementGrowth = 1 / 60 / 20 -- per second
+DD.eventDirector.cooldownDecrementGrowth = 1 / 60 / 30 -- per second
 
 -- Debug function
 DD.eventDirector.debug = function (list)
@@ -90,10 +92,16 @@ DD.eventDirector.listEvents = function ()
 			text = text .. eventClientKey .. ' = '
 			if type(event[eventClientKey]) == 'table' then
 				text = text .. '{ '
+				local bool = true
 				for other in event[eventClientKey] do
 					text = text .. '"' .. other.Name .. '", '
+					bool = false
 				end
-				text = string.sub(text, 1, #text - #', ') .. ' }'
+				if bool then
+					text = text .. '}'
+				else
+					text = string.sub(text, 1, #text - #', ') .. ' }'
+				end
 			elseif event[eventClientKey] ~= nil then
 				text = text .. '"' .. event[eventClientKey].Name .. '"'
 			end
@@ -300,18 +308,6 @@ Hook.Add("character.death", "DD.friendlyFireDetector", function(character)
 	return true
 end)
 
-
--- calculates the weight of an event
-local calculateEventWeight = function (eventClass)
-	if ((eventClass.tbl.isMainEvent ~= isMainEvent) and not (eventClass.tbl.isMainEvent and DD.eventDirector.canMainEventBeRegularEvent)) or
-	(eventClass.tbl.minimunAlivePercentage > alivePercentage) or (eventClass.tbl.minimunDeadPercentage > deadPercentage) then
-		return 0
-	end
-	local directorGoodness = DD.eventDirector.goodness + DD.eventDirector.goodnessBiasInitial + DD.eventDirector.goodnessBiasGrowth * DD.roundTimer
-	local weight = eventClass.tbl.weight / math.max(0.5, math.abs(eventClass.tbl.goodness + directorGoodness))
-	return math.max(0, weight)
-end
-
 -- Start a new event
 DD.eventDirector.startNewEvent = function (isMainEvent)
 	local isMainEvent = isMainEvent
@@ -330,6 +326,17 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 	end
 	local alivePercentage = alive / players
 	local deadPercentage = 1 - alivePercentage
+	
+	-- calculates the weight of an event
+	local calculateEventWeight = function (eventClass)
+		if ((eventClass.tbl.isMainEvent ~= isMainEvent) and not (eventClass.tbl.isMainEvent and DD.eventDirector.canMainEventBeRegularEvent)) or
+		(eventClass.tbl.minimunAlivePercentage > alivePercentage) or (eventClass.tbl.minimunDeadPercentage > deadPercentage) or (DD.roundTimer < eventClass.tbl.minimunTimeElapsed) then
+			return 0
+		end
+		local directorGoodness = DD.eventDirector.goodness + DD.eventDirector.goodnessBiasInitial + DD.eventDirector.goodnessBiasGrowth * DD.roundTimer
+		local weight = eventClass.tbl.weight / math.max(0.5, math.abs(eventClass.tbl.goodness + directorGoodness))
+		return math.max(0, weight)
+	end
 
 	-- Get weights
 	local weights = {}
@@ -417,7 +424,7 @@ DD.roundStartFunctions.eventDirector = function ()
 	DD.eventDirector.goodness = 0
 	DD.eventDirector.mainEvent = nil
 	DD.eventDirector.events = {}
-	DD.eventDirector.cooldown = 60 * 4
+	DD.eventDirector.cooldown = 60 * 2
 	DD.eventDirector.mainEventCooldown = 60 * 8
 end
 

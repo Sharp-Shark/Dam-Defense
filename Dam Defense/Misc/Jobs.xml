@@ -125,7 +125,7 @@
   </Job>
 
   <Job identifier="engineer"
-       minkarma="0" maxnumber="3" initialcount="3"
+       minkarma="0" maxnumber="3" initialcount="2"
        uicolor="0.8,0.85,0.43"
        vitalitymodifier="0"
        pricemultiplier="1"
@@ -497,7 +497,7 @@
   </Job>
 
   <Job identifier="medicaldoctor"
-       minkarma="0" maxnumber="1" initialcount="1"
+       minkarma="0" maxnumber="2" initialcount="1"
        uicolor="0.75,0.35,0.25"
        vitalitymodifier="0"
        pricemultiplier="1.15"
@@ -616,7 +616,7 @@
   </Override>
   
   <Job identifier="janitor"
-       minkarma="0" maxnumber="2" initialcount="2"
+       minkarma="0" maxnumber="2" initialcount="1"
        uicolor="0.45,0.45,0.85"
        vitalitymodifier="0"
        pricemultiplier="1"
@@ -1755,14 +1755,11 @@
       <Item identifier="autoinjectorheadset" equip="true">
         <Item identifier="combatstimulantsyringe" />
       </Item>
-      <Item identifier="divingmask" equip="true" />
-      <Item identifier="nexsuit" equip="true">
-        <Item identifier="oxygentank" />
+      <Item identifier="divinghelmet" equip="true" />
+      <Item identifier="bodyarmor" equip="true">
 		<Item identifier="handcuffs" />
         <Item identifier="assaultriflemagazine" />
         <Item identifier="assaultriflemagazine" />
-        <Item identifier="pistolmagazine" />
-        <Item identifier="pistolmagazine" />
       </Item>
       <Item identifier="idcard" equip="true">
 	    <!-- 15 nexcredits -->
@@ -1776,8 +1773,6 @@
       <Item identifier="pistol">
         <Item identifier="pistolmagazine" />
       </Item>
-      <Item identifier="assaultriflemagazine" />
-      <Item identifier="assaultriflemagazine" />
       <Item identifier="stunbaton">
         <Item identifier="batterycell"/>
       </Item>
@@ -1798,7 +1793,7 @@
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-      <Item identifier="disposabledivingmask" />
+      <Item identifier="oxygentank" />
     </ItemSet>
     <AutonomousObjectives>
       <Order identifier="fightintruders" prioritymodifier="1" />
@@ -1827,7 +1822,7 @@
     </Skills>
 	<!-- Trooper -->
     <ItemSet>
-      <Item identifier="securityuniform2" equip="true" outfit="true" />
+      <Item identifier="prisonerclothes" equip="true" outfit="true" />
       <Item identifier="autoinjectorheadset" equip="true">
         <Item identifier="combatstimulantsyringe" />
       </Item>

@@ -162,7 +162,9 @@ Hook.Patch("Barotrauma.Networking.RespawnManager", "RespawnCharacters", {"Barotr
 			if DD.isClientRespawnable(client) and client.InGame then
 				-- reset talents (and more) before respawn
 				local info = CharacterInfo('human', client.Name)
-				info.RecreateHead(client.CharacterInfo.Head)
+				if client.CharacterInfo ~= nil then
+					info.RecreateHead(client.CharacterInfo.Head)
+				end
 				client.CharacterInfo = info
 				
 				-- get job and job variant

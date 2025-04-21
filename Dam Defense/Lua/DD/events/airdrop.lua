@@ -158,6 +158,7 @@ DD.eventAirdropArtifact = DD.class(DD.eventAirdrop, nil, {
 	cooldown = 60 * 2,
 	weight = 1.5,
 	goodness = 0,
+	minimunTimeElapsed = 5 * 60,
 	
 	spawnPosition = 'dd_airdropartifact',
 	crateIdentifier = 'none',

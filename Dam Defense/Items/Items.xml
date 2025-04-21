@@ -2938,6 +2938,9 @@
         <StatusEffect type="OnUse" target="UseTarget">
           <ReduceAffliction identifier="burning" amount="20.0" />
         </StatusEffect>
+        <StatusEffect type="OnUse" target="Character">
+          <ReduceAffliction identifier="burning" amount="20.0" />
+        </StatusEffect>
       </RepairTool>
       <Propulsion force="-80" usablein="water" particles="bubbles" />
       <aitarget sightrange="1000" soundrange="1000" fadeouttime="1" />
@@ -5020,7 +5023,7 @@
     <Projectile characterusable="false" hitscan="true" removeonhit="true">
       <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,200,200,175" scalemultiplier="1,0.8" />
       <Attack structuredamage="6" targetforce="7.5" itemdamage="6" severlimbsprobability="0.2" penetration="0.35">
-        <Affliction identifier="gunshotwound" strength="18" />
+        <Affliction identifier="gunshotwound" strength="16" />
         <Affliction identifier="bleeding" strength="8" />
       </Attack>
       <StatusEffect type="OnImpact" target="UseTarget">
@@ -5960,10 +5963,10 @@
     <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="0,204,192,48" depth="0.55" origin="0.7,0.5" />
     <Body width="320" height="33" density="30" />
     <MeleeWeapon slots="RightHand+LeftHand" aimable="true" AimPos="25,-60" HoldPos="50,-40" AimAngle="-90" HoldAngle="0" handle1="-60,0" handle2="-20,-5" reload="1" swing="false" range="100" combatpriority="15" msg="ItemMsgPickUpSelect">
-      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="1.15" setvalue="true" />
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="1.1" setvalue="true" />
       <Attack structuredamage="2" itemdamage="4" targetimpulse="10">
-        <Affliction identifier="lacerations" strength="15" />
-        <Affliction identifier="bleeding" strength="15" />
+        <Affliction identifier="lacerations" strength="12" />
+        <Affliction identifier="bleeding" strength="12" />
         <Affliction identifier="stun" strength="0.3" />
         <StatusEffect type="OnUse" target="UseTarget">
           <Conditional entitytype="eq Character" />

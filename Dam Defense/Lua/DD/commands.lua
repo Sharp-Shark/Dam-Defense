@@ -155,6 +155,7 @@ local func = function (args)
 	end
 	
 	local event = eventClass.new(unpack(eventArgs))
+	event.manuallyTriggered = true
 	event.start()
 	
 	if event.isMainEvent then

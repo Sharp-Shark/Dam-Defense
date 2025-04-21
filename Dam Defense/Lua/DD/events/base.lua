@@ -5,6 +5,7 @@ end, {
 	paramType = {}, -- correct type for each parameter of the constructor function of this class
 	clientKeys = {}, -- keys of properties of this event that are a client or a client list (useful for finding what clients are participanting in an event)
 	public = true, -- determines if event will be listed in "/publicevents"
+	manuallyTriggered = false, -- if triggered manually by an admin using a command this will be true
 
 	logClients = function (self, set)
 		local text = '{clientName} is a member of the "{eventName}" event ({seed}) under the key "{keyName}".'
@@ -52,18 +53,24 @@ end, {
 		local deadPercentage = 1 - alivePercentage
 		
 		-- enforce restrictions
-		if self.isMainEvent then self.instanceCap = 1 end
-		if (DD.eventDirector.mainEventCap >= 0) and self.isMainEvent and (#DD.eventDirector.getMainEvents() >= DD.eventDirector.mainEventCap) then
-			self.fail('limit on main events has been reached')
-			return
-		end
-		if (self.instanceCap >= 0) and (#DD.eventDirector.getEventInstances(self.name) >= self.instanceCap) then
-			self.fail('limit on instances of this event has been reached')
-			return
-		end
-		if (self.minimunAlivePercentage > alivePercentage) or (self.minimunDeadPercentage > deadPercentage) then
-			self.fail('minimun alive percentage or minimun dead percentage were not met')
-			return
+		if not self.manuallyTriggered then
+			if self.isMainEvent then self.instanceCap = 1 end
+			if DD.roundTimer < self.minimunTimeElapsed then
+				self.fail('not enough time has elapsed since the round started')
+				return
+			end
+			if (DD.eventDirector.mainEventCap >= 0) and self.isMainEvent and (#DD.eventDirector.getMainEvents() >= DD.eventDirector.mainEventCap) then
+				self.fail('limit on main events has been reached')
+				return
+			end
+			if (self.instanceCap >= 0) and (#DD.eventDirector.getEventInstances(self.name) >= self.instanceCap) then
+				self.fail('limit on instances of this event has been reached')
+				return
+			end
+			if (self.minimunAlivePercentage > alivePercentage) or (self.minimunDeadPercentage > deadPercentage) then
+				self.fail('minimun alive percentage or minimun dead percentage were not met')
+				return
+			end
 		end
 		
 		-- Create hooks
@@ -139,6 +146,7 @@ end, {
 	goodness = 0, -- for eventDirector
 	minimunAlivePercentage = 0.0, -- minimun percentage of alive players required when event starts
 	minimunDeadPercentage  = 0.0, -- minimun percentage of dead players required when event starts
+	minimunTimeElapsed = 0, -- minimun amount of time in seconds elapsed since the round started
 	
 	onStart = function (self) return end,
 	

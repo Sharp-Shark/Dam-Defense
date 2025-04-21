@@ -97,6 +97,9 @@ DD.wikiData = {
 		related = {'main', 'events', 'deathSquadEvent', 'mercsJob', 'nexsuitItem', 'midazolamItem'},
 		identifier = 'eventMERCS',
 	},
+	chimeraEvent = {
+		related = {'main', 'events', 'huskCreature'},
+	},
 	electionEvent = {
 		related = {'main', 'events', 'ballotboxItem', 'captainJob', 'securityofficerJob', 'foremanJob', 'diverJob'},
 	},
@@ -292,9 +295,8 @@ local autogenRelated = {
 	makeshiftflamerItem = {'janitorJob', 'corpseItem'},
 	sacrificialdaggerItem = {'bloodCultEvent', 'lifeessenceItem'},
 	foldablechairoxygeniteItem = {'foldablechairItem'},
-	nukieshop1Item = {'fakemoneyItem'},
+	nukieshop1Item = {'nukiesEvent', 'fakemoneyItem'},
 	fakemoneyItem = {'moneyItem'},
-	nukieshop1Item = {'nukiesEvent'},
 	secnexshopItem = {'captainJob', 'diverJob', 'securityofficerJob', 'foremanJob', 'mercsJob'},
 }
 local autogenRelations = {
@@ -304,6 +306,7 @@ local autogenRelations = {
 	extinguisherbracketItem = {'fireextinguisher'},
 	ballotboxItem = {'money'},
 	nexshop1Item = {'money'},
+	secnexshopItem = {'realmoney'},
 	moneycaseItem = {'money'},
 }
 for prefab in ItemPrefab.Prefabs do

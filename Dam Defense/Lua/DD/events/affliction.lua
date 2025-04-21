@@ -5,6 +5,7 @@ DD.eventAffliction = DD.class(DD.eventBase, nil, {
 	cooldown = 0,
 	weight = 0,
 	goodness = 0,
+	minimunTimeElapsed = 5 * 60,
 	
 	identifier = '',
 	minamount = 0,

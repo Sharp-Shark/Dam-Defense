@@ -15,11 +15,6 @@ end, {
 	minimunDeadPercentage = 0.05,
 	
 	onStart = function (self)
-		local ignorePlayerCount = false
-		if (self.vip ~= nil) or (self.guard ~= nil) then
-			ignorePlayerCount = true
-		end
-	
 		if self.vip == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
 				if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not DD.isCharacterSecurity(client.Character)) and DD.eventDirector.isClientBelowEventCap(client) then
@@ -39,24 +34,27 @@ end, {
 		end
 		
 		-- event requires 5 or more players
-		if (self.vip == nil) or (self.guard == nil) or ((not ignorePlayerCount) and (DD.tableSize(Client.ClientList) <= 4)) then
+		if (self.vip == nil) or (self.guard == nil) or ((not self.manuallyTriggered) and (DD.tableSize(Client.ClientList) <= 4)) then
 			self.fail('conditions to start could not be met')
 			return
 		else
 			-- Bounty
 			self.bounty = 30
 			-- Spawn bodyguard
+			local team = CharacterTeamType.Team1
 			local job = 'bodyguard'
 			local pos = self.vip.Character.WorldPosition
 			local subclass
 			if self.vip.Character.JobIdentifier == 'jet' then
 				job = 'jet'
 				subclass = 1
+				team = CharacterTeamType.Team2
 			elseif  self.vip.Character.JobIdentifier == 'mercsevil' then
 				job = 'mercsevil'
+				team = CharacterTeamType.Team2
 			end
 			local character = DD.spawnHuman(self.guard, job, pos, nil, subclass)
-			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+			character.SetOriginalTeamAndChangeTeam(team, true)
 			character.UpdateTeam()
 			-- Remove item at innerclothing
 			if self.vip.Character.Inventory.GetItemAt(DD.invSlots.innerclothing) ~= nil then

@@ -11,10 +11,11 @@ end, {
 	
 	name = 'greenskins',
 	isMainEvent = true,
-	cooldown = 60 * 3,
-	weight = 1.0,
-	goodness = -6,
-	minimunDeadPercentage  = 0.3,
+	cooldown = 60 * 6,
+	weight = 3,
+	goodness = -5,
+	minimunDeadPercentage  = 0.2,
+	minimunTimeElapsed = 30 * 60,
 	
 	lateJoinSpawn = function (self, client)
 		-- Is Troll

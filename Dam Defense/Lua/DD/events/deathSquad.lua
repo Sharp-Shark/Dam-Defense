@@ -7,14 +7,15 @@ DD.eventDeathSquad = DD.class(DD.eventBase, function (self, nukies)
 end, {
 	paramType = {'clientList'},
 	clientKeys = {'nukies'},
-	public = false,
+	public = true,
 	
 	name = 'deathSquad',
 	isMainEvent = true,
-	cooldown = 60 * 3,
-	weight = 0.5,
+	cooldown = 60 * 6,
+	weight = 4,
 	goodness = -5,
-	minimunDeadPercentage  = 0.3,
+	minimunDeadPercentage  = 0.2,
+	minimunTimeElapsed = 30 * 60,
 	
 	lateJoinBlacklistSet = {},
 	lateJoinSpawn = function (self, client)

@@ -159,6 +159,8 @@ return {
 	vipEndNoReward = 'The VIP is dead! No one has been rewarded for their death.',
 	-- events/wizard.lua
 	wizardEnd = 'The wizard has been slain!',
+	-- events/chimera.lua
+	chimeraEnd = 'The chimera has been slain!',
 	-- console commands
 	jobbanNoticeSingular = 'You have been banned from the {jobName} job because: {reason}.',
 	jobbanNoticePlural = 'You have been banned from {jobName} jobs because: {reason}.',
@@ -255,6 +257,8 @@ return {
 	wikiText_wizardEvent = 'This is a side event where a player is spawned in as a wizard. His objective is to cause chaos and mayhem, although this does not mean the wizard is an antagonist, for he can act good or evil.\nThe wizard spawns with, amongst other items, a staff and some spellbooks. When the staff and a spellbook are both held at once, spells can be cast.',
 	wikiName_mercsEvent = 'MERCS Event',
 	wikiText_mercsEvent = 'This is a side event where a player will be spawned as a member of the Mobile Emergency Rescue and Combat Squad (abbreviated: MERCS). Their goal is to assist security and they are essentially a super cop, even counting as a member of security. They look very similar to the Death Squadders, but have an entirely different objective.',
+	wikiName_chimeraEvent = 'Chimera Event',
+	wikiText_chimeraEvent = 'This is a side event where a player will be spawned as a husk chimera. Their objective is to kill or infect the humans. Like all undead, if the ragdoll key is held, it will enter into a regenerative state.',
 	wikiName_electionEvent = 'Election Event',
 	wikiText_electionEvent = 'This is a side event where you can vote yes to replace the current captain or vote no to keep him! Head to your nearest ballot box, insert your desired amount of Nexcredits (TM) and press "Vote Yes" or "Vote No". Each player once per round can start an election event if there is no ongoing main event or election event by doing "/election".',
 	wikiName_withdrawEvent = 'Withdraw Event',
@@ -350,11 +354,12 @@ return {
 	wikiText_mediumsteelcabinetItem = 'Can fit an entire person inside -- useful for hiding.',
 	wikiText_nexshop1Item = 'This page links to all items which can be bought in a Nexshop (TM).',
 	wikiText_nukieshop1Item = 'This page links to all items which can be bought in a Nukieshop.',
+	wikiText_secnexshopItem = 'This page links to all items which can be bought in a Security Nexshop (TM).',
 	-- wiki creatures
 	wikiName_spitroachCreature = 'Spitroach',
 	wikiText_spitroachCreature = 'An annoying cowardly pest that breeds and grows fast. They run up close, spit their acid, run away and repeat, usually in a synchronized group motion. When no targets are in sight, they spit on their walls, causing leaks and trouble. Immune to acid burns.',
 	wikiName_huskCreature = 'Husks',
-	wikiText_huskCreature = 'A diver infected with the Velonaceps Calyx parasite. Contagious and disruptive enemies capable of ending rounds by themselves occasionally due to their infectious nature. After some time has elapsed they will grow into husk prowlers, a stronger and more savage form.',
+	wikiText_huskCreature = 'A human or creature infected with the Velonaceps Calyx parasite. Contagious and disruptive enemies capable of ending rounds by themselves occasionally due to their infectious nature. After some time has elapsed basic husks will grow into husk prowlers, a stronger and more savage form. All undead, including husks, can hold the ragdoll key to enter a regenerative state.',
 	wikiName_greenskinCreature = 'Greenskins',
 	wikiText_greenskinCreature = 'Both Goblins and Trolls appear as green hairless humanoids wearing green clown masks. They are immune to all forms of stun, move swiftly in water, explode upon death, and can also put masks on both living and dead humans to instantly convert them into a greenskin. Goblins are weaker and smaller than humans, but are faster than them, making them effective hit and run fighters when they have stun capability. Trolls, however are slower, tankier and dumber, being unable to use any items, but to compensate have a very powerful melee attack.\nGreenskins spawn with midazolam, methamphetamine, a few goblin masks, and eight (8) goblin crates. Goblins and Trolls can drop goblin crates on the ground to both hide inside of and also heal themselves of regular damage. Midazolam instantly heals and stuns, for more information view its wiki page.',
 	-- wiki afflictions
