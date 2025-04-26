@@ -99,17 +99,18 @@ end, {
 			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 		end
 		
+		-- End event if goblins are dead
+		if DD.tableSize(self.greenskins) <= 0 then
+			self.finish()
+			return
+		end
+		
 		-- Instant respawn as soon as any player is eligible for respawning
 		for client in Client.ClientList do
 			if DD.isClientRespawnable(client) and client.InGame then
 				Game.DispatchRespawnSub()
 				break
 			end
-		end
-		
-		-- End event if goblins are dead
-		if DD.tableSize(self.greenskins) <= 0 then
-			self.finish()
 		end
 	end,
 	

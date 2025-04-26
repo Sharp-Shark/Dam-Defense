@@ -1822,7 +1822,7 @@
     </Skills>
 	<!-- Trooper -->
     <ItemSet>
-      <Item identifier="prisonerclothes" equip="true" outfit="true" />
+      <Item identifier="pirateclothes" equip="true" outfit="true" />
       <Item identifier="autoinjectorheadset" equip="true">
         <Item identifier="combatstimulantsyringe" />
       </Item>
