@@ -15,7 +15,7 @@ end, {
 	weight = 4,
 	goodness = -5,
 	minimunDeadPercentage  = 0.2,
-	minimunTimeElapsed = 30 * 60,
+	minimunTimeElapsed = 20 * 60,
 	
 	lateJoinBlacklistSet = {},
 	lateJoinSpawn = function (self, client)
@@ -96,7 +96,7 @@ end, {
 		-- See if any non-nukie is alive
 		local anyNonNukieAlive = false
 		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not self.nukiesSet[client]) then
+			if (not DD.isClientAntagNonTarget(client)) and (not self.nukiesSet[client]) then
 				anyNonNukieAlive = true
 				break
 			end

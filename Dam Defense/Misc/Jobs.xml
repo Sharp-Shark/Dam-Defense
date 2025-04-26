@@ -497,7 +497,7 @@
   </Job>
 
   <Job identifier="medicaldoctor"
-       minkarma="0" maxnumber="2" initialcount="1"
+       minkarma="0" maxnumber="1" initialcount="1"
        uicolor="0.75,0.35,0.25"
        vitalitymodifier="0"
        pricemultiplier="1.15"

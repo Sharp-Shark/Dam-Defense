@@ -49,9 +49,17 @@ end, {
 				job = 'jet'
 				subclass = 1
 				team = CharacterTeamType.Team2
+				for event in DD.eventDirector.getEventInstances('nukies') do
+					table.insert(event.nukies, self.guard)
+					event.nukiesSet[self.guard] = true
+				end
 			elseif  self.vip.Character.JobIdentifier == 'mercsevil' then
 				job = 'mercsevil'
 				team = CharacterTeamType.Team2
+				for event in DD.eventDirector.getEventInstances('deathSquad') do
+					table.insert(event.nukies, self.guard)
+					event.nukiesSet[self.guard] = true
+				end
 			end
 			local character = DD.spawnHuman(self.guard, job, pos, nil, subclass)
 			character.SetOriginalTeamAndChangeTeam(team, true)

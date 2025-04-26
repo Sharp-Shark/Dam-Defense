@@ -21,7 +21,7 @@ end, {
 		
 		local aliveSet = {}
 		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
+			if not DD.isClientAntagNonTarget(client) then
 				aliveSet[client] = true
 			end
 		end

@@ -14,7 +14,7 @@ end, {
 	weight = 3,
 	goodness = -4,
 	minimunDeadPercentage = 0.2,
-	minimunTimeElapsed = 15 * 60,
+	minimunTimeElapsed = 12 * 60,
 	
 	respawnTickets = 0,
 	lateJoinBlacklistSet = {},
@@ -102,7 +102,7 @@ end, {
 		-- See if any non-nukie is alive
 		local anyNonNukieAlive = false
 		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (not self.nukiesSet[client]) then
+			if (not DD.isClientAntagNonTarget(client)) and (not self.nukiesSet[client]) then
 				anyNonNukieAlive = true
 				break
 			end
@@ -155,7 +155,7 @@ end, {
 					self.nukiesSet[nukie] = nil
 				end
 			end	
-		else
+		elseif character.SpeciesName == 'human' then
 			if (character.LastAttacker ~= nil) and self.nukiesSet[DD.findClientByCharacter(character.LastAttacker)] then
 				self.respawnTickets = self.respawnTickets + 1
 				DD.messageAllClients(DD.stringLocalize('nukiesTicketGained', {tickets = self.respawnTickets}), {preset = 'info'})

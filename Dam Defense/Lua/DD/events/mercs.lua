@@ -10,10 +10,10 @@ end, {
 	instanceCap = 1,
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 1,
+	weight = 2,
 	goodness = 3,
-	minimunDeadPercentage = 0.2,
-	minimunTimeElapsed = 15 * 60,
+	minimunDeadPercentage = 0.1,
+	minimunTimeElapsed = 12 * 60,
 	
 	onStart = function (self)
 		if self.mercs == nil then

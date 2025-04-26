@@ -10,7 +10,7 @@ end, {
 	isMainEvent = true,
 	cooldown = 60 * 4,
 	weight = 1,
-	goodness = -1,
+	goodness = -2,
 	minimunAlivePercentage = 1.0,
 	
 	getShouldFinish = function (self)
@@ -22,7 +22,7 @@ end, {
 		-- See if anyone is still alive
 		local anyoneAlive = false
 		for client in Client.ClientList do
-			if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') and (client ~= self.killer) then
+			if (not DD.isClientAntagNonTarget(client)) and (client ~= self.killer) then
 				anyoneAlive = true
 				break
 			end
@@ -33,7 +33,7 @@ end, {
 			self.killerWon = true
 			return true
 		end
-		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and DD.isCharacterArrested(self.killer.Character)) then
+		if (not DD.isClientCharacterAlive(self.killer)) or ((self.killer.Character ~= nil) and self.killer.Character.IsHandcuffed) then
 			return true
 		end
 		-- End event if killsLeftToWin is equal to or lower than 0
@@ -60,7 +60,7 @@ end, {
 				self.killsLeftToWin = self.killsLeftToWin + 1
 			end
 		end
-		self.killsLeftToWin = math.ceil(self.killsLeftToWin * 0.7)
+		self.killsLeftToWin = math.ceil(self.killsLeftToWin * 0.6)
 		
 		local nonSecurity = {}
 		for client in Client.ClientList do

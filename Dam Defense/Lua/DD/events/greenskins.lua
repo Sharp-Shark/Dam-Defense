@@ -15,7 +15,7 @@ end, {
 	weight = 3,
 	goodness = -5,
 	minimunDeadPercentage  = 0.2,
-	minimunTimeElapsed = 30 * 60,
+	minimunTimeElapsed = 20 * 60,
 	
 	lateJoinSpawn = function (self, client)
 		-- Is Troll
@@ -97,6 +97,14 @@ end, {
 		local timeToExplode = 8 * 60 + 20 -- in seconds
 		for client in self.greenskins do
 			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
+		end
+		
+		-- Instant respawn as soon as any player is eligible for respawning
+		for client in Client.ClientList do
+			if DD.isClientRespawnable(client) and client.InGame then
+				Game.DispatchRespawnSub()
+				break
+			end
 		end
 		
 		-- End event if goblins are dead

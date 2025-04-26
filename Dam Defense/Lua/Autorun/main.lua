@@ -235,7 +235,7 @@ DD.thinkFunctions.main = function ()
 	-- End round if everyone is dead
 	local anyHumanAlive = false
 	for client in Client.ClientList do
-		if DD.isClientCharacterAlive(client) and client.Character.SpeciesName == 'human' then
+		if not DD.isClientAntagNonTarget(client) then
 			anyHumanAlive = true
 			break
 		end
@@ -736,6 +736,13 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
 			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
 		end
+	elseif character.JobIdentifier == 'assistant' then
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcuffs'), character.Inventory, nil, nil, function (spawnedItem)
+			spawnedItem.Condition = spawnedItem.Condition / 10
+			Timer.NextFrame(function ()
+				character.Inventory.TryPutItem(spawnedItem, DD.invSlots.righthand, true, true, character, true, true)
+			end)
+		end)
 	end
 	-- Give Talents
 	if character.SpeciesName == 'human' then
@@ -747,7 +754,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 				character.GiveTalent('janitorialknowledge', true)
 				character.GiveTalent('greenthumb', true)
 			end
-			if (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') or (character.JobIdentifier == 'assistant') then
+			if (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') then
 				character.GiveTalent('unstoppablecuriosity', true)
 			end
 			if (character.JobIdentifier == 'captain') or (character.JobIdentifier == 'gangster') or (character.JobIdentifier == 'assistant') then
@@ -756,7 +763,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			if DD.isCharacterMedical(character) or (character.JobIdentifier == 'janitor') or (character.JobIdentifier == 'assistant') then
 				character.GiveTalent('firemanscarry', true)
 			end
-			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') or (character.JobIdentifier == 'assistant') then
+			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') or (character.JobIdentifier == 'mercsevil') or (character.JobIdentifier == 'assistant') then
 				character.GiveTalent('daringdolphin', true)
 				character.GiveTalent('ballastdenizen', true)
 			end
