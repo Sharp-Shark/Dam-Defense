@@ -124,7 +124,6 @@ DD.antagExemptJobs = {
 -- Set of jobs that do not need to die for antags to win
 DD.antagNonTargetJobs = {
 	jet = true,
-	mercs = true,
 	mercsevil = true,
 	wizard = true,
 	gangster = true,
@@ -778,11 +777,11 @@ DD.isClientAntagExempt = function (client)
 end
 
 DD.isClientAntagNonTarget = function (client)
-	DD.expectTypes('isClientNonTarget', {client}, {'userdata'})
+	DD.expectTypes('isClientAntagNonTarget', {client}, {'userdata'})
 	if DD.isClientCharacterAlive(client) and (client.Character.SpeciesName == 'human') then
 		return DD.antagNonTargetJobs[tostring(client.Character.JobIdentifier)]
 	end
-	return false
+	return true
 end
 
 DD.isClientRespawnable = function (client)
