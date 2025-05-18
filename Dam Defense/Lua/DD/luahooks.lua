@@ -1205,6 +1205,12 @@ Hook.Add("character.created", "DD.huskMessage", function (createdCharacter)
 	end, 100)
 end)
 
+-- updates limb alpha
+Hook.Add("DD.invisibility.update", "DD.invisibility.update", function(effect, deltaTime, item, targets, worldPosition)
+	-- will do this later
+	-- used by "invisibility" affliction
+end)
+
 -- radiation
 local fuelrodDecayNetworkCooldown = {}
 Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, item, targets, worldPosition)

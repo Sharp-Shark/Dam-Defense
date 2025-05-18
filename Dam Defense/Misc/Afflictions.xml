@@ -31,6 +31,16 @@
   </Infection>
   </Override>
   
+  <!-- invisibility code (based off vanilla's "mantiscamouflage") -->
+  <Affliction name="Invisibility" identifier="invisibility" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.0" showiconthreshold="999" showinhealthscannerthreshold="999" maxstrength="10" >
+    <Effect minstrength="0" maxstrength="10" mingrainstrength="0.0" maxgrainstrength="1.0" strengthchange="-10.0" minspeedmultiplier="1.0" maxspeedmultiplier="1.5">
+	  <StatusEffect target="Character" setvalue="true" disabledeltatime="true">
+	    <LuaHook name="DD.invisibility.update" />
+	  </StatusEffect>
+	</Effect>
+	<icon texture="%ModDir%/Misc/Icons.png" sourcerect="0,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  
   <!-- if a player has been recently attacked, the heal gun will heal them less -->
   <Affliction name="Heal Gun Reduced" identifier="recentlyattacked" type="recentlyattacked" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.0" showiconthreshold="999" showinhealthscannerthreshold="0" maxstrength="5" >
     <Effect minstrength="0" maxstrength="10" strengthchange="-1.0" />
@@ -38,7 +48,7 @@
   </Affliction>
   
   <!-- Water cannon stun -->
-  <Affliction name="Water Cannon Stun" identifier="watercannonstun" description="" type="stun" limbspecific="false" indicatorlimb="Torso" showiconthreshold="999" showinhealthscannerthreshold="999" karmachangeonapplied="0" maxstrength="10" WeaponsSkillGain="1.0" iconcolors="250,250,150,255">
+  <Affliction name="Water Cannon Stun" identifier="watercannonstun" description="" type="stun" limbspecific="false" indicatorlimb="Torso" showiconthreshold="999" showinhealthscannerthreshold="999" karmachangeonapplied="0" maxstrength="10" iconcolors="250,250,150,255">
     <Effect minstrength="0" maxstrength="9.9" strengthchange="-5.0" />
     <Effect minstrength="9.9" maxstrength="10" strengthchange="-1.0" >
 	  <StatusEffect target="Character" disabledeltatime="true" setvalue="true" stun="0.1">

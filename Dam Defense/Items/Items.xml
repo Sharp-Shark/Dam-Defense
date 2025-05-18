@@ -546,12 +546,12 @@
       <InventoryIcon texture="flamer.png" sourcerect="0,0,216,92" />
       <Sprite texture="flamer.png" sourcerect="0,0,216,92" depth="0.55" origin="0.5,0.5" />
       <!-- the item takes 10 seconds to break down in a deconstructor and turns into steel and plastic -->
-      <Deconstruct time="20">
+      <Deconstruct time="30">
         <Item identifier="steel" />
         <Item identifier="rubber" />
       </Deconstruct>
-      <Fabricate suitablefabricators="fabricator" requiredtime="180" requiresrecipe="true">
-        <RequiredSkill identifier="weapons" level="60" />
+      <Fabricate suitablefabricators="fabricator" requiredtime="90" requiresrecipe="true">
+        <RequiredSkill identifier="weapons" level="30" />
         <RequiredItem identifier="steel" amount="2" />
         <RequiredItem identifier="rubber" amount="2" />
       </Fabricate>
@@ -3771,13 +3771,11 @@
   <Item name="Repair Tool" identifier="repairtool" category="Equipment" addedrepairspeedmultiplier="2.5" Tags="smallitem,simpletool,tool,weldingequipment,electricalrepairtool,screwdriveritem,mechanicalrepairtool,wrenchitem,mountableweapon" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light">
     <Sprite texture="%ModDir%/Items/tools.png" sourcerect="0,36,100,100" depth="0.55" origin="0.5,0.5" />
     <Deconstruct time="30">
-      <Item identifier="physicorium" />
       <Item identifier="titanium" />
       <Item identifier="plastic" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator" requiredtime="90" requiresrecipe="true">
       <RequiredSkill identifier="mechanical" level="30" />
-      <RequiredItem identifier="physicorium" />
       <RequiredItem identifier="titaniumaluminiumalloy" />
       <RequiredItem identifier="plastic" />
     </Fabricate>
@@ -5572,12 +5570,12 @@
   </Item>
   <!-- cleans, extinguishes fire and pushes rioters away -->
   <Item name="Water Cannon" identifier="watercannon" category="Equipment" Tags="mediumitem,provocative" cargocontaineridentifier="metalcrate" description="" Scale="0.5" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
-    <Deconstruct time="60">
+    <Deconstruct time="30">
       <Item identifier="aluminium" />
       <Item identifier="plastic" />
       <Item identifier="steel" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+    <Fabricate suitablefabricators="fabricator" requiredtime="90">
       <RequiredSkill identifier="mechanical" level="30" />
       <RequiredItem identifier="aluminium" amount="2" />
       <RequiredItem identifier="plastic" />
@@ -5590,7 +5588,7 @@
       <RequiredItem items="batterycell" type="Contained" />
       <ParticleEmitter particle="watercannonspray" velocitymin="2000.0" velocitymax="3000.0" particlespersecond="100" />
       <StatusEffect type="OnUse" targettype="UseTarget">
-        <Affliction identifier="watercannonstun" amount="15.0" />
+        <Affliction identifier="watercannonstun" amount="20.0" />
       </StatusEffect>
       <StatusEffect type="OnUse" targettype="This" Condition="-5.0" />
       <sound file="Content/Items/Tools/Extinguisher.ogg" type="OnUse" range="500.0" loop="true" />

@@ -220,7 +220,7 @@
   <entitydescription.divingflashlight>Double the power... double the power consumption.</entitydescription.divingflashlight>
   <!-- Repair Tool -->
   <entityname.repairtool>Repair Tool</entityname.repairtool>
-  <entitydescription.repairtool>All in one repair tool that can weld, wrench and screw! Use the toggle to alternate between wrench and screwdriver mode.</entitydescription.repairtool>
+  <entitydescription.repairtool>Only craftable by engineers. All in one repair tool that can weld, wrench and screw! Use the toggle to alternate between wrench and screwdriver mode.</entitydescription.repairtool>
   <!-- Wizard Items -->
   <entityname.merasmushat>Wizard Hat</entityname.merasmushat>
   <entitydescription.merasmushat>The skull of a goat, a proper skull island topper. May explode the head of non-wizards who try to wear it.</entitydescription.merasmushat>

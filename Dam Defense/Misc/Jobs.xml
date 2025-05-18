@@ -645,41 +645,11 @@
       <Item identifier="headset" equip="true"/>
       <Item identifier="hardhatjanitor" equip="true" />
       <Item identifier="toolbelt" equip="true">
-        <Item identifier="flashlight" >
-		  <Item identifier="batterycell"/>
-	    </Item>
 	    <Item identifier="oxygentank"/>
 	  </Item>
       <Item identifier="flamer" >
 		<Item identifier="weldingfueltank"/>
 	  </Item>
-      <Item identifier="weldingtool" >
-		<Item identifier="weldingfueltank"/>
-	  </Item>
-      <Item identifier="sprayer" >
-		<Item identifier="ethanol"/>
-	  </Item>
-      <Item identifier="crowbar"/>
-      <Item identifier="wrench"/>
-      <Item identifier="antidama1"/>
-      <Item identifier="antibleeding1"/>
-      <Item identifier="antibleeding1"/>
-      <PreviewSprites dims="120,109">
-        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
-        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
-      </PreviewSprites>
-    </ItemSet>
-    <ItemSet>
-      <Item identifier="idcard" equip="true">
-	    <!-- 3 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
-	  </Item>
-      <Item identifier="assistantclothes" equip="true" outfit="true">
-	    <Item identifier="trashbag"/>
-	    <Item identifier="trashbag"/>
-	  </Item>
-      <Item identifier="headset" equip="true"/>
-      <Item identifier="hardhatjanitor" equip="true" />
-      <Item identifier="makeshiftflamer" equip="true" />
       <Item identifier="watercannon" >
 		<Item identifier="batterycell"/>
 	  </Item>
@@ -689,15 +659,14 @@
       <Item identifier="crowbar"/>
       <Item identifier="wrench"/>
       <Item identifier="flashlight" >
-		<Item identifier="batterycell"/>
+	    <Item identifier="batterycell"/>
 	  </Item>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
-	  <Item identifier="oxygentank"/>
       <PreviewSprites dims="120,109">
-        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
-        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
       </PreviewSprites>
     </ItemSet>
     <AutonomousObjectives>
