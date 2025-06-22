@@ -1275,6 +1275,7 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 	if item.Prefab.Identifier == 'skyholderartifact' then
 		maxAmount = 300
 	end
+	if maxAmount <= 0 then return end
 	maxAmount = maxAmount * multiplier
 	local minDistance = 50
 	local maxDistance = math.sqrt(maxAmount / 0.005)

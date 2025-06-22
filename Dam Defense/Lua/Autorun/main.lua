@@ -714,28 +714,45 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	if client ~= nil then
 		DD.messageClient(client, JobPrefab.Get(character.JobIdentifier).Description, {preset = 'info'})
 	end
-	-- Event related jobs
+	-- Items to be locked (to be made non interactable)
+	local lockedJobItems = {
+		captain = {
+			[DD.invSlots.innerclothes] = {captainsuniform1 = true, captainsuniform3 = true}
+		},
+		diver = {
+			[DD.invSlots.innerclothes] = {securityuniform2 = true}
+		},
+		securityofficer = {
+			[DD.invSlots.innerclothes] = {securityuniform1 = true}
+		},
+		foreman = {
+			[DD.invSlots.innerclothes] = {orangejumpsuit2 = true}
+		},
+		-- event jobs
+		wizard = {
+			[DD.invSlots.head] = {merasmushat = true},
+		},
+		gangster = {
+			[DD.invSlots.head] = {bosshat = true},
+			[DD.invSlots.innerclothes] = {bossclothes = true},
+		},
+	}
+	local lockedItems = lockedJobItems[tostring(character.JobIdentifier)]
+	if lockedItems ~= nil then
+		for slot, itemSet in pairs(lockedItems) do
+			local item = character.Inventory.GetItemAt(slot)
+			if itemSet[tostring(item.Prefab.Identifier)] then
+				item.NonInteractable = true
+				if SERVER then
+					local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
+					Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
+				end
+			end
+		end
+	end
+	-- Event related job
 	if character.JobIdentifier == 'wizard' then
 		DD.giveAfflictionCharacter(character, 'wizard', 1)
-		local item = character.Inventory.GetItemAt(DD.invSlots.head)
-		item.NonInteractable = true
-		if SERVER then
-			local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
-			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
-		end
-	elseif character.JobIdentifier == 'gangster' then
-		local item = character.Inventory.GetItemAt(DD.invSlots.head)
-		item.NonInteractable = true
-		if SERVER then
-			local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
-			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
-		end
-		local item = character.Inventory.GetItemAt(DD.invSlots.innerclothes)
-		item.NonInteractable = true
-		if SERVER then
-			local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
-			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
-		end
 	elseif character.JobIdentifier == 'assistant' then
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcuffs'), character.Inventory, nil, nil, function (spawnedItem)
 			spawnedItem.Condition = spawnedItem.Condition / 10

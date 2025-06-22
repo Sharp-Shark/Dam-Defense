@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="1.2.18" corepackage="False" steamworkshopid="3146664815" gameversion="1.8.8.1">
+<contentpackage name="Dam Defense" modversion="1.2.32" corepackage="False" steamworkshopid="3146664815" gameversion="1.9.7.0">
   <Other file="%ModDir%/CSharp/Client/DamDefense.cs" />
   <Text file="%ModDir%/Localizations/english.xml" />
   <Item file="%ModDir%/Items/Jerry.xml" />
@@ -23,8 +23,8 @@
   <Jobs file="%ModDir%/Misc/Jobs.xml" />
   <Afflictions file="%ModDir%/Misc/Afflictions.xml" />
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />
-  <Submarine file="%ModDir%/Submarines/DD Olde Towne.sub" />
   <Submarine file="%ModDir%/Submarines/DD Cliffhanger.sub" />
   <Submarine file="%ModDir%/Submarines/DD Pioneer Point.sub" />
-  <Submarine file="%ModDir%/Submarines/DD Dimidium.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Olde Towne.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Rising Tide.sub" />
 </contentpackage>

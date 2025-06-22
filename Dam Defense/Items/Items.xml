@@ -1071,6 +1071,37 @@
         <QualityStat stattype="ExplosionDamage" value="0.1" />
       </Quality>
     </Item>
+	<!-- scope can be bought at securiy nexshop -->
+    <Item identifier="scope" category="Equipment" Tags="smallitem" cargocontaineridentifier="metalcrate" allowasextracargo="true" scale="0.5" impactsoundtag="impact_metal_light">
+      <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="512,384,64,64"/>
+      <Sprite texture="Content/Items/Tools/tools.png" sourcerect="80,256,64,16" depth="0.55"/>
+      <Body width="64" height="16" density="20"/>
+      <PreferredContainer primary="armcab" secondary="secarmcab"/>
+      <PreferredContainer secondary="outpostsecarmcab" amount="1" spawnprobability="0.1"/>
+      <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab,piratesecarmcab" amount="1" spawnprobability="0.2"/>
+      <Price baseprice="250" minleveldifficulty="25">
+        <Price storeidentifier="merchantoutpost" multiplier="1.5" sold="false"/>
+        <Price storeidentifier="merchantcity" multiplier="1.25" sold="false"/>
+        <Price storeidentifier="merchantresearch" multiplier="1.25" sold="false"/>
+        <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="2"/>
+        <Price storeidentifier="merchantmine" multiplier="1.25" sold="false"/>
+        <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2"/>
+      </Price>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
+      <Fabricate suitablefabricators="fabricator" requiredtime="30">
+        <RequiredSkill identifier="weapons" level="40"/>
+        <RequiredItem identifier="iron"/>
+        <RequiredItem identifier="plastic"/>
+        <RequiredItem identifier="quartz"/>
+      </Fabricate>
+      <Deconstruct time="10">
+        <Item identifier="plastic"/>
+        <Item identifier="silicon" amount="2"/>
+      </Deconstruct>
+      <Holdable slots="Any,LeftHand,RightHand" controlpose="true" usehandrotationforholdangle="true" aimpos="37,24" handle1="0,0" cameraaimoffset="500" msg="ItemMsgPickUpSelect"/>
+    </Item>
     <!-- riot shotgun goes in back slot and changed sprite to be Facility Gamemode Tactical Shotgun -->
     <Item name="" identifier="shotgun" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
       <PreferredContainer primary="secarmcab" amount="1" spawnprobability="1" notcampaign="true" />
@@ -1299,6 +1330,10 @@
         </SubContainer>
         <SubContainer capacity="1" maxstacksize="1">
           <Containable items="flashlight" hide="false" itempos="30,-3" setactive="true" />
+          <Containable items="scope" hide="false" itempos="-5,7">
+            <StatusEffect type="OnContaining" target="This" cameraaimoffset="500" setvalue="true" interval="1"/>
+            <StatusEffect type="OnRemoved" target="This" cameraaimoffset="0" setvalue="true"/>
+          </Containable>
         </SubContainer>
       </ItemContainer>
       <aitarget sightrange="3000" soundrange="5000" fadeouttime="5" />
@@ -1426,6 +1461,49 @@
       </Quality>
       <SkillRequirementHint identifier="weapons" level="50" />
     </Item>
+	<!-- explosive harpoon crafting nerf (yield was halved) -->
+    <Item name="" identifier="explosivespear" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="6" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="mediumitem,harpoonammo,handheldammo,demolitionsexpert" Scale="0.5" impactsoundtag="impact_metal_light">
+      <PreferredContainer primary="harpoongun" />
+      <PreferredContainer primary="armcab" amount="6" spawnprobability="0.1" notcampaign="true" notpvp="true" />
+      <PreferredContainer secondary="wreckarmcab,abandonedarmcab,piratearmcab" minamount="1" maxamount="6" spawnprobability="0.1" />
+      <PreferredContainer primary="secarmcab" />
+      <Price baseprice="80">
+        <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.4" />
+        <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="3" sold="false" />
+        <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+        <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="6" />
+        <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+        <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="6" />
+      </Price>
+      <Deconstruct time="5"></Deconstruct>
+	  <!-- BEFORE: 2 spears + 1 uex = 2 explosive spears -->
+	  <!-- NOW: 1 spears + 1 uex = 1 explosive spears -->
+      <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="1">
+        <RequiredSkill identifier="weapons" level="30" />
+        <RequiredItem identifier="spear" amount="1" />
+        <RequiredItem identifier="uex" />
+      </Fabricate>
+      <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="385,968,55,55" origin="0.5,0.5" />
+      <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="85,381,168,15" depth="0.55" origin="0.5,0.5" />
+      <Body width="160" height="10" density="30" />
+      <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+      <Projectile characterusable="false" launchimpulse="10.0" severlimbsprobability="0.1">
+        <Attack structuredamage="20" targetforce="10" penetration="0.5">
+          <Affliction identifier="explosiondamage" strength="25" />
+        </Attack>
+        <StatusEffect type="OnImpact" target="This" Condition="-100.0" disabledeltatime="true">
+          <Explosion range="200.0" ballastfloradamage="50" structuredamage="10" levelwalldamage="50" itemdamage="250" force="5" severlimbsprobability="0.25">
+            <Affliction identifier="burn" strength="50" />
+            <Affliction identifier="stun" strength="1.5" />
+          </Explosion>
+          <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" range="3000" />
+          <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" range="3000" />
+          <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" range="3000" />
+          <Remove />
+        </StatusEffect>
+      </Projectile>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    </Item>
     <!-- harpoon gun buffed -->
     <Item name="" identifier="harpoongun" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
       <PreferredContainer secondary="wreckweaponholder" spawnprobability="0.05" />
@@ -1511,7 +1589,7 @@
       <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="262,383,179,49" depth="0.55" origin="0.5,0.5" />
       <Body width="170" height="44" density="25" />
       <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="35,-10" aimpos="45,-10" handle1="-20,-6" handle2="30,10" holdangle="-40" msg="ItemMsgPickUpSelect" />
-      <RangedWeapon launchimpulse="30.0" maxchargetime="0.25" reload="1.5" weapondamagemodifier="2.0" spread="0.2" unskilledspread="5" combatPriority="70" drawhudwhenequipped="true" barrelpos="85,16" crosshairscale="0.2" holdtrigger="true">
+      <RangedWeapon launchimpulse="30.0" maxchargetime="0.25" reload="1.25" weapondamagemodifier="1.8" penetration="0.5" spread="0.2" unskilledspread="5" combatPriority="70" drawhudwhenequipped="true" barrelpos="85,16" crosshairscale="0.2" holdtrigger="true">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
         <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
         <Sound file="Content/Items/Weapons/WEAPON_harpoonCoilRifleShot1.ogg" type="OnUse" range="2000" />
@@ -1540,6 +1618,10 @@
         <SubContainer capacity="1" maxstacksize="1">
           <Containable items="divingflashlight" hide="false" itempos="36,2" setactive="true" />
           <Containable items="flashlight" hide="false" itempos="18,13" setactive="true" />
+          <Containable items="scope" hide="false" itempos="8,15">
+            <StatusEffect type="OnContaining" target="This" cameraaimoffset="500" setvalue="true" interval="1"/>
+            <StatusEffect type="OnRemoved" target="This" cameraaimoffset="0" setvalue="true"/>
+          </Containable>
         </SubContainer>
       </ItemContainer>
       <aitarget sightrange="0" soundrange="500" fadeouttime="2" />
@@ -1796,6 +1878,10 @@
         <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
         <SubContainer capacity="1" maxstacksize="1">
           <Containable items="flashlight" hide="false" itempos="32,-3" setactive="true" />
+          <Containable items="scope" hide="false" itempos="-1,22">
+            <StatusEffect type="OnContaining" target="This" cameraaimoffset="500" setvalue="true" interval="1"/>
+            <StatusEffect type="OnRemoved" target="This" cameraaimoffset="0" setvalue="true"/>
+          </Containable>
         </SubContainer>
       </ItemContainer>
       <aitarget sightrange="2000" soundrange="4000" fadeouttime="5" />
@@ -4875,7 +4961,7 @@
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,0,224,48" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
     </Wearable>
-    <RangedWeapon reload="0.14" holdtrigger="true" barrelpos="110,2" spread="6" unskilledspread="24" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.14" holdtrigger="true" barrelpos="110,2" spread="4" unskilledspread="16" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -4892,7 +4978,7 @@
         <Use />
       </StatusEffect>
       <RequiredItems items="762magazine" type="Contained" msg="ItemMsgAmmoRequired" />
-      <RequiredSkill identifier="weapons" level="50" />
+      <RequiredSkill identifier="weapons" level="40" />
     </RangedWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
       <Containable items="762ammo" itempos="-5.5,-9.5" />
@@ -4900,13 +4986,17 @@
       <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="flashlight" hide="false" itempos="23,1" setactive="true" />
+        <Containable items="scope" hide="false" itempos="-12,12.5">
+          <StatusEffect type="OnContaining" target="This" cameraaimoffset="500" setvalue="true" interval="1"/>
+          <StatusEffect type="OnRemoved" target="This" cameraaimoffset="0" setvalue="true"/>
+        </Containable>
       </SubContainer>
     </ItemContainer>
     <aitarget sightrange="2000" soundrange="4000" fadeouttime="5" />
     <Quality>
       <QualityStat stattype="FirepowerMultiplier" value="0.1" />
     </Quality>
-    <SkillRequirementHint identifier="weapons" level="50" />
+    <SkillRequirementHint identifier="weapons" level="40" />
   </Item>
   <!-- it's just an AK -->
   <Item name="Marksman Rifle" identifier="marksmanrifle" category="Weapon" cargocontaineridentifier="metalcrate" allowasextracargo="true" tags="mediumitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
@@ -4937,7 +5027,7 @@
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,48,224,50" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
     </Wearable>
-    <RangedWeapon reload="0.18" holdtrigger="true" barrelpos="110,2" spread="3" unskilledspread="12" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="110,2" spread="1" unskilledspread="4" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -4954,7 +5044,7 @@
         <Use />
       </StatusEffect>
       <RequiredItems items="762magazine" type="Contained" msg="ItemMsgAmmoRequired" />
-      <RequiredSkill identifier="weapons" level="50" />
+      <RequiredSkill identifier="weapons" level="40" />
     </RangedWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
       <Containable items="762ammo" itempos="-3.5,-8.5" rotation="-10" />
@@ -4962,13 +5052,20 @@
       <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="flashlight" hide="false" itempos="25,0.5" setactive="true" />
+        <Containable items="scope" hide="false" itempos="-15,10">
+          <StatusEffect type="OnContaining" target="This" cameraaimoffset="500" setvalue="true" interval="1"/>
+          <StatusEffect type="OnRemoved" target="This" cameraaimoffset="0" setvalue="true"/>
+        </Containable>
       </SubContainer>
+      <StatusEffect type="OnSpawn" target="This" disabledeltatime="true">
+        <SpawnItem identifiers="scope" spawnposition="ThisInventory" />
+      </StatusEffect>
     </ItemContainer>
     <aitarget sightrange="2000" soundrange="4000" fadeouttime="5" />
     <Quality>
       <QualityStat stattype="FirepowerMultiplier" value="0.1" />
     </Quality>
-    <SkillRequirementHint identifier="weapons" level="50" />
+    <SkillRequirementHint identifier="weapons" level="40" />
   </Item>
   <!-- 30 rounds of soviet 7.62x39mm -->
   <Item name="Separatist Rifle Magazine" identifier="762magazine" maxstacksize="8" maxstacksizecharacterinventory="2" scale="0.5" category="Weapon" allowasextracargo="true" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,762ammo" impactsoundtag="impact_metal_light">
@@ -5020,7 +5117,7 @@
     <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
     <Projectile characterusable="false" hitscan="true" removeonhit="true">
       <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,200,200,175" scalemultiplier="1,0.8" />
-      <Attack structuredamage="6" targetforce="7.5" itemdamage="6" severlimbsprobability="0.2" penetration="0.35">
+      <Attack structuredamage="6" targetforce="7.5" itemdamage="6" severlimbsprobability="0.2" penetration="0.4">
         <Affliction identifier="gunshotwound" strength="16" />
         <Affliction identifier="bleeding" strength="8" />
       </Attack>
@@ -5494,7 +5591,7 @@
       <sprite texture="whalinggun.png" sourcerect="0,0,240,64" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.75" />
     </Wearable>
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="30,-25" aimpos="65,0" handle1="-40,-3" handle2="25,15" holdangle="-20" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon barrelpos="100,15" weapondamagemodifier="1.5" reload="1.5" maxchargetime="0.5" launchimpulse="30.0" spread="1" unskilledspread="10" combatPriority="100" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon barrelpos="100,15" weapondamagemodifier="1.8" penetration="0.5" reload="1.5" maxchargetime="0.5" launchimpulse="30.0" spread="1" unskilledspread="10" combatPriority="100" drawhudwhenequipped="true" crosshairscale="0.2">
       <StatusEffect type="Always" target="This" Condition="100" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="InWater" target="This" Condition="0" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnUse" target="Contained">
@@ -5555,10 +5652,10 @@
       </StatusEffect>
     </Rope>
     <Projectile characterusable="false" launchimpulse="5" sticktocharacters="true" sticktoitems="true" sticktostructures="true" sticktodoors="false">
-      <Attack penetration="0.9" structuredamage="40" itemdamage="40" targetforce="60" severlimbsprobability="1.0">
-        <Affliction identifier="lacerations" strength="200" />
-        <Affliction identifier="bleeding" strength="50" />
-        <Affliction identifier="stun" strength="1" />
+      <Attack penetration="0.4" structuredamage="40" itemdamage="40" targetforce="60" severlimbsprobability="1.0">
+        <Affliction identifier="lacerations" strength="170" />
+        <Affliction identifier="bleeding" strength="45" />
+        <Affliction identifier="stun" strength="0.9" />
       </Attack>
       <StatusEffect type="OnActive" target="UseTarget,This" checkconditionalalways="true" comparison="And">
         <Conditional Snapped="false" />

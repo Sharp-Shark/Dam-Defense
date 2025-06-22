@@ -324,7 +324,7 @@
   <entitydescription.762round>A round of 7x62x39mm.</entitydescription.762round>
   <!-- Marksmen Rifle -->
   <entityname.marksmanrifle>Marksmen Rifle</entityname.marksmanrifle>
-  <entitydescription.marksmanrifle>Only craftable by rebel leaders. Precision 7.62x39mm semi-automatic rifle. The right arm of the free world.</entitydescription.marksmanrifle>
+  <entitydescription.marksmanrifle>Only craftable by rebel leaders. Precision 7.62x39mm semi-automatic rifle that comes with a scope attached. The right arm of the free world.</entitydescription.marksmanrifle>
   <!-- Tommy Gun -->
   <entityname.tommygun>Tommy Gun</entityname.tommygun>
   <entitydescription.tommygun>A 9mm convertion of an antique submachine gun usually associated with the mafia or any other lavish criminals. Bolsters an impressive rate of fire and fine finish.</entitydescription.tommygun>
