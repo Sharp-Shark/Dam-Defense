@@ -648,7 +648,7 @@
         <ReduceAffliction identifier="bleeding" strength="2"/>
         <ReduceAffliction identifier="oxygenlow" strength="15.0"/>
       </StatusEffect>
-      <StatValue stattype="MeleeAttackMultiplier" value="2.0" />
+      <StatValue stattype="MeleeAttackMultiplier" value="3.0" />
     </Effect>
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="0,2" sheetelementsize="128,128"/>
   </Affliction>

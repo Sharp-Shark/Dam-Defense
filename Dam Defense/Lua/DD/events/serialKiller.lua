@@ -13,6 +13,50 @@ end, {
 	goodness = -2,
 	minimunAlivePercentage = 1.0,
 	
+	timeToExplode = 5 * 60, -- in seconds
+	
+	-- messages killer directions towards nearest valid target
+	informKillerTargetLocation = function (self)
+		if self.killer.Character == nil then return end
+		
+		-- get nearest valid target
+		local pos = self.killer.Character.WorldPosition
+		local winner
+		local winnerDistance
+		for client in Client.ClientList do
+			if (client ~= self.killer) and not DD.isClientAntagNonTarget(client) then
+				local distance = Vector2.Distance(pos, client.Character.WorldPosition)
+				if (winnerDistance == nil) or (distance < winnerDistance) then
+					winner = client.Character
+					winnerDistance = distance
+				end
+			end
+		end
+		if winner == nil then return end
+		
+		-- one unit in Barotrauma is 1cm, so 100 units is 1 meter
+		local dy = (winner.WorldPosition.y - pos.y) / 100
+		local dx = (winner.WorldPosition.x - pos.x) / 100
+		
+		-- not actually quite the sign of x nor y
+		local signx
+		if dx > 0 then
+			signx = 'to the right'
+		else
+			signx = 'to the left'
+		end
+		local signy
+		if dy > 0 then
+			signy = 'above'
+		else
+			signy = 'below'
+		end
+		dx = math.round(math.abs(dx), 2)
+		dy = math.round(math.abs(dy), 2)
+		
+		DD.messageClient(self.killer, DD.stringLocalize('serialKillerNearestTarget', {dx = dx, dy = dy, signx = signx, signy = signy}), {type = 'Dead', sender = '???'})
+	end,
+	
 	getShouldFinish = function (self)
 		-- guard clause
 		if self.killer == nil then
@@ -128,8 +172,16 @@ end, {
 				return
 			end
 			
-			local timeToExplode = 10 * 60 -- in seconds
-			DD.giveAfflictionCharacter(self.parent.killer.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
+			DD.giveAfflictionCharacter(self.parent.killer.Character, 'timepressure', 60/self.parent.timeToExplode/timesPerSecond)
+			
+			-- inform killer about nearest target location every minute
+			if self.parent.informKillerTargetLocationCooldown == nil then self.parent.informKillerTargetLocationCooldown = 30 * timesPerSecond end
+			if self.parent.informKillerTargetLocationCooldown > 0 then
+				self.parent.informKillerTargetLocationCooldown = self.parent.informKillerTargetLocationCooldown - 1
+			else
+				self.parent.informKillerTargetLocation()
+				self.parent.informKillerTargetLocationCooldown = 60 * timesPerSecond
+			end
 			
 			-- bloodlust when creepy mask is being worn
 			if DD.isClientCharacterAlive(self.parent.killer) and (self.parent.killer.Character.Inventory.GetItemAt(2) ~= nil) and (self.parent.mask.ID == self.parent.killer.Character.Inventory.GetItemAt(2).ID) then
@@ -160,6 +212,16 @@ end, {
 		end
 		if (character.LastAttacker == self.killer.Character) and (character.SpeciesName == 'human') then
 			self.killsLeftToWin = self.killsLeftToWin - 1
+			if DD.isClientCharacterAlive(self.killer) then
+				-- heal damage after kill
+				self.killer.Character.SetAllDamage(0, 0, 0)
+				self.killer.Character.Oxygen = 100
+				self.killer.Character.Bloodloss = 0
+				self.killer.Character.SetStun(0, true)
+				-- decrement time pressure after kill
+				local afflictionPerSecond = 60/self.timeToExplode
+				self.killer.Character.CharacterHealth.ReduceAfflictionOnAllLimbs('timepressure', (2 * 60) * afflictionPerSecond, nil, self.killer.Character)
+			end
 			-- Halloween SFX
 			for character in Character.CharacterList do
 				DD.giveAfflictionCharacter(character, 'killerfx', 999)

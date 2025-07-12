@@ -151,6 +151,7 @@ return {
 	serialKillerEndVictory = 'Serial killer has won this round! Round ending in 10 seconds.',
 	serialKillerEndArrested = 'The serial killer has been eliminated.',
 	serialKillerEnd = 'The serial killer has been arrested.',
+	serialKillerNearestTarget = 'The nearest prey is {dx} meters {signx} and {dy} meters {signy}.',
 	-- events/vip.lua
 	vipMessageBoss = 'You are now a VIP. A body guard, {guardName}, has been assigned to keep you safe from hostiles. Your pay grade has been raised.',
 	vipMessageBodyguard = 'You have been tasked with keeping VIP {vipName} alive at all costs. Failure will result in immediate termination. Your pay grade has been raised.',
@@ -165,6 +166,10 @@ return {
 	jobbanNoticeSingular = 'You have been banned from the {jobName} job because: {reason}.',
 	jobbanNoticePlural = 'You have been banned from {jobName} jobs because: {reason}.',
 	-- misc
+	above = 'above',
+	below = 'below',
+	toTheRight = 'to the right',
+	toTheLeft = 'to the left',
 	bodyguardDead = 'You have died and are not a body guard anymore!',
 	antagDead = 'You have died and are not an antagonist anymore!',
 	antagArrested = 'You have died and are not an antagonist anymore!',
