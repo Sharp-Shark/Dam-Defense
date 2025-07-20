@@ -91,20 +91,20 @@ local getInfoText = function (character, pov)
 		assignText('friendly', 2)
 	end
 	if characterHasRole(character, 'rebel') then
-		if characterHasRole(Character.Controlled, 'rebel') then
+		if characterHasRole(pov, 'rebel') then
 			assignText('comrade', 2)
 		elseif not character.Info.IsDisguisedAsAnother then
 			assignText('rebel', 2)
 		end
 	end
 	if characterHasRole(character, 'goon') then
-		if characterHasRole(Character.Controlled, 'boss') then
+		if characterHasRole(pov, 'boss') then
 			assignText('subordinate', 2)
 		else
 			assignText('comrade', 2)
 		end
 	end
-	if DD.isCharacterSecurity(character) and characterHasRole(Character.Controlled, 'rebel') then
+	if DD.isCharacterSecurity(character) and characterHasRole(pov, 'rebel') then
 		assignText('target', 1)
 	end
 	if character.IsOnFriendlyTeam(pov) then
@@ -114,7 +114,12 @@ local getInfoText = function (character, pov)
 			assignText('comrade', 2)
 		end
 	else
-		assignText('hostile', 2)
+		if (pov.TeamID == CharacterTeamType.Team2 and characterHasRole(character, 'rebel')) or
+		(character.TeamID == CharacterTeamType.Team2 and characterHasRole(pov, 'rebel')) then
+			assignText('comrade', 2)
+		else
+			assignText('hostile', 2)
+		end
 	end
 	if character.JobIdentifier == 'wizard' then
 		assignText('wizard', 3)

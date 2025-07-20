@@ -1,0 +1,51 @@
+﻿<Character ShowHealthBar="True" SpeciesName="Attackbot" SpeciesTranslationOverride="" DisplayName="" Group="human" Humanoid="False" HasInfo="False" CanInteract="True" CanClimb="True" Husk="False" UseHuskAppendage="False" NeedsAir="False" NeedsWater="False" CanSpeak="False" UseBossHealthBar="False" Noise="100" Visibility="100" BloodDecal="" BleedParticleAir="blooddrop" BleedParticleWater="waterblood" BleedParticleMultiplier="1" CanEat="False" EatingSpeed="10" UsePathFinding="True" PathFinderPriority="1" HideInSonar="False" HideInThermalGoggles="True" SonarDisruption="0" DistantSonarRange="0" DisableDistance="25000" SoundInterval="10" DrawLast="False" IsMachine="True">
+  <ragdolls folder="%ModDir%/Characters/Attackbot/Ragdolls/" />
+  <animations folder="%ModDir%/Characters/Attackbot/Animations/" />
+  <health Vitality="100" DoesBleed="False" crushdepth="Infinity" UseHealthWindow="False" BleedingReduction="0" BurnReduction="2" ConstantHealthRegeneration="2" HealthRegenerationWhenEating="0" StunImmunity="True" PoisonImmunity="True" ApplyAfflictionColors="False" empvulnerability="1">
+    <Limb>
+      <VitalityMultiplier type="burn" multiplier="0.5" />
+      <VitalityMultiplier identifier="gunshotwound" multiplier="0.5" />
+    </Limb>
+  </health>
+  <Inventory Slots="Any,Card" accessiblewhenalive="True">
+    <Item Identifier="attackbotammobox" slot="Any" />
+    <Item identifier="idcard" equip="true" />
+  </Inventory>
+  <ai UsePathFindingToGetInside="True" CombatStrength="125" Sight="2" Hearing="1" AggressionHurt="200" AggressionGreed="10" FleeHealthThreshold="0" AttackWhenProvoked="True" AvoidGunfire="False" DamageThreshold="10" AggressiveBoarding="True" EnforceAggressiveBehaviorForMissions="False" TargetOuterWalls="False" RandomAttack="False" CanOpenDoors="True" KeepDoorsClosed="False" StartAggression="0" MaxAggression="100" AggressionCumulation="0" WallTargetingMethod="Target">
+    <target tag="hostile" state="Attack" priority="100" ignoreifnotinsamesub="True" />
+    <target Tag="stronger" State="Aggressive" Priority="50" ReactDistance="1500" AttackDistance="1500" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" CircleRotationSpeed="1" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="weaker" State="Aggressive" Priority="50" ReactDistance="1500" AttackDistance="1500" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" CircleRotationSpeed="1" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="equal" State="Aggressive" Priority="50" ReactDistance="1500" AttackDistance="1500" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" CircleRotationSpeed="1" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="owner" State="Protect" Priority="10" ReactDistance="150" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" CircleRotationSpeed="1" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <petbehavior maxhappiness="100" happinessdecreaserate="0" hungerincreaserate="0" playforce="0" toggleowner="true" hidestatusindicators="true" playcooldown="0"/>
+  </ai>
+  <StatusEffect type="OnDeath" target="This" targetlimb="Torso">
+    <ParticleEmitter particle="shrapnel" anglemin="0" anglemax="360" particleamount="100" velocitymin="100" velocitymax="1000" scalemin="0.3" scalemax="0.5" />
+    <Explosion range="150" force="10" flash="true" shockwave="true" sparks="true" flames="true" smoke="true" underwaterbubble="true" structuredamage="0" itemdamage="200" decal="explosion" decalsize="0.3">
+      <Affliction identifier="explosiondamage" strength="50" />
+      <Affliction identifier="stun" strength="0.75" />
+    </Explosion>
+    <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" range="3000.0" selectionmode="Random" />
+    <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" range="3000.0" selectionmode="Random" />
+    <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" range="3000.0" selectionmode="Random" />
+  </StatusEffect>
+  <StatusEffect type="OnDeath" target="This">
+    <ParticleEmitter particle="ElectricShock" DistanceMin="10" DistanceMax="25" ParticleAmount="5" ScaleMin="0.1" ScaleMax="0.12" />
+  </StatusEffect>
+  <StatusEffect type="OnDeath" target="This" delay="0.2">
+    <ParticleEmitter drawontop="true" particle="spark" distancemin="0" distancemax="30" anglemin="0" anglemax="360" particlespersecond="10" velocitymin="50" velocitymax="100" scalemin="0.4" scalemax="0.7"/>
+    <ParticleEmitter drawontop="true" particle="swirlysmoke" particlespersecond="5" scalemin="1" scalemax="2" anglemin="0" anglemax="360" velocitymin="0" velocitymax="10" />
+  </StatusEffect>
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_idle1.ogg" State="Idle" Range="1000" Volume="1" Tags="" />
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_idle1.ogg" State="Idle" Range="1000" Volume="1" Tags="" />
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_idle1.ogg" State="Idle" Range="1000" Volume="1" Tags="" />
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_idle1.ogg" State="Idle" Range="1000" Volume="1" Tags="" /> 
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_damage1.ogg" State="Attack" Range="1000" Volume="1" Tags="" />
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_damage2.ogg" State="Attack" Range="1000" Volume="1" Tags="" />
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_damage3.ogg" State="Attack" Range="1000" Volume="1" Tags="" />
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_damage4.ogg" State="Attack" Range="1000" Volume="1" Tags="" /> 
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_interact1.ogg" State="Happy" Range="1000" Volume="1" Tags="" />
+  <!--interact2.ogg intentionally omitted, because decided to use it to indicate the state change (see the ragdoll file)-->
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_interact4.ogg" State="Happy" Range="1000" Volume="1" Tags="" />
+  <sound File="Content/Characters/Defensebot/DEFENCEBOT_interact3.ogg" State="Unhappy" Range="1000" Volume="1" Tags="" />
+</Character>

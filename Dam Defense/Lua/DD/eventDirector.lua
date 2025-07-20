@@ -21,6 +21,8 @@ require 'DD/events/deathSquad'
 require 'DD/events/election'
 require 'DD/events/wizard'
 require 'DD/events/chimera'
+require 'DD/events/attackbot'
+require 'DD/events/terrorist'
 
 -- Event director table
 DD.eventDirector = {}
@@ -50,6 +52,8 @@ DD.eventDirector.eventPool = {
 	DD.eventWizard,
 	DD.eventGang,
 	DD.eventChimera,
+	DD.eventAttackbot,
+	DD.eventTerrorist,
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}

@@ -71,6 +71,7 @@
   <Talent identifier="rebelknowledge">
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
 	
+    <AddedRecipe itemidentifier="suicidevest"/>
     <AddedRecipe itemidentifier="piratebodyarmor"/>
     <AddedRecipe itemidentifier="marksmanrifle"/>
     <AddedRecipe itemidentifier="separatistrifle"/>

@@ -729,6 +729,9 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			[DD.invSlots.innerclothes] = {orangejumpsuit2 = true}
 		},
 		-- event jobs
+		jet = {
+			[DD.invSlots.outerclothes] = {suicidevest = true},
+		},
 		wizard = {
 			[DD.invSlots.head] = {merasmushat = true},
 		},
@@ -784,6 +787,9 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') or (character.JobIdentifier == 'mercsevil') or (character.JobIdentifier == 'assistant') then
 				character.GiveTalent('daringdolphin', true)
 				character.GiveTalent('ballastdenizen', true)
+			end
+			if character.JobIdentifier == 'jet' then
+				character.GiveTalent('rebelknowledge', true)
 			end
 			if character.JobIdentifier == 'gangster' then
 				character.GiveTalent('gangknowledge', true)

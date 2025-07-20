@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="1.2.19" corepackage="False" steamworkshopid="3146664815" gameversion="1.9.8.0">
+<contentpackage name="Dam Defense" modversion="1.3.0" corepackage="False" steamworkshopid="3146664815" gameversion="1.9.8.0">
   <Other file="%ModDir%/CSharp/Client/DamDefense.cs" />
   <Text file="%ModDir%/Localizations/english.xml" />
   <Item file="%ModDir%/Items/Jerry.xml" />
@@ -15,16 +15,18 @@
   <Character file="%ModDir%/Characters/Humanhusk/Humanhusk.xml" />
   <Character file="%ModDir%/Characters/Husk/Husk.xml" />
   <Character file="%ModDir%/Characters/Husk_prowler/Husk_prowler.xml" />
+  <Character file="%ModDir%/Characters/Husk_chimera/Husk_chimera.xml" />
   <Character file="%ModDir%/Characters/Spitroach/Spitroach.xml" />
   <Character file="%ModDir%/Characters/Spitroach_hatchling/Spitroach_hatchling.xml" />
   <Character file="%ModDir%/Characters/Humantroll/Humantroll.xml" />
   <Character file="%ModDir%/Characters/Humangoblin/Humangoblin.xml" />
+  <Character file="%ModDir%/Characters/Attackbot/Attackbot.xml" />
   <Talents file="%ModDir%/Misc/Talents.xml" />
   <Jobs file="%ModDir%/Misc/Jobs.xml" />
   <Afflictions file="%ModDir%/Misc/Afflictions.xml" />
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />
-  <Submarine file="%ModDir%/Submarines/DD Cliffhanger.sub" />
   <Submarine file="%ModDir%/Submarines/DD Pioneer Point.sub" />
   <Submarine file="%ModDir%/Submarines/DD Olde Towne.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Cliffhanger.sub" />
   <Submarine file="%ModDir%/Submarines/DD Rising Tide.sub" />
 </contentpackage>

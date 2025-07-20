@@ -82,6 +82,8 @@ return {
 	arrestSillyCharge17 = 'being like, totally super lame bro',
 	arrestSillyCharge18 = 'cronic uncoolness',
 	arrestSillyCharge19 = 'skill issue',
+	-- events/attackbot.lua
+	airdropAttackbotMessage = 'An unindentified object has fallen from the sky! Intel suggests it is aggressive and will attack on sight.',
 	-- events/blackout.lua
 	blackoutMessage = 'Unusual magnetic interference is causing issues with eletrical systems. It is expected to go away on its own in {timer}.',
 	-- events/bloodCult.lua

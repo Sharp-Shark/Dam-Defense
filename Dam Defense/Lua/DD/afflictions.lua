@@ -188,10 +188,9 @@ DD.thinkFunctions.afflictions = function ()
 		if (affliction ~= nil) and (affliction.Strength <= 1) and (character.AnimController.OnGround or character.AnimController.InWater or character.AnimController.IsClimbing) then
 			affliction.SetStrength(0)
 		end
-		-- Handcuffed living characters can be dragged at full speed by anyone
+		-- Handcuffed living characters can be dragged at full speed by anyone (pets too)
 		local affliction = character.CharacterHealth.GetAffliction('firemanscarrytemporary', true)
-		if (character.SelectedCharacter ~= nil) and character.SelectedCharacter.IsHandcuffed and (not character.SelectedCharacter.IsDead) then
-			local affliction = character.CharacterHealth.GetAffliction('firemanscarrytemporary', true)
+		if (character.SelectedCharacter ~= nil) and (character.SelectedCharacter.IsHandcuffed or character.SelectedCharacter.IsPet) and (not character.SelectedCharacter.IsDead) then
 			if affliction ~= nil then
 				affliction.SetStrength(1)
 			else

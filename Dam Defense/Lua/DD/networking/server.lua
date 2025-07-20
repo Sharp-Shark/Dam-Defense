@@ -74,7 +74,7 @@ Networking.Receive("requestUpdateGUICharacterRole", function (message, client)
 		characterRole[tostring(client.Character.ID)][role] = true
 	end
 	for event in DD.eventDirector.events do
-		if (event.name == 'revolution') and (event.rebelsSet[client] or event.rebelsDoxHappened or not DD.isClientCharacterAlive(client)) then
+		if (event.name == 'revolution') and (event.rebelsSet[client] or (DD.isClientCharacterAlive(client) and client.Character.TeamID == CharacterTeamType.Team2) or event.rebelsDoxHappened or not DD.isClientCharacterAlive(client)) then
 			for rebel in event.rebels do
 				assignClientRole(rebel, 'rebel')
 			end

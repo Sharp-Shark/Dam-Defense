@@ -1039,6 +1039,16 @@ Hook.Add("character.created", 'DD.giveUndeadItems', function(createdCharacter)
 	end, 100)
 end)
 
+
+-- Set attack bot team
+Hook.Add("character.created", 'DD.setAttackBotTeam', function(createdCharacter)
+	if createdCharacter.SpeciesName ~= 'Attackbot' then return end
+	Timer.NextFrame(function ()
+		createdCharacter.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team2, true)
+		createdCharacter.UpdateTeam()
+	end)
+end)
+
 -- time pressure
 Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
@@ -1209,6 +1219,13 @@ end)
 Hook.Add("DD.invisibility.update", "DD.invisibility.update", function(effect, deltaTime, item, targets, worldPosition)
 	-- will do this later
 	-- used by "invisibility" affliction
+end)
+
+-- Suicide vest
+Hook.Add("DD.suicidevest", "DD.suicidevest", function(effect, deltaTime, item, targets, worldPosition)
+	if (item.ParentInventory == nil) or not LuaUserData.IsTargetType(item.ParentInventory.Owner, 'Barotrauma.Character') then
+		item.Condition = 0
+	end
 end)
 
 -- radiation

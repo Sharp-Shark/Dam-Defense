@@ -1693,6 +1693,43 @@
       </Item>
 	  <Item identifier="oxygentank"/>
     </ItemSet>
+	<!-- suicide -->
+	<ItemSet>
+      <Item identifier="idcard" equip="true">
+	    <!-- 12 nexcredits -->
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	  </Item>
+      <Item identifier="pirateclothes" equip="true" outfit="true" />
+      <Item identifier="autoinjectorheadset" equip="true">
+        <Item identifier="combatstimulantsyringe" />
+      </Item>
+      <Item identifier="jetmask" equip="true" />
+      <Item identifier="suicidevest" equip="true" />
+      <Item identifier="separatistrifle" equip="false">
+        <Item identifier="762magazine" />
+      </Item>
+      <Item identifier="762magazine" />
+      <Item identifier="762magazine" />
+      <Item identifier="762magazine" />
+      <Item identifier="762magazine" />
+      <Item identifier="762magazine" />
+      <Item identifier="midazolam"/>
+      <Item identifier="antidama1" />
+      <Item identifier="antidama1" />
+      <Item identifier="antibleeding1" />
+      <Item identifier="antibleeding1" />
+      <Item identifier="antibleeding1" />
+      <Item identifier="antibleeding1" />
+      <Item identifier="plasmacutter">
+        <Item identifier="oxygentank"/>
+      </Item>
+      <Item identifier="flashlight">
+        <Item identifier="batterycell" />
+      </Item>
+	  <Item identifier="oxygentank"/>
+	</ItemSet>
     <AutonomousObjectives>
       <Order identifier="fightintruders" prioritymodifier="1" />
       <Order identifier="rescue" prioritymodifier="0.5" />

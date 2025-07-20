@@ -1071,6 +1071,54 @@
         <QualityStat stattype="ExplosionDamage" value="0.1" />
       </Quality>
     </Item>
+	<!-- riot shield can be bought at securiy nexshop -->
+    <Item name="" identifier="riotshield" category="Equipment" tags="mediumitem" health="75" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true" scale="1" allowasextracargo="true">
+      <PreferredContainer primary="armcab" secondary="secarmcab"/>
+      <Price baseprice="360" sold="true" minleveldifficulty="50" >
+        <Price storeidentifier="merchantoutpost" multiplier="1.4" />
+        <Price storeidentifier="merchantcity" multiplier="1.25" />
+        <Price storeidentifier="merchantresearch" multiplier="1.25" />
+        <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.9" minavailable="0" maxavailable="2" />
+        <Price storeidentifier="merchantmine" multiplier="1.25" />
+      </Price>
+      <Deconstruct time="10">
+        <Item identifier="steel" />
+        <Item identifier="plastic" amount="2" />
+      </Deconstruct>
+        <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+          <RequiredItem tag="realmoney" amount="6" />
+        </Fabricate>
+      <Fabricate suitablefabricators="fabricator" requiredtime="10" requiresrecipe="true">
+        <RequiredSkill identifier="weapons" level="30" />
+        <RequiredItem identifier="steel" amount="2" />
+        <RequiredItem identifier="plastic" amount="3" />
+      </Fabricate>
+      <Fabricate suitablefabricators="fabricator" requiredtime="5" requiresrecipe="true" displayname="recycleitem">
+        <RequiredItem identifier="riotshield" amount="1" mincondition="0.0" maxcondition="0.9" usecondition="false" />
+        <RequiredItem identifier="steel" amount="1" />
+        <RequiredItem identifier="plastic" amount="1" />
+      </Fabricate>
+      <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="640,320,64,64" />
+      <Sprite texture="Content/Items/Jobgear/Security/riotgear.png" sourcerect="31,54,27,147" origin="0.5,0.5" depth="0.55" />
+      <Body height="120" radius="12" density="30" />
+      <Holdable slots="LeftHand" aimpos="50,-30" holdpos="35,-30" handle1="-10,0" handle2="-10,0" controlpose="true" blocksplayers="true" msg="ItemMsgPickUpSelect">
+        <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.6" setvalue="true" />
+        <StatusEffect type="OnBroken" target="This">
+          <particleemitter particle="shrapnel" drawontop="true" particleamount="15" velocitymin="100" velocitymax="500" anglemin="0" anglemax="360" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" />
+          <Sound file="Content/Sounds/Damage/ArmorBreak4.ogg" range="800" />
+          <Remove />
+        </StatusEffect>
+        <StatusEffect type="OnDamaged" target="This">
+          <particleemitter particle="weldspark" drawontop="true" particleamount="10" velocitymin="100" velocitymax="500" anglemin="-45" anglemax="45" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" copyentityangle="true" />
+          <Sound file="Content/Sounds/Damage/HitArmor1.ogg" range="800" forcePlaySounds="true"/>
+          <!-- an invisible explosion to make the user "flinch" -->
+          <Explosion range="100.0" force="1" showeffects="false" camerashake="1.0" />
+        </StatusEffect>
+      </Holdable>
+      <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+        <sprite name="Riot Shield Worn" texture="Content/Items/Jobgear/Security/riotgear.png" canbehiddenbyotherwearables="false" sourcerect="31,54,27,147" rotation="180" inheritlimbdepth="true" depth="0.6" limb="Torso" ignorelimbscale="true" scale="1" origin="-0.2,0.5" />
+      </Wearable>
+  </Item>
 	<!-- scope can be bought at securiy nexshop -->
     <Item identifier="scope" category="Equipment" Tags="smallitem" cargocontaineridentifier="metalcrate" allowasextracargo="true" scale="0.5" impactsoundtag="impact_metal_light">
       <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="512,384,64,64"/>
@@ -2644,6 +2692,44 @@
         </StatusEffect>
       </Projectile>
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    </Item>
+	<!-- depleted revolver rounds can NOT be bought at a nexshop -->
+    <Item name="" identifier="revolverrounddepletedfuel" variantof="revolverround" allowasextracargo="true" inventoryiconcolor="110,120,110,255" spritecolor="110,120,110">
+      <PreferredContainer primary="revolver" spawnprobability="0"/>
+      <PreferredContainer primary="armcab" spawnprobability="0"/>
+      <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab,piratesecarmcab" spawnprobability="0"/>
+      <PreferredContainer secondary="wreckarmcab,abandonedarmcab,piratearmcab" spawnprobability="0"/>
+      <PreferredContainer secondary="secarmcab" spawnprobability="0"/>
+      <PreferredContainer secondary="respawncontainer_kingofthehull" spawnprobability="0"/>
+      <Price baseprice="20" sold="false">
+        <Price storeidentifier="merchantoutpost" multiplier="1.4" />
+        <Price storeidentifier="merchantcity" />
+        <Price storeidentifier="merchantresearch" />
+        <Price storeidentifier="merchantmilitary" />
+        <Price storeidentifier="merchantmine" />
+      </Price>
+	  <ClearAll>
+	    <Fabricate />
+	  </ClearAll>
+      <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" amount="12">
+        <RequiredSkill identifier="weapons" level="30" />
+        <RequiredSkill identifier="electrical" level="30" />
+        <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
+        <RequiredItem identifier="depletedfuel" amount="1" />
+        <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
+      </Fabricate>
+      <Sprite texture="Content/Items/Weapons/weapons_new.png" />
+      <Projectile>
+        <ParticleEmitter colormultiplier="200,255,80,175" />
+        <Attack structuredamage="10" targetforce="10" itemdamage="10" severlimbsprobability="0.2" penetration="0.25">
+          <Affliction identifier="bleeding" strength="10" />
+          <Affliction identifier="gunshotwound" strength="35" />
+          <Affliction identifier="stun" strength="0.3" />
+          <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+            <Affliction identifier="radiationsickness" strength="16" />
+          </StatusEffect>
+        </Attack>
+      </Projectile>
     </Item>
     <!-- stungun darts can now be bought at a nexshop -->
     <Item name="" identifier="stungundart" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,stungunammo,handheldammo" Scale="0.5" impactsoundtag="impact_metal_light">
@@ -5168,7 +5254,7 @@
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="tommy.png" sourcerect="0,0,211,57" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.85" />
     </Wearable>
-    <RangedWeapon weapondamagemodifier="1.1" reload="0.12" holdtrigger="true" barrelpos="90,12" spread="5" unskilledspread="10" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon weapondamagemodifier="1.1" reload="0.13" holdtrigger="true" barrelpos="90,12" spread="5" unskilledspread="10" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -6321,6 +6407,88 @@
     </Wearable>
   </Item>
   
+  <!-- suicide vest is like a bandolier, but explodes when user dies -->
+  <Item name="" identifier="suicidevest" category="Equipment" tags="mediumitem,clothing" scale="0.5" cargocontaineridentifier="metalcrate" allowasextracargo="true" description="" impactsoundtag="impact_soft">
+    <Deconstruct time="20">
+      <RequiredItem identifier="organicfiber" />
+      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="copper" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1">
+      <RequiredItem tag="fakemoney" amount="12" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="bandolier" />
+      <RequiredItem identifier="detonator" />
+      <RequiredItem identifier="uex" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
+      <RequiredSkill identifier="weapons" level="20" />
+      <RequiredItem identifier="organicfiber" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="copper" />
+      <RequiredItem identifier="uex" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Items/suicidevest.png" sourcerect="75,0,48,61" origin="0.45,0.5" />
+    <Sprite texture="%ModDir%/Items/suicidevest.png" sourcerect="0,0,75,95" depth="0.6" origin="0.5,0.5" />
+    <Body radius="30" height="30" density="15" />
+    <Wearable slots="OuterClothes" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <damagemodifier afflictiontypes="burn" armorsector="0.0,360.0" damagemultiplier="0.925" />
+      <damagemodifier afflictionidentifiers="blunttrauma,lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.475" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds" armorsector="0.0,360.0" damagemultiplier="0.55" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.625" />
+      <SkillModifier skillidentifier="weapons" skillvalue="5" />
+      <sprite name="Suicide Vest" texture="%ModDir%/Items/suicidevest.png" limb="Torso" hidelimb="false" sourcerect="0,0,75,95" inherittexturescale="true" origin="0.45,0.6" />
+	  <!-- suicide vest -->
+      <StatusEffect type="OnWearing" target="This" condition="99" setvalue="true" disabledeltatime="true">
+	    <Conditional condition="gt 99" />
+	  </StatusEffect>
+      <StatusEffect type="Always" target="This" conditionalComparison="and">
+	    <Conditional condition="gt 0" />
+	    <Conditional condition="lt 100" />
+		<LuaHook name="DD.suicidevest" />
+	  </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character,This" condition="0" setvalue="true" disabledeltatime="true" conditionalComparison="and">
+	    <Conditional condition="gt 0" />
+	    <Conditional IsDead="true" />
+	  </StatusEffect>
+	  <!-- nokia -->
+      <StatusEffect type="OnBroken" target="This">
+        <sound file="%ModDir%/Sounds/nokia.ogg" range="3500" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This" delay="3">
+        <sound file="Content/Items/Weapons/ExplosionDebris5.ogg" range="3500" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This" delay="3">
+        <sound file="Content/Items/Weapons/ExplosionMedium1.ogg" range="5000" />
+        <sound file="Content/Items/Weapons/ExplosionMedium2.ogg" range="5000" />
+        <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="5000" />
+        <Explosion range="500.0" ballastfloradamage="100" structuredamage="150" itemdamage="500" force="15" severlimbsprobability="0.5" debris="true" decal="explosion" decalsize="0.5" penetration="0.5">
+          <!-- explosiondamage, burn and bleeding is like C-4 despite item being crafted using UEX -->
+		  <Affliction identifier="explosiondamage" strength="250" />
+          <Affliction identifier="burn" strength="15" probability="0.2" dividebylimbcount="false"/>
+          <Affliction identifier="bleeding" strength="40" probability="0.05" dividebylimbcount="false"/>
+          <Affliction identifier="stun" strength="7" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This" delay="3.1">
+        <Remove />
+      </StatusEffect>
+    </Wearable>
+    <!-- manual detonation -->
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.09,0.07" anchor="CenterLeft" pivot="BottomRight" relativeoffset="-0.025,0.093" style="ItemUI" />
+      <Button text="Detonate">
+        <StatusEffect type="OnUse" targettype="This" condition="0" setvalue="true" disabledeltatime="true">
+	      <Conditional condition="gt 0" />
+		</StatusEffect>
+      </Button>
+    </CustomInterface>
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
+  </Item>
+  
   <!-- NexSuit (like a PUCS) -->
   <Item name="Nexsuit" identifier="nexsuit" category="Equipment,Diving" tags="mediumitem,diving,deepdiving,divinggear_wearableindoors,provocative" allowasextracargo="true" scale="0.5" fireproof="true" description="" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="2">
     <PreferredContainer primary="divingsuitcontainer" spawnprobability="0.0" />
@@ -6445,6 +6613,55 @@
       </SubContainer>
     </ItemContainer>
   </Item>
+  
+  <!-- attack drone -->
+  <!-- Unlike defense bot, when crafted it will remain an item until deployed by a player -->
+  <Item name="" identifier="attackbotspawner" category="Machine" scale="1.2"  isshootable="true" >
+    <Sprite texture="%ModDir%/Characters/Attackbot/AttackBot.png" depth="0.55" sourcerect="0,192,64,64" origin="0.5,0.5" />
+    <Body width="64" height="32" density="30" />
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredItem tag="fakemoney" amount="20" />
+    </Fabricate>
+    <Holdable  slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect" aimpos="60,-30" handle1="-20,0" handle2="-20,20" aimable="true">
+	  <StatusEffect type="OnUse" targettype="This" condition="0" disabledeltatime="false">
+	    <Conditional condition="gt 0" />
+        <SpawnCharacter speciesname="Attackbot"/>
+        <RemoveItem />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <Item name="" identifier="attackbotround" category="Weapons,Machine" impactsoundtag="impact_metal_light" hideinmenus="true" scale="0.5">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="832,960,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="189,299,23,11" depth="0.55" origin="0.5,0.5" />
+    <Body width="40" height="14" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect"/>
+    <Projectile characterusable="false" hitscan="true" hitscancount="8" removeonhit="true" spread="15" penetration="0.5" >
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,175" scalemultiplier="1,0.6"/>
+      <Attack structuredamage="1" targetforce="4" itemdamage="2" severlimbsprobability="0.5">
+        <Affliction identifier="gunshotwound" strength="6" />
+        <Affliction identifier="bleeding" strength="4" />
+        <Affliction identifier="stun" strength="0.05" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure"/>
+        <Conditional hastag="eq door"/>
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+  <Item name="" identifier="attackbotammobox" maxstacksize="1" scale="0.3" category="Weapons,Machine" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,attackbotammo" impactsoundtag="impact_metal_light">
+    <PreferredContainer primary="attackbot" secondary="attackbot"/>
+    <Deconstruct time="10">
+      <Item identifier="aluminium"/>
+    </Deconstruct>
+    <Sprite texture="%ModDir%/Characters/Attackbot/AttackBot.png" depth="0.54" sourcerect="135,189,115,58" origin="0.5,0.5" />
+    <Body width="90" height="60" density="25" />
+    <Holdable slots="LeftHand,RightHand,Any" holdpos="0,-80" handle1="-40,30" handle2="40,30" aimable="false" msg="ItemMsgPickUpSelect"/>
+  </Item>
+  
   <!-- projectile launched by spitroaches -->
   <Item name="Spitroach Spit" identifier="spitroachspit" category="Misc" scale="0.35" sonarsize="2" hideinmenus="true">
     <Sprite texture="spitroach.png" sourcerect="114,0,42,49" depth="0.6" origin="0.5,0.5" />
@@ -6508,6 +6725,7 @@
       <sprite texture="Content/Items/CreatureLoot/CreatureLoot.png" depth="0.025" sourcerect="410,301,88,95" origin="0.5,0.6" alpha="1.0" />
     </LightComponent>
   </Item>
+  
   <!-- corpse -->
   <Item name="Corpse" identifier="corpse" sonarsize="2" tags="mediumitem,corpse" category="Misc" canbepicked="true" scale="0.5" impactsoundtag="impact_soft">
     <Deconstruct time="10" chooserandom="true" amount="2">
@@ -6536,6 +6754,7 @@
     <Body width="180" height="86" density="20" friction="1.0" restitution="0.01" angulardamping="1.0" />
     <Holdable slots="RightHand+LeftHand" holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false" msg="ItemMsgPickUpSelect" />
   </Item>
+  
   <!-- special effect -->
   <Item identifier="bloodcultfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
     <Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />

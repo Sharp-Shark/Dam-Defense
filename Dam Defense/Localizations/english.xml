@@ -33,6 +33,7 @@
   <roomname.clownroom>Clown room</roomname.clownroom>
   
   <character.spitroach>Spitroach</character.spitroach>
+  <character.attackbot>Attack Bot</character.attackbot>
   
   <Override>
   <!-- Mayor Job -->
@@ -134,6 +135,11 @@
   <!--<entitydescription.replaceme></entitydescription.replaceme>-->
   </Override>
   
+  <!-- attack bot -->
+  <entityname.attackbotspawner>Attack Bot</entityname.attackbotspawner>
+  <entitydescription.attackbotspawner>Build a deadly machine to kill with you.</entitydescription.attackbotspawner>
+  <entityname.attackbotammobox>Attack Bot Ammunition Rounds</entityname.attackbotammobox>
+  <entitydescription.attackbotammobox>Ammunition rounds for Attack Bot</entitydescription.attackbotammobox>
   <!-- Combustion Fuel -->
   <entityname.combustionfuel>Combustion Fuel</entityname.combustionfuel>
   <entitydescription.combustionfuel>A high quality combustion fuel for generators. Keep away from fire or heat.</entitydescription.combustionfuel>
@@ -403,6 +409,9 @@
   <!-- Gangster Crystal Meth -->
   <entityname.crystalmeth>Crystal Meth</entityname.crystalmeth>
   <entitydescription.crystalmeth>Only craftable by members of the gang associated with the color. Can be smoked with a captain's pipe to join a gang. All the benefits and health risks of smoking pipe tabacco and injecting meth.</entitydescription.crystalmeth>
+  <!-- Suicide Vest -->
+  <entityname.suicidevest>Suicide Vest</entityname.suicidevest>
+  <entitydescription.suicidevest>A bandolier full of explosives and electronics which explode when the wearer dies. Cannot be removed once equipped without it detonating.</entitydescription.suicidevest>
   <!-- Nexsuit -->
   <entityname.nexsuit>Nexsuit</entityname.nexsuit>
   <entitydescription.nexsuit>Nexpharma proprietary suit exclusive to their elite paramilitary group, the Mobile Emergency Rescue and Combat Squad, or MERCS. In actuality, it's just a PUCS adapted for combat.</entitydescription.nexsuit>
