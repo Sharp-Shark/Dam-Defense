@@ -6,7 +6,7 @@
   <bloodemitter Particle="blackblood" AngleMin="0" AngleMax="0" ScaleMin="1" ScaleMax="1" VelocityMin="0" VelocityMax="0" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="5" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
   <bloodemitter Particle="blackwaterblood" AngleMin="0" AngleMax="0" ScaleMin="1" ScaleMax="1" VelocityMin="0" VelocityMax="0" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="1" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
   <gibemitter Particle="blackgib" AngleMin="0" AngleMax="360" ScaleMin="0.3" ScaleMax="0.6" VelocityMin="200" VelocityMax="500" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="10" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
-  <health minvitality="-100" Vitality="1500" DoesBleed="True" CrushDepth="Infinity" UseHealthWindow="False" BleedingReduction="10" BurnReduction="0.2" ConstantHealthRegeneration="1" HealthRegenerationWhenEating="8" StunImmunity="False" PoisonImmunity="False" PoisonVulnerability="0.4" EmpVulnerability="0" ApplyMovementPenalties="False" DieFromBeheading="False" AllowSeveringLegs="True" ApplyAfflictionColors="False" Immunities="">
+  <health minvitality="-100" Vitality="1200" DoesBleed="True" CrushDepth="Infinity" UseHealthWindow="False" BleedingReduction="5" BurnReduction="0.1" ConstantHealthRegeneration="0.5" HealthRegenerationWhenEating="4" StunImmunity="False" PoisonImmunity="False" PoisonVulnerability="0.2" EmpVulnerability="0" ApplyMovementPenalties="False" DieFromBeheading="False" AllowSeveringLegs="True" ApplyAfflictionColors="False" Immunities="">
     <Limb name="Torso">
       <VitalityMultiplier type="damage" multiplier="1.0" />
       <VitalityMultiplier type="burn" multiplier="2.0" />
