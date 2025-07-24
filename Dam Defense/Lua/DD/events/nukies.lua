@@ -13,7 +13,7 @@ end, {
 	cooldown = 60 * 6,
 	weight = 3,
 	goodness = -4,
-	minimunDeadPercentage = 0.2,
+	minimunDeadPercentage = 0.1,
 	minimunTimeElapsed = 12 * 60,
 	
 	respawnTickets = 0,
@@ -44,14 +44,6 @@ end, {
 	onStart = function (self)
 		self.nukiesWon = false
 		self.respawnTickets = 0
-	
-		-- Find reactors
-		self.reactors = {}
-		for item in Submarine.MainSub.GetItems(false) do
-			if item.HasTag('reactor') then
-				table.insert(self.reactors, item)
-			end
-		end
 		
 		-- Pick nukies
 		if self.nukies == nil then
@@ -81,7 +73,7 @@ end, {
 				else
 					DD.messageClient(client, DD.stringLocalize('nukiesMessagePublic'), {preset = 'crit'})
 				end
-				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'announcementfx', 999) end
 			end
 		end
 	end,
@@ -92,7 +84,7 @@ end, {
 	
 		-- See if any reactor is unbroken
 		local anyReactorIsUnbroken = false
-		for reactor in self.reactors do
+		for reactor in DD.reactors do
 			if reactor.Condition > 0 then
 				anyReactorIsUnbroken = true
 				break

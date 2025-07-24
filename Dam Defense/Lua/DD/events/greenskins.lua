@@ -14,7 +14,7 @@ end, {
 	cooldown = 60 * 6,
 	weight = 3,
 	goodness = -5,
-	minimunDeadPercentage  = 0.2,
+	minimunDeadPercentage  = 0.1,
 	minimunTimeElapsed = 20 * 60,
 	
 	lateJoinSpawn = function (self, client)

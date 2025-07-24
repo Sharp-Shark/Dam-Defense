@@ -1188,7 +1188,7 @@
       <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
         <sprite texture="jetshotgun.png" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" sourcerect="0,0,216,60" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.45,0.88" />
       </Wearable>
-      <RangedWeapon barrelpos="70,12" spread="0.1" unskilledspread="3" combatPriority="80" reload="1" drawhudwhenequipped="true" crosshairscale="0.2">
+      <RangedWeapon barrelpos="70,12" spread="0.1" unskilledspread="3" combatPriority="80" reload="0.9" drawhudwhenequipped="true" crosshairscale="0.2">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
         <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
         <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -1249,7 +1249,7 @@
       <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
         <sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="262,70,184,51" canbehiddenbyotherwearables="false" rotation="85" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.45,1.0" />
       </Wearable>
-      <RangedWeapon barrelpos="85,10" spread="1" unskilledspread="4" combatPriority="80" reload="0.1" drawhudwhenequipped="true" crosshairscale="0.2">
+      <RangedWeapon barrelpos="85,10" weapondamagemodifier="0.8" spread="1" unskilledspread="4" combatPriority="80" reload="0.1" drawhudwhenequipped="true" crosshairscale="0.2">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
         <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
         <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -1262,8 +1262,8 @@
           <Explosion range="150.0" force="3" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
         </StatusEffect>
         <!-- only 2 shots can be fired at the 0.1 interval, after that you need to wait 1 second -->
-        <StatusEffect type="OnUse" target="This" reload="1.5" setvalue="true" delay="0.05" />
-        <StatusEffect type="OnUse" target="This" reload="0.1" setvalue="true" delay="1.5" />
+        <StatusEffect type="OnUse" target="This" reload="2.0" setvalue="true" delay="0.05" />
+        <StatusEffect type="OnUse" target="This" reload="0.1" setvalue="true" delay="2.0" />
         <!-- Cocking sound, delayed by 1.0 seconds. -->
         <StatusEffect type="OnUse" target="This" delay="0.8">
           <Sound file="Content/Items/Weapons/ShotgunLoad1.ogg" type="OnUse" range="500" selectionmode="Random" />
@@ -4816,7 +4816,7 @@
     <Sprite texture="foldableshotgun.png" sourcerect="0,0,220,56" depth="0.55" origin="0.5,0.25" />
     <Body width="180" height="30" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="40,-10" aimpos="55,-8" handle1="-40,-18" handle2="25,0" holdangle="-40" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon barrelpos="80,-15" spread="0.1" unskilledspread="3" combatPriority="80" weapondamagemodifier="1.2" reload="1.2" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon barrelpos="80,-15" spread="0.1" unskilledspread="3" combatPriority="80" weapondamagemodifier="1.15" reload="1" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -5456,7 +5456,7 @@
     <Body width="28" height="40" density="25" />
     <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="pistolround" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
       <Containable items="pistolround" />
-      <StatusEffect type="OnUse" target="This" condition="-1.65" disabledeltatime="true">
+      <StatusEffect type="OnUse" target="This" condition="-2" disabledeltatime="true">
         <SpawnItem identifiers="pistolround" spawnposition="ThisInventory" />
       </StatusEffect>
     </ItemContainer>

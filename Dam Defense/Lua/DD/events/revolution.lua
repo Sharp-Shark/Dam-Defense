@@ -180,7 +180,10 @@ end, {
 					end
 					-- Rebel message
 					DD.messageClient(client, DD.stringLocalize('revolutionMessageSecret', {timer = DD.numberToTime(self.stateStartInitialTimer), rebelList = rebelList}), {preset = 'crit'})
-					if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
+					-- Sound effect
+					Timer.Wait(function ()
+						if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'revolutionfx', 999) end
+					end, 1000)
 				end
 			end
 		end
@@ -199,7 +202,7 @@ end, {
 			for client in Client.ClientList do
 				if rebelsSet[client] then
 					DD.messageClient(client, DD.stringLocalize('revolutionMessageRebels', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
-				elseif (client.Character ~= nil) and DD.isClientAntagExempt(client) then
+				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client) then
 					-- Sec message
 					DD.messageClient(client, DD.stringLocalize('revolutionMessageSecurity', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
 				else

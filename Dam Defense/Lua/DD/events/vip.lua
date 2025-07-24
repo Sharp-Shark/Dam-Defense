@@ -12,7 +12,7 @@ end, {
 	cooldown = 60 * 3,
 	weight = 2,
 	goodness = 1,
-	minimunDeadPercentage = 0.05,
+	minimunDeadPercentage = 0.01,
 	
 	onStart = function (self)
 		if self.vip == nil then

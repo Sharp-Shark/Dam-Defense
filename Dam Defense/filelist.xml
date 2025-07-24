@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="1.3.2" corepackage="False" steamworkshopid="3146664815" gameversion="1.9.8.0">
+<contentpackage name="Dam Defense" modversion="1.3.3" corepackage="False" steamworkshopid="3146664815" gameversion="1.9.8.0">
   <Other file="%ModDir%/CSharp/Client/DamDefense.cs" />
   <Text file="%ModDir%/Localizations/english.xml" />
   <Item file="%ModDir%/Items/Jerry.xml" />
@@ -22,6 +22,7 @@
   <Character file="%ModDir%/Characters/Humangoblin/Humangoblin.xml" />
   <Character file="%ModDir%/Characters/Attackbot/Attackbot.xml" />
   <Talents file="%ModDir%/Misc/Talents.xml" />
+  <TalentTrees file="%ModDir%/Misc/TalentTrees.xml" />
   <Jobs file="%ModDir%/Misc/Jobs.xml" />
   <Afflictions file="%ModDir%/Misc/Afflictions.xml" />
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />

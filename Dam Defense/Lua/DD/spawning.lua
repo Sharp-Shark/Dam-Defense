@@ -34,7 +34,10 @@ DD.autoJob = function ()
 	for client in Client.ClientList do
 		clientPreferredJobsSet[client] = {}
 		for index, jobVariant in pairs(client.JobPreferences) do
-			clientPreferredJobsSet[client][tostring(jobVariant.Prefab.Identifier)] = true
+			local job = tostring(jobVariant.Prefab.Identifier)
+			if job ~= 'mechanic' then
+				clientPreferredJobsSet[client][job] = true
+			end
 		end
 	end
 	

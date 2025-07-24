@@ -262,15 +262,15 @@
       <Item identifier="bluejumpsuit1" equip="true" outfit="true"/>
       <Item identifier="baseballcap" equip="true" />
       <Item identifier="toolbelt" equip="true"/>
+      <Item identifier="pipegun" >
+		<Item identifier="shotgunshell"/>
+	  </Item>
       <Item identifier="weldingtool" >
 		<Item identifier="weldingfueltank"/>
 	  </Item>
-      <Item identifier="wrench"/>
-      <Item identifier="screwdriver"/>
       <Item identifier="flashlight" >
 		<Item identifier="batterycell"/>
 	  </Item>
-      <Item identifier="proteinbar"/>
       <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
@@ -311,11 +311,11 @@
       <Item identifier="ironhelmet" equip="true" />
       <Item identifier="toolbelt" equip="true"/>
       <Item identifier="baseballbat"/>
-      <Item identifier="wrench"/>
-      <Item identifier="crowbar"/>
+      <Item identifier="screwdriver"/>
       <Item identifier="flashlight" >
 		<Item identifier="batterycell"/>
 	  </Item>
+      <Item identifier="proteinbar"/>
       <Item identifier="energydrink"/>
       <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
@@ -1196,7 +1196,7 @@
   
   <Override>
   <Job identifier="assistant"
-       minkarma="0" maxnumber="2"
+       minkarma="0" maxnumber="0"
 	   uicolor="1.0,0.5,0.3"
        vitalitymodifier="0"
        pricemultiplier="1"

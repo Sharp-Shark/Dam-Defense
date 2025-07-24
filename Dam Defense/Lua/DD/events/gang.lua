@@ -11,7 +11,7 @@ end, {
 	cooldown = 60 * 4,
 	weight = 2,
 	goodness = -2,
-	minimunDeadPercentage = 0.05,
+	minimunDeadPercentage = 0.01,
 	
 	removeClientFromGang = function (self, client, treason)
 		-- remove from gang
@@ -57,6 +57,13 @@ end, {
 		
 		-- message recruited client
 		DD.messageClient(client, DD.stringLocalize('gangGangsterInfo', {bossName = self.bossName, gangName = self.gangName}), {preset = 'crit'})
+		
+		-- do gang effect
+		Timer.Wait(function ()
+			if DD.isClientCharacterAlive(client) then
+				DD.giveAfflictionCharacter(character, 'gangfx', 999)
+			end
+		end, 1000)
 		
 		-- reset pulmonary emphysema
 		local affliction = client.Character.CharacterHealth.GetAffliction('pulmonaryemphysema', true)

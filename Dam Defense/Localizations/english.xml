@@ -335,7 +335,7 @@
   <entityname.tommygun>Tommy Gun</entityname.tommygun>
   <entitydescription.tommygun>A 9mm convertion of an antique submachine gun usually associated with the mafia or any other lavish criminals. Bolsters an impressive rate of fire and fine finish.</entitydescription.tommygun>
   <entityname.pistoldrum>Tommy Gun Drum</entityname.pistoldrum>
-  <entitydescription.pistoldrum>A magazine for the tommy gun containing 60 rounds of 9mm.</entitydescription.pistoldrum>
+  <entitydescription.pistoldrum>A magazine for the tommy gun containing 50 rounds of 9mm.</entitydescription.pistoldrum>
   <!-- UZI -->
   <entityname.uzi>UZI</entityname.uzi>
   <entitydescription.uzi>Only craftable by gang members. A very light 9mm submachine gun with a foldable stock. This bullet hose fires faster than you can count.</entitydescription.uzi>

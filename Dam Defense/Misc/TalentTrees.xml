@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TalentTrees>
+  <TalentTree jobidentifier="janitor">
+    <SubTree identifier="janitor_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="3" maxchosentalents="3">
+        <TalentOption identifier="janitorialknowledge"/>
+        <TalentOption identifier="greenthumb"/>
+        <TalentOption identifier="firemanscarry"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
+  <TalentTree jobidentifier="clown">
+    <SubTree identifier="clown_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="2" maxchosentalents="2">
+        <TalentOption identifier="unlockallrecipes"/>
+        <TalentOption identifier="skedaddle"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
+  <TalentTree jobidentifier="foreman">
+    <SubTree identifier="foreman_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="2" maxchosentalents="2">
+        <TalentOption identifier="unstoppablecuriosity"/>
+        <TalentOption identifier="engineeringknowledge"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
+  <TalentTree jobidentifier="diver">
+    <SubTree identifier="diver_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="2" maxchosentalents="2">
+        <TalentOption identifier="daringdolphin"/>
+        <TalentOption identifier="ballastdenizen"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
+  <TalentTree jobidentifier="researcher">
+    <SubTree identifier="researcher_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="2" maxchosentalents="2">
+        <TalentOption identifier="dontdieonme"/>
+        <TalentOption identifier="firemanscarry"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
+  <TalentTree jobidentifier="gangster">
+    <SubTree identifier="gangster_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="2" maxchosentalents="2">
+        <TalentOption identifier="drunkensailor"/>
+        <TalentOption identifier="gangknowledge"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
+  <TalentTree jobidentifier="jet">
+    <SubTree identifier="jet_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="3" maxchosentalents="3">
+        <TalentOption identifier="daringdolphin"/>
+        <TalentOption identifier="ballastdenizen"/>
+        <TalentOption identifier="rebelknowledge"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
+  <TalentTree jobidentifier="mercs">
+    <SubTree identifier="mercs_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="2" maxchosentalents="2">
+        <TalentOption identifier="daringdolphin"/>
+        <TalentOption identifier="ballastdenizen"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
+  <TalentTree jobidentifier="mercsevil">
+    <SubTree identifier="mercsevil_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="2" maxchosentalents="2">
+        <TalentOption identifier="daringdolphin"/>
+        <TalentOption identifier="ballastdenizen"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+</TalentTrees>

@@ -74,6 +74,13 @@ DD.roundStartFunctions.main = function ()
 			-- lock sub
 			Submarine.MainSub.LockX = true
 			Submarine.MainSub.LockY = true
+			-- find reactors
+			DD.reactors = {}
+			for item in Submarine.MainSub.GetItems(false) do
+				if item.HasTag('reactor') then
+					table.insert(DD.reactors, item)
+				end
+			end
 		end
 		
 		-- automations for sub editor
@@ -232,6 +239,15 @@ DD.thinkFunctions.main = function ()
 	
 	if #Client.ClientList == 1 then return end
 	
+	-- Skip round end checks if certain events are happening
+	local set = {
+		[DD.eventNukies.tbl.name] = true,
+		[DD.eventDeathSquad.tbl.name] = true,
+	}
+	for event in DD.eventDirector.events do
+		if set[event.name] and event.started and not event.finished then print('test') return end
+	end
+	
 	-- End round if everyone is dead
 	local anyHumanAlive = false
 	for client in Client.ClientList do
@@ -246,6 +262,23 @@ DD.thinkFunctions.main = function ()
 		Timer.Wait(function ()
 			Game.EndGame()
 		end, 10 * 1000)
+		return
+	end
+	-- End round if all reactors are broken
+	local anyReactorIsUnbroken = false
+	for reactor in DD.reactors do
+		if reactor.Condition > 0 then
+			anyReactorIsUnbroken = true
+			break
+		end
+	end
+	if not anyReactorIsUnbroken then
+		DD.messageAllClients(DD.stringLocalize('allReactorsAreBroken'), {preset = 'crit'})
+		DD.roundData.roundEnding = true
+		Timer.Wait(function ()
+			Game.EndGame()
+		end, 10 * 1000)
+		return
 	end
 end
 
@@ -765,34 +798,28 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 		end)
 	end
 	-- Give Talents
+	local jobTalents = {
+		captain = {'drunkensailor'},
+		diver = {'daringdolphin', 'ballastdenizen'},
+		securityofficer = {'physicalconditioning'},
+		foreman = {'daringdolphin', 'ballastdenizen', 'unstoppablecuriosity', 'engineeringknowledge'},
+		engineer = {'daringdolphin', 'ballastdenizen', 'unstoppablecuriosity', 'engineeringknowledge'},
+		researcher = {'dontdieonme', 'firemanscarry'},
+		medicaldoctor = {'dontdieonme', 'firemanscarry'},
+		janitor = {'janitorialknowledge', 'greenthumb', 'firemanscarry'},
+		mechanic = {'unlockallrecipes', 'miner'},
+		clown = {'unlockallrecipes', 'skedaddle'},
+		assistant = {'unlockallrecipes', 'skedaddle'},
+		-- event jobs
+		gangster = {'drunkensailor', 'gangknowledge'},
+		jet = {'daringdolphin', 'ballastdenizen', 'rebelknowledge'},
+		mercs = {'daringdolphin', 'ballastdenizen'},
+		mercsevil = {'daringdolphin', 'ballastdenizen'},
+	}
 	if character.SpeciesName == 'human' then
 		Timer.Wait(function ()
-			if (character.JobIdentifier == 'mechanic') or (character.JobIdentifier == 'clown') or (character.JobIdentifier == 'assistant') then
-				character.GiveTalent('unlockallrecipes', true)
-			end
-			if (character.JobIdentifier == 'janitor') then
-				character.GiveTalent('janitorialknowledge', true)
-				character.GiveTalent('greenthumb', true)
-			end
-			if (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') then
-				character.GiveTalent('unstoppablecuriosity', true)
-				character.GiveTalent('engineeringknowledge', true)
-			end
-			if (character.JobIdentifier == 'captain') or (character.JobIdentifier == 'gangster') or (character.JobIdentifier == 'assistant') then
-				character.GiveTalent('drunkensailor', true)
-			end
-			if DD.isCharacterMedical(character) or (character.JobIdentifier == 'janitor') or (character.JobIdentifier == 'assistant') then
-				character.GiveTalent('firemanscarry', true)
-			end
-			if (character.JobIdentifier == 'diver') or (character.JobIdentifier == 'engineer') or (character.JobIdentifier == 'foreman') or (character.JobIdentifier == 'jet') or (character.JobIdentifier == 'mercsevil') or (character.JobIdentifier == 'assistant') then
-				character.GiveTalent('daringdolphin', true)
-				character.GiveTalent('ballastdenizen', true)
-			end
-			if character.JobIdentifier == 'jet' then
-				character.GiveTalent('rebelknowledge', true)
-			end
-			if character.JobIdentifier == 'gangster' then
-				character.GiveTalent('gangknowledge', true)
+			for talent in jobTalents[tostring(character.JobIdentifier)] do
+				character.GiveTalent(talent, true)
 			end
 		end, 1000)
 	end

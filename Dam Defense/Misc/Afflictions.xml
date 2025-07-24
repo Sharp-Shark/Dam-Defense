@@ -211,6 +211,17 @@
 	</Effect>
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
+  
+  <!-- revolution effect, play a sound effect -->
+  <Affliction name="Revolution FX" identifier="revolutionfx" description="" type="fx" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
+    <Effect minstrength="0" maxstrength="10" strengthchange="-10.0" >
+      <StatusEffect target="Character">
+        <Conditional IsLocalPlayer="True"/>
+        <Sound file="%ModDir%/Sounds/revolution.ogg" loop="false" volume="12.0" />
+      </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
 
   <!-- enlightened effect, play a sound effect and flashes an image -->
   <Affliction name="Enlightened FX" identifier="enlightenedfx" description="" type="fx" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">

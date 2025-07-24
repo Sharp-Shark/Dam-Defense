@@ -14,7 +14,7 @@ end, {
 	cooldown = 60 * 6,
 	weight = 4,
 	goodness = -5,
-	minimunDeadPercentage  = 0.2,
+	minimunDeadPercentage  = 0.1,
 	minimunTimeElapsed = 20 * 60,
 	
 	lateJoinBlacklistSet = {},
@@ -36,14 +36,6 @@ end, {
 	
 	onStart = function (self)
 		self.nukiesWon = false
-	
-		-- Find reactors
-		self.reactors = {}
-		for item in Submarine.MainSub.GetItems(false) do
-			if item.HasTag('reactor') then
-				table.insert(self.reactors, item)
-			end
-		end
 		
 		-- Pick nukies
 		if self.nukies == nil then
@@ -86,7 +78,7 @@ end, {
 	
 		-- See if any reactor is unbroken
 		local anyReactorIsUnbroken = false
-		for reactor in self.reactors do
+		for reactor in DD.reactors do
 			if reactor.Condition > 0 then
 				anyReactorIsUnbroken = true
 				break

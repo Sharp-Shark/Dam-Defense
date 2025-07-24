@@ -12,7 +12,7 @@ end, {
 	cooldown = 60 * 2,
 	weight = 2,
 	goodness = 3,
-	minimunDeadPercentage = 0.1,
+	minimunDeadPercentage = 0.01,
 	minimunTimeElapsed = 12 * 60,
 	
 	onStart = function (self)

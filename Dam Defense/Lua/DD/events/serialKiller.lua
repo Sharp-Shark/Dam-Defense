@@ -118,7 +118,7 @@ end, {
 			return
 		else
 			DD.messageClient(self.killer, DD.stringLocalize('serialKillerMessageSecret', {timer = DD.numberToTime(self.stateStartInitialTimer)}), {preset = 'crit'})
-			if self.killer.Character ~= nil then DD.giveAfflictionCharacter(self.killer.Character, 'notificationfx', 999) end
+			if self.killer.Character ~= nil then DD.giveAfflictionCharacter(self.killer.Character, 'killerfx', 999) end
 		end
 	end,
 	

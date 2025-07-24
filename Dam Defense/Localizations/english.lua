@@ -4,6 +4,7 @@ return {
 	deathMessage = 'You have died! You can type /possess in chat to control a creature. Do /freecam to go back to spectating. If you want a full list of commands, do /help in chat.',
 	matchHasGoneOnForTooLong = 'The match has gone on for too long and respawning has been automatically disabled.',
 	allTheCrewIsDead = 'All of the crew is dead! Round ending in 10 seconds.',
+	allReactorsAreBroken = 'The dam has been destroyed! Round ending in 10 seconds.',
 	commandHelp = 'List of chat commands:\n{list}',
 	commandHelpMisspell = '"{command}" is not a valid chat command. Do "/help" for a list of chat commands.',
 	commandHelpInvalid = '"{command}" is a valid chat command, but it is unusable by you in the current context. Do "/help" for a list of chat commands.',
