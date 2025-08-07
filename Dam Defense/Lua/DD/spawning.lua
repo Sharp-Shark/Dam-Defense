@@ -1,5 +1,3 @@
-DD.jobBans = {}
-
 if CLIENT then return end
 
 DD.lateJoinBlacklistSet = {}
@@ -11,11 +9,6 @@ DD.roundEndFunctions.spawning = function ()
 	
 	DD.autoJobExecutionCount = 0
 	DD.clientJob = {}
-end
-
-DD.isClientBannedFromJob = function (client, job)
-	if DD.jobBans[client.AccountId.StringRepresentation] == nil then return false end
-	return DD.jobBans[client.AccountId.StringRepresentation][job]
 end
 
 DD.autoJob = function ()

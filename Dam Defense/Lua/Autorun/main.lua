@@ -245,7 +245,7 @@ DD.thinkFunctions.main = function ()
 		[DD.eventDeathSquad.tbl.name] = true,
 	}
 	for event in DD.eventDirector.events do
-		if set[event.name] and event.started and not event.finished then print('test') return end
+		if set[event.name] and event.started and not event.finished then return end
 	end
 	
 	-- End round if everyone is dead

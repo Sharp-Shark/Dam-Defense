@@ -82,6 +82,13 @@ DD.clientLogName = function (client)
 	return text
 end
 
+-- Job ban
+DD.jobBans = {}
+DD.isClientBannedFromJob = function (client, job)
+	if DD.jobBans[client.AccountId.StringRepresentation] == nil then return false end
+	return DD.jobBans[client.AccountId.StringRepresentation][job]
+end
+
 -- Categories
 DD.entityCategories = {
 	structure = 0,

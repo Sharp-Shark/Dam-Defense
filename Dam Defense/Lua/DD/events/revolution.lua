@@ -202,7 +202,7 @@ end, {
 			for client in Client.ClientList do
 				if rebelsSet[client] then
 					DD.messageClient(client, DD.stringLocalize('revolutionMessageRebels', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
-				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client) then
+				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
 					-- Sec message
 					DD.messageClient(client, DD.stringLocalize('revolutionMessageSecurity', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
 				else

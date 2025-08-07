@@ -18,7 +18,8 @@ end, {
 	onStart = function (self)
 		if self.mercs == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
-				if (not DD.isClientCharacterAlive(client)) and client.InGame and DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then
+				if (not DD.isClientCharacterAlive(client)) and client.InGame and DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation] and
+				(not DD.isClientBannedFromJob(client, 'captain')) then
 					self.mercs = client
 					break
 				end
