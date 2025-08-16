@@ -62,7 +62,9 @@ DD.autoJob = function ()
 	local assignClientJob = function (client, job, ignore)
 		if DD.antagSafeJobs[job] and (antagSafeCap <= 0) and (not ignore) then return end
 		DD.clientJob[client] = job
-		jobsLeft[job] = jobsLeft[job] - 1
+		if jobsLeft[job] ~= nil then
+			jobsLeft[job] = jobsLeft[job] - 1
+		end
 		if DD.antagSafeJobs[job] then
 			antagSafeCap = antagSafeCap - 1
 		end

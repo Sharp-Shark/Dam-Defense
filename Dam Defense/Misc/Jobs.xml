@@ -323,6 +323,30 @@
         <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
       </PreviewSprites>
     </ItemSet>
+    <ItemSet>
+      <Item identifier="idcard" equip="true">
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	  </Item>
+      <Item identifier="commonerclothes4" equip="true" outfit="true"/>
+      <Item identifier="captainscap2" equip="true" />
+      <Item identifier="toolbelt" equip="true"/>
+      <Item identifier="bandolier" equip="true"/>
+      <Item identifier="brassknuckle"/>
+      <Item identifier="brassknuckle"/>
+      <Item identifier="flashlight" >
+		<Item identifier="batterycell"/>
+	  </Item>
+      <Item identifier="meth"/>
+      <Item identifier="cigar"/>
+      <Item identifier="disposabledivingmask"/>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
     <AutonomousObjectives>
       <Order identifier="fixleaks" prioritymodifier="1"/>
       <Order identifier="repairmechanical" prioritymodifier="1"/>
@@ -1216,24 +1240,10 @@
     </Skills>
     <ItemSet>
       <Item identifier="idcard" equip="true" />
-      <Item identifier="divingmask" equip="true" />
+      <Item identifier="divingmask" equip="true">
+        <Item identifier="oxygentank"/>
+	  </Item>
       <Item identifier="prisonerclothes" equip="true" outfit="true"/>
-      <Item identifier="crowbar"/>
-      <Item identifier="cigar"/>
-      <Item identifier="oxygentank"/>
-      <PreviewSprites dims="120,109">
-        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
-        <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
-      </PreviewSprites>
-    </ItemSet>
-    <ItemSet>
-      <Item identifier="idcard" equip="true" />
-      <Item identifier="captainscap2" equip="true" />
-      <Item identifier="prisonerclothes" equip="true" outfit="true"/>
-      <Item identifier="brassknuckle"/>
-      <Item identifier="brassknuckle"/>
-      <Item identifier="meth"/>
-      <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -1568,6 +1578,7 @@
       </Item>
       <Item identifier="pistoldrum" />
       <Item identifier="pistoldrum" />
+      <Item identifier="spyknife" />
       <Item identifier="flashlight" >
 		<Item identifier="batterycell"/>
 	  </Item>

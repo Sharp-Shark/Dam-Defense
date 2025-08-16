@@ -610,6 +610,20 @@ Hook.Add("DD.brassknuckle.disarm", "DD.brassknuckle.disarm", function(effect, de
 	item.Drop(character, true, true)
 end)
 
+-- spy knife
+Hook.Add("DD.spyknife.stab", "DD.spyknife.stab", function(effect, deltaTime, item, targets, worldPosition)
+	local user = effect.user
+	local target = targets[1]
+	if (LuaUserData.TypeOf(target) == 'Barotrauma.Character') or (LuaUserData.TypeOf(target) == 'Barotrauma.AICharacter') then
+		if (item.Condition >= 100) and (not target.InWater) and (target.Vitality > 0) and
+		((math.sign(target.WorldPosition.x - user.WorldPosition.x) == target.AnimController.Dir) or (target.Stun > 1)) then
+			DD.giveAfflictionCharacter(target, 'lacerations', 100)
+			DD.giveAfflictionCharacter(target, 'johncenafx', 999)
+		end
+		item.Condition = 1
+	end
+end)
+
 -- barricade
 Hook.Patch("Barotrauma.Items.Components.Holdable", "OnPicked", {'Barotrauma.Character'}, function(instance, ptable)
     local item = instance.Item
@@ -663,7 +677,7 @@ Hook.Add("DD.jumpergrenade.blastjump", "DD.jumpergrenade.blastjump", function(ef
 			limb.body.LinearVelocity = velocity * normalizedDot(vector, velocity)
 			limb.body.ApplyForce(vector * scaler)
 		end
-		DD.giveAfflictionCharacter(character, 'blastjumping', 2)
+		DD.giveAfflictionCharacter(character, 'blastjumping', 999)
 	end
 end)
 Hook.Add("DD.merasmusblastjump.blastjump", "DD.merasmusblastjump.blastjump", function(effect, deltaTime, item, targets, worldPosition)
@@ -693,7 +707,7 @@ Hook.Add("DD.merasmusblastjump.blastjump", "DD.merasmusblastjump.blastjump", fun
 			limb.body.LinearVelocity = Vector2()
 			limb.body.ApplyForce(vector * scaler)
 		end
-		DD.giveAfflictionCharacter(character, 'blastjumping', 2)
+		DD.giveAfflictionCharacter(character, 'blastjumping_nofx', 999)
 	end
 end)
 
@@ -782,7 +796,7 @@ Hook.Add("DD.displacercannon.teleport", "DD.displacercannon.teleport", function(
 	effect.user.TeleportTo(item.WorldPosition)
 	
 	if magic then
-		DD.giveAfflictionCharacter(effect.user, 'blastjumping', 2)
+		DD.giveAfflictionCharacter(effect.user, 'blastjumping', 999)
 	end
 end)
 
@@ -1207,18 +1221,15 @@ end)
 
 -- Sends a message to husks telling them about their objective and abilities
 Hook.Add("character.created", "DD.huskMessage", function (createdCharacter)
-	if createdCharacter.SpeciesName ~= 'humanhusk' then return end
+	local text = ''
+	if createdCharacter.SpeciesName == 'humanhusk' then text = DD.stringLocalize('huskInfo') end
+	if createdCharacter.SpeciesName == 'Husk_prowler' then text = DD.stringLocalize('huskProwlerInfo') end
+	if text == '' then return end
 	Timer.Wait(function()
 		local client = DD.findClientByCharacter(createdCharacter)
 		if client == nil then return end
-		DD.messageClient(client, DD.stringLocalize('huskInfo'), {preset = 'crit'})
+		DD.messageClient(client, text, {preset = 'crit'})
 	end, 100)
-end)
-
--- updates limb alpha
-Hook.Add("DD.invisibility.update", "DD.invisibility.update", function(effect, deltaTime, item, targets, worldPosition)
-	-- will do this later
-	-- used by "invisibility" affliction
 end)
 
 -- Suicide vest

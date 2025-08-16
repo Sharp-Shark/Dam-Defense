@@ -28,6 +28,19 @@ DD.plantData = {
 	slimebacteria = {itemIdentifier = 'slimebacteria', weight = 1},
 }
 
+DD.looseVentData = {
+	{identifier = 'crowbar', weight = 1},
+	-- weight 0.4
+	{identifier = 'brassknuckle', weight = 0.4},
+	-- weight 0.2
+	{identifier = 'plasmacutter', weight = 0.2, script = function (spawnedItem) Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('oxygentank'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end},
+	-- weight 0.1
+	{identifier = 'boardingaxe', weight = 0.1},
+	{identifier = 'suicidevest', weight = 0.1},
+	{identifier = 'huskeggsbasic', weight = 0.1},
+	{identifier = 'foldableshotgun', weight = 0.1, script = function (spawnedItem) for x = 1, 5 do Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('shotgunslugbreaching'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end) end end}
+}
+
 DD.spawnEggWithSaline = function (identifier, pos)
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), pos, nil, nil, function (spawnedItem)
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('antibloodloss1'), spawnedItem.OwnInventory, nil, nil, function (spawnedItem) end)
@@ -131,6 +144,32 @@ DD.spawnPlants = function ()
 	end
 end
 
+DD.replenishContainers = function ()
+	local weights = {}
+	for key, value in pairs(DD.looseVentData) do
+		weights[key] = value.weight
+	end
+	
+	if #DD.roundData.containerReplenishable == 0 then
+		for item in Item.ItemList do
+			if item.Prefab.Identifier == 'loosevent' then
+				table.insert(DD.roundData.containerReplenishable, item)
+			end
+		end
+	end
+	
+	for item in DD.roundData.containerReplenishable do
+		if item.OwnInventory.IsEmpty() then
+			local inventory = item.OwnInventory
+			local winner = DD.weightedRandom(DD.looseVentData, weights)
+			
+			local identifier = winner.identifier
+			local script = winner.script or function (spawnedItem) end
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), inventory, nil, nil, script)
+		end
+	end
+end
+
 DD.thinkFunctions.nature = function ()
 	if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) or (DD.roundData.roundEnding) then return end
 	local timesPerSecond = 2
@@ -168,6 +207,13 @@ DD.thinkFunctions.nature = function ()
 	else
 		DD.roundData.plantSpawnTimer = DD.roundData.plantSpawnTimer - 1 / timesPerSecond
 	end
+	-- Container update
+	if DD.roundData.containerReplenishTimer <= 0 then
+		DD.replenishContainers()
+		DD.roundData.containerReplenishTimer = DD.roundData.containerReplenishTimerInitial
+	else
+		DD.roundData.containerReplenishTimer = DD.roundData.containerReplenishTimer - 1 / timesPerSecond
+	end
 end
 
 DD.roundStartFunctions.nature = function ()
@@ -178,6 +224,10 @@ DD.roundStartFunctions.nature = function ()
 	-- all plant spawn locations will be used by the time 40min have passed
 	DD.roundData.plantSpawnTimerInitial = 40 * 60 / #DD.getLocations(function (item) return item.HasTag('dd_plantspawn') end)
 	DD.roundData.plantSpawnTimer = DD.roundData.plantSpawnTimerInitial
+	-- periodically replenish emptied containers
+	DD.roundData.containerReplenishable = {}
+	DD.roundData.containerReplenishTimerInitial = 60
+	DD.roundData.containerReplenishTimer = DD.roundData.containerReplenishTimerInitial
 	-- never use the same plant spawn location twice
 	DD.roundData.plantSpawnLocationBlacklistSet = {}
 end

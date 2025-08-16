@@ -5852,7 +5852,7 @@
     <MeleeWeapon slots="Any,RightHand,LeftHand" aimangle="-50" aimpos="30,-30" handle1="0,6" holdangle="90" reload="0.75" range="50" combatPriority="20" msg="ItemMsgPickUpSelect">
       <Attack targetimpulse="2" severlimbsprobability="0.1" itemdamage="3" structuredamage="2" structuresoundtype="StructureSlash">
         <Affliction identifier="blunttrauma" strength="8" />
-        <Affliction identifier="stun" strength="0.2" />
+        <Affliction identifier="stun" strength="0.25" />
         <StatusEffect type="OnUse" target="UseTarget">
           <Conditional entitytype="eq Character" />
           <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500" />
@@ -5862,6 +5862,46 @@
           <LuaHook name="DD.brassknuckle.disarm" />
         </StatusEffect>
       </Attack>
+    </MeleeWeapon>
+    <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
+    <Quality>
+      <QualityStat stattype="StrikingPowerMultiplier" value="0.1" />
+    </Quality>
+  </Item>
+  <!-- it seems I am not the only spy -->
+  <Item name="Spy Knife" identifier="spyknife" category="Weapon" Tags="smallitem,weapon,gunsmith,mountableweapon,sharptool" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Deconstruct time="10">
+      <Item identifier="titaniumaluminiumalloy" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/Items/spy.png" sourcerect="0,16,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/spy.png" sourcerect="0,0,80,16" depth="0.55" origin="0.5,0.5" />
+    <Body width="65" height="15" density="25" />
+    <MeleeWeapon slots="Any,RightHand,LeftHand" aimpos="50,0" aimangle="180" handle1="-10,0" holdangle="30" reload="0.75" range="50" combatPriority="50" msg="ItemMsgPickUpSelect">
+      <Attack targetimpulse="2" severlimbsprobability="0.1" itemdamage="3" structuredamage="2" structuresoundtype="StructureSlash">
+        <Affliction identifier="lacerations" strength="10" />
+        <Affliction identifier="bleeding" strength="10" />
+        <Affliction identifier="stun" strength="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash4.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash5.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash6.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+      <StatusEffect type="OnUse" target="This,UseTarget">
+	    <LuaHook name="DD.spyknife.stab" />
+      </StatusEffect>
+	  <!-- cooldown for stab (when on cooldown, slashes) -->
+	  <StatusEffect type="Always" target="This" condition="25" />
+	  <StatusEffect type="OnSecondaryUse" target="This" aimangle="180" setvalue="true" disabledeltatime="true">
+	    <Conditional condition="gte 100" />
+	  </StatusEffect>
+	  <StatusEffect type="OnSecondaryUse" target="This" aimangle="0" setvalue="true" disabledeltatime="true">
+	    <Conditional condition="lt 100" />
+	  </StatusEffect>
     </MeleeWeapon>
     <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
     <Quality>

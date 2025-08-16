@@ -31,20 +31,23 @@
   </Infection>
   </Override>
   
-  <!-- invisibility code (based off vanilla's "mantiscamouflage") -->
-  <Affliction name="Invisibility" identifier="invisibility" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.0" showiconthreshold="999" showinhealthscannerthreshold="999" maxstrength="10" >
-    <Effect minstrength="0" maxstrength="10" mingrainstrength="0.0" maxgrainstrength="1.0" strengthchange="-10.0" minspeedmultiplier="1.0" maxspeedmultiplier="1.5">
-	  <StatusEffect target="Character" setvalue="true" disabledeltatime="true">
-	    <LuaHook name="DD.invisibility.update" />
-	  </StatusEffect>
-	</Effect>
-	<icon texture="%ModDir%/Misc/Icons.png" sourcerect="0,128,128,128" color="114,10,193,255" origin="0,0"/>
-  </Affliction>
-  
   <!-- if a player has been recently attacked, the heal gun will heal them less -->
   <Affliction name="Heal Gun Reduced" identifier="recentlyattacked" type="recentlyattacked" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.0" showiconthreshold="999" showinhealthscannerthreshold="0" maxstrength="5" >
     <Effect minstrength="0" maxstrength="10" strengthchange="-1.0" />
 	<icon texture="%ModDir%/Misc/Icons.png" sourcerect="0,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  
+  <!-- jump -->
+  <Affliction name="Prowler Leap Charge" identifier="prowlerleapcharge" type="buff" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.0" showiconthreshold="999" showinhealthscannerthreshold="999" maxstrength="10" >
+	<icon texture="%ModDir%/Misc/Icons.png" sourcerect="0,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  <Affliction name="Prowler Leap FX" identifier="prowlerleap" description="" type="fx" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
+    <Effect minstrength="0" maxstrength="10" strengthchange="-10.0" >
+      <StatusEffect target="Character">
+        <Sound file="%ModDir%/Sounds/prowlerleap.ogg" loop="false" volume="12.0" />
+      </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
   
   <!-- Water cannon stun -->
@@ -380,6 +383,16 @@
       <StatusEffect target="character" targetlimbs="rightfoot" >
         <ParticleEmitter particle="flamethrower_co" particlespersecond="10" scalemin="0.4" scalemax="0.6" distancemin="0" distancemax="20" />
       </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
+  </Affliction>
+  <!-- blast jump without flame particle effect -->
+  <Affliction name="Blast Jumping No FX" identifier="blastjumping_nofx" description="" type="buff" limbspecific="false" showiconthreshold="999" maxstrength="2">
+    <Effect minstrength="0" maxstrength="1" strengthchange="0" >
+	  <StatusEffect target="Character" DisableImpactDamageTimer="1.0" disabledeltatime="true" setvalue="true" />
+    </Effect>
+    <Effect minstrength="1" maxstrength="2" strengthchange="-1" >
+	  <StatusEffect target="Character" DisableImpactDamageTimer="1.0" disabledeltatime="true" setvalue="true" />
     </Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0" />
   </Affliction>

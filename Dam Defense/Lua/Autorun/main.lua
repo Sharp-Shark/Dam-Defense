@@ -438,7 +438,11 @@ DD.chatMessageFunctions.jobinfo = function (message, sender, special)
 		DD.messageClient(sender, JobPrefab.Get(sender.Character.JobIdentifier).Description, {preset = preset})
 	else
 		if DD.isCharacterHusk(sender.Character) then
-			DD.messageClient(sender, DD.stringLocalize('huskInfo'), {preset = preset})
+			if sender.Character.SpeciesName == 'Husk_prowler' then
+				DD.messageClient(sender, DD.stringLocalize('huskProwlerInfo'), {preset = preset})
+			else
+				DD.messageClient(sender, DD.stringLocalize('huskInfo'), {preset = preset})
+			end
 		elseif sender.Character.SpeciesName == 'humanUndead' then
 			local undeadInfo = DD.stringLocalize('undeadInfo')
 			if #DD.eventDirector.getEventInstances('bloodCult') >= 1 then
@@ -491,6 +495,7 @@ DD.chatMessageFunctions.possess = function (message, sender)
 		local message = DD.stringLocalize('commandPossess')
 		DD.messageClient(sender, message, {preset = 'command'})
 		sender.SetClientCharacter(winner)
+		sender.SpectateOnly = false
 		
 		DD.chatMessageFunctions.jobinfo('', sender, true)
 	else
@@ -786,7 +791,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			end
 		end
 	end
-	-- Event related job
+	-- Special code for certain jobs
 	if character.JobIdentifier == 'wizard' then
 		DD.giveAfflictionCharacter(character, 'wizard', 1)
 	elseif character.JobIdentifier == 'assistant' then
@@ -816,7 +821,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 		mercs = {'daringdolphin', 'ballastdenizen'},
 		mercsevil = {'daringdolphin', 'ballastdenizen'},
 	}
-	if character.SpeciesName == 'human' then
+	if (character.SpeciesName == 'human') and (jobTalents[tostring(character.JobIdentifier)] ~= nil) then
 		Timer.Wait(function ()
 			for talent in jobTalents[tostring(character.JobIdentifier)] do
 				character.GiveTalent(talent, true)

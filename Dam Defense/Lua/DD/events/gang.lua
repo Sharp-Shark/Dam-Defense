@@ -61,7 +61,7 @@ end, {
 		-- do gang effect
 		Timer.Wait(function ()
 			if DD.isClientCharacterAlive(client) then
-				DD.giveAfflictionCharacter(character, 'gangfx', 999)
+				DD.giveAfflictionCharacter(client.Character, 'gangfx', 999)
 			end
 		end, 1000)
 		

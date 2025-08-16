@@ -188,6 +188,35 @@ DD.thinkFunctions.afflictions = function ()
 		if (affliction ~= nil) and (affliction.Strength <= 1) and (character.AnimController.OnGround or character.AnimController.InWater or character.AnimController.IsClimbing) then
 			affliction.SetStrength(0)
 		end
+		local affliction = character.CharacterHealth.GetAffliction('blastjumping_nofx', true)
+		if (affliction ~= nil) and (affliction.Strength <= 1) and (character.AnimController.OnGround or character.AnimController.InWater or character.AnimController.IsClimbing) then
+			affliction.SetStrength(0)
+		end
+		-- jump or leap
+		if character.SpeciesName == 'Husk_prowler' then
+			local affliction = character.CharacterHealth.GetAffliction('prowlerleapcharge', true)
+			if character.IsKeyDown(InputType.Crouch) then
+				if character.IsKeyDown(InputType.Ragdoll) then
+					if (affliction ~= nil) and (affliction.Strength >= 10) then
+						affliction.SetStrength(0)
+						character.Stun = math.max(0.5, character.Stun)
+						local vector = Vector2.Normalize(character.CursorWorldPosition - character.WorldPosition)
+						local scaler = 450
+						for limb in character.AnimController.Limbs do
+							limb.body.ApplyForce(vector * scaler)
+						end
+						DD.giveAfflictionCharacter(character, 'blastjumping_nofx', 999)
+						DD.giveAfflictionCharacter(character, 'prowlerleap', 10)
+					end
+				elseif character.AnimController.OnGround or character.AnimController.IsClimbing then
+					DD.giveAfflictionCharacter(character, 'prowlerleapcharge', 999)
+				end
+			else
+				if affliction ~= nil then
+					affliction.SetStrength(0)
+				end
+			end
+		end
 		-- Handcuffed living characters can be dragged at full speed by anyone (pets too)
 		local affliction = character.CharacterHealth.GetAffliction('firemanscarrytemporary', true)
 		if (character.SelectedCharacter ~= nil) and (character.SelectedCharacter.IsHandcuffed or character.SelectedCharacter.IsPet) and (not character.SelectedCharacter.IsDead) then
