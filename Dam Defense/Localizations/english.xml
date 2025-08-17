@@ -365,6 +365,9 @@
   <!-- Brass Knuckle -->
   <entityname.brassknuckle>Brass Knuckle</entityname.brassknuckle>
   <entitydescription.brassknuckle>Don't bring a gun to a fist fight or you may have the dishonor of being killed with your own firearm. Truly a fistful of frags.</entitydescription.brassknuckle>
+  <!-- Spy Knife -->
+  <entityname.spyknife>Spy Knife</entityname.spyknife>
+  <entitydescription.spyknife>Gentlemen. This knife grants guaranteed melee critical hits on backstabs if fully charged.</entitydescription.spyknife>
   <!-- Barricade -->
   <entityname.barricade>Barricade</entityname.barricade>
   <entitydescription.barricade>Steel beam that can be attached to a wall to provide cover in a gunfight. Repaired using a welding tool.</entitydescription.barricade>
