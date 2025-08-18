@@ -3,7 +3,7 @@ DD.eventAttackbot = DD.class(DD.eventBase, nil, {
 	name = 'attackbot',
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 1,
+	weight = 2,
 	goodness = -3,
 	minimunTimeElapsed = 12 * 60,
 	

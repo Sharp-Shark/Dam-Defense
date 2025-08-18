@@ -39,7 +39,11 @@ DD.eventBlackout = DD.class(DD.eventWithStartBase, nil, {
 	
 	stateMain = {
 		onChange = function (self, state)
-			if (self.parent.doors == nil) or (self.parent.lights == nil) then return end
+			if (self.parent.doors == nil) or (self.parent.lights == nil) then
+				self.parent.fail('"self.parent.doors" or "self.parent.lights" is nil at "stateMain.onChange"')
+				return
+			end
+			
 			for item in Item.ItemList do
 				local component
 				component = item.GetComponentString('Door')

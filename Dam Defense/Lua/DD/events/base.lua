@@ -186,7 +186,7 @@ end, {
 		onThink = function (self) return end,
 	},
 	
-	setupStates = function (self)
+	setupStates = function (self) -- I don't think this method is used? I'll later check if this is true, and if it is, I'll remove it to avoid confusion
 	end,
 	
 	changeState = function (self, state)

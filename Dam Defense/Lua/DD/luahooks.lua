@@ -873,10 +873,12 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	end, 1000)
 	
 	-- resets the time pressure for all cultists
-	for character in Character.CharacterList do
-		if character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) >= 99 then
-			if character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
-				character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+	if character.SpeciesName ~= 'humanundead' then
+		for character in Character.CharacterList do
+			if character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) >= 99 then
+				if character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
+					character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+				end
 			end
 		end
 	end
