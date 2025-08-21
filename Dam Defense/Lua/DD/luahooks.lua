@@ -888,6 +888,7 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	if client == nil then return end
 	if character.SpeciesName ~= 'humanundead' then
 		DD.messageClient(client, DD.stringLocalize('bloodCultCultistInfo'), {preset = 'crit'})
+		DD.giveAfflictionCharacter(character, 'antag', 99)
 		return
 	end
 
@@ -1077,7 +1078,7 @@ Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, 
 	-- head goes kaboom
 	for index, limb in pairs(character.AnimController.Limbs) do
 		if index == 2 then
-			Game.Explode(limb.WorldPosition, 1, 999, 999, 0, 0, 0, 0)
+			Game.Explode(limb.WorldPosition, 1, 9999, 9999, 0, 0, 0, 0)
 		end
 	end
 end)
@@ -1222,10 +1223,12 @@ Hook.Add("character.created", 'DD.greenskinTalent', function(createdCharacter)
 end)
 
 -- Sends a message to husks telling them about their objective and abilities
+-- Used for growth or for when a husk gets huskified
 Hook.Add("character.created", "DD.huskMessage", function (createdCharacter)
 	local text = ''
 	if createdCharacter.SpeciesName == 'humanhusk' then text = DD.stringLocalize('huskInfo') end
 	if createdCharacter.SpeciesName == 'Husk_prowler' then text = DD.stringLocalize('huskProwlerInfo') end
+	if createdCharacter.SpeciesName == 'Husk_chimera' then text = DD.stringLocalize('huskChimeraInfo') end
 	if text == '' then return end
 	Timer.Wait(function()
 		local client = DD.findClientByCharacter(createdCharacter)

@@ -748,7 +748,7 @@
     <SkillRequirementHint identifier="medical" level="55" />
   </AntibioticGlue>
   <!-- ethanol when drunk gives immuneboost and when applied heals gangrene but gives acid burns. It is also flammable and fuel for generator -->
-  <Ethanol name="" identifier="ethanol" category="Fuel,Medical,Material" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,chem,medical,petfood2,generatorfuel" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
+  <Ethanol name="" identifier="ethanol" category="Fuel,Medical,Material" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,chem,medical,petfood2,generatorfuel,reactorfuel" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="sprayer" amount="1" spawnprobability="1"/>
     <PreferredContainer secondary="wreckmedcab,abandonedmedcab" amount="1" spawnprobability="0.2" />
@@ -899,7 +899,7 @@
     <SkillRequirementHint identifier="medical" level="25" />
   </Antibiotics>
   <!-- rum is ethanol with weaker damage and cures husk infection -->
-  <Rum name="" identifier="rum" category="Fuel,Medical,Misc" maxstacksize="8" cargocontaineridentifier="mediccrate" description="" Tags="smallitem,generatorfuel" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
+  <Rum name="" identifier="rum" category="Fuel,Medical,Misc" maxstacksize="8" cargocontaineridentifier="mediccrate" description="" Tags="smallitem,generatorfuel,reactorfuel" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer secondary="wreckmedcab,abandonedmedcab" amount="1" spawnprobability="0.01" />
     <PreferredContainer secondary="abandonedcrewcab" minamount="1" maxamount="1" spawnprobability="0.01" />
     <PreferredContainer secondary="crewcab" amount="1" spawnprobability="0.02" notcampaign="true"/>

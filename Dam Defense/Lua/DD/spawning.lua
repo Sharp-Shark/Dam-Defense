@@ -1,3 +1,123 @@
+-- Give talents
+Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
+	-- Message
+	local client = DD.findClientByCharacter(character)
+	if client ~= nil then
+		DD.messageClient(client, JobPrefab.Get(character.JobIdentifier).Description, {preset = 'info'})
+	end
+	-- Items to be locked (to be made non interactable)
+	local lockedJobItems = {
+		captain = {
+			[DD.invSlots.innerclothes] = {captainsuniform1 = true, captainsuniform3 = true}
+		},
+		diver = {
+			[DD.invSlots.innerclothes] = {securityuniform2 = true}
+		},
+		securityofficer = {
+			[DD.invSlots.innerclothes] = {securityuniform1 = true}
+		},
+		foreman = {
+			[DD.invSlots.innerclothes] = {orangejumpsuit2 = true}
+		},
+		-- event jobs
+		jet = {
+			[DD.invSlots.outerclothes] = {suicidevest = true},
+		},
+		wizard = {
+			[DD.invSlots.head] = {merasmushat = true},
+		},
+		gangster = {
+			[DD.invSlots.head] = {bosshat = true},
+			[DD.invSlots.innerclothes] = {bossclothes = true},
+		},
+	}
+	local lockedItems = lockedJobItems[tostring(character.JobIdentifier)]
+	if lockedItems ~= nil then
+		for slot, itemSet in pairs(lockedItems) do
+			local item = character.Inventory.GetItemAt(slot)
+			if itemSet[tostring(item.Prefab.Identifier)] then
+				item.NonInteractable = true
+				if SERVER then
+					local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
+					Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
+				end
+			end
+		end
+	end
+	-- Special code for certain jobs
+	if character.JobIdentifier == 'wizard' then
+		DD.giveAfflictionCharacter(character, 'wizard', 1)
+	elseif character.JobIdentifier == 'assistant' then
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcuffs'), character.Inventory, nil, nil, function (spawnedItem)
+			spawnedItem.Condition = spawnedItem.Condition / 10
+			Timer.NextFrame(function ()
+				character.Inventory.TryPutItem(spawnedItem, DD.invSlots.righthand, true, true, character, true, true)
+			end)
+		end)
+	end
+	-- Give Talents
+	local jobTalents = {
+		captain = {'drunkensailor'},
+		diver = {'daringdolphin', 'ballastdenizen'},
+		securityofficer = {'physicalconditioning'},
+		foreman = {'daringdolphin', 'ballastdenizen', 'unstoppablecuriosity', 'engineeringknowledge'},
+		engineer = {'daringdolphin', 'ballastdenizen', 'unstoppablecuriosity', 'engineeringknowledge'},
+		researcher = {'dontdieonme', 'firemanscarry'},
+		medicaldoctor = {'dontdieonme', 'firemanscarry'},
+		janitor = {'janitorialknowledge', 'greenthumb', 'firemanscarry'},
+		mechanic = {'unlockallrecipes', 'miner'},
+		clown = {'unlockallrecipes', 'skedaddle'},
+		assistant = {'unlockallrecipes', 'skedaddle'},
+		-- event jobs
+		gangster = {'drunkensailor', 'gangknowledge'},
+		jet = {'daringdolphin', 'ballastdenizen', 'rebelknowledge'},
+		mercs = {'daringdolphin', 'ballastdenizen'},
+		mercsevil = {'daringdolphin', 'ballastdenizen'},
+	}
+	if (character.SpeciesName == 'human') and (jobTalents[tostring(character.JobIdentifier)] ~= nil) then
+		Timer.Wait(function ()
+			for talent in jobTalents[tostring(character.JobIdentifier)] do
+				character.GiveTalent(talent, true)
+			end
+		end, 1000)
+	end
+	
+	-- Mess with their idcard
+	Timer.Wait(function ()
+		local idcard = character.Inventory.GetItemAt(DD.invSlots.idcard)
+		if idcard ~= nil then
+			local jobPrefab = JobPrefab.Get(character.JobIdentifier)
+			
+			-- Give idcard any tags that it should have
+			local waypoint = DD.findRandomWaypointByJob(character.JobIdentifier)
+			if waypoint ~= nil then
+				local tags = ''
+				for tag in waypoint.IdCardTags do
+					if not idcard.HasTag(tag) then tags = tags .. ',' .. tag end
+				end
+				idcard.Tags = idcard.Tags .. tags
+			end
+			
+			-- Set the idcard's color to be the job's UIColor
+			local color = jobPrefab.UIColor
+			color = Color.Lerp(color, Color.White, 0.25)
+			idcard.SpriteColor = color
+			idcard['set_InventoryIconColor'](color)
+			
+			-- Sync changes for clients
+			if SERVER then
+				local item = idcard
+				local tags = item.SerializableProperties[Identifier("Tags")]
+				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
+				local sprcolor = item.SerializableProperties[Identifier("SpriteColor")]
+				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(sprcolor, item))
+				local invColor = item.SerializableProperties[Identifier("InventoryIconColor")]
+				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
+			end
+		end
+	end, 100)
+end)
+
 if CLIENT then return end
 
 DD.lateJoinBlacklistSet = {}

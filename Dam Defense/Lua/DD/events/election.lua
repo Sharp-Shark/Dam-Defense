@@ -3,7 +3,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 	name = 'election',
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 1,
+	weight = 0.5,
 	goodness = -1,
 	minimunTimeElapsed = 10 * 60,
 	
@@ -51,7 +51,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 		end
 		
 		-- /election command will only be usable after DD.thinkCounter is greater than this value
-		DD.electionCommandUsableAfter = DD.thinkCounter + self.cooldown * 60
+		DD.electionCommandUsableAfter = DD.thinkCounter + self.cooldown * 60 * 2
 	end,
 	
 	onThink = function (self)

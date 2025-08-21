@@ -10,12 +10,17 @@ end, {
 	instanceCap = 1,
 	isMainEvent = false,
 	cooldown = 60 * 2,
-	weight = 2,
+	weight = 1.5,
 	goodness = 3,
 	minimunDeadPercentage = 0.01,
 	minimunTimeElapsed = 12 * 60,
 	
 	onStart = function (self)
+		if (#DD.eventDirector.getEventInstances('deathSquad') > 0) and not self.manuallyTriggered then
+			self.fail('mercs event cannot start if there is a deathSquad event')
+			return
+		end
+	
 		if self.mercs == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
 				if (not DD.isClientCharacterAlive(client)) and client.InGame and DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation] and

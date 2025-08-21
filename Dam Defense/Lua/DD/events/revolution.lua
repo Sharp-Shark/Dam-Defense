@@ -182,7 +182,11 @@ end, {
 					DD.messageClient(client, DD.stringLocalize('revolutionMessageSecret', {timer = DD.numberToTime(self.stateStartInitialTimer), rebelList = rebelList}), {preset = 'crit'})
 					-- Sound effect
 					Timer.Wait(function ()
-						if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'revolutionfx', 999) end
+						if client.Character ~= nil then
+							DD.giveAfflictionCharacter(client.Character, 'revolutionfx', 999)
+							-- Antag
+							DD.giveAfflictionCharacter(client.Character, 'antag', 99)
+						end
 					end, 1000)
 				end
 			end
@@ -248,7 +252,6 @@ end, {
 					anyRebelIsAlive = true
 				else
 					if (not DD.isClientCharacterAlive(rebel)) or (rebel.Character.SpeciesName ~= 'human') then
-						DD.messageClient(rebel, DD.stringLocalize('antagDead'), {preset = 'crit'})
 						self.parent.rebels[key] = nil
 						self.parent.rebelsSet[rebel] = nil
 					end
@@ -286,7 +289,6 @@ end, {
 		if client == nil then return end
 		for key, rebel in pairs(self.rebels) do
 			if not DD.isClientCharacterAlive(rebel) then
-				DD.messageClient(rebel, DD.stringLocalize('antagDead'), {preset = 'crit'})
 				self.rebels[key] = nil
 				self.rebelsSet[rebel] = nil
 			end
@@ -333,6 +335,10 @@ end, {
 		if self.rebels == nil then self.rebels = {} end
 		for client in self.rebels do
 			if client.Character ~= nil then
+				DD.messageClient(client, DD.stringLocalize('antagArrested'), {preset = 'crit'})
+				if client.Character.CharacterHealth.GetAffliction('antag', true) ~= nil then
+					client.Character.CharacterHealth.GetAffliction('antag', true).SetStrength(0)
+				end
 				if client.Character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
 					client.Character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
 				end

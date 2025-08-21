@@ -142,8 +142,14 @@ local getInfoText = function (character, pov)
 			local identifier = tostring(character.Inventory.GetItemInLimbSlot(InvSlotType.Card).GetComponentString('IdCard').OwnerJobId)
 			if DD.securityJobs[identifier] then
 				assignText('security')
+				if DD.isCharacterSecurity(pov) then
+					assignText('colleague')
+				end
 			elseif DD.medicalJobs[identifier] then
 				assignText('medical')
+				if DD.isCharacterMedical(pov) then
+					assignText('colleague')
+				end
 			elseif DD.staffJobs[identifier] then
 				assignText('damstaff')
 			end
@@ -151,8 +157,14 @@ local getInfoText = function (character, pov)
 	end
 	if DD.isCharacterSecurity(character) then
 		assignText('security')
+		if DD.isCharacterSecurity(pov) then
+			assignText('colleague')
+		end
 	elseif DD.isCharacterMedical(character) then
 		assignText('medical')
+		if DD.isCharacterMedical(pov) then
+			assignText('colleague')
+		end
 	elseif DD.isCharacterStaff(character) then
 		assignText('damstaff')
 	end
@@ -169,10 +181,13 @@ DD.gui.guiCharacterInfoTextColorTable = {
 	friendly = Color.SkyBlue,
 	comrade = Color.SkyBlue,
 	comradecultist = Color.SkyBlue,
+	comradesecurity = Color.SkyBlue,
 	bodyguard = Color.SkyBlue,
 	protect = Color.SkyBlue,
 	boss = Color.SkyBlue,
 	subordinate = Color.SkyBlue,
+	-- friendly or teammate if not a disguise (green)
+	colleague = Color.PaleGreen,
 	-- hostile or public antagonist (red)
 	hostile = GUI.GUIStyle.Red,
 	-- arrest on sight or prisoner (orange)

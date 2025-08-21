@@ -18,3 +18,23 @@ end)
 Networking.Receive("updateGUICharacterRole", function (message, client)
 	DD.gui.characterRole = json.parse(message.ReadString())
 end)
+
+local pingCooldown = 60
+local pingDone = false
+DD.thinkFunctions.ping = function ()
+	if pingDone then return end
+	if pingCooldown > 0 then
+		pingCooldown = pingCooldown - 1
+		return
+	end
+	pingCooldown = 60
+	
+	local message = Networking.Start("pingServer")
+	Networking.Send(message)
+end
+Networking.Receive("pingReset", function (message, client)
+	pingDone = false
+end)
+Networking.Receive("pingClient", function (message, client)
+	pingDone = true
+end)

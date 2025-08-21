@@ -2,6 +2,7 @@
 return {
 	-- main.lua
 	deathMessage = 'You have died! You can type /possess in chat to control a creature. Do /freecam to go back to spectating. If you want a full list of commands, do /help in chat.',
+	deathAntagMessage = 'You have died and are not an antagonist anymore! You can type /possess in chat to control a creature. Do /freecam to go back to spectating. If you want a full list of commands, do /help in chat.',
 	matchHasGoneOnForTooLong = 'The match has gone on for too long and respawning has been automatically disabled.',
 	allTheCrewIsDead = 'All of the crew is dead! Round ending in 10 seconds.',
 	allReactorsAreBroken = 'The dam has been destroyed! Round ending in 10 seconds.',
@@ -29,6 +30,7 @@ return {
 	commandElectionErrorNoSecurity = 'Cannot start an election because there is no security member aside from the captain.',
 	huskInfo = 'You have become a husk! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate.',
 	huskProwlerInfo = 'You have become a husk prowler! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate. Hold crouch and then ragdoll to leap.',
+	huskChimeraInfo = 'You have become a husk chimera! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate. Hold crouch and then ragdoll to leap.',
 	undeadInfo = 'You have become an undead! Try and help the antagonist(s). You can do a creature attack and use anything you are holding. You can hold ragdoll to regenerate.',
 	undeadInfoBloodCult = 'Do /cultists to get a list of fellow worshippers and /whisper to message them all.',
 	-- eventDirector.lua
@@ -175,8 +177,8 @@ return {
 	toTheRight = 'to the right',
 	toTheLeft = 'to the left',
 	bodyguardDead = 'You have died and are not a body guard anymore!',
-	antagDead = 'You have died and are not an antagonist anymore!',
-	antagArrested = 'You have died and are not an antagonist anymore!',
+	antagDead = 'You have died and are not an antagonist anymore!', -- deprecated
+	antagArrested = 'You have been arrested and are not an antagonist anymore!',
 	secret = 'secret',
 	target = 'target',
 	empty = 'empty',
@@ -201,6 +203,7 @@ return {
 	gui_medical = 'Medical',
 	gui_damstaff = 'Dam Staff',
 	gui_prisoner = 'Prisoner',
+	gui_colleague = 'Colleague',
 	
 	-- wiki
 	-- wiki misc

@@ -69,6 +69,5 @@ end, {
 	
 	onFinish = function (self)
 		DD.messageAllClients(DD.stringLocalize('wizardEnd'), {preset = 'goodinfo'})
-		if self.wizard ~= nil then DD.messageClient(self.wizard, DD.stringLocalize('antagDead'), {preset = 'crit'}) end
 	end,
 })

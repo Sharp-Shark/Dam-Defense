@@ -41,7 +41,10 @@ DD.class = function (inherit, func, tbl)
 	return {new = newFunc, inherit = inherit, func = func, tbl = tbl}
 end
 
--- 2D Vector class to demonstrate Object-Oriented logic
+--[[
+
+2D Vector class to demonstrate Object-Oriented logic
+
 DD.vector = DD.class(nil, function (self, x, y)
 	self.x = x or self.x
 	self.y = y or self.y
@@ -52,3 +55,5 @@ end, {
 		return DD.vector.new(self.x + other.x, self.y + other.y)
 	end
 })
+
+--]]

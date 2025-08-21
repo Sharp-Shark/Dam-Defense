@@ -3,7 +3,7 @@ DD.eventBlackout = DD.class(DD.eventWithStartBase, nil, {
 	name = 'blackout',
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 0.8,
+	weight = 1,
 	goodness = -1,
 	minimunTimeElapsed = 5 * 60,
 	

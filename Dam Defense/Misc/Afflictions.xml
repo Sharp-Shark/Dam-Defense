@@ -1,6 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
 
+  <!-- install clientside lua -->
+  <Affliction name="" identifier="luabotomyclientside" type="visualflag" description="" limbspecific="false" indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="999" showicontoothersthreshold="999" maxstrength="1" isbuff="false" healableinmedicalclinic="false" iconcolors="255,255,255,255;255,255,255,255">
+    <Effect minstrength="0" maxstrength="1" strengthchange="0" />
+    <!--<afflictionoverlay texture="%ModDir%/Images/luabotomy.png"/>-->
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="0,0,128,128" origin="0,0" />
+  </Affliction>
+  
+  <!-- indicate to player they are an antagonist -->
+  <Affliction
+    name="Antagonist"
+    identifier="antag"
+    type="visualflag"
+    limbspecific="false" indicatorlimb="Head"
+	showiconthreshold="0"
+	showicontoothersthreshold="999"
+	showinhealthscannerthreshold="999"
+    maxstrength="1"
+	iconcolors="255,0,0,255">
+    <icon texture="Content/UI/CampaignUIAtlas2.png" sourcerect="768,512,128,128" color="255,255,255,255" origin="0,0"/>
+  </Affliction>
+
   <!-- overrides -->
   <Override>
   <!-- vanilla infection is not visible and removes itself, making it do nothing essentially -->

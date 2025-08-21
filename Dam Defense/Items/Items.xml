@@ -559,7 +559,7 @@
       <Body width="150" height="77" density="25" />
       <!-- the character will hold the item 50 pixels in front of him, with his hands at the handle1 and handle2 positions -->
       <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="10,-50" holdangle="60" aimpos="55,-30" handle1="-80,20" handle2="0,-20" msg="ItemMsgPickUpSelect" />
-      <RepairTool firedamage="20.0" structurefixamount="0.0" usablein="Air" range="500" barrelpos="35,10" fireprobability="0.0" repairmultiple="true" RepairMultipleWalls="false" repairthroughwalls="false" repairthroughholes="true" combatpriority="50" spread="25" unskilledspread="25">
+      <RepairTool firedamage="20.0" structurefixamount="0.0" usablein="Air" range="500" barrelpos="35,10" fireprobability="0.0" repairmultiple="true" RepairMultipleWalls="false" repairthroughwalls="false" repairthroughholes="true" combatpriority="60" spread="25" unskilledspread="25">
         <!-- the item must contain a welding fuel tank for it to work -->
         <RequiredItems items="weldingtoolfuel,oxygensource" type="Contained" msg="ItemMsgWeldingFuelRequired" />
         <RequiredSkill identifier="weapons" level="30" />
@@ -1390,7 +1390,7 @@
       </Quality>
       <SkillRequirementHint identifier="weapons" level="60" />
     </Item>
-    <!-- smg goes in back slot -->
+    <!-- smg rebalanced, reskinned and made easier to craft -->
     <Item name="" identifier="smg" category="Weapon" cargocontaineridentifier="metalcrate" tags="smallautoweapon,mediumitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
       <PreferredContainer primary="secarmcab" amount="1" spawnprobability="1" notcampaign="true" />
       <PreferredContainer secondary="outpostsecarmcab" amount="1" spawnprobability="0.5" />
@@ -1404,23 +1404,21 @@
         <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
         <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2" />
       </Price>
-      <Fabricate suitablefabricators="fabricator" requiredtime="35" requiresrecipe="true">
-        <RequiredSkill identifier="weapons" level="55" />
+      <Fabricate suitablefabricators="fabricator" requiredtime="60" requiresrecipe="true">
+        <RequiredSkill identifier="weapons" level="25" />
         <RequiredItem identifier="plastic" />
-        <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
+        <RequiredItem identifier="titaniumaluminiumalloy" />
+        <RequiredItem identifier="steel" />
       </Fabricate>
       <Deconstruct time="10">
         <Item identifier="plastic" />
         <Item identifier="titaniumaluminiumalloy" />
       </Deconstruct>
-      <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="832,830,64,64" origin="0.5,0.5" />
-      <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,121,144,80" depth="0.55" origin="0.5,0.5" />
+      <InventoryIcon texture="jetshotgun.png" sourcerect="56,120,112,52" depth="0.55" origin="0.5,0.5" />
+      <Sprite texture="jetshotgun.png" sourcerect="0,64,224,52" depth="0.55" origin="0.5,0.5" />
       <Body width="140" height="60" density="25" />
-      <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="40,-10" aimpos="45,-10" handle1="-30,-15" handle2="26,5" holdangle="-35" msg="ItemMsgPickUpSelect" />
-      <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-        <sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,121,144,80" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.45,0.85" />
-      </Wearable>
-      <RangedWeapon reload="0.19" weapondamagemodifier="1.3" penetration="0.15" holdtrigger="true" barrelpos="64,9" spread="10" unskilledspread="16" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="60,-5" handle1="-52,-12" handle2="50,5" holdangle="-30" msg="ItemMsgPickUpSelect" />
+      <RangedWeapon reload="0.18" weapondamagemodifier="1" holdtrigger="true" barrelpos="45,9" spread="10" unskilledspread="16" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
         <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
         <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -1442,11 +1440,12 @@
         <RequiredSkill identifier="weapons" level="50" />
       </RangedWeapon>
       <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
-        <Containable items="smgammo" hide="false" itempos="4,-10" rotation="-30" />
+        <Containable items="smgammo" hide="false" itempos="8,-2" rotation="-25" />
         <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
         <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
         <SubContainer capacity="1" maxstacksize="1">
-          <Containable items="flashlight" hide="false" itempos="22,-1" setactive="true" />
+          <Containable items="divingflashlight" hide="false" itempos="3,19.5" setactive="true" />
+          <Containable items="flashlight" hide="false" itempos="3,14" setactive="true" />
         </SubContainer>
       </ItemContainer>
       <aitarget sightrange="2000" soundrange="4000" fadeouttime="5" />
@@ -1986,6 +1985,59 @@
         </StatusEffect>
       </Projectile>
     </Item>
+	<!-- SMG magazine is easier to craft -->
+    <Item name="" identifier="smgmagazine" maxstacksize="8" maxstacksizecharacterinventory="2" scale="0.5" category="Weapon" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,smgammo,handheldammo" impactsoundtag="impact_metal_light">
+      <PreferredContainer primary="smg,smgunique,machinepistol" amount="1" spawnprobability="1" />
+      <PreferredContainer primary="armcab" amount="1" spawnprobability="1" notcampaign="true" notpvp="true" />
+      <PreferredContainer secondary="outpostsecarmcab" minamount="1" maxamount="2" spawnprobability="0.5" />
+      <PreferredContainer secondary="wrecksecarmcab" minamount="1" maxamount="2" spawnprobability="0.2" />
+      <PreferredContainer secondary="secarmcab" />
+      <PreferredContainer secondary="respawncontainer_kingofthehull" amount="8" spawnprobability="1" notcampaign="true"/>
+      <Price baseprice="100" displaynonempty="true" minleveldifficulty="15">
+        <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+        <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="2" sold="false" />
+        <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+        <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="4" />
+        <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+        <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="4" />
+      </Price>
+      <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="true">
+        <RequiredSkill identifier="weapons" level="25" />
+        <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
+        <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
+        <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
+        <RequiredItem identifier="steel" />
+      </Fabricate>
+      <Fabricate suitablefabricators="fabricator" requiredtime="15" requiresrecipe="true" displayname="recycleitem">
+        <RequiredSkill identifier="weapons" level="25" />
+        <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
+        <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
+        <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
+        <RequiredItem identifier="smgmagazine" mincondition="0.0" maxcondition="0.1" usecondition="false" />
+      </Fabricate>
+      <Fabricate suitablefabricators="nexshop" requiredtime="1">
+        <RequiredItem tag="money" amount="8" />
+      </Fabricate>
+      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+        <RequiredItem tag="realmoney" amount="2" />
+      </Fabricate>
+      <Deconstruct time="10">
+        <Item identifier="steel" />
+      </Deconstruct>
+      <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="960,960,64,64" />
+      <Sprite texture="Content/Items/Weapons/weapons_new.png" depth="0.54" sourcerect="146,157,21,44" origin="0.5,0.5" />
+      <Body width="14" height="40" density="25" />
+      <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="smground" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
+        <Containable items="smground" />
+        <!--Spawn an SMG round on use. Condition -4.8 -> 21 shots per magazine.-->
+        <StatusEffect type="OnUse" target="This" condition="-4.8" disabledeltatime="true">
+          <SpawnItem identifiers="smground" spawnposition="ThisInventory" />
+        </StatusEffect>
+      </ItemContainer>
+      <!--Magazines can be combined to raise condition.-->
+      <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+      <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    </Item>
     <!-- SMG rounds do not stun -->
     <Item name="" identifier="smground" category="Weapon" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem" impactsoundtag="impact_metal_light" hideinmenus="true" scale="0.5">
       <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
@@ -1994,9 +2046,9 @@
       <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
       <Projectile characterusable="false" hitscan="true" removeonhit="true">
         <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,175" scalemultiplier="1,0.6" />
-        <Attack structuredamage="4" targetforce="5" itemdamage="4" severlimbsprobability="0.1">
-          <Affliction identifier="gunshotwound" strength="12.5" />
-          <Affliction identifier="bleeding" strength="12.5" />
+        <Attack structuredamage="4" targetforce="5" itemdamage="4" severlimbsprobability="0.1" penetration="0.2">
+          <Affliction identifier="gunshotwound" strength="15" />
+          <Affliction identifier="bleeding" strength="10" />
         </Attack>
         <StatusEffect type="OnImpact" target="UseTarget">
           <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -3605,7 +3657,7 @@
       <LightComponent range="150.0" lightcolor="255,56,144,111" IsOn="true" castshadows="false" allowingameediting="false" pulseamount="0.9" pulsefrequency="0.25" />
     </Item>
     <!-- fertilizer is flammable, recipe was tweaked and is used as generator fuel -->
-    <Item name="" identifier="fertilizer" tags="fertilizer,smallitem,generatorfuel" maxstacksize="8" category="Fuel,Misc" scale="0.5" health="800">
+    <Item name="" identifier="fertilizer" tags="fertilizer,smallitem,generatorfuel,reactorfuel" maxstacksize="8" category="Fuel,Misc" scale="0.5" health="800">
       <Sprite texture="Content/Items/Gardening/GrowablePlants_Temp.png" sourcerect="910,128,87,125" depth="0.55" origin="0.5,0.5" />
       <Price baseprice="140" minleveldifficulty="1">
         <Price storeidentifier="merchantoutpost" minavailable="1" />
@@ -3650,7 +3702,7 @@
   </Override>
   <!-- end of overrides -->
   <!-- fuel for generator -->
-  <Item name="Combustion Fuel" identifier="combustionfuel" tags="smallitem,generatorfuel" maxstacksize="8" category="Fuel,Misc" scale="0.5" health="800">
+  <Item name="Combustion Fuel" identifier="combustionfuel" tags="smallitem,generatorfuel,reactorfuel" maxstacksize="8" category="Fuel,Misc" scale="0.5" health="800">
     <Sprite texture="%ModDir%/Items/tools.png" sourcerect="100,0,87,125" depth="0.55" origin="0.5,0.5" />
     <Fabricate suitablefabricators="fabricator" requiredtime="30">
       <RequiredSkill identifier="mechanical" level="10" />
@@ -4986,7 +5038,7 @@
     <BrokenSprite texture="pipegun.png" sourcerect="0,44,172,44" depth="0.55" mincondition="0" maxcondition="95" fadein="false" />
     <Body width="220" height="50" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-8" handle1="-23,3" handle2="25,20" holdangle="-30" />
-    <RangedWeapon reload="1.2" holdtrigger="true" barrelpos="100,15" spread="2" unskilledspread="8" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="1.2" holdtrigger="true" barrelpos="100,15" spread="2" unskilledspread="8" combatPriority="65" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -5047,7 +5099,7 @@
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,0,224,48" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
     </Wearable>
-    <RangedWeapon reload="0.14" holdtrigger="true" barrelpos="110,2" spread="4" unskilledspread="16" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.14" holdtrigger="true" barrelpos="110,2" spread="4" unskilledspread="16" combatPriority="85" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -5113,7 +5165,7 @@
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,48,224,50" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
     </Wearable>
-    <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="110,2" spread="1" unskilledspread="4" combatPriority="60" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="110,2" spread="1" unskilledspread="4" combatPriority="85" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="4.0,4.0" colormultiplier="255,200,200,200" />
@@ -5254,7 +5306,7 @@
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite texture="tommy.png" sourcerect="0,0,211,57" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.85" />
     </Wearable>
-    <RangedWeapon weapondamagemodifier="1.1" reload="0.13" holdtrigger="true" barrelpos="90,12" spread="5" unskilledspread="10" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon weapondamagemodifier="1.1" reload="0.13" holdtrigger="true" barrelpos="90,12" spread="5" unskilledspread="10" combatPriority="85" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -5317,7 +5369,7 @@
     <Sprite texture="uzi.png" sourcerect="0,0,184,56" depth="0.55" origin="0.5,0.5" />
     <Body width="70" height="30" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="50,-10" handle1="2,-4" handle2="-2,-12" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon weapondamagemodifier="1.1" reload="0.12" holdtrigger="true" barrelpos="63,6" spread="8" unskilledspread="15" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon weapondamagemodifier="1.1" reload="0.12" holdtrigger="true" barrelpos="63,6" spread="8" unskilledspread="15" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -5385,7 +5437,7 @@
     <Sprite texture="pistol.png" sourcerect="0,0,68,44" depth="0.55" origin="0.5,0.5" />
     <Body width="70" height="30" density="25" />
     <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="70,5" handle1="-22,-4" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon reload="0.285" holdtrigger="true" barrelpos="15,-5" spread="4" unskilledspread="10" combatPriority="40" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.285" holdtrigger="true" barrelpos="15,-5" spread="4" unskilledspread="10" combatPriority="65" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -5677,7 +5729,7 @@
       <sprite texture="whalinggun.png" sourcerect="0,0,240,64" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.75" />
     </Wearable>
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="30,-25" aimpos="65,0" handle1="-40,-3" handle2="25,15" holdangle="-20" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon barrelpos="100,15" weapondamagemodifier="1.8" penetration="0.5" reload="1.5" maxchargetime="0.5" launchimpulse="30.0" spread="1" unskilledspread="10" combatPriority="100" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon barrelpos="100,15" weapondamagemodifier="1.8" penetration="0.5" reload="1.5" maxchargetime="0.5" launchimpulse="30.0" spread="1" unskilledspread="10" combatPriority="120" drawhudwhenequipped="true" crosshairscale="0.2">
       <StatusEffect type="Always" target="This" Condition="100" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="InWater" target="This" Condition="0" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnUse" target="Contained">
@@ -5821,7 +5873,7 @@
     <InventoryIcon texture="%ModDir%/Items/melee.png" sourcerect="104,23,64,64" />
     <Sprite texture="%ModDir%/Items/melee.png" sourcerect="0,0,179,23" origin="0.5,0.5" depth="0.55" />
     <Body width="179" height="23" density="30" />
-    <MeleeWeapon slots="RightHand,Any" range="100" reload="0.6" controlpose="true" aimpos="16,2" handle1="-30,2" holdangle="90" aimangle="-10" combatpriority="15">
+    <MeleeWeapon slots="RightHand,Any" range="100" reload="0.6" controlpose="true" aimpos="16,2" handle1="-30,2" holdangle="90" aimangle="-10" combatpriority="30">
       <RequiredSkill identifier="weapons" level="15" />
       <Attack targetimpulse="15" structuredamage="2" itemdamage="8">
         <Affliction identifier="blunttrauma" strength="10" />
@@ -5909,7 +5961,7 @@
     </Quality>
   </Item>
   <!-- barricade -->
-  <Item name="Barricade" identifier="barricade" category="Equipment,Misc" tags="barricade" linkable="true" allowedlinks="barricadestatic" health="200" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" scale="0.75" allowasextracargo="true" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" explosiondamagemultiplier="0.35" ondamagedthreshold="2">
+  <Item name="Barricade" identifier="barricade" category="Equipment,Misc" tags="barricade" linkable="true" allowedlinks="barricadestatic" health="200" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" scale="0.75" allowasextracargo="true" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" explosiondamagemultiplier="0.35" ondamagedthreshold="2" isshootable="true">
     <Deconstruct time="10">
       <Item identifier="steel" />
     </Deconstruct>
@@ -5923,7 +5975,7 @@
     <InventoryIcon texture="%ModDir%/Items/tools.png" sourcerect="252,0,64,64" />
     <Sprite texture="%ModDir%/Items/tools.png" sourcerect="188,0,32,124" origin="0.5,0.5" depth="0.55" />
     <Body height="120" width="32" density="30" />
-    <Holdable selectkey="Select" pickkey="Use" slots="LeftHand+RightHand" aimpos="60,0" holdpos="45,-15" handle1="-5,-15" handle2="-5,15" controlpose="false" blocksplayers="true" attachable="true" aimable="true" msg="ItemMsgDetachWrench" PickingTime="5.0">
+    <Holdable selectkey="Action" pickkey="Use" slots="LeftHand+RightHand" aimpos="60,0" holdpos="45,-15" handle1="-5,-15" handle2="-5,15" controlpose="false" blocksplayers="true" attachable="true" aimable="true" msg="ItemMsgDetachWrench" PickingTime="5.0">
       <RequiredItem items="wrench,deattachtool" excludeditems="multitool" type="Equipped" />
       <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.8" setvalue="true" />
       <StatusEffect type="OnBroken" target="This">

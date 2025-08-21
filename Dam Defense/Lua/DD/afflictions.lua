@@ -179,11 +179,28 @@ Hook.Add("character.applyDamage", "DD.resetHuskRegenOnDamage", function (charact
 	return
 end)
 
+local luabotomyCooldown = 0
 local afflictionNetworkCooldown = {}
 DD.thinkFunctions.afflictions = function ()
 	if not Game.RoundStarted then return end
 
 	for character in Character.CharacterList do
+		-- luabotomy
+		if luabotomyCooldown > 0 then
+			luabotomyCooldown = luabotomyCooldown - 1
+		else
+			luabotomyCooldown = 60
+			local client = DD.findClientByCharacter(character)
+			if client ~= nil then
+				local affliction = character.CharacterHealth.GetAffliction('luabotomyclientside', true)
+				if DD.clientsWithLua[client] then
+					if affliction ~= nil then affliction.SetStrength(0) end
+				else
+					DD.giveAfflictionCharacter(character, 'luabotomyclientside', 999)
+				end
+			end
+		end
+		-- blast jump
 		local affliction = character.CharacterHealth.GetAffliction('blastjumping', true)
 		if (affliction ~= nil) and (affliction.Strength <= 1) and (character.AnimController.OnGround or character.AnimController.InWater or character.AnimController.IsClimbing) then
 			affliction.SetStrength(0)
@@ -193,13 +210,16 @@ DD.thinkFunctions.afflictions = function ()
 			affliction.SetStrength(0)
 		end
 		-- jump or leap
-		if character.SpeciesName == 'Husk_prowler' then
+		if (character.SpeciesName == 'Husk_prowler') or (character.SpeciesName == 'Husk_chimera') then
 			local affliction = character.CharacterHealth.GetAffliction('prowlerleapcharge', true)
 			if character.IsKeyDown(InputType.Crouch) then
 				if character.IsKeyDown(InputType.Ragdoll) then
 					if (affliction ~= nil) and (affliction.Strength >= 10) then
 						affliction.SetStrength(0)
-						character.Stun = math.max(0.5, character.Stun)
+						character.Stun = math.max(0.2, character.Stun)
+						if character.SpeciesName == 'Husk_chimera' then
+							character.Stun = math.max(1, character.Stun)
+						end
 						local vector = Vector2.Normalize(character.CursorWorldPosition - character.WorldPosition)
 						local scaler = 450
 						for limb in character.AnimController.Limbs do
@@ -208,7 +228,7 @@ DD.thinkFunctions.afflictions = function ()
 						DD.giveAfflictionCharacter(character, 'blastjumping_nofx', 999)
 						DD.giveAfflictionCharacter(character, 'prowlerleap', 10)
 					end
-				elseif character.AnimController.OnGround or character.AnimController.IsClimbing then
+				elseif (character.AnimController.OnGround or character.AnimController.IsClimbing) and (character.Stun <= 0) then
 					DD.giveAfflictionCharacter(character, 'prowlerleapcharge', 999)
 				end
 			else
@@ -386,10 +406,9 @@ DD.thinkFunctions.afflictions = function ()
 	end
 end
 
---[[
--- If someone gives in as husk, instead they will be set to spectator and the husk will continue alive but as a NPC
+-- If someone gives in as a creature, instead they will be set to spectator and the creature will continue alive but as a NPC
 Hook.Patch("Barotrauma.Character", "Kill", function(instance, ptable)
-	if (instance.SpeciesName == 'humanhusk') and (instance.Vitality > 0 - instance.MaxVitality) then
+	if (instance.SpeciesName ~= 'human') and (instance.Vitality <= 0) and (instance.Vitality > instance.CharacterHealth.MinVitality) then
 		if CLIENT and Game.IsSingleplayer then
 			if Character.Controlled ~= instance then return end
 			Character.Controlled = nil
@@ -402,4 +421,3 @@ Hook.Patch("Barotrauma.Character", "Kill", function(instance, ptable)
 		end
 	end
 end, Hook.HookMethodType.Before)
--]]

@@ -70,6 +70,8 @@ end, {
 					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team2, true)
 					character.UpdateTeam()
 					DD.messageClient(client, DD.stringLocalize('nukiesMessageNukies'), {preset = 'crit'})
+					-- Antag
+					DD.giveAfflictionCharacter(character, 'antag', 99)
 				else
 					DD.messageClient(client, DD.stringLocalize('nukiesMessagePublic'), {preset = 'crit'})
 				end
@@ -108,7 +110,6 @@ end, {
 					anyNukieIsAlive = true
 				end
 			else
-				DD.messageClient(nukie, DD.stringLocalize('antagDead'), {preset = 'crit'})
 				self.nukies[key] = nil
 				self.nukiesSet[nukie] = nil
 			end
@@ -142,7 +143,6 @@ end, {
 		if self.nukiesSet[client] then
 			for key, nukie in pairs(self.nukies) do
 				if not DD.isClientCharacterAlive(nukie) then
-					DD.messageClient(nukie, DD.stringLocalize('antagDead'), {preset = 'crit'})
 					self.nukies[key] = nil
 					self.nukiesSet[nukie] = nil
 				end

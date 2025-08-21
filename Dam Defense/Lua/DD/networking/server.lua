@@ -1,5 +1,16 @@
 if CLIENT then return end
 
+DD.clientsWithLua = {}
+Networking.Receive("pingServer", function (message, client)
+	DD.clientsWithLua[client] = true
+	
+	local message = Networking.Start("pingClient")
+	Networking.Send(message, client.Connection)
+end)
+-- Ping reset
+local message = Networking.Start("pingReset")
+Networking.Send(message)
+
 local function escapeQuotes (str)
     return str:gsub("\"", "\\\"")
 end

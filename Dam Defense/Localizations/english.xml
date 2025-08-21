@@ -92,6 +92,11 @@
   <jobname.mercsevil>MERC Squadder</jobname.mercsevil>
   <jobdescription.mercsevil>Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Explode the reactor and kill any personnel related to the dam. Mission failure will result in subject termination.</jobdescription.mercsevil>
   
+  <!-- Visual Flag Afflictions -->
+  <afflictionname.luabotomyclientside>Clientside Luabotomy</afflictionname.luabotomyclientside>
+  <afflictiondescription.luabotomyclientside>Clientside Lua isn't running. That means Dam Defense will have some features that require it disabled. Please read the workshop page of Lua For Barotrauma to learn how to enable it.</afflictiondescription.luabotomyclientside>
+  <afflictionname.antag>Antagonist</afflictionname.antag>
+  <afflictiondescription.antag>You are an antagonist, a herald of doom. Work with other antagonists to ultimately bring about the end. Fulfill your duty before time pressure overwhelms you.</afflictiondescription.antag>
   <!-- Immune Afflictions -->
   <afflictionname.antibiotics>Antibiotics</afflictionname.antibiotics>
   <afflictiondescription.antibiotics>Antibiotics are circulating in the bloodstream and fending off infections, especially those of a bacterial nature.</afflictiondescription.antibiotics>

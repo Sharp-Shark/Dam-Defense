@@ -198,7 +198,6 @@ end, {
 		if self.cultistsSet[client] then
 			for key, cultist in pairs(self.cultists) do
 				if not DD.isClientCharacterAlive(cultist) then
-					DD.messageClient(cultist, DD.stringLocalize('antagDead'), {preset = 'crit'})
 					self.cultists[key] = nil
 					self.cultistsSet[cultist] = nil
 				end

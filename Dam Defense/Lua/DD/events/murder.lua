@@ -10,7 +10,7 @@ end, {
 	name = 'murder',
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 1,
+	weight = 0.5,
 	goodness = -1,
 	
 	onStart = function (self)

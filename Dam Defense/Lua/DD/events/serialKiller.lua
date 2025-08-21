@@ -118,7 +118,11 @@ end, {
 			return
 		else
 			DD.messageClient(self.killer, DD.stringLocalize('serialKillerMessageSecret', {timer = DD.numberToTime(self.stateStartInitialTimer)}), {preset = 'crit'})
-			if self.killer.Character ~= nil then DD.giveAfflictionCharacter(self.killer.Character, 'killerfx', 999) end
+			if self.killer.Character ~= nil then
+				DD.giveAfflictionCharacter(self.killer.Character, 'killerfx', 999)
+				-- Antag
+				DD.giveAfflictionCharacter(self.killer.Character, 'antag', 99)
+			end
 		end
 	end,
 	
@@ -249,16 +253,18 @@ end, {
 		else
 			if not DD.isClientCharacterAlive(self.killer) then
 				DD.messageAllClients(DD.stringLocalize('serialKillerEndArrested'), {preset = 'goodinfo'})
-				if self.killer ~= nil then DD.messageClient(self.killer, DD.stringLocalize('antagDead'), {preset = 'crit'}) end
 			elseif DD.isCharacterArrested(self.killer.Character) then
 				DD.messageAllClients(DD.stringLocalize('serialKillerEnd'), {preset = 'goodinfo'})
-				if self.killer ~= nil then DD.messageClient(self.killer, DD.stringLocalize('antagArrested'), {preset = 'crit'}) end
 			end
 		end
 	end,
 	
 	onFinishAlways = function (self)
 		if (self.killer ~= nil) and DD.isClientCharacterAlive(self.killer) and (not self.killerWon) then
+			DD.messageClient(self.killer, DD.stringLocalize('antagArrested'), {preset = 'crit'})
+			if self.killer.Character.CharacterHealth.GetAffliction('antag', true) ~= nil then
+				self.killer.Character.CharacterHealth.GetAffliction('antag', true).SetStrength(0)
+			end
 			if self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true) ~= nil then
 				self.killer.Character.CharacterHealth.GetAffliction('serialkiller', true).SetStrength(0)
 			end

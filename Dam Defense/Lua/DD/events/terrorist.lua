@@ -15,6 +15,11 @@ end, {
 	minimunTimeElapsed = 12 * 60,
 	
 	onStart = function (self)
+		if (#DD.eventDirector.getEventInstances('deathSquad') > 0) and not self.manuallyTriggered then
+			self.fail('terrorist event cannot start if there is a deathSquad event')
+			return
+		end
+		
 		-- pick client to be terrorist
 		if self.terrorist == nil then
 			for client in DD.arrShuffle(Client.ClientList) do
@@ -38,6 +43,8 @@ end, {
 			local character = DD.spawnHuman(self.terrorist, job, pos, nil, subclass)
 			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team2, true)
 			character.UpdateTeam()
+			-- Antag
+			DD.giveAfflictionCharacter(character, 'antag', 99)
 			-- Make terrorist wanted
 			local event = DD.eventArrest.new(self.terrorist, 'terrorism', false)
 			event.isTargetKnown = true
@@ -76,7 +83,6 @@ end, {
 	end,
 	
 	onFinish = function (self)
-		if self.terrorist ~= nil then DD.messageClient(self.terrorist, DD.stringLocalize('antagDead'), {preset = 'crit'}) end
 	end,
 	
 	onFinishAlways = function (self)

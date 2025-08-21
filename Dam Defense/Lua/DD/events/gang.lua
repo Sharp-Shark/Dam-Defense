@@ -230,6 +230,5 @@ end, {
 	
 	onFinish = function (self)
 		DD.messageAllClients(DD.stringLocalize('gangEnd', {bossName = self.bossName, gangName = self.gangName}), {preset = 'goodinfo'})
-		if self.boss ~= nil then DD.messageClient(self.boss, DD.stringLocalize('antagDead'), {preset = 'crit'}) end
 	end,
 })

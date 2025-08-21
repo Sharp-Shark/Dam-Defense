@@ -13,7 +13,7 @@ end, {
 	weight = 2,
 	goodness = -4,
 	minimunDeadPercentage = 0.01,
-	minimunTimeElapsed = 5 * 60,
+	minimunTimeElapsed = 10 * 60,
 	
 	onStart = function (self)
 		-- pick client to be chimera
