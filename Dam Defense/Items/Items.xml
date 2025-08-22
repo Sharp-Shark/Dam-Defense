@@ -1337,7 +1337,7 @@
           <Sound file="Content/Items/Weapons/WEAPON_rifleGrenadeShot3.ogg" type="OnUse" range="1000" />
         </StatusEffect>
       </ItemComponent>
-      <RangedWeapon barrelpos="80,0" weapondamagemodifier="1.5" unskilledspread="2" combatPriority="70" reload="1.2" reloadnoskill="1.2" reloadskillrequirement="0" drawhudwhenequipped="true" crosshairscale="0.15">
+      <RangedWeapon barrelpos="80,0" weapondamagemodifier="1.4" unskilledspread="2" combatPriority="70" reload="1.2" reloadnoskill="1.2" reloadskillrequirement="0" drawhudwhenequipped="true" crosshairscale="0.15">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
         <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
         <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -1404,7 +1404,7 @@
         <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
         <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2" />
       </Price>
-      <Fabricate suitablefabricators="fabricator" requiredtime="60" requiresrecipe="true">
+      <Fabricate suitablefabricators="fabricator" requiredtime="45" requiresrecipe="true">
         <RequiredSkill identifier="weapons" level="25" />
         <RequiredItem identifier="plastic" />
         <RequiredItem identifier="titaniumaluminiumalloy" />
@@ -2001,25 +2001,19 @@
         <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
         <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="4" />
       </Price>
-      <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="true">
+      <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="2" requiresrecipe="true">
         <RequiredSkill identifier="weapons" level="25" />
         <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
         <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
         <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
         <RequiredItem identifier="steel" />
       </Fabricate>
-      <Fabricate suitablefabricators="fabricator" requiredtime="15" requiresrecipe="true" displayname="recycleitem">
+      <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" displayname="recycleitem">
         <RequiredSkill identifier="weapons" level="25" />
         <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
         <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
         <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
         <RequiredItem identifier="smgmagazine" mincondition="0.0" maxcondition="0.1" usecondition="false" />
-      </Fabricate>
-      <Fabricate suitablefabricators="nexshop" requiredtime="1">
-        <RequiredItem tag="money" amount="8" />
-      </Fabricate>
-      <Fabricate suitablefabricators="secnexshop" requiredtime="1">
-        <RequiredItem tag="realmoney" amount="2" />
       </Fabricate>
       <Deconstruct time="10">
         <Item identifier="steel" />
@@ -2046,7 +2040,7 @@
       <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
       <Projectile characterusable="false" hitscan="true" removeonhit="true">
         <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,175" scalemultiplier="1,0.6" />
-        <Attack structuredamage="4" targetforce="5" itemdamage="4" severlimbsprobability="0.1" penetration="0.2">
+        <Attack structuredamage="4" targetforce="5" itemdamage="4" severlimbsprobability="0.1" penetration="0.3">
           <Affliction identifier="gunshotwound" strength="15" />
           <Affliction identifier="bleeding" strength="10" />
         </Attack>
@@ -5289,8 +5283,8 @@
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredItem tag="money" amount="16" />
     </Fabricate>
-    <Fabricate suitablefabricators="fabricator" requiredtime="35">
-      <RequiredSkill identifier="weapons" level="55" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="weapons" level="65" />
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
       <RequiredItem identifier="tin" />
