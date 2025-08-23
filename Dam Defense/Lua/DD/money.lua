@@ -100,16 +100,34 @@ end
 
 DD.giveMoneyToClient = function (client, amount, announce)
 	DD.expectTypes('giveMoneyToClient', {client, amount, announce}, {'userdata', 'number', 'nil,boolean,string'})
-	if DD.roundData.bank[client] ~= nil then
-		DD.roundData.bank[client] = DD.roundData.bank[client] + amount
+	
+	local integer = math.floor(amount)
+	local percentage = math.floor((amount - integer) * 100)
+	local displayAmount = math.round(integer + percentage / 100, 2)
+	
+	if integer + percentage <= 0 then return end
+	
+	if DD.roundData.bankPercentage[client] ~= nil then
+		DD.roundData.bankPercentage[client] = DD.roundData.bankPercentage[client] + percentage
 	else
-		DD.roundData.bank[client] = amount
+		DD.roundData.bankPercentage[client] = percentage
 	end
+	local bankPercentageFloor = math.floor(DD.roundData.bankPercentage[client] / 100)
+	if bankPercentageFloor > 0 then
+		integer = integer + bankPercentageFloor
+		DD.roundData.bankPercentage[client] = DD.roundData.bankPercentage[client] - bankPercentageFloor * 100
+	end
+	if DD.roundData.bank[client] ~= nil then
+		DD.roundData.bank[client] = DD.roundData.bank[client] + integer
+	else
+		DD.roundData.bank[client] = integer
+	end
+	
 	if announce then
 		if type(announce) == 'string' then
-			DD.messageClient(client, DD.stringLocalize('giveMoneyToClientWithReason', {amount = amount, reason = announce}), {preset = 'command'})
+			DD.messageClient(client, DD.stringLocalize('giveMoneyToClientWithReason', {amount = displayAmount, reason = announce}), {preset = 'command'})
 		else
-			DD.messageClient(client, DD.stringLocalize('giveMoneyToClient', {amount = amount}), {preset = 'command'})
+			DD.messageClient(client, DD.stringLocalize('giveMoneyToClient', {amount = displayAmount}), {preset = 'command'})
 		end
 	end
 end
@@ -158,6 +176,7 @@ end
 
 DD.roundStartFunctions.money = function ()
 	DD.roundData.bank = {}
+	DD.roundData.bankPercentage = {} -- for fractional amounts of credit
 	DD.roundData.salaryTimer = {}
 	DD.roundData.characterSalaryTimer = {}
 	DD.roundData.withdrawCooldown = {}

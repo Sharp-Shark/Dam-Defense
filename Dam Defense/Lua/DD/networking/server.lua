@@ -47,6 +47,9 @@ Hook.Add("client.connected", "DD.discordClientConnect", function (connectedClien
 end)
 
 Hook.Add("client.disconnected", "DD.discordClientDisconnect", function (disconnectedClient)
+	if SERVER then
+		DD.clientsWithLua[disconnectedClient] = nil
+	end
 	if SERVER and Game.ServerSettings.IsPublic then
 		local name = disconnectedClient.Name
 		

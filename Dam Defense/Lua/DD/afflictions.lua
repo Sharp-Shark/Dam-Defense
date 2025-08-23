@@ -69,14 +69,13 @@ local characterSpreadAfflictions = function (character)
 	airborneSpread(character, Character.CharacterList, 750, callback)
 end
 
-local corpseItems = {}
 for item in Item.ItemList do
 	if item.HasTag('corpse') then
-		table.insert(corpseItems, item)
+		table.insert(DD.roundData.corpseItems, item)
 	end
 end
 Hook.Add("DD.corpse.register", "DD.corpse.register", function(effect, deltaTime, item, targets, worldPosition, element)
-	table.insert(corpseItems, item)
+	table.insert(DD.roundData.corpseItems, item)
 end)
 local itemSpreadAfflictions = function (item)
 	local callback = function (other)
@@ -105,7 +104,7 @@ local itemSpreadAfflictions = function (item)
 			end
 		end
 	end
-	airborneSpread(item, corpseItems, 750, callback)
+	airborneSpread(item, DD.roundData.corpseItems, 750, callback)
 end
 
 -- Although this is a luahook (<LuaHook name="..." />) I'm keeping it in this file instead of luahooks.lua
@@ -421,3 +420,7 @@ Hook.Patch("Barotrauma.Character", "Kill", function(instance, ptable)
 		end
 	end
 end, Hook.HookMethodType.Before)
+
+DD.roundStartFunctions.afflictions = function ()
+	DD.roundData.corpseItems = {}
+end

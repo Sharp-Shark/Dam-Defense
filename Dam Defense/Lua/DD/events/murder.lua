@@ -18,6 +18,8 @@ end, {
 		self.murdererDied = false
 		self.murdererArrested = false
 		self.victimDied = false
+		-- Bounty
+		self.bounty = 10
 		
 		-- Pick murderer (can't be security)
 		if self.murderer == nil then
@@ -44,7 +46,7 @@ end, {
 			self.fail('conditions to start could not be met')
 			return
 		else
-			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurderer' ,{victimName = self.victim.Name}), {preset = 'crit'})
+			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurderer' ,{victimName = self.victim.Name, bounty = self.bounty}), {preset = 'crit'})
 			DD.messageClient(self.victim, DD.stringLocalize('murderMessageVictim'), {preset = 'crit'})
 			if self.murderer.Character ~= nil then DD.giveAfflictionCharacter(self.murderer.Character, 'notificationfx', 999) end
 			if self.victim.Character ~= nil then DD.giveAfflictionCharacter(self.victim.Character, 'notificationfx', 999) end
@@ -95,7 +97,7 @@ end, {
 	
 	onFinish = function (self)
 		if self.murdererWon then
-			DD.giveMoneyToClient(self.murderer, 5, true)
+			DD.giveMoneyToClient(self.murderer, self.bounty, true)
 			DD.messageAllClients(DD.stringLocalize('murderEndMurdererVictory', {victimName = self.victim.Name}), {preset = 'badinfo'})
 			DD.messageClient(self.murderer, DD.stringLocalize('murderMessageMurdererVictory', {victimName = self.victim.Name}), {preset = 'goodinfo'})
 			-- Start event for security to arrest murderer

@@ -38,7 +38,7 @@
   <Override>
   <!-- Mayor Job -->
   <jobname.captain>Mayor</jobname.captain>
-  <jobdescription.captain>You are the ruler (probably because of your impervious to damage liver and lungs) of this place, but no one rules alone. You will rely on enforcers to make your word be followed, the divers to keep the local fauna at bay, the medical staff to keep all healthy, the engineers to keep the dam and its reactor working and the laborers with producing crucial supplies.</jobdescription.captain>
+  <jobdescription.captain>You are the ruler of this place, but no one rules alone. You will rely on the security force to suppress dissent and neutralize hostiles, the medical staff to keep all healthy, the engineers to maintain the dam and its reactor and the laborers who fabricate supplies. Use /announce to make announcements. Use /fire to execute unloyal members of security.</jobdescription.captain>
   <!-- Engineer -->
   <jobname.engineer>Engineer</jobname.engineer>
   <jobdescription.engineer>A highly trained and valuable professional responsable with maintaining the dam and its reactor. Security will often be busy, so you have been trusted with a handgun, do not be reckless with it, instead use it mainly to keep saboteurs away.</jobdescription.engineer>
@@ -67,13 +67,13 @@
   <jobdescription.clown>The only rule is there are no rules! Well almost. Do your best at making security hate you and (optionally) make the residents love you.</jobdescription.clown>
   <!-- Foreman Job -->
   <jobname.foreman>Head Engineer</jobname.foreman>
-  <jobdescription.foreman>The mayor will often be too busy to watch over the dam, and that is where you come in. You will work together with the engineers and janitors around to make sure the dam and its reactors are working neatly at all times. If the situation damands it, you can also temporarily serve as an additional security officer.</jobdescription.foreman>
+  <jobdescription.foreman>The mayor will often be too busy to watch over the dam, and that is where you come in. You will work together with the engineers and janitors to make sure the dam and its reactors are working neatly at all times. If the situation damands it, you can also temporarily serve as an additional security officer.</jobdescription.foreman>
   <!-- Researcher Job -->
   <jobname.researcher>Researcher</jobname.researcher>
   <jobdescription.researcher>Aside from working as a Medical Doctor if the times come, you will also be mainly conducting often unethical research with the aim of producing antidotes to infections by using your blood sampler on infected and later refining your live samples into antidotes in a medical fabricator.</jobdescription.researcher>
   <!-- Diver Job -->
   <jobname.diver>Diver</jobname.diver>
-  <jobdescription.diver>Expert in diving and hunting. Your main task is keeping the local fauna in check with your guns and to mine with your plasma cutter. If the situation calls for it, you can also temporarily work as just an additional security officer.</jobdescription.diver>
+  <jobdescription.diver>Expert in diving and hunting. Your main task is keeping the local fauna in check with your guns and to mine with your plasma cutter. If the situation calls for it, you can also temporarily work as an additional security officer.</jobdescription.diver>
   <!-- Bodyguard Job -->
   <jobname.bodyguard>Bodyguard</jobname.bodyguard>
   <jobdescription.bodyguard>Hired, trained and armed to keep the VIP safe at all costs. Mission failure will result in subject termination.</jobdescription.bodyguard>

@@ -769,6 +769,11 @@ Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, p
 			if entity.HasTag('corpse') then
 				entity.Condition = entity.Condition - 2
 				if entity.Condition <= 0 then
+					for key, value in pairs(DD.roundData.corpseItems) do
+						if value == entity then
+							table.remove(DD.roundData.corpseItems, key)
+						end
+					end
 					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), entity.WorldPosition - Vector2(0, 86) / 4, nil, nil, function (spawnedItem) end)
 					local client = DD.findClientByCharacter(user)
 					if client ~= nil then
@@ -780,6 +785,40 @@ Hook.Patch("Barotrauma.Items.Components.RepairTool", "Use", function(instance, p
 			end
 		elseif LuaUserData.IsTargetType(entity, 'Barotrauma.Structure') then
 			break
+		end
+	end
+end, Hook.HookMethodType.Before)
+
+-- Cash reward for repairing machines
+Hook.Patch("Barotrauma.Items.Components.Repairable", "StartRepairing", function(instance, ptable)
+	local item = instance.item
+	DD.roundData.repairInitialCondition[item] = item.Condition
+end, Hook.HookMethodType.Before)
+Hook.Patch("Barotrauma.Items.Components.Repairable", "StopRepairing", function(instance, ptable)
+	local character = ptable['character']
+	local item = instance.item
+	local amount = (item.Condition - DD.roundData.repairInitialCondition[item]) / item.MaxCondition
+	DD.roundData.repairInitialCondition[item] = nil
+	
+	local key = 'giveMoneyReasonMachineRepair'
+	if item.HasTag('pump') or item.HasTag('junctionbox') then
+		amount = amount * 2
+	end
+	if item.HasTag('door') then
+		amount = amount / 2
+		if (DD.roundData.repairCooldown[item] ~= nil) and (DD.thinkCounter <= DD.roundData.repairCooldown[item]) then
+			amount = amount / 5
+			key = 'giveMoneyReasonMachineRepairAbuse'
+		end
+		DD.roundData.repairCooldown[item] = DD.thinkCounter + 60 * 60
+	end
+	
+	if CLIENT then return end
+	
+	if amount > 0 then
+		local client = DD.findClientByCharacter(character)
+		if client ~= nil then
+			DD.giveMoneyToClient(client, amount, DD.stringLocalize(key))
 		end
 	end
 end, Hook.HookMethodType.Before)
@@ -1384,4 +1423,9 @@ Hook.Patch("Barotrauma.Networking.RespawnManager", "DispatchShuttle", function(i
 		end
 	end
 end, Hook.HookMethodType.Before)
+end
+
+DD.roundStartFunctions.luahooks = function ()
+	DD.roundData.repairInitialCondition = {}
+	DD.roundData.repairCooldown = {}
 end

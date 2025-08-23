@@ -1,3 +1,5 @@
+if CLIENT then return end
+
 -- cooldown for election command
 DD.electionCommandUsableAfter = 0
 
@@ -13,7 +15,7 @@ end
 DD.chatMessageFunctions.help = function (message, sender)
 	if (string.sub(message, 1, 1) ~= '/') and (string.sub(message, 1, 1) ~= '!') then return end
 	
-	local specialCommands = {'help', 'thanks', 'info', 'neverantag', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'gang', 'fire'}
+	local specialCommands = {'help', 'thanks', 'info', 'neverantag', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'gang', 'announce', 'fire'}
 	local commandText = {
 		help = 'Gives a list of commands. List of commands given will only include commands relevant for the current context.',
 		thanks = 'Credit where it is due. Without the work these people did, Dam Defense would not be where it stands.',
@@ -29,6 +31,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 		cultists = 'Lists fellow blood cultists. List will not include undead zombies, but undead zombies are allied to cultists and can also use this command.',
 		whisper = 'Globally and secretly send a text message to all blood cultists and undead zombies. Command can be used by both cultists and zombies.',
 		gang = 'Lists fellow gang members and the name of your boss. Be cautious with enemy gangs.',
+		announce = 'Usable by the mayor to make global announcements that even people without headsets will hear. Speak up and everyone shall hear you.',
 		fire = 'Usable by the mayor to lethally fire members of security or to kill himself. Type /fire without arguments to see what number relates to each guard. Numbers can be used in place of names.',
 	}
 	
@@ -56,6 +59,9 @@ DD.chatMessageFunctions.help = function (message, sender)
 			end
 		else
 			specialCommands['possess'] = true
+		end
+		if DD.isClientCharacterAlive(sender) and (sender.Character.JobIdentifier == 'captain') then
+			specialCommands['announce'] = true
 		end
 		if (DD.isClientCharacterAlive(sender) and (sender.Character.JobIdentifier == 'captain')) or sender.HasPermission(ClientPermissions.ConsoleCommands) then
 			specialCommands['fire'] = true
@@ -224,6 +230,24 @@ DD.chatMessageFunctions.freecam = function (message, sender)
 	end
 	
 	sender.SetClientCharacter(nil)
+	
+	return true
+end
+
+local announceCooldown = 0
+DD.chatMessageFunctions.announce = function (message, sender)
+	if string.sub(message, 1, 9) ~= '/announce' then return end
+	if (not DD.isClientCharacterAlive(sender)) or (sender.Character.JobIdentifier ~= 'captain') then return end
+	if DD.thinkCounter <= announceCooldown then
+		DD.messageClient(sender, DD.stringLocalize('commandAnnounceErrorCooldown', {timer = DD.numberToTime(math.ceil((announceCooldown - DD.thinkCounter) / 60))}), {preset = 'command'})
+		return true
+	end
+	announceCooldown = DD.thinkCounter + 60 * 10
+	
+	DD.messageAllClients(string.sub(message, 11, #message), {sender = 'Mayor Announcement', type='Server', color = JobPrefab.Get('captain').UIColor, sendMain = false, sendAnother = true})
+	for character in Character.CharacterList do
+		DD.giveAfflictionCharacter(character, 'announcementfx', 999)
+	end
 	
 	return true
 end

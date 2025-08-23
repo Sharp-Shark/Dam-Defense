@@ -1697,7 +1697,7 @@
         <Item identifier="fulgurium" />
       </Deconstruct>
       <Fabricate suitablefabricators="fabricator" requiredtime="60">
-        <RequiredSkill identifier="electrical" level="30" />
+        <RequiredSkill identifier="electrical" level="25" />
         <RequiredItem identifier="fpgacircuit" />
         <RequiredItem identifier="lead" amount="2" />
         <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
@@ -1841,7 +1841,7 @@
       <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
         <sprite name="Autoshogun Worn" texture="Content/Items/JobGear/TalentGear.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="308,1,152,61" limb="Torso" depthlimb="LeftArm" ignorelimbscale="true" scale="0.62" origin="0.5,0.9" />
       </Wearable>
-      <RangedWeapon barrelpos="68,10" weapondamagemodifier="0.9" spread="5" unskilledspread="18" combatPriority="80" reload="0.65" holdtrigger="true" drawhudwhenequipped="true" crosshairscale="0.2">
+      <RangedWeapon barrelpos="68,10" weapondamagemodifier="1.0" spread="5" unskilledspread="18" combatPriority="85" reload="0.55" holdtrigger="true" drawhudwhenequipped="true" crosshairscale="0.2">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
         <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
         <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -2632,7 +2632,7 @@
       <!--When fired, spawns 8 projectiles simultaneously.-->
       <Projectile characterusable="false" hitscan="true" hitscancount="8" removeonhit="true" spread="15">
         <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,100" scalemultiplier="1,0.5" />
-        <Attack structuredamage="1" targetforce="4" itemdamage="2" severlimbsprobability="0.5">
+        <Attack structuredamage="1" targetforce="4" itemdamage="2" severlimbsprobability="0.5" penetration="0.15">
           <Affliction identifier="gunshotwound" strength="8" />
           <Affliction identifier="bleeding" strength="6" />
           <Affliction identifier="stun" strength="0.075" />
@@ -5674,7 +5674,7 @@
         <sound file="Content/Sounds/Impact/SoftImpact2.ogg" range="1000" />
         <sound file="Content/Sounds/Impact/SoftImpact3.ogg" range="1000" />
       </StatusEffect>
-      <StatusEffect type="OnImpact" target="This" delay="1" disabledeltatime="true">
+      <StatusEffect type="OnImpact" target="This" delay="0.5" disabledeltatime="true">
         <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" volume="4.0" range="3000" />
         <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" volume="4.0" range="3000" />
         <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" volume="4.0" range="3000" />
