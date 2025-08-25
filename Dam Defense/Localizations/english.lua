@@ -208,6 +208,7 @@ return {
 	gui_damstaff = 'Dam Staff',
 	gui_prisoner = 'Prisoner',
 	gui_colleague = 'Colleague',
+	gui_spy = 'Spy',
 	
 	-- wiki
 	-- wiki misc

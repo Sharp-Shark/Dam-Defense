@@ -74,7 +74,7 @@ end, {
 		end
 		
 		-- Create hooks
-		DD.newThinkFunctions[self.name .. self.seed] = function () self.onThink() end
+		DD.newThinkFunctions[self.name .. self.seed] = function () if self.finished or self.failed then return end self.onThink() end
 		DD.characterDeathFunctions[self.name .. self.seed] = function (character) self.onCharacterDeath(character) end
 		DD.chatMessageFunctions[self.name .. self.seed] = function (message, sender) return self.onChatMessage(message, sender) end
 		DD.roundEndFunctions[self.name .. self.seed] = function () self.finish() end

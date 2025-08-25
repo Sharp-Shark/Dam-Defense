@@ -126,6 +126,7 @@ DD.antagExemptJobs = {
 	mercsevil = true,
 	wizard = true,
 	gangster = true,
+	spy = true,
 }
 
 -- Set of jobs that do not need to die for antags to win
@@ -134,6 +135,7 @@ DD.antagNonTargetJobs = {
 	mercsevil = true,
 	wizard = true,
 	gangster = true,
+	spy = true,
 	bodyguard = true,
 }
 

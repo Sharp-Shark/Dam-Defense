@@ -585,7 +585,7 @@
         <StatusEffect type="OnUse" target="UseTarget" comparison="AND" >
           <Conditional entitytype="eq Character"/>
 	      <Conditional vitality="gt 0" />
-          <Affliction identifier="blunttrauma" strength="5" />
+          <Affliction identifier="blunttrauma" strength="10" />
           <Affliction identifier="johncenafx" strength="999" />
           <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
 		  <ParticleEmitter particle="critboosted" scalemin="0.1" scalemax="0.15" particleamount="9" anglemin="0" anglemax="360" velocitymin="10" velocitymax="15" DistanceMin="5" DistanceMax="60" />

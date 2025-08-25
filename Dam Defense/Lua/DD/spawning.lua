@@ -70,6 +70,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 		assistant = {'unlockallrecipes', 'skedaddle'},
 		-- event jobs
 		gangster = {'drunkensailor', 'gangknowledge'},
+		spy = {'skedaddle'},
 		jet = {'daringdolphin', 'ballastdenizen', 'rebelknowledge'},
 		mercs = {'daringdolphin', 'ballastdenizen'},
 		mercsevil = {'daringdolphin', 'ballastdenizen'},

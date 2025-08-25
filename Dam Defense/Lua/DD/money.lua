@@ -85,6 +85,7 @@ DD.jobSalaryTimer = {
 	mercsevil = calculateSalaryTimer(10),
 	bodyguard = calculateSalaryTimer(7),
 	gangster = calculateSalaryTimer(10),
+	spy = calculateSalaryTimer(10),
 	wizard = calculateSalaryTimer(2),
 	jet = calculateSalaryTimer(2),
 }

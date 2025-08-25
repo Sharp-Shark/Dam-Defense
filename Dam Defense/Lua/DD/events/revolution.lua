@@ -162,6 +162,7 @@ end, {
 		
 		-- Event requires 2 (or more) rebel leaders and (1 or more) security personnel
 		if (self.rebels == nil) or (self.security == nil) or (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0) then
+			self.rebels = nil
 			self.fail('conditions to start could not be met')
 			return
 		else
@@ -206,7 +207,7 @@ end, {
 			for client in Client.ClientList do
 				if rebelsSet[client] then
 					DD.messageClient(client, DD.stringLocalize('revolutionMessageRebels', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
-				elseif (client.Character ~= nil) and DD.isCharacterAntagSafe(client.Character) then
+				elseif (client.Character ~= nil) and DD.isCharacterSecurity(client.Character) then
 					-- Sec message
 					DD.messageClient(client, DD.stringLocalize('revolutionMessageSecurity', {timer = DD.numberToTime(self.parent.rebelsDoxTimer)}), {preset = 'crit'})
 				else
@@ -332,6 +333,7 @@ end, {
 	end,
 	
 	onFinishAlways = function (self)
+		if self.rebelsWon then return end
 		if self.rebels == nil then self.rebels = {} end
 		for client in self.rebels do
 			if client.Character ~= nil then

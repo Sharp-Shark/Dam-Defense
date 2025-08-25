@@ -1,4 +1,32 @@
 -- Warning: how the mod interacts with husk is hard-coded since husk infection is different from the mod's diseases in some pretty fundamental ways
+
+if CLIENT then
+	local characterSkinColor = {}
+	DD.thinkFunctions.invisibleClient = function ()
+		for character in Character.CharacterList do
+			local strength = character.CharacterHealth.GetAfflictionStrengthByIdentifier('invisible')
+			local transparent = Color(0, 0, 0, 0)
+			
+			if character.Info == nil then return end
+			
+			if characterSkinColor[character] == nil then
+				characterSkinColor[character] = character.Info.Head.SkinColor
+			end
+			
+			if strength <= 0 then
+				character.Info.Head.SkinColor = characterSkinColor[character]
+			elseif strength > 1 then
+				character.Info.Head.SkinColor = transparent
+			else
+				character.Info.Head.SkinColor = Color.Lerp(characterSkinColor[character], transparent, strength)
+			end
+		end
+	end
+	DD.roundStartFunctions.afflictionsClient = function ()
+		local characterSkinColor = {}
+	end
+end
+
 if CLIENT and Game.IsMultiplayer then return end
 
 --[[
@@ -69,6 +97,8 @@ local characterSpreadAfflictions = function (character)
 	airborneSpread(character, Character.CharacterList, 750, callback)
 end
 
+DD.roundData = {}
+DD.roundData.corpseItems = {}
 for item in Item.ItemList do
 	if item.HasTag('corpse') then
 		table.insert(DD.roundData.corpseItems, item)

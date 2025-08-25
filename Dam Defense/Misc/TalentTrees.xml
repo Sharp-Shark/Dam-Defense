@@ -55,6 +55,14 @@
     </SubTree>
   </TalentTree>
   
+  <TalentTree jobidentifier="spy">
+    <SubTree identifier="gangster_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="1" maxchosentalents="1">
+        <TalentOption identifier="skedaddle"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
   <TalentTree jobidentifier="jet">
     <SubTree identifier="jet_primary" nameidentifier="talenttree.primary" type="primary">
       <TalentOptions requiredtalents="3" maxchosentalents="3">

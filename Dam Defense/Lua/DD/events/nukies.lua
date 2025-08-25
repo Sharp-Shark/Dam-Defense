@@ -43,7 +43,7 @@ end, {
 	
 	onStart = function (self)
 		self.nukiesWon = false
-		self.respawnTickets = 0
+		self.respawnTickets = math.ceil(#Client.ClientList / 5)
 		
 		-- Pick nukies
 		if self.nukies == nil then

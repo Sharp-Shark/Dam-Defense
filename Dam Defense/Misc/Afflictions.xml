@@ -80,7 +80,15 @@
 	  </StatusEffect>
 	</Effect>
   </Affliction>
-  
+
+  <!-- Invisibility -->
+  <Affliction name="Invisible" identifier="invisible" description="" type="buff" limbspecific="false" indicatorlimb="Torso" showiconthreshold="999" showinhealthscannerthreshold="999" karmachangeonapplied="0" maxstrength="2" iconcolors="250,250,150,255">
+    <Effect minstrength="0" maxstrength="1" strengthchange="-1" />
+    <Effect minstrength="1" maxstrength="2" strengthchange="-1">
+	  <StatusEffect target="Character" stackable="true" indetectable="true" DisableFocusingOnEntities="true" InvisibleTimer="0.1" setvalue="true" />
+	</Effect>
+  </Affliction>
+
   <!-- Stun inflicted by 40mm Rubber Round -->
   <Affliction name="Rubber Stun" identifier="rubberstun" description="" type="debuff" limbspecific="false" indicatorlimb="Torso" showiconthreshold="101" showinhealthscannerthreshold="101" karmachangeonapplied="0" maxstrength="100" WeaponsSkillGain="1.0" iconcolors="250,250,150,255">
     <Effect minstrength="1" maxstrength="100" strengthchange="-5" minspeedmultiplier="1.0" maxspeedmultiplier="0.3"></Effect>
@@ -680,8 +688,8 @@
 	  minspeedmultiplier="1"
 	  maxspeedmultiplier="1.15"
 	  resistancefor="damage,bleeding,bloodloss,stun"
-	  minresistance="0.4"
-	  maxresistance="0.4">
+	  minresistance="0.5"
+	  maxresistance="0.5">
       <StatusEffect target="Character">
         <ReduceAffliction type="stun" strength="0.5"/>
         <ReduceAffliction type="damage" strength="2"/>

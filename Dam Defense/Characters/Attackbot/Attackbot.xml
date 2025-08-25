@@ -1,7 +1,7 @@
 ﻿<Character ShowHealthBar="True" SpeciesName="Attackbot" SpeciesTranslationOverride="" DisplayName="" Group="human" Humanoid="False" HasInfo="False" CanInteract="True" CanClimb="True" Husk="False" UseHuskAppendage="False" NeedsAir="False" NeedsWater="False" CanSpeak="False" UseBossHealthBar="False" Noise="100" Visibility="100" BloodDecal="" BleedParticleAir="blooddrop" BleedParticleWater="waterblood" BleedParticleMultiplier="1" CanEat="False" EatingSpeed="10" UsePathFinding="True" PathFinderPriority="1" HideInSonar="False" HideInThermalGoggles="True" SonarDisruption="0" DistantSonarRange="0" DisableDistance="25000" SoundInterval="10" DrawLast="False" IsMachine="True">
   <ragdolls folder="%ModDir%/Characters/Attackbot/Ragdolls/" />
   <animations folder="%ModDir%/Characters/Attackbot/Animations/" />
-  <health Vitality="100" DoesBleed="False" crushdepth="Infinity" UseHealthWindow="False" BleedingReduction="0" BurnReduction="2" ConstantHealthRegeneration="2" HealthRegenerationWhenEating="0" StunImmunity="True" PoisonImmunity="True" ApplyAfflictionColors="False" empvulnerability="1">
+  <health Vitality="150" DoesBleed="False" crushdepth="Infinity" UseHealthWindow="False" BleedingReduction="0" BurnReduction="2" ConstantHealthRegeneration="2" HealthRegenerationWhenEating="0" StunImmunity="True" PoisonImmunity="True" ApplyAfflictionColors="False" empvulnerability="1">
     <Limb>
       <VitalityMultiplier type="burn" multiplier="0.5" />
       <VitalityMultiplier identifier="gunshotwound" multiplier="0.5" />

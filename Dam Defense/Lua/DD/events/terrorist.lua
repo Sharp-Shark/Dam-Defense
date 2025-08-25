@@ -61,7 +61,12 @@ end, {
 			return
 		end
 		
-		if not DD.isClientCharacterAlive(self.terrorist) then
+		if DD.isClientCharacterAlive(self.terrorist) then
+			if DD.isCharacterArrested(self.terrorist.Character) then
+				self.finish()
+				return
+			end
+		else
 			self.finish()
 			return
 		end
@@ -87,7 +92,7 @@ end, {
 	
 	onFinishAlways = function (self)
 		if (self.terrorist ~= nil) and DD.isClientCharacterAlive(self.terrorist) then
-			DD.giveAfflictionCharacter(self.terrorist.Character, 'timepressure', 999)
+			DD.giveAfflictionCharacter(self.terrorist.Character, 'beepingbomb', 5)
 		end
 	end
 })

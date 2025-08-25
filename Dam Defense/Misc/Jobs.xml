@@ -731,7 +731,10 @@
     </Skills>
     <ItemSet>
       <Item identifier="idcard" equip="true">
-	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	  </Item>
       <Item identifier="clownmask" equip="true"/>
       <Item identifier="clowncostume" equip="true" outfit="true"/>
@@ -749,10 +752,7 @@
     </ItemSet>
     <ItemSet>
       <Item identifier="idcard" equip="true">
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
 	  </Item>
       <Item identifier="clownmask" equip="true"/>
       <Item identifier="clowncostume" equip="true" outfit="true"/>
@@ -1578,7 +1578,7 @@
       </Item>
       <Item identifier="pistoldrum" />
       <Item identifier="pistoldrum" />
-      <Item identifier="spyknife" />
+      <Item identifier="crowbar" />
       <Item identifier="flashlight" >
 		<Item identifier="batterycell"/>
 	  </Item>
@@ -1590,6 +1590,89 @@
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="captainspipe" />
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="fightintruders" prioritymodifier="1"/>
+      <Order identifier="rescue" prioritymodifier="1"/>
+      <Order identifier="extinguishfires" prioritymodifier ="0.75"/>
+      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.2"/>
+      <Order identifier="fixleaks" prioritymodifier="0.1"/>
+    </AutonomousObjectives>
+    <AppropriateOrders>
+      <Order identifier="operateweapons"/>
+      <Order identifier="fightintruders"/>
+    </AppropriateOrders>
+  </Job>
+  <Job identifier="spy"
+       minkarma="0" maxnumber="0"
+       uicolor="0.55,0.5,0.45"
+       vitalitymodifier="0"
+       pricemultiplier="1.15"
+       idlebehavior="Patrol">
+    <Jobicon>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5"/>
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5"/>
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="helm" level="55,65" primary="true"/>
+      <Skill identifier="weapons" level="65,75"/>
+      <Skill identifier="mechanical" level="55,65"/>
+      <Skill identifier="electrical" level="55,65"/>
+      <Skill identifier="medical" level="55,65"/>
+    </Skills>
+    <ItemSet>
+      <Item identifier="divingmask" equip="true"/>
+      <Item identifier="bossclothes" equip="true" outfit="true"/>
+      <Item identifier="headset" equip="true"/>
+      <Item identifier="idcard" equip="true">
+		<!-- 10 legit nexcredits -->
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	    <!-- 5 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+		<!-- 10 counterfeit nexcredits -->
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	  </Item>
+      <Item identifier="revolver" equip="false">
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+      </Item>
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="spyknife" />
+      <Item identifier="spywatch" >
+		<Item identifier="batterycell"/>
+	  </Item>
+      <Item identifier="flashlight" >
+		<Item identifier="batterycell"/>
+	  </Item>
+      <Item identifier="midazolam"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+	  <Item identifier="oxygentank"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />

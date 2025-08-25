@@ -23,6 +23,7 @@ require 'DD/events/wizard'
 require 'DD/events/chimera'
 require 'DD/events/attackbot'
 require 'DD/events/terrorist'
+require 'DD/events/spy'
 
 -- Event director table
 DD.eventDirector = {}
@@ -54,6 +55,7 @@ DD.eventDirector.eventPool = {
 	DD.eventChimera,
 	DD.eventAttackbot,
 	DD.eventTerrorist,
+	DD.eventSpy,
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}
@@ -449,6 +451,10 @@ DD.chatMessageFunctions.events = function (message, sender)
 		elseif clientEventsSet[event] then
 			if (event.name == 'murder') and (event.murderer == sender) then
 				list = list .. ' - ' .. event.name .. DD.stringReplace(' ({secret}) ({target} is {victimName})', {secret = DD.stringLocalize('secret'), target = DD.stringLocalize('target'), victimName = DD.clientLogName(event.victim)}) .. '\n'
+			elseif event.name == 'revolution' then
+				if event.rebelsSet[sender] then
+					list = list .. ' - ' .. event.name .. ' (' .. DD.stringLocalize('secret') .. ')' .. '\n'
+				end
 			else
 				list = list .. ' - ' .. event.name .. ' (' .. DD.stringLocalize('secret') .. ')' .. '\n'
 			end

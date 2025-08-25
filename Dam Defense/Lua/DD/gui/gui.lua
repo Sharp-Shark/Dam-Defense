@@ -61,6 +61,9 @@ local getInfoText = function (character, pov)
 		if character.JobIdentifier == 'gangster' then
 			assignText('gangleader', 3)
 		end
+		if character.JobIdentifier == 'spy' then
+			assignText('spy', 3)
+		end
 		if character.JobIdentifier == 'wizard' then
 			assignText('wizard', 3)
 		end
@@ -201,6 +204,7 @@ DD.gui.guiCharacterInfoTextColorTable = {
 	serialkiller = Color.Lerp(Color.MediumPurple, GUI.GUIStyle.TextColorNormal, 0.35),
 	wizard = Color.Lerp(Color.MediumPurple, GUI.GUIStyle.TextColorNormal, 0.35),
 	gangleader = Color.Lerp(Color.MediumPurple, GUI.GUIStyle.TextColorNormal, 0.35),
+	spy = Color.Lerp(Color.MediumPurple, GUI.GUIStyle.TextColorNormal, 0.35),
 	-- job specific title (job colored)
 	security = Color.Lerp(JobPrefab.Get('securityofficer').UIColor, GUI.GUIStyle.TextColorNormal, 0.5),
 	medical = Color.Lerp(JobPrefab.Get('medicaldoctor').UIColor, GUI.GUIStyle.TextColorNormal, 0.5),

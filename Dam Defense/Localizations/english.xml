@@ -86,6 +86,9 @@
   <!-- Gangster Job -->
   <jobname.gangster>Gangster</jobname.gangster>
   <jobdescription.gangster>The don of a mafia, your main objective is to grow your gang using crystal meth and thus gain power and influence. You are free to be good or evil.</jobdescription.gangster>
+  <!-- Spy Job -->
+  <jobname.spy>Spy</jobname.spy>
+  <jobdescription.spy>A professional assassin, your main objective is to sow distrust and paranoia, thus sabotaging Nexpharma activity in the region. You are free to be good or evil.</jobdescription.spy>
   <!-- MERCS Job -->
   <jobname.mercs>MERCS Member</jobname.mercs>
   <jobdescription.mercs>Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Restore order in the dam and protect it. Mission failure will result in subject termination.</jobdescription.mercs>
@@ -300,8 +303,8 @@
   <!-- Gangster Hat (for gang leader) -->
   <entityname.bosshat>Gangster Hat</entityname.bosshat>
   <entitydescription.bosshat>A fashionable trilby hat for a mafia boss. Lined with ballistic fiber on the inside and has a built-in diving mask.</entitydescription.bosshat>
-  <entityname.bossclothes>Gangster Suit</entityname.bossclothes>
-  <entitydescription.bossclothes>A stylish suit worn by the don of a local mafia.</entitydescription.bossclothes>
+  <entityname.bossclothes>Tuxedo</entityname.bossclothes>
+  <entitydescription.bossclothes>A stylish suit worn by professional criminals.</entitydescription.bossclothes>
   <!-- Storage Guntainer -->
   <entityname.toolboxgun>Storage Guntainer</entityname.toolboxgun>
   <entitydescription.toolboxgun>A portable guntainer for storing tools and supplies.</entitydescription.toolboxgun>
@@ -373,6 +376,9 @@
   <!-- Spy Knife -->
   <entityname.spyknife>Spy Knife</entityname.spyknife>
   <entitydescription.spyknife>Gentlemen. This knife grants guaranteed melee critical hits on backstabs if fully charged.</entitydescription.spyknife>
+  <!-- Spy Watch -->
+  <entityname.spywatch>Spy Watch</entityname.spywatch>
+  <entitydescription.spywatch>Peek-a-boo! When held out, this watch grants invisibility.</entitydescription.spywatch>
   <!-- Barricade -->
   <entityname.barricade>Barricade</entityname.barricade>
   <entitydescription.barricade>Steel beam that can be attached to a wall to provide cover in a gunfight. Repaired using a welding tool.</entitydescription.barricade>

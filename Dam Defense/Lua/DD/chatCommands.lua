@@ -194,7 +194,7 @@ DD.chatMessageFunctions.possess = function (message, sender)
 	local winner = nil
 	local winnerDistance = nil
 	for character in Character.CharacterList do
-		if (DD.findClientByCharacter(character) == nil) and (not character.IsDead) and (character.SpeciesName ~= 'human') and
+		if (DD.findClientByCharacter(character) == nil) and (not character.IsDead) and (character.SpeciesName ~= 'human') and (character.SpeciesName ~= 'Attackbot') and
 		((winner == nil) or (Vector2.Distance(sender.SpectatePos, character.WorldPosition) < winnerDistance)) then
 			winner = character
 			winnerDistance = Vector2.Distance(sender.SpectatePos, character.WorldPosition)
