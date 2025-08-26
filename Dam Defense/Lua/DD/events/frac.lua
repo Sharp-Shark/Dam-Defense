@@ -8,8 +8,8 @@ DD.eventAttackbot = DD.class(DD.eventBase, nil, {
 	minimunTimeElapsed = 12 * 60,
 	
 	onStart = function (self)
-		local position = DD.getLocation(function (item) return item.HasTag('dd_airdropartifact') end).WorldPosition
-		Entity.Spawner.AddCharacterToSpawnQueue('attackbot', position, function (character) return end)
+		local position = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
+		Entity.Spawner.AddCharacterToSpawnQueue('fractalguardian', position, function (character) return end)
 		
 		-- Warn bot has been spawned
 		DD.messageAllClients(DD.stringLocalize('airdropAttackbotMessage'), {preset = 'badinfo'})

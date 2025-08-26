@@ -21,7 +21,7 @@ require 'DD/events/deathSquad'
 require 'DD/events/election'
 require 'DD/events/wizard'
 require 'DD/events/chimera'
-require 'DD/events/attackbot'
+require 'DD/events/creature'
 require 'DD/events/terrorist'
 require 'DD/events/spy'
 
@@ -56,6 +56,7 @@ DD.eventDirector.eventPool = {
 	DD.eventAttackbot,
 	DD.eventTerrorist,
 	DD.eventSpy,
+	DD.eventFractalGuardian,
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}

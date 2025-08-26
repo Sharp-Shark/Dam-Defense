@@ -117,6 +117,7 @@ return {
 	electionEndFail = 'The election has ended because the captain has died or some other failure in the process.',
 	-- events/fish.lua
 	fishMessage = 'A total of {fishCount} {fishName} have been spotted in the {locationName}! It is adviced to kill them before they grow in numbers.',
+	fishMessageBoss = 'A {fishName} has been spotted in the {locationName}!',
 	-- events/gang.lua
 	gangEnd = 'Don {bossName} of the {gangName} has just died! God bless his soul.',
 	gangRecruitmentNotice = 'Your gang has just recruited {name}!',

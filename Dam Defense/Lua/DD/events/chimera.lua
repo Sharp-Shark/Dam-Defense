@@ -42,7 +42,7 @@ end, {
 				DD.chatMessageFunctions.jobinfo('', self.chimera, true)
 			end)
 			
-			DD.messageAllClients(DD.stringLocalize('fishMessage', {fishCount = 1, fishName = 'husk chimera', locationName = locationName}), {preset = 'badinfo'})
+			DD.messageAllClients(DD.stringLocalize('fishMessageBoss', {fishName = 'husk chimera', locationName = locationName}), {preset = 'badinfo'})
 			for client in Client.ClientList do
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
