@@ -164,10 +164,12 @@ end, {
 -- Base for state machine event
 DD.eventSMBase = DD.class(DD.eventBase, function (self)
 	local tbl = {}
-	for key, state in pairs(self.states) do
-		if type(state) == 'string' then
-			tbl[key] = self[state]
+	for key, name in pairs(self.states) do
+		local state = {}
+		for key, value in pairs(self[name]) do
+			state[key] = value
 		end
+		tbl[key] = state
 		tbl[key].parent = self
 	end
 	self.states = tbl
@@ -176,12 +178,17 @@ end, {
 		DD.eventBase.tbl.start(self)
 		if self.failed then return end
 		
+		for state in self.states do
+			if state.onStart ~= nil then state:onStart() end
+		end
+		
 		self.changeState('start')
 	end,
 
 	states = {start = 'stateStart'},
 	
 	stateStart = {
+		onStart = function (self) return end,
 		onChange = function (self, state) return end,
 		onThink = function (self) return end,
 	},
@@ -207,6 +214,7 @@ DD.eventWithStartBase = DD.class(DD.eventSMBase, nil, {
 	stateStartInitialTimer = 60 * 1, -- in seconds
 	
 	stateStart = {
+		onStart = function (self) return end,
 		onChange = function (self, state)
 			self.timer = self.parent.stateStartInitialTimer
 		end,
@@ -231,6 +239,7 @@ DD.eventWithStartBase = DD.class(DD.eventSMBase, nil, {
 	},
 	
 	stateMain = {
+		onStart = function (self) return end,
 		onChange = function (self, state) return end,
 		onThink = function (self) return end,
 	},

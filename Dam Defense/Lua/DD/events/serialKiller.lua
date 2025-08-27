@@ -177,7 +177,9 @@ end, {
 				return
 			end
 			
-			DD.giveAfflictionCharacter(self.parent.killer.Character, 'timepressure', 60/self.parent.timeToExplode/timesPerSecond)
+			if DD.isClientCharacterAlive(self.parent.killer) then
+				DD.giveAfflictionCharacter(self.parent.killer.Character, 'timepressure', 60/self.parent.timeToExplode/timesPerSecond)
+			end
 			
 			-- inform killer about nearest target location every minute
 			if self.parent.informKillerTargetLocationCooldown == nil then self.parent.informKillerTargetLocationCooldown = 30 * timesPerSecond end

@@ -1,6 +1,7 @@
 -- Crafting materials conveniently airdropped at the radio tower above the factory
 DD.eventBlackout = DD.class(DD.eventWithStartBase, nil, {
 	name = 'blackout',
+	instanceCap = 1,
 	isMainEvent = false,
 	cooldown = 60 * 3,
 	weight = 1,
