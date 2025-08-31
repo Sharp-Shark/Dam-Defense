@@ -78,6 +78,7 @@ DD.jobSalaryTimer = {
 	medicaldoctor = calculateSalaryTimer(5),
 	engineer = calculateSalaryTimer(5),
 	janitor = calculateSalaryTimer(3),
+	shopkeeper = calculateSalaryTimer(3),
 	mechanic = calculateSalaryTimer(2),
 	clown = calculateSalaryTimer(2),
 	-- other jobs

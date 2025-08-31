@@ -65,6 +65,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 		researcher = {'dontdieonme', 'firemanscarry'},
 		medicaldoctor = {'dontdieonme', 'firemanscarry'},
 		janitor = {'janitorialknowledge', 'greenthumb', 'firemanscarry'},
+		shopkeeper = {'unlockallrecipes', 'miner', 'greenthumb'},
 		mechanic = {'unlockallrecipes', 'miner'},
 		clown = {'unlockallrecipes', 'skedaddle'},
 		assistant = {'unlockallrecipes', 'skedaddle'},
@@ -137,9 +138,11 @@ DD.autoJob = function ()
 
 	local antagSafeCap = math.ceil(#Client.ClientList * 2 / 5)
 
+	local jobs = {}
 	local jobSet = {}
 	for jobPrefab in JobPrefab.Prefabs do
 		if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
+			table.insert(jobs, tostring(jobPrefab.Identifier))
 			jobSet[tostring(jobPrefab.Identifier)] = true
 		end
 	end
@@ -180,7 +183,24 @@ DD.autoJob = function ()
 		end
 	end
 	
+	-- random job
+	for index, job in pairs(jobs) do
+		if job == 'randomjob' then
+			table.remove(jobs, index)
+		end
+	end
+	jobSet['randomjob'] = nil
+	jobsLeft['randomjob'] = 0
+	for n = 1, 3 do
+		for client in sorted['randomjob'][n] do
+			local job = jobs[math.random(#jobs)]
+			table.insert(sorted[job][n], client)
+		end
+	end
+	sorted['randomjob'] = nil
+	
 	local assignClientJob = function (client, job, ignore)
+		if DD.isClientBannedFromJob(client, job) then return end
 		if DD.antagSafeJobs[job] and (antagSafeCap <= 0) and (not ignore) then return end
 		DD.clientJob[client] = job
 		if jobsLeft[job] ~= nil then

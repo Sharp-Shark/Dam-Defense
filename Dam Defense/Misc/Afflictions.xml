@@ -65,7 +65,19 @@
   <Affliction name="Prowler Leap FX" identifier="prowlerleap" description="" type="fx" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
     <Effect minstrength="0" maxstrength="10" strengthchange="-10.0" >
       <StatusEffect target="Character">
+	    <Conditional speciesname="eq Husk_prowler" />
         <Sound file="%ModDir%/Sounds/prowlerleap.ogg" loop="false" volume="12.0" />
+      </StatusEffect>
+      <StatusEffect target="Character">
+	    <Conditional speciesname="eq Husk_chimera" />
+        <Sound file="Content/Characters/Husk_chimera/HUSKCHIMERA_idle1.ogg" loop="false" volume="12.0" selectionmode="Random" />
+        <Sound file="Content/Characters/Husk_chimera/HUSKCHIMERA_idle2.ogg" loop="false" volume="12.0" />
+        <Sound file="Content/Characters/Husk_chimera/HUSKCHIMERA_idle3.ogg" loop="false" volume="12.0" />
+        <Sound file="Content/Characters/Husk_chimera/HUSKCHIMERA_idle4.ogg" loop="false" volume="12.0" />
+      </StatusEffect>
+      <StatusEffect target="Character">
+	    <Conditional speciesname="eq Orangeboy" />
+        <Sound file="Content/Characters/Orangeboy/ORANGEBOY_negative.ogg" loop="false" volume="12.0" />
       </StatusEffect>
 	</Effect>
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>

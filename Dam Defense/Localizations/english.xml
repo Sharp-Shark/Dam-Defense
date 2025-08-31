@@ -56,6 +56,9 @@
   <jobdescription.mechanic>Has all non-event specific recipes unlocked. Work at the factory to refine raw materials into equipment, weapons, tools, ammo and armor. From time to time have a drink with the lads and plan an uprising agaisnt your oppressors. We work to earn the right to work to earn the right to give ourselves the right to buy ourselves the right to live to earn the right to die.</jobdescription.mechanic>
   </Override>
   
+  <!-- Random Job -->
+  <jobname.randomjob>Random Job</jobname.randomjob>
+  <jobdescription.randomjob>Gets replaced with a random job.</jobdescription.randomjob>
   <!-- Greenskin Job -->
   <jobname.greenskinjob>Greenskin</jobname.greenskinjob>
   <jobdescription.greenskinjob>You are a kind of amphibious nimble critter that like playing games with their prey. Put masks on humans to turn them into goblins. Hide in goblin crates to regenerate.</jobdescription.greenskinjob>
@@ -74,6 +77,9 @@
   <!-- Diver Job -->
   <jobname.diver>Diver</jobname.diver>
   <jobdescription.diver>Expert in diving and hunting. Your main task is keeping the local fauna in check with your guns and to mine with your plasma cutter. If the situation calls for it, you can also temporarily work as an additional security officer.</jobdescription.diver>
+  <!-- Shopkeeper Job -->
+  <jobname.shopkeeper>Shopkeeper</jobname.shopkeeper>
+  <jobdescription.shopkeeper>A small business owner in a chaotic town. Sell and buy goods at a profit. Keep an eye out for burglars, thieves and other criminals that will sabotage your venture.</jobdescription.shopkeeper>
   <!-- Bodyguard Job -->
   <jobname.bodyguard>Bodyguard</jobname.bodyguard>
   <jobdescription.bodyguard>Hired, trained and armed to keep the VIP safe at all costs. Mission failure will result in subject termination.</jobdescription.bodyguard>

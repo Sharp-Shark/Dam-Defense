@@ -212,23 +212,8 @@ local luabotomyCooldown = 0
 local afflictionNetworkCooldown = {}
 DD.thinkFunctions.afflictions = function ()
 	if not Game.RoundStarted then return end
-
+	
 	for character in Character.CharacterList do
-		-- luabotomy
-		if luabotomyCooldown > 0 then
-			luabotomyCooldown = luabotomyCooldown - 1
-		else
-			luabotomyCooldown = 60
-			local client = DD.findClientByCharacter(character)
-			if client ~= nil then
-				local affliction = character.CharacterHealth.GetAffliction('luabotomyclientside', true)
-				if DD.clientsWithLua[client] then
-					if affliction ~= nil then affliction.SetStrength(0) end
-				else
-					DD.giveAfflictionCharacter(character, 'luabotomyclientside', 999)
-				end
-			end
-		end
 		-- blast jump
 		local affliction = character.CharacterHealth.GetAffliction('blastjumping', true)
 		if (affliction ~= nil) and (affliction.Strength <= 1) and (character.AnimController.OnGround or character.AnimController.InWater or character.AnimController.IsClimbing) then
@@ -239,18 +224,22 @@ DD.thinkFunctions.afflictions = function ()
 			affliction.SetStrength(0)
 		end
 		-- jump or leap
-		if (character.SpeciesName == 'Husk_prowler') or (character.SpeciesName == 'Husk_chimera') then
+		if (character.SpeciesName == 'Husk_prowler') or (character.SpeciesName == 'Husk_chimera') or (character.SpeciesName == 'Orangeboy') then
 			local affliction = character.CharacterHealth.GetAffliction('prowlerleapcharge', true)
 			if character.IsKeyDown(InputType.Crouch) then
 				if character.IsKeyDown(InputType.Ragdoll) then
 					if (affliction ~= nil) and (affliction.Strength >= 10) then
 						affliction.SetStrength(0)
 						character.Stun = math.max(0.2, character.Stun)
+						local vector = Vector2.Normalize(character.CursorWorldPosition - character.WorldPosition)
+						local scaler = 450
 						if character.SpeciesName == 'Husk_chimera' then
 							character.Stun = math.max(1, character.Stun)
 						end
-						local vector = Vector2.Normalize(character.CursorWorldPosition - character.WorldPosition)
-						local scaler = 450
+						if character.SpeciesName == 'Orangeboy' then
+							scaler = 200
+							character.Stun = math.max(1.5, character.Stun)
+						end
 						for limb in character.AnimController.Limbs do
 							limb.body.ApplyForce(vector * scaler)
 						end
@@ -263,6 +252,27 @@ DD.thinkFunctions.afflictions = function ()
 			else
 				if affliction ~= nil then
 					affliction.SetStrength(0)
+				end
+			end
+		end
+	end
+	
+	if DD.thinkCounter % 10 ~= 0 then return end
+	local timesPerSecond = 6
+
+	for character in Character.CharacterList do
+		-- luabotomy
+		if luabotomyCooldown > 0 then
+			luabotomyCooldown = luabotomyCooldown - 1 * timesPerSecond
+		else
+			luabotomyCooldown = 60
+			local client = DD.findClientByCharacter(character)
+			if client ~= nil then
+				local affliction = character.CharacterHealth.GetAffliction('luabotomyclientside', true)
+				if DD.clientsWithLua[client] then
+					if affliction ~= nil then affliction.SetStrength(0) end
+				else
+					DD.giveAfflictionCharacter(character, 'luabotomyclientside', 999)
 				end
 			end
 		end
@@ -282,11 +292,11 @@ DD.thinkFunctions.afflictions = function ()
 		-- Burning affliction (and some other afflictions) reduce if a limb is underwater
 		for limb in character.AnimController.Limbs do
 			if limb.InWater then
-				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'burning', 10)
-				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'noxiousspray', 10)
-				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'cyanpaint', 10)
-				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'yellowpaint', 10)
-				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'magentapaint', 10)
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'burning', 10 * timesPerSecond)
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'noxiousspray', 10 * timesPerSecond)
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'cyanpaint', 10 * timesPerSecond)
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'yellowpaint', 10 * timesPerSecond)
+				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'magentapaint', 10 * timesPerSecond)
 			end
 		end
 		-- Husk regen
@@ -295,7 +305,7 @@ DD.thinkFunctions.afflictions = function ()
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByIdentifier('bloodloss', true)
 			damage = damage + character.CharacterHealth.GetAfflictionStrengthByType('damage', true)
 			if ((character.Vitality < 0) or character.IsRagdolled) and (damage >= 1) then
-				DD.giveAfflictionCharacter(character, 'huskregen', 1 * (1/60) * character.MaxVitality / 100)
+				DD.giveAfflictionCharacter(character, 'huskregen', 1 * (1/60) * character.MaxVitality / 100 * timesPerSecond)
 			else
 				local affliction = character.CharacterHealth.GetAffliction('huskregen', true)
 				if (affliction ~= nil) and ((damage < 1) or (affliction.Strength <= 10)) then
@@ -323,7 +333,7 @@ DD.thinkFunctions.afflictions = function ()
 			if character.SpeciesName == 'human' then
 				-- after 10s of being dead, cardiac arrest will reach maxstrength
 				if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) < 1 then
-					DD.giveAfflictionCharacter(character, 'cardiacarrest', 1/60/10)
+					DD.giveAfflictionCharacter(character, 'cardiacarrest', 1/60/10 * timesPerSecond)
 					if character.CharacterHealth.GetAfflictionStrengthByIdentifier('cardiacarrest', true) >= 1 then
 						if SERVER then
 							Networking.CreateEntityEvent(character, Character.CharacterStatusEventData.__new(true))
@@ -336,7 +346,7 @@ DD.thinkFunctions.afflictions = function ()
 			
 			-- after 60s a corpse will despawn
 			affliction = character.CharacterHealth.GetAffliction('despawn', true)
-			DD.giveAfflictionCharacter(character, 'despawn', 1/60/60)
+			DD.giveAfflictionCharacter(character, 'despawn', 1/60/60 * timesPerSecond)
 			-- max strength has been reached
 			if (affliction ~= nil) and (affliction.Strength >= 1) then
 				affliction.SetStrength(0)
@@ -391,7 +401,7 @@ DD.thinkFunctions.afflictions = function ()
 			-- network update for dead character (and also spread infections)
 			if SERVER then
 				if (afflictionNetworkCooldown[character] ~= nil) and (afflictionNetworkCooldown[character] > 0) then
-					afflictionNetworkCooldown[character] = afflictionNetworkCooldown[character] - 1
+					afflictionNetworkCooldown[character] = afflictionNetworkCooldown[character] - 1 * timesPerSecond
 				else
 					Networking.CreateEntityEvent(character, Character.CharacterStatusEventData.__new(true))
 				
@@ -403,7 +413,7 @@ DD.thinkFunctions.afflictions = function ()
 		if (character.SpeciesName == 'human') and (not character.IsDead) then
 			local characterGangrene = character.CharacterHealth.GetAfflictionStrengthByIdentifier('bacterialgangrene', true)
 			if characterGangrene >= 200 then
-				DD.giveAfflictionCharacter(character, 'bacterialinfection', 1 / 60)
+				DD.giveAfflictionCharacter(character, 'bacterialinfection', 1 / 60 * timesPerSecond)
 			end
 		
 			local characterImmune = character.CharacterHealth.GetAfflictionStrengthByType('immune', true)
@@ -418,17 +428,17 @@ DD.thinkFunctions.afflictions = function ()
 			-- Immunu-response
 			if characterInfectionRecognized > 0 then
 				local amount = characterInfectionRecognized / 150
-				DD.giveAfflictionCharacter(character, 'immuneresponse', 2 * amount / 60)
-				DD.giveAfflictionCharacter(character, 'fever', 1 * amount / 60)
+				DD.giveAfflictionCharacter(character, 'immuneresponse', 2 * amount / 60 * timesPerSecond)
+				DD.giveAfflictionCharacter(character, 'fever', 1 * amount / 60 * timesPerSecond)
 			else
 				if character.CharacterHealth.GetAfflictionStrengthByType('infection', true) <= 0 then
-					character.CharacterHealth.ReduceAfflictionOnAllLimbs('immuneresponse', 2 / 60, nil)
-					character.CharacterHealth.ReduceAfflictionOnAllLimbs('fever', 1 / 60, nil)
+					character.CharacterHealth.ReduceAfflictionOnAllLimbs('immuneresponse', 2 / 60 * timesPerSecond, nil)
+					character.CharacterHealth.ReduceAfflictionOnAllLimbs('fever', 4 / 60 * timesPerSecond, nil)
 				end
 			end
 			if characterImmune > 0 then
 				for diseaseName, data in pairs(DD.diseaseData) do
-					character.CharacterHealth.ReduceAfflictionOnAllLimbs(diseaseName .. 'infection', characterImmune * getDiseaseStat(diseaseName, 'immune') / 100 / 60, nil)
+					character.CharacterHealth.ReduceAfflictionOnAllLimbs(diseaseName .. 'infection', characterImmune * getDiseaseStat(diseaseName, 'immune') / 100 / 60 * timesPerSecond, nil)
 				end
 			end
 		end

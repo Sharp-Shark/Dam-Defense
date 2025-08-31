@@ -116,6 +116,7 @@ DD.antagSafeJobs = {
 	foreman = true,
 	researcher = true,
 	medicaldoctor = true,
+	shopkeeper = true,
 	bodyguard = true,
 	mercs = true,
 }
@@ -153,6 +154,7 @@ DD.proletariatJobs = {
 	mechanic = true,
 	clown = true,
 	assistant = true,
+	shopkeeper = true,
 }
 
 -- Set of medical jobs

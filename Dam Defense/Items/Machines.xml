@@ -352,6 +352,30 @@
   </Item>
   </Override>
   
+  <!-- display case -->
+  <Item name="Small Display Case" identifier="smalldisplaycase" category="Weapon" tags="weaponholder" canflipx="false" canflipy="false" scale="0.45">
+    <Sprite texture="%ModDir%/Items/displaycase.png" depth="0.85" sourcerect="0,322,200,134" origin="0.5,0.5"/>
+    <DecorativeSprite texture="%ModDir%/Items/displaycase.png" depth="0.83" sourcerect="0,0,250,188" origin="0.5,0.5" />
+    <ItemContainer hideitems="false" drawinventory="true" capacity="1" AutoInteractWithContained="true" maxstacksize="1" slotsperrow="1" itempos="100,-67" iteminterval="0,0" itemrotation="0" containedspritedepth="0.831" canbeselected="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.2,0.25" anchor="Center" minsize="140,170" maxsize="280,280" style="ItemUI" />
+      <RequiredItem items="id_shop" type="Picked" msg="ItemMsgUnauthorizedAccess" ignoreineditor="true" />
+      <Containable items="smallitem" excludeditems="stunbaton,baseballbat,stunbaton,cultistmace,ceremonialsword,trashbag,merasmushat" />
+      <Containable items="stunbaton,baseballbat,cultistmace,ceremonialsword" rotation="30" />
+      <Containable items="trashbag" rotation="90" />
+      <Containable items="merasmushat" rotation="10" />
+    </ItemContainer>
+  </Item>
+  <Item name="Medium Display Case" identifier="mediumdisplaycase" category="Weapon" tags="weaponholder" canflipx="false" canflipy="false" scale="0.6">
+    <Sprite texture="%ModDir%/Items/displaycase.png" depth="0.85" sourcerect="0,188,200,134" origin="0.5,0.5"/>
+    <DecorativeSprite texture="%ModDir%/Items/displaycase.png" depth="0.83" sourcerect="0,0,250,188" origin="0.5,0.5" />
+    <ItemContainer hideitems="false" drawinventory="true" capacity="1" AutoInteractWithContained="true" maxstacksize="1" slotsperrow="1" itempos="100,-67" iteminterval="0,0" itemrotation="0" containedspritedepth="0.831" canbeselected="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.2,0.25" anchor="Center" minsize="140,170" maxsize="280,280" style="ItemUI" />
+      <RequiredItem items="id_shop" type="Picked" msg="ItemMsgUnauthorizedAccess" ignoreineditor="true" />
+      <Containable items="smallitem,mediumitem" excludeditems="merasmusstaff,whalinggun,nucleargun,cultistpitchfork,riotshield,cultistshield" />
+      <Containable items="cultistshield" rotation="90" />
+    </ItemContainer>
+  </Item>
+  
   <!-- portable generator -->
   <Item name="Portable Generator" identifier="portablegenerator" impacttolerance="0.1" tags="largeitem,generator" category="Electrical,Machine" description="" scale="0.3" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" GrabWhenSelected="true" pickdistance="150" >
     <Sprite texture="%ModDir%/Items/machines.png" sourcerect="0,232,296,232" origin="0.5,0.45" depth="0.55" />

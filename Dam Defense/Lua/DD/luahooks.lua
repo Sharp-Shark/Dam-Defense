@@ -145,29 +145,6 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 	
 	-- custom cards that do not have a job related to them
 	local customCards = {
-		shop = {
-			name = 'Shopkeeper',
-			tags = 'id_shop,id_laborer',
-			clothing = {'commonerclothes1'},
-			color = Color(55, 155, 0),
-			trueColor = true,
-			shortcuts = {
-				'shop',
-				'shopowner',
-				'shopkeep',
-				'shopkeeper',
-				'store',
-				'storeowner',
-				'storekeep',
-				'storekeeper',
-				'vendor',
-				'merchant',
-				'retailer',
-				'trader',
-				'clerk',
-				'seller',
-			}
-		},
 		miner = {
 			name = 'Miner',
 			tags = 'id_miner,id_laborer',
@@ -249,6 +226,10 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 		-- janitor
 		jani = 'janitor',
 		jan = 'janitor',
+		-- shopkeeper
+		shop = 'shopkeeper',
+		shopkeep = 'shopkeep',
+		shopkeeper = 'shopkeeper',
 		-- bodyguard
 		guard = 'bodyguard',
 		goon = 'bodyguard',
@@ -812,6 +793,7 @@ Hook.Patch("Barotrauma.Items.Components.Repairable", "StopRepairing", function(i
 		end
 		DD.roundData.repairCooldown[item] = DD.thinkCounter + 60 * 60
 	end
+	amount = amount / 2
 	
 	if CLIENT then return end
 	

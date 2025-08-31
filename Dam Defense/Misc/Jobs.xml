@@ -731,10 +731,9 @@
     </Skills>
     <ItemSet>
       <Item identifier="idcard" equip="true">
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
-	    <!-- 2 counterfeit nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+		<!-- 10 counterfeit nexcredits -->
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
+	    <!-- 5 nexcredits --><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" /><Item identifier="fakemoney" />
 	  </Item>
       <Item identifier="clownmask" equip="true"/>
       <Item identifier="clowncostume" equip="true" outfit="true"/>
@@ -752,7 +751,7 @@
     </ItemSet>
     <ItemSet>
       <Item identifier="idcard" equip="true">
-	    <!-- 2 nexcredits --><Item identifier="money" /><Item identifier="money" />
+	    <!-- zero nexcredits -->
 	  </Item>
       <Item identifier="clownmask" equip="true"/>
       <Item identifier="clowncostume" equip="true" outfit="true"/>
@@ -1218,6 +1217,83 @@
     </AppropriateOrders>
   </Job>
   
+  <Job identifier="shopkeeper"
+       minkarma="0" maxnumber="1" initialcount="1"
+       uicolor="0.41,0.81,0.3"
+       vitalitymodifier="0"
+       pricemultiplier="0.8"
+       idlebehavior="Active">
+    <Jobicon>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="896,256,128,128" origin="0.5,0.5"/>
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,640,28,28" origin="0.5,0.5"/>
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="mechanical" level="55,65" primary="true"/>
+      <Skill identifier="weapons" level="35,45"/>
+      <Skill identifier="electrical" level="25,35"/>
+      <Skill identifier="medical" level="15,25"/>
+      <Skill identifier="helm" level="15,25"/>
+    </Skills>
+    <ItemSet>
+      <Item identifier="idcard" equip="true">
+	    <!-- 3 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
+      <Item identifier="divingmask" equip="true" />
+      <Item identifier="commonerclothes1" equip="true" outfit="true" />
+      <Item identifier="toolbelt" equip="true">
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+	  </Item>
+      <Item identifier="foldableshotgun" equip="false">
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+      </Item>
+      <Item identifier="weldingtool" >
+		<Item identifier="weldingfueltank"/>
+	  </Item>
+      <Item identifier="wrench"/>
+      <Item identifier="flashlight" >
+		<Item identifier="batterycell"/>
+	  </Item>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="oxygentank"/>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="fixleaks" prioritymodifier="1"/>
+      <Order identifier="repairmechanical" prioritymodifier="1"/>
+      <Order identifier="extinguishfires" prioritymodifier ="1"/>
+      <Order identifier="rescue" prioritymodifier="1"/>
+      <Order identifier="repairsystems" prioritymodifier="0.5"/>
+      <Order identifier="pumpwater" option="pumpout" prioritymodifier="0.5"/>
+      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.3"/>
+    </AutonomousObjectives>
+    <AppropriateOrders>
+      <Order identifier="fixleaks"/>
+      <Order identifier="pumpwater"/>
+      <Order identifier="repairmechanical"/>
+      <Order identifier="reportbrokendevices"/>
+    </AppropriateOrders>
+  </Job>
+  
   <Override>
   <Job identifier="assistant"
        minkarma="0" maxnumber="0"
@@ -1260,10 +1336,10 @@
   </Job>
   </Override>
   
-  <!-- These jobs cannot be picked! -->
-  <Job identifier="shopkeeper"
-       minkarma="0" maxnumber="0"
-       uicolor="0.21,0.61,0.0"
+  <!-- Random job -->
+  <Job identifier="randomjob"
+       minkarma="0" maxnumber="1"
+       uicolor="0.8,0.8,0.8"
        vitalitymodifier="0"
        pricemultiplier="0.8"
        idlebehavior="Active">
@@ -1274,13 +1350,14 @@
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,669,28,28" origin="0.5,0.5"/>
     </JobiconSmall>
     <Skills>
-      <Skill identifier="mechanical" level="55,65" primary="true"/>
-      <Skill identifier="weapons" level="55,65"/>
+      <Skill identifier="weapons" level="55,65" primary="true"/>
       <Skill identifier="helm" level="55,65"/>
+      <Skill identifier="mechanical" level="55,65"/>
       <Skill identifier="electrical" level="55,65"/>
       <Skill identifier="medical" level="55,65"/>
     </Skills>
     <ItemSet>
+      <Item identifier="bossclothes" equip="true" outfit="true"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
@@ -1295,6 +1372,7 @@
       <Order identifier="operatereactor" option="powerup" prioritymodifier="0.4"/>
     </AutonomousObjectives>
   </Job>
+  <!-- These jobs cannot be picked! -->
   <Job identifier="miner"
        minkarma="0" maxnumber="0"
        uicolor="0.4,0.0,0.1"

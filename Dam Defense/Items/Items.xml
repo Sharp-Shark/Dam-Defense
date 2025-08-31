@@ -1730,8 +1730,8 @@
       <ElectricalDischarger duration="0.15" reload="1.0" ignoreuser="true" characterusable="true" raycastrange="500" range="150" rangemultiplierinwalls="1.25" outdoorsonly="false" powerconsumption="100" pickkey="Select">
         <Attack targetimpulse="50">
           <Affliction identifier="stun" strength="0.1"/>
-          <Affliction identifier="burn" strength="20"/>
-          <Affliction identifier="electricshock" strength="25"/>
+          <Affliction identifier="burn" strength="25"/>
+          <Affliction identifier="electricshock" strength="30"/>
         </Attack>
         <StatusEffect target="This" type="OnUse" forceplaysounds="true">
           <sound file="Content/Items/Weapons/WEAPONS_electricalDischarge1.ogg" range="20000" selectionmode="random"/>
@@ -4280,7 +4280,7 @@
     </ItemContainer>
   </Item>
   <!-- wizard staff -->
-  <Item name="Wizard Staff" identifier="merasmusstaff" category="Weapon,Misc" Tags="merasmusitem,smallitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.6" impactsoundtag="impact_metal_light" RequireAimToUse="true">
+  <Item name="Wizard Staff" identifier="merasmusstaff" category="Weapon,Misc" Tags="merasmusitem,mediumitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.6" impactsoundtag="impact_metal_light" RequireAimToUse="true">
     <Deconstruct time="10">
       <Item identifier="carbon" />
     </Deconstruct>
@@ -6381,7 +6381,7 @@
     </MeleeWeapon>
   </Item>
   <!-- cultist pitchfork (thanks Squall) -->
-  <Item name="Pitchfork" identifier="cultistpitchfork" category="Weapon,Misc" Tags="smallitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.85" impactsoundtag="impact_metal_light" RequireAimToUse="true">
+  <Item name="Pitchfork" identifier="cultistpitchfork" category="Weapon,Misc" Tags="largeitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.85" impactsoundtag="impact_metal_light" RequireAimToUse="true">
     <Deconstruct time="10">
       <Item identifier="iron" />
     </Deconstruct>

@@ -56,7 +56,6 @@ DD.eventDirector.eventPool = {
 	DD.eventAttackbot,
 	DD.eventTerrorist,
 	DD.eventSpy,
-	DD.eventFractalGuardian,
 }
 DD.eventDirector.goodness = 0
 DD.eventDirector.events = {}

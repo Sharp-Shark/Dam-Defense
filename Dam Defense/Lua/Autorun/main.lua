@@ -176,6 +176,7 @@ DD.roundStartFunctions.main = function ()
 			researcher = 'id_researcher,id_medic',
 			medicaldoctor = 'id_medic',
 			engineer = 'id_engineer',
+			shopkeeper = 'id_shop',
 			janitor = 'id_janitor',
 			bodyguard = 'id_laborer',
 			mechanic = 'id_laborer',
