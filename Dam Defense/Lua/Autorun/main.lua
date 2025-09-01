@@ -117,6 +117,11 @@ DD.roundStartFunctions.main = function ()
 						component.NoAutoLock = true
 					end
 				end
+				-- disable autofill
+				local component = item.GetComponentString('ItemContainer')
+				if component ~= nil then
+					component.AutoFill = false
+				end
 				-- improves performance for maps with lots of ores or plants
 				if (item.HasTag('ore') or item.HasTag('plant')) and (item.GetComponentString('LightComponent') ~= nil) then
 					item.GetComponentString('LightComponent').Range = 65
