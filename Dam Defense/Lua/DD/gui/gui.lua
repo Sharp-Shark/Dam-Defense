@@ -242,17 +242,17 @@ Hook.Patch("Barotrauma.GUI", "Draw", function (instance, ptable)
 		end
 	end
 end)
-local requestUpdateGUICharacterRoleCooldown = 60 * 5
+local requestUpdateGUICharacterRoleCooldown = 60 * 2
 local updateCharacterInfo = 0
 Hook.Patch("Barotrauma.Character", "DrawFront", function (instance, ptable)
 	-- send network request for character role information
 	if Game.IsMultiplayer then
 		if requestUpdateGUICharacterRoleCooldown > 0 then
-			requestUpdateGUICharacterRoleCooldown = requestUpdateGUICharacterRoleCooldown - 1
+			requestUpdateGUICharacterRoleCooldown = requestUpdateGUICharacterRoleCooldown - 1 / math.max(1, #Character.CharacterList)
 		else
 			local message = Networking.Start("requestUpdateGUICharacterRole")
 			Networking.Send(message)
-			requestUpdateGUICharacterRoleCooldown = 60 * 5
+			requestUpdateGUICharacterRoleCooldown = 60 * 2
 		end
 	end
 	-- update character name info

@@ -109,7 +109,61 @@ DD.roundStartFunctions.main = function ()
 				
 				return false
 			end
+			local identifierResetSet = {
+				-- pipe gun
+				pipegun = true,
+				-- handcannons
+				antiquerevolver = true,
+				handcannonround = true,
+				handcannonround = true,
+				-- revolver
+				revolver = true,
+				revolverround = true,
+				-- shotgun
+				shotgun = true,
+				shotgununique = true,
+				foldableshotgun = true,
+				shotgunshell = true,
+				shotgunslugbreaching = true,
+				-- smg
+				smg = true,
+				smgmagazine = true,
+				smground = true,
+				-- pistol
+				tommygun = true,
+				tommygundrum = true,
+				uzi = true,
+				pistol = true,
+				pistolmagazine = true,
+				pistolround = true,
+				-- separatist rifle
+				separatistrifle = true,
+				marksmanrifle = true,
+				['762magazine'] = true,
+				['762round'] = true,
+				-- rifle
+				rifle = true,
+				riflebullet = true,
+				-- flare gun
+				flaregun = true,
+				flaregunround = true,
+				-- harpoon gun
+				whalinggun = true,
+				whalingspear = true,
+				harpooncoilrifle = true,
+				harpoongun = true,
+				explosivespear = true,
+				-- grenade launcher
+				grenadelauncher = true,
+				['40mmgrenade'] = true,
+				['40mmrubberround'] = true,
+				['40mmjumpergrenade'] = true,
+			}
 			for item in Item.ItemList do
+				-- reset item
+				if identifierResetSet[tostring(item.Prefab.Identifier)] and (not item.HasTag('dd_noreset')) then
+					item.Reset()
+				end
 				-- do not lock some wires
 				local component = item.GetComponentString('Wire')
 				if component ~= nil then

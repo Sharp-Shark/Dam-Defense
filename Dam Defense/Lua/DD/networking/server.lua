@@ -79,7 +79,12 @@ Networking.Receive("requestUpdateJobBans", function (message, client)
 	end
 end)
 
+local clientRequestUpdateGUICharacterRoleCooldown = {}
 Networking.Receive("requestUpdateGUICharacterRole", function (message, client)
+	if client == nil then return end
+	if (clientRequestUpdateGUICharacterRoleCooldown[client] ~= nil) and (DD.thinkCounter <= clientRequestUpdateGUICharacterRoleCooldown[client]) then return end
+	clientRequestUpdateGUICharacterRoleCooldown[client] = DD.thinkCounter + 60 * 2
+
 	local characterRole = {}
 	local assignClientRole = function (client, role)
 		if client == nil then return end
