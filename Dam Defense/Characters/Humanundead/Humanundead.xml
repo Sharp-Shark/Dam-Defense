@@ -31,7 +31,7 @@
   <sound file="%ModDir%/Characters/Humanundead/undead_idle1.ogg" state="Idle" range="1000" volume="3" />
   <sound file="%ModDir%/Characters/Humanundead/undead_idle2.ogg" state="Idle" range="1000" volume="3" />
   <sound file="%ModDir%/Characters/Humanundead/undead_idle3.ogg" state="Idle" range="1000" volume="3" />
-  <health Vitality="120" DoesBleed="False" CrushDepth="6000" UseHealthWindow="True" BleedingReduction="0" BurnReduction="0.075" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="True" ApplyAfflictionColors="True">
+  <health Vitality="100" DoesBleed="False" CrushDepth="6000" UseHealthWindow="True" BleedingReduction="0" BurnReduction="0.075" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="True" ApplyAfflictionColors="True">
     <MedUISilhouette texture="Content/UI/Health/MedUI_Silhouette.png" columns="8" rows="2" sourcerect="0,0,1008,748" />
     <MedUIExtra texture="Content/UI/Health/MedUIExtra.png" columns="4" rows="4" sourcerect="0,0,1024,1024" />
     <Limb name="Head">
