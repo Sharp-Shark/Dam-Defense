@@ -17,6 +17,8 @@ end, {
 	minimunAlivePercentage = 1.0,
 	
 	getShouldFinish = function (self)
+		if true then return false end
+	
 		self.updateCultistList()
 		
 		local aliveSet = {}
@@ -206,7 +208,7 @@ end, {
 	end,
 	
 	onChatMessage = function (self, message, sender)
-		if (string.sub(message, 1, 8) ~= '/whisper') and (message ~= '/cultists') then return end
+		if (string.sub(message, 1, 8) ~= '/whisper') and (string.sub(message, 1, 2) ~= '/w') and (message ~= '/cultists') then return end
 		if (not self.cultistsSet[sender]) and not (DD.isClientCharacterAlive(sender) and sender.Character.SpeciesName == 'humanUndead') then return end
 		
 		if message == '/cultists' then
@@ -214,7 +216,11 @@ end, {
 			local cultistList = self.buildCultistList(nil, true)
 			DD.messageClient(sender, DD.stringLocalize('commandCultists', {cultistList = cultistList}), {preset = 'command'})
 		else
-			self.bloodWhisper(string.sub(message, 10), sender)
+			if string.sub(message, 1, 8) == '/whisper' then
+				self.bloodWhisper(string.sub(message, 10), sender)
+			else
+				self.bloodWhisper(string.sub(message, 4), sender)
+			end
 		end
 		
 		return true

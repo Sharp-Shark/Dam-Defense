@@ -95,7 +95,7 @@ return {
 	-- events/blackout.lua
 	blackoutMessage = 'Unusual magnetic interference is causing issues with eletrical systems. It is expected to go away on its own in {timer}.',
 	-- events/bloodCult.lua
-	bloodCultCultistInfo = 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your objective is to have no non-cultist alive. You can convert others using "The 1998". You can extract "Life Essence" from the unconcious or the recently deceased using a "Sacrificial Dagger". Conversion and consuming "Life Essence" both lower your "Time Pressure". You can also craft a "Blood Cultist Robe" which heals, cures diseases and can bring you back from the dead. Long live Tchernobog! Do /cultists to get a list of fellow worshippers and /whisper to message them all.',
+	bloodCultCultistInfo = 'Your mind has been enlightened! Work with fellow blood cultists to enlighten others. Your objective is to have no non-cultist alive. You can convert others using "The 1998". You can extract "Life Essence" from the unconcious or the recently deceased using a "Sacrificial Dagger". Conversion and consuming "Life Essence" both lower your "Time Pressure". You can also craft a "Blood Cultist Robe" which heals, cures diseases and can bring you back from the dead. Long live Tchernobog! Do /cultists to get a list of fellow worshippers and /whisper (or /w) to message them all.',
 	bloodCultRecruitmentNotice = 'The cult has just recruited {name}!',
 	bloodCultMessageCultist = 'Nexpharma intelligence has discovered the existance of your blood cult and now everyone is aware of your conspiracy, exert caution! They do not know who the individual cultists are at the moment though.',
 	bloodCultMessageSecurity = 'Intel reports a blood cult chapter has started in this region. Identify and neutralize all of them before they convert or kill everyone. Any mentions of "Tchernobog" should be met with suspicion.',
@@ -145,6 +145,9 @@ return {
 	nukiesEnd = 'All nukies have been neutralized.',
 	nukiesTicketGained = 'Nukies have gained a respawn ticket by eliminating a defender! They now have {tickets} ticket(s).',
 	nukiesTicketLost = 'Nukies have used up a respawn ticket! They now have {tickets} ticket(s).',
+	-- events/quarantine.lua
+	quarantineMessage = 'The husk population is too high and Nexpharma (TM) has issued a quarantine. Until the problem is dealt with, no new crew may arrive',
+	quarantineEnd = 'The quarantine has been lifted. New crew can now start arriving into the town.',
 	-- events/revolution.lua
 	revolutionMessageSecret = 'You are a rebel leader! Your objective is to kill the captain and security. You have {timer} until people become aware of the revolution, so start preparing now. Try to enlist non-security personnel to your cause.{rebelList} Do /rebels to get info pertinent to this event.',
 	revolutionMessageRebels = 'Everyone, including security, has heard rumours about your conspiracy and are now aware of the revolution. The cat is out of the bag, so be careful! They do not know who the rebels are yet, but the list of rebels will be public in {timer}. Do /rebels to get info pertinent to this event.',

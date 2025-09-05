@@ -1248,6 +1248,7 @@ end)
 Hook.Add("character.created", "DD.huskMessage", function (createdCharacter)
 	local text = ''
 	if createdCharacter.SpeciesName == 'humanhusk' then text = DD.stringLocalize('huskInfo') end
+	if createdCharacter.SpeciesName == 'Husk' then text = DD.stringLocalize('huskInfo') end
 	if createdCharacter.SpeciesName == 'Husk_prowler' then text = DD.stringLocalize('huskProwlerInfo') end
 	if createdCharacter.SpeciesName == 'Husk_chimera' then text = DD.stringLocalize('huskChimeraInfo') end
 	if text == '' then return end

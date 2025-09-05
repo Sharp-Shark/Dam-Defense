@@ -24,6 +24,7 @@ require 'DD/events/chimera'
 require 'DD/events/creature'
 require 'DD/events/terrorist'
 require 'DD/events/spy'
+require 'DD/events/quarantine'
 
 -- Event director table
 DD.eventDirector = {}
@@ -36,6 +37,7 @@ DD.eventDirector.eventPool = {
 	DD.eventBloodCult,
 	DD.eventGreenskins,
 	DD.eventDeathSquad,
+	DD.eventQuarantine,
 	-- Side events
 	DD.eventFish,
 	DD.eventAirdrop,
@@ -315,7 +317,26 @@ Hook.Add("character.death", "DD.friendlyFireDetector", function(character)
 end)
 
 -- Start a new event
-DD.eventDirector.startNewEvent = function (isMainEvent)
+DD.eventDirector.startNewEvent = function (eventClass)
+	DD.expectTypes('startNewEvent', {eventClass}, {'table'})
+	local event = eventClass.new()
+	event.start(event)
+	
+	if not event.failed then
+		DD.eventDirector.goodness = DD.eventDirector.goodness + event.goodness
+		DD.eventDirector.cooldown = event.cooldown
+		if isMainEvent then
+			DD.eventDirector.mainEventCooldown = event.cooldown
+			DD.eventDirector.mainEvent = event
+		end
+		return event
+	end
+	
+	return nil -- explicit return nil
+end
+
+-- Start a new random event
+DD.eventDirector.startNewEventRandom = function (isMainEvent)
 	local isMainEvent = isMainEvent
 	if isMainEvent == nil then isMainEvent = false end
 
@@ -352,23 +373,10 @@ DD.eventDirector.startNewEvent = function (isMainEvent)
 			weights[key] = weight
 		end
 	end
+	
 	-- Start event
 	local eventClass = DD.weightedRandom(DD.eventDirector.eventPool, weights)
-	if eventClass == nil then return end
-	local event = eventClass.new()
-	event.start(event)
-	
-	if not event.failed then
-		DD.eventDirector.goodness = DD.eventDirector.goodness + event.goodness
-		DD.eventDirector.cooldown = event.cooldown
-		if isMainEvent then
-			DD.eventDirector.mainEventCooldown = event.cooldown
-			DD.eventDirector.mainEvent = event
-		end
-		return event
-	else
-		return
-	end
+	return DD.eventDirector.startNewEvent(eventClass)
 end
 
 -- Called every 1/2 a second
@@ -411,7 +419,7 @@ DD.thinkFunctions.eventDirector = function ()
 	
 	-- main event
 	if (DD.eventDirector.mainEvent == nil) and (DD.eventDirector.mainEventCooldown <= 0) then
-		DD.eventDirector.startNewEvent(true)
+		DD.eventDirector.startNewEventRandom(true)
 		DD.eventDirector.mainEventCooldown = 1 -- I don't know if this line is needed, but I rather play it safe
 	else
 		DD.eventDirector.mainEventCooldown = DD.eventDirector.mainEventCooldown - cooldownDecrement / timesPerSecond
@@ -419,7 +427,7 @@ DD.thinkFunctions.eventDirector = function ()
 	
 	-- side/minor events
 	if DD.eventDirector.cooldown <= 0 then
-		DD.eventDirector.startNewEvent()
+		DD.eventDirector.startNewEventRandom()
 	else
 		DD.eventDirector.cooldown = DD.eventDirector.cooldown - cooldownDecrement / timesPerSecond
 	end
