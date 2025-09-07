@@ -92,12 +92,12 @@ DD.chatMessageFunctions.help = function (message, sender)
 		end
 	end
 	
-	local isValid = true
+	local isValid = false
 	local isMisspell = true
 	for command, value in pairs(specialCommands) do
 		if string.sub(message, 1, #command + 1) == '/' .. command then
 			isMisspell = false
-			isValid = value
+			if value == true then isValid = true end
 		end
 	end
 	if (not isMisspell) and (string.sub(message, 1, 5) ~= '/help') then

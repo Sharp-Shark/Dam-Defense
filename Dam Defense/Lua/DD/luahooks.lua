@@ -197,13 +197,13 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 		cap = 'captain',
 		-- diver
 		div = 'diver',
-		-- foreman
-		headengineer = 'foreman',
-		headengi = 'foreman',
-		headeng = 'foreman',
-		chiefengineer = 'foreman',
-		chiefengi = 'foreman',
-		chiefeng = 'foreman',
+		-- security officer
+		enforcer = 'securityofficer',
+		security = 'securityofficer',
+		officer = 'securityofficer',
+		sec = 'securityofficer',
+		cop = 'securityofficer',
+		police = 'securityofficer',
 		-- researcher
 		res = 'researcher',
 		scientist = 'researcher',
@@ -213,13 +213,13 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 		doc = 'medicaldoctor',
 		medic = 'medicaldoctor',
 		med = 'medicaldoctor',
-		-- security officer
-		enforcer = 'securityofficer',
-		security = 'securityofficer',
-		officer = 'securityofficer',
-		sec = 'securityofficer',
-		cop = 'securityofficer',
-		police = 'securityofficer',
+		-- foreman
+		headengineer = 'foreman',
+		headengi = 'foreman',
+		headeng = 'foreman',
+		chiefengineer = 'foreman',
+		chiefengi = 'foreman',
+		chiefeng = 'foreman',
 		-- engineer
 		engi = 'engineer',
 		eng = 'engineer',
@@ -1319,7 +1319,7 @@ Hook.Add("DD.fuelrod.decay", "DD.fuelrod.decay", function(effect, deltaTime, ite
 			local prop = item.GetComponentString('LightComponent').SerializableProperties[Identifier("Range")]
 			Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('LightComponent')))
 			
-			fuelrodDecayNetworkCooldown[item] = 30
+			fuelrodDecayNetworkCooldown[item] = 60
 		end
 	end
 	

@@ -365,7 +365,7 @@
   </Job>
 
   <Job identifier="securityofficer"
-       minkarma="0" maxnumber="2" initialcount="2"
+       minkarma="0" maxnumber="3" initialcount="2"
        uicolor="0.65,0.55,0.35"
        vitalitymodifier="10"
        pricemultiplier="1.15"
@@ -761,6 +761,7 @@
 	    <Item identifier="handcannonround"/>
 	  </Item>
       <Item identifier="crowbar"/>
+      <Item identifier="cigar"/>
       <Item identifier="disposabledivingmask"/>
       <PreviewSprites dims="120,109">
         <sprite texture="Content/Items/Jobgear/Assistant/assistant_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
@@ -781,7 +782,7 @@
        maxnumber="1"
        minkarma="30" initialcount="1"
        uicolor="0.9,0.7,0.35"
-       vitalitymodifier="10"
+       vitalitymodifier="0"
        pricemultiplier="1"
        idlebehavior="Active">
     <Jobicon>
@@ -931,7 +932,7 @@
        maxnumber="1"
        minkarma="30" initialcount="1"
        uicolor="0.35,0.6,0.75"
-       vitalitymodifier="10"
+       vitalitymodifier="20"
        pricemultiplier="1"
        idlebehavior="Active">
     <Jobicon>
@@ -1688,7 +1689,7 @@
   <Job identifier="spy"
        minkarma="0" maxnumber="0"
        uicolor="0.55,0.5,0.45"
-       vitalitymodifier="0"
+       vitalitymodifier="10"
        pricemultiplier="1.15"
        idlebehavior="Patrol">
     <Jobicon>

@@ -145,7 +145,6 @@ DD.securityJobs = {
 	captain = true,
 	securityofficer = true,
 	diver = true,
-	foreman = true,
 	mercs = true,
 }
 
@@ -165,6 +164,7 @@ DD.medicalJobs = {
 
 -- Set of staff jobs (anyone who is to be let inside the dam)
 DD.staffJobs = {
+	foreman = true,
 	engineer = true,
 	janitor = true,
 	miner = true,

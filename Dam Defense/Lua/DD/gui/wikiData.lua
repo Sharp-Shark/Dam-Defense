@@ -101,7 +101,7 @@ DD.wikiData = {
 		related = {'main', 'events', 'huskCreature'},
 	},
 	electionEvent = {
-		related = {'main', 'events', 'ballotboxItem', 'captainJob', 'securityofficerJob', 'foremanJob', 'diverJob'},
+		related = {'main', 'events', 'ballotboxItem', 'captainJob', 'securityofficerJob', 'diverJob'},
 	},
 	withdrawEvent = {
 		related = {'main', 'events', 'moneycaseItem', 'moneyItem'},
@@ -119,7 +119,7 @@ DD.wikiData = {
 		info = {isOverride = true},
 	},
 	foremanJob = {
-		related = {'main', 'jobs', 'electionEvent', 'hardhatheadItem'},
+		related = {'main', 'jobs', 'hardhatheadItem'},
 	},
 	researcherJob = {
 		related = {'main', 'jobs', 'bloodsamplerItem'},
@@ -297,7 +297,7 @@ local autogenRelated = {
 	foldablechairoxygeniteItem = {'foldablechairItem'},
 	nukieshop1Item = {'nukiesEvent', 'fakemoneyItem'},
 	fakemoneyItem = {'moneyItem'},
-	secnexshopItem = {'captainJob', 'diverJob', 'securityofficerJob', 'foremanJob', 'mercsJob'},
+	secnexshopItem = {'captainJob', 'diverJob', 'securityofficerJob', 'mercsJob'},
 }
 local autogenRelations = {
 	portablegeneratorItem = {'generatorfuel'},

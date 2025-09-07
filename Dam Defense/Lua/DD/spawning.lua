@@ -16,9 +16,6 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 		securityofficer = {
 			[DD.invSlots.innerclothes] = {securityuniform1 = true}
 		},
-		foreman = {
-			[DD.invSlots.innerclothes] = {orangejumpsuit2 = true}
-		},
 		-- event jobs
 		jet = {
 			[DD.invSlots.outerclothes] = {suicidevest = true},

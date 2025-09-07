@@ -40,7 +40,7 @@ DD.eventQuarantine = DD.class(DD.eventBase, nil, {
 		self.updateCharacterList()
 		
 		-- Event requires atleast 1 human and 1 husk to start
-		if ((#self.husks == 0) or (#self.humans == -1)) and not self.manuallyTriggered then
+		if ((#self.husks == 0) or (#self.humans == 0)) and not self.manuallyTriggered then
 			self.fail('conditions to start could not be met')
 			return
 		else

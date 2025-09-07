@@ -155,6 +155,9 @@ local getInfoText = function (character, pov)
 				end
 			elseif DD.staffJobs[identifier] then
 				assignText('damstaff')
+				if DD.isCharacterStaff(pov) then
+					assignText('colleague')
+				end
 			end
 		end
 	end
@@ -170,6 +173,9 @@ local getInfoText = function (character, pov)
 		end
 	elseif DD.isCharacterStaff(character) then
 		assignText('damstaff')
+		if DD.isCharacterStaff(pov) then
+			assignText('colleague')
+		end
 	end
 	
 	return text

@@ -10,7 +10,7 @@ end, {
 	instanceCap = 1,
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 2,
+	weight = 2.5,
 	goodness = -4,
 	minimunDeadPercentage = 0.01,
 	minimunTimeElapsed = 10 * 60,

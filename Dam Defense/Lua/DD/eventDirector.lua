@@ -325,7 +325,7 @@ DD.eventDirector.startNewEvent = function (eventClass)
 	if not event.failed then
 		DD.eventDirector.goodness = DD.eventDirector.goodness + event.goodness
 		DD.eventDirector.cooldown = event.cooldown
-		if isMainEvent then
+		if event.isMainEvent then
 			DD.eventDirector.mainEventCooldown = event.cooldown
 			DD.eventDirector.mainEvent = event
 		end
@@ -376,6 +376,7 @@ DD.eventDirector.startNewEventRandom = function (isMainEvent)
 	
 	-- Start event
 	local eventClass = DD.weightedRandom(DD.eventDirector.eventPool, weights)
+	if eventClass == nil then return end
 	return DD.eventDirector.startNewEvent(eventClass)
 end
 
