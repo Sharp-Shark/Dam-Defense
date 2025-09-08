@@ -26,11 +26,13 @@ end, Hook.HookMethodType.After)
 --]]
 
 Hook.Patch("Barotrauma.Lights.LightManager", "UpdateObstructVision", function()
+	if (Game == nil) or (Game.Client == nil) or (Game.Client.MyClient == nil) then return end
 	if Game.Client.MyClient.HasPermission(ClientPermissions.ConsoleCommands) then return end
 	Game.LightManager.LosEnabled = true
 end, Hook.HookMethodType.Before)
 
 Hook.Patch("Barotrauma.Lights.LightManager", "RenderLightMap", function()
+	if (Game == nil) or (Game.Client == nil) or (Game.Client.MyClient == nil) then return end
 	if Game.Client.MyClient.HasPermission(ClientPermissions.ConsoleCommands) then return end
 	Game.LightManager.LightingEnabled = true
 end, Hook.HookMethodType.Before)

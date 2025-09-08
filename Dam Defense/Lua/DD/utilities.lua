@@ -797,7 +797,7 @@ end
 
 DD.isClientRespawnable = function (client)
 	DD.expectTypes('isClientRespawnable', {client}, {'userdata'})
-	if client.UsingFreeCam or client.SpectateOnly or DD.isClientCharacterAlive(client) then return false end
+	if client.UsingFreeCam or (SERVER and client.SpectateOnly) or DD.isClientCharacterAlive(client) then return false end
 	return true
 end
 
