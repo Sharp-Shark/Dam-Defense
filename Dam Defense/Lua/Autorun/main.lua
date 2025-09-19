@@ -158,6 +158,9 @@ DD.roundStartFunctions.main = function ()
 				['40mmgrenade'] = true,
 				['40mmrubberround'] = true,
 				['40mmjumpergrenade'] = true,
+				-- barricade
+				barricade = true,
+				barricadestatic = true,
 			}
 			for item in Item.ItemList do
 				-- reset item

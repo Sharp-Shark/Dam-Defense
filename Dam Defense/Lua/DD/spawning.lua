@@ -134,16 +134,42 @@ DD.autoJob = function ()
 	if #Client.ClientList == 0 then return {} end
 
 	local antagSafeCap = math.ceil(#Client.ClientList * 2 / 5)
-
+	local antagSafeSecCap = math.ceil(#Client.ClientList * 1 / 4)
+	local antagSafeNonSecCap = math.ceil(#Client.ClientList * 1 / 4)
+	
+	-- ordered list of job prefabs
+	local jobPrefabsOrdered = {
+		JobPrefab.Get('captain'),
+		JobPrefab.Get('diver'),
+		JobPrefab.Get('securityofficer'),
+		JobPrefab.Get('foreman'),
+		JobPrefab.Get('researcher'),
+		JobPrefab.Get('medicaldoctor'),
+		JobPrefab.Get('shopkeeper'),
+	}
+	for jobPrefab in JobPrefab.Prefabs do
+		if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
+			local found = false
+			for jobPrefabOther in jobPrefabsOrdered do
+				if jobPrefab.Identifier == jobPrefabOther.Identifier then found = true end
+			end
+			if found == false then
+				table.insert(jobPrefabsOrdered, jobPrefab)
+			end
+		end
+	end
+	
+	-- list and set of job identifiers
 	local jobs = {}
 	local jobSet = {}
-	for jobPrefab in JobPrefab.Prefabs do
+	for jobPrefab in jobPrefabsOrdered do
 		if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
 			table.insert(jobs, tostring(jobPrefab.Identifier))
 			jobSet[tostring(jobPrefab.Identifier)] = true
 		end
 	end
 	
+	-- build "clientPreferredJobsSet"
 	local clientPreferredJobsSet = {}
 	for client in Client.ClientList do
 		clientPreferredJobsSet[client] = {}
@@ -155,9 +181,10 @@ DD.autoJob = function ()
 		end
 	end
 	
+	-- build "sorted"
 	local jobsLeft = {}
 	local sorted = {}
-	for jobPrefab in JobPrefab.Prefabs do
+	for jobPrefab in jobPrefabsOrdered do
 		if (jobPrefab.MaxNumber > 0) and (not jobPrefab.HiddenJob) then
 			jobsLeft[tostring(jobPrefab.Identifier)] = jobPrefab.MaxNumber
 			sorted[tostring(jobPrefab.Identifier)] = {{}, {}, {}, {}}
@@ -199,12 +226,19 @@ DD.autoJob = function ()
 	local assignClientJob = function (client, job, ignore)
 		if DD.isClientBannedFromJob(client, job) then return end
 		if DD.antagSafeJobs[job] and (antagSafeCap <= 0) and (not ignore) then return end
+		if (DD.antagSafeJobs[job] and DD.antagSafeJobs[job]) and (antagSafeSecCap <= 0) and (not ignore) then return end
+		if (DD.antagSafeJobs[job] and (not DD.antagSafeJobs[job])) and (antagSafeNonSecCap <= 0) and (not ignore) then return end
 		DD.clientJob[client] = job
 		if jobsLeft[job] ~= nil then
 			jobsLeft[job] = jobsLeft[job] - 1
 		end
 		if DD.antagSafeJobs[job] then
 			antagSafeCap = antagSafeCap - 1
+			if DD.securityJobs[job] then
+				antagSafeSecCap = antagSafeSecCap - 1
+			else
+				antagSafeNonSecCap = antagSafeNonSecCap - 1
+			end
 		end
 	end
 	

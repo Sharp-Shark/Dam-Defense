@@ -155,9 +155,6 @@ local getInfoText = function (character, pov)
 				end
 			elseif DD.staffJobs[identifier] then
 				assignText('damstaff')
-				if DD.isCharacterStaff(pov) then
-					assignText('colleague')
-				end
 			end
 		end
 	end
@@ -173,9 +170,6 @@ local getInfoText = function (character, pov)
 		end
 	elseif DD.isCharacterStaff(character) then
 		assignText('damstaff')
-		if DD.isCharacterStaff(pov) then
-			assignText('colleague')
-		end
 	end
 	
 	return text
@@ -285,7 +279,7 @@ Hook.Patch("Barotrauma.Character", "DrawFront", function (instance, ptable)
 	local viewportSize = Vector2(cam.WorldView.Width, cam.WorldView.Height);
 	if hudInfoHeights[character] == nil then hudInfoHeights[character] = DefaultHudInfoHeight end
 	-- verify text should be rendered
-	if GUI.DisableHUD or character.IsDead or (character.InvisibleTimer > 0) or (character.SpeciesName ~= 'human') and (character.SpeciesName ~= 'humanundead') or (cam.Zoom <= 0.4) then return end
+	if GUI.DisableHUD or (character.InvisibleTimer > 0) or (character.SpeciesName ~= 'human') and (character.SpeciesName ~= 'humanundead') or (cam.Zoom <= 0.4) then return end
 	if Character.Controlled ~= nil then
 		if (Character.Controlled.FocusedCharacter == character) or (Character.Controlled == character) then return end
 		if (character.WorldPosition.X > cam.WorldView.X and character.WorldPosition.X < cam.WorldView.Right and

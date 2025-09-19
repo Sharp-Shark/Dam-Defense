@@ -377,7 +377,7 @@
   </Item>
   
   <!-- portable generator -->
-  <Item name="Portable Generator" identifier="portablegenerator" impacttolerance="0.1" tags="largeitem,generator" category="Electrical,Machine" description="" scale="0.3" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" GrabWhenSelected="true" pickdistance="150" >
+  <Item name="Portable Generator" identifier="portablegenerator" impacttolerance="0.1" tags="largeitem,generator" category="Electrical,Machine" description="" scale="0.3" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" GrabWhenSelected="true" pickdistance="150" isshootable="true" >
     <Sprite texture="%ModDir%/Items/machines.png" sourcerect="0,232,296,232" origin="0.5,0.45" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Items/machines.png" sourcerect="296,232,296,232" depth="0.55" origin="0.5,0.45" maxcondition="40" />
     <BrokenSprite texture="%ModDir%/Items/machines.png" sourcerect="592,232,296,232" depth="0.55" origin="0.5,0.45" maxcondition="0" />
@@ -489,12 +489,9 @@
         <StatusEffect type="OnContaining" target="This" AvailableFuel="100.0" disabledeltatime="true" />
       </Containable>
     </ItemContainer>
-    <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" msg="ItemMsgDetach" PickingTime="5.0" holdpos="0,-80" aimpos="20,-40" handle1="-64,64" handle2="64,64" attachable="true" reattachable="false" Attached="false" attachedByDefault="false" aimable="false" >
-	  <StatusEffect type="OnImpact" target="This" >
-		<LuaHook name="DD.portablegenerator.attach" />
-	  </StatusEffect>
+    <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" msg="ItemMsgDetach" PickingTime="5.0" holdpos="0,-80" aimpos="20,-60" handle1="-64,64" handle2="64,64" attachable="true" reattachable="true" aimable="true" AttachesToFloor="true" DisallowAttachingOverTags="generator">
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.75" setvalue="true" />
-	</Holdable>
+    </Holdable>
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.2" mindeteriorationdelay="120" maxdeteriorationdelay="720" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
       <RequiredSkill identifier="mechanical" level="50" />
@@ -823,14 +820,6 @@
   </Item>
 
   <Override>
-  <!-- crate shelf now goes from bottom to top (instead of the other way around) -->
-  <Item name="" identifier="crateshelf" tags="container,cargocontainer" linkable="true" canflipx="false" pickdistance="150" scale="0.5">
-    <Sprite texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="1,657,185,366" origin="0.5,0.5" />
-    <ItemContainer capacity="4" maxstacksize="1" canbeselected="true" hideitems="false" itempos="92,-320" iteminterval="0,92" msg="ItemMsgInteractSelect">
-      <GuiFrame relativesize="0.15,0.2" anchor="Center" style="ItemUI" />
-      <Containable items="crate" />
-    </ItemContainer>
-  </Item>
   <!-- railgun shell racks can now hold weapons -->
   <Item name="" identifier="railgunshellrack" tags="container,railgunammocontainer" pickdistance="120" scale="0.5" canflipx="false" canflipy="false">
     <Sprite texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="330,811,218,212" origin="0.5,0.5" />

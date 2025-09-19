@@ -261,6 +261,9 @@ DD.wikiData = {
 	cliffhangerDam = {
 		related = {'main', 'dams'},
 	},
+	risingTideDam = {
+		related = {'main', 'dams'},
+	},
 }
 
 -- automatically add in pages for items in Dam Defense which don't have a manually created page

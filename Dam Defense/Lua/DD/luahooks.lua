@@ -92,16 +92,11 @@ end)
 Hook.Add("DD.healgunround.heal", "DD.healgunround.heal", function(effect, deltaTime, item, targets, worldPosition)
 	local character = targets[1]
 	
-	local multiplier = DD.lerp(math.max(0, 5 - character.CharacterHealth.GetAfflictionStrengthByIdentifier('recentlyattacked', true)) / 5, 1/2, 1)
+	local multiplier = DD.lerp(math.max(0, 5 - character.CharacterHealth.GetAfflictionStrengthByIdentifier('recentlyattacked', true)) / 5, 1/3, 1)
 	character.CharacterHealth.ReduceAfflictionOnAllLimbs('damage', 10 * multiplier, nil, effect.user)
 	character.CharacterHealth.ReduceAfflictionOnAllLimbs('bloodloss', 6 * multiplier, nil, effect.user)
 	character.CharacterHealth.ReduceAfflictionOnAllLimbs('burn', 4 * multiplier, nil, effect.user)
 	character.CharacterHealth.ReduceAfflictionOnAllLimbs('bleeding', 4 * multiplier, nil, effect.user)
-end)
-
--- attaches generator to wall
-Hook.Add("DD.portablegenerator.attach", "DD.portablegenerator.attach", function(effect, deltaTime, item, targets, worldPosition)
-	item.GetComponentString('Holdable').AttachToWall()
 end)
 
 -- changes the job of an idcard or clothing

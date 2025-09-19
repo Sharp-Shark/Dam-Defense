@@ -398,7 +398,9 @@ return {
 	wikiName_pioneerPointDam = 'Pioneer Point',
 	wikiText_pioneerPointDam = 'The second Dam Defense map, made for smaller player counts and with a focus on verticality. A dam still in construction with a tiny pioneer settlement, eager to explore this land on the edge of civilization. The basin consists entirely out of a narrow cave system.\n\nMap by Sharp-Shark.',
 	wikiName_cliffhangerDam = 'Cliffhanger',
-	wikiText_cliffhangerDam = 'The fourth Dam Defense map, with an unorthodox basin placement. A horizontal dam built to cover an entire valley, with the town hanging on the cliffsides. The basin is found on top of the map and is wide open.\n\nMap by Sharp-Shark.',
+	wikiText_cliffhangerDam = 'The third Dam Defense map, with an unorthodox basin placement. A horizontal dam built to cover an entire valley, with the town hanging on the cliffsides of a huge underwater ravine that had its water pumped out. The basin is found on top of the map and is wide open.\n\nMap by Sharp-Shark.',
+	wikiName_risingTideDam = 'Rising Tide',
+	wikiText_risingTideDam = 'The fourth Dam Defense map. Strangely, this map has no dam, but the whole town will still flood if the pumps break. The building that plays the role of the dam is in the middle of the map, with the town to its right, a war-torn slum to its left and below it a flooded cave system.\n\nMap by Sharp-Shark.',
 	-- end
 	[''] = '',
 }
