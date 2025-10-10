@@ -77,6 +77,7 @@ end, {
 		DD.newThinkFunctions[self.name .. self.seed] = function () if self.finished or self.failed then return end self.onThink() end
 		DD.characterDeathFunctions[self.name .. self.seed] = function (character) self.onCharacterDeath(character) end
 		DD.chatMessageFunctions[self.name .. self.seed] = function (message, sender) return self.onChatMessage(message, sender) end
+		DD.respawnFunctions[self.name .. self.seed] = function (client) return self.onRespawn(client) end
 		DD.roundEndFunctions[self.name .. self.seed] = function () self.finish() end
 		
 		-- onStart
@@ -103,6 +104,7 @@ end, {
 		DD.thinkFunctions[self.name .. self.seed] = nil
 		DD.characterDeathFunctions[self.name .. self.seed] = nil
 		DD.chatMessageFunctions[self.name .. self.seed] = nil
+		DD.respawnFunctions[self.name .. self.seed] = nil
 		DD.roundEndFunctions[self.name .. self.seed] = nil
 		
 		-- onFinish
@@ -155,6 +157,8 @@ end, {
 	onCharacterDeath = function (self, character) return end,
 	
 	onChatMessage = function (self, message, sender) return end,
+	
+	onRespawn = function (self, client) return end,
 	
 	onFinish = function (self) return end,
 	

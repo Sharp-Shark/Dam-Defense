@@ -153,7 +153,7 @@ DD.wikiData = {
 		related = {'main', 'jobs', 'wizardEvent', 'merasmushatItem', 'merasmusrobesItem', 'merasmusstaffItem', 'merasmusfireballbookItem', 'merasmusteleportbookItem', 'merasmusblastjumpbookItem'},
 	},
 	gangsterJob = {
-		related = {'main', 'jobs', 'gangEvent', 'bosshatItem', 'bossclothesItem', 'methItem', 'uziItem', 'backwardscapItem', 'spraycanItem', 'captainspipeItem', 'pipetobaccoItem'},
+		related = {'main', 'jobs', 'gangEvent', 'cyanbosshatItem', 'bossclothesItem', 'methItem', 'uziItem', 'backwardscapItem', 'spraycanItem', 'captainspipeItem', 'pipetobaccoItem'},
 	},
 	jetJob = {
 		related = {'main', 'jobs', 'nukiesEvent', 'jetmaskItem'},

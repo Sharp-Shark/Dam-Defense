@@ -48,9 +48,24 @@
   
   <TalentTree jobidentifier="gangster">
     <SubTree identifier="gangster_primary" nameidentifier="talenttree.primary" type="primary">
-      <TalentOptions requiredtalents="2" maxchosentalents="2">
+      <TalentOptions requiredtalents="5" maxchosentalents="5">
         <TalentOption identifier="drunkensailor"/>
         <TalentOption identifier="gangknowledge"/>
+        <TalentOption identifier="cyangangknowledge"/>
+        <TalentOption identifier="yellowgangknowledge"/>
+        <TalentOption identifier="magentagangknowledge"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
+  <TalentTree jobidentifier="goon">
+    <SubTree identifier="goon_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="5" maxchosentalents="5">
+        <TalentOption identifier="unlockallrecipes"/>
+        <TalentOption identifier="gangknowledge"/>
+        <TalentOption identifier="cyangangknowledge"/>
+        <TalentOption identifier="yellowgangknowledge"/>
+        <TalentOption identifier="magentagangknowledge"/>
       </TalentOptions>
     </SubTree>
   </TalentTree>

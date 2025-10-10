@@ -388,6 +388,17 @@ local doChatMessageFunctions = function (message, sender)
 	return returnValue
 end
 
+-- Functions executed whenever a client respawns
+DD.respawnFunctions = {}
+DD.doRespawnFunctions = function (client) -- is global so it can be called in spawning.lua
+	local returnValue
+	for name, func in pairs(DD.respawnFunctions) do
+		if returnValue == nil then returnValue = func(client) end
+		func(client)
+	end
+	return returnValue
+end
+
 -- Load other files
 require 'DD/chatCommands'
 require 'DD/nature'

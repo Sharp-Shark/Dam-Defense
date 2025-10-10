@@ -837,9 +837,9 @@ Hook.Add("DD.spraycan.use", "DD.spraycan.use", function(effect, deltaTime, item,
 	local character = limb.character
 	if limb.type == LimbType.Head then
 		local afflictionIdentifier = DD.stringSplit(tostring(item.Prefab.Identifier), 'spraycan')[1] .. 'paint'
-		DD.giveAfflictionCharacter(character, afflictionIdentifier, 0.5 * deltaTime, limb)
+		DD.giveAfflictionCharacter(character, afflictionIdentifier, 1 * deltaTime, limb)
 		if character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) < 1 then
-			DD.giveAfflictionCharacter(character, 'noxiousspray', 0.5 * deltaTime, limb)
+			DD.giveAfflictionCharacter(character, 'noxiousspray', 1 * deltaTime, limb)
 		end
 	end
 end)
@@ -859,7 +859,7 @@ Hook.Add("DD.meth.use", "DD.meth.use", function(effect, deltaTime, item, targets
 	
 	for event in DD.eventDirector.events do
 		if (event.name == 'gang') and (event.gangColor == color) then
-			event.addClientToGang(client)
+			event.addClientToGang(client, true)
 		end
 	end
 end)

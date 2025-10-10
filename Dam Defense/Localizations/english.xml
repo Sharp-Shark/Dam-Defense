@@ -92,6 +92,9 @@
   <!-- Gangster Job -->
   <jobname.gangster>Gangster</jobname.gangster>
   <jobdescription.gangster>The don of a mafia, your main objective is to grow your gang using crystal meth and thus gain power and influence. You are free to be good or evil.</jobdescription.gangster>
+  <!-- Goon Job -->
+  <jobname.goon>Goon</jobname.goon>
+  <jobdescription.goon>A lackey, working for the don of a mafia. Just follow the boss' plan, go it?</jobdescription.goon>
   <!-- Spy Job -->
   <jobname.spy>Spy</jobname.spy>
   <jobdescription.spy>A professional assassin, your main objective is to sow distrust and paranoia, thus sabotaging Nexpharma activity in the region. You are free to be good or evil.</jobdescription.spy>
@@ -306,10 +309,15 @@
   <entitydescription.creepymask>Boo-hoo, when's the hurting stop?</entitydescription.creepymask>
   <!-- Backwards Cap (for gang members) -->
   <entityname.backwardscap>Ballistic Cap</entityname.backwardscap>
-  <entitydescription.backwardscap>Only craftable by gang members. Appears to be a backwards cap and bandana, but is lined with a ballistic fiber. Thug life.</entitydescription.backwardscap>
+  <entitydescription.backwardscap>A baseball cap lined with ballistic fiber. Thug life.</entitydescription.backwardscap>
   <!-- Gangster Hat (for gang leader) -->
-  <entityname.bosshat>Gangster Hat</entityname.bosshat>
-  <entitydescription.bosshat>A fashionable trilby hat for a mafia boss. Lined with ballistic fiber on the inside and has a built-in diving mask.</entitydescription.bosshat>
+  <entityname.cyanbosshat>Gangster Hat</entityname.cyanbosshat>
+  <entitydescription.cyanbosshat>A fashionable trilby hat for a mafia boss. Lined with ballistic fiber on the inside and has a built-in diving mask.</entitydescription.cyanbosshat>
+  <entityname.yellowbosshat>Gangster Hat</entityname.yellowbosshat>
+  <entitydescription.yellowbosshat>A fashionable trilby hat for a mafia boss. Lined with ballistic fiber on the inside and has a built-in diving mask.</entitydescription.yellowbosshat>
+  <entityname.magentabosshat>Gangster Hat</entityname.magentabosshat>
+  <entitydescription.magentabosshat>A fashionable trilby hat for a mafia boss. Lined with ballistic fiber on the inside and has a built-in diving mask.</entitydescription.magentabosshat>
+  <!-- Tuxedo Hat (for spy, gang leader and other lavish criminals) -->
   <entityname.bossclothes>Tuxedo</entityname.bossclothes>
   <entitydescription.bossclothes>A stylish suit worn by professional criminals.</entitydescription.bossclothes>
   <!-- Storage Guntainer -->

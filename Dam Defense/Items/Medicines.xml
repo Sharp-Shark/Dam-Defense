@@ -1482,7 +1482,7 @@
     <SkillRequirementHint identifier="medical" level="30" />
   </Item>
   
-  <!-- 60 rounds of 9mm for the tommy gun -->
+  <!-- 50 rounds of heal gun darts -->
   <Item name="Heal Gun Drum" identifier="healgundrum" maxstacksize="8" maxstacksizecharacterinventory="2" scale="0.5" category="Medical" allowasextracargo="true" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,healgunammo" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="healgun" minamount="1" maxamount="1" spawnprobability="1"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30" amount="1">

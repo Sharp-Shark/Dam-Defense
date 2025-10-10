@@ -24,7 +24,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			[DD.invSlots.head] = {merasmushat = true},
 		},
 		gangster = {
-			[DD.invSlots.head] = {bosshat = true},
+			[DD.invSlots.head] = {cyanbosshat = true, yellowbosshat = true, magentabosshat = true},
 			[DD.invSlots.innerclothes] = {bossclothes = true},
 		},
 	}
@@ -68,6 +68,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 		assistant = {'unlockallrecipes', 'skedaddle'},
 		-- event jobs
 		gangster = {'drunkensailor', 'gangknowledge'},
+		goon = {'unlockallrecipes', 'gangknowledge'},
 		spy = {'skedaddle'},
 		jet = {'daringdolphin', 'ballastdenizen', 'rebelknowledge'},
 		mercs = {'daringdolphin', 'ballastdenizen'},
@@ -226,8 +227,8 @@ DD.autoJob = function ()
 	local assignClientJob = function (client, job, ignore)
 		if DD.isClientBannedFromJob(client, job) then return end
 		if DD.antagSafeJobs[job] and (antagSafeCap <= 0) and (not ignore) then return end
-		if (DD.antagSafeJobs[job] and DD.antagSafeJobs[job]) and (antagSafeSecCap <= 0) and (not ignore) then return end
-		if (DD.antagSafeJobs[job] and (not DD.antagSafeJobs[job])) and (antagSafeNonSecCap <= 0) and (not ignore) then return end
+		if (DD.antagSafeJobs[job] and DD.securityJobs[job]) and (antagSafeSecCap <= 0) and (not ignore) then return end
+		if (DD.antagSafeJobs[job] and (not DD.securityJobs[job])) and (antagSafeNonSecCap <= 0) and (not ignore) then return end
 		DD.clientJob[client] = job
 		if jobsLeft[job] ~= nil then
 			jobsLeft[job] = jobsLeft[job] - 1
@@ -345,26 +346,36 @@ Hook.Patch("Barotrauma.Networking.RespawnManager", "RespawnCharacters", {"Barotr
 				end
 				client.CharacterInfo = info
 				
-				-- get job and job variant
-				local job = DD.clientJob[client]
-				local variant
-				for jobVariant in client.JobPreferences do
-					if tostring(jobVariant.Prefab.Identifier) == job then
-						variant = jobVariant.Variant
+				-- if statement condition function does something and returns true if it succeeds (function has side-effects and is not pure)
+				if DD.doRespawnFunctions(client) == nil then
+					-- get job and job variant
+					local job = DD.clientJob[client]
+					local variant
+					for jobVariant in client.JobPreferences do
+						if tostring(jobVariant.Prefab.Identifier) == job then
+							variant = jobVariant.Variant
+						end
 					end
+					if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
+					
+					-- spawn character
+					local pos = DD.findRandomWaypointByJob(job).WorldPosition
+					local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
+					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+					character.UpdateTeam()
 				end
-				if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
-				
-				-- spawn character
-				local pos = DD.findRandomWaypointByJob(job).WorldPosition
-				local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
-				character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
-				character.UpdateTeam()
 			end
 		end
 	elseif DD.respawningState == 'latejoin' then
 		for client in DD.arrShuffle(Client.ClientList) do
 			if DD.isClientRespawnable(client) then
+				-- reset talents (and more) before respawn
+				local info = CharacterInfo('human', client.Name)
+				if client.CharacterInfo ~= nil then
+					info.RecreateHead(client.CharacterInfo.Head)
+				end
+				client.CharacterInfo = info
+				
 				if (DD.eventDirector.mainEvent ~= nil) and (DD.eventDirector.mainEvent.lateJoinSpawn ~= nil) then
 					-- if statement condition function does something and returns true if it succeeds (function has side-effects and is not pure)
 					if not DD.eventDirector.mainEvent.lateJoinSpawn(client) then

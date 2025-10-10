@@ -225,7 +225,7 @@ DD.chatMessageFunctions.freecam = function (message, sender)
 		DD.messageClient(sender, message, {preset = 'command'})
 		return true
 	end
-	if sender.Character.SpeciesName == 'human' then
+	if (sender.Character.SpeciesName == 'human') or (sender.Character.SpeciesName == 'humanGoblin') or (sender.Character.SpeciesName == 'humanTroll') then
 		local message = DD.stringLocalize('commandFreecamErrorHuman')
 		DD.messageClient(sender, message, {preset = 'command'})
 		return true

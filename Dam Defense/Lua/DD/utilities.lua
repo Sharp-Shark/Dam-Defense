@@ -127,6 +127,7 @@ DD.antagExemptJobs = {
 	mercsevil = true,
 	wizard = true,
 	gangster = true,
+	goon = true,
 	spy = true,
 }
 
@@ -136,6 +137,7 @@ DD.antagNonTargetJobs = {
 	mercsevil = true,
 	wizard = true,
 	gangster = true,
+	goon = true,
 	spy = true,
 	bodyguard = true,
 }
@@ -154,6 +156,7 @@ DD.proletariatJobs = {
 	clown = true,
 	assistant = true,
 	shopkeeper = true,
+	goon = true,
 }
 
 -- Set of medical jobs

@@ -112,7 +112,7 @@
   </Affliction>
   
   <!-- noxious suffocant spray -->
-  <Affliction name="Noxious Spray" identifier="noxiousspray" description="The face has been sprayed with a noxious spray that irritates and prevents breathing." type="poison" targets="human" limbspecific="true" activationthreshold="0.0" showiconthreshold="0.0" maxstrength="1">
+  <Affliction name="Noxious Spray" identifier="noxiousspray" description="The face has been sprayed with a noxious aerosol that irritates and prevents breathing." type="poison" targets="human" limbspecific="true" activationthreshold="0.0" showiconthreshold="0.0" maxstrength="1">
     <Effect minstrength="0" maxstrength="1" strengthchange="-0.1" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0" minfacetint="200,180,255,100" maxfacetint="200,180,255,200" >
 	  <StatusEffect target="Character">
 	    <Conditional vitality="gt 0" />

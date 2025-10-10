@@ -6699,13 +6699,8 @@
   <!-- gang war backwards cap with bandana -->
   <Item name="Backwards Cap" identifier="backwardscap" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.4">
     <Deconstruct time="10">
-      <Item identifier="organicfiber" />
-      <Item identifier="steel" amount="2" />
+      <Item identifier="ballisticfiber" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true">
-      <RequiredItem identifier="organicfiber" />
-      <RequiredItem identifier="steel" amount="2" />
-    </Fabricate>
     <Sprite name="Baseball Cap" texture="spraycan.png" depth="0.6" sourcerect="28,0,89,60" origin="0.5,0.5" />
     <Body width="80" height="45" density="15" waterdragcoefficient="10" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect">
@@ -6745,15 +6740,53 @@
     </Wearable>
   </Item>
   <!-- gangster boss hat -->
-  <Item name="Gangster Hat" identifier="bosshat" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.4">
+  <Item name="Gangster Hat" identifier="cyanbosshat" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.4">
     <Deconstruct time="10">
       <Item identifier="ballisticfiber" />
       <Item identifier="organicfiber" />
     </Deconstruct>
-    <Sprite name="Captain's Cap 3" texture="%ModDir%/Items/gangster.png" depth="0.6" sourcerect="128,259,90,42" origin="0.5,0.5" />
+    <Sprite name="Captain's Cap 3" texture="%ModDir%/Items/gangstercyan.png" depth="0.6" sourcerect="128,259,90,42" origin="0.5,0.5" />
     <Body width="70" height="45" density="15" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
-      <sprite name="Captain's Cap 3 Wearable" texture="%ModDir%/Items/gangster.png" limb="Head" hidewearablesoftype="Hair" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="218,259,90,79" origin="0.5,0.6" />
+      <sprite name="Captain's Cap 3 Wearable" texture="%ModDir%/Items/gangstercyan.png" limb="Head" hidewearablesoftype="Hair" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="218,259,90,79" origin="0.5,0.6" />
+      <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" UseHullOxygen="false" Condition="-0.5" comparison="Or">
+        <Conditional IsDead="false" />
+      </StatusEffect>
+      <damagemodifier afflictionidentifiers="blunttrauma,lacerations" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+    </Wearable>
+  </Item>
+  <Item name="Gangster Hat" identifier="yellowbosshat" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.4">
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <Sprite name="Captain's Cap 3" texture="%ModDir%/Items/gangsteryellow.png" depth="0.6" sourcerect="128,259,90,42" origin="0.5,0.5" />
+    <Body width="70" height="45" density="15" />
+    <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
+      <sprite name="Captain's Cap 3 Wearable" texture="%ModDir%/Items/gangsteryellow.png" limb="Head" hidewearablesoftype="Hair" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="218,259,90,79" origin="0.5,0.6" />
+      <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" UseHullOxygen="false" Condition="-0.5" comparison="Or">
+        <Conditional IsDead="false" />
+      </StatusEffect>
+      <damagemodifier afflictionidentifiers="blunttrauma,lacerations" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+    </Wearable>
+  </Item>
+  <Item name="Gangster Hat" identifier="magentabosshat" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.4">
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <Sprite name="Captain's Cap 3" texture="%ModDir%/Items/gangstermagenta.png" depth="0.6" sourcerect="128,259,90,42" origin="0.5,0.5" />
+    <Body width="70" height="45" density="15" />
+    <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
+      <sprite name="Captain's Cap 3 Wearable" texture="%ModDir%/Items/gangstermagenta.png" limb="Head" hidewearablesoftype="Hair" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="218,259,90,79" origin="0.5,0.6" />
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" UseHullOxygen="false" Condition="-0.5" comparison="Or">
         <Conditional IsDead="false" />

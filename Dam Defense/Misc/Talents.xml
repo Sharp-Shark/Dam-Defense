@@ -84,7 +84,6 @@
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="2,0" sheetelementsize="128,128"/>
 	
     <AddedRecipe itemidentifier="uzi"/>
-    <AddedRecipe itemidentifier="backwardscap"/>
 	
   </Talent>
   <Talent identifier="cyangangknowledge">
