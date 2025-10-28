@@ -129,7 +129,7 @@ DD.spawnPlants = function ()
 			local position = Vector2(DD.lerp(lerpFactor, location1.WorldPosition.X, location2.WorldPosition.X), DD.lerp(lerpFactor, location1.WorldPosition.Y, location2.WorldPosition.Y))
 			
 			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(plant.itemIdentifier), position, nil, nil, function (spawnedItem)
-				spawnedItem.Submarine = Submarine.MainSub
+				--spawnedItem.Submarine = Submarine.MainSub
 				spawnedItem.Rotation = location2.Rotation
 				if SERVER then
 					Timer.Wait(function ()
