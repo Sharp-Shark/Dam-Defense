@@ -167,6 +167,8 @@ DD.lootTables = {
 		{identifier = 'alientrinket1', weight = 0.5},
 		{identifier = 'rum', weight = 1},
 		{identifier = 'raptorbaneextract', weight = 1},
+		{identifier = 'sharpenedvolcanofragment', weight = 0.5},
+		{identifier = 'cowboyhat', weight = 1},
 	},
 }
 

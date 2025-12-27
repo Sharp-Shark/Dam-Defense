@@ -399,6 +399,9 @@
   <!-- Baseball Bat -->
   <entityname.baseballbat>Baseball Bat</entityname.baseballbat>
   <entitydescription.baseballbat>Hard to stab a guy in the back when he's beating your head in.</entitydescription.baseballbat>
+  <!-- Cowboy Hat -->
+  <entityname.cowboyhat>Cowboy Hat</entityname.cowboyhat>
+  <entitydescription.cowboyhat>A nameless hat for a nameless stranger. Might save your life in a duel.</entitydescription.cowboyhat>
   <!-- Brass Knuckle -->
   <entityname.brassknuckle>Brass Knuckle</entityname.brassknuckle>
   <entitydescription.brassknuckle>Don't bring a gun to a fist fight or you may have the dishonor of being killed with your own firearm. Truly a fistful of frags.</entitydescription.brassknuckle>

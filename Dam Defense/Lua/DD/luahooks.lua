@@ -475,6 +475,27 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
 	end
 end, Hook.HookMethodType.Before)
 
+-- code provided as a courtesy of SONK Squall, see: https://github.com/SONKSquall/WarfaremodGeneralContent/
+Hook.add("character.applyDamage", "DD.cowboyhat.deflect", function(charHealth, attackResult, hitLimb)
+	if hitLimb.type ~= LimbType.Head then return end
+	
+	local item = charHealth.Character.Inventory.GetItemInLimbSlot(InvSlotType.Head)
+	if (item == nil) or (item.Prefab.Identifier ~= 'cowboyhat') then return end
+
+	local damage = attackResult.Damage
+	if damage < 25 then return end
+	
+	for affliction in attackResult.Afflictions do
+		Timer.NextFrame(function()
+			charHealth.ReduceAfflictionOnLimb(hitLimb, affliction.Identifier, affliction.Strength * 1.0)
+			charHealth.ReduceAfflictionOnAllLimbs("stun", 100)
+		end)
+	end
+	
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('cowboyhatfx'), hitLimb.worldPosition, nil, nil, nil)
+	Entity.Spawner.AddEntityToRemoveQueue(item)
+end)
+
 -- toggles repairtool between wrench and screwdriver mode
 Hook.Add("DD.repairtool.toggle", "DD.repairtool.toggle", function(effect, deltaTime, item, targets, worldPosition)
 	if item == nil then return end

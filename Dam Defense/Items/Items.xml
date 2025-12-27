@@ -6344,6 +6344,21 @@
     </MeleeWeapon>
     <SkillRequirementHint identifier="weapons" level="15" />
   </Item>
+  <!-- nameless hat for a nameless stranger -->
+  <Item name="Cowboy Hat" identifier="cowboyhat" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.4">
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="helm" level="15" />
+      <Item identifier="organicfiber" amount="2" />
+    </Fabricate>
+    <Sprite name="Cowboy Hat" texture="%ModDir%/Items/headgears.png" depth="0.6" sourcerect="500,0,119,51" origin="0.5,0.5" />
+    <Body width="70" height="45" density="15" />
+    <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
+      <sprite name="Cowboy Hat" texture="%ModDir%/Items/headgears.png" limb="Head" hidewearablesoftype="Hair" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="500,0,119,51" origin="0.5,0.9" />
+    </Wearable>
+  </Item>
   <!-- fistful of frags reference? -->
   <Item name="Brass Knuckle" identifier="brassknuckle" category="Weapon,Misc" Tags="smallitem,weapon,gunsmith,mountableweapon" cargocontaineridentifier="metalcrate" scale="0.4" impactsoundtag="impact_metal_light" RequireAimToUse="True">
     <Deconstruct time="10">
@@ -7444,6 +7459,19 @@
       </StatusEffect>
       <StatusEffect target="This" type="OnSpawn" delay="3">
         <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+  <!-- spawns a cowboy hat particle -->
+  <Item identifier="cowboyhatfx" hideinmenus="true">
+    <Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <ItemComponent>
+      <StatusEffect type="OnSpawn" targettype="This">
+        <Sound file="%ModDir%/Sounds/cowboyhatdeflect.ogg" volume="2.0" range="1000" />
+        <ParticleEmitter particle="cowboyhat" AngleMin="60" AngleMax="120" VelocityMin="300" VelocityMax="350" ScaleMultiplier="0.65,0.65" ParticleAmount="1" ColorMultiplier="255,255,255,255" />
+      </StatusEffect>
+      <StatusEffect type="always" target="This" disabledeltatime="true" delay="1" stackable="false">
+        <Remove/>
       </StatusEffect>
     </ItemComponent>
   </Item>
