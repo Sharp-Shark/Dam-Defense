@@ -483,7 +483,7 @@ Hook.add("character.applyDamage", "DD.cowboyhat.deflect", function(charHealth, a
 	if (item == nil) or (item.Prefab.Identifier ~= 'cowboyhat') then return end
 
 	local damage = attackResult.Damage
-	if damage < 25 then return end
+	if damage < 50 then return end
 	
 	for affliction in attackResult.Afflictions do
 		Timer.NextFrame(function()
