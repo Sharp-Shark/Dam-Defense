@@ -921,6 +921,39 @@ DD.raycast = function (submarine, point1, point2, collisionCategory, callback)
     return result
 end
 
+-- Sets the job of an idcard (name is optional)
+DD.setCardJob = function (idcard, jobIdentifier, name)
+	local jobPrefab = JobPrefab.Get(jobIdentifier)
+	
+	-- Give idcard any tags that it should have
+	local waypoint = DD.findRandomWaypointByJob(jobIdentifier)
+	if waypoint ~= nil then
+		local tags = ''
+		for tag in waypoint.IdCardTags do
+			if not idcard.HasTag(tag) then tags = tags .. ',' .. tag end
+		end
+		if name ~= nil then tags = tags .. ',name:' .. name end
+		idcard.Tags = idcard.Tags .. tags
+	end
+	
+	-- Set the idcard's color to be the job's UIColor
+	local color = jobPrefab.UIColor
+	color = Color.Lerp(color, Color.White, 0.25)
+	idcard.SpriteColor = color
+	idcard['set_InventoryIconColor'](color)
+	
+	-- Sync changes for clients
+	if SERVER then
+		local item = idcard
+		local tags = item.SerializableProperties[Identifier("Tags")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
+		local sprcolor = item.SerializableProperties[Identifier("SpriteColor")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(sprcolor, item))
+		local invColor = item.SerializableProperties[Identifier("InventoryIconColor")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
+	end
+end
+
 -- Spawns a human with a job somewhere
 DD.spawnHuman = function (client, job, pos, name, subclass, speciesName)
 	local speciesName = speciesName or 'human'

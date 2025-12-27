@@ -82,6 +82,7 @@
     <SuitableTreatment type="burn" suitability="1" />
     <SuitableTreatment identifier="drunk" suitability="-20" />
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="10" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">

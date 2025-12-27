@@ -36,7 +36,8 @@ end, {
 			local waypoint = DD.findRandomWaypointByJob(job)
 			if waypoint == nil then waypoint = DD.findRandomWaypointByJob('clown') end
 			local pos = waypoint.WorldPosition
-			local character = DD.spawnHuman(self.wizard, job, pos)
+			local subclass = (os.date('*t', os.time()).month == 12) and 1 or 0 -- wizard is replace with santa claus during december
+			local character = DD.spawnHuman(self.wizard, job, pos, nil, subclass)
 			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 			character.UpdateTeam()
 		end

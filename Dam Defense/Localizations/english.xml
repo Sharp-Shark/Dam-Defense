@@ -252,12 +252,26 @@
   <entitydescription.merasmusrobes>A dark robe used by magicians. Slowly yet surely cures all ailments a wizard may have, but will burn commoners when worn.</entitydescription.merasmusrobes>
   <entityname.merasmusstaff>Wizard Staff</entityname.merasmusstaff>
   <entitydescription.merasmusstaff>A wooden staff used alongside a spellbook to cast spells.</entitydescription.merasmusstaff>
+  <entityname.merasmushat2>Old Nick Hat</entityname.merasmushat2>
+  <entitydescription.merasmushat2>The skull of an extinct red-nosed reindeer, a rare winter headpiece. May explode the head of non-wizards who try to wear it.</entitydescription.merasmushat2>
+  <entityname.merasmusrobes2>Old Nick Robes</entityname.merasmusrobes2>
+  <entitydescription.merasmusrobes2>A red robe used by magicians. Slowly yet surely cures all ailments a wizard may have, but will burn commoners when worn.</entitydescription.merasmusrobes2>
+  <entityname.merasmusstaff2>Candy Cane</entityname.merasmusstaff2>
+  <entitydescription.merasmusstaff2>A candy cane staff used alongside a spellbook to cast spells.</entitydescription.merasmusstaff2>
   <entityname.merasmusfireballbook>Scrungly Spellbook</entityname.merasmusfireballbook>
   <entitydescription.merasmusfireballbook>A spellbook that when equipped with a staff can be used to shoot scrungly nitroglycerin fireballs.</entitydescription.merasmusfireballbook>
   <entityname.merasmusteleportbook>Blink Spellbook</entityname.merasmusteleportbook>
   <entitydescription.merasmusteleportbook>A spellbook that when equipped with a staff can be used to teleport. Does not telefrag or deal damage.</entitydescription.merasmusteleportbook>
   <entityname.merasmusblastjumpbook>Fling Spellbook</entityname.merasmusblastjumpbook>
   <entitydescription.merasmusblastjumpbook>A spellbook that when equipped with a staff can be used to fling people into the air. Harmless but annoying.</entitydescription.merasmusblastjumpbook>
+  <entityname.merasmusgiftbook>Gift Spellbook</entityname.merasmusgiftbook>
+  <entitydescription.merasmusgiftbook>A spellbook that when equipped with a staff can be used to shoot a jolly gift. Merry christmas!</entitydescription.merasmusgiftbook>
+  <entityname.merasmusgiftbombbook>Trick Spellbook</entityname.merasmusgiftbombbook>
+  <entitydescription.merasmusgiftbombbook>A spellbook that when equipped with a staff can be used to shoot an explosive gift. Pipe bomb, so cool.</entitydescription.merasmusgiftbombbook>
+  <entityname.merasmusgift>Gift Box</entityname.merasmusgift>
+  <entitydescription.merasmusgift>A box with a gift inside, waiting to be opened. Merry christmas!</entitydescription.merasmusgift>
+  <entityname.merasmusgiftbomb>Gift Box</entityname.merasmusgiftbomb>
+  <entitydescription.merasmusgiftbomb>A box with a gift inside, waiting to be opened. Merry christmas!</entitydescription.merasmusgiftbomb>
   <!-- Boomboxes -->
   <entityname.boombox1>Country Boombox</entityname.boombox1>
   <entitydescription.boombox1>"Sweet Home Alabama" by Lynyrd Skynyrd.</entitydescription.boombox1>

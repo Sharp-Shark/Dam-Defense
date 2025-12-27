@@ -411,6 +411,7 @@
       <Item identifier="carbon" mincondition="0.5" />
     </Deconstruct>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="2" />
 	</Fabricate>
     <Growable growthspeed="3.0" pickingtime="3" maximumvines="18" maxhealth="300" hardiness="0.15" floodtolerance="0.2" seedrate="0" productrate="0.5" flowerquantity="3" baseflowerscale="0.60" vinescale="0.25" vinetint="55,152,27,255" flowertint="139,56,87,255">

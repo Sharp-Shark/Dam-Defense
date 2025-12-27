@@ -504,7 +504,7 @@ LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.WayPoint"], "set_IdCard
 LuaUserData.MakeMethodAccessible(Descriptors['Barotrauma.Items.Components.RangedWeapon'], 'set_MaxChargeTime')
 Hook.Patch("Barotrauma.Items.Components.RangedWeapon", "Use", function(instance, ptable)
     local item = instance.Item
-	if item.Prefab.Identifier == 'merasmusstaff' then
+	if item.HasTag('merasmusstaff') then
 		local character = ptable['character']
 		if character == nil then
 			ptable.PreventExecution = true
@@ -525,6 +525,10 @@ Hook.Patch("Barotrauma.Items.Components.RangedWeapon", "Use", function(instance,
 			local component = item.GetComponentString('RangedWeapon')
 			if identifier == 'merasmusblastjump' then
 				component.Reload = 0.1
+			elseif identifier == 'merasmusgift' then
+				component.Reload = 2.5
+			elseif identifier == 'merasmusgiftbomb' then
+				component.Reload = 2.5
 			else
 				component.Reload = 1.2
 			end
@@ -685,6 +689,15 @@ Hook.Add("DD.merasmusblastjump.blastjump", "DD.merasmusblastjump.blastjump", fun
 		end
 		DD.giveAfflictionCharacter(character, 'blastjumping_nofx', 999)
 	end
+end)
+
+-- spawn random gift
+Hook.Add("DD.merasmusgift.use", "DD.merasmusgift.use", function(effect, deltaTime, item, targets, worldPosition)
+	local name
+	if effect.user ~= nil then name = effect.user.Name end
+	DD.lootTables.spawnRandom(DD.lootTables['merasmusgift'], item.WorldPosition, 0, {name = name})
+	
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('giftfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
 end)
 
 -- casts a raycast to repair barricades (static barricades otherwise do not collide)

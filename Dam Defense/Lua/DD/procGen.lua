@@ -1,6 +1,39 @@
 if CLIENT and Game.IsMultiplayer then return end
 
 DD.lootTables = {
+	spawnRandom = function (tbl, inventory, delay, data)
+		local weights = {}
+		for key, value in pairs(tbl) do
+			if type(value) == 'table' then
+				weights[key] = value.weight
+			end
+		end
+		local winner = DD.weightedRandom(tbl, weights)
+		
+		local identifier = winner.identifier
+		local amount = winner.amount or 1
+		local minAmount = winner.minAmount or amount
+		local maxAmount = winner.maxAmount or amount
+		local script = winner.script or function (spawnedItem) end
+		amount = math.random(minAmount, maxAmount)
+		
+		local items = {}
+		local delay = delay or 0
+		if identifier ~= nil then
+			for n = 1, amount do
+				Timer.Wait(function ()
+					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), inventory, nil, nil, function (spawnedItem)
+						table.insert(items, spawnedItem)
+						script(spawnedItem, data)
+					end)
+				end, delay)
+				delay = delay + 10
+			end
+		end
+		
+		items.delay = delay
+		return items
+	end,
 	['outposttrashcan'] = {
 		attempts = 3,
 		chance = 0.3,
@@ -117,6 +150,24 @@ DD.lootTables = {
 		{identifier = 'extinguisher', weight = 19},
 		{identifier = 'makeshiftflamer', weight = 1},
 	},
+	['merasmusgift'] = {
+		attempts = 1,
+		chance = 1.0,
+		{identifier = 'carbon', weight = 1},
+		{identifier = 'rubber', weight = 1},
+		{identifier = 'deepdiverduck', weight = 0.5},
+		{identifier = 'meth', weight = 1},
+		{identifier = 'antidama2', weight = 1},
+		{identifier = 'idcard', weight = 0.2, script = function (spawnedItem, data) DD.setCardJob(spawnedItem, 'captain', data.name) end},
+		{identifier = '40mmnuke', weight = 0.2},
+		{identifier = 'shellshield', weight = 0.5},
+		{identifier = 'captainsseparatistcap1', weight = 0.5},
+		{identifier = 'peanutegg', weight = 0.5},
+		{identifier = 'partybanner', weight = 0.5},
+		{identifier = 'alientrinket1', weight = 0.5},
+		{identifier = 'rum', weight = 1},
+		{identifier = 'raptorbaneextract', weight = 1},
+	},
 }
 
 DD.roundStartFunctions.procGen = function ()
@@ -132,29 +183,7 @@ DD.roundStartFunctions.procGen = function ()
 					for n = 1, (tbl.attempts or 1) do
 						if ((tbl.chance or 1) >= math.random()) and (count > 0) then
 							count = count - 1
-						
-							local weights = {}
-							for key, value in pairs(tbl) do
-								if type(value) == 'table' then
-									weights[key] = value.weight
-								end
-							end
-							local winner = DD.weightedRandom(tbl, weights)
-							
-							local identifier = winner.identifier
-							local amount = winner.amount or 1
-							local minAmount = winner.minAmount or amount
-							local maxAmount = winner.maxAmount or amount
-							amount = math.random(minAmount, maxAmount)
-							
-							if identifier ~= nil then
-								for n = 1, amount do
-									Timer.Wait(function ()
-										Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), inventory, nil, nil, function (spawnedItem) end)
-									end, delay)
-									delay = delay + 10
-								end
-							end
+							delay = DD.lootTables.spawnRandom(tbl, inventory, delay).delay
 						end
 					end
 				end

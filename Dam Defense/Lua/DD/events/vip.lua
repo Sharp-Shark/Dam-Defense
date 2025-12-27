@@ -44,7 +44,7 @@ end, {
 			local team = CharacterTeamType.Team1
 			local job = 'bodyguard'
 			local pos = self.vip.Character.WorldPosition
-			local subclass
+			local subclass = 0
 			if self.vip.Character.JobIdentifier == 'jet' then
 				job = 'jet'
 				subclass = 1

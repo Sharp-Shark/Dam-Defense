@@ -69,9 +69,11 @@
       <Price storeidentifier="merchantmedical" minavailable="2" multiplier="0.9"/>
     </Price>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="5" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30" >
@@ -187,6 +189,7 @@
       <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="6" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
@@ -261,6 +264,7 @@
       <Price storeidentifier="merchantmedical" multiplier="0.9"/>
     </Price>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" amount="2" >
@@ -323,12 +327,15 @@
     <SuitableTreatment identifier="opiateaddiction" suitability="-20" />
     <SuitableTreatment identifier="oxygenlow" suitability="-20" />
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="2" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="4" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
@@ -388,6 +395,7 @@
     <PreferredContainer primary="crewcab"/>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="40" fabricationlimitmin="5" fabricationlimitmax="10"/>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="1" />
 	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="0,768,64,64" origin="0.5,0.5" />
@@ -421,6 +429,7 @@
     <PreferredContainer primary="crewcab"/>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="40" fabricationlimitmin="5" fabricationlimitmax="10"/>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="1" />
 	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="64,768,64,64" origin="0.5,0.5" />
@@ -460,9 +469,11 @@
     </Price>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="190" fabricationlimitmin="0" fabricationlimitmax="10"/>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="1" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="2" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="20">
@@ -495,9 +506,11 @@
       <Price storeidentifier="merchantmine"/>
     </Price>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="2" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="4" />
 	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="511,957,64,64" origin="0.5,0.5" />
@@ -551,12 +564,15 @@
       <RequiredItem identifier="pipetobacco" />
     </Fabricate>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="1" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="1" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="fakemoney" amount="1" />
 	</Fabricate>
     <InventoryIcon texture="Content/Items/JobGear/TalentGear.png" sourcerect="174,234,42,50" origin="0.5,0.5" />
@@ -601,12 +617,15 @@
       <Price storeidentifier="merchantmedical" multiplier="0.9" minavailable="4" />
     </Price>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="4" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="8" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="fakemoney" amount="6" />
 	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="129,448,62,64" origin="0.5,0.5" />
@@ -650,9 +669,11 @@
       <Price storeidentifier="merchantmedical" multiplier="0.9" minavailable="15" />
     </Price>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="1" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="2" />
 	</Fabricate>
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="384,640,64,64" origin="0.5,0.5" />
@@ -765,6 +786,7 @@
     </Price>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="80" fabricationlimitmin="5" fabricationlimitmax="10"/>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="1" />
 	</Fabricate>
     <Deconstruct time="2">
@@ -819,12 +841,15 @@
     </Price>
     <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="60" fabricationlimitmin="5" fabricationlimitmax="10"/>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="5" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" >
@@ -910,6 +935,7 @@
       </Price>
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="2" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="true">
@@ -972,12 +998,15 @@
       <Price storeidentifier="merchantmedical" multiplier="0.9"/>
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="2" />
 	</Fabricate>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="1" />
 	</Fabricate>
     <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="fakemoney" amount="1" />
 	</Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="7.5" amount="1">
@@ -1227,6 +1256,7 @@
       </Price>
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="10" />
 	</Fabricate>
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="56,0,56,56" origin="0.5,0.5" />
@@ -1270,6 +1300,7 @@
       </Price>
     </Price>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="15" />
 	</Fabricate>
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="224,0,56,56" origin="0.5,0.5" />
@@ -1502,9 +1533,11 @@
       <RequiredItem identifier="stabilozine" />
     </Fabricate>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="5" />
 	</Fabricate>
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="10" />
 	</Fabricate>
     <Deconstruct time="15">

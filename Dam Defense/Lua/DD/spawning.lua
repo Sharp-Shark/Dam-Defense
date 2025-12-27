@@ -21,7 +21,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			[DD.invSlots.outerclothes] = {suicidevest = true},
 		},
 		wizard = {
-			[DD.invSlots.head] = {merasmushat = true},
+			[DD.invSlots.head] = {merasmushat = true, merasmushat2 = true},
 		},
 		gangster = {
 			[DD.invSlots.head] = {cyanbosshat = true, yellowbosshat = true, magentabosshat = true},
@@ -85,36 +85,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	-- Mess with their idcard
 	Timer.Wait(function ()
 		local idcard = character.Inventory.GetItemAt(DD.invSlots.idcard)
-		if idcard ~= nil then
-			local jobPrefab = JobPrefab.Get(character.JobIdentifier)
-			
-			-- Give idcard any tags that it should have
-			local waypoint = DD.findRandomWaypointByJob(character.JobIdentifier)
-			if waypoint ~= nil then
-				local tags = ''
-				for tag in waypoint.IdCardTags do
-					if not idcard.HasTag(tag) then tags = tags .. ',' .. tag end
-				end
-				idcard.Tags = idcard.Tags .. tags
-			end
-			
-			-- Set the idcard's color to be the job's UIColor
-			local color = jobPrefab.UIColor
-			color = Color.Lerp(color, Color.White, 0.25)
-			idcard.SpriteColor = color
-			idcard['set_InventoryIconColor'](color)
-			
-			-- Sync changes for clients
-			if SERVER then
-				local item = idcard
-				local tags = item.SerializableProperties[Identifier("Tags")]
-				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
-				local sprcolor = item.SerializableProperties[Identifier("SpriteColor")]
-				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(sprcolor, item))
-				local invColor = item.SerializableProperties[Identifier("InventoryIconColor")]
-				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
-			end
-		end
+		if idcard ~= nil then DD.setCardJob(idcard, character.JobIdentifier) end
 	end, 100)
 end)
 
