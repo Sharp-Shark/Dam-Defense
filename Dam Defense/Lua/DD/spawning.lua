@@ -105,7 +105,7 @@ end
 DD.autoJob = function ()
 	if #Client.ClientList == 0 then return {} end
 
-	local antagSafeCap = math.ceil(#Client.ClientList * 2 / 5)
+	local antagSafeCap = math.ceil(#Client.ClientList * 1 / 2)
 	local antagSafeSecCap = math.ceil(#Client.ClientList * 1 / 4)
 	local antagSafeNonSecCap = math.ceil(#Client.ClientList * 1 / 4)
 	

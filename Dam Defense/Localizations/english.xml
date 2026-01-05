@@ -349,6 +349,12 @@
   <!-- 40mm Jumper Grenade -->
   <entityname.40mmjumpergrenade>40mm Jumper Grenade</entityname.40mmjumpergrenade>
   <entitydescription.40mmjumpergrenade>Ammunition for grenade launcher. Harmless explosive, useful for blast jumping.</entitydescription.40mmjumpergrenade>
+  <!-- Tear Gas Grenade -->
+  <entityname.teargasgrenade>Tear Gas Grenade</entityname.teargasgrenade>
+  <entitydescription.teargasgrenade>A grenade filled with tear gas, causing breathing difficulties when it explodes.</entitydescription.teargasgrenade>
+  <!-- 40mm Tear Gas Grenade -->
+  <entityname.40mmteargasgrenade>40mm Tear Gas Grenade</entityname.40mmteargasgrenade>
+  <entitydescription.40mmteargasgrenade>Ammunition for grenade launcher. Filled with tear gas, causing breathing difficulties when it explodes.</entitydescription.40mmteargasgrenade>
   <!-- Shotgun Slug Breaching -->
   <entityname.shotgunslugbreaching>Breaching Slug</entityname.shotgunslugbreaching>
   <entitydescription.shotgunslugbreaching>A shotgun slug for breaching doors. Still lethal.</entitydescription.shotgunslugbreaching>

@@ -494,6 +494,8 @@ Hook.add("character.applyDamage", "DD.cowboyhat.deflect", function(charHealth, a
 	
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('cowboyhatfx'), hitLimb.worldPosition, nil, nil, nil)
 	Entity.Spawner.AddEntityToRemoveQueue(item)
+	
+	return true
 end)
 
 -- toggles repairtool between wrench and screwdriver mode
@@ -618,7 +620,7 @@ Hook.Add("DD.spyknife.stab", "DD.spyknife.stab", function(effect, deltaTime, ite
 	if (LuaUserData.TypeOf(target) == 'Barotrauma.Character') or (LuaUserData.TypeOf(target) == 'Barotrauma.AICharacter') then
 		if (item.Condition >= 100) and (not target.InWater) and (target.Vitality > 0) and
 		((math.sign(target.WorldPosition.x - user.WorldPosition.x) == target.AnimController.Dir) or (target.Stun > 1)) then
-			DD.giveAfflictionCharacter(target, 'lacerations', 100)
+			DD.giveAfflictionCharacter(target, 'lacerations', target.Vitality + 10)
 			DD.giveAfflictionCharacter(target, 'johncenafx', 999)
 		end
 		item.Condition = 1
@@ -875,6 +877,15 @@ Hook.Add("DD.spraycan.use", "DD.spraycan.use", function(effect, deltaTime, item,
 		if character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) < 1 then
 			DD.giveAfflictionCharacter(character, 'noxiousspray', 1 * deltaTime, limb)
 		end
+	end
+end)
+Hook.Add("DD.teargas.use", "DD.teargas.use", function(effect, deltaTime, item, targets, worldPosition)
+	local character = targets[1]
+	if character == nil then return end
+	if (LuaUserData.TypeOf(character) ~= 'Barotrauma.Character') and (LuaUserData.TypeOf(character) ~= 'Barotrauma.AICharacter') then return end
+	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('airborneprotection', true) < 1 then
+		DD.giveAfflictionCharacter(character, 'noxiousspray', 1 * deltaTime)
+		DD.giveAfflictionCharacter(character, 'slow', 100)
 	end
 end)
 
@@ -1290,7 +1301,7 @@ end)
 
 -- Suicide vest
 Hook.Add("DD.suicidevest", "DD.suicidevest", function(effect, deltaTime, item, targets, worldPosition)
-	if (item.ParentInventory == nil) or not LuaUserData.IsTargetType(item.ParentInventory.Owner, 'Barotrauma.Character') then
+	if (item.ParentInventory == nil) or not (LuaUserData.IsTargetType(item.ParentInventory.Owner, 'Barotrauma.Character') or LuaUserData.IsTargetType(item.ParentInventory.Owner, 'Barotrauma.AICharacter')) then
 		item.Condition = 0
 	end
 end)

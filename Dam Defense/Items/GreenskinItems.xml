@@ -50,6 +50,7 @@
       <Item identifier="plastic" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="20" amount="1" requiresrecipe="true">
+      <RequiredSkill identifier="helm" level="0" />
       <Item identifier="plastic" />
     </Fabricate>
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect">
@@ -83,7 +84,7 @@
     <SuitableTreatment identifier="drunk" suitability="-20" />
     <Fabricate suitablefabricators="nexshop" requiredtime="1">
       <RequiredSkill identifier="helm" level="0" />
-      <RequiredItem tag="money" amount="10" />
+      <RequiredItem tag="money" amount="20" />
 	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
       <RequiredSkill identifier="medical" level="35" />

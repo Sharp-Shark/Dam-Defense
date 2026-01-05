@@ -112,16 +112,18 @@
   </Affliction>
   
   <!-- noxious suffocant spray -->
-  <Affliction name="Noxious Spray" identifier="noxiousspray" description="The face has been sprayed with a noxious aerosol that irritates and prevents breathing." type="poison" targets="human" limbspecific="true" activationthreshold="0.0" showiconthreshold="0.0" maxstrength="1">
+  <Affliction name="Noxious Aerosol" identifier="noxiousspray" description="The face has been exposed to a noxious aerosol that irritates and prevents breathing." type="poison" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="0.0" maxstrength="1">
     <Effect minstrength="0" maxstrength="1" strengthchange="-0.1" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0" minfacetint="200,180,255,100" maxfacetint="200,180,255,200" >
 	  <StatusEffect target="Character">
 	    <Conditional vitality="gt 0" />
-	    <Affliction identifier="oxygenlow" amount="12" />
+	    <Affliction identifier="oxygenlow" amount="10" />
 	  </StatusEffect>
 	</Effect>
     <PeriodicEffect minstrength="0" maxstrength="1" mininterval="0.8" maxinterval="1.2">
-      <StatusEffect target="Character" conditionalComparison="And" >
-        <Affliction identifier="oxygenlow" amount="6" />
+      <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
+      <StatusEffect target="Character" conditionalComparison="And">
+		<LuaHook name="DD.afflictions.spread" />
+        <Affliction identifier="oxygenlow" amount="10" />
         <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
         <Sound file="%ModDir%/Sounds/cough2.ogg" />
         <Sound file="%ModDir%/Sounds/cough3.ogg" />
@@ -579,7 +581,7 @@
 	</Effect>
     <PeriodicEffect minstrength="35" maxstrength="65" mininterval="12" maxinterval="16">
       <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
-      <StatusEffect target="Character">
+      <StatusEffect target="Character" conditionalComparison="And">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
         <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
@@ -807,7 +809,7 @@
     </Effect>
     <PeriodicEffect mininterval="12" maxinterval="16">
       <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
-      <StatusEffect target="Character">
+      <StatusEffect target="Character" conditionalComparison="And">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
         <Affliction identifier="pulmonaryemphysema" amount="1" />
@@ -874,7 +876,7 @@
     </Effect>
     <PeriodicEffect mininterval="12" maxinterval="16">
       <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
-      <StatusEffect target="Character">
+      <StatusEffect target="Character" conditionalComparison="And">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
         <Affliction identifier="pulmonaryemphysema" amount="5" />
@@ -912,7 +914,7 @@
     </Effect>
     <PeriodicEffect mininterval="12" maxinterval="16">
       <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
-      <StatusEffect target="Character">
+      <StatusEffect target="Character" conditionalComparison="And">
 		<LuaHook name="DD.afflictions.spread" />
         <Affliction identifier="oxygenlow" amount="20" />
         <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
@@ -974,7 +976,7 @@
     </Effect>
     <PeriodicEffect minstrength="35" maxstrength="55" mininterval="16" maxinterval="64">
       <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
-      <StatusEffect target="Character">
+      <StatusEffect target="Character" conditionalComparison="And">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
         <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
@@ -987,7 +989,7 @@
     </PeriodicEffect>
     <PeriodicEffect minstrength="55" maxstrength="75" mininterval="8" maxinterval="32">
       <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
-      <StatusEffect target="Character">
+      <StatusEffect target="Character" conditionalComparison="And">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
         <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
@@ -1000,7 +1002,7 @@
     </PeriodicEffect>
     <PeriodicEffect minstrength="75" maxstrength="95" mininterval="4" maxinterval="16">
       <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
-      <StatusEffect target="Character">
+      <StatusEffect target="Character" conditionalComparison="And">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
         <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
@@ -1013,7 +1015,7 @@
     </PeriodicEffect>
     <PeriodicEffect minstrength="95" maxstrength="100" mininterval="2" maxinterval="8">
       <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
-      <StatusEffect target="Character">
+      <StatusEffect target="Character" conditionalComparison="And">
 		<!--<LuaHook name="DD.afflictions.spread" />-->
         <Affliction identifier="oxygenlow" amount="20" />
         <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
@@ -1041,7 +1043,7 @@
     showicontoothersthreshold="0"
     showinhealthscannerthreshold="0"
     maxstrength="1">
-    <Effect minstrength="1" maxstrength="1"/>
+    <Effect minstrength="1" maxstrength="1" />
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="128,0,128,128" color="10,193,114,255" origin="0,0"/>
   </Affliction>
 

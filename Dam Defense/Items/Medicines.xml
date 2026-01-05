@@ -267,6 +267,14 @@
       <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="fakemoney" amount="3" />
 	</Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="1">
+      <RequiredSkill identifier="helm" level="0" />
+      <RequiredItem tag="realmoney" amount="2" />
+	</Fabricate>
+    <Fabricate suitablefabricators="nexshop" requiredtime="1" amount="1">
+      <RequiredSkill identifier="helm" level="0" />
+      <RequiredItem tag="money" amount="4" />
+	</Fabricate>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" amount="2" >
       <RequiredSkill identifier="medical" level="5" />
       <RequiredItem identifier="sodium"  />
@@ -813,10 +821,7 @@
       </StatusEffect>
       <!-- When Ethanol is used in Health GUI -->
       <StatusEffect type="OnUse" target="This, Limb" duration="5">
-        <ReduceAffliction identifier="bacterialgangrene" amount="2" />
-      </StatusEffect>
-      <StatusEffect type="OnUse" target="This, Limb" duration="2">
-        <Affliction identifier="acidburn" amount="1" /> 
+        <ReduceAffliction identifier="bacterialgangrene" amount="5" />
       </StatusEffect>
 	  <!-- OnBroken -->
       <StatusEffect type="OnBroken" target="This">
@@ -968,10 +973,7 @@
       </StatusEffect>
       <!-- When Rum is used in Health GUI -->
       <StatusEffect type="OnUse" target="This, Limb" duration="5">
-        <ReduceAffliction identifier="bacterialgangrene" amount="2" />
-      </StatusEffect>
-      <StatusEffect type="OnUse" target="This, Limb" duration="2">
-        <Affliction identifier="acidburn" amount="1" /> 
+        <ReduceAffliction identifier="bacterialgangrene" amount="5" />
       </StatusEffect>
 	  <!-- OnBroken -->
       <StatusEffect type="OnBroken" target="This">
@@ -1573,6 +1575,7 @@
   <!-- jesse we have to cook -->
   <Item name="Cyan Crystal Meth" identifier="cyanmeth" nameidentifier="crystalmeth" category="Misc" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,pipetobacco" cargocontaineridentifier="metalcrate" scale="0.2" impactsoundtag="impact_metal_light" isshootable="true">
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" >
+      <RequiredSkill identifier="helm" level="0" />
       <Item identifier="meth" />
     </Fabricate>
     <Deconstruct time="20">
@@ -1590,6 +1593,7 @@
   </Item>
   <Item name="Yellow Crystal Meth" identifier="yellowmeth" nameidentifier="crystalmeth" category="Misc" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,pipetobacco" cargocontaineridentifier="metalcrate" scale="0.2" impactsoundtag="impact_metal_light" isshootable="true">
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" >
+      <RequiredSkill identifier="helm" level="0" />
       <Item identifier="meth" />
     </Fabricate>
     <Deconstruct time="20">
@@ -1607,6 +1611,7 @@
   </Item>
   <Item name="Magenta Crystal Meth" identifier="magentameth" nameidentifier="crystalmeth" category="Misc" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,pipetobacco" cargocontaineridentifier="metalcrate" scale="0.2" impactsoundtag="impact_metal_light" isshootable="true">
     <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" >
+      <RequiredSkill identifier="helm" level="0" />
       <Item identifier="meth" />
     </Fabricate>
     <Deconstruct time="20">
