@@ -225,21 +225,45 @@ DD.thinkFunctions.afflictions = function ()
 		end
 		-- jump or leap
 		if (character.SpeciesName == 'Husk_prowler') or (character.SpeciesName == 'Husk_chimera') or (character.SpeciesName == 'Orangeboy') then
+			local crouch = character.IsKeyDown(InputType.Crouch)
+			local ragdoll = character.IsKeyDown(InputType.Ragdoll)
+			local cursorPosition = character.CursorWorldPosition
 			local affliction = character.CharacterHealth.GetAffliction('prowlerleapcharge', true)
-			if character.IsKeyDown(InputType.Crouch) then
-				if character.IsKeyDown(InputType.Ragdoll) then
+			local stunAmount = 1
+			
+			-- leaping for AI prowlers
+			if (not character.IsPlayer) and (character.Stun <= 0) and (character.SpeciesName == 'Husk_prowler') then
+				local target = character.AIController.SelectedAiTarget
+				if (target ~= nil) and (target.entity ~= nil) then
+					cursorPosition = target.entity.WorldPosition
+					stunAmount = stunAmount * 3
+					crouch = true
+					local chance = 0.01
+					local distance = Vector2.Distance(target.entity.WorldPosition, character.WorldPosition)
+					if cursorPosition.Y - character.WorldPosition.Y > 150 then chance = 0.1 end
+					if character.CanSeeTarget(target.entity, character, false, true) and (distance > 100) and (distance < 800) and (character.AnimController.TargetMovement.Y >= 0) and (not character.InWater) and (math.random() < chance) then
+						if (affliction ~= nil) and (affliction.Strength >= 10) then
+							ragdoll = true
+							cursorPosition = cursorPosition + Vector2(0, 200)
+						end
+					end
+				end
+			end
+			
+			if crouch then
+				if ragdoll then
 					if (affliction ~= nil) and (affliction.Strength >= 10) then
 						affliction.SetStrength(0)
-						character.Stun = math.max(0.2, character.Stun)
-						local vector = Vector2.Normalize(character.CursorWorldPosition - character.WorldPosition)
+						local vector = Vector2.Normalize(cursorPosition - character.WorldPosition)
 						local scaler = 450
-						if character.SpeciesName == 'Husk_chimera' then
-							character.Stun = math.max(1, character.Stun)
+						if character.SpeciesName == 'Husk_prowler' then
+							stunAmount = stunAmount * 0.2
 						end
 						if character.SpeciesName == 'Orangeboy' then
+							stunAmount = stunAmount * 1.5
 							scaler = 200
-							character.Stun = math.max(1.5, character.Stun)
 						end
+						character.Stun = math.max(stunAmount, character.Stun)
 						for limb in character.AnimController.Limbs do
 							limb.body.ApplyForce(vector * scaler)
 						end

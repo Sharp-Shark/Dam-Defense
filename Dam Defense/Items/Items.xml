@@ -4840,8 +4840,7 @@
         <sound file="Content/Items/Weapons/ExplosionMedium2.ogg" range="3000" />
         <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="3000" />
         <Explosion range="500.0" ballastfloradamage="100" structuredamage="150" itemdamage="500" force="15" severlimbsprobability="0.5" debris="true" decal="explosion" decalsize="0.5" penetration="0.5">
-          <!-- same stats as suicide vest explosion -->
-		  <Affliction identifier="explosiondamage" strength="250" />
+		  <Affliction identifier="explosiondamage" strength="125" />
           <Affliction identifier="burn" strength="15" probability="0.2" dividebylimbcount="false"/>
           <Affliction identifier="bleeding" strength="40" probability="0.05" dividebylimbcount="false"/>
           <Affliction identifier="stun" strength="7" />
@@ -6423,6 +6422,9 @@
       <StatusEffect type="OnUse" target="UseTarget">
         <ReduceAffliction identifier="burning" amount="20.0" />
       </StatusEffect>
+      <StatusEffect type="OnUse" target="Character">
+        <ReduceAffliction identifier="burning" amount="20.0" />
+      </StatusEffect>
     </RepairTool>
     <!-- cleaning -->
     <Sprayer barrelpos="34,8" spread="0" unskilledspread="0" drawhudwhenequipped="true" spraystrength="6.0" range="500">
@@ -6728,13 +6730,7 @@
     <LightComponent range="20.0" lightcolor="255,0,0,100" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" pulsefrequency="0.65" pulseamount="1.0" allowingameediting="false" />
     <Sprite texture="lifeessence.png" sourcerect="0,0,56,76" depth="0.6" origin="0.5,0.5" />
     <Body width="80" height="45" density="11" />
-    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="32,15" holdangle="0" handle1="-12,-8" aimangle="90" aimable="false" msg="ItemMsgPickUpSelect">
-      <StatusEffect type="OnSecondaryUse" target="This" Condition="-10.0" />
-      <StatusEffect type="OnSecondaryUse" target="This" Condition="-50.0" />
-      <StatusEffect type="OnSecondaryUse" target="This,Character" disabledeltatime="true">
-        <Conditional Condition="lte 1" />
-        <Use />
-      </StatusEffect>
+    <Holdable canBeCombined="false" removeOnCombined="false" slots="Any,RightHand,LeftHand" handle1="-12,-8" msg="ItemMsgPickUpSelect">
       <!-- medical usage -->
       <StatusEffect tags="medical" type="OnUse" target="This" Condition="-100.0" disabledeltatime="true">
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
