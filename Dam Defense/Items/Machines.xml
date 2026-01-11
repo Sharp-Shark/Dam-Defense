@@ -769,7 +769,7 @@
   <Item
 	  name="Tool Kit"
 	  identifier="toolkit"
-	  description="A portable kit containing the necessary tools to repair items or manufacture items in case of emergency."
+	  description="A portable kit containing the necessary tools to repair items or manufacture items without power in case of emergency."
 	  category="Equipment,Machine"
 	  Tags="fabricator,crate,donttakeitems,dontsellitems"
 	  Scale="0.9"
@@ -783,6 +783,7 @@
 	  <Item identifier="screwdriver"/>
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="mechanical" level="20" />
 	  <Item identifier="steel"/>
 	  <Item identifier="weldingtool"/>
 	  <Item identifier="weldingfueltank"/>
@@ -793,6 +794,59 @@
 	<InventoryIcon texture="toolkit.png" depth="0.54" sourcerect="0,0,80,40"/>
     <Sprite texture="toolkit.png" depth="0.54" sourcerect="80,0,80,60" origin="0.5,0.67"/>
 	<BrokenSprite texture="toolkit.png" depth="0.54" sourcerect="0,0,80,40"/>
+	<!-- spacing -->
+	<Body width="80" height="40" density="50"/>
+	<!-- spacing -->
+	<Fabricator msg="ItemMsgInteractSelect" FabricationSpeed="0.75" minvoltage="0.0" powerconsumption="0.0" canbeselected="true" allowuioverlap="false" hideitems="true" drawhudwhenequipped="false" keepopenwhenequipped="false" ShowContainedStateIndicator="false">
+      <GuiFrame relativesize="0.4,0.45" style="ItemUI" anchor="Center" />
+      <sound file="Content/Items/Fabricators/Fabricator.ogg" type="OnActive" range="1000.0" volumeproperty="RelativeVoltage" loop="true"/>
+	  <StatusEffect type="OnContained" target="This" setvalue="true" drawinventory="false" />
+	  <StatusEffect type="OnNotContained" target="This" setvalue="true" drawinventory="true" />
+    </Fabricator>
+	<Holdable msg="ItemMsgDetach" pickkey="Action" slots="RightHand+LeftHand" holdpos="0,-80" aimpos="20,-40" handle1="-30,14" handle2="30,14" aimable="false">
+      <StatusEffect type="OnContained" target="This" condition="-100" disabledeltatime="true" setvalue="true" />
+      <StatusEffect type="OnNotContained" target="This" condition="100" disabledeltatime="true" setvalue="true" />
+	</Holdable>
+	<!-- spacing -->
+    <ItemContainer capacity="5" slotsperrow="5" uilabel="Input" canbeselected="true" allowuioverlap="false" hideitems="true" drawhudwhenequipped="false" keepopenwhenequipped="false" ShowContainedStateIndicator="false">
+      <Containable items="smallitem,mediumitem" excludeditems="toolkit" />
+	  <StatusEffect type="OnContained" target="This" setvalue="true" drawinventory="false" />
+	  <StatusEffect type="OnNotContained" target="This" setvalue="true" drawinventory="true" />
+	</ItemContainer>
+    <ItemContainer capacity="1" slotsperrow="1" uilabel="Output" canbeselected="true" allowuioverlap="false" hideitems="true" drawhudwhenequipped="false" keepopenwhenequipped="false" ShowContainedStateIndicator="false">
+      <Containable items="smallitem,mediumitem,barricade" excludeditems="toolkit" />
+	  <StatusEffect type="OnContained" target="This" setvalue="true" drawinventory="false" />
+	  <StatusEffect type="OnNotContained" target="This" setvalue="true" drawinventory="true" />
+	</ItemContainer>
+  </Item>
+  <Item
+	  name="Chem Kit"
+	  identifier="chemkit"
+	  description="A portable kit containing the necessary equipment to manufacture chemicals and medicine without power in case of emergency."
+	  category="Equipment,Machine"
+	  Tags="medicalfabricator,crate,donttakeitems,dontsellitems"
+	  Scale="0.9"
+	  GrabWhenSelected="true"
+	  price="2500">
+	<!-- spacing -->
+	<Deconstruct time="20">
+	  <Item identifier="weldingtool"/>
+	  <Item identifier="weldingfueltank"/>
+	  <Item identifier="wrench"/>
+	  <Item identifier="screwdriver"/>
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="medical" level="40" />
+	  <Item identifier="steel"/>
+	  <Item identifier="syringegun"/>
+	  <Item identifier="sprayer"/>
+	  <Item identifier="bloodsampler"/>
+	  <Item identifier="quartz"/>
+    </Fabricate>
+	<!-- spacing -->
+	<InventoryIcon texture="toolkit.png" depth="0.54" sourcerect="160,0,80,40"/>
+    <Sprite texture="toolkit.png" depth="0.54" sourcerect="240,0,80,60" origin="0.5,0.67"/>
+	<BrokenSprite texture="toolkit.png" depth="0.54" sourcerect="160,0,80,40"/>
 	<!-- spacing -->
 	<Body width="80" height="40" density="50"/>
 	<!-- spacing -->

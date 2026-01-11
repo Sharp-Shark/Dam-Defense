@@ -559,6 +559,7 @@
       <Item identifier="pistol" equip="false">
         <Item identifier="pistolmagazine" />
       </Item>
+      <Item identifier="syringegun"/>
       <Item identifier="healgun" equip="false">
         <Item identifier="healgundrum" />
       </Item>
@@ -610,6 +611,7 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
       </Item>
+      <Item identifier="syringegun"/>
       <Item identifier="healgun" equip="false">
         <Item identifier="healgundrum" />
       </Item>
@@ -1130,6 +1132,7 @@
         <Item identifier="pistolmagazine" />
       </Item>
       <Item identifier="advancedsyringegun"/>
+      <Item identifier="bonesaw"/>
       <Item identifier="bloodsampler"/>
       <Item identifier="bloodsampler"/>
       <Item identifier="bloodsampler"/>
@@ -1190,6 +1193,7 @@
         <Item identifier="revolverround" />
       </Item>
       <Item identifier="advancedsyringegun"/>
+      <Item identifier="bonesaw"/>
       <Item identifier="bloodsampler"/>
       <Item identifier="bloodsampler"/>
       <Item identifier="bloodsampler"/>

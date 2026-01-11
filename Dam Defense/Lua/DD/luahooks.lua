@@ -1,5 +1,66 @@
 if CLIENT and Game.IsMultiplayer then return end
 
+-- bonesaw
+Hook.Add("DD.bonesaw.use", "DD.bonesaw.use", function(effect, deltaTime, item, targets, worldPosition)
+	local user = effect.user
+	if user == nil then return end
+	
+	local character = targets[1]
+	if (character == nil) or (not character.IsDead) then return end
+	
+	for joint in character.AnimController.MainLimb.GetConnectedJoints() do
+		if (not joint.IsSevered) and joint.CanBeSevered then
+			Timer.NextFrame(function ()
+				if (not joint.IsSevered) then
+					character.AnimController.SeverLimbJoint(joint)
+				end
+			end)
+			return
+		end
+	end
+	
+	-- spawn genetic material
+	local loot = {
+		-- missing: skitter, hunter
+		-- mollusc
+		watcheroid = {identifier = 'geneticmaterialmollusc'},
+		-- hammerhead matriarch
+		hammerheadmatriarch = {identifier = 'geneticmaterialhammerheadmatriarch'},
+		-- crawler
+		crawler = {identifier = 'geneticmaterialcrawler'},
+		-- mudraptor
+		mudraptor = {identifier = 'geneticmaterialmudraptor'},
+		mudraptor_pet = {identifier = 'geneticmaterialmudraptor'},
+		mudraptor_passive = {identifier = 'geneticmaterialmudraptor'},
+		-- moloch
+		hammerhead = {identifier = 'geneticmaterialmoloch'},
+		-- thresher
+		thresher = {identifier = 'geneticmaterialthresher'},
+		-- mantis
+		mantisoid = {'geneticmaterialmantis'},
+		orangeboy = {'geneticmaterialmantis'},
+		-- spineling
+		spineling = {identifier = 'geneticmaterialspineling'},
+		-- hammerhead
+		hammerhead = {identifier = 'geneticmaterialhammerhead'},
+		-- husk
+		husk = {identifier = 'geneticmaterialhusk'},
+	}
+	local speciesName = string.lower(tostring(character.SpeciesName))
+	local groupName = string.lower(tostring(character.Group))
+	local tbl = loot[speciesName]
+	if tbl == nil then tbl = loot[groupName] end
+	if tbl ~= nil then
+		local identifier = tbl.identifier
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), character.WorldPosition, nil, nil, function (spawnedItem)
+			user.TryPutItemInAnySlot(spawnedItem)
+		end)
+	end
+	
+	-- despawn corpse
+	DD.giveAfflictionCharacter(character, 'despawn', 999)
+end)
+
 -- blood sampler
 Hook.Add("DD.bloodsampler.bloodsample", "DD.bloodsampler.bloodsample", function(effect, deltaTime, item, targets, worldPosition)
 	local user = item.ParentInventory

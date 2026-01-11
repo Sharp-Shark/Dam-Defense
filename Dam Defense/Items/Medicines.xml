@@ -1103,8 +1103,295 @@
     <SkillRequirementHint identifier="medical" level="25" />
   </Item>
   
-  <!-- bloodlust -->
-  <Item name="Blood Sampler" identifier="bloodsampler" maxstacksize="32" maxstacksizecharacterinventory="8" category="Medical,Equipment,Weapon" Tags="smallitem,weapon,gunsmith,mountableweapon,sharptool" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+  <!-- genetic research -->
+  <Item name="Bonesaw" identifier="bonesaw" category="Medical,Equipment,Weapon" Tags="mediumitem,weapon,gunsmith,mountableweapon,sharptool" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="60">
+      <RequiredSkill identifier="medical" level="40" />
+      <RequiredItem identifier="steel" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="bloodsampler.png" sourcerect="88,39,77,77" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="88,0,113,39" depth="0.55" origin="0.5,0.5" />
+    <Body width="65" height="15" density="25" />
+    <MeleeWeapon slots="Any,RightHand" aimpos="30,-50" aimangle="-75" handle1="-24,0" reload="1.0" range="50" combatPriority="30" msg="ItemMsgPickUpSelect">
+      <Attack penetration="0.6" targetimpulse="2" severlimbsprobability="1.0" itemdamage="12" structuredamage="8" structuresoundtype="StructureSlash">
+        <Affliction identifier="lacerations" strength="10" />
+		<Affliction identifier="bloodloss" strength="10" />
+        <Affliction identifier="stun" strength="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash4.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash5.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash6.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+      <StatusEffect type="OnUse" target="UseTarget">
+        <Conditional entitytype="eq Character" />
+		<LuaHook name="DD.bonesaw.use" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="This" targetitemcomponent="Propulsion" usablein="Both" />
+    </MeleeWeapon>
+    <Propulsion force="500" usablein="both" applytohands="true">
+      <StatusEffect type="OnUse" target="This" targetitemcomponent="Propulsion" usablein="None" />
+    </Propulsion>
+    <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
+    <Quality>
+      <QualityStat stattype="StrikingPowerMultiplier" value="0.1" />
+    </Quality>
+  </Item>
+  
+  <!-- mutagenic serums -->
+  <Item name="Mutagenic Serum" nameidentifier="serum" identifier="serummollusc" category="Medical" Tags="smallitem,chem,medical" cargocontaineridentifier="chemicalcrate" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Deconstruct time="10">
+      <Item identifier="iron" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialmollusc" />
+      <RequiredItem identifier="geneticmaterialmollusc" />
+      <RequiredItem identifier="geneticmaterialmollusc" />
+      <RequiredItem identifier="geneticmaterialmollusc" />
+    </Fabricate>
+    <InventoryIcon texture="bloodsampler.png" sourcerect="201,28,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="201,0,95,28" depth="0.55" origin="0.5,0.5" />
+    <Body width="65" height="15" density="25" />
+    <MeleeWeapon slots="Any,RightHand,LeftHand" aimpos="30,-50" aimangle="-140" handle1="-20,-4" holdangle="30" reload="0.75" range="50" combatPriority="25" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="vigorondamage" amount="999" />
+      </StatusEffect>
+      <StatusEffect type="OnSuccess" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+        <Affliction identifier="stun" amount="0.1" />
+      </StatusEffect>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serumskitter" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="296,28,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="296,0,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialskitter" />
+      <RequiredItem identifier="geneticmaterialskitter" />
+      <RequiredItem identifier="geneticmaterialskitter" />
+      <RequiredItem identifier="geneticmaterialskitter" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="hyperactivityondamage" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serumhunter" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="391,28,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="391,0,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialhunter" />
+      <RequiredItem identifier="geneticmaterialhunter" />
+      <RequiredItem identifier="geneticmaterialhunter" />
+      <RequiredItem identifier="geneticmaterialhunter" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="increasedmeleedamageondamage" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serumhammerheadmatriarch" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="486,28,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="486,0,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialhammerheadmatriarch" />
+      <RequiredItem identifier="geneticmaterialhammerheadmatriarch" />
+      <RequiredItem identifier="geneticmaterialhammerheadmatriarch" />
+      <RequiredItem identifier="geneticmaterialhammerheadmatriarch" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="healdamage" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serumcrawler" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="581,28,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="581,0,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialcrawler" />
+      <RequiredItem identifier="geneticmaterialcrawler" />
+      <RequiredItem identifier="geneticmaterialcrawler" />
+      <RequiredItem identifier="geneticmaterialcrawler" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="increasedswimmingspeed" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serummudraptor" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="581,28,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="581,0,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialmudraptor" />
+      <RequiredItem identifier="geneticmaterialmudraptor" />
+      <RequiredItem identifier="geneticmaterialmudraptor" />
+      <RequiredItem identifier="geneticmaterialmudraptor" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="naturalmeleeweapon" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serummoloch" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="0,144,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="0,116,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialmoloch" />
+      <RequiredItem identifier="geneticmaterialmoloch" />
+      <RequiredItem identifier="geneticmaterialmoloch" />
+      <RequiredItem identifier="geneticmaterialmoloch" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="damageresistance" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serumthresher" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="95,144,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="95,116,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialthresher" />
+      <RequiredItem identifier="geneticmaterialthresher" />
+      <RequiredItem identifier="geneticmaterialthresher" />
+      <RequiredItem identifier="geneticmaterialthresher" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="decreasedoxygenconsumption" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serummantis" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="190,144,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="190,116,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialmantis" />
+      <RequiredItem identifier="geneticmaterialmantis" />
+      <RequiredItem identifier="geneticmaterialmantis" />
+      <RequiredItem identifier="geneticmaterialmantis" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="increasedwalkingspeed" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serumspineling" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="285,144,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="285,116,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialspineling" />
+      <RequiredItem identifier="geneticmaterialspineling" />
+      <RequiredItem identifier="geneticmaterialspineling" />
+      <RequiredItem identifier="geneticmaterialspineling" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="naturalrangedweapon" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serumhammerhead" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="380,144,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="380,116,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialhammerhead" />
+      <RequiredItem identifier="geneticmaterialhammerhead" />
+      <RequiredItem identifier="geneticmaterialhammerhead" />
+      <RequiredItem identifier="geneticmaterialhammerhead" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="increasedmeleedamage" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  <Item name="" identifier="serumhusk" variantof="serummollusc" nameidentifier="serum">
+    <InventoryIcon texture="bloodsampler.png" sourcerect="475,144,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="475,116,95,28" depth="0.55" origin="0.5,0.5" />
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+      <RequiredSkill identifier="medical" level="50" />
+      <RequiredItem identifier="iron" />
+      <RequiredItem identifier="geneticmaterialhusk" />
+      <RequiredItem identifier="geneticmaterialhusk" />
+      <RequiredItem identifier="geneticmaterialhusk" />
+      <RequiredItem identifier="geneticmaterialhusk" />
+    </Fabricate>
+    <MeleeWeapon>
+      <!--Can't fail, but can't use OnUse for projectiles-->
+      <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
+      <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
+        <Affliction identifier="husktransformimmunity" amount="999" />
+      </StatusEffect>
+    </MeleeWeapon>
+  </Item>
+  
+  <!-- disease research -->
+  <Item name="Blood Sampler" identifier="bloodsampler" maxstacksize="32" maxstacksizecharacterinventory="8" category="Medical,Equipment" Tags="smallitem,chem,medical,weapon,gunsmith,mountableweapon,sharptool" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1" spawnprobability="0.25" />
     <PreferredContainer secondary="abandonedstoragecab" amount="1" spawnprobability="0.05" />
     <PreferredContainer secondary="beaconsupplycab" amount="1" spawnprobability="0.05" />
@@ -1144,11 +1431,10 @@
       </StatusEffect>
     </MeleeWeapon>
     <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
-    <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
   
   <!-- syringe with flu -->
-  <Item name="Live Influenza" identifier="flusyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+  <Item name="Live Influenza" identifier="flusyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
     <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
@@ -1166,7 +1452,7 @@
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="0,0,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="0,0,36,69" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="70" density="20" />
-    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <!--Can't fail, but can't use OnUse for projectiles-->
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnSuccess" target="UseTarget" duration="1.0">
@@ -1188,7 +1474,7 @@
   </Item>
   
   <!-- flu antidote -->
-  <Item name="Influenza Antidote" identifier="fluantidote" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+  <Item name="Influenza Antidote" identifier="fluantidote" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
     <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
@@ -1217,7 +1503,7 @@
     <Sprite texture="Medicines.png" sourcerect="0,69,36,69" depth="0.6" origin="0.5,0.5" />
     <SuitableTreatment identifier="fluinfection" suitability="100" />
     <Body width="35" height="70" density="20" />
-    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <!--Can't fail, but can't use OnUse for projectiles-->
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
@@ -1242,7 +1528,7 @@
   </Item>
   
   <!-- syringe with bacteria -->
-  <Item name="Live Bacteria" identifier="bacterialsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+  <Item name="Live Bacteria" identifier="bacterialsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
     <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
@@ -1264,7 +1550,7 @@
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="56,0,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="36,0,36,69" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="70" density="20" />
-    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <!--Can't fail, but can't use OnUse for projectiles-->
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnSuccess" target="UseTarget" duration="1.0">
@@ -1286,7 +1572,7 @@
   </Item>
   
   <!-- syringe with tuberculosis -->
-  <Item name="Live Tuberculosis" identifier="tbsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+  <Item name="Live Tuberculosis" identifier="tbsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
     <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
@@ -1308,7 +1594,7 @@
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="224,0,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="144,0,36,69" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="70" density="20" />
-    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <!--Can't fail, but can't use OnUse for projectiles-->
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnSuccess" target="UseTarget" duration="1.0">
@@ -1330,7 +1616,7 @@
   </Item>
   
   <!-- tuberculosis antidote -->
-  <Item name="Tuberculosis Antidote" identifier="tbantidote" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+  <Item name="Tuberculosis Antidote" identifier="tbantidote" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
     <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
@@ -1359,7 +1645,7 @@
     <Sprite texture="Medicines.png" sourcerect="144,69,36,69" depth="0.6" origin="0.5,0.5" />
     <SuitableTreatment identifier="tbinfection" suitability="100" />
     <Body width="35" height="70" density="20" />
-    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <!--Can't fail, but can't use OnUse for projectiles-->
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">
@@ -1384,7 +1670,7 @@
   </Item>
   
   <!-- syringe with anthrax -->
-  <Item name="Live Anthrax" identifier="anthraxsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+  <Item name="Live Anthrax" identifier="anthraxsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
     <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
@@ -1402,7 +1688,7 @@
     <InventoryIcon texture="MedicinesInventory.png" sourcerect="112,0,56,56" origin="0.5,0.5" />
     <Sprite texture="Medicines.png" sourcerect="72,0,36,69" depth="0.6" origin="0.5,0.5" />
     <Body width="35" height="70" density="20" />
-    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <!--Can't fail, but can't use OnUse for projectiles-->
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnSuccess" target="UseTarget" duration="1.0">
@@ -1424,7 +1710,7 @@
   </Item>
   
   <!-- anthrax antidote -->
-  <Item name="Anthrax Antidote" identifier="anthraxantidote" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+  <Item name="Anthrax Antidote" identifier="anthraxantidote" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true"/>
     <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
@@ -1453,7 +1739,7 @@
     <Sprite texture="Medicines.png" sourcerect="72,69,36,69" depth="0.6" origin="0.5,0.5" />
     <SuitableTreatment identifier="anthraxinfection" suitability="100" />
     <Body width="35" height="70" density="20" />
-    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <!--Can't fail, but can't use OnUse for projectiles-->
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect tags="medical" type="OnSuccess" target="UseTarget" duration="60.0">

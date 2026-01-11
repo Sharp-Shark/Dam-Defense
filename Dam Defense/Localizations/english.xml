@@ -203,6 +203,9 @@
   <!-- Tool Kit -->
   <entityname.toolkit>Tool Kit</entityname.toolkit>
   <entitydescription.toolkit>A portable kit containing the necessary tools to repair items or manufacture items in case of emergency. Does not require power, but fabricates slightly slower.</entitydescription.toolkit>
+  <!-- Chem Kit -->
+  <entityname.chemkit>Chem Kit</entityname.chemkit>
+  <entitydescription.chemkit>A portable kit containing the necessary equipment to manufacture chemicals and medicine in case of emergency. Does not require power, but fabricates slightly slower.</entitydescription.chemkit>
   <!-- Wifi Trigger -->
   <entityname.wifitrigger>Wifi Trigger</entityname.wifitrigger>
   <entitydescription.wifitrigger>A handheld device that contains an wifi component, allowing for convenient remote sending of signals.</entitydescription.wifitrigger>
@@ -230,6 +233,15 @@
   <!-- Anthrax Antidote -->
   <entityname.anthraxantidote>Anthrax Antidote</entityname.anthraxantidote>
   <entitydescription.anthraxantidote>A concoction of anthrax parts and antibodies. Quickly heals any ongoing anthrax infection and gives temporary immunity to it aswell.</entitydescription.anthraxantidote>
+  <!-- Bonesaw -->
+  <entityname.bonesaw>Bonesaw</entityname.bonesaw>
+  <entitydescription.bonesaw>A surgical-grade steel bonesaw. Useful for fashioning a larger specimen into smaller samples for research.</entitydescription.bonesaw>
+  <!-- Serum -->
+  <entityname.serum>Mutagenic Serum</entityname.serum>
+  <entitydescription.serum>A serum derived from an alien specimen. Can be injected to apply permanent powerful mutations.</entitydescription.serum>
+  <!-- Blood Sampler -->
+  <entityname.bloodsampler>Blood Sampler</entityname.bloodsampler>
+  <entitydescription.bloodsampler>Can be used on infected people to extract a live sample of their infection. Live disease samples can be turned into their antidotes in a medical fabricator.</entitydescription.bloodsampler>
   <!-- Blood Sampler -->
   <entityname.bloodsampler>Blood Sampler</entityname.bloodsampler>
   <entitydescription.bloodsampler>Can be used on infected people to extract a live sample of their infection. Live disease samples can be turned into their antidotes in a medical fabricator.</entitydescription.bloodsampler>
