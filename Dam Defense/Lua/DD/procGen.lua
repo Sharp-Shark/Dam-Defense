@@ -38,7 +38,7 @@ DD.lootTables = {
 		attempts = 3,
 		chance = 0.3,
 		{identifier = 'fulguriumfuelrodvolatile', weight = 0.1},
-		{identifier = 'tbsyringe', weight = 0.1},
+		{identifier = 'tbsyringe', weight = 0.05},
 		{identifier = 'uex', weight = 0.1},
 		{identifier = 'detonator', weight = 0.2},
 		{identifier = 'pipegun', weight = 0.1},
@@ -70,7 +70,7 @@ DD.lootTables = {
 	['suppliescontainer'] = {
 		attempts = 4,
 		chance = 0.3,
-		{identifier = 'tbsyringe', weight = 0.1},
+		{identifier = 'tbsyringe', weight = 0.05},
 		{identifier = 'uex', weight = 0.1},
 		{identifier = 'detonator', weight = 0.2},
 		{identifier = 'pipegun', weight = 0.1},
@@ -102,7 +102,7 @@ DD.lootTables = {
 	['cabinet'] = {
 		attempts = 6,
 		chance = 0.3,
-		{identifier = 'tbsyringe', weight = 0.1},
+		{identifier = 'tbsyringe', weight = 0.05},
 		{identifier = 'uex', weight = 0.1},
 		{identifier = 'detonator', weight = 0.2},
 		{identifier = 'pipegun', weight = 0.1},

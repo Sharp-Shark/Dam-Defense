@@ -150,6 +150,9 @@
   <entitydescription.flamer>Only craftable by janitors. An incendiary weapon that fires a stream of burning welding fuel. Particularly effective with incendium fuel tanks.</entitydescription.flamer>
   <entitydescription.handcuffs>Useful for restraining problem players. Whilst a player is alive and detained, they will be dragged at full speed.</entitydescription.handcuffs>
   <entitydescription.hmg>Heavy Machine Gun, capable of dealing a lot of damage. The recoil is so intense that it could be used to power heavier-than-air flight.</entitydescription.hmg>
+  <entityname.geneticmaterial>Pure Genetic Material ([type])</entityname.geneticmaterial>
+  <entityname.unidentifiedgeneticmaterial>Impure Genetic Material</entityname.unidentifiedgeneticmaterial>
+  <entitydescription.unidentifiedgeneticmaterial>A mass of alien genetic material. Use a deconstructor to extract pure genetic material.</entitydescription.unidentifiedgeneticmaterial>
   <!--<entitydescription.replaceme></entitydescription.replaceme>-->
   </Override>
   
