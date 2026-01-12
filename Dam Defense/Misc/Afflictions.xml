@@ -24,6 +24,81 @@
 
   <!-- overrides -->
   <Override>
+  <!-- fix to husk gene -->
+  <Affliction
+    name="Resistance to Husk Transformation"
+    identifier="husktransformimmunity"
+    type="geneticmaterialbuff"
+    limbspecific="false"
+    indicatorlimb="Torso"
+    hideiconafterdelay="true"
+    showiconthreshold="0"
+    showinhealthscannerthreshold="1000"
+    treatmentthreshold="100"
+    maxstrength="100"
+    iconcolors="94,54,95;163,73,164;200,191,231">
+    <Effect minstrength="0" maxstrength="20">
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 50" />
+        <ReduceAffliction identifier="huskinfection" amount="0.08" />
+      </StatusEffect>
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 80" />
+        <ReduceAffliction identifier="huskinfection" amount="0.08" />
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="20" maxstrength="40">
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 50" />
+        <ReduceAffliction identifier="huskinfection" amount="0.08" />
+      </StatusEffect>
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 80" />
+        <ReduceAffliction identifier="huskinfection" amount="0.11" />
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="40" maxstrength="60">
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 50" />
+        <ReduceAffliction identifier="huskinfection" amount="0.08" />
+      </StatusEffect>
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 80" />
+        <ReduceAffliction identifier="huskinfection" amount="0.14" />
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="60" maxstrength="80">
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 50" />
+        <ReduceAffliction identifier="huskinfection" amount="0.08" />
+      </StatusEffect>
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 80" />
+        <ReduceAffliction identifier="huskinfection" amount="0.17" />
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="80" maxstrength="99" blocktransformation="huskinfection">
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 50" />
+        <ReduceAffliction identifier="huskinfection" amount="0.08" />
+      </StatusEffect>
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 80" />
+        <ReduceAffliction identifier="huskinfection" amount="0.2" />
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="99" maxstrength="100" blocktransformation="huskinfection">
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 50" />
+        <ReduceAffliction identifier="huskinfection" amount="0.08" />
+      </StatusEffect>
+      <StatusEffect target="Character" type="OnActive" interval="1" disabledeltatime="true">
+        <Conditional huskinfection="gt 80" />
+        <ReduceAffliction identifier="huskinfection" amount="1.5" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/TalentsIcons3.png" sheetindex="4,0" sheetelementsize="128,128" color="181,230,29,255" origin="0,0"/>
+  </Affliction>
   <!-- vanilla infection is not visible and removes itself, making it do nothing essentially -->
   <Infection
     identifier="infection"
@@ -590,6 +665,7 @@
         <Sound file="%ModDir%/Sounds/cough4.ogg" />
 		<Conditional InWater="eq False" />
 		<Conditional IsDead="eq False" />
+		<Conditional husktransformimmunity="lt 100" />
       </StatusEffect>
     </PeriodicEffect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,640,128,128" color="60,107,195,255" origin="0,0"/>

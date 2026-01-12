@@ -478,3 +478,65 @@ if CLIENT and Game.IsMultiplayer then
 	func = function () return end
 end
 Game.AddCommand('dd_jobunban', 'dd_jobunban [accountId/name] [job]: Unbans a client of a job. Do not specify a job to clear all the job ban data of a client. Specify no arguments to get the full list of job bans.', func, validArgs, false)
+
+-- Debug console dd_judgement
+local func = function (args)
+	local client = DD.findClient('Name', args[1])
+	if (client ~= nil) and DD.isClientCharacterAlive(client) then
+		DD.giveAfflictionCharacter(clear.Character, 'judgement', 1)
+	end
+end
+if CLIENT and Game.IsMultiplayer then
+	func = function () return end
+end
+local validArgs = function (...)
+	local tbl = {{}}
+	for client in Client.ClientList do
+		if DD.isClientCharacterAlive(client) then
+			table.insert(tbl[1], client.Name)
+		end
+	end
+	return tbl
+end
+Game.AddCommand('dd_judgement', 'dd_judgement [name]: Cast judgement upon a player and smite their character.', func, validArgs, false)
+
+-- Debug console dd_bloodwhisper
+local func = function (args)
+	local text = ''
+	for arg in args do
+		text = text .. arg .. ' '
+	end
+	text = string.sub(text, 1, #text - 1)
+	
+	for event in DD.eventDirector.getEventInstances('bloodCult') do
+		event.bloodWhisper(text)
+	end
+end
+if CLIENT and Game.IsMultiplayer then
+	func = function () return end
+end
+Game.AddCommand('dd_bloodwhisper', 'dd_bloodwhisper [message]: Whisper a message to all cultists as Tchernobog.', func, nil, false)
+
+-- Debug console dd_whisper
+local func = function (args)
+	local client = DD.findClient('Name', table.remove(args, 1))
+	
+	local text = ''
+	for arg in args do
+		text = text .. arg .. ' '
+	end
+	text = string.sub(text, 1, #text - 1)
+	
+	DD.messageClient(client, text, {preset = 'private', sender = 'ADMIN'})
+end
+if CLIENT and Game.IsMultiplayer then
+	func = function () return end
+end
+local validArgs = function (...)
+	local tbl = {{}}
+	for client in Client.ClientList do
+		table.insert(tbl[1], client.Name)
+	end
+	return tbl
+end
+Game.AddCommand('dd_whisper', 'dd_whisper [name] [message]: Whisper a message to a client.', func, validArgs, false)

@@ -73,31 +73,34 @@ end, {
 	
 	cultistTitles = {},
 	bloodWhisper = function (self, message, sender)
-		if self.cultistTitles[sender] == nil then
-			local titles = {
-				'Cultist',
-				'Enlightened',
-				'Worshipper',
-				'Believer',
-				'Faithful',
-				'Holy',
-				'Devout',
-				'Righteous',
-				'Loyal',
-				'Stalwart',
-				'Staunch',
-				'Fanatic',
-				'Sinless',
-				'Fearless',
-				'Zealous',
-				'Pious'
-			}
-			self.cultistTitles[sender] = ', the ' .. titles[math.random(#titles)]
+		local name = 'Tchernobog'
+		if sender ~= nil then
+			if self.cultistTitles[sender] == nil then
+				local titles = {
+					'Cultist',
+					'Enlightened',
+					'Worshipper',
+					'Believer',
+					'Faithful',
+					'Holy',
+					'Devout',
+					'Righteous',
+					'Loyal',
+					'Stalwart',
+					'Staunch',
+					'Fanatic',
+					'Sinless',
+					'Fearless',
+					'Zealous',
+					'Pious'
+				}
+				self.cultistTitles[sender] = ', the ' .. titles[math.random(#titles)]
+			end
+			name = sender.Name .. self.cultistTitles[sender]
 		end
-		local title = self.cultistTitles[sender]
 		for client in Client.ClientList do
 			if self.cultistsSet[client] or (DD.isClientCharacterAlive(client) and client.Character.SpeciesName == 'humanUndead') then
-				DD.messageClient(client, message, {sender = sender.Name .. title, sendMain = false, sendAnother = true, color = Color(255, 55, 55)})
+				DD.messageClient(client, message, {sender = name, sendMain = false, sendAnother = true, color = Color(255, 55, 55)})
 			end
 		end
 	end,

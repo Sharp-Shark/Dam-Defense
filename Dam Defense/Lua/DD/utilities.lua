@@ -1057,6 +1057,13 @@ DD.messageClient = function (client, text, data)
 		color = Color(155, 100, 200)
 		messageType = 'Dead'
 	end
+	if data.preset == 'private' then
+		messageType = 'Private'
+	end
+	if data.preset == 'admin' then
+		messageType = 'Server'
+		text = '[ADMIN] ' .. text
+	end
 	if data.preset == 'command' then
 		sender = '[Command]'
 		color = Color(190, 215, 255)

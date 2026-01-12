@@ -15,9 +15,10 @@ end
 DD.chatMessageFunctions.help = function (message, sender)
 	if (string.sub(message, 1, 1) ~= '/') and (string.sub(message, 1, 1) ~= '!') then return end
 	
-	local specialCommands = {'help', 'thanks', 'info', 'neverantag', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'w', 'gang', 'announce', 'fire'}
+	local specialCommands = {'help', 'ahelp', 'thanks', 'info', 'neverantag', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'w ', 'gang', 'announce', 'fire'}
 	local commandText = {
 		help = 'Gives a list of commands. List of commands given will only include commands relevant for the current context.',
+		ahelp = 'Send a private message to the admins currently in the server.',
 		thanks = 'Credit where it is due. Without the work these people did, Dam Defense would not be where it stands.',
 		info = 'Gives relevant job and role information.',
 		neverantag = 'Toggles between being antag exempt and being antag eligible. Being dead or having an antag safe job may make you exempt/eligible despite of whatever you set this to.',
@@ -30,7 +31,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 		rebels = 'Lists rebel leaders if you are a rebel leader or if enough time has elapsed. This command also informs how much more time needs to elapse.',
 		cultists = 'Lists fellow blood cultists. List will not include undead zombies, but undead zombies are allied to cultists and can also use this command.',
 		whisper = 'Globally and secretly send a text message to all blood cultists and undead zombies. Command can be used by both cultists and zombies.',
-		w = 'Equivalent to /whisper command. Shorter for convenience.',
+		['w '] = 'Equivalent to /whisper command. Shorter for convenience.',
 		gang = 'Lists fellow gang members and the name of your boss. Be cautious with enemy gangs.',
 		announce = 'Usable by the mayor to make global announcements that even people without headsets will hear. Speak up and everyone shall hear you.',
 		fire = 'Usable by the mayor to lethally fire members of security or to kill himself. Type /fire without arguments to see what number relates to each guard. Numbers can be used in place of names.',
@@ -43,6 +44,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 	specialCommands = tbl
 	
 	specialCommands['help'] = true
+	specialCommands['ahelp'] = true
 	specialCommands['thanks'] = true
 	specialCommands['neverantag'] = true
 	if Game.RoundStarted then
@@ -75,7 +77,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 			if event.cultistsSet[sender] or (DD.isClientCharacterAlive(sender) and (sender.Character.SpeciesName == 'Humanundead')) then
 				specialCommands['cultists'] = true
 				specialCommands['whisper'] = true
-				specialCommands['w'] = true
+				specialCommands['w '] = true
 			end
 		end
 		for event in DD.eventDirector.getEventInstances('gang') do
@@ -119,11 +121,26 @@ DD.chatMessageFunctions.help = function (message, sender)
 	
 	local list = ''
 	for command in commands do
-		list = list .. ' - /' .. command .. '\n'
+		list = list .. ' - /' .. string.gsub(command, ' ', '') .. '\n'
 	end
 	list = string.sub(list, 1, #list - 1)
 	
 	DD.messageClient(sender, DD.stringLocalize('commandHelp', {list = list}), {preset = 'command'})
+	
+	return true
+end
+
+DD.chatMessageFunctions.ahelp = function (message, sender, special)
+	if (string.sub(message, 1, 6) ~= '/ahelp') and (not special) then return end
+	
+	local text = string.sub(message, 8, #message)
+	Game.Log(DD.stringReplace('{clientName}: {text}', {clientName = DD.clientLogName(sender), text = text}), 0)
+	DD.messageClient(sender, text, {preset = 'private', sender = DD.clientLogName(sender)})
+	for client in Client.ClientList do
+		if (client ~= sender) and client.HasPermission(ClientPermissions.ConsoleCommands) then
+			DD.messageClient(client, text, {preset = 'private', sender = DD.clientLogName(sender)})
+		end
+	end
 	
 	return true
 end
@@ -268,43 +285,45 @@ DD.chatMessageFunctions.fire = function (message, sender)
 		end
 	end
 	
-	local client
-	local foundTarget = false
 	local targetName = string.sub(message, 7)
+	local targetClient = nil
+	local targetCharacter = nil
+	-- select client by number
 	if numberMap[targetName] then
-		client = numberMap[targetName]
-		DD.giveAfflictionCharacter(client.Character, 'beepingbomb', 5)
-		foundTarget = true
-		targetName = client.Name
+		targetClient = numberMap[targetName]
+		targetName = targetClient.Name
+		targetCharacter = targetClient.Character
 	end
-	if foundTarget == false then
+	-- select client by name
+	if targetCharacter == nil then
 		for client in Client.ClientList do
 			if DD.isClientCharacterAlive(client) then
 				local character = client.Character
 				if (character.SpeciesName == 'human') and DD.isCharacterSecurity(character) and (client.Name == targetName) then
-					client = DD.findClientByCharacter(character)
-					DD.giveAfflictionCharacter(character, 'beepingbomb', 5)
-					foundTarget = true
+					targetClient = character
+					targetCharacter = client
 					break
 				end
 			end
 		end
 	end
-	if foundTarget == false then
+	-- select charactr by name
+	if targetCharacter == nil then
 		for character in Character.CharacterList do
 			if (not character.IsDead) and (character.SpeciesName == 'human') and DD.isCharacterSecurity(character) and (character.Name == targetName) then
-				client = DD.findClientByCharacter(character)
-				DD.giveAfflictionCharacter(character, 'beepingbomb', 5)
-				foundTarget = true
+				targetClient = DD.findClientByCharacter(character)
+				targetCharacter = character
 				break
 			end
 		end
 	end
-	
-	if not foundTarget then
+	-- if found smite, else error
+	if targetCharacter ~= nil then
+		DD.giveAfflictionCharacter(targetCharacter, 'beepingbomb', 5)
+	else
 		local text = ''
 		for key, client in pairs(numberMap) do
-			text = text .. DD.stringReplace(' {number}: "{name}".', {number = key, name = DD.clientLogName(client)})
+			text = text .. DD.stringReplace('\n{number}: "{name}".', {number = key, name = DD.clientLogName(client)})
 		end
 		if targetName == '' then
 			DD.messageClient(sender, DD.stringLocalize('commandFireError', {name = targetName}) .. text, {preset = 'command'})
@@ -313,21 +332,20 @@ DD.chatMessageFunctions.fire = function (message, sender)
 		end
 		return true
 	end
-	
+	-- success message
 	if (sender.Character == nil) or (sender.Character.JobIdentifier ~= 'captain') then
 		DD.messageAllClients(DD.stringLocalize('commandFireAdmin', {name = targetName}), {preset = 'badinfo'})
 	else
 		DD.messageAllClients(DD.stringLocalize('commandFire', {name = targetName}), {preset = 'badinfo'})
 	end
 	
-	if client == nil then return true end
-	
-	DD.clientJob[client] = 'mechanic'
-	
-	client.AssignedJob = JobVariant(JobPrefab.Get('mechanic'), math.random(JobPrefab.Get('mechanic').Variants) - 1)
+	if targetClient == nil then return true end
+	-- make fired player respawn as a laborer
+	DD.clientJob[targetClient] = 'mechanic'
+	targetClient.AssignedJob = JobVariant(JobPrefab.Get('mechanic'), math.random(JobPrefab.Get('mechanic').Variants) - 1)
 	local seed = tostring(math.floor(math.random() * 10^8))
 	DD.characterDeathFunctions['respawnAsLaborer' .. seed] = function (character)
-		local client = client
+		local client = targetClient
 		Timer.Wait(function ()
 			if client ~= DD.findClientByCharacter(character) then return end
 			local seed = seed

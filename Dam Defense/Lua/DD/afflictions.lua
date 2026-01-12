@@ -445,9 +445,12 @@ DD.thinkFunctions.afflictions = function ()
 			characterImmune = math.max(0, characterImmune)
 			
 			-- Infection recognized by immune-system
+			local characterIsHuskImmune = character.CharacterHealth.GetAfflictionStrengthByIdentifier('husktransformimmunity', true) >= 100
 			local characterInfectionRecognized = 0
 			for diseaseName, data in pairs(DD.diseaseData) do
-				characterInfectionRecognized = characterInfectionRecognized + math.max(0, (character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) - getDiseaseStat(diseaseName, 'immuneVisibleStrength')) * getDiseaseStat(diseaseName, 'immuneVisibility'))
+				if (diseaseName ~= 'husk') or (not characterIsHuskImmune) then
+					characterInfectionRecognized = characterInfectionRecognized + math.max(0, (character.CharacterHealth.GetAfflictionStrengthByIdentifier(diseaseName .. 'infection', true) - getDiseaseStat(diseaseName, 'immuneVisibleStrength')) * getDiseaseStat(diseaseName, 'immuneVisibility'))
+				end
 			end
 			-- Immunu-response
 			if characterInfectionRecognized > 0 then

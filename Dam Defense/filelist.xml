@@ -29,8 +29,8 @@
   <Jobs file="%ModDir%/Misc/Jobs.xml" />
   <Afflictions file="%ModDir%/Misc/Afflictions.xml" />
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />
-  <Submarine file="%ModDir%/Submarines/DD Cliffhanger.sub" />
-  <Submarine file="%ModDir%/Submarines/DD Olde Towne.sub" />
   <Submarine file="%ModDir%/Submarines/DD Pioneer Point.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Olde Towne.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Cliffhanger.sub" />
   <Submarine file="%ModDir%/Submarines/DD Rising Tide.sub" />
 </contentpackage>
