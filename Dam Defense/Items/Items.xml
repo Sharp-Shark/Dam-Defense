@@ -69,6 +69,88 @@
     <aitarget sightrange="1000" soundrange="1000" fadeouttime="2" />
   </Item>
   <Override>
+    <!-- pet food can now be bought at a nexshop -->
+    <Item name="" identifier="food" nameidentifier="food" Tags="smallitem,petfood1,petfood2,petfood3,monsterfood" maxstacksize="8" hideinmenus="true" health="50" damagedbyexplosions="true" category="Misc" scale="0.5" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate">
+      <Sprite texture="Content/Characters/Pets/pets.png" depth="0.7" sourcerect="206,390,34,53" origin="0.5,0.5" />
+      <Price baseprice="120" minleveldifficulty="10">
+        <Price storeidentifier="merchantoutpost"/>
+        <Price storeidentifier="merchantcity"/>
+        <Price storeidentifier="merchantresearch"/>
+        <Price storeidentifier="merchantmilitary"/>
+        <Price storeidentifier="merchantmine"/>
+      </Price>
+      <Fabricate suitablefabricators="nexshop" requiredtime="1">
+        <RequiredSkill identifier="helm" level="0" />
+        <RequiredItem tag="money" amount="2" />
+      </Fabricate>
+      <Body width="34" height="53" density="20" />
+      <Throwable characterusable="true" slots="Any,RightHand,LeftHand" throwforce="3.5" aimpos="35,-10" msg="ItemMsgPickUpSelect">
+        <StatusEffect type="OnBroken" target="This">
+          <Remove />
+        </StatusEffect>
+      </Throwable>
+      <AiTarget sightrange="1000" static="true" />
+    </Item>
+    <!-- petraptor egg can now be bought at a nexshop and has no creature limit -->
+    <Item name="" identifier="petraptoregg" hideinmenus="false" health="100" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true" category="Misc" scale="0.4" impactsoundtag="impact_soft" spritecolor="200,200,255,255">
+      <Upgrade gameversion="0.20.15.0" scale="0.4" />
+      <Price baseprice="550" sold="false"/>
+      <Sprite texture="Content/Items/CreatureLoot/CreatureLoot.png" depth="0.18" sourcerect="80,105,124,147" origin="0.5,0.5" />
+      <Fabricate suitablefabricators="medicalfabricator" requiredtime="30" requiresrecipe="false">
+        <RequiredItem identifier="alienblood"/>
+        <RequiredItem identifier="geneticmaterialmudraptor" />
+      </Fabricate>
+      <Fabricate suitablefabricators="nexshop" requiredtime="1">
+        <RequiredSkill identifier="helm" level="0" />
+        <RequiredItem tag="money" amount="20" />
+      </Fabricate>
+      <Deconstruct time="10">
+        <Item identifier="alienblood" />
+      </Deconstruct>
+      <!-- rectangular body to prevent the egg from rolling -->
+      <Body width="120" height="120" friction="1.0" restitution="0.01" angulardamping="1.0" density="12"/>
+      <Holdable slots="RightHand+LeftHand" holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false">
+        <StatusEffect type="OnBroken" target="This">
+          <particleemitter particle="whitegoosplash" particleamount="20" velocitymin="0" velocitymax="300" anglemin="0" anglemax="360" scalemin="0.5" scalemax="1.0" emitinterval="0" particlespersecond="0" highqualitycollisiondetection="False" copyentityangle="False" />
+          <particleemitter particle="mudrapeggbrownchunks" particleamount="100" velocitymin="100" velocitymax="2000" anglemin="0" anglemax="360" scalemin="0.2" scalemax="0.5" />
+          <Sound file="Content/Sounds/Damage/Gore6.ogg" range="800" />
+          <Remove />
+        </StatusEffect>
+        <StatusEffect type="OnDamaged" target="This">
+          <particleemitter particle="mudrapeggbrownchunks" particleamount="8" velocitymin="100" velocitymax="1000" anglemin="0" anglemax="360" scalemin="0.2" scalemax="0.5" />
+        </StatusEffect>
+        <StatusEffect type="OnFire" target="This" Condition="-5.0"/>
+      </Holdable>
+      <ItemContainer capacity="1" maxstacksize="1" hideitems="true" showcontainedstateindicator="false" canbeselected="true">
+        <GuiFrame relativesize="0.15,0.2" anchor="Center" style="ItemUI" />
+        <StatusEffect type="OnBroken" target="This">
+          <particleemitter particle="mudrapeggbrownchunks" particleamount="100" velocitymin="100" velocitymax="2000" anglemin="0" anglemax="360" scalemin="0.4" scalemax="0.6" />
+          <particleemitter particle="whitegoosplash" particleamount="20" velocitymin="0" velocitymax="300" anglemin="0" anglemax="360" scalemin="0.5" scalemax="1.0" emitinterval="0" particlespersecond="0" highqualitycollisiondetection="False" copyentityangle="False" />
+          <Sound file="Content/Sounds/Damage/Gore7.ogg" range="800" />
+          <Remove />
+        </StatusEffect>
+        <StatusEffect type="OnDamaged" target="This">
+          <particleemitter particle="mudrapeggbrownchunks" particleamount="8" velocitymin="100" velocitymax="1000" anglemin="0" anglemax="360" scalemin="0.2" scalemax="0.5" />
+        </StatusEffect>
+        <StatusEffect type="OnFire" target="This" Condition="-5.0"/>
+        <StatusEffect type="Always" target="This" Condition="0" setvalue="true">
+          <Conditional Scale="gte 0.5" />
+          <SpawnCharacter speciesname="Mudraptor_pet" inheritteam="true"/>
+          <Remove />
+        </StatusEffect>
+        <Containable items="antibloodloss1">
+          <!-- increase scale -->
+          <StatusEffect type="OnContaining" target="This" Scale="0.002"/>
+          <StatusEffect type="OnContaining" target="Contained" Condition="-1"/>
+        </Containable>
+      </ItemContainer>
+      <LightComponent range="5" lightcolor="255,255,255,61" powerconsumption="0" IsOn="true" castshadows="false" allowingameediting="false" pulsefrequency="1" pulseamount="0.30">
+        <sprite texture="Content/Items/CreatureLoot/CreatureLoot.png" depth="0.025" sourcerect="300,291,98,113" origin="0.5,0.6" alpha="1.0" />
+      </LightComponent>
+      <LightComponent range="40" lightcolor="255,255,255,70" powerconsumption="0" IsOn="true" castshadows="false" allowingameediting="false">
+        <sprite texture="Content/Items/CreatureLoot/CreatureLoot.png" depth="0.025" sourcerect="410,301,88,95" origin="0.5,0.6" alpha="1.0" />
+      </LightComponent>
+    </Item>
     <!-- idcard is now a wallet and can store money (still functions like a wallet though) -->
     <Item name="" identifier="idcard" category="Equipment,Misc" Tags="smallitem,identitycard,idcard" scale="0.35" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
       <PreferredContainer primary="crewcab" />

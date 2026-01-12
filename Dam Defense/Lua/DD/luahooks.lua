@@ -22,6 +22,8 @@ Hook.Add("DD.bonesaw.use", "DD.bonesaw.use", function(effect, deltaTime, item, t
 	-- spawn genetic material
 	local loot = {
 		-- missing: skitter, hunter
+		-- default
+		default = {identifier = 'geneticmaterial_unresearched'},
 		-- mollusc
 		watcheroid = {identifier = 'geneticmaterialmollusc'},
 		-- hammerhead matriarch
@@ -32,13 +34,14 @@ Hook.Add("DD.bonesaw.use", "DD.bonesaw.use", function(effect, deltaTime, item, t
 		mudraptor = {identifier = 'geneticmaterialmudraptor'},
 		mudraptor_pet = {identifier = 'geneticmaterialmudraptor'},
 		mudraptor_passive = {identifier = 'geneticmaterialmudraptor'},
+		mudraptor_pet_veteran = {identifier = 'geneticmaterialmudraptor'},
 		-- moloch
 		hammerhead = {identifier = 'geneticmaterialmoloch'},
 		-- thresher
 		thresher = {identifier = 'geneticmaterialthresher'},
 		-- mantis
-		mantisoid = {'geneticmaterialmantis'},
-		orangeboy = {'geneticmaterialmantis'},
+		mantisoid = {identifier = 'geneticmaterialmantis'},
+		orangeboy = {identifier = 'geneticmaterialmantis'},
 		-- spineling
 		spineling = {identifier = 'geneticmaterialspineling'},
 		-- hammerhead
@@ -50,6 +53,7 @@ Hook.Add("DD.bonesaw.use", "DD.bonesaw.use", function(effect, deltaTime, item, t
 	local groupName = string.lower(tostring(character.Group))
 	local tbl = loot[speciesName]
 	if tbl == nil then tbl = loot[groupName] end
+	if tbl == nil then tbl = loot.default end
 	if tbl ~= nil then
 		local identifier = tbl.identifier
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(identifier), character.WorldPosition, nil, nil, function (spawnedItem)

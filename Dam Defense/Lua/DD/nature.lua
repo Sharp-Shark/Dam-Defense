@@ -1,19 +1,23 @@
 if CLIENT and Game.IsMultiplayer then return end
 
 DD.speciesData = {
-	tigerthresher = {initialBreedTimer = 180, eggIdentifer = 'tigerthresheregg', populationName = 'thresher', populationCap = 4},
+	tigerthresher = {initialBreedTimer = 180, eggIdentifer = 'tigerthresheregg', populationName = 'thresher', populationCap = 5},
 	tigerthresher_hatchling = {initialGrowTimer = 120, populationName = 'thresher'},
 	
 	crawler_large = {populationName = 'crawler'},
-	crawler = {initialGrowTimer = 210, grownIdentifier = 'crawler_large', initialBreedTimer = 90, eggIdentifer = 'crawleregg', populationName = 'crawler', populationCap = 4},
+	crawler = {initialGrowTimer = 210, grownIdentifier = 'crawler_large', initialBreedTimer = 90, eggIdentifer = 'crawleregg', populationName = 'crawler', populationCap = 5},
 	crawler_hatchling = {initialGrowTimer = 90, populationName = 'crawler'},
 	
 	spitroach = {initialBreedTimer = 90, eggIdentifer = 'spitroachegg', populationName = 'spitroach', populationCap = 4},
 	spitroach_hatchling = {initialGrowTimer = 90, populationName = 'spitroach'},
 	
+	mudraptor_pet_veteran = {populationName = 'mudraptor_pet'},
+	mudraptor_passive = {initialGrowTimer = 180, grownIdentifier = 'mudraptor_pet_veteran', initialBreedTimer = 30, eggIdentifer = 'petraptoregg', populationName = 'mudraptor_pet', populationCap = 4},
+	mudraptor_pet = {initialGrowTimer = 60, grownIdentifier = 'mudraptor_passive', populationName = 'mudraptor_pet'},
+	
 	mudraptor_veteran = {populationName = 'mudraptor'},
-	mudraptor = {initialGrowTimer = 240, grownIdentifier = 'mudraptor_veteran', initialBreedTimer = 90, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 4},
-	mudraptor_unarmored = {initialGrowTimer = 120, grownIdentifier = 'mudraptor', initialBreedTimer = 60, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 4},
+	mudraptor = {initialGrowTimer = 240, grownIdentifier = 'mudraptor_veteran', initialBreedTimer = 90, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 5},
+	mudraptor_unarmored = {initialGrowTimer = 120, grownIdentifier = 'mudraptor', initialBreedTimer = 60, eggIdentifer = 'largemudraptoregg', populationName = 'mudraptor', populationCap = 5},
 	mudraptor_hatchling = {initialGrowTimer = 120, grownIdentifier = 'mudraptor_unarmored', populationName = 'mudraptor'},
 	
 	husk_prowler = {populationName = 'husk'},

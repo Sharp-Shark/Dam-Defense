@@ -1,0 +1,10 @@
+<Charactervariant inherit="Mudraptor_passive" speciesname="Mudraptor_pet_veteran" speciestranslationoverride="Mudraptor_pet" texture="%ModDir%/Characters/Mudraptor_pet/Mudraptor_pet_veteran.png" eatingspeed="15" group="mudraptor" >
+  <health vitality="300" usehealthwindow="False" poisonvulnerability="0.7"/>
+  <ragdoll scalemultiplier="1.375" impacttolerance="60" />
+  <attack damagemultiplier="2" rangemultiplier="1.375" impactmultiplier="2" />
+  <animations folder="Content/Characters/Variants/Mudraptor_veteran/Animations/"/>
+  <ai combatstrength="490" sight="1.5" hearing="1.5">
+    <target tag="human" state="Aggressive" priority="150" reactdistance="2000" />
+    <target tag="tigerthresher" state="Aggressive" priority="100" reactdistance="2000" />
+  </ai>
+</Charactervariant>

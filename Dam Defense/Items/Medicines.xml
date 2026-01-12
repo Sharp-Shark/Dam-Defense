@@ -1313,7 +1313,7 @@
     <InventoryIcon texture="bloodsampler.png" sourcerect="201,28,88,88" origin="0.5,0.5" />
     <Sprite texture="bloodsampler.png" sourcerect="201,0,95,28" depth="0.55" origin="0.5,0.5" />
     <Body width="65" height="15" density="25" />
-    <MeleeWeapon slots="Any,RightHand,LeftHand" aimpos="30,-50" aimangle="-140" handle1="-20,-4" holdangle="30" reload="0.75" range="50" combatPriority="25" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+    <MeleeWeapon slots="Any,RightHand,LeftHand" aimpos="30,-50" aimangle="-140" handle1="-19,-4" holdangle="30" reload="0.75" range="50" combatPriority="25" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
       <!--Can't fail, but can't use OnUse for projectiles-->
       <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true"/>
       <StatusEffect type="OnSuccess" target="UseTarget" disabledeltatime="true">
@@ -1401,8 +1401,8 @@
     </MeleeWeapon>
   </Item>
   <Item name="" identifier="serummudraptor" variantof="serummollusc" nameidentifier="serum">
-    <InventoryIcon texture="bloodsampler.png" sourcerect="581,28,88,88" origin="0.5,0.5" />
-    <Sprite texture="bloodsampler.png" sourcerect="581,0,95,28" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="bloodsampler.png" sourcerect="676,28,88,88" origin="0.5,0.5" />
+    <Sprite texture="bloodsampler.png" sourcerect="676,0,95,28" depth="0.55" origin="0.5,0.5" />
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
       <RequiredSkill identifier="medical" level="50" />
       <RequiredItem identifier="iron" />

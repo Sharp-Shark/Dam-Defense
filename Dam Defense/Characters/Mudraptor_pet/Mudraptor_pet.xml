@@ -1,0 +1,55 @@
+<Override>
+<Charactervariant inherit="Mudraptor_unarmored" speciesname="Mudraptor_pet" speciestranslationoverride="Mudraptor_pet" texture="Content/Characters/Variants/Mudraptor_pet/Mudraptorpet.png" eatingspeed="5" group="human">
+  <health vitality="100" usehealthwindow="False"/>
+  <ragdoll scalemultiplier="0.7"/>
+  <attack damagemultiplier="0.7" rangemultiplier="0.7" impactmultiplier="0.7" />
+  <animations folder="Content/Characters/Variants/Mudraptor_pet/Animations/"/>
+  <inventory slots="Any, Any"/>
+  <ai combatstrength="105" sight="1" hearing="1" fleehealththreshold="0" aggressiveboarding="True" aggressiongreed="20" aggressionhurt="300" attackwhenprovoked="True" avoidgunfire="False" enforceaggressivebehaviorformissions="False" targetouterwalls="True" randomattack="True">
+    <target tag="owner" state="Protect" priority="10" reactdistance="200" />
+    <!--Override inherited targets-->
+    <target Tag="hostile" State="Aggressive" Priority="100" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" />
+    <target Tag="stronger" State="Aggressive" Priority="100" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" />
+    <target Tag="weaker" State="Aggressive" Priority="100" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" />
+    <target Tag="equal" State="Aggressive" Priority="100" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" />
+    <target Tag="tigerthresher" State="Aggressive" Priority="100" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" />
+    <target tag="human" state="Follow" priority="10" reactdistance="200" />
+    <target tag="dead" state="Idle" priority="1" />
+    <target tag="monsterfood" state="Idle" priority="1" />
+    <target tag="watcher" state="Idle" priority="1" />
+    <target tag="mudraptor_veteran" state="Idle" priority="1" />
+    <target tag="door" state="Idle" priority="1" />
+    <target tag="wall" state="Idle" priority="1" />
+    <target tag="room" state="Idle" priority="1" />
+    <target tag="sonar" state="Idle" priority="1" />
+    <target tag="turret" state="Idle" priority="1" />
+    <target tag="searchlight" state="Idle" priority="1" />
+    <target tag="decoy" state="Idle" priority="1" />
+    <target tag="weapon" state="Idle" priority="1" />
+    <target tag="nasonov" state="Idle" priority="1" />
+    <target tag="provocative" state="Idle" priority="1" />
+    <target tag="tool" state="Idle" priority="1" />
+    <petbehavior maxhappiness="100" unhappythreshold="50" happythreshold="80" happinessdecreaserate="0.035"  hungerincreaserate="0.03" playforce="6.0">
+      <eat tag="monsterfood" ignorecontained="true" requiredhunger="10-100" hunger="-50" happiness="5" priority="80" />
+      <eat tag="dead" requiredhunger="10-100" hunger="-100" happiness="10" priority="80" />
+      <itemproduction rate="0.0015" invhungerrate="0.002" requiredhunger="0-30">
+        <item identifier="poop" commonness="100" />
+      </itemproduction>
+	  <!-- reproduces via natura.lua
+      <itemproduction rate="0.0015" requiredhappiness="80-100" requiredhunger="0-30">
+        <item identifier="smallmudraptoregg" commonness="30" />
+        <item identifier="" commonness="70" />
+      </itemproduction>
+	  -->
+    </petbehavior>
+  </ai>
+  <sound file="Content/Characters/Variants/Mudraptor_pet/MUDRAPTOR_petHappy1.ogg" state="Happy" range="2000" volume="1" />
+  <sound file="Content/Characters/Variants/Mudraptor_pet/MUDRAPTOR_petHappy2.ogg" state="Happy" range="2000" volume="1" />
+  <sound file="Content/Characters/Variants/Mudraptor_pet/MUDRAPTOR_petHappy3.ogg" state="Happy" range="2000" volume="1" />
+  <sound file="Content/Characters/Variants/Mudraptor_pet/MUDRAPTOR_petHappy4.ogg" state="Happy" range="2000" volume="1" />
+  <sound file="Content/Characters/Variants/Mudraptor_pet/MUDRAPTOR_petHappy5.ogg" state="Happy" range="2000" volume="1" />
+  <sound file="Content/Characters/Variants/Mudraptor_pet/MUDRAPTOR_petHungry1.ogg" state="Unhappy" range="2000" volume="1" />
+  <sound file="Content/Characters/Variants/Mudraptor_pet/MUDRAPTOR_petHungry2.ogg" state="Unhappy" range="2000" volume="1" />
+  <sound file="Content/Characters/Variants/Mudraptor_pet/MUDRAPTOR_petHungry3.ogg" state="Unhappy" range="2000" volume="1" />
+</Charactervariant>
+</Override>
