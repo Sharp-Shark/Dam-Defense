@@ -830,10 +830,10 @@
 	  price="2500">
 	<!-- spacing -->
 	<Deconstruct time="20">
-	  <Item identifier="weldingtool"/>
-	  <Item identifier="weldingfueltank"/>
-	  <Item identifier="wrench"/>
-	  <Item identifier="screwdriver"/>
+	  <Item identifier="syringegun"/>
+	  <Item identifier="sprayer"/>
+	  <Item identifier="bloodsampler"/>
+	  <Item identifier="quartz"/>
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="medical" level="40" />

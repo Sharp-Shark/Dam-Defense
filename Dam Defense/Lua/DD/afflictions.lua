@@ -214,6 +214,10 @@ DD.thinkFunctions.afflictions = function ()
 	if not Game.RoundStarted then return end
 	
 	for character in Character.CharacterList do
+		-- kills anton when he breaks out of bounds
+		if (character.CurrentHull == nil) and (character.Submarine == nil) then
+			DD.giveAfflictionCharacter(character, 'timepressure', 1)
+		end
 		-- blast jump
 		local affliction = character.CharacterHealth.GetAffliction('blastjumping', true)
 		if (affliction ~= nil) and (affliction.Strength <= 1) and (character.AnimController.OnGround or character.AnimController.InWater or character.AnimController.IsClimbing) then

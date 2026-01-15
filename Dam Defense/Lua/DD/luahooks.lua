@@ -24,6 +24,7 @@ Hook.Add("DD.bonesaw.use", "DD.bonesaw.use", function(effect, deltaTime, item, t
 		-- missing: skitter, hunter
 		-- default
 		default = {identifier = 'geneticmaterial_unresearched'},
+		humanundead = {identifier = 'geneticmaterial_unresearched'},
 		-- mollusc
 		watcheroid = {identifier = 'geneticmaterialmollusc'},
 		-- hammerhead matriarch
@@ -874,6 +875,7 @@ end, Hook.HookMethodType.Before)
 Hook.Patch("Barotrauma.Items.Components.Repairable", "StopRepairing", function(instance, ptable)
 	local character = ptable['character']
 	local item = instance.item
+	if DD.roundData.repairInitialCondition[item] == nil then return end
 	local amount = (item.Condition - DD.roundData.repairInitialCondition[item]) / item.MaxCondition
 	DD.roundData.repairInitialCondition[item] = nil
 	
@@ -900,6 +902,32 @@ Hook.Patch("Barotrauma.Items.Components.Repairable", "StopRepairing", function(i
 		end
 	end
 end, Hook.HookMethodType.Before)
+
+-- Cash reward for repairing walls
+-- Taken from TraitorMod by Evil Factory
+Hook.Patch("Barotrauma.HumanAIController", "StructureDamaged", function (instance, ptable)
+	local repairGoal = 1000
+	
+	local repairAmount = ptable["damageAmount"] * -1
+	if repairAmount < 0 then repairAmount = repairAmount / 2 end
+	
+	local character = ptable["character"]
+	if character == nil then return end
+	if character.SpeciesName ~= 'human' then return end -- do not punish players for walls they broke as a creature
+	
+	local client = DD.findClientByCharacter(character)
+	if client == nil then return end
+	
+	if DD.roundData.repairWallAmount[client] == nil then DD.roundData.repairWallAmount[client] = 0 end
+	DD.roundData.repairWallAmount[client] = math.max(repairGoal * -1, DD.roundData.repairWallAmount[client] + repairAmount)
+	
+	if DD.roundData.repairWallAmount[client] > repairGoal then
+		DD.roundData.repairWallAmount[client] = DD.roundData.repairWallAmount[client] - repairGoal
+		
+		local key = 'giveMoneyReasonWallRepair'
+		DD.giveMoneyToClient(client, 1, DD.stringLocalize(key), true)
+	end
+end, Hook.HookMethodType.After)
 
 -- displacer cannon teleport
 Hook.Add("DD.displacercannon.teleport", "DD.displacercannon.teleport", function(effect, deltaTime, item, targets, worldPosition, element)
@@ -1517,4 +1545,5 @@ end
 DD.roundStartFunctions.luahooks = function ()
 	DD.roundData.repairInitialCondition = {}
 	DD.roundData.repairCooldown = {}
+	DD.roundData.repairWallAmount = {}
 end

@@ -48,6 +48,7 @@ return {
 	giveMoneyReasonCorpseDisposal = 'disposing of a corpse',
 	giveMoneyReasonMachineRepair = 'repairing machinery',
 	giveMoneyReasonMachineRepairAbuse = 'repairing machinery that was recently fixed',
+	giveMoneyReasonWallRepair = 'repairing walls',
 	commandCreditsError = 'You have no Nexaccount (TM).',
 	commandCredits = 'You have {amount} Nexcredits (TM) in your Nexaccount (TM). Your next reward will be in {timer}.',
 	commandWithdrawError = 'You have no Nexaccount (TM).',

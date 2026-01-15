@@ -13,6 +13,14 @@ Networking.Receive("syncEntityRotation", function (message, client)
 	local entity = Entity.FindEntityByID(id)
 	if entity == nil then return end
 	entity.Rotation = rotation
+	entity.GetComponentString('Holdable').AttachToWall()
+end)
+
+Networking.Receive("syncEntityAttached", function (message, client)
+	local id = message.ReadUInt16()
+	local entity = Entity.FindEntityByID(id)
+	if entity == nil then return end
+	entity.GetComponentString('Holdable').AttachToWall()
 end)
 
 Networking.Receive("updateGUICharacterRole", function (message, client)

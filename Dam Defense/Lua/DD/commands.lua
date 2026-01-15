@@ -482,9 +482,16 @@ Game.AddCommand('dd_jobunban', 'dd_jobunban [accountId/name] [job]: Unbans a cli
 -- Debug console dd_judgement
 local func = function (args)
 	local client = DD.findClient('Name', args[1])
-	if (client ~= nil) and DD.isClientCharacterAlive(client) then
-		DD.giveAfflictionCharacter(clear.Character, 'judgement', 1)
+	if client == nil then
+		print('Could not find specified client.')
+		return
 	end
+	if not DD.isClientCharacterAlive(client) then
+		print('Specified client is not alive.')
+		return
+	end
+	
+	DD.giveAfflictionCharacter(client.Character, 'judgement', 1)
 end
 if CLIENT and Game.IsMultiplayer then
 	func = function () return end
@@ -508,8 +515,15 @@ local func = function (args)
 	end
 	text = string.sub(text, 1, #text - 1)
 	
+	local success = false
 	for event in DD.eventDirector.getEventInstances('bloodCult') do
 		event.bloodWhisper(text)
+		success = true
+	end
+	if success then
+		print('Tchernobog hath spoken.')
+	else
+		print('There is no blood cult.')
 	end
 end
 if CLIENT and Game.IsMultiplayer then
@@ -520,6 +534,10 @@ Game.AddCommand('dd_bloodwhisper', 'dd_bloodwhisper [message]: Whisper a message
 -- Debug console dd_whisper
 local func = function (args)
 	local client = DD.findClient('Name', table.remove(args, 1))
+	if client == nil then
+		print('Could not find specified client.')
+		return
+	end
 	
 	local text = ''
 	for arg in args do
@@ -527,6 +545,7 @@ local func = function (args)
 	end
 	text = string.sub(text, 1, #text - 1)
 	
+	print(DD.stringReplace('Whispered to {name}.', {name = client.Name}))
 	DD.messageClient(client, text, {preset = 'private', sender = 'ADMIN'})
 end
 if CLIENT and Game.IsMultiplayer then

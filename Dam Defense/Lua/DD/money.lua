@@ -126,7 +126,7 @@ DD.giveMoneyToClient = function (client, amount, announce)
 		DD.roundData.bank[client] = integer
 	end
 	
-	if announce then
+	if announce ~= nil then
 		if type(announce) == 'string' then
 			DD.messageClient(client, DD.stringLocalize('giveMoneyToClientWithReason', {amount = displayAmount, reason = announce}), {preset = 'command'})
 		else
@@ -194,15 +194,13 @@ end
 
 DD.chatMessageFunctions.tellCredits = function (message, sender)
 	if message ~= '/credits' then return end
-	if (DD.roundData.bank[sender] == nil) or (DD.roundData.salaryTimer[sender] == nil) then
-		local message = DD.stringLocalize('commandCreditsError')
-		DD.messageClient(sender, message, {preset = 'command'})
-		return true
+	
+	local amount = DD.roundData.bank[sender] or 0
+	if DD.roundData.salaryTimer[sender] == nil then
+		DD.messageClient(sender, DD.stringLocalize('commandCredits', {amount = amount, timer = DD.numberToTime(DD.roundData.salaryTimer[sender])}), {preset = 'command'})
+	else
+		DD.messageClient(sender, DD.stringLocalize('commandCredits', {amount = amount, timer = '-'}), {preset = 'command'})
 	end
-	
-	local amount = DD.roundData.bank[sender]
-	
-	DD.messageClient(sender, DD.stringLocalize('commandCredits', {amount = amount, timer = DD.numberToTime(DD.roundData.salaryTimer[sender])}), {preset = 'command'})
 	
 	return true
 end

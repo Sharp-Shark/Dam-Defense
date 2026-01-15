@@ -48,26 +48,27 @@ DD.chatMessageFunctions.help = function (message, sender)
 	specialCommands['thanks'] = true
 	specialCommands['neverantag'] = true
 	if Game.RoundStarted then
+		if sender.HasPermission(ClientPermissions.ConsoleCommands) then
+			specialCommands['fire'] = true
+		end
 		specialCommands['events'] = true
+		specialCommands['credits'] = true
 		if DD.isClientCharacterAlive(sender) then
 			specialCommands['info'] = true
 			if sender.Character.SpeciesName == 'human' then
-				specialCommands['credits'] = true
 				specialCommands['withdraw'] = true
 				if (DD.roundData.electionBlacklistSet == nil) or (not DD.roundData.electionBlacklistSet[sender.AccountId.StringRepresentation]) then
 					specialCommands['election'] = true
+				end
+				if sender.Character.JobIdentifier == 'captain' then
+					specialCommands['fire'] = true
+					specialCommands['announce'] = true
 				end
 			else
 				specialCommands['freecam'] = true
 			end
 		else
 			specialCommands['possess'] = true
-		end
-		if DD.isClientCharacterAlive(sender) and (sender.Character.JobIdentifier == 'captain') then
-			specialCommands['announce'] = true
-		end
-		if (DD.isClientCharacterAlive(sender) and (sender.Character.JobIdentifier == 'captain')) or sender.HasPermission(ClientPermissions.ConsoleCommands) then
-			specialCommands['fire'] = true
 		end
 		-- event related commands
 		if #DD.eventDirector.getEventInstances('revolution') > 0 then
@@ -135,10 +136,10 @@ DD.chatMessageFunctions.ahelp = function (message, sender, special)
 	
 	local text = string.sub(message, 8, #message)
 	Game.Log(DD.stringReplace('{clientName}: {text}', {clientName = DD.clientLogName(sender), text = text}), 0)
-	DD.messageClient(sender, text, {preset = 'private', sender = DD.clientLogName(sender)})
+	DD.messageClient(sender, text, {preset = 'private', sender = sender.Name})
 	for client in Client.ClientList do
 		if (client ~= sender) and client.HasPermission(ClientPermissions.ConsoleCommands) then
-			DD.messageClient(client, text, {preset = 'private', sender = DD.clientLogName(sender)})
+			DD.messageClient(client, text, {preset = 'private', sender = sender.Name})
 		end
 	end
 	

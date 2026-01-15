@@ -73,7 +73,13 @@ DD.roundStartFunctions.main = function ()
 	if Submarine.MainSub ~= nil then
 		if Game.RoundStarted then
 			-- lock sub
-			Submarine.MainSub.LockX = true
+			local submarineCount = 0
+			for submarine in Submarine.MainSub.GetConnectedSubs() do submarineCount = submarineCount + 1 end
+			if submarineCount == 1 then
+				Submarine.MainSub.LockX = true
+			else
+				Submarine.MainSub.LockX = false
+			end
 			Submarine.MainSub.LockY = true
 			-- find reactors
 			DD.reactors = {}

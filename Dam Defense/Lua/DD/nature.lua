@@ -115,6 +115,7 @@ DD.breedCharacter = function (character)
 	return character
 end
 
+LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.Items.Components.LevelResource"], "CreateTriggerBody")
 DD.spawnPlants = function ()
 	local weights = {}
 	for key, value in pairs(DD.plantData) do
@@ -130,17 +131,22 @@ DD.spawnPlants = function ()
 		for n = 1, plantAmount do
 			local location2 = location1.linkedTo[math.random(#location1.linkedTo)]
 			local lerpFactor = math.random()
-			local position = Vector2(DD.lerp(lerpFactor, location1.WorldPosition.X, location2.WorldPosition.X), DD.lerp(lerpFactor, location1.WorldPosition.Y, location2.WorldPosition.Y))
+			local position = Vector2(DD.lerp(lerpFactor, location1.Position.X, location2.Position.X), DD.lerp(lerpFactor, location1.Position.Y, location2.Position.Y))
 			
-			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(plant.itemIdentifier), position, nil, nil, function (spawnedItem)
-				--spawnedItem.Submarine = Submarine.MainSub
+			local submarine = Submarine.MainSub
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(plant.itemIdentifier), position, submarine, nil, nil, function (spawnedItem)
 				spawnedItem.Rotation = location2.Rotation
+				spawnedItem.GetComponentString('Holdable').AttachToWall()
 				if SERVER then
 					Timer.Wait(function ()
 						-- sync rotation
 						local message = Networking.Start("syncEntityRotation")
 						message.WriteUInt16(spawnedItem.ID)
 						message.WriteSingle(spawnedItem.Rotation)
+						Networking.Send(message)
+						-- sync attached
+						local message = Networking.Start("syncEntityAttached")
+						message.WriteUInt16(spawnedItem.ID)
 						Networking.Send(message)
 					end, 100)
 				end

@@ -32,7 +32,7 @@ end, {
 			return
 		else
 			local month = os.date('*t', os.time()).month
-			local jolly = (month == 1) or (month == 12) -- january or december
+			local jolly = (month == 1) or (month == 12) or (math.random() < 0.1) -- january or december or 10% chance
 			
 			-- Spawn wizard
 			local job = 'wizard'
