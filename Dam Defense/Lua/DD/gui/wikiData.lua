@@ -88,7 +88,7 @@ DD.wikiData = {
 		identifier = 'eventVIP',
 	},
 	wizardEvent = {
-		related = {'main', 'events', 'wizardJob', 'merasmushatItem', 'merasmusrobesItem', 'merasmusstaffItem', 'merasmusfireballbookItem', 'merasmusteleportbookItem', 'merasmusblastjumpbookItem'},
+		related = {'main', 'events', 'wizardJob', 'merasmushatItem', 'merasmusrobesItem', 'merasmusstaffItem', 'merasmusfireballbookItem', 'merasmusteleportbookItem', 'merasmusblastjumpbookItem', 'merasmusgiftbookItem', 'merasmusgiftbombbookItem'},
 	},
 	gangEvent = {
 		related = {'main', 'events', 'gangsterJob', 'methItem', 'uziItem', 'backwardscapItem', 'spraycanItem'},
@@ -122,7 +122,7 @@ DD.wikiData = {
 		related = {'main', 'jobs', 'hardhatheadItem'},
 	},
 	researcherJob = {
-		related = {'main', 'jobs', 'bloodsamplerItem'},
+		related = {'main', 'jobs', 'bonesawItem', 'serumItem', 'bloodsamplerItem', 'fluantidoteItem', 'tbantidoteItem', 'anthraxantidoteItem'},
 	},
 	medicaldoctorJob = {
 		related = {'main', 'jobs', 'healgunItem', 'healgundrumItem'},
@@ -150,7 +150,7 @@ DD.wikiData = {
 		related = {'main', 'jobs', 'vipEvent', 'midazolamItem'},
 	},
 	wizardJob = {
-		related = {'main', 'jobs', 'wizardEvent', 'merasmushatItem', 'merasmusrobesItem', 'merasmusstaffItem', 'merasmusfireballbookItem', 'merasmusteleportbookItem', 'merasmusblastjumpbookItem'},
+		related = {'main', 'jobs', 'wizardEvent', 'merasmushatItem', 'merasmusrobesItem', 'merasmusstaffItem', 'merasmusfireballbookItem', 'merasmusteleportbookItem', 'merasmusblastjumpbookItem', 'merasmusgiftbookItem', 'merasmusgiftbombbookItem'},
 	},
 	gangsterJob = {
 		related = {'main', 'jobs', 'gangEvent', 'cyanbosshatItem', 'bossclothesItem', 'methItem', 'uziItem', 'backwardscapItem', 'spraycanItem', 'captainspipeItem', 'pipetobaccoItem'},
@@ -187,6 +187,10 @@ DD.wikiData = {
 		related = {'main', 'items', 'gangsterJob', 'gangEvent'},
 		identifier = 'cyanspraycan',
 	},
+	geneticmaterialItem = {
+		related = {'main', 'items', 'serumItem', 'geneticmaterial_unresearchedItem'},
+		identifier = 'geneticmaterialmollusc',
+	},
 	-- items (medical)
 	bacterialsyringeItem = {
 		related = {'main', 'items', 'medicalSystem', 'bacterialinfectionAffliction'},
@@ -221,6 +225,10 @@ DD.wikiData = {
 	methItem = {
 		related = {'main', 'items', 'medicalSystem', 'captainspipeItem', 'bloodsamplerItem', 'gangsterJob', 'gangEvent'},
 		identifier = 'cyanmeth',
+	},
+	serumItem = {
+		related = {'main', 'items', 'medicalSystem', 'researcherJob', 'bonesawItem'},
+		identifier = 'serummollusc',
 	},
 	-- creatures
 	spitroachCreature = {
@@ -289,6 +297,18 @@ local autogenBlacklist = {
 	smguniqueItem = true,
 	nexshop2Item = true,
 	nukieshop2Item = true,
+	serummolluscItem = true,
+	serumskitterItem = true,
+	serumhunterItem = true,
+	serumhammerheadmatriarchItem = true,
+	serumcrawlerItem = true,
+	serummudraptorItem = true,
+	serummolochItem = true,
+	serumthresherItem = true,
+	serummantisItem = true,
+	serumspinelingItem = true,
+	serumhammerheadItem = true,
+	serumhuskItem = true,
 }
 local autogenRelated = {
 	captainspipeItem = {'pipetobaccoItem'},
@@ -301,6 +321,7 @@ local autogenRelated = {
 	nukieshop1Item = {'nukiesEvent', 'fakemoneyItem'},
 	fakemoneyItem = {'moneyItem'},
 	secnexshopItem = {'captainJob', 'diverJob', 'securityofficerJob', 'mercsJob'},
+	bonesawItem = {'researcherJob', 'serumItem', 'geneticmaterial_unresearchedItem'},
 }
 local autogenRelations = {
 	portablegeneratorItem = {'generatorfuel'},
@@ -311,6 +332,8 @@ local autogenRelations = {
 	nexshop1Item = {'money'},
 	secnexshopItem = {'realmoney'},
 	moneycaseItem = {'money'},
+	bonesawItem = {'geneticmaterial'},
+	serumItem = {'geneticmaterial'},
 }
 for prefab in ItemPrefab.Prefabs do
 	-- 3146664815 is the steamworkshopid of Dam Defense
@@ -367,7 +390,7 @@ if DD.isCSharpLoaded then
 	DD.wikiData.serverMessage.related = {'openhtml', 'main'}
 end
 
--- automatically adds an object's XML description to its wiki text
+-- automatically adds an object's XML description to its wiki text + run custom optional function
 for localization in DD.localizations do
 	for key, value in pairs(localization) do
 		if string.sub(key, 1, #'wikiText_') == 'wikiText_' then
@@ -383,7 +406,7 @@ for localization in DD.localizations do
 				identifier = DD.wikiData[wikiIdentifier].identifier or DD.stringSplit(wikiIdentifier, 'Item')[1]
 				description = tostring(ItemPrefab.GetItemPrefab(identifier).Description)
 			end
-			if description ~= nil then
+			if (description ~= nil) and (description ~= '') then
 				localization[key] = DD.stringReplace(localization['wiki_description'], {description = description}) .. localization[key]
 			end
 		end

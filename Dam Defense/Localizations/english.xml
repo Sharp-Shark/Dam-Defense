@@ -73,7 +73,7 @@
   <jobdescription.foreman>The mayor will often be too busy to watch over the dam, and that is where you come in. You will work together with the engineers and janitors to make sure the dam and its reactors are working neatly at all times. If the situation damands it, you can also temporarily serve as an additional security officer.</jobdescription.foreman>
   <!-- Researcher Job -->
   <jobname.researcher>Researcher</jobname.researcher>
-  <jobdescription.researcher>Aside from working as a Medical Doctor if the times come, you will also be mainly conducting often unethical research with the aim of producing antidotes to infections by using your blood sampler on infected and later refining your live samples into antidotes in a medical fabricator.</jobdescription.researcher>
+  <jobdescription.researcher>Aside from working as a Medical Doctor if the times comes, you will mainly be conducting unethical research with the aim of producing antidotes and mutagenic serums. The materials for which you'll respectively extract using blood samplers and the bonesaw.</jobdescription.researcher>
   <!-- Diver Job -->
   <jobname.diver>Diver</jobname.diver>
   <jobdescription.diver>Expert in diving and hunting. Your main task is keeping the local fauna in check with your guns and to mine with your plasma cutter. If the situation calls for it, you can also temporarily work as an additional security officer.</jobdescription.diver>

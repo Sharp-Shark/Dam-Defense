@@ -276,7 +276,7 @@ return {
 	wikiName_gangEvent = 'Gang Event',
 	wikiText_gangEvent = 'This a side event where a player is spawned in as a mafioso gang leader. His objective is to grow his gang and obtain power and influence in whatever way he deems fit. He is not necessarily an antagonist and this is not a round ending event.\nThe gang leader and the gang leader only can craft items specific to the event for cheap, such as the UZI, ballistic cap, crystal meth and spraycans. The crystal meth is very important, because when smoked in a pipe by a player without an antag-safe job, they will be recruited to the gang of the respective color.',
 	wikiName_wizardEvent = 'Wizard Event',
-	wikiText_wizardEvent = 'This is a side event where a player is spawned in as a wizard. His objective is to cause chaos and mayhem, although this does not mean the wizard is an antagonist, for he can act good or evil.\nThe wizard spawns with, amongst other items, a staff and some spellbooks. When the staff and a spellbook are both held at once, spells can be cast.',
+	wikiText_wizardEvent = 'This is a side event where a player is spawned in as a wizard. His objective is to cause chaos and mayhem, although this does not mean the wizard is an antagonist, for he can act good or evil.\nThe wizard spawns with, amongst other items, a staff and some spellbooks. When the staff and a spellbook are both held at once, spells can be cast.\nThere is 10% chance from February to November and a 100% chance from December to January that instead of the regular Merasmus wizard spawning, Old Nick (Santa Claus) will spawn instead!',
 	wikiName_mercsEvent = 'MERCS Event',
 	wikiText_mercsEvent = 'This is a side event where a player will be spawned as a member of the Mobile Emergency Rescue and Combat Squad (abbreviated: MERCS). Their goal is to assist security and they are essentially a super cop, even counting as a member of security. They look very similar to the Death Squadders, but have an entirely different objective.',
 	wikiName_chimeraEvent = 'Chimera Event',
@@ -358,6 +358,8 @@ return {
 	wikiText_bloodsamplerItem = 'Can be used by medical to test people for diseases and for crystal meth (positive on crystal meth indicates player is a gang member, relevant to Gang Event). Medical and non medical jobs can also use the blood sampler take live samples of diseases from infected individuals. Live samples can usually be used to make antidotes... or for bioterrorism.',
 	wikiName_methItem = 'Crystal Meth',
 	wikiText_methItem = 'An item craftable by the gang leader. When smoked using a pipe, the player will join the gang of the associated color. Give this out as the gang leader to people you want to recruit to be your goons.\nHeals damage, bloodloss and gives haste when smoked using a pipe, but causes significant pulmonary emphysema, unless smoked by someone with strong lungs, like the mayor or gang leader.',
+	wikiName_serumItem = 'Mutagenic Serum',
+	wikiText_serumItem = 'Extract genetic material from fresh cadavers using a bonesaw. Refine impure genetic material into pure genetic material using a deconstructor. Finally craft the serum in a medical fabricator or chem kit.',
 	-- wiki items (autogen)
 	wikiText_goblincrateItem = 'Can fit an entire goblin or troll inside. Greenskins will heal when inside a crate. Do not try to hide inside it as a human.',
 	wikiText_skyholderartifactItem = 'Highly radioactive alien artifact. Best handled using a hazmat suit or PUCS.',
@@ -377,6 +379,8 @@ return {
 	wikiText_nexshop1Item = 'This page links to all items which can be bought in a Nexshop (TM).',
 	wikiText_nukieshop1Item = 'This page links to all items which can be bought in a Nukieshop.',
 	wikiText_secnexshopItem = 'This page links to all items which can be bought in a Security Nexshop (TM).',
+	wikiName_geneticmaterialItem = 'Pure Genetic Material',
+	wikiText_geneticmaterialItem = 'Sufficiently pure for concocting mutagenic serums. Obtained either from a fresh specimen or from deconstructing impure genetic material.\nCan be converted back into impure genetic material with sulphuric acid in a medical fabricator or chem kit.',
 	-- wiki creatures
 	wikiName_spitroachCreature = 'Spitroach',
 	wikiText_spitroachCreature = 'An annoying cowardly pest that breeds and grows fast. They run up close, spit their acid, run away and repeat, usually in a synchronized group motion. When no targets are in sight, they spit on their walls, causing leaks and trouble. Immune to acid burns.',
