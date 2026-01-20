@@ -259,6 +259,7 @@ Hook.Add("DD.idcardprinter.apply", "DD.idcardprinter.apply", function(effect, de
 		-- diver
 		div = 'diver',
 		-- security officer
+		constable = 'securityofficer',
 		enforcer = 'securityofficer',
 		security = 'securityofficer',
 		officer = 'securityofficer',

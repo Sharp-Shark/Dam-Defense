@@ -42,9 +42,9 @@
   <!-- Engineer -->
   <jobname.engineer>Engineer</jobname.engineer>
   <jobdescription.engineer>A highly trained and valuable professional responsable with maintaining the dam and its reactor. Security will often be busy, so you have been trusted with a handgun, do not be reckless with it, instead use it mainly to keep saboteurs away.</jobdescription.engineer>
-  <!-- Enforcer -->
-  <jobname.securityofficer>Enforcer</jobname.securityofficer>
-  <jobdescription.securityofficer>As the name suggests, your main responsability is enforcing the law of the land. You also have to keep the residents safe, that unfortunately includes the peasents. If someone ever becomes a threat, it is desirable to arrest them if possible, after all, you are not getting paid per kill.</jobdescription.securityofficer>
+  <!-- Constable (Enforcer) -->
+  <jobname.securityofficer>Constable</jobname.securityofficer>
+  <jobdescription.securityofficer>Your main responsability is enforcing the law and keeping the peace. You also have to keep the residents safe, that unfortunately includes the poors. If someone ever becomes a threat, it is desirable to arrest them if possible, after all, you are not getting paid per kill.</jobdescription.securityofficer>
   <!-- Medical Doctor -->
   <jobname.medicaldoctor>Medical Doctor</jobname.medicaldoctor>
   <jobdescription.medicaldoctor>Although usually taken for granted, doctors play an important role, possessing the required skill to treat injured or unconscious crewmembers. Their skills can also be useful for creating various non-medicinal chemicals.</jobdescription.medicaldoctor>
