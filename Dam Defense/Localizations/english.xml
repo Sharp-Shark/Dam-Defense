@@ -323,6 +323,12 @@
   <!-- Constable Helmet -->
   <entityname.constablehelmet>Constable Helmet</entityname.constablehelmet>
   <entitydescription.constablehelmet>A diving mask and a helmet! How british.</entitydescription.constablehelmet>
+  <!-- Hog Helmet -->
+  <entityname.constablehoghelmet>Hog Helmet</entityname.constablehoghelmet>
+  <entitydescription.constablehoghelmet>A constable helmet with a metal hog mask for added protection.</entitydescription.constablehoghelmet>
+  <!-- Constable Armor -->
+  <entityname.constablearmor>Constable Armor</entityname.constablearmor>
+  <entitydescription.constablearmor>A full body kevlar overcoat used by the Constabulary. Does not give as much protection as a breastplate.</entitydescription.constablearmor>
   <!-- Hard Hat -->
   <entityname.hardhat>Yellow Hard Hat</entityname.hardhat>
   <entitydescription.hardhat>Crucial to maintain a safe working environment. Keeps your head safe! Also has a built-in engineer's goggle to facilitate wiring. Belongs to a head engineer.</entitydescription.hardhat>

@@ -2776,6 +2776,7 @@
       </ItemContainer>
     </Item>
     <!-- makeshift armor has 100% gunshot resistance but loses condition -->
+	<!-- no speed slowdown -->
     <Item name="" identifier="makeshiftarmor" category="Equipment" tags="mediumitem,clothing" scale="0.5" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy">
       <PreferredContainer primary="secarmcab" amount="0" notcampaign="true" />
       <PreferredContainer secondary="wreckarmcab,abandonedarmcab,piratearmcab,outpostarmcab" amount="1" spawnprobability="0.01" />
@@ -2805,7 +2806,7 @@
       <Sprite name="Makeshift Armor Item" texture="Content/Items/Diving/MakeshiftArmor.png" sourcerect="167,25,86,126" depth="0.55" origin="0.5,0.5" />
       <Body width="62" height="120" density="30" />
       <Wearable slots="OuterClothes" msg="ItemMsgPickUpSelect">
-        <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="0.8" setvalue="true" disabledeltatime="true" />
+        <StatusEffect type="OnWearing" target="Character" setvalue="true" disabledeltatime="true" />
         <damagemodifier afflictionidentifiers="gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="LimbArmor" deflectprojectiles="true" />
         <damagemodifier afflictionidentifiers="bitewounds, lacerations" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
         <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
@@ -2854,7 +2855,7 @@
       <Body width="70" height="80" density="30" />
       <Sprite name="Makeshift Helmet Item" texture="Content/Items/Jobgear/headgears.png" sourcerect="249,529,90,102" depth="0.6" origin="0.5,0.5" />
       <Wearable slots="Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
-        <StatusEffect type="OnWearing" target="Character" HideFace="true" ObstructVision="true" SpeedMultiplier="0.9" setvalue="true" disabledeltatime="true" />
+        <StatusEffect type="OnWearing" target="Character" HideFace="true" ObstructVision="true" setvalue="true" disabledeltatime="true" />
         <damagemodifier afflictionidentifiers="gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="LimbArmor" deflectprojectiles="true" />
         <damagemodifier afflictionidentifiers="lacerations, bitewounds" armorsector="0.0,360.0" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" />
         <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
@@ -5038,7 +5039,7 @@
       <Item identifier="ballisticfiber" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredSkill identifier="weapons" level="35" />
       <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -5100,7 +5101,7 @@
       <RequiredItem tag="realmoney" amount="5" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredSkill identifier="weapons" level="35" />
       <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -5162,7 +5163,7 @@
       <RequiredItem tag="realmoney" amount="5" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredSkill identifier="weapons" level="35" />
       <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -5198,6 +5199,77 @@
           <Conditional IsDead="false" />
         </StatusEffect>
       </Containable>
+    </ItemContainer>
+  </Item>
+  <Item name="Hog Helmet" identifier="constablehoghelmet" scale="0.5" category="Diving,Equipment" Tags="smallitem,diving,lightdiving" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy">
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+      <Item identifier="ballisticfiber" />
+      <Item identifier="titaniumaluminiumalloy" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
+      <RequiredItem tag="realmoney" amount="5" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="45">
+      <RequiredSkill identifier="weapons" level="35" />
+      <RequiredItem identifier="ballisticfiber" />
+      <RequiredItem identifier="ballisticfiber" />
+      <RequiredItem identifier="titaniumaluminiumalloy" />
+      <RequiredItem identifier="titaniumaluminiumalloy" />
+    </Fabricate>
+    <Sprite name="Constable Helmet" texture="%ModDir%/Items/hogcop.png" sourcerect="340,274,108,108" depth="0.6" origin="0.5,0.5" />
+    <Body radius="45" density="25" />
+    <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
+      <StatusEffect type="OnWearing" target="Character" HideFace="true" ObstructVision="true" setvalue="true" disabledeltatime="true" />
+      <damagemodifier afflictionidentifiers="blunttrauma,lacerations" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.05" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+      <sprite name="Constable Mask wearable" texture="%ModDir%/Items/hogcop.png" sourcerect="340,274,108,108" depth="0.6" origin="0.43,0.67" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
+    </Wearable>
+  </Item>
+  <Item name="Constable Armor" identifier="constablearmor" category="Equipment" tags="smallitem,clothing,bodyarmor" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredItem identifier="ballisticfiber" amount="2" />
+      <RequiredItem identifier="organicfiber" amount="2" />
+    </Fabricate>
+    <Fabricate suitablefabricators="secnexshop" requiredtime="1">
+      <RequiredSkill identifier="helm" level="0" />
+      <RequiredItem tag="realmoney" amount="5" />
+    </Fabricate>
+    <InventoryIcon name="Constable Armor Icon" texture="%ModDir%/Items/hogcop.png" sourcerect="0,259,128,101" origin="0.5,0.5" />
+    <Sprite name="Constable Armor" texture="%ModDir%/Items/hogcop.png" sourcerect="176,319,121,63" depth="0.6" origin="0.5,0.5" />
+    <Body width="100" height="50" density="15" friction="0.8" restitution="0.01" />
+    <Wearable slots="OuterClothes" msg="ItemMsgPickUpSelect">
+      <sprite name="Constable Armor Torso" texture="%ModDir%/Items/hogcop.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" hideotherwearables="true" />
+      <sprite name="Constable Armor Right Hand" texture="%ModDir%/Items/hogcop.png" limb="RightHand" sourcerect="0,0,1,1" />
+      <sprite name="Constable Armor Left Hand" texture="%ModDir%/Items/hogcop.png" limb="LeftHand" sourcerect="0,0,1,1" />
+      <sprite name="Constable Armor Left Lower Arm" texture="%ModDir%/Items/hogcop.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" hideotherwearables="true" />
+      <sprite name="Constable Armor Right Lower Arm" texture="%ModDir%/Items/hogcop.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" hideotherwearables="true" />
+      <sprite name="Constable Armor Left Upper Arm" texture="%ModDir%/Items/hogcop.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" hideotherwearables="true" />
+      <sprite name="Constable Armor Right Upper Arm" texture="%ModDir%/Items/hogcop.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" hideotherwearables="true" />
+      <sprite name="Constable Armor Waist" texture="%ModDir%/Items/hogcop.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true"  hideotherwearables="true" />
+      <sprite name="Constable Armor Right Thigh" texture="%ModDir%/Items/hogcop.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" hideotherwearables="true" />
+      <sprite name="Constable Armor Left Thigh" texture="%ModDir%/Items/hogcop.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" hideotherwearables="true" />
+      <sprite name="Constable Armor Right Leg" texture="%ModDir%/Items/hogcop.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" hideotherwearables="true" />
+      <sprite name="Constable Armor Left Leg" texture="%ModDir%/Items/hogcop.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" hideotherwearables="true" />
+      <sprite name="Constable Armor Right Shoe" texture="%ModDir%/Items/hogcop.png" limb="RightFoot" sourcerect="0,0,1,1" />
+      <sprite name="Constable Armor Left Shoe" texture="%ModDir%/Items/hogcop.png" limb="LeftFoot" sourcerect="0,0,1,1" />
+      <damagemodifier afflictiontypes="burn" armorsector="0.0,360.0" damagemultiplier="0.95" />
+      <damagemodifier afflictionidentifiers="blunttrauma,lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.65" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds" armorsector="0.0,360.0" damagemultiplier="0.7" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.6" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.75" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,0" handle2="10,0" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
+    <ItemContainer capacity="2">
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor,safetyharness" />
     </ItemContainer>
   </Item>
   <!-- Hey look buddy, I'm an engineer. That means I solve problems, not problems like "What is beauty?" Because that would fall within the purview of your conundrums of philosophy. I solve practical problems, for instance: how am I going to stop some mean mother Hubbard from tearing me a structurally superfluous be-hind? The answer, use a gun, and if that don't work... Use more gun. Take for instance this heavy caliber tripod mounted lil' old number designed by me, built by me, and you best hope... Not pointed at you. -->

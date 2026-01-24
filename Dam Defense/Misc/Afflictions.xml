@@ -190,15 +190,15 @@
   <Affliction name="Noxious Aerosol" identifier="noxiousspray" description="The face has been exposed to a noxious aerosol that irritates and prevents breathing." type="poison" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="0.0" maxstrength="1">
     <Effect minstrength="0" maxstrength="1" strengthchange="-0.1" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0" minfacetint="200,180,255,100" maxfacetint="200,180,255,200" >
 	  <StatusEffect target="Character">
-	    <Conditional vitality="gt 0" />
-	    <Affliction identifier="oxygenlow" amount="10" />
+	    <Conditional vitality="gt 25" />
+	    <Affliction identifier="oxygenlow" amount="11" />
 	  </StatusEffect>
 	</Effect>
     <PeriodicEffect minstrength="0" maxstrength="1" mininterval="0.8" maxinterval="1.2">
       <StatusEffect target="Character" SpeedMultiplier="0.5" setvalue="true" duration="1.7" />
       <StatusEffect target="Character" conditionalComparison="And">
 		<LuaHook name="DD.afflictions.spread" />
-        <Affliction identifier="oxygenlow" amount="10" />
+        <Affliction identifier="oxygenlow" amount="9" />
         <Sound file="%ModDir%/Sounds/cough1.ogg" selectionmode="Random" />
         <Sound file="%ModDir%/Sounds/cough2.ogg" />
         <Sound file="%ModDir%/Sounds/cough3.ogg" />

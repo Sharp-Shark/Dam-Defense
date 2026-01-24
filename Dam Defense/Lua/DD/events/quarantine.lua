@@ -12,7 +12,7 @@ DD.eventQuarantine = DD.class(DD.eventBase, nil, {
 	
 	lateJoinSpawn = function (self, client)
 		local position = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
-		Entity.Spawner.AddCharacterToSpawnQueue('husk', position, function (character)
+		Entity.Spawner.AddCharacterToSpawnQueue('husk_prowler', position, function (character)
 			client.SetClientCharacter(character)
 		end)
 		

@@ -364,6 +364,7 @@
     </AppropriateOrders>
   </Job>
 
+  <!-- constable -->
   <Job identifier="securityofficer"
        minkarma="0" maxnumber="3" initialcount="2"
        uicolor="0.65,0.55,0.35"
@@ -418,6 +419,7 @@
       <Item identifier="headset" equip="true"/>
       <Item identifier="constablehelmet" equip="true"/>
       <Item identifier="rifle" equip="true">
+        <Item identifier="scope" />
         <Item identifier="riflebullet" />
         <Item identifier="riflebullet" />
         <Item identifier="riflebullet" />

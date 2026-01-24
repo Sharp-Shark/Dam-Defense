@@ -723,6 +723,7 @@ DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 	if not character.UseHullOxygen then return false end
 	if (suitslot ~= nil) and ((suitslot.Prefab.Identifier == 'pucs') or (suitslot.Prefab.Identifier == 'nexsuit')) then return false end
 	if (clothingslot ~= nil) and (clothingslot.Prefab.Identifier == 'hazmatsuit') then return false end
+	if (headslot ~= nil) and (headslot.Prefab.Identifier == 'constablehoghelmet') then return false end
 	
 	--[[
 	if (headslot ~= nil) and headslot.HasTag('diving') then return false end
