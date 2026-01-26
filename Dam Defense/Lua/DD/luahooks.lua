@@ -472,6 +472,29 @@ Hook.Add("DD.whalinggun.use", "DD.whalinggun.use", function(effect, deltaTime, i
 	end
 end)
 
+-- melee attack hook
+Hook.Patch("Barotrauma.Items.Components.MeleeWeapon", "HandleImpact", function(instance, ptable)
+	local user = instance.User
+	if (user == nil) or (user.Removed) then return end
+	
+	local body = ptable['targetFixture'].Body
+	if body == nil then return end
+	
+	local target = body.UserData
+	if LuaUserData.TypeOf(target) ~= 'Barotrauma.Limb' then return end
+	
+	local character = target.character
+	if character == nil then return end
+	
+	local client = DD.findClientByCharacter(user)
+	if client == nil then return end
+	for event in DD.eventDirector.getEventInstances('serialKiller') do
+		if event.killer == client then
+			event.registerMeleeAttack(character)
+		end
+	end
+end, Hook.HookMethodType.Before)
+
 -- some armor absorbs damage, but in return, will break down
 -- this hook also applies the recentlyattacked affliction which serves as a flag
 Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)

@@ -15,6 +15,14 @@ end, {
 	
 	timeToExplode = 5 * 60, -- in seconds
 	
+	-- register melee attack
+	registerMeleeAttack = function (self, target)
+		if target.SpeciesName ~= 'human' then return end
+		if target == self.killer.Character then return end
+		
+		self.lastAttacked[target] = DD.thinkCounter
+	end,
+	
 	-- messages killer directions towards nearest valid target
 	informKillerTargetLocation = function (self)
 		if self.killer.Character == nil then return end
@@ -58,6 +66,7 @@ end, {
 	end,
 	
 	getShouldFinish = function (self)
+		if true then return false end
 		-- guard clause
 		if self.killer == nil then
 			return true
@@ -92,6 +101,7 @@ end, {
 	onStart = function (self)
 		self.killerWon = false
 		self.killsLeftToWin = 0 -- killer automatically wins once this value is equal to or lower than 0
+		self.lastAttacked = {} -- time when a character was last attacked by the serial killer
 		
 		local anyoneAlive = false
 		for client in DD.arrShuffle(Client.ClientList) do
@@ -217,13 +227,13 @@ end, {
 			self.finish()
 			return
 		end
-		if (character.LastAttacker == self.killer.Character) and (character.SpeciesName == 'human') then
+		local interval = 60 * 5 -- in frames (1/60 of a second)
+		if (self.lastAttacked[character] ~= nil) and (DD.thinkCounter - self.lastAttacked[character] < interval) then
 			self.killsLeftToWin = self.killsLeftToWin - 1
 			if DD.isClientCharacterAlive(self.killer) then
 				-- heal damage after kill
-				self.killer.Character.SetAllDamage(0, 0, 0)
-				self.killer.Character.Oxygen = 100
-				self.killer.Character.Bloodloss = 0
+				DD.giveAfflictionCharacter(self.killer.Character, 'lifeessence', 999)
+				-- reset stun
 				self.killer.Character.SetStun(0, true)
 				-- decrement time pressure after kill
 				local afflictionPerSecond = 60/self.timeToExplode

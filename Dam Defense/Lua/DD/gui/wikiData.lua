@@ -272,6 +272,9 @@ DD.wikiData = {
 	risingTideDam = {
 		related = {'main', 'dams'},
 	},
+	metrolineDam = {
+		related = {'main', 'dams'},
+	},
 }
 
 -- automatically add in pages for items in Dam Defense which don't have a manually created page

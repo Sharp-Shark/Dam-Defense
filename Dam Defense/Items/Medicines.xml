@@ -629,8 +629,8 @@
       <StatusEffect tags="medical" type="OnSecondaryUse" target="Character">
 	    <Affliction identifier="pulmonaryemphysema" amount="3.2" />
         <Affliction identifier="psychosisresistance" amount="15" />
-        <ReduceAffliction identifier="damage" amount="10" />
-        <ReduceAffliction identifier="bloodloss" amount="5" />
+        <ReduceAffliction identifier="damage" amount="8" />
+        <ReduceAffliction identifier="bloodloss" amount="4" />
         <ReduceAffliction identifier="psychosis" amount="5" />
         <ReduceAffliction identifier="hallucinating" amount="10" />
         <RequiredItem items="pipetobacco,crystalmeth,cyanmeth,yellowmeth,magentameth" type="Contained" />

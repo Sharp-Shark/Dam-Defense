@@ -2370,7 +2370,7 @@
       </Projectile>
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
     </Item>
-    <!-- increase fix speed (2.5) and make buyable at nukieshop -->
+    <!-- increase fix speed (2.5) -->
     <Item name="" identifier="screwdriver" addedrepairspeedmultiplier="2.5" category="Equipment" Tags="smallitem,simpletool,tool,electricalrepairtool,screwdriveritem" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
       <Preferredcontainer secondary="respawncontainer" amount="1" spawnprobability="1" notcampaign="true" />
       <PreferredContainer primary="engcab" secondary="reactorcab" />
@@ -2390,10 +2390,6 @@
       <Deconstruct time="20">
         <Item identifier="iron" />
       </Deconstruct>
-      <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-        <RequiredSkill identifier="helm" level="0" />
-        <RequiredItem tag="fakemoney" amount="2" />
-      </Fabricate>
       <Fabricate suitablefabricators="fabricator" requiredtime="10">
         <RequiredSkill identifier="mechanical" level="20" />
         <RequiredItem identifier="iron" amount="2" />
@@ -2423,7 +2419,7 @@
       </Quality>
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
     </Item>
-    <!-- increase fix speed (2.5) and make buyable at nukieshop -->
+    <!-- increase fix speed (2.5) -->
     <Item name="" identifier="wrench" addedrepairspeedmultiplier="2.5" category="Equipment" Tags="smallitem,tool,simpletool,mechanicalrepairtool,wrenchitem,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
       <Preferredcontainer secondary="respawncontainer" amount="1" spawnprobability="1" notcampaign="true" />
       <PreferredContainer primary="engcab" />
@@ -2442,10 +2438,6 @@
       <Deconstruct time="10">
         <Item identifier="iron" />
       </Deconstruct>
-      <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
-        <RequiredSkill identifier="helm" level="0" />
-        <RequiredItem tag="fakemoney" amount="2" />
-      </Fabricate>
       <Fabricate suitablefabricators="fabricator" requiredtime="10">
         <RequiredSkill identifier="mechanical" level="20" />
         <RequiredItem identifier="iron" amount="2" />
@@ -2470,7 +2462,7 @@
       </Quality>
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
     </Item>
-    <!-- increase fix speed (2.5) and make buyable at nukieshop (has been since removed from nukieshop) -->
+    <!-- increase fix speed (2.5)  -->
     <Item name="" identifier="heavywrench" addedrepairspeedmultiplier="2.5" variantof="wrench">
       <Preferredcontainer secondary="respawncontainer" amount="1" spawnprobability="0" notcampaign="true" />
       <PreferredContainer primary="engcab" spawnprobability="0" />
@@ -2483,7 +2475,8 @@
         <Item identifier="steel" />
         <Item identifier="titanium" />
       </Deconstruct>
-      <Fabricate requiresrecipe="true">
+      <Fabricate suitablefabricators="fabricator" requiredtime="30">
+        <RequiredSkill identifier="mechanical" level="30" />
         <RequiredItem identifier="titanium" amount="2" />
         <RequiredItem identifier="steel" />
       </Fabricate>
@@ -2515,6 +2508,138 @@
       -->
       </MeleeWeapon>
       <SkillRequirementHint identifier="mechanical" level="40" />
+    </Item>
+	<!-- made dementonite tools have proper recipe -->
+    <Item name="" identifier="wrenchdementonite" descriptionidentifier="dementonitetool" variantof="wrench" allowasextracargo="true" inventoryiconcolor="136,142,166,255" spritecolor="136,142,166" addedrepairspeedmultiplier="0.4">
+      <Preferredcontainer secondary="respawncontainer" amount="1"  spawnprobability="0" notcampaign="true"/>
+      <PreferredContainer primary="engcab"  spawnprobability="0"/>
+      <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab,piratestoragecab"  spawnprobability="0" />
+      <PreferredContainer primary="wreckengcab,abandonedengcab,pirateengcab,outpostengcab,beaconengcab"  spawnprobability="0"/>
+      <PreferredContainer secondary="outpostcrewcabinet" spawnprobability="0"/>
+      <PreferredContainer secondary="outposttrashcan" spawnprobability="0" />
+      <Price baseprice="450" sold="false" canbespecial="false">
+        <Price storeidentifier="merchantoutpost" />
+        <Price storeidentifier="merchantcity" multiplier="0.9" />
+        <Price storeidentifier="merchantresearch" />
+        <Price storeidentifier="merchantmilitary" />
+        <Price storeidentifier="merchantmine" />
+      </Price>
+      <Deconstruct>
+        <Item identifier="iron" />
+        <Item identifier="dementonite" />
+      </Deconstruct>
+      <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="false">
+        <RequiredSkill identifier="mechanical" level="30" />
+        <RequiredItem identifier="wrench" amount="1" />
+        <RequiredItem identifier="dementonite" />
+      </Fabricate>
+      <MeleeWeapon reload="*0.9">
+        <Attack targetimpulse="8">
+          <Affliction identifier="blunttrauma" strength="8.5" />
+          <Affliction identifier="psychosis" strength="5" />
+          <Affliction identifier="stun" strength="0.2" />
+        </Attack>
+        <StatusEffect type="OnFailure" target="Character">
+          <Sound file="Content/Items/Alien/AlienTurret1.ogg" range="500" />
+          <Affliction identifier="psychosis" strength="10" />
+        </StatusEffect>
+      </MeleeWeapon>
+    </Item>
+    <Item name="" identifier="crowbardementonite" descriptionidentifier="dementonitetool" variantof="crowbar" allowasextracargo="true" inventoryiconcolor="136,142,166,255" spritecolor="136,142,166" addedpickingspeedmultiplier="0.6">
+      <PreferredContainer secondary="respawncontainer" amount="1" spawnprobability="0" notcampaign="true"/>
+      <PreferredContainer primary="engcab" spawnprobability="0"/>
+      <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab,piratestoragecab" spawnprobability="0" />
+      <PreferredContainer primary="wreckengcab,abandonedengcab,pirateengcab,outpostengcab,beaconengcab" spawnprobability="0" />
+      <PreferredContainer secondary="outpostcrewcabinet" spawnprobability="0" />
+      <Price baseprice="450" sold="false" canbespecial="false" />
+      <Deconstruct>
+        <Item identifier="iron" />
+        <Item identifier="dementonite" />
+      </Deconstruct>
+      <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="false">
+        <RequiredSkill identifier="mechanical" level="30" />
+        <RequiredItem identifier="crowbar" amount="1" />
+        <RequiredItem identifier="dementonite" />
+      </Fabricate>
+      <MeleeWeapon reload="*0.9">
+        <Attack targetimpulse="13">
+          <Affliction identifier="blunttrauma" strength="18" />
+          <Affliction identifier="psychosis" strength="5" />
+          <Affliction identifier="stun" strength="0.5" />
+        </Attack>
+        <StatusEffect type="OnFailure" target="Character">
+          <Sound file="Content/Items/Alien/AlienTurret1.ogg" range="500" />
+          <Affliction identifier="psychosis" strength="10" />
+        </StatusEffect>
+        <StatusEffect type="OnSuccess" target="Character">
+          <Sound file="Content/Items/Alien/AlienTurret2.ogg" range="500" />
+          <Affliction identifier="psychosis" strength="5" probability="0.05" />
+        </StatusEffect>
+      </MeleeWeapon>
+    </Item>
+    <Item name="" identifier="screwdriverdementonite" descriptionidentifier="dementonitetool" variantof="screwdriver" allowasextracargo="true" inventoryiconcolor="136,142,166,255" spritecolor="136,142,166" addedrepairspeedmultiplier="0.4">
+      <PreferredContainer secondary="respawncontainer" spawnprobability="0" notcampaign="true"/>
+      <PreferredContainer primary="reactorcab,engcab" spawnprobability="0"/>
+      <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab,piratestoragecab"  spawnprobability="0"/>
+      <PreferredContainer primary="wreckengcab,abandonedengcab,pirateengcab,outpostengcab,beaconengcab" spawnprobability="0"/>
+      <PreferredContainer primary="wreckreactorcab,abandonedreactorcab,piratereactorcab" spawnprobability="0" />
+      <PreferredContainer secondary="outpostcrewcabinet" spawnprobability="0" />
+      <PreferredContainer secondary="outposttrashcan" spawnprobability="0" />
+      <Price baseprice="450" sold="false" canbespecial="false" />
+      <Deconstruct>
+        <Item identifier="iron" />
+        <Item identifier="dementonite" />
+      </Deconstruct>
+      <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="false">
+        <RequiredSkill identifier="mechanical" level="30" />
+        <RequiredItem identifier="screwdriver" amount="1" />
+        <RequiredItem identifier="dementonite" />
+      </Fabricate>
+      <MeleeWeapon reload="*0.9">
+        <Attack targetimpulse="8">
+          <Affliction identifier="lacerations" strength="7.5" />
+          <Affliction identifier="psychosis" strength="5" />
+          <Affliction identifier="stun" strength="0.05" />
+        </Attack>
+        <StatusEffect type="OnFailure" target="Character">
+          <Sound file="Content/Items/Alien/AlienTurret1.ogg" range="500" />
+          <Affliction identifier="psychosis" strength="10" />
+        </StatusEffect>
+      </MeleeWeapon>
+    </Item>
+    <Item name="" identifier="divingknifedementonite" descriptionidentifier="dementonitetool" variantof="divingknife" allowasextracargo="true" inventoryiconcolor="136,142,166,255" spritecolor="136,142,166">
+      <PreferredContainer secondary="wreckarmcab,abandonedarmcab,piratearmcab" spawnprobability="0"/>
+      <PreferredContainer secondary="abandonedstoragecab,piratestoragecab" spawnprobability="0"/>
+      <PreferredContainer secondary="beaconsupplycab" spawnprobability="0"/>
+      <PreferredContainer primary="armcab,secarmcab" spawnprobability="0" />
+      <Price baseprice="450" sold="false" canbespecial="false">
+        <Price storeidentifier="merchantoutpost" />
+        <Price storeidentifier="merchantcity" multiplier="0.9" />
+        <Price storeidentifier="merchantresearch" />
+        <Price storeidentifier="merchantmilitary" multiplier="1.25" />
+        <Price storeidentifier="merchantmine" />
+      </Price>
+      <Deconstruct>
+        <Item identifier="iron" />
+        <Item identifier="dementonite" />
+      </Deconstruct>
+      <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="false">
+        <RequiredSkill identifier="mechanical" level="30" />
+        <RequiredItem identifier="divingknife" amount="1" />
+        <RequiredItem identifier="dementonite" />
+      </Fabricate>
+      <MeleeWeapon reload="*0.9">
+        <Attack targetimpulse="4" itemdamage="3">
+          <Affliction identifier="lacerations" strength="10" />
+          <Affliction identifier="bleeding" strength="10" />
+          <Affliction identifier="psychosis" strength="5" />
+          <Affliction identifier="stun" strength="0.2" />
+        </Attack>
+        <StatusEffect type="OnUse" target="Character">
+          <Sound file="Content/Items/Alien/AlienTurret2.ogg" range="500" />
+          <Affliction identifier="psychosis" strength="5" probability="0.05" />
+        </StatusEffect>
+      </MeleeWeapon>
     </Item>
     <!-- assistant clothes now have 2 slots for trashbags -->
     <Item name="" identifier="assistantclothes" category="Equipment" tags="smallitem,clothing" fireproof="false" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft">
@@ -5039,7 +5164,7 @@
       <Item identifier="ballisticfiber" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="weapons" level="35" />
+      <RequiredSkill identifier="weapons" level="45" />
       <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -5101,7 +5226,7 @@
       <RequiredItem tag="realmoney" amount="5" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="weapons" level="35" />
+      <RequiredSkill identifier="weapons" level="45" />
       <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -5163,7 +5288,7 @@
       <RequiredItem tag="realmoney" amount="5" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="weapons" level="35" />
+      <RequiredSkill identifier="weapons" level="45" />
       <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -5212,7 +5337,7 @@
       <RequiredItem tag="realmoney" amount="5" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="weapons" level="35" />
+      <RequiredSkill identifier="weapons" level="45" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="titaniumaluminiumalloy" />
@@ -5221,7 +5346,7 @@
     <Sprite name="Constable Helmet" texture="%ModDir%/Items/hogcop.png" sourcerect="340,274,108,108" depth="0.6" origin="0.5,0.5" />
     <Body radius="45" density="25" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
-      <StatusEffect type="OnWearing" target="Character" HideFace="true" ObstructVision="true" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
       <damagemodifier afflictionidentifiers="blunttrauma,lacerations" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="bitewounds, gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.05" damagesound="LimbArmor" deflectprojectiles="true" />
@@ -5265,7 +5390,7 @@
       <damagemodifier afflictionidentifiers="blunttrauma,lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.65" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="bitewounds" armorsector="0.0,360.0" damagemultiplier="0.7" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.6" damagesound="LimbArmor" deflectprojectiles="true" />
-      <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.75" />
+      <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.65" />
     </Wearable>
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,0" handle2="10,0" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
     <ItemContainer capacity="2">

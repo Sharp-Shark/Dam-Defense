@@ -121,6 +121,8 @@
   <afflictiondescription.despawn>The corpse is decaying away and will soon despawn.</afflictiondescription.despawn>
   <afflictionname.bloodlust>Bloodlust</afflictionname.bloodlust>
   <afflictiondescription.bloodlust>Regeneration, resistance, immunity to illness and greatly increased melee strength.</afflictiondescription.bloodlust>
+  <afflictionname.lifeessence>Life Essence</afflictionname.lifeessence>
+  <afflictiondescription.lifeessence>Brief intense regeneration.</afflictiondescription.lifeessence>
   <afflictionname.pulmonaryemphysema>Pulmonary Emphysema</afflictionname.pulmonaryemphysema>
   <afflictiondescription.pulmonaryemphysema>The lung, due to major alveoli rupture, is unable to absorb oxygen into the bloodstream.</afflictiondescription.pulmonaryemphysema>
   <afflictionname.bacterialgangrene>Bacterial Gangrene</afflictionname.bacterialgangrene>

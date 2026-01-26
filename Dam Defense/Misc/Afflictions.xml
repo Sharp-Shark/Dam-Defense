@@ -796,6 +796,33 @@
     <Icon texture="Content/UI/CommandUIAtlas.png" sheetindex="0,2" sheetelementsize="128,128"/>
   </Affliction>
   
+  <!-- life essence regen -->
+  <Affliction
+    name="Life Essence"
+    identifier="lifeessence"
+    type="buff"
+    isbuff="true"
+    limbspecific="false" indicatorlimb="Torso"
+    maxstrength="1"
+    showiconthreshold="0"
+    showicontoothersthreshold="999"
+    showinhealthscannerthreshold="999"
+    treatmentthreshold="1000"
+    iconcolors="55,255,255"
+    MedicalSkillGain="0.005">
+    <Effect strengthchange="-1">
+      <StatusEffect target="Character">
+        <ReduceAffliction type="damage" amount="100" />
+        <ReduceAffliction type="bleeding" amount="100" />
+        <ReduceAffliction type="burn" amount="100" />
+        <ReduceAffliction type="oxygenlow" amount="100" />
+        <ReduceAffliction type="bloodloss" amount="100" />
+      </StatusEffect>
+      <StatValue stattype="MeleeAttackMultiplier" value="3.0" />
+    </Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,256,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  
   <Affliction name="Despawn Decay" identifier="despawn" limbspecific="False" indicatorlimb="Torso" type="" activationthreshold="0.0" showiconthreshold="0" maxstrength="1" iconcolors="125,125,125,255" >
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="255,255,255,255" origin="0,0"/>
   </Affliction>

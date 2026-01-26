@@ -241,7 +241,7 @@ DD.autoJob = function ()
 			for otherClient in Client.ClientList do
 				if client == otherClient then clientFound = true end
 			end
-			if (DD.clientJob[client] == nil) and clientFound and (jobsLeft[job] > 0) and jobSet[job] and clientPreferredJobsSet[client][job] and (not DD.isClientBannedFromJob(client, job)) then
+			if (DD.clientJob[client] == nil) and clientFound and jobSet[job] and (jobsLeft[job] > 0) and clientPreferredJobsSet[client][job] and (not DD.isClientBannedFromJob(client, job)) then
 				assignClientJob(client, job)
 			end
 		end
