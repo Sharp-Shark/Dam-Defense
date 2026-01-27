@@ -1544,12 +1544,12 @@
         <RequiredSkill identifier="weapons" level="50" />
       </RangedWeapon>
       <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
-        <Containable items="smgammo" hide="false" itempos="8,-2" rotation="-25" />
+        <Containable items="smgammo" hide="false" itempos="8,-5" rotation="0" />
         <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
         <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
         <SubContainer capacity="1" maxstacksize="1">
-          <Containable items="divingflashlight" hide="false" itempos="3,19.5" setactive="true" />
-          <Containable items="flashlight" hide="false" itempos="3,14" setactive="true" />
+          <Containable items="divingflashlight" hide="false" itempos="-4.5,19.5" setactive="true" />
+          <Containable items="flashlight" hide="false" itempos="-4.5,14" setactive="true" />
         </SubContainer>
       </ItemContainer>
       <aitarget sightrange="2000" soundrange="4000" fadeouttime="5" />
