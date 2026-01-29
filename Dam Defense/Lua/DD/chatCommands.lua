@@ -301,8 +301,8 @@ DD.chatMessageFunctions.fire = function (message, sender)
 			if DD.isClientCharacterAlive(client) then
 				local character = client.Character
 				if (character.SpeciesName == 'human') and DD.isCharacterSecurity(character) and (client.Name == targetName) then
-					targetClient = character
-					targetCharacter = client
+					targetClient = client
+					targetCharacter = character
 					break
 				end
 			end

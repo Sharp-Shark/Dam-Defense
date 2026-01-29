@@ -2,7 +2,7 @@
 <Items>
   <!-- trash bag -->
   <Item name="Trash Bag" identifier="trashbag" category="Equipment,Misc" Tags="smallitem" scale="0.5" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
-    <Sprite texture="trashbag.png" depth="0.5" sourcerect="0,0,72,120" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/trashbag.png" depth="0.5" sourcerect="0,0,72,120" origin="0.5,0.5" />
     <Body width="35" height="100" density="20" />
     <Fabricate suitablefabricators="fabricator" requiredtime="10" requiresrecipe="true">
       <RequiredSkill identifier="helm" level="0" />
@@ -31,13 +31,13 @@
   </Item>
   <!-- money -->
   <Item name="Nexcredit" identifier="money" category="Equipment,Misc" maxstacksize="50" maxstacksizecharacterinventory="10" Tags="smallitem,money,realmoney" scale="0.35" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
-    <Sprite texture="wallet.png" depth="0.5" sourcerect="0,0,64,32" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/wallet.png" depth="0.5" sourcerect="0,0,64,32" origin="0.5,0.5" />
     <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
     <Body width="16" height="12" density="20" />
   </Item>
   <!-- fake money -->
   <Item name="Counterfeit Nexcredit" identifier="fakemoney" category="Equipment,Misc" maxstacksize="50" maxstacksizecharacterinventory="10" Tags="smallitem,money,fakemoney" scale="0.35" inventoryiconcolor="255,255,255,255" spritecolor="255,255,255" cargocontaineridentifier="metalcrate">
-    <Sprite texture="wallet.png" depth="0.5" sourcerect="64,0,64,32" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/wallet.png" depth="0.5" sourcerect="64,0,64,32" origin="0.5,0.5" />
     <Deconstruct time="2">
       <RequiredItem identifier="carbon" />
     </Deconstruct>
@@ -50,7 +50,7 @@
   </Item>
   <!-- storage container but only for money -->
   <Item name="Nexcase" identifier="moneycase" category="Equipment,Misc" tags="mediumitem,mobilecontainer,tool" cargocontaineridentifier="" showcontentsintooltip="true" Scale="0.5" fireproof="true" description="" impactsoundtag="impact_metal_heavy" RequireAimToUse="True">
-    <Sprite texture="wallet.png" sourcerect="65,33,86,71" origin="0.48,0.5" depth="0.6" />
+    <Sprite texture="%ModDir%/Items/wallet.png" sourcerect="65,33,86,71" origin="0.48,0.5" depth="0.6" />
     <Body width="90" height="60" density="20" />
     <MeleeWeapon slots="RightHand,LeftHand" controlpose="true" aimpos="45,10" handle1="0,18" holdangle="90" reload="1" range="50" combatpriority="6" msg="ItemMsgPickUpSelect" DisableWhenRangedWeaponEquipped="true">
       <Attack structuredamage="0" itemdamage="1" targetimpulse="2">
@@ -158,7 +158,7 @@
         <Price storeidentifier="merchantoutpost" minavailable="4" />
         <Price storeidentifier="merchantcity" minavailable="6" />
       </Price>
-      <Sprite texture="wallet.png" depth="0.5" sourcerect="0,33,64,55" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/wallet.png" depth="0.5" sourcerect="0,33,64,55" origin="0.5,0.5" />
       <Body width="16" height="12" density="20" />
       <IdCard slots="Card,Any" msg="ItemMsgPickUpSelect" />
       <ItemContainer capacity="2" maxstacksize="50" hideitems="false">
@@ -201,12 +201,12 @@
         <RequiredItem identifier="steel" />
         <RequiredItem identifier="tin" />
       </Fabricate>
-      <InventoryIcon texture="launcher.png" sourcerect="0,92,200,92" origin="0.5,0.5" />
-      <Sprite texture="launcher.png" sourcerect="0,0,200,92" depth="0.55" origin="0.5,0.5" />
+      <InventoryIcon texture="%ModDir%/Items/launcher.png" sourcerect="0,92,200,92" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/launcher.png" sourcerect="0,0,200,92" depth="0.55" origin="0.5,0.5" />
       <Body width="170" height="40" density="25" />
       <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="40,-20" aimpos="45,-10" handle1="-45,-24" handle2="26,5" holdangle="-25" />
       <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-        <sprite name="Grenade Launcher Worn" texture="launcher.png" sourcerect="0,92,200,92" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.5,1.0" />
+        <sprite name="Grenade Launcher Worn" texture="%ModDir%/Items/launcher.png" sourcerect="0,92,200,92" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.5,1.0" />
       </Wearable>
       <RangedWeapon barrelpos="80,-6" reload="1.0" spread="1" unskilledspread="10" combatPriority="75" drawhudwhenequipped="true" crosshairscale="0.2">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
@@ -556,8 +556,8 @@
         <Price storeidentifier="merchantarmory" multiplier="1.25" minavailable="1" />
       </Price>
       <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="64,64,64,64" />-->
-      <InventoryIcon texture="flamer.png" sourcerect="0,0,216,92" />
-      <Sprite texture="flamer.png" sourcerect="0,0,216,92" depth="0.55" origin="0.5,0.5" />
+      <InventoryIcon texture="%ModDir%/Items/flamer.png" sourcerect="0,0,216,92" />
+      <Sprite texture="%ModDir%/Items/flamer.png" sourcerect="0,0,216,92" depth="0.55" origin="0.5,0.5" />
       <!-- the item takes 10 seconds to break down in a deconstructor and turns into steel and plastic -->
       <Deconstruct time="30">
         <Item identifier="steel" />
@@ -1283,11 +1283,11 @@
         <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
         <RequiredItem identifier="plastic" amount="2" />
       </Fabricate>
-      <Sprite texture="jetshotgun.png" sourcerect="0,0,216,60" depth="0.55" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/jetshotgun.png" sourcerect="0,0,216,60" depth="0.55" origin="0.5,0.5" />
       <Body width="180" height="30" density="25" />
       <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="30,-50" aimpos="60,-10" handle1="-35,-5" handle2="20,5" holdangle="-10" msg="ItemMsgPickUpSelect" />
       <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-        <sprite texture="jetshotgun.png" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" sourcerect="0,0,216,60" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.45,0.88" />
+        <sprite texture="%ModDir%/Items/jetshotgun.png" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" sourcerect="0,0,216,60" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.45,0.88" />
       </Wearable>
       <RangedWeapon barrelpos="70,12" spread="0.1" unskilledspread="3" combatPriority="80" reload="0.9" drawhudwhenequipped="true" crosshairscale="0.2">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
@@ -1425,11 +1425,11 @@
         <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
         <RequiredItem identifier="plastic" amount="2" />
       </Fabricate>
-      <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="254,2,200,55" depth="0.55" origin="0.5,0.25" />
-      <Body width="190" height="50" density="25" />
-      <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="40,-10" aimpos="55,5" handle1="-25,-16" handle2="26,0" holdangle="-40" msg="ItemMsgPickUpSelect" />
+      <Sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,128,223,56" depth="0.55" origin="0.5,0.25" />
+      <Body width="223" height="56" density="25" />
+      <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="50,-15" aimpos="65,0" handle1="-62,-18" handle2="-13,-3" holdangle="-20" msg="ItemMsgPickUpSelect" />
       <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-        <sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="254,2,200,55" canbehiddenbyotherwearables="false" rotation="85" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.9" />
+        <sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,128,223,56" canbehiddenbyotherwearables="false" rotation="85" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.8" />
       </Wearable>
       <ItemComponent characterusable="true">
         <!-- define this here, because it won't work in RangedWeapon:
@@ -1441,7 +1441,7 @@
           <Sound file="Content/Items/Weapons/WEAPON_rifleGrenadeShot3.ogg" type="OnUse" range="1000" />
         </StatusEffect>
       </ItemComponent>
-      <RangedWeapon barrelpos="80,0" weapondamagemodifier="1.2" unskilledspread="2" combatPriority="70" reload="1.2" reloadnoskill="1.2" reloadskillrequirement="0" drawhudwhenequipped="true" crosshairscale="0.15">
+      <RangedWeapon barrelpos="85,2" weapondamagemodifier="1.2" spread="0" unskilledspread="2" combatPriority="70" reload="1.2" reloadnoskill="1.2" reloadskillrequirement="0" drawhudwhenequipped="true" crosshairscale="0.15">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
         <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
         <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -1453,18 +1453,18 @@
           <Explosion range="150.0" force="2.0" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="2.0" />
         </StatusEffect>
         <!-- Cocking sound, delayed by varied seconds. -->
-        <StatusEffect type="OnUse" delay="1" target="Character" forceplaysounds="true">
+        <StatusEffect type="OnUse" delay="0.7" target="Character" forceplaysounds="true">
           <Conditional skillrequirement="true" weapons="gte 50" />
           <Sound file="Content/Items/Weapons/WEAPON_rifleReload50-_1.ogg" type="OnUse" range="500" selectionmode="Random" />
           <Sound file="Content/Items/Weapons/WEAPON_rifleReload50-_2.ogg" type="OnUse" range="500" />
         </StatusEffect>
-        <StatusEffect type="OnUse" delay="1" target="Character" comparison="and" forceplaysounds="true">
+        <StatusEffect type="OnUse" delay="0.7" target="Character" comparison="and" forceplaysounds="true">
           <Conditional skillrequirement="true" weapons="lt 50" />
           <Conditional skillrequirement="true" weapons="gte 20" />
           <Sound file="Content/Items/Weapons/WEAPON_rifleReload20-50_1.ogg" type="OnUse" range="500" selectionmode="Random" />
           <Sound file="Content/Items/Weapons/WEAPON_rifleReload20-50_2.ogg" type="OnUse" range="500" />
         </StatusEffect>
-        <StatusEffect type="OnUse" delay="1" target="Character" forceplaysounds="true">
+        <StatusEffect type="OnUse" delay="0.7" target="Character" forceplaysounds="true">
           <Conditional skillrequirement="true" weapons="lt 20" />
           <Sound file="Content/Items/Weapons/WEAPON_rifleReload0-20_1.ogg" type="OnUse" range="500" selectionmode="Random" />
           <Sound file="Content/Items/Weapons/WEAPON_rifleReload0-20_2.ogg" type="OnUse" range="500" />
@@ -1481,8 +1481,8 @@
           <Containable items="rifleammo" hide="true" />
         </SubContainer>
         <SubContainer capacity="1" maxstacksize="1">
-          <Containable items="flashlight" hide="false" itempos="30,-3" setactive="true" />
-          <Containable items="scope" hide="false" itempos="-5,7">
+          <Containable items="flashlight" hide="false" itempos="30,-4" setactive="true" />
+          <Containable items="scope" hide="false" itempos="-17,7">
             <StatusEffect type="OnContaining" target="This" cameraaimoffset="500" setvalue="true" interval="1"/>
             <StatusEffect type="OnRemoved" target="This" cameraaimoffset="0" setvalue="true"/>
           </Containable>
@@ -1518,8 +1518,8 @@
         <Item identifier="plastic" />
         <Item identifier="titaniumaluminiumalloy" />
       </Deconstruct>
-      <InventoryIcon texture="jetshotgun.png" sourcerect="56,120,112,52" depth="0.55" origin="0.5,0.5" />
-      <Sprite texture="jetshotgun.png" sourcerect="0,64,224,52" depth="0.55" origin="0.5,0.5" />
+      <InventoryIcon texture="%ModDir%/Items/jetshotgun.png" sourcerect="56,120,112,52" depth="0.55" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/jetshotgun.png" sourcerect="0,64,224,52" depth="0.55" origin="0.5,0.5" />
       <Body width="140" height="60" density="25" />
       <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="60,-5" handle1="-52,-12" handle2="50,5" holdangle="-30" msg="ItemMsgPickUpSelect" />
       <RangedWeapon reload="0.18" weapondamagemodifier="1" holdtrigger="true" barrelpos="45,9" spread="10" unskilledspread="16" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2">
@@ -2204,12 +2204,12 @@
         <Item identifier="plastic" />
         <Item identifier="rubber" />
       </Deconstruct>
-      <InventoryIcon texture="mercsrifle.png" sourcerect="52,96,172,80" depth="0.55" origin="0.5,0.5" />
-      <Sprite texture="mercsrifle.png" sourcerect="0,0,224,80" depth="0.55" origin="0.5,0.5" />
+      <InventoryIcon texture="%ModDir%/Items/mercsrifle.png" sourcerect="52,96,172,80" depth="0.55" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/mercsrifle.png" sourcerect="0,0,224,80" depth="0.55" origin="0.5,0.5" />
       <Body width="220" height="50" density="25" />
       <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="57,-5" handle1="-40,-18" handle2="26,10" holdangle="-30" />
       <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-        <sprite name="MERCS Rifle Worn" texture="mercsrifle.png" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" sourcerect="0,0,224,80" limb="Torso" ignorelimbscale="true" scale="0.52" origin="0.45,0.85" />
+        <sprite name="MERCS Rifle Worn" texture="%ModDir%/Items/mercsrifle.png" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" sourcerect="0,0,224,80" limb="Torso" ignorelimbscale="true" scale="0.52" origin="0.45,0.85" />
       </Wearable>
       <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="95,3" spread="2" unskilledspread="8" combatPriority="120" drawhudwhenequipped="true" crosshairscale="0.2">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
@@ -3374,7 +3374,7 @@
       <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,418,76,41" depth="0.55" origin="0.5,0.5" />
       <Body width="72" height="40" density="25" />
       <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="70,5" handle1="-25,-7" msg="ItemMsgPickUpSelect" />
-      <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.5">
+      <RangedWeapon barrelpos="29,11" spread="0.1" unskilledspread="6" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.5" DualWieldReloadTimePenaltyMultiplier="1.75" DualWieldAccuracyPenalty="8">
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
         <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
         <Sound file="Content/Items/Weapons/Revolver1.ogg" type="OnUse" range="3000" selectionmode="Random" />
@@ -4203,6 +4203,57 @@
   </Override>
   <!-- end of overrides -->
 
+    <!-- revolver carbine by paslg -->
+    <Item name="Revolver Carbine" identifier="revolvercarbine" category="Weapon" cargocontaineridentifier="metalcrate" tags="smallitem,weapon,gun,pistolitem,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
+      <PreferredContainer secondary="outpostsecarmcab" amount="1" spawnprobability="0.5" />
+      <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab" amount="1" spawnprobability="0.25" />
+      <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+      <Price baseprice="150">
+        <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+        <Price storeidentifier="merchantcity" multiplier="1.25" sold="false" minavailable="1" />
+        <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+        <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+        <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+        <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+      </Price>
+      <Deconstruct time="10">
+        <Item identifier="revolver" />
+        <Item identifier="plastic" />
+      </Deconstruct>
+      <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="false">
+        <RequiredSkill identifier="weapons" level="20" />
+        <RequiredItem identifier="revolver" />
+        <RequiredItem identifier="steel" />
+        <RequiredItem identifier="plastic" />
+      </Fabricate>
+      <Sprite texture="%ModDir%/Items/revolvercarbine.png" sourcerect="0,0,200,56" origin="0.5,0.5" />
+      <Body width="200" height="56" density="25" />
+      <Holdable slots="Any,RightHand+LeftHand" controlpose="true"  holdpos="50,-15" aimpos="60,0" handle1="-45,-14" handle2="-5,5" holdangle="-20" msg="ItemMsgPickUpSelect" cameraaimoffset="500" />
+      <RangedWeapon barrelpos="64,0" damagemultiplier="1.1" penetration="0.1" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.5">
+        <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+        <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+        <Sound file="Content/Items/Weapons/Revolver1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="Content/Items/Weapons/Revolver2.ogg" type="OnUse" range="3000" />
+        <Sound file="Content/Items/Weapons/Revolver3.ogg" type="OnUse" range="3000" />
+        <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+        <StatusEffect type="OnUse" target="This">
+          <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+          <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
+        </StatusEffect>
+        <RequiredItems items="revolverammo" type="Contained" msg="ItemMsgAmmoRequired" />
+        <RequiredSkill identifier="weapons" level="40" />
+      </RangedWeapon>
+      <ItemContainer capacity="1" maxstacksize="6" hideitems="true" containedstateindicatorstyle="bullet">
+        <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+        <Containable items="revolverammo" />
+      </ItemContainer>
+      <aitarget sightrange="2000" soundrange="5000" fadeouttime="5" />
+      <Quality>
+        <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+      </Quality>
+      <Upgrade gameversion="0.10.0.0" scale="0.5" />
+      <SkillRequirementHint identifier="weapons" level="40" />
+    </Item>
     <!-- 40mm rubber round -->
     <Item name="" identifier="40mmrubberround" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,grenade" Scale="0.5" impactsoundtag="impact_metal_light">
       <PreferredContainer primary="grenadelauncher" amount="6" spawnprobability="1" />
@@ -4228,8 +4279,8 @@
         <RequiredItem identifier="rubber" />
         <RequiredItem identifier="phosphorus" />
       </Fabricate>
-      <InventoryIcon texture="launcher.png" sourcerect="200,0,64,64" origin="0.5,0.5" />
-      <Sprite texture="launcher.png" sourcerect="200,64,41,17" depth="0.55" origin="0.5,0.5" />
+      <InventoryIcon texture="%ModDir%/Items/launcher.png" sourcerect="200,0,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/launcher.png" sourcerect="200,64,41,17" depth="0.55" origin="0.5,0.5" />
       <Body width="38" height="15" density="30" />
       <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
       <Projectile characterusable="false" launchimpulse="25.0" sticktocharacters="false">
@@ -4260,8 +4311,8 @@
         <RequiredItem identifier="plastic" />
         <RequiredItem identifier="phosphorus" />
       </Fabricate>
-      <InventoryIcon texture="launcher.png" sourcerect="200,80,64,64" origin="0.5,0.5" />
-      <Sprite texture="launcher.png" sourcerect="200,144,41,17" depth="0.55" origin="0.5,0.5" />
+      <InventoryIcon texture="%ModDir%/Items/launcher.png" sourcerect="200,80,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/launcher.png" sourcerect="200,144,41,17" depth="0.55" origin="0.5,0.5" />
       <Body width="38" height="15" density="30" />
       <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
       <Projectile characterusable="false" launchimpulse="10.0" sticktocharacters="false">
@@ -4503,8 +4554,8 @@
       <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
       <RequiredItem identifier="incendium" amount="1" />
     </Fabricate>
-    <InventoryIcon texture="flamer.png" sourcerect="216,192,64,64" origin="0.5,0.5" />
-    <Sprite texture="flamer.png" sourcerect="0,92,175,82" depth="0.55" origin="0.5,0.2" />
+    <InventoryIcon texture="%ModDir%/Items/flamer.png" sourcerect="216,192,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/flamer.png" sourcerect="0,92,175,82" depth="0.55" origin="0.5,0.2" />
     <Body width="161" height="20" density="25" />
     <LightComponent range="100.0" lightcolor="240,80,20,192" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" flickerspeed="0.4" flicker="0.2" pulsefrequency="0.8" pulseamount="0.1" allowingameediting="false" />
     <MeleeWeapon slots="Any,RightHand+LeftHand" aimpos="50,10" handle1="-22,-2" handle2="-32,-2" holdangle="30" aimangle="10" reload="0.8" range="155" combatPriority="40" msg="ItemMsgPickUpSelect">
@@ -4543,7 +4594,7 @@
       <RequiredItem identifier="lead" />
       <RequiredItem identifier="steel" />
     </Fabricate>
-    <Sprite texture="launcher.png" sourcerect="0,184,208,84" depth="0.55" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/launcher.png" sourcerect="0,184,208,84" depth="0.55" origin="0.5,0.5" />
     <Body width="238" height="63" density="25" />
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="30,-25" aimpos="62,-8" handle1="-50,-25" handle2="0,-5" holdangle="-5">
       <StatusEffect type="OnSpawn" target="This" targetitemcomponent="ItemContainer">
@@ -4555,7 +4606,7 @@
       </StatusEffect>
     </Holdable>
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite name="Displacer Cannon Worn" texture="launcher.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,184,208,84" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.6,0.8" />
+      <sprite name="Displacer Cannon Worn" texture="%ModDir%/Items/launcher.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,184,208,84" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.6,0.8" />
     </Wearable>
     <LightComponent range="80.0" lightcolor="70,200,250" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" flickerspeed="0.4" flicker="0.2" pulsefrequency="0.8" pulseamount="0.1" allowingameediting="false" />
     <RangedWeapon reload="0.5" holdtrigger="true" barrelpos="95,5" spread="0" unskilledspread="10" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2" maxchargetime="2.0" ChargeSoundWindupPitchSlide="0.5,2.0">
@@ -4635,26 +4686,26 @@
       <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="fakemoney" amount="5" />
     </Fabricate>
-    <InventoryIcon name="Uniform Icon" texture="hazmatsuit.png" sourcerect="416,111,128,110" origin="0.5,0.5" />
-    <Sprite texture="hazmatsuit.png" sourcerect="420,221,124,67" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon name="Uniform Icon" texture="%ModDir%/Items/hazmatsuit.png" sourcerect="416,111,128,110" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/hazmatsuit.png" sourcerect="420,221,124,67" depth="0.6" origin="0.5,0.5" />
     <Body width="100" height="50" density="15" friction="0.8" restitution="0.01" />
     <Wearable slots="Any,InnerClothes+Head" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="0.8" HideFace="true" setvalue="true" disabledeltatime="true" />
-      <sprite name="Uniform Head" texture="hazmatsuit.png" sourcerect="416,0,113,111" origin="0.4,0.52" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
-      <sprite name="Uniform Torso" texture="hazmatsuit.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Right Hand" texture="hazmatsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Left Hand" texture="hazmatsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Left Lower Arm" texture="hazmatsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Right Lower Arm" texture="hazmatsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Left Upper Arm" texture="hazmatsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Right Upper Arm" texture="hazmatsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Waist" texture="hazmatsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Right Thigh" texture="hazmatsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Left Thigh" texture="hazmatsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Right Leg" texture="hazmatsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Left Leg" texture="hazmatsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Right Shoe" texture="hazmatsuit.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Uniform Left Shoe" texture="hazmatsuit.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Head" texture="%ModDir%/Items/hazmatsuit.png" sourcerect="416,0,113,111" origin="0.4,0.52" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
+      <sprite name="Uniform Torso" texture="%ModDir%/Items/hazmatsuit.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Hand" texture="%ModDir%/Items/hazmatsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Hand" texture="%ModDir%/Items/hazmatsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Lower Arm" texture="%ModDir%/Items/hazmatsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Lower Arm" texture="%ModDir%/Items/hazmatsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Upper Arm" texture="%ModDir%/Items/hazmatsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Upper Arm" texture="%ModDir%/Items/hazmatsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Waist" texture="%ModDir%/Items/hazmatsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Thigh" texture="%ModDir%/Items/hazmatsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Thigh" texture="%ModDir%/Items/hazmatsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Leg" texture="%ModDir%/Items/hazmatsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Leg" texture="%ModDir%/Items/hazmatsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Right Shoe" texture="%ModDir%/Items/hazmatsuit.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Uniform Left Shoe" texture="%ModDir%/Items/hazmatsuit.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,bleeding" damagemultiplier="0.9" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="burn" damagemultiplier="0.5" damagesound="" deflectprojectiles="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.05" damagesound="LimbArmor" />
@@ -4981,8 +5032,8 @@
     <Deconstruct time="10">
       <Item identifier="carbon" />
     </Deconstruct>
-    <InventoryIcon texture="book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
-    <Sprite texture="book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
     <Body width="28" height="36" density="20" />
     <Holdable slots="Any,LeftHand" aimable="false" aimpos="40,-20" handle1="5,0" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect" />
   </Item>
@@ -4991,8 +5042,8 @@
     <Deconstruct time="10">
       <Item identifier="carbon" />
     </Deconstruct>
-    <InventoryIcon texture="book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
-    <Sprite texture="book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
     <Body width="28" height="36" density="20" />
     <Holdable slots="Any,LeftHand" aimable="false" aimpos="40,-20" handle1="5,0" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect" />
   </Item>
@@ -5001,8 +5052,8 @@
     <Deconstruct time="10">
       <Item identifier="carbon" />
     </Deconstruct>
-    <InventoryIcon texture="book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
-    <Sprite texture="book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
     <Body width="28" height="36" density="20" />
     <Holdable slots="Any,LeftHand" aimable="false" aimpos="40,-20" handle1="5,0" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect" />
   </Item>
@@ -5011,8 +5062,8 @@
     <Deconstruct time="10">
       <Item identifier="carbon" />
     </Deconstruct>
-    <InventoryIcon texture="book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
-    <Sprite texture="book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
     <Body width="28" height="36" density="20" />
     <Holdable slots="Any,LeftHand" aimable="false" aimpos="40,-20" handle1="5,0" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect" />
   </Item>
@@ -5021,8 +5072,8 @@
     <Deconstruct time="10">
       <Item identifier="carbon" />
     </Deconstruct>
-    <InventoryIcon texture="book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
-    <Sprite texture="book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/book.png" sourcerect="33,112,39,56" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/book.png" sourcerect="0,112,32,39" depth="0.6" origin="0.5,0.5" />
     <Body width="28" height="36" density="20" />
     <Holdable slots="Any,LeftHand" aimable="false" aimpos="40,-20" handle1="5,0" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect" />
   </Item>
@@ -5101,7 +5152,7 @@
     </Projectile>
   </Item>
   <Item name="Gift" identifier="merasmusgift" category="Misc" Tags="mediumitem,merasmusitem,merasmusspell" Scale="0.5" impactsoundtag="impact_metal_light" isshootable="true" RequireAimToUse="True">
-    <Sprite texture="santa.png" sourcerect="764,0,128,134" depth="0.55" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/santa.png" sourcerect="764,0,128,134" depth="0.55" origin="0.5,0.5" />
     <Body width="128" height="134" density="15" />
     <Holdable slots="RightHand+LeftHand" aimpos="60,0" holdpos="45,-35" handle1="0,-55" handle2="0,-15" aimable="true" displaycontainedstatus="true">
       <StatusEffect type="OnUse" targettype="This" Stackable="false">
@@ -5119,7 +5170,7 @@
     </Projectile>
   </Item>
   <Item name="Gift" identifier="merasmusgiftbomb" category="Misc" Tags="mediumitem,merasmusitem,merasmusspell" Scale="0.5" impactsoundtag="impact_metal_light" isshootable="true" RequireAimToUse="True">
-    <Sprite texture="santa.png" sourcerect="764,0,128,134" depth="0.55" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/santa.png" sourcerect="764,0,128,134" depth="0.55" origin="0.5,0.5" />
     <Body width="128" height="134" density="15" />
     <Holdable slots="RightHand+LeftHand" holdangle="0" aimpos="55,0" holdpos="45,-15" handle1="0,-55" handle2="0,-15" aimable="true" displaycontainedstatus="true">
       <StatusEffect type="OnUse" targettype="This" Stackable="false">
@@ -5170,7 +5221,7 @@
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
     </Fabricate>
-    <Sprite name="Diving Helmet" texture="headgears.png" sourcerect="192,0,96,92" depth="0.6" origin="0.5,0.5" />
+    <Sprite name="Diving Helmet" texture="%ModDir%/Items/headgears.png" sourcerect="192,0,96,92" depth="0.6" origin="0.5,0.5" />
     <Body radius="45" density="25" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
@@ -5190,7 +5241,7 @@
       <damagemodifier afflictionidentifiers="bitewounds, gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
-      <sprite name="Diving Mask wearable" texture="headgears.png" sourcerect="192,0,96,92" depth="0.6" origin="0.48,0.65" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
+      <sprite name="Diving Mask wearable" texture="%ModDir%/Items/headgears.png" sourcerect="192,0,96,92" depth="0.6" origin="0.48,0.65" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
     </Wearable>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
@@ -5232,7 +5283,7 @@
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
     </Fabricate>
-    <Sprite name="Diving Helmet" texture="headgears.png" sourcerect="96,0,96,92" depth="0.6" origin="0.5,0.5" />
+    <Sprite name="Diving Helmet" texture="%ModDir%/Items/headgears.png" sourcerect="96,0,96,92" depth="0.6" origin="0.5,0.5" />
     <Body radius="45" density="25" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
@@ -5252,7 +5303,7 @@
       <damagemodifier afflictionidentifiers="bitewounds, gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
-      <sprite name="Diving Mask wearable" texture="headgears.png" sourcerect="96,0,96,92" depth="0.6" origin="0.48,0.65" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
+      <sprite name="Diving Mask wearable" texture="%ModDir%/Items/headgears.png" sourcerect="96,0,96,92" depth="0.6" origin="0.48,0.65" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
     </Wearable>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
@@ -5294,7 +5345,7 @@
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
     </Fabricate>
-    <Sprite name="Constable Helmet" texture="headgears.png" sourcerect="96,93,96,107" depth="0.6" origin="0.5,0.5" />
+    <Sprite name="Constable Helmet" texture="%ModDir%/Items/headgears.png" sourcerect="96,93,96,107" depth="0.6" origin="0.5,0.5" />
     <Body radius="45" density="25" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
@@ -5314,7 +5365,7 @@
       <damagemodifier afflictionidentifiers="bitewounds, gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
-      <sprite name="Constable Mask wearable" texture="headgears.png" sourcerect="96,93,96,107" depth="0.6" origin="0.48,0.7" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
+      <sprite name="Constable Mask wearable" texture="%ModDir%/Items/headgears.png" sourcerect="96,93,96,107" depth="0.6" origin="0.48,0.7" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
     </Wearable>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
@@ -5326,7 +5377,7 @@
       </Containable>
     </ItemContainer>
   </Item>
-  <Item name="Hog Helmet" identifier="constablehoghelmet" scale="0.5" category="Diving,Equipment" Tags="smallitem,diving,lightdiving" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy">
+  <Item name="Hog Helmet" identifier="constablehoghelmet" scale="0.5" category="Equipment" Tags="smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy">
     <Deconstruct time="10">
       <Item identifier="ballisticfiber" />
       <Item identifier="ballisticfiber" />
@@ -5424,7 +5475,7 @@
       <RequiredItem identifier="fpgacircuit" amount="1" />
       <RequiredItem identifier="divingmask" />
     </Fabricate>
-    <Sprite name="Hard Hat" texture="headgears.png" sourcerect="0,0,96,92" depth="0.6" origin="0.5,0.5" />
+    <Sprite name="Hard Hat" texture="%ModDir%/Items/headgears.png" sourcerect="0,0,96,92" depth="0.6" origin="0.5,0.5" />
     <Body radius="45" density="25" />
     <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
@@ -5443,7 +5494,7 @@
       <damagemodifier afflictionidentifiers="lacerations,bitewounds,blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
-      <sprite name="Hard Hat Wearable" texture="headgears.png" sourcerect="0,0,96,92" origin="0.48,0.65" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
+      <sprite name="Hard Hat Wearable" texture="%ModDir%/Items/headgears.png" sourcerect="0,0,96,92" origin="0.48,0.65" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
     </Wearable>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
@@ -5482,7 +5533,7 @@
       <RequiredItem identifier="fpgacircuit" amount="1" />
       <RequiredItem identifier="divingmask" />
     </Fabricate>
-    <Sprite name="Hard Hat" texture="headgears.png" sourcerect="192,92,96,92" depth="0.6" origin="0.5,0.5" />
+    <Sprite name="Hard Hat" texture="%ModDir%/Items/headgears.png" sourcerect="192,92,96,92" depth="0.6" origin="0.5,0.5" />
     <Body radius="45" density="25" />
     <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
@@ -5501,7 +5552,7 @@
       <damagemodifier afflictionidentifiers="lacerations,bitewounds,blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
-      <sprite name="Hard Hat Wearable" texture="headgears.png" sourcerect="192,92,96,92" origin="0.48,0.65" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
+      <sprite name="Hard Hat Wearable" texture="%ModDir%/Items/headgears.png" sourcerect="192,92,96,92" origin="0.48,0.65" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
     </Wearable>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
@@ -5538,7 +5589,7 @@
       <RequiredItem identifier="steel" amount="1" />
       <RequiredItem identifier="divingmask" />
     </Fabricate>
-    <Sprite name="Hard Hat" texture="headgears.png" sourcerect="0,92,96,92" depth="0.6" origin="0.5,0.5" />
+    <Sprite name="Hard Hat" texture="%ModDir%/Items/headgears.png" sourcerect="0,92,96,92" depth="0.6" origin="0.5,0.5" />
     <Body radius="45" density="25" />
     <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
@@ -5557,7 +5608,7 @@
       <damagemodifier afflictionidentifiers="lacerations,bitewounds,blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
-      <sprite name="Hard Hat Wearable" texture="headgears.png" sourcerect="0,92,96,92" origin="0.48,0.65" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
+      <sprite name="Hard Hat Wearable" texture="%ModDir%/Items/headgears.png" sourcerect="0,92,96,92" origin="0.48,0.65" depth="0.6" scale="0.7" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" hidelimb="false" hideotherwearables="false" hidewearablesoftype="Hair,moustache,beard" />
     </Wearable>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
@@ -5588,7 +5639,7 @@
       <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="5" />
     </Fabricate>
-    <Sprite name="Oxygen Mask" texture="headgears.png" sourcerect="336,46,72,62" depth="0.6" origin="0.45,0.5" />
+    <Sprite name="Oxygen Mask" texture="%ModDir%/Items/headgears.png" sourcerect="336,46,72,62" depth="0.6" origin="0.45,0.5" />
     <Body radius="25" density="25" />
     <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" disabledeltatime="true" />
@@ -5603,15 +5654,15 @@
       <StatusEffect type="OnBroken" target="This">
         <Remove />
       </StatusEffect>
-      <sprite name="Oxygen Mask" texture="headgears.png" sourcerect="288,0,120,108" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidewearablesoftype="moustache,beard" origin="0.384,0.553" />
+      <sprite name="Oxygen Mask" texture="%ModDir%/Items/headgears.png" sourcerect="288,0,120,108" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidewearablesoftype="moustache,beard" origin="0.384,0.553" />
     </Wearable>
   </Item>
   <!-- serial killer mask -->
   <Item name="Creepy Mask" identifier="creepymask" category="Equipment,Misc" cargocontaineridentifier="metalcrate" tags="smallitem,clownmask,clowns" description="" scale="0.5">
-    <Sprite texture="headgears.png" depth="0.6" sourcerect="453,18,36,53" origin="0.5,0.5" scale="0.5" />
+    <Sprite texture="%ModDir%/Items/headgears.png" depth="0.6" sourcerect="453,18,36,53" origin="0.5,0.5" scale="0.5" />
     <Body width="40" radius="30" density="15" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect">
-      <sprite name="Creepy Mask Wearable" texture="headgears.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.75" sourcerect="411,0,89,71" origin="0.5,0.6" />
+      <sprite name="Creepy Mask Wearable" texture="%ModDir%/Items/headgears.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.75" sourcerect="411,0,89,71" origin="0.5,0.6" />
       <StatusEffect type="OnWearing" target="Character" HideFace="true" duration="0.1" stackable="false" />
       <!-- if wearer is not a serial killer -->
       <StatusEffect type="OnWearing" target="Character">
@@ -5624,8 +5675,8 @@
   <!-- Wifi Trigger -->
   <!-- Handheld item that when used sends a wifi signal -->
   <Item name="Wifi Trigger" identifier="wifitrigger" category="Equipment,Electrical" Tags="smallitem,tool,simpletool,mechanicalrepairtool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light" isshootable="true" RequireAimToUse="True">
-    <InventoryIcon texture="trigger.png" sourcerect="38,30,50,60" origin="0.63,0.45" />
-    <Sprite texture="trigger.png" sourcerect="0,0,38,90" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/trigger.png" sourcerect="38,30,50,60" origin="0.63,0.45" />
+    <Sprite texture="%ModDir%/Items/trigger.png" sourcerect="0,0,38,90" depth="0.55" origin="0.5,0.5" />
     <Deconstruct time="10">
       <Item identifier="wificomponent" />
     </Deconstruct>
@@ -5726,8 +5777,8 @@
       <Item identifier="titaniumaluminiumalloy" amount="1" />
       <Item identifier="steel" amount="1" />
     </Deconstruct>
-    <InventoryIcon texture="antiquerevolver.png" sourcerect="108,0,64,64" origin="0.5,0.5" />
-    <Sprite texture="antiquerevolver.png" sourcerect="0,0,108,60" depth="0.55" origin="0.5,0.6" />
+    <InventoryIcon texture="%ModDir%/Items/antiquerevolver.png" sourcerect="108,0,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/antiquerevolver.png" sourcerect="0,0,108,60" depth="0.55" origin="0.5,0.6" />
     <Body width="106" height="49" density="30" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="90,10" handle1="-45,-4" handle2="-45,-15" msg="ItemMsgPickUpSelect" />
     <RangedWeapon reload="1.0" maxchargetime="0.5" weapondamagemodifier="1.5" barrelpos="40,6" spread="0" unskilledspread="8" combatPriority="90" drawhudwhenequipped="true" crosshairscale="0.2">
@@ -5797,8 +5848,8 @@
       <RequiredItem identifier="steel" amount="3" />
       <RequiredItem identifier="copper" />
     </Fabricate>
-    <InventoryIcon texture="foldableshotgun.png" sourcerect="0,56,112,72" origin="0.5,0.5" />
-    <Sprite texture="foldableshotgun.png" sourcerect="0,0,220,56" depth="0.55" origin="0.5,0.25" />
+    <InventoryIcon texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,56,112,72" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,0,220,56" depth="0.55" origin="0.5,0.25" />
     <Body width="180" height="30" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="40,-10" aimpos="55,-8" handle1="-40,-18" handle2="25,0" holdangle="-40" msg="ItemMsgPickUpSelect" />
     <RangedWeapon barrelpos="80,-15" spread="0.1" unskilledspread="3" combatPriority="80" weapondamagemodifier="1.15" reload="1" drawhudwhenequipped="true" crosshairscale="0.2">
@@ -5857,8 +5908,8 @@
       <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
       <RequiredItem identifier="plastic" />
     </Fabricate>
-    <InventoryIcon texture="foldableshotgun.png" sourcerect="220,0,64,64" origin="0.5,0.5" />
-    <Sprite texture="foldableshotgun.png" sourcerect="261,64,23,11" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/foldableshotgun.png" sourcerect="220,0,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="261,64,23,11" depth="0.55" origin="0.5,0.5" />
     <Body width="23" height="10" density="15" />
     <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
     <Projectile characterusable="false" hitscan="true" hitscancount="1" removeonhit="true" spread="1">
@@ -5909,12 +5960,12 @@
       <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="fakemoney" amount="5" />
     </Fabricate>
-    <InventoryIcon texture="flamer.png" sourcerect="216,128,64,64" origin="0.5,0.5" />
-    <Sprite texture="flamer.png" depth="0.55" sourcerect="216,0,64,128" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/flamer.png" sourcerect="216,128,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/flamer.png" depth="0.55" sourcerect="216,0,64,128" origin="0.5,0.5" />
     <Body width="30" height="100" density="8" />
     <Holdable slots="RightHand+LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" handle2="-10,40" msg="ItemMsgPickUpSelect" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite texture="flamer.png" canbehiddenbyotherwearables="false" rotation="0" depth="0.6" sourcerect="216,0,64,128" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="1.1,0.6" />
+      <sprite texture="%ModDir%/Items/flamer.png" canbehiddenbyotherwearables="false" rotation="0" depth="0.6" sourcerect="216,0,64,128" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="1.1,0.6" />
     </Wearable>
     <RepairTool firedamage="20.0" structurefixamount="0.0" usablein="Air" range="500" barrelpos="21,25" fireprobability="0.0" repairmultiple="true" RepairMultipleWalls="false" repairthroughwalls="false" repairthroughholes="true" combatpriority="40" spread="35" unskilledspread="35">
       <RequiredSkill identifier="weapons" level="30" />
@@ -5970,9 +6021,9 @@
       <Item identifier="iron" amount="1" />
       <Item identifier="carbon" amount="1" />
     </Deconstruct>
-    <InventoryIcon texture="pipegun.png" sourcerect="0,88,91,44" origin="0.5,0.5" />
-    <Sprite texture="pipegun.png" sourcerect="0,0,172,44" depth="0.55" origin="0.5,0.5" />
-    <BrokenSprite texture="pipegun.png" sourcerect="0,44,172,44" depth="0.55" mincondition="0" maxcondition="95" fadein="false" />
+    <InventoryIcon texture="%ModDir%/Items/pipegun.png" sourcerect="0,88,91,44" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/pipegun.png" sourcerect="0,0,172,44" depth="0.55" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Items/pipegun.png" sourcerect="0,44,172,44" depth="0.55" mincondition="0" maxcondition="95" fadein="false" />
     <Body width="220" height="50" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-8" handle1="-23,3" handle2="25,20" holdangle="-30" />
     <RangedWeapon reload="1.2" holdtrigger="true" barrelpos="100,15" spread="2" unskilledspread="8" combatPriority="65" drawhudwhenequipped="true" crosshairscale="0.2">
@@ -6030,12 +6081,12 @@
       <Item identifier="iron" />
       <Item identifier="plastic" />
     </Deconstruct>
-    <InventoryIcon texture="separatistrifle.png" sourcerect="0,0,224,48" origin="0.5,0.5" />
-    <Sprite texture="separatistrifle.png" sourcerect="0,0,224,48" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/separatistrifle.png" sourcerect="0,0,224,48" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/separatistrifle.png" sourcerect="0,0,224,48" depth="0.55" origin="0.5,0.5" />
     <Body width="220" height="50" density="25" />
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-20" handle1="-53,-10" handle2="26,10" holdangle="-30" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,0,224,48" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
+      <sprite texture="%ModDir%/Items/separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,0,224,48" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
     </Wearable>
     <RangedWeapon reload="0.14" holdtrigger="true" barrelpos="110,2" spread="4" unskilledspread="16" combatPriority="85" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
@@ -6097,12 +6148,12 @@
       <Item identifier="iron" />
       <Item identifier="plastic" />
     </Deconstruct>
-    <InventoryIcon texture="separatistrifle.png" sourcerect="0,48,208,50" origin="0.5,0.5" />
-    <Sprite texture="separatistrifle.png" sourcerect="0,48,224,50" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/separatistrifle.png" sourcerect="0,48,208,50" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/separatistrifle.png" sourcerect="0,48,224,50" depth="0.55" origin="0.5,0.5" />
     <Body width="220" height="50" density="25" />
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="50,-20" handle1="-53,-10" handle2="26,10" holdangle="-30" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite texture="separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,48,224,50" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
+      <sprite texture="%ModDir%/Items/separatistrifle.png" canbehiddenbyotherwearables="false" rotation="90" depth="0.6" sourcerect="0,48,224,50" limb="Torso" depthlimb="LeftArm" scale="0.5" origin="0.45,1.05" />
     </Wearable>
     <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="110,2" spread="1" unskilledspread="4" combatPriority="85" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
@@ -6176,8 +6227,8 @@
     <Deconstruct time="15">
       <Item identifier="steel" />
     </Deconstruct>
-    <InventoryIcon texture="separatistrifle.png" sourcerect="224,0,32,44" origin="0.5,0.5" />
-    <Sprite texture="separatistrifle.png" sourcerect="224,0,32,44" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/separatistrifle.png" sourcerect="224,0,32,44" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/separatistrifle.png" sourcerect="224,0,32,44" depth="0.55" origin="0.5,0.5" />
     <Body width="28" height="40" density="25" />
     <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="762round" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
       <Containable items="762round" />
@@ -6242,11 +6293,11 @@
       <Item identifier="titaniumaluminiumalloy" />
       <Item identifier="tin" />
     </Deconstruct>
-    <Sprite texture="tommy.png" sourcerect="0,0,211,57" depth="0.55" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/tommy.png" sourcerect="0,0,211,57" depth="0.55" origin="0.5,0.5" />
     <Body width="140" height="60" density="25" />
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="30,-20" aimpos="50,-20" handle1="-27.5,-6" handle2="25,15" holdangle="-35" msg="ItemMsgPickUpSelect" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite texture="tommy.png" sourcerect="0,0,211,57" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.85" />
+      <sprite texture="%ModDir%/Items/tommy.png" sourcerect="0,0,211,57" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.85" />
     </Wearable>
     <RangedWeapon weapondamagemodifier="1.1" reload="0.13" holdtrigger="true" barrelpos="90,12" spread="5" unskilledspread="10" combatPriority="85" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
@@ -6307,8 +6358,8 @@
       <Item identifier="iron" />
       <Item identifier="plastic" />
     </Deconstruct>
-    <InventoryIcon texture="uzi.png" sourcerect="56,56,126,56" origin="0.5,0.5" />
-    <Sprite texture="uzi.png" sourcerect="0,0,184,56" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/uzi.png" sourcerect="56,56,126,56" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/uzi.png" sourcerect="0,0,184,56" depth="0.55" origin="0.5,0.5" />
     <Body width="70" height="30" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="50,-10" handle1="2,-4" handle2="-2,-12" msg="ItemMsgPickUpSelect" />
     <RangedWeapon weapondamagemodifier="1.1" reload="0.12" holdtrigger="true" barrelpos="63,6" spread="8" unskilledspread="15" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2">
@@ -6378,10 +6429,10 @@
       <Item identifier="plastic" />
       <Item identifier="titanium" />
     </Deconstruct>
-    <Sprite texture="pistol.png" sourcerect="0,0,68,44" depth="0.55" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/pistol.png" sourcerect="0,0,68,44" depth="0.55" origin="0.5,0.5" />
     <Body width="70" height="30" density="25" />
     <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="70,5" handle1="-22,-4" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon reload="0.285" holdtrigger="true" barrelpos="15,-5" spread="4" unskilledspread="10" combatPriority="65" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="15,0" spread="4" unskilledspread="10" combatPriority="65" drawhudwhenequipped="true" crosshairscale="0.2" DualWieldReloadTimePenaltyMultiplier="1.75" DualWieldAccuracyPenalty="8">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -6449,8 +6500,8 @@
     <Deconstruct time="15">
       <Item identifier="steel" />
     </Deconstruct>
-    <InventoryIcon texture="tommy.png" sourcerect="230,0,58,60" origin="0.5,0.5" />
-    <Sprite texture="tommy.png" sourcerect="212,0,16,58" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/tommy.png" sourcerect="230,0,58,60" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/tommy.png" sourcerect="212,0,16,58" depth="0.55" origin="0.5,0.5" />
     <Body width="28" height="40" density="25" />
     <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="pistolround" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
       <Containable items="pistolround" />
@@ -6496,8 +6547,8 @@
     <Deconstruct time="15">
       <Item identifier="steel" />
     </Deconstruct>
-    <InventoryIcon texture="pistol.png" sourcerect="68,0,28,44" origin="0.5,0.5" />
-    <Sprite texture="pistol.png" sourcerect="68,0,28,44" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/pistol.png" sourcerect="68,0,28,44" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/pistol.png" sourcerect="68,0,28,44" depth="0.55" origin="0.5,0.5" />
     <Body width="28" height="40" density="25" />
     <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="pistolround" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
       <Containable items="pistolround" />
@@ -6558,11 +6609,11 @@
       <RequiredItem identifier="copper" />
       <RequiredItem identifier="zinc" />
     </Fabricate>
-    <InventoryIcon texture="flaregun.png" sourcerect="100,0,40,64" origin="0.5,0.5" />
-    <Sprite texture="flaregun.png" sourcerect="0,0,92,52" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/flaregun.png" sourcerect="100,0,40,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/flaregun.png" sourcerect="0,0,92,52" depth="0.55" origin="0.5,0.5" />
     <Body width="72" height="40" density="25" />
     <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="70,5" handle1="-32.5,-10" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon reload="1" maxchargetime="0.5" barrelpos="20,0" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon reload="1" maxchargetime="0.5" barrelpos="20,0" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" DualWieldReloadTimePenaltyMultiplier="1.75" DualWieldAccuracyPenalty="8">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <Sound file="Content/Items/Weapons/Revolver1.ogg" type="OnUse" range="3000" selectionmode="Random" />
@@ -6613,8 +6664,8 @@
       <Item identifier="plastic" />
       <Item identifier="phosphorus" />
     </Fabricate>
-    <InventoryIcon texture="flaregun.png" sourcerect="140,0,64,64" origin="0.5,0.5" />
-    <Sprite texture="flaregun.png" sourcerect="0,53,23,11" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/flaregun.png" sourcerect="140,0,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/flaregun.png" sourcerect="0,53,23,11" depth="0.55" origin="0.5,0.5" />
     <Body width="23" height="11" density="30" />
     <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
     <Projectile characterusable="false" launchimpulse="15.0" sticktocharacters="true" sticktoitems="true" sticktostructures="true" sticktodoors="true">
@@ -6673,10 +6724,10 @@
       <RequiredItem identifier="copper" amount="1" />
       <RequiredItem identifier="tin" amount="1" />
     </Fabricate>
-    <Sprite texture="whalinggun.png" sourcerect="0,0,240,64" depth="0.55" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/whalinggun.png" sourcerect="0,0,240,64" depth="0.55" origin="0.5,0.5" />
     <Body width="24" height="64" density="25" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite texture="whalinggun.png" sourcerect="0,0,240,64" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.75" />
+      <sprite texture="%ModDir%/Items/whalinggun.png" sourcerect="0,0,240,64" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.75" />
     </Wearable>
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="30,-25" aimpos="65,0" handle1="-40,-3" handle2="25,15" holdangle="-20" msg="ItemMsgPickUpSelect" />
     <RangedWeapon barrelpos="100,15" weapondamagemodifier="1.8" penetration="0.5" reload="1.5" maxchargetime="0.5" launchimpulse="30.0" spread="1" unskilledspread="10" combatPriority="120" drawhudwhenequipped="true" crosshairscale="0.2">
@@ -6728,8 +6779,8 @@
       <RequiredSkill identifier="weapons" level="20" />
       <RequiredItem identifier="steel" />
     </Fabricate>
-    <InventoryIcon texture="whalinggun.png" sourcerect="249,0,55,55" origin="0.5,0.5" />
-    <Sprite texture="whalinggun.png" sourcerect="0,64,190,28" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/whalinggun.png" sourcerect="249,0,55,55" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/whalinggun.png" sourcerect="0,64,190,28" depth="0.55" origin="0.5,0.5" />
     <Body width="190" height="28" density="30" />
     <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
     <Rope sourcepullforce="300" targetpullforce="100" projectilepullforce="5" maxlength="1500" snaponcollision="false" spritewidth="3" tile="true" origin="0.05,0.5" targetminmass="30" lerpforces="true" snapanimduration="0.5">
@@ -6766,7 +6817,7 @@
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="steel" />
     </Fabricate>
-    <Sprite texture="watercannon.png" depth="0.55" sourcerect="0,0,216,80" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/watercannon.png" depth="0.55" sourcerect="0,0,216,80" origin="0.5,0.5" />
     <Body width="216" height="80" density="8" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="60,-30" holdpos="20,-50" holdangle="15" handle1="-60,15" handle2="20,10" msg="ItemMsgPickUpSelect" />
     <RepairTool TargetForce="100" wateramount="100.0" extinguishamount="60.0" range="400" barrelpos="21,9" repairmultiple="true" repairthroughholes="true" hititems="false" IgnoreCharacters="false">
@@ -6866,8 +6917,8 @@
       <RequiredItem identifier="copper" />
       <RequiredItem identifier="zinc" />
     </Fabricate>
-    <InventoryIcon texture="melee.png" sourcerect="0,23,64,64" origin="0.5,0.5" />
-    <Sprite texture="melee.png" sourcerect="64,23,40,26" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/melee.png" sourcerect="0,23,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/melee.png" sourcerect="64,23,40,26" depth="0.55" origin="0.5,0.5" />
     <Body width="30" height="15" density="25" />
     <MeleeWeapon slots="Any,RightHand,LeftHand" aimangle="-50" aimpos="30,-30" handle1="0,6" holdangle="90" reload="0.75" range="50" combatPriority="20" msg="ItemMsgPickUpSelect">
       <Attack targetimpulse="2" severlimbsprobability="0.1" itemdamage="3" structuredamage="2" structuresoundtype="StructureSlash">
@@ -7020,23 +7071,23 @@
     <Sprite texture="Content/Items/Jobgear/MiscJobGear.png" sourcerect="896,7,125,63" depth="0.6" origin="0.5,0.5" />
     <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
     <Wearable slots="Any,InnerClothes" variants="1" msg="ItemMsgPickUpSelect">
-      <sprite name="Cultist Torso" texture="cultist.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Torso" texture="%ModDir%/Items/cultist.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <!-- no gloves
-	  <sprite name="Cultist Right Hand" texture="cultist.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Left Hand" texture="cultist.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+	  <sprite name="Cultist Right Hand" texture="%ModDir%/Items/cultist.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Hand" texture="%ModDir%/Items/cultist.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       -->
-      <sprite name="Cultist Right Lower Arm" texture="cultist.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Left Lower Arm" texture="cultist.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Right Upper Arm" texture="cultist.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Left Upper Arm" texture="cultist.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Waist" texture="cultist.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Right Thigh" texture="cultist.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Left Thigh" texture="cultist.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Right Leg" texture="cultist.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Left Leg" texture="cultist.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Left Shoe" texture="cultist.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Right Shoe" texture="cultist.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Cultist Head" texture="cultist.png" limb="Head" hidelimb="true" inheritlimbdepth="true" sourcerect="512,12,122,130" inherittexturescale="true" origin="0.525,0.68" inheritscale="true" hideotherwearables="true" hidewearablesoftype="Hair,moustache,beard,head" />
+      <sprite name="Cultist Right Lower Arm" texture="%ModDir%/Items/cultist.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Lower Arm" texture="%ModDir%/Items/cultist.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Right Upper Arm" texture="%ModDir%/Items/cultist.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Upper Arm" texture="%ModDir%/Items/cultist.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Waist" texture="%ModDir%/Items/cultist.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Right Thigh" texture="%ModDir%/Items/cultist.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Thigh" texture="%ModDir%/Items/cultist.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Right Leg" texture="%ModDir%/Items/cultist.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Leg" texture="%ModDir%/Items/cultist.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Left Shoe" texture="%ModDir%/Items/cultist.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Right Shoe" texture="%ModDir%/Items/cultist.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Cultist Head" texture="%ModDir%/Items/cultist.png" limb="Head" hidelimb="true" inheritlimbdepth="true" sourcerect="512,12,122,130" inherittexturescale="true" origin="0.525,0.68" inheritscale="true" hideotherwearables="true" hidewearablesoftype="Hair,moustache,beard,head" />
       <!-- armor -->
       <damagemodifier afflictiontypes="bleeding,damage,stun" armorsector="0.0,360.0" damagemultiplier="0.65" damagesound="LimbArmor" deflectprojectiles="true" />
       <!-- if wearer is a cultist -->
@@ -7086,7 +7137,7 @@
   <Item name="Life Essence" identifier="lifeessence" category="Medical,Misc" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,medical,cultistitem" useinhealthinterface="true" description="" scale="0.35" impactsoundtag="impact_soft">
     <SuitableTreatment type="bloodloss" suitability="100" />
     <LightComponent range="20.0" lightcolor="255,0,0,100" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" pulsefrequency="0.65" pulseamount="1.0" allowingameediting="false" />
-    <Sprite texture="lifeessence.png" sourcerect="0,0,56,76" depth="0.6" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="0,0,56,76" depth="0.6" origin="0.5,0.5" />
     <Body width="80" height="45" density="11" />
     <Holdable canBeCombined="false" removeOnCombined="false" slots="Any,RightHand,LeftHand" handle1="-12,-8" msg="ItemMsgPickUpSelect">
       <!-- medical usage -->
@@ -7121,7 +7172,7 @@
       <Item identifier="carbon" />
     </Deconstruct>
     <SuitableTreatment type="bloodloss" suitability="100" />
-    <Sprite texture="lifeessence.png" sourcerect="56,0,56,76" depth="0.6" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="56,0,56,76" depth="0.6" origin="0.5,0.5" />
     <Body width="80" height="45" density="11" />
     <!-- Cannot be combined -->
     <Holdable canBeCombined="false" removeOnCombined="false" slots="Any,RightHand,LeftHand" handle1="-12,-8" msg="ItemMsgPickUpSelect">
@@ -7163,8 +7214,8 @@
       <RequiredSkill identifier="helm" level="0" />
       <RequiredItem identifier="iron" amount="2" />
     </Fabricate>
-    <InventoryIcon texture="lifeessence.png" sourcerect="112,16,64,64" origin="0.5,0.5" />
-    <Sprite texture="lifeessence.png" sourcerect="112,0,80,16" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/lifeessence.png" sourcerect="112,16,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/lifeessence.png" sourcerect="112,0,80,16" depth="0.55" origin="0.5,0.5" />
     <Body width="65" height="15" density="25" />
     <MeleeWeapon slots="Any,RightHand,LeftHand" aimpos="50,0" handle1="-15,0" holdangle="30" reload="0.75" range="50" combatPriority="25" msg="ItemMsgPickUpSelect">
       <!-- the order of these status effect is crucial for the item to work properly, do not change! -->
@@ -7202,8 +7253,8 @@
       <RequiredSkill identifier="helm" level="0" />
       <Item identifier="carbon" />
     </Fabricate>
-    <InventoryIcon texture="book.png" sourcerect="33,54,39,56" origin="0.5,0.5" />
-    <Sprite texture="book.png" sourcerect="0,56,32,39" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/book.png" sourcerect="33,54,39,56" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/book.png" sourcerect="0,56,32,39" depth="0.6" origin="0.5,0.5" />
     <Body width="28" height="36" density="20" />
     <MeleeWeapon slots="Any,RightHand+LeftHand" HitOnlyCharacters="true" reload="1" range="50" combatpriority="6" DisableWhenRangedWeaponEquipped="false" controlpose="true" aimpos="40,-20" handle1="5,0" handle2="6,1" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect">
       <!-- attack -->
@@ -7324,7 +7375,7 @@
   
   <!-- gang war spraycans (cyan, yellow and magenta) -->
   <Item name="Cyan Spraycan" identifier="cyanspraycan" nameidentifier="spraycan" description="" spritecolor="185,255,255,255" inventoryiconcolor="185,255,255,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
-    <Sprite texture="spraycan.png" sourcerect="0,0,28,80" depth="0.55" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/spraycan.png" sourcerect="0,0,28,80" depth="0.55" origin="0.5,0.5" />
     <Deconstruct time="10">
       <RequiredItem identifier="aluminium" />
     </Deconstruct>
@@ -7359,7 +7410,7 @@
     <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
   </Item>
   <Item name="Yellow Spraycan" identifier="yellowspraycan" nameidentifier="spraycan" description="" spritecolor="255,255,185,255" inventoryiconcolor="255,255,185,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
-    <Sprite texture="spraycan.png" sourcerect="0,0,28,80" depth="0.55" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/spraycan.png" sourcerect="0,0,28,80" depth="0.55" origin="0.5,0.5" />
     <Deconstruct time="10">
       <RequiredItem identifier="aluminium" />
     </Deconstruct>
@@ -7394,7 +7445,7 @@
     <aitarget sightrange="2000" soundrange="500" fadeouttime="3" />
   </Item>
   <Item name="Magenta Spraycan" identifier="magentaspraycan" nameidentifier="spraycan" description="" spritecolor="255,185,255,255" inventoryiconcolor="255,185,255,255" category="Equipment" Tags="smallitem,tool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light">
-    <Sprite texture="spraycan.png" sourcerect="0,0,28,80" depth="0.55" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/spraycan.png" sourcerect="0,0,28,80" depth="0.55" origin="0.5,0.5" />
     <Deconstruct time="10">
       <RequiredItem identifier="aluminium" />
     </Deconstruct>
@@ -7440,7 +7491,7 @@
       <damagemodifier afflictionidentifiers="bitewounds, gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
-      <sprite name="Baseball Cap Wearable" texture="spraycan.png" limb="Head" hidewearablesoftype="Hair" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="28,0,89,90" origin="0.55,0.6" />
+      <sprite name="Baseball Cap Wearable" texture="%ModDir%/Items/spraycan.png" limb="Head" hidewearablesoftype="Hair" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="28,0,89,90" origin="0.55,0.6" />
       <StatusEffect type="OnWearing" target="Character" HideFace="true" duration="0.1" stackable="false" />
     </Wearable>
   </Item>
@@ -7450,7 +7501,7 @@
       <Item identifier="organicfiber" />
     </Deconstruct>
     <InventoryIcon texture="%ModDir%/Items/gangster.png" sourcerect="0,259,128,101" origin="0.5,0.5" />
-    <Sprite name="mercsuit" texture="mercsuit.png" sourcerect="403,0,117,62" depth="0.6" origin="0.5,0.5" />
+    <Sprite name="mercsuit" texture="%ModDir%/Items/mercsuit.png" sourcerect="403,0,117,62" depth="0.6" origin="0.5,0.5" />
     <Body width="100" height="50" density="15" friction="0.8" restitution="0.01" />
     <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
       <sprite name="VIP's Clothes 1 Torso" texture="%ModDir%/Items/gangster.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" sourcerect="0,0,0,0" origin="0.5,0.5" />
@@ -7636,28 +7687,28 @@
       <RequiredItem identifier="lead" />
       <RequiredItem identifier="physicorium" />
     </Fabricate>
-    <InventoryIcon texture="nexsuit.png" sourcerect="512,0,128,128" origin="0.5,0.5" />
-    <Sprite name="PUCS Item" texture="nexsuit.png" sourcerect="640,0,154,134" depth="0.55" origin="0.5,0.5" />
-    <ContainedSprite name="PUCS In Vertical Locker" allowedcontainertags="divingsuitcontainervertical" texture="nexsuit.png" sourcerect="804,0,87,190" depth="0.55" origin="0.5,0.5" />
-    <ContainedSprite name="PUCS Behind Window" allowedcontainertags="divingsuitcontainerwindow" texture="nexsuit.png" sourcerect="430,0,80,207" depth="0.55" origin="-0.12,-0.14" />
-    <ContainedSprite name="PUCS In Horizontal Locker" allowedcontainertags="divingsuitcontainerhorizontal" texture="nexsuit.png" sourcerect="640,191,225,66" depth="0.55" origin="0.6,0.5" />
+    <InventoryIcon texture="%ModDir%/Items/nexsuit.png" sourcerect="512,0,128,128" origin="0.5,0.5" />
+    <Sprite name="PUCS Item" texture="%ModDir%/Items/nexsuit.png" sourcerect="640,0,154,134" depth="0.55" origin="0.5,0.5" />
+    <ContainedSprite name="PUCS In Vertical Locker" allowedcontainertags="divingsuitcontainervertical" texture="%ModDir%/Items/nexsuit.png" sourcerect="804,0,87,190" depth="0.55" origin="0.5,0.5" />
+    <ContainedSprite name="PUCS Behind Window" allowedcontainertags="divingsuitcontainerwindow" texture="%ModDir%/Items/nexsuit.png" sourcerect="430,0,80,207" depth="0.55" origin="-0.12,-0.14" />
+    <ContainedSprite name="PUCS In Horizontal Locker" allowedcontainertags="divingsuitcontainerhorizontal" texture="%ModDir%/Items/nexsuit.png" sourcerect="640,191,225,66" depth="0.55" origin="0.6,0.5" />
     <Body radius="45" width="34" density="15" />
     <Wearable slots="OuterClothes" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite name="PUCS Helmet Wearable" texture="nexsuit.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.65" hidelimb="false" alphaclipotherwearables="true" sourcerect="513,132,105,124" origin="0.5,0.35" />
-      <sprite name="pucs Torso" texture="nexsuit.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Right Hand" texture="nexsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Left Hand" texture="nexsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Right Lower Arm" texture="nexsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Left Lower Arm" texture="nexsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Right Upper Arm" texture="nexsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Left Upper Arm" texture="nexsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Waist" texture="nexsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Right Thigh" texture="nexsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Left Thigh" texture="nexsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Right Leg" texture="nexsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Left Leg" texture="nexsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Left Shoe" texture="nexsuit.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="pucs Right Shoe" texture="nexsuit.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="PUCS Helmet Wearable" texture="%ModDir%/Items/nexsuit.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.65" hidelimb="false" alphaclipotherwearables="true" sourcerect="513,132,105,124" origin="0.5,0.35" />
+      <sprite name="pucs Torso" texture="%ModDir%/Items/nexsuit.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Right Hand" texture="%ModDir%/Items/nexsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Left Hand" texture="%ModDir%/Items/nexsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Right Lower Arm" texture="%ModDir%/Items/nexsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Left Lower Arm" texture="%ModDir%/Items/nexsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Right Upper Arm" texture="%ModDir%/Items/nexsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Left Upper Arm" texture="%ModDir%/Items/nexsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Waist" texture="%ModDir%/Items/nexsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Right Thigh" texture="%ModDir%/Items/nexsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Left Thigh" texture="%ModDir%/Items/nexsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Right Leg" texture="%ModDir%/Items/nexsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Left Leg" texture="%ModDir%/Items/nexsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Left Shoe" texture="%ModDir%/Items/nexsuit.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="pucs Right Shoe" texture="%ModDir%/Items/nexsuit.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
       <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="6000.0" PropulsionSpeedMultiplier="0.85" LowPassMultiplier="0.2" setvalue="true" disabledeltatime="true">
         <Sound file="Content/Items/Diving/DivingSuitLoop1.ogg" range="500" loop="true" />
         <Sound file="Content/Items/Diving/DivingSuitLoop2.ogg" range="500" loop="true" />
@@ -7789,7 +7840,7 @@
   
   <!-- projectile launched by spitroaches -->
   <Item name="Spitroach Spit" identifier="spitroachspit" category="Misc" scale="0.35" sonarsize="2" hideinmenus="true">
-    <Sprite texture="spitroach.png" sourcerect="114,0,42,49" depth="0.6" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/spitroach.png" sourcerect="114,0,42,49" depth="0.6" origin="0.5,0.5" />
     <Body radius="15" density="15" />
     <Projectile characterusable="false" launchimpulse="40" maxtargetstohit="1" sticktocharacters="true" sticktoitems="true" sticktodoors="true" sticktostructures="true" penetration="0.5" friendlyfire="false" damagedoors="true">
       <Attack structuredamage="5" itemdamage="10" severlimbsprobability="0">
@@ -7811,7 +7862,7 @@
   </Item>
   <!-- egg layed by spitroach that spitroach hatchlings hatch out of -->
   <Item name="Spitroach Egg" identifier="spitroachegg" hideinmenus="true" health="60" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true" category="Misc" spritecolor="185,230,240,255" scale="0.4" impactsoundtag="impact_soft">
-    <Sprite texture="spitroach.png" depth="0.18" sourcerect="0,0,114,145" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/spitroach.png" depth="0.18" sourcerect="0,0,114,145" origin="0.5,0.5" />
     <Price baseprice="370" sold="false" />
     <Deconstruct time="10">
       <Item identifier="adrenalinegland" />
@@ -7882,7 +7933,7 @@
   
   <!-- special effect -->
   <Item identifier="bloodcultfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
-    <Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
     <ItemComponent>
       <StatusEffect target="This" type="OnSpawn">
         <Sound file="%ModDir%/Sounds/cultist1.ogg" selectionmode="random" range="500" volume="2.5" />
@@ -7899,7 +7950,7 @@
     </ItemComponent>
   </Item>
   <Item identifier="smokefx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
-    <Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
     <ItemComponent>
       <StatusEffect target="This" type="OnSpawn">
         <Explosion range="250.0" force="0" shockwave="false" smoke="true" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
@@ -7911,7 +7962,7 @@
   </Item>
   <!-- wizard -->
   <Item identifier="wizardfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
-    <Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
     <ItemComponent>
       <StatusEffect target="This" type="OnSpawn">
         <Sound file="%ModDir%/Sounds/teleport.ogg" range="500" volume="3.0" />
@@ -7924,7 +7975,7 @@
   </Item>
   <!-- gift -->
   <Item identifier="giftfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
-    <Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
     <ItemComponent>
       <StatusEffect target="This" type="OnSpawn">
         <Sound file="%ModDir%/Sounds/giftopen.ogg" range="500" volume="3.0" />
@@ -7937,7 +7988,7 @@
   </Item>
   <!-- plays break sound effect and despawns -->
   <Item identifier="armorbreakfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
-    <Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
     <ItemComponent>
       <StatusEffect target="This" type="OnSpawn">
         <Sound file="%ModDir%/Sounds/armorbreak.ogg" volume="3.0" range="800" />
@@ -7949,7 +8000,7 @@
   </Item>
   <!-- plays flybuzz sound effect and despawns -->
   <Item identifier="flybuzzfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
-    <Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
     <ItemComponent>
       <StatusEffect target="This" type="OnSpawn">
         <Sound file="%ModDir%/Sounds/flybuzz1.ogg" volume="4.0" range="800" selectionmode="random" />
@@ -7963,7 +8014,7 @@
   </Item>
   <!-- spawns a cowboy hat particle -->
   <Item identifier="cowboyhatfx" hideinmenus="true">
-    <Sprite texture="foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
     <ItemComponent>
       <StatusEffect type="OnSpawn" targettype="This">
         <Sound file="%ModDir%/Sounds/cowboyhatdeflect.ogg" volume="2.0" range="1000" />

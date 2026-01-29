@@ -66,7 +66,6 @@ end, {
 	end,
 	
 	getShouldFinish = function (self)
-		if true then return false end
 		-- guard clause
 		if self.killer == nil then
 			return true
@@ -227,9 +226,10 @@ end, {
 			self.finish()
 			return
 		end
+		local grantKill = false
 		local interval = 60 * 5 -- in frames (1/60 of a second)
 		if (self.lastAttacked[character] ~= nil) and (DD.thinkCounter - self.lastAttacked[character] < interval) then
-			self.killsLeftToWin = self.killsLeftToWin - 1
+			grantKill = true
 			if DD.isClientCharacterAlive(self.killer) then
 				-- heal damage after kill
 				DD.giveAfflictionCharacter(self.killer.Character, 'lifeessence', 999)
@@ -239,6 +239,12 @@ end, {
 				local afflictionPerSecond = 60/self.timeToExplode
 				self.killer.Character.CharacterHealth.ReduceAfflictionOnAllLimbs('timepressure', (2 * 60) * afflictionPerSecond, nil, self.killer.Character)
 			end
+		end
+		if (character.LastAttacker == self.killer.Character) and (character.SpeciesName == 'human') then
+			grantKill = true
+		end
+		if grantKill then
+			self.killsLeftToWin = self.killsLeftToWin - 1
 			-- Halloween SFX
 			for character in Character.CharacterList do
 				DD.giveAfflictionCharacter(character, 'killerfx', 999)

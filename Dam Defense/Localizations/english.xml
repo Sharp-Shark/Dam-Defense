@@ -158,6 +158,9 @@
   <!--<entitydescription.replaceme></entitydescription.replaceme>-->
   </Override>
   
+  <!-- Revolver Carbine -->
+  <entityname.revolvercarbine>Revolver Carbine</entityname.revolvercarbine>
+  <entitydescription.revolvercarbine>A revolver with a stock, scope and a longer barrel, improving accuracy.</entitydescription.revolvercarbine>
   <!-- attack bot -->
   <entityname.attackbotspawner>Attack Bot</entityname.attackbotspawner>
   <entitydescription.attackbotspawner>Build a deadly machine to kill with you.</entitydescription.attackbotspawner>

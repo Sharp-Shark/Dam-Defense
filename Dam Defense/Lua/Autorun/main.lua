@@ -168,6 +168,12 @@ DD.roundStartFunctions.main = function ()
 				-- barricade
 				barricade = true,
 				barricadestatic = true,
+				-- growable plants
+				creepingorangevineseed = true,
+				tobaccovineseed = true,
+				saltvineseed = true,
+				raptorbaneseed = true,
+				banana = true,
 			}
 			for item in Item.ItemList do
 				-- reset item
@@ -194,6 +200,8 @@ DD.roundStartFunctions.main = function ()
 				end
 				-- color location markers (dd_location)
 				if item.Prefab.Identifier == 'dd_location' then
+					item.SpriteColor = Color(255, 255, 255)
+					item.Scale = 1.0
 					if #item.linkedTo > 0 then
 						if item.linkedTo[1].HasTag('dd_plantspawn') then
 							item.SpriteColor = Color(155, 255, 155)

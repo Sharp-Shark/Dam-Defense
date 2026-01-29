@@ -453,19 +453,21 @@ DD.chatMessageFunctions.events = function (message, sender)
 	for event in DD.eventDirector.events do
 		if event.public then
 			if ((event.name == 'arrest') or (event.name == 'arrest1984')) and (event.isTargetKnown or (event.target == sender)) then
-				list = list .. ' - ' .. event.name .. DD.stringReplace(' ({target} is {targetName})', {target = DD.stringLocalize('target'), targetName = DD.clientLogName(event.target)}) .. '\n'
-			elseif event.name == 'vip' then
+				list = list .. ' - ' .. event.name .. DD.stringReplace(' ({target}: {targetName})', {target = DD.stringLocalize('target'), targetName = DD.clientLogName(event.target)}) .. '\n'
+			elseif (event.name == 'vip') and (event.guard ~= nil) and DD.isClientCharacterAlive(event.guard) then
 				if event.vip == sender then
-					list = list .. ' - ' .. event.name .. DD.stringReplace(' ({secret}) ({target} is {name})', {secret = DD.stringLocalize('secret'), target = DD.stringLocalize('bodyguard'), name = DD.clientLogName(event.guard)}) .. '\n'
+					list = list .. ' - ' .. event.name .. DD.stringReplace(' ({target}: {name})', {target = DD.stringLocalize('bodyguard'), name = DD.clientLogName(event.guard)}) .. '\n'
 				elseif event.guard == sender then
-					list = list .. ' - ' .. event.name .. DD.stringReplace(' ({secret}) ({target} is {name})', {secret = DD.stringLocalize('secret'), target = DD.stringLocalize('vip'), name = DD.clientLogName(event.vip)}) .. '\n'
+					list = list .. ' - ' .. event.name .. DD.stringReplace(' ({target}: {name})', {target = DD.stringLocalize('vip'), name = DD.clientLogName(event.vip)}) .. '\n'
 				end
+			elseif event.name == 'nukies' then
+				list = list .. ' - ' ..  event.name .. DD.stringReplace(' (tickets: {tickets})', {tickets = event.respawnTickets}) .. '\n'
 			else
 				list = list .. ' - ' ..  event.name .. '\n'
 			end
 		elseif clientEventsSet[event] then
 			if (event.name == 'murder') and (event.murderer == sender) then
-				list = list .. ' - ' .. event.name .. DD.stringReplace(' ({secret}) ({target} is {name})', {secret = DD.stringLocalize('secret'), target = DD.stringLocalize('target'), name = DD.clientLogName(event.victim)}) .. '\n'
+				list = list .. ' - ' .. event.name .. DD.stringReplace(' ({secret}) ({target}: {name})', {secret = DD.stringLocalize('secret'), target = DD.stringLocalize('target'), name = DD.clientLogName(event.victim)}) .. '\n'
 			elseif event.name == 'revolution' then
 				if event.rebelsSet[sender] then
 					list = list .. ' - ' .. event.name .. ' (' .. DD.stringLocalize('secret') .. ')' .. '\n'
