@@ -6432,7 +6432,7 @@
     <Sprite texture="%ModDir%/Items/pistol.png" sourcerect="0,0,68,44" depth="0.55" origin="0.5,0.5" />
     <Body width="70" height="30" density="25" />
     <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="70,5" handle1="-22,-4" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon reload="0.2" holdtrigger="true" barrelpos="15,0" spread="4" unskilledspread="10" combatPriority="65" drawhudwhenequipped="true" crosshairscale="0.2" DualWieldReloadTimePenaltyMultiplier="1.75" DualWieldAccuracyPenalty="8">
+    <RangedWeapon reload="0.25" holdtrigger="true" barrelpos="15,0" spread="4" unskilledspread="10" combatPriority="65" drawhudwhenequipped="true" crosshairscale="0.2" DualWieldReloadTimePenaltyMultiplier="1.75" DualWieldAccuracyPenalty="8">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />

@@ -1,4 +1,4 @@
-# Dam Defense v1.3.38
+# Dam Defense v1.3.39
 
 Read me? How about I read you instead?
 
