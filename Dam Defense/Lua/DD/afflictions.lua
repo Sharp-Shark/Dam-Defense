@@ -218,6 +218,15 @@ DD.thinkFunctions.afflictions = function ()
 		if (character.CurrentHull == nil) and (character.Submarine == nil) then
 			DD.giveAfflictionCharacter(character, 'timepressure', 1)
 		end
+		-- idle sound for human ai creatures
+		if (character.SpeciesName == 'Humanhog') or (character.SpeciesName == 'Huntsman') then
+			if (not character.IsDead) and (character.Stun <= 0) and (not character.IsPlayer) and (character.AIController ~= nil) then
+				local target = character.AIController.SelectedAiTarget
+				if (target == nil) or (target.entity == nil) or (LuaUserData.TypeOf(target.entity) ~= 'Barotrauma.Character' and LuaUserData.TypeOf(target.entity) ~= 'Barotrauma.AICharacter') then
+					DD.giveAfflictionCharacter(character, 'idlesoundfx', 3 / 60 * math.random())
+				end
+			end
+		end
 		-- blast jump
 		local affliction = character.CharacterHealth.GetAffliction('blastjumping', true)
 		if (affliction ~= nil) and (affliction.Strength <= 1) and (character.AnimController.OnGround or character.AnimController.InWater or character.AnimController.IsClimbing) then
@@ -312,6 +321,7 @@ DD.thinkFunctions.afflictions = function ()
 			else
 				DD.giveAfflictionCharacter(character, 'firemanscarrytemporary', 1)
 			end
+			character.SelectedCharacter.SetStun(0.5, false)
 		else
 			if affliction ~= nil then
 				affliction.SetStrength(0)

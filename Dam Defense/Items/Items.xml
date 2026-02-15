@@ -4254,6 +4254,42 @@
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
       <SkillRequirementHint identifier="weapons" level="40" />
     </Item>
+	<!-- don't you wanna go home, outsider? -->
+    <Item name="Huntsman's Rifle" identifier="huntsmanrifle" category="Weapon" cargocontaineridentifier="metalcrate" tags="smallitem,weapon,gun,pistolitem,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
+      <Deconstruct time="10">
+        <Item identifier="steel" amount="2" />
+      </Deconstruct>
+      <Sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,233,223,34" depth="0.55" origin="0.5,0.5" />
+      <Body width="72" height="40" density="25" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="40,-15" aimpos="60,-8" handle1="-40,-10" handle2="25,4" holdangle="-40" msg="ItemMsgPickUpSelect" />
+      <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+        <sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,233,223,34" canbehiddenbyotherwearables="false" rotation="85" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,1.2" />
+      </Wearable>
+      <RangedWeapon barrelpos="80,8" spread="0.1" weapondamagemodifier="1.2" penetration="0.2" unskilledspread="6" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.7" >
+        <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+        <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+        <Sound file="Content/Items/Weapons/Revolver1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="Content/Items/Weapons/Revolver2.ogg" type="OnUse" range="3000" />
+        <Sound file="Content/Items/Weapons/Revolver3.ogg" type="OnUse" range="3000" />
+        <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+        <StatusEffect type="OnUse" target="This">
+          <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+          <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
+        </StatusEffect>
+        <RequiredItems items="revolverammo" type="Contained" msg="ItemMsgAmmoRequired" />
+        <RequiredSkill identifier="weapons" level="30" />
+      </RangedWeapon>
+      <ItemContainer capacity="1" maxstacksize="6" hideitems="true" containedstateindicatorstyle="bullet">
+        <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+        <Containable items="revolverammo" />
+      </ItemContainer>
+      <aitarget sightrange="2000" soundrange="5000" fadeouttime="5" />
+      <Quality>
+        <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+      </Quality>
+      <Upgrade gameversion="0.10.0.0" scale="0.5" />
+      <SkillRequirementHint identifier="weapons" level="30" />
+    </Item>
     <!-- 40mm rubber round -->
     <Item name="" identifier="40mmrubberround" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,grenade" Scale="0.5" impactsoundtag="impact_metal_light">
       <PreferredContainer primary="grenadelauncher" amount="6" spawnprobability="1" />
@@ -5215,7 +5251,7 @@
       <Item identifier="ballisticfiber" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -5277,7 +5313,7 @@
       <RequiredItem tag="realmoney" amount="5" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -5339,7 +5375,7 @@
       <RequiredItem tag="realmoney" amount="5" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="divingmask" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
@@ -5388,7 +5424,7 @@
       <RequiredItem tag="realmoney" amount="5" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="45">
-      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="ballisticfiber" />
       <RequiredItem identifier="titaniumaluminiumalloy" />
@@ -5411,7 +5447,7 @@
       <Item identifier="organicfiber" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
-      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="ballisticfiber" amount="2" />
       <RequiredItem identifier="organicfiber" amount="2" />
     </Fabricate>
@@ -5447,6 +5483,55 @@
     <ItemContainer capacity="2">
       <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,bodyarmor,safetyharness" />
     </ItemContainer>
+  </Item>
+  <!-- reskin of riot shotgun but only hog cops use it -->
+  <Item name="Hog Shotgun" identifier="constablehogshotgun" category="Weapon" cargocontaineridentifier="metalcrate" tags="mediumitem,weapon,gun,gunsmith,mountableweapon" Scale="0.55" impactsoundtag="impact_metal_light">
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+      <Item identifier="titaniumaluminiumalloy" />
+      <Item identifier="plastic" />
+    </Deconstruct>
+    <Sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,184,216,49" depth="0.55" origin="0.5,0.5" />
+    <Body width="216" height="49" density="25" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="45,-20" aimpos="55,-15" handle1="-36,0" handle2="25,15" holdangle="-20" msg="ItemMsgPickUpSelect" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="%ModDir%/Items/foldableshotgun.png" canbehiddenbyotherwearables="false" rotation="85" inheritlimbdepth="false" depth="0.6" sourcerect="0,184,216,49" limb="Torso" ignorelimbscale="true" scale="0.55" origin="0.45,0.9" />
+    </Wearable>
+    <RangedWeapon barrelpos="75,12" spread="0.1" unskilledspread="3" combatPriority="80" reload="0.9" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <Sound file="Content/Items/Weapons/ShotgunShot1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/ShotgunShot2.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/Weapons/ShotgunShot3.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/Weapons/ShotgunShot4.ogg" type="OnUse" range="3000" />
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="150.0" force="2.5" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect>
+      <!-- Cocking sound, delayed by 1.0 seconds. -->
+      <StatusEffect type="OnUse" target="This" delay="1.0">
+        <Sound file="Content/Items/Weapons/ShotgunLoad1.ogg" type="OnUse" range="500" selectionmode="Random" />
+        <Sound file="Content/Items/Weapons/ShotgunLoad2.ogg" type="OnUse" range="500" />
+        <Sound file="Content/Items/Weapons/ShotgunLoad3.ogg" type="OnUse" range="500" />
+        <ParticleEmitter particle="casingfirearm" colormultiplier="0.5,0.5,0.5,1" ScaleMultiplier="1.5,1.5" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
+      </StatusEffect>
+      <RequiredItems items="shotgunammo" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="50" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="6" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
+      <Containable items="shotgunammo" hide="true" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="flashlight" hide="false" itempos="42,1" setactive="true" />
+      </SubContainer>
+    </ItemContainer>
+    <aitarget sightrange="3000" soundrange="5000" fadeouttime="5" />
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <SkillRequirementHint identifier="weapons" level="50" />
   </Item>
   <!-- Hey look buddy, I'm an engineer. That means I solve problems, not problems like "What is beauty?" Because that would fall within the purview of your conundrums of philosophy. I solve practical problems, for instance: how am I going to stop some mean mother Hubbard from tearing me a structurally superfluous be-hind? The answer, use a gun, and if that don't work... Use more gun. Take for instance this heavy caliber tripod mounted lil' old number designed by me, built by me, and you best hope... Not pointed at you. -->
   <Item name="Yellow Hard Hat" identifier="hardhat" category="Diving,Equipment" tags="lightdiving,diving,smallitem,hardhat" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.5">
@@ -5850,7 +5935,7 @@
     </Fabricate>
     <InventoryIcon texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,56,112,72" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,0,220,56" depth="0.55" origin="0.5,0.25" />
-    <Body width="180" height="30" density="25" />
+    <Body width="220" height="56" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="40,-10" aimpos="55,-8" handle1="-40,-18" handle2="25,0" holdangle="-40" msg="ItemMsgPickUpSelect" />
     <RangedWeapon barrelpos="80,-15" spread="0.1" unskilledspread="3" combatPriority="80" weapondamagemodifier="1.15" reload="1" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
@@ -6866,6 +6951,88 @@
     <aitarget sightrange="1000" soundrange="1000" fadeouttime="1" />
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
+  <!-- axe goes in, blood comes out -->
+  <Item name="Wood Axe" identifier="woodaxe" category="Weapon" Tags="mediumitem,weapon,gunsmith,mountableweapon" scale="0.5" allowasextracargo="true" requireaimtouse="true" impactsoundtag="impact_metal_light">
+    <Deconstruct time="20">
+      <Item identifier="steel" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/Items/melee.png" sourcerect="180,192,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/melee.png" sourcerect="0,214,166,50" depth="0.55" origin="0.5,0.2" />
+    <Body width="165" height="24" density="25" />
+    <MeleeWeapon slots="Any,RightHand+LeftHand" aimpos="50,0" handle1="-20,2" handle2="-30,5" holdangle="50" aimangle="-20" reload="1.2" range="155" combatPriority="40" msg="ItemMsgPickUpSelect">
+      <Attack targetimpulse="5" severlimbsprobability="7.5" itemdamage="30" structuredamage="15">
+        <Affliction identifier="lacerations" strength="36" />
+        <Affliction identifier="bleeding" strength="10" />
+        <Affliction identifier="stun" strength="0.5" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash4.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash5.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash6.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+    </MeleeWeapon>
+    <Quality>
+      <QualityStat stattype="StrikingPowerMultiplier" value="0.1" />
+    </Quality>
+    <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
+  </Item>
+  <!-- what's all this then -->
+  <Item name="Saber" identifier="saber" category="Weapon" Tags="smallitem,weapon,gunsmith,mountableweapon,sharptool" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Deconstruct time="10">
+      <Item identifier="titaniumaluminiumalloy" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/Items/melee.png" sourcerect="180,0,64,64" />
+    <Sprite texture="%ModDir%/Items/melee.png" sourcerect="0,88,180,25" origin="0.5,0.5" depth="0.55" />
+    <Body width="180" height="25" density="30" />
+    <MeleeWeapon slots="RightHand,Any" aimpos="60,10" handle1="-33,7" holdangle="70" aimangle="-40" reload="0.75" range="75" combatPriority="30" msg="ItemMsgPickUpSelect">
+      <Attack targetimpulse="2" severlimbsprobability="0.55" itemdamage="6" structuredamage="1" structuresoundtype="StructureSlash">
+        <Affliction identifier="lacerations" strength="19" />
+        <Affliction identifier="bleeding" strength="14" />
+        <Affliction identifier="stun" strength="0.25" />
+      </Attack>
+      <StatusEffect type="OnUse" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
+        <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
+        <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
+        <Sound file="Content/Sounds/Damage/LimbSlash4.ogg" range="500" />
+        <Sound file="Content/Sounds/Damage/LimbSlash5.ogg" range="500" />
+        <Sound file="Content/Sounds/Damage/LimbSlash6.ogg" range="500" />
+      </StatusEffect>
+      <RequiredSkill identifier="weapons" level="35" />
+    </MeleeWeapon>
+    <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
+    <Quality>
+      <QualityStat stattype="StrikingPowerMultiplier" value="0.15"/>
+    </Quality>
+    <SkillRequirementHint identifier="weapons" level="35" />
+  </Item>
+  <!-- who goes there  -->
+  <Item name="Baton" identifier="baton" category="Weapon" Tags="smallitem,weapon,gunsmith,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="true">
+    <Deconstruct time="10">
+      <Item identifier="steel" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/Items/melee.png" sourcerect="180,64,64,64" />
+    <Sprite texture="%ModDir%/Items/melee.png" sourcerect="0,113,154,21" origin="0.5,0.5" depth="0.55" />
+    <Body width="154" height="21" density="30" />
+    <MeleeWeapon slots="Any,RightHand" aimpos="40,20" handle1="-25,4" holdangle="80" aimangle="-10" reload="0.8" range="100" combatPriority="35" msg="ItemMsgPickUpSelect">
+      <RequiredSkill identifier="weapons" level="15" />
+      <Attack targetimpulse="15" structuredamage="2" itemdamage="8">
+        <Affliction identifier="blunttrauma" strength="12" />
+        <Affliction identifier="stun" strength="0.5" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+    </MeleeWeapon>
+    <SkillRequirementHint identifier="weapons" level="15" />
+  </Item>
   <!-- think fast chucklenuts -->
   <Item name="Baseball Bat" identifier="baseballbat" category="Weapon" Tags="smallitem,tool,simpletool,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="true">
     <Deconstruct time="10">
@@ -6891,8 +7058,50 @@
     </MeleeWeapon>
     <SkillRequirementHint identifier="weapons" level="15" />
   </Item>
+  <!-- unassuming ornate cane -->
+  <Item name="Ornate Cane" identifier="canesword" category="Weapon" Tags="smallitem,weapon,gunsmith,mountableweapon,sharptool" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Deconstruct time="10">
+      <Item identifier="titaniumaluminiumalloy" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/Items/melee.png" sourcerect="180,128,64,64" />
+    <Sprite texture="%ModDir%/Items/melee.png" sourcerect="0,134,180,40" origin="0.5,0.5" depth="0.55" />
+    <Body width="180" height="20" density="30" />
+    <MeleeWeapon slots="RightHand,Any" aimpos="70,-5" holdpos="-60,-45" handle1="32,9" holdangle="90" aimangle="70" reload="0.6" range="75" combatPriority="10" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="1.1" setvalue="true" />
+      <Attack targetimpulse="5" itemdamage="4" structuredamage="1">
+        <Affliction identifier="blunttrauma" strength="5" />
+        <Affliction identifier="stun" strength="0.2" />
+      </Attack>
+      <StatusEffect type="OnUse" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+      </StatusEffect>
+      <RequiredSkill identifier="weapons" level="15" />
+    </MeleeWeapon>
+    <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
+    <Quality>
+      <QualityStat stattype="StrikingPowerMultiplier" value="0.1"/>
+    </Quality>
+    <SkillRequirementHint identifier="weapons" level="15" />
+  </Item>
+  <!-- for a distinguished gentleman -->
+  <Item name="Top Hat" identifier="tophat" category="Equipment" tags="smallitem,cowboyhatdeflect" cargocontaineridentifier="metalcrate" description="" scale="0.4">
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="helm" level="15" />
+      <Item identifier="organicfiber" amount="2" />
+    </Fabricate>
+    <Sprite name="Top Hat" texture="%ModDir%/Items/headgears.png" depth="0.6" sourcerect="539,51,81,53" origin="0.5,0.5" />
+    <Body width="70" height="45" density="15" />
+    <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
+      <sprite name="Top Hat" texture="%ModDir%/Items/headgears.png" limb="Head" hidewearablesoftype="Hair" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.7" hidelimb="false" sourcerect="539,51,81,53" origin="0.5,1.1" />
+    </Wearable>
+  </Item>
   <!-- nameless hat for a nameless stranger -->
-  <Item name="Cowboy Hat" identifier="cowboyhat" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" scale="0.4">
+  <Item name="Cowboy Hat" identifier="cowboyhat" category="Equipment" tags="smallitem,cowboyhatdeflect" cargocontaineridentifier="metalcrate" description="" scale="0.4">
     <Deconstruct time="10">
       <Item identifier="organicfiber" />
     </Deconstruct>
@@ -7838,6 +8047,28 @@
     <Holdable slots="LeftHand,RightHand,Any" holdpos="0,-80" handle1="-40,30" handle2="40,30" aimable="false" msg="ItemMsgPickUpSelect"/>
   </Item>
   
+  <!-- projectile launched by crowmen -->
+  <Item name="Crowmen Spit" identifier="crowmenspit" category="Misc" scale="0.35" sonarsize="2" hideinmenus="true">
+    <Sprite texture="%ModDir%/Items/spitroach.png" sourcerect="114,49,42,42" depth="0.6" origin="0.5,0.5" />
+    <Body radius="15" density="15" />
+    <Projectile characterusable="false" launchimpulse="20" maxtargetstohit="1" sticktocharacters="true" sticktoitems="true" sticktodoors="true" sticktostructures="true" penetration="0.5" friendlyfire="false" damagedoors="true">
+      <Attack structuredamage="5" itemdamage="10" severlimbsprobability="0">
+        <Affliction identifier="stun" strength="0.1" />
+      </Attack>
+      <StatusEffect type="OnActive" target="This" lifetime="0.5">
+        <ParticleEmitter particle="ammotrailwater" copyentityangle="true" anglemin="0" anglemax="0" particleamount="5" velocitymin="-10" velocitymax="-100" scalemin="0.25" scalemax="0.1" />
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" condition="-35" />
+      <StatusEffect type="OnImpact" target="This" disabledeltatime="true" condition="-100" />
+      <StatusEffect type="OnBroken" target="This" disabledeltatime="true">
+        <Explosion range="50.0" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" ballastfloradamage="0" structuredamage="0" itemdamage="0" force="4" severlimbsprobability="0" debris="false" decal="greenblood" decalsize="1" penetration="0.5">
+          <Affliction identifier="acidburn" strength="5" dividebylimbcount="true" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+    <LightComponent range="30.0" lightcolor="0,255,0,128" powerconsumption="0" IsOn="true" castshadows="false" alphablend="false" allowingameediting="false" />
+  </Item>
   <!-- projectile launched by spitroaches -->
   <Item name="Spitroach Spit" identifier="spitroachspit" category="Misc" scale="0.35" sonarsize="2" hideinmenus="true">
     <Sprite texture="%ModDir%/Items/spitroach.png" sourcerect="114,0,42,49" depth="0.6" origin="0.5,0.5" />
@@ -7852,7 +8083,7 @@
       <StatusEffect type="OnNotContained" target="This" condition="-35" />
       <StatusEffect type="OnImpact" target="This" disabledeltatime="true" condition="-100" />
       <StatusEffect type="OnBroken" target="This" disabledeltatime="true">
-        <Explosion range="60.0" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" ballastfloradamage="0" structuredamage="0" itemdamage="0" force="4" severlimbsprobability="0" debris="false" decal="blood" decalsize="1" penetration="0.5">
+        <Explosion range="50.0" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" ballastfloradamage="0" structuredamage="0" itemdamage="0" force="4" severlimbsprobability="0" debris="false" decal="blood" decalsize="1" penetration="0.5">
           <Affliction identifier="acidburn" strength="5" dividebylimbcount="true" />
         </Explosion>
         <Remove />
@@ -8012,6 +8243,18 @@
       </StatusEffect>
     </ItemComponent>
   </Item>
+  <!-- plays sound effect and despawns -->
+  <Item identifier="whistlealarmfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <ItemComponent>
+      <StatusEffect target="This" type="OnSpawn">
+        <Sound file="%ModDir%/Sounds/whistlealarm.ogg" volume="4.0" range="1200" selectionmode="random" />
+      </StatusEffect>
+      <StatusEffect target="This" type="OnSpawn" delay="3">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
   <!-- spawns a cowboy hat particle -->
   <Item identifier="cowboyhatfx" hideinmenus="true">
     <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
@@ -8022,6 +8265,55 @@
       </StatusEffect>
       <StatusEffect type="always" target="This" disabledeltatime="true" delay="1" stackable="false">
         <Remove/>
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+  <!-- spawns a top hat particle -->
+  <Item identifier="tophatfx" hideinmenus="true">
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <ItemComponent>
+      <StatusEffect type="OnSpawn" targettype="This">
+        <Sound file="%ModDir%/Sounds/cowboyhatdeflect.ogg" volume="2.0" range="1000" />
+        <ParticleEmitter particle="tophat" AngleMin="60" AngleMax="120" VelocityMin="300" VelocityMax="350" ScaleMultiplier="0.65,0.65" ParticleAmount="1" ColorMultiplier="255,255,255,255" />
+      </StatusEffect>
+      <StatusEffect type="always" target="This" disabledeltatime="true" delay="1" stackable="false">
+        <Remove/>
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+  <!-- plays sound effect and despawns -->
+  <Item identifier="hogfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <ItemComponent>
+      <StatusEffect target="This" type="OnSpawn">
+        <Sound file="%ModDir%/Characters/Humanhog/idle1.ogg" loop="false" volume="2.0" range="1000" selectionmode="Random" />
+        <Sound file="%ModDir%/Characters/Humanhog/idle2.ogg" loop="false" volume="2.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Humanhog/idle3.ogg" loop="false" volume="2.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Humanhog/idle4.ogg" loop="false" volume="2.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Humanhog/idle5.ogg" loop="false" volume="2.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Humanhog/idle6.ogg" loop="false" volume="2.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Humanhog/idle7.ogg" loop="false" volume="2.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Humanhog/idle8.ogg" loop="false" volume="2.0" range="1000" />
+      </StatusEffect>
+      <StatusEffect target="This" type="OnSpawn" delay="3">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+  <!-- plays sound effect and despawns -->
+  <Item identifier="huntsmanfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <ItemComponent>
+      <StatusEffect target="This" type="OnSpawn">
+        <Sound file="%ModDir%/Characters/Huntsman/idle1.ogg" loop="false" volume="1.0" range="1000" selectionmode="Random" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle2.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle3.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle4.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle5.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle6.ogg" loop="false" volume="1.0" range="1000" />
+      </StatusEffect>
+      <StatusEffect target="This" type="OnSpawn" delay="3">
+        <Remove />
       </StatusEffect>
     </ItemComponent>
   </Item>

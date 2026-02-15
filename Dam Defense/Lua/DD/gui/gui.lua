@@ -4,7 +4,8 @@ if SERVER then return end
 DD.gui = {
 	debugLine = {
 		point1 = Vector2(),
-		point2 = Vector2()
+		point2 = Vector2(),
+		color = Color.Red,
 	},
 	characterRole = {}
 }
@@ -227,7 +228,7 @@ Hook.Patch("Barotrauma.GUI", "Draw", function (instance, ptable)
 	local spriteBatch = ptable["spriteBatch"]
 	-- debug line
 	if DD.debugMode and Game.RoundStarted then
-		GUI.GUI.DrawLine(spriteBatch, Screen.Selected.Cam.WorldToScreen(DD.gui.debugLine.point1), Screen.Selected.Cam.WorldToScreen(DD.gui.debugLine.point2), Color.Red, 0, 1)
+		GUI.GUI.DrawLine(spriteBatch, Screen.Selected.Cam.WorldToScreen(DD.gui.debugLine.point1), Screen.Selected.Cam.WorldToScreen(DD.gui.debugLine.point2), DD.gui.debugLine.color, 0, 1)
 	end
 	-- update hud info height
 	for character in Character.CharacterList do

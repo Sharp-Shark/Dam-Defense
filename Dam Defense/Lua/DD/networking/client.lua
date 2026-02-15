@@ -13,7 +13,9 @@ Networking.Receive("syncEntityRotation", function (message, client)
 	local entity = Entity.FindEntityByID(id)
 	if entity == nil then return end
 	entity.Rotation = rotation
-	entity.GetComponentString('Holdable').AttachToWall()
+	local component = entity.GetComponentString('Holdable')
+	if component == nil then return end
+	component.AttachToWall()
 end)
 
 Networking.Receive("syncEntityAttached", function (message, client)

@@ -63,7 +63,7 @@ end, {
 		if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
 		
 		local pos = DD.findRandomWaypointByJob(job).WorldPosition
-		local character = DD.spawnHuman(client, job, pos)
+		local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
 		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 		character.UpdateTeam()
 		

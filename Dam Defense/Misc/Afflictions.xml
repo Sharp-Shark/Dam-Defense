@@ -133,6 +133,31 @@
 	<icon texture="%ModDir%/Misc/Icons.png" sourcerect="0,128,128,128" color="114,10,193,255" origin="0,0"/>
   </Affliction>
   
+  <!-- idle sounds -->
+  <Affliction name="Idle Sound FX" identifier="idlesoundfx" type="fx" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" showinhealthscannerthreshold="999" maxstrength="10" >
+	<icon texture="%ModDir%/Misc/Icons.png" sourcerect="0,128,128,128" color="114,10,193,255" origin="0,0"/>
+    <Effect minstrength="0" maxstrength="9.9" strengthchange="0.0" />
+    <Effect minstrength="9.9" maxstrength="10" strengthchange="0.0" >
+      <StatusEffect target="Character">
+	    <Conditional speciesname="eq Humanhog" />
+	    <SpawnItem identifier="hogfx" spawnposition="This" />
+      </StatusEffect>
+      <StatusEffect target="Character">
+	    <Conditional speciesname="eq Huntsman" />
+	    <SpawnItem identifier="huntsmanfx" spawnposition="This" />
+      </StatusEffect>
+      <StatusEffect target="Character" disabledeltatime="true">
+	    <ReduceAffliction identifier="idlesoundfx" amount="999" />
+      </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  
+  <!-- spit -->
+  <Affliction name="Spit Charge" identifier="spitcharge" type="buff" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.0" showiconthreshold="999" showinhealthscannerthreshold="999" maxstrength="10" >
+	<icon texture="%ModDir%/Misc/Icons.png" sourcerect="0,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  
   <!-- jump -->
   <Affliction name="Prowler Leap Charge" identifier="prowlerleapcharge" type="buff" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.0" showiconthreshold="999" showinhealthscannerthreshold="999" maxstrength="10" >
 	<icon texture="%ModDir%/Misc/Icons.png" sourcerect="0,128,128,128" color="114,10,193,255" origin="0,0"/>
@@ -406,7 +431,7 @@
     <Effect minstrength="9.9" maxstrength="10" strengthchange="1.0">
 	  <StatusEffect target="Character" >
 	    <ReduceAffliction identifier="beepingbomb" amount="999" />
-	    <LuaHook name="DD.timepressure.explode" />
+	    <LuaHook name="DD.timepressure.gib" />
 	  </StatusEffect>
 	</Effect>
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>

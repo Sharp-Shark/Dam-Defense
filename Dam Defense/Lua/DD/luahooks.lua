@@ -481,7 +481,7 @@ Hook.Patch("Barotrauma.Items.Components.MeleeWeapon", "HandleImpact", function(i
 	if body == nil then return end
 	
 	local target = body.UserData
-	if LuaUserData.TypeOf(target) ~= 'Barotrauma.Limb' then return end
+	if (target == nil) or (LuaUserData.TypeOf(target) ~= 'Barotrauma.Limb') then return end
 	
 	local character = target.character
 	if character == nil then return end
@@ -567,13 +567,14 @@ end, Hook.HookMethodType.Before)
 
 -- code provided as a courtesy of SONK Squall, see: https://github.com/SONKSquall/WarfaremodGeneralContent/
 Hook.add("character.applyDamage", "DD.cowboyhat.deflect", function(charHealth, attackResult, hitLimb)
+	if charHealth.Character.Inventory == nil then return end
 	if hitLimb.type ~= LimbType.Head then return end
 	
 	local item = charHealth.Character.Inventory.GetItemInLimbSlot(InvSlotType.Head)
-	if (item == nil) or (item.Prefab.Identifier ~= 'cowboyhat') then return end
+	if (item == nil) or (not item.HasTag('cowboyhatdeflect')) then return end
 
 	local damage = attackResult.Damage
-	if damage < 50 then return end
+	if damage < 35 then return end
 	
 	for affliction in attackResult.Afflictions do
 		Timer.NextFrame(function()
@@ -582,7 +583,7 @@ Hook.add("character.applyDamage", "DD.cowboyhat.deflect", function(charHealth, a
 		end)
 	end
 	
-	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('cowboyhatfx'), hitLimb.worldPosition, nil, nil, nil)
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(tostring(item.Prefab.Identifier) .. 'fx'), hitLimb.worldPosition, nil, nil, nil)
 	Entity.Spawner.AddEntityToRemoveQueue(item)
 	
 	return true
@@ -719,7 +720,7 @@ end)
 
 -- barricade
 Hook.Patch("Barotrauma.Items.Components.Holdable", "OnPicked", {'Barotrauma.Character'}, function(instance, ptable)
-    local item = instance.Item
+	local item = instance.Item
 	if item.Prefab.Identifier == 'barricade' then
 		if item.linkedTo[1] ~= nil then
 			item.Condition = item.linkedTo[1].Condition
@@ -729,7 +730,7 @@ Hook.Patch("Barotrauma.Items.Components.Holdable", "OnPicked", {'Barotrauma.Char
 end, Hook.HookMethodType.Before)
 Hook.Patch("Barotrauma.Items.Components.Holdable", "AttachToWall", function(instance, ptable)
 	if CLIENT and Game.IsSingleplayer and Game.IsSubEditor then return end
-    local item = instance.Item
+	local item = instance.Item
 	if item.Prefab.Identifier == 'barricade' then
 		if item.Condition <= 0 then
 			ptable.PreventExecution = true
@@ -1173,11 +1174,7 @@ DD.characterDeathFunctions.cultistDeath = function (character)
 						duffelbag.OwnInventory.TryPutItem(item, character, nil, true, true)
 					end
 				end
-				item.NonInteractable = true
-				if SERVER then
-					local tags = item.SerializableProperties[Identifier("NonInteractable")]
-					Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(tags, item))
-				end
+				DD.setItemInteractable(item, false)
 			end
 		end
 		-- Delete old character
@@ -1235,6 +1232,154 @@ Hook.Add("character.created", 'DD.giveUndeadItems', function(createdCharacter)
 	end, 100)
 end)
 
+-- goatmen auto crouch
+Hook.Patch("Barotrauma.Character", "Control", function(instance, ptable)
+	local character = instance
+	if (character.SpeciesName == 'Goatmen') then
+		if (not character.IsDead) and (character.Stun <= 0) then
+			local angle = math.pi / 2
+			local point1 = character.WorldPosition
+			local point2 = point1 + 120 * Vector2(math.cos(angle), math.sin(angle))
+			
+			local collisionCategory = Physics.CollisionWall
+			local result = DD.raycast(Submarine.MainSub, point1, point2, collisionCategory, callback)
+			if result.hit then
+				character.SetInput(InputType.Crouch, false, true)
+			end
+			
+			if DD.gui ~= nil then
+				DD.gui.debugLine.point1 = point1
+				DD.gui.debugLine.point2 = point2
+				if result.hit then
+					DD.gui.debugLine.color = Color.Green
+				else
+					DD.gui.debugLine.color = Color.Red
+				end
+			end
+		end
+	end
+end)
+
+-- Hog cop
+-- cl_lua DD.spawnHuman(nil, 'hogjob', Game.GameScreen.Cam.ScreenToWorld(PlayerInput.MousePosition), nil, nil, 'humanhog')
+-- cl_lua DD.spawnHuman(nil, 'hunterjob', Game.GameScreen.Cam.ScreenToWorld(PlayerInput.MousePosition), nil, nil, 'huntsman')
+Hook.Add("character.created", 'DD.giveHogItems', function(createdCharacter)
+	if (createdCharacter.SpeciesName ~= 'humanHog') and (createdCharacter.SpeciesName ~= 'huntsman') then return end
+	
+	local jobIdentifier = 'hogjob'
+	if createdCharacter.SpeciesName == 'huntsman' then jobIdentifier = 'hunterjob' end
+	
+	if createdCharacter.JobIdentifier ~= jobIdentifier then
+		Timer.Wait(function ()
+			local client = DD.findClientByCharacter(createdCharacter)
+			local character = DD.spawnHuman(client, createdCharacter.JobIdentifier, createdCharacter.WorldPosition, createdCharacter.Name)
+			if Game.IsMultiplayer and (client ~= nil) then client.SetClientCharacter(character) end
+			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+			character.UpdateTeam()
+			Entity.Spawner.AddEntityToRemoveQueue(createdCharacter)
+		end, 100)
+		return
+	end
+	
+	createdCharacter.GiveJobItems(false, nil)
+	Timer.NextFrame(function ()
+		createdCharacter.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team2, true)
+		createdCharacter.UpdateTeam()
+		
+		if createdCharacter.SpeciesName == 'humanHog' then
+			createdCharacter.GiveTalent('deliberateshooter', true)
+		end
+		
+		-- is shotgunner
+		local shotgunner = false
+		for itemCount = 0, createdCharacter.Inventory.Capacity do
+			local item = createdCharacter.Inventory.GetItemAt(itemCount)
+			if (item ~= nil) and (item.Prefab.Identifier == 'constablehogshotgun') then
+				shotgunner = true
+				break
+			end
+		end
+		
+		-- recolor if shotgunner
+		if shotgunner then
+			local item = createdCharacter.Inventory.GetItemAt(DD.invSlots.head)
+			if item ~= nil then
+				local color = Color(255, 200, 155)
+				item.SpriteColor = color
+				item['set_InventoryIconColor'](color)
+				-- Sync changes for clients
+				if SERVER then
+					local sprcolor = item.SerializableProperties[Identifier("SpriteColor")]
+					Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(sprcolor, item))
+					local invColor = item.SerializableProperties[Identifier("InventoryIconColor")]
+					Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
+				end
+			end
+			local item = createdCharacter.Inventory.GetItemAt(DD.invSlots.outerclothes)
+			if item ~= nil then
+				local color = Color(255, 200, 155)
+				item.SpriteColor = color
+				item['set_InventoryIconColor'](color)
+				-- Sync changes for clients
+				if SERVER then
+					local sprcolor = item.SerializableProperties[Identifier("SpriteColor")]
+					Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(sprcolor, item))
+					local invColor = item.SerializableProperties[Identifier("InventoryIconColor")]
+					Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invColor, item))
+				end
+			end
+		end
+	end)
+end)
+DD.characterDeathFunctions.hogDeath = function (character)
+	if (character.SpeciesName ~= 'humanHog') and (character.SpeciesName ~= 'huntsman') then return end
+	
+	if character.SpeciesName == 'humanHog' then
+		local item = character.Inventory.GetItemAt(DD.invSlots.head)
+		if item ~= nil then
+			Entity.Spawner.AddEntityToRemoveQueue(item)
+		end
+	end
+	
+	local lootableSet = {
+		rifle = true,
+		constablehogshotgun = true,
+		baton = true,
+		saber = true,
+		huntsmanrifle = true,
+		divingknife = true,
+		woodaxe = true,
+	}
+	local lockSet = {
+		securityuniform1 = true,
+		securityuniform2 = true,
+		constablearmor = true,
+		capotainhuntsman = true,
+		capotainwoodsman = true,
+		huntsmanarmor = true,
+	}
+	
+	Timer.NextFrame(function ()
+		for item in character.Inventory.AllItems do
+			local identifier = tostring(item.Prefab.Identifier)
+			if not lootableSet[identifier] then
+				if lockSet[identifier] then
+					DD.setItemInteractable(item, false)
+				else
+					Entity.Spawner.AddEntityToRemoveQueue(item)
+				end
+			end
+		end
+	end)
+end
+
+-- Reset spitcharge affliction
+Hook.Add("DD.crowmen.resetspitcharge", 'DD.crowmen.resetspitcharge', function(effect, deltaTime, character, targets, worldPosition)
+	if character == nil then return end
+	if character.CharacterHealth.GetAffliction('spitcharge', true) ~= nil then
+		character.CharacterHealth.GetAffliction('spitcharge', true).SetStrength(0)
+	end
+end)
 
 -- Set attack bot team
 Hook.Add("character.created", 'DD.setAttackBotTeam', function(createdCharacter)
@@ -1255,11 +1400,18 @@ Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, 
 	end
 	
 	-- head goes kaboom
-	for index, limb in pairs(character.AnimController.Limbs) do
-		if index == 2 then
-			Game.Explode(limb.WorldPosition, 1, 9999, 9999, 0, 0, 0, 0)
-		end
+	DD.decapitateCharacter(character)
+end)
+Hook.Add("DD.timepressure.gib", "DD.timepressure.gib", function(effect, deltaTime, item, targets, worldPosition)
+    local character = targets[1]
+	if character == nil then return end
+	
+	if character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
+		character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
 	end
+	
+	-- murderized
+	DD.gibCharacter(character)
 end)
 
 -- Execute when a human puts on a goblin mask

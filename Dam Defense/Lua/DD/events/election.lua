@@ -38,9 +38,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 		for item in Item.ItemList do
 			if item.Prefab.Identifier == 'ballotbox' then
 				item.Condition = 100
-				item.NonInteractable = false
-				local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
-				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
+				DD.setItemInteractable(item, true)
 				DD.setLightState(item, true)
 			end
 		end
@@ -122,7 +120,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 						if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
 						
 						local pos = DD.findRandomWaypointByJob(job).WorldPosition
-						local character = DD.spawnHuman(client, job, pos)
+						local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
 						character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 						character.UpdateTeam()
 					
@@ -148,7 +146,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 						if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
 						
 						local pos = DD.findRandomWaypointByJob(job).WorldPosition
-						local character = DD.spawnHuman(client, job, pos)
+						local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
 						character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 						character.UpdateTeam()
 					
@@ -167,9 +165,7 @@ DD.eventElection = DD.class(DD.eventBase, nil, {
 		for item in Item.ItemList do
 			if item.Prefab.Identifier == 'ballotbox' then
 				item.Condition = 0
-				item.NonInteractable = true
-				local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
-				Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
+				DD.setItemInteractable(item, false)
 				DD.setLightState(item, false)
 			end
 		end

@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="1.3.39" corepackage="False" steamworkshopid="3146664815" gameversion="1.11.5.0">
+<contentpackage name="Dam Defense" modversion="1.4.0" corepackage="False" steamworkshopid="3146664815" gameversion="1.11.5.0">
   <Other file="%ModDir%/CSharp/Client/DamDefense.cs" />
   <Text file="%ModDir%/Localizations/english.xml" />
   <Item file="%ModDir%/Items/Jerry.xml" />
+  <Item file="%ModDir%/Items/Paslg.xml" />
   <Item file="%ModDir%/Items/Machines.xml" />
   <Item file="%ModDir%/Items/Boomboxes.xml" />
   <Item file="%ModDir%/Items/Medicines.xml" />
@@ -10,7 +11,9 @@
   <Item file="%ModDir%/Items/GreenskinItems.xml" />
   <Item file="%ModDir%/Items/growableplants.xml" />
   <Structure file="%ModDir%/Misc/Prefabs.xml" />
+  <Decals file="%ModDir%/Misc/DecalPrefabs.xml" />
   <Particles file="%ModDir%/Misc/Particles.xml" />
+  <Character file="%ModDir%/Characters/Humanhog/Humanhog.xml" />
   <Character file="%ModDir%/Characters/Humanundead/Humanundead.xml" />
   <Character file="%ModDir%/Characters/Humanhusk/Humanhusk.xml" />
   <Character file="%ModDir%/Characters/Husk/Husk.xml" />
@@ -24,6 +27,10 @@
   <Character file="%ModDir%/Characters/Mudraptor_pet/Mudraptor_pet.xml" />
   <Character file="%ModDir%/Characters/Mudraptor_pet/Mudraptor_passive.xml" />
   <Character file="%ModDir%/Characters/Mudraptor_pet/Mudraptor_pet_veteran.xml" />
+  <Character file="%ModDir%/Characters/Crowmen/Crowmen.xml" />
+  <Character file="%ModDir%/Characters/Goatmen/Goatmen.xml" />
+  <Character file="%ModDir%/Characters/Huntsman/Huntsman.xml" />
+  <Sounds file="%ModDir%/Sounds/sounds.xml" />
   <Talents file="%ModDir%/Misc/Talents.xml" />
   <TalentTrees file="%ModDir%/Misc/TalentTrees.xml" />
   <Jobs file="%ModDir%/Misc/Jobs.xml" />
@@ -31,8 +38,8 @@
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />
   <Submarine file="%ModDir%/Submarines/DD Metroline Tram.sub" />
   <Submarine file="%ModDir%/Submarines/DD Cliffhanger.sub" />
-  <Submarine file="%ModDir%/Submarines/DD Rising Tide.sub" />
-  <Submarine file="%ModDir%/Submarines/DD Pioneer Point.sub" />
-  <Submarine file="%ModDir%/Submarines/DD Olde Towne.sub" />
   <Submarine file="%ModDir%/Submarines/DD Metroline.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Olde Towne.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Pioneer Point.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Rising Tide.sub" />
 </contentpackage>

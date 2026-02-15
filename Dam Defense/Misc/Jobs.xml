@@ -721,7 +721,7 @@
        pricemultiplier="0.8"
        idlebehavior="Active">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="640,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="0,0,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,669,28,28" origin="0.5,0.5"/>
@@ -1677,7 +1677,7 @@
        pricemultiplier="1.15"
        idlebehavior="Patrol">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="384,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="256,0,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,669,28,28" origin="0.5,0.5"/>
@@ -1920,7 +1920,7 @@
        pricemultiplier="1.15"
        idlebehavior="Patrol">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="128,0,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5"/>
@@ -2284,6 +2284,332 @@
       <Order identifier="fightintruders" />
       <Order identifier="rescue" />
       <Order identifier="requestfirstaid" />
+    </AppropriateOrders>
+  </Job>
+  <!-- Hog Constable -->
+  <Job identifier="hogjob" uicolor="0.3,0.3,0.7" vitalitymodifier="0" maxnumber="0" pricemultiplier="1.0" idlebehavior="Patrol">
+    <Jobicon>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5" />
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5" />
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="helm" level="60,60" />
+      <Skill identifier="weapons" level="60,60" />
+      <Skill identifier="mechanical" level="60,60" />
+      <Skill identifier="electrical" level="60,60" />
+      <Skill identifier="medical" level="60,60" />
+    </Skills>
+	<!-- rifle stunbaton -->
+    <ItemSet>
+      <Item identifier="securityuniform2" equip="true" outfit="true" />
+      <Item identifier="constablehoghelmet" equip="true" />
+      <Item identifier="constablearmor" equip="true">
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+	  </Item>
+      <Item identifier="idcard" equip="true" />
+      <Item identifier="rifle" equip="true">
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+      </Item>
+      <Item identifier="baton" />
+      <Item identifier="antibloodloss1"/>
+      <Item identifier="antibloodloss1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+    </ItemSet>
+	<!-- rifle saber -->
+    <ItemSet>
+      <Item identifier="securityuniform2" equip="true" outfit="true" />
+      <Item identifier="constablehoghelmet" equip="true" />
+      <Item identifier="constablearmor" equip="true">
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+	  </Item>
+      <Item identifier="idcard" equip="true" />
+      <Item identifier="rifle" equip="true">
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+        <Item identifier="riflebullet" />
+      </Item>
+      <Item identifier="saber" />
+      <Item identifier="antibloodloss1"/>
+      <Item identifier="antibloodloss1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+    </ItemSet>
+	<!-- shotgun baton -->
+    <ItemSet>
+      <Item identifier="securityuniform1" equip="true" outfit="true" />
+      <Item identifier="constablehoghelmet" equip="true" />
+      <Item identifier="constablearmor" equip="true">
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+	  </Item>
+      <Item identifier="idcard" equip="true" />
+      <Item identifier="constablehogshotgun" equip="true">
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+        <Item identifier="shotgunshell" />
+      </Item>
+      <Item identifier="baton" />
+      <Item identifier="antibloodloss1"/>
+      <Item identifier="antibloodloss1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="fightintruders" prioritymodifier="1" />
+      <Order identifier="rescue" prioritymodifier="0.5" />
+    </AutonomousObjectives>
+    <AppropriateOrders>
+      <Order identifier="fightintruders" />
+      <Order identifier="rescue" />
+      <Order identifier="requestfirstaid" />
+    </AppropriateOrders>
+  </Job>
+  <!-- Huntsmen -->
+  <Job identifier="hunterjob" uicolor="0.7,0.3,0.3" vitalitymodifier="0" maxnumber="0" pricemultiplier="1.0" idlebehavior="Patrol">
+    <Jobicon>
+      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5" />
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5" />
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="helm" level="60,60" />
+      <Skill identifier="weapons" level="60,60" />
+      <Skill identifier="mechanical" level="60,60" />
+      <Skill identifier="electrical" level="60,60" />
+      <Skill identifier="medical" level="60,60" />
+    </Skills>
+	<!-- wood axe -->
+    <ItemSet>
+      <Item identifier="capotainwoodsman" equip="true" />
+      <Item identifier="idcard" equip="true" />
+      <Item identifier="woodaxe" />
+      <Item identifier="antibloodloss1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+    </ItemSet>
+	<!-- rifle + knife -->
+    <ItemSet>
+      <Item identifier="capotainwoodsman" equip="true" />
+      <Item identifier="idcard" equip="true" />
+      <Item identifier="huntsmanrifle" equip="true">
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+      </Item>
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="divingknife" />
+      <Item identifier="antibloodloss1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="fightintruders" prioritymodifier="1" />
+      <Order identifier="rescue" prioritymodifier="0.5" />
+    </AutonomousObjectives>
+    <AppropriateOrders>
+      <Order identifier="fightintruders" />
+      <Order identifier="rescue" />
+      <Order identifier="requestfirstaid" />
+    </AppropriateOrders>
+  </Job>
+  <!-- Traveller (Dampwood)  -->
+  <Job identifier="traveller"
+       minkarma="0" maxnumber="0"
+       uicolor="0.6,0.51,0.48"
+       vitalitymodifier="10"
+       pricemultiplier="1.15"
+       idlebehavior="Patrol">
+    <Jobicon>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="256,0,128,128" origin="0.5,0.5"/>
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5"/>
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="helm" level="55,65" primary="true"/>
+      <Skill identifier="weapons" level="55,65"/>
+      <Skill identifier="mechanical" level="55,65"/>
+      <Skill identifier="electrical" level="55,65"/>
+      <Skill identifier="medical" level="55,65"/>
+    </Skills>
+    <ItemSet>
+      <Item identifier="tophat" equip="true"/>
+      <Item identifier="vipclothes2" equip="true" outfit="true"/>
+      <Item identifier="idcard" equip="true" />
+      <Item identifier="revolver" equip="false">
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+      </Item>
+      <Item identifier="canesword"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="fightintruders" prioritymodifier="1"/>
+      <Order identifier="rescue" prioritymodifier="1"/>
+      <Order identifier="extinguishfires" prioritymodifier ="0.75"/>
+      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.2"/>
+      <Order identifier="fixleaks" prioritymodifier="0.1"/>
+    </AutonomousObjectives>
+    <AppropriateOrders>
+      <Order identifier="operateweapons"/>
+      <Order identifier="fightintruders"/>
     </AppropriateOrders>
   </Job>
 </Jobs>

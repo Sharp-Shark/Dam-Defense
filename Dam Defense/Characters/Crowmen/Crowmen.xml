@@ -1,0 +1,70 @@
+﻿<Character SpeciesName="crowmen" Tags="" SpeciesTranslationOverride="" DisplayName="" Group="mutant" Humanoid="True" HasInfo="False" CanInteract="True" CanClimb="True" ForceSlowClimbing="True" Husk="False" HuskedSpecies="" NonHuskedSpecies="" UseHuskAppendage="False" NeedsAir="False" NeedsWater="False" UseHumanAI="False" IsMachine="False" CanSpeak="False" ShowHealthBar="True" UseBossHealthBar="False" Noise="100" Visibility="100" BloodDecal="blood" BleedParticleAir="blooddrop" BleedParticleWater="waterblood" BleedParticleMultiplier="1" CanEat="False" EatingSpeed="10" UsePathFinding="True" PathFinderPriority="1" HideInSonar="False" HideInThermalGoggles="False" SonarDisruption="0" DistantSonarRange="0" DisableDistance="25000" SoundInterval="10" DrawLast="False" AITurretPriority="1" AISlowTurretPriority="1" DespawnContainer="" MusicType="monster" MusicCommonness="1" MusicRangeMultiplier="1" UnlockKillAchievementForWholeCrew="False">
+  <ragdolls folder="%ModDir%/Characters/Crowmen/Ragdolls/" />
+  <animations folder="%ModDir%/Characters/Crowmen/Animations/" />
+  <damageemitter drawontop="True" Particle="blackgib" AngleMin="0" AngleMax="360" ScaleMin="0.1" ScaleMax="0.3" VelocityMin="50" VelocityMax="300" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="5" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+  <bloodemitter Particle="blackblood" AngleMin="0" AngleMax="0" ScaleMin="1" ScaleMax="1" VelocityMin="0" VelocityMax="0" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="5" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+  <bloodemitter Particle="blackwaterblood" AngleMin="0" AngleMax="0" ScaleMin="1" ScaleMax="1" VelocityMin="0" VelocityMax="0" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="1" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+  <gibemitter Particle="blackgib" AngleMin="0" AngleMax="360" ScaleMin="0.3" ScaleMax="0.6" VelocityMin="200" VelocityMax="500" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="10" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+  <health minvitality="0" Vitality="150" DoesBleed="True" CrushDepth="Infinity" UseHealthWindow="False" BleedingReduction="5" BurnReduction="0.1" ConstantHealthRegeneration="1" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="False" PoisonVulnerability="0.5" EmpVulnerability="0" ApplyMovementPenalties="True" DieFromBeheading="True" AllowSeveringLegs="False" ApplyAfflictionColors="False" Immunities="">
+    <Limb name="Head">
+      <VitalityMultiplier type="damage" multiplier="2.0" />
+      <VitalityMultiplier type="burn" multiplier="2.0" />
+      <VitalityMultiplier identifier="acidburn" multiplier="0.0" />
+    </Limb>
+    <Limb name="Torso">
+      <VitalityMultiplier type="damage" multiplier="1.0" />
+      <VitalityMultiplier type="burn" multiplier="2.0" />
+      <VitalityMultiplier identifier="acidburn" multiplier="0.0" />
+    </Limb>
+    <Limb name="LeftArm">
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+      <VitalityMultiplier type="burn" multiplier="1.0" />
+      <VitalityMultiplier identifier="acidburn" multiplier="0.0" />
+    </Limb>
+    <Limb name="RightArm">
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+      <VitalityMultiplier type="burn" multiplier="1.0" />
+      <VitalityMultiplier identifier="acidburn" multiplier="0.0" />
+    </Limb>
+    <Limb name="LeftLeg">
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+      <VitalityMultiplier type="burn" multiplier="1.0" />
+      <VitalityMultiplier identifier="acidburn" multiplier="0.0" />
+    </Limb>
+    <Limb name="RightLeg">
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+      <VitalityMultiplier type="burn" multiplier="1.0" />
+      <VitalityMultiplier identifier="acidburn" multiplier="0.0" />
+    </Limb>
+  </health>
+  <sound File="%ModDir%/Characters/Crowmen/attack1.ogg" State="Attack" Range="1000" Volume="1" Tags="" />
+  <sound File="%ModDir%/Characters/Crowmen/attack2.ogg" State="Attack" Range="1000" Volume="1" Tags="" />
+  <sound File="%ModDir%/Characters/Crowmen/idle1.ogg" State="Idle" Range="1000" Volume="1" Tags="" />
+  <sound File="%ModDir%/Characters/Crowmen/idle2.ogg" State="Idle" Range="1000" Volume="1" Tags="" />
+  <sound File="%ModDir%/Characters/Crowmen/idle3.ogg" State="Idle" Range="1000" Volume="1" Tags="" />
+  <sound File="%ModDir%/Characters/Crowmen/idle4.ogg" State="Idle" Range="1000" Volume="1" Tags="" />
+  <sound File="%ModDir%/Characters/Crowmen/damage1.ogg" State="Damage" Range="1000" Volume="1" Tags="" />
+  <sound File="%ModDir%/Characters/Crowmen/damage2.ogg" State="Damage" Range="1000" Volume="1" Tags="" />
+  <sound File="%ModDir%/Characters/Crowmen/death1.ogg" State="Die" Range="1000" Volume="1" Tags="" />
+  <sound File="%ModDir%/Characters/Crowmen/death2.ogg" State="Die" Range="1000" Volume="1" Tags="" />
+  <ai CombatStrength="100" Sight="0.5" Hearing="1" MaxPerceptionDistance="-1" AggressionHurt="200" AggressionGreed="15" FleeHealthThreshold="0" AttackWhenProvoked="True" AvoidGunfire="False" DamageThreshold="0" AvoidTime="3" MinFleeTime="20" AggressiveBoarding="True" EnforceAggressiveBehaviorForMissions="True" TargetOuterWalls="False" RandomAttack="False" CanOpenDoors="True" UsePathFindingToGetInside="True" KeepDoorsClosed="False" AvoidAbyss="True" StayInAbyss="True" PatrolFlooded="False" PatrolDry="True" StartAggression="0" MaxAggression="100" AggressionCumulation="0" WallTargetingMethod="Target" PlayDeadProbability="0">
+    <target Tag="door" State="Attack" Priority="5" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="decoy" State="Attack" Priority="100" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="provocative" State="Attack" Priority="100" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="weapon" State="Attack" Priority="100" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="nasonov" State="Attack" Priority="100" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="True" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="human" State="Attack" Priority="80" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="human" State="Attack" Priority="80" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="sonar" State="Attack" Priority="30" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="True" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="room" State="Attack" Priority="10" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="turret" State="Attack" Priority="1" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="True" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    <target Tag="searchlight" State="Attack" Priority="1" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="True" IgnoreOutside="False" IgnoreTargetInside="False" IgnoreTargetOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" PerceptionDistanceMultiplier="1" MaxPerceptionDistance="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+  </ai>
+  <StatusEffect type="Always" target="This">
+    <Conditional vitality="gt 0" />
+    <Affliction identifier="spitcharge" strength="1" />
+  </StatusEffect>
+  <inventory Slots="RightHand, LeftHand, Any, Any, Any, Any, Any" AccessibleWhenAlive="False" Commonness="1">
+    <Item identifier="sulphuricacid" />
+  </inventory>
+</Character>

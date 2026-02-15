@@ -164,7 +164,6 @@ DD.updateMoney = function ()
 					DD.roundData.salaryTimer[client] = DD.roundData.salaryTimer[client] - 0.5
 				end
 			else
-				DD.giveMoneyToClient(client, 0)
 				DD.roundData.salaryTimer[client] = getCharacterSalaryTimer(character)
 			end
 		end

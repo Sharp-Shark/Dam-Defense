@@ -240,6 +240,10 @@ DD.roundStartFunctions.main = function ()
 						item.SpriteColor = Color(55,255,200)
 						item.Scale = 1.0
 					end
+					if item.HasTag('dd_carriage') then
+						item.SpriteColor = Color(155,135,128)
+						item.Scale = 1.0
+					end
 				end
 			end
 		end
@@ -416,6 +420,7 @@ end
 
 -- Load other files
 require 'DD/chatCommands'
+require 'DD/democracy'
 require 'DD/nature'
 require 'DD/procGen'
 require 'DD/afflictions'
@@ -423,6 +428,7 @@ require 'DD/eventDirector'
 require 'DD/spawning'
 require 'DD/money'
 require 'DD/luahooks'
+require 'DD/gamemode'
 require 'DD/commands'
 require 'DD/networking/client'
 require 'DD/networking/server'

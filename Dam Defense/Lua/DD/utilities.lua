@@ -955,6 +955,31 @@ DD.setCardJob = function (idcard, jobIdentifier, name)
 	end
 end
 
+-- Sets an item interactability
+DD.setItemInteractable = function (item, value)
+	item.NonInteractable = not value
+	if SERVER then
+		local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
+	end
+end
+-- Sets an item visibility
+DD.setItemVisible = function (item, value)
+	item.HiddenInGame = not value
+	if SERVER then
+		local hiddenInGame = item.SerializableProperties[Identifier("HiddenInGame")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(hiddenInGame, item))
+	end
+end
+-- Sets an item vulnerability to damage
+DD.setItemVulnerableToDamage = function (item, value)
+	item.InvulnerableToDamage = not value
+	if SERVER then
+		local invulnerableToDamage = item.SerializableProperties[Identifier("InvulnerableToDamage")]
+		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(invulnerableToDamage, item))
+	end
+end
+
 -- Spawns a human with a job somewhere
 DD.spawnHuman = function (client, job, pos, name, subclass, speciesName)
 	local speciesName = speciesName or 'human'
@@ -1111,6 +1136,36 @@ end
 DD.messageAllClients = function (text, data)
 	if CLIENT then return end
 	DD.messageClients(Client.ClientList, text, data)
+end
+
+-- Murderize
+DD.gibCharacter = function (character)
+	DD.expectTypes('gibCharacter', {character}, {'userdata'})
+	for joint in character.AnimController.LimbJoints do
+		if (not joint.IsSevered) and joint.CanBeSevered then
+			Timer.NextFrame(function ()
+				if (not joint.IsSevered) then
+					character.AnimController.SeverLimbJoint(joint)
+				end
+			end)
+		end
+	end
+end
+
+-- Severs head limb
+DD.decapitateCharacter = function (character)
+	DD.expectTypes('gibCharacter', {character}, {'userdata'})
+	local head = character.AnimController.GetLimb(LimbType.Head, true, false, false)
+	if head == nil then return end
+	for joint in head.GetConnectedJoints() do
+		if (not joint.IsSevered) and joint.CanBeSevered then
+			Timer.NextFrame(function ()
+				if (not joint.IsSevered) then
+					character.AnimController.SeverLimbJoint(joint)
+				end
+			end)
+		end
+	end
 end
 
 -- Opens or closes a door

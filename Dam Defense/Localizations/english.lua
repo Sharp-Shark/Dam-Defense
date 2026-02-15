@@ -35,6 +35,13 @@ return {
 	commandElectionErrorNoCaptain = 'Cannot start an election because there is no captain.',
 	commandElectionErrorNoSecurity = 'Cannot start an election because there is no security member aside from the captain.',
 	commandAnnounceErrorCooldown = 'Please wait {timer} to make another announcement.',
+	commandVote = 'Set vote to option "{option}".',
+	commandVoteList = 'Vote options: {list}.',
+	commandVoteError = 'Nothing to vote on right now.',
+	commandVoteResult = 'Voting finished.{list}\nWinner is {winner}.',
+	commandStartVote = 'A poll has been started! Type "/vote <option>" to set your vote.',
+	commandStartVoteError = 'Cannot start a vote because one is alrady ongoing.',
+	commandStartVoteErrorGamemode = 'A vote for the next gamemode has been done.',
 	-- eventDirector.lua
 	commandEventsNone = 'none (there are no public events)',
 	commandEvents = 'The list of events currently is:\n{list}',
@@ -193,6 +200,7 @@ return {
 	vip = 'vip',
 	bodyguard = 'bodyguard',
 	empty = 'empty',
+	none = 'none',
 	-- info text
 	gui_neutral = 'Neutral',
 	gui_hostile = 'Hostile',

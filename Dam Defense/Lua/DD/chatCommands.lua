@@ -15,7 +15,7 @@ end
 DD.chatMessageFunctions.help = function (message, sender)
 	if (string.sub(message, 1, 1) ~= '/') and (string.sub(message, 1, 1) ~= '!') then return end
 	
-	local specialCommands = {'help', 'ahelp', 'thanks', 'info', 'neverantag', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'w ', 'gang', 'announce', 'fire'}
+	local specialCommands = {'help', 'ahelp', 'thanks', 'info', 'neverantag', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'w ', 'gang', 'announce', 'fire', 'vote'}
 	local commandText = {
 		help = 'Gives a list of commands. List of commands given will only include commands relevant for the current context.',
 		ahelp = 'Send a private message to the admins currently in the server.',
@@ -35,6 +35,8 @@ DD.chatMessageFunctions.help = function (message, sender)
 		gang = 'Lists fellow gang members and the name of your boss. Be cautious with enemy gangs.',
 		announce = 'Usable by the mayor to make global announcements that even people without headsets will hear. Speak up and everyone shall hear you.',
 		fire = 'Usable by the mayor to lethally fire members of security or to kill himself. Type /fire without arguments to see what number relates to each guard. Numbers can be used in place of names.',
+		vote = 'Cast a vote in a poll. Will list options you can vote for if provided an invalid value.',
+		gamemode = 'Starts a poll for which gamemode is to be used on the next round.',
 	}
 	
 	local tbl = {}
@@ -47,6 +49,8 @@ DD.chatMessageFunctions.help = function (message, sender)
 	specialCommands['ahelp'] = true
 	specialCommands['thanks'] = true
 	specialCommands['neverantag'] = true
+	if DD.democracy.active then specialCommands['vote'] = true end
+	if DD.gamemodeAllowPoll then specialCommands['gamemode'] = true end
 	if Game.RoundStarted then
 		if sender.HasPermission(ClientPermissions.ConsoleCommands) then
 			specialCommands['fire'] = true
@@ -85,6 +89,13 @@ DD.chatMessageFunctions.help = function (message, sender)
 			if event.gangstersSet[sender] then
 				specialCommands['gang'] = true
 			end
+		end
+	end
+	
+	-- gamemode command blacklist/whitelist
+	if DD.gamemode ~= nil then
+		for command, value in pairs(DD.gamemode.commandOverride) do
+			specialCommands[command] = value
 		end
 	end
 	
@@ -362,7 +373,7 @@ DD.chatMessageFunctions.fire = function (message, sender)
 			if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
 						
 			local pos = DD.findRandomWaypointByJob(job).WorldPosition
-			local character = DD.spawnHuman(client, job, pos)
+			local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
 			character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 			character.UpdateTeam()
 		

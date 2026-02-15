@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sounds>
+  <footstep_hog file="%ModDir%/Sounds/FootstepHog1.ogg" volume="0.5" range="800"/>
+  <footstep_hog file="%ModDir%/Sounds/FootstepHog2.ogg" volume="0.5" range="800"/>
+  <footstep_hog file="%ModDir%/Sounds/FootstepHog3.ogg" volume="0.5" range="800"/>
+  <footstep_hog file="%ModDir%/Sounds/FootstepHog4.ogg" volume="0.5" range="800"/>
+  <footstep_hog file="%ModDir%/Sounds/FootstepHog5.ogg" volume="0.5" range="800"/>
+  <footstep_hog file="%ModDir%/Sounds/FootstepHog6.ogg" volume="0.5" range="800"/>
+</sounds>

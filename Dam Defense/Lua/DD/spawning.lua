@@ -3,7 +3,11 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	-- Message
 	local client = DD.findClientByCharacter(character)
 	if client ~= nil then
-		DD.messageClient(client, JobPrefab.Get(character.JobIdentifier).Description, {preset = 'info'})
+		Timer.Wait(function ()
+			if (character ~= nil) and (not character.Removed) then
+				DD.messageClient(client, JobPrefab.Get(character.JobIdentifier).Description, {preset = 'info'})
+			end
+		end, 1000)
 	end
 	-- Items to be locked (to be made non interactable)
 	local lockedJobItems = {
@@ -27,17 +31,22 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			[DD.invSlots.head] = {cyanbosshat = true, yellowbosshat = true, magentabosshat = true},
 			[DD.invSlots.innerclothes] = {bossclothes = true},
 		},
+		-- dampwood jobs
+		hogjob = {
+			[DD.invSlots.head] = {constablehoghelmet = true},
+			[DD.invSlots.innerclothes] = {securityuniform1 = true, securityuniform2 = true},
+		},
+		hunterjob = {
+			[DD.invSlots.head] = {capotainhuntsman = true, capotainwoodsman = true},
+			[DD.invSlots.outerclothes] = {huntsmanarmor = true},
+		},
 	}
 	local lockedItems = lockedJobItems[tostring(character.JobIdentifier)]
 	if lockedItems ~= nil then
 		for slot, itemSet in pairs(lockedItems) do
 			local item = character.Inventory.GetItemAt(slot)
-			if itemSet[tostring(item.Prefab.Identifier)] then
-				item.NonInteractable = true
-				if SERVER then
-					local nonInteractable = item.SerializableProperties[Identifier("NonInteractable")]
-					Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(nonInteractable, item))
-				end
+			if (item ~= nil) and itemSet[tostring(item.Prefab.Identifier)] then
+				DD.setItemInteractable(item, false)
 			end
 		end
 	end
@@ -73,6 +82,8 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 		jet = {'daringdolphin', 'ballastdenizen', 'rebelknowledge'},
 		mercs = {'daringdolphin', 'ballastdenizen'},
 		mercsevil = {'daringdolphin', 'ballastdenizen'},
+		-- dampwood
+		traveller = {'unlockallrecipes', 'engineeringknowledge'},
 	}
 	if (character.SpeciesName == 'human') and (jobTalents[tostring(character.JobIdentifier)] ~= nil) then
 		Timer.Wait(function ()
@@ -364,7 +375,7 @@ Hook.Patch("Barotrauma.Networking.RespawnManager", "RespawnCharacters", {"Barotr
 					if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
 					
 					local pos = DD.findRandomWaypointByJob(job).WorldPosition
-					local character = DD.spawnHuman(client, job, pos)
+					local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
 					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 					character.UpdateTeam()
 				else

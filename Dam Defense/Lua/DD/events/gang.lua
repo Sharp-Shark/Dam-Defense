@@ -36,6 +36,8 @@ end, {
 	end,
 	
 	addClientToGang = function (self, client, loyal)
+		if client.Character == nil then return end
+		
 		-- antag safe jobs and dons cannot join gangs
 		if DD.isCharacterAntagSafe(client.Character) or (client.Character.JobIdentifier == 'gangster') then
 			return

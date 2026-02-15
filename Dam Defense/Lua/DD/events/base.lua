@@ -4,7 +4,7 @@ DD.eventBase = DD.class(nil, function (self)
 end, {
 	paramType = {}, -- correct type for each parameter of the constructor function of this class
 	clientKeys = {}, -- keys of properties of this event that are a client or a client list (useful for finding what clients are participanting in an event)
-	public = true, -- determines if event will be listed in "/publicevents"
+	public = true, -- determines if event will be listed in "/events" for all players
 	manuallyTriggered = false, -- if triggered manually by an admin using a command this will be true
 
 	logClients = function (self, set)
@@ -70,6 +70,14 @@ end, {
 			if (self.minimunAlivePercentage > alivePercentage) or (self.minimunDeadPercentage > deadPercentage) then
 				self.fail('minimun alive percentage or minimun dead percentage were not met')
 				return
+			end
+			if DD.gamemode ~= nil then
+				for eventName in DD.gamemode.eventBlacklist do
+					if eventName == self.name then
+						self.fail('blacklisted by current gamemode')
+						return
+					end
+				end
 			end
 		end
 		

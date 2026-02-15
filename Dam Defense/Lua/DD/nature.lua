@@ -22,6 +22,11 @@ DD.speciesData = {
 	
 	husk_prowler = {populationName = 'husk'},
 	husk = {initialGrowTimer = 180, grownIdentifier = 'husk_prowler', populationName = 'husk'},
+	
+	crowmen = {populationName = 'crowmen'},
+	goatmen = {populationName = 'goatmen'},
+	huntsman = {populationName = 'huntsman'},
+	humanhog = {populationName = 'constable'},
 }
 
 DD.plantData = {
@@ -119,9 +124,10 @@ LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.Items.Components.LevelR
 DD.spawnPlants = function ()
 	local weights = {}
 	for key, value in pairs(DD.plantData) do
-			weights[key] = value.weight
+		weights[key] = value.weight
 	end
 	local plant = DD.weightedRandom(DD.plantData, weights)
+	if plant == nil then return end
 	
 	local location1 = DD.getLocation(function (item) return item.HasTag('dd_plantspawn') and (not DD.roundData.plantSpawnLocationBlacklistSet[item]) end)
 	if (location1 ~= nil) and (#location1.linkedTo > 0) then
@@ -163,7 +169,7 @@ DD.replenishContainers = function ()
 	
 	if #DD.roundData.containerReplenishable == 0 then
 		for item in Item.ItemList do
-			if item.Prefab.Identifier == 'loosevent' then
+			if item.HasTag('hidden') then
 				table.insert(DD.roundData.containerReplenishable, item)
 			end
 		end
@@ -173,6 +179,7 @@ DD.replenishContainers = function ()
 		if item.OwnInventory.IsEmpty() then
 			local inventory = item.OwnInventory
 			local winner = DD.weightedRandom(DD.looseVentData, weights)
+			if winner == nil then return end
 			
 			local identifier = winner.identifier
 			local script = winner.script or function (spawnedItem) end

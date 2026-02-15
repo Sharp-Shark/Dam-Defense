@@ -32,6 +32,7 @@
   <roomname.dambasin>Dam basin</roomname.dambasin>
   <roomname.clownroom>Clown room</roomname.clownroom>
   
+  <character.crowmen>Crowmen</character.crowmen>
   <character.spitroach>Spitroach</character.spitroach>
   <character.attackbot>Attack Bot</character.attackbot>
   
@@ -103,6 +104,14 @@
   <jobdescription.mercs>Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Restore order in the dam and protect it. Mission failure will result in subject termination.</jobdescription.mercs>
   <jobname.mercsevil>MERC Squadder</jobname.mercsevil>
   <jobdescription.mercsevil>Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Explode the reactor and kill any personnel related to the dam. Mission failure will result in subject termination.</jobdescription.mercsevil>
+  <!-- Hog Job -->
+  <jobname.hogjob>Hog Cop</jobname.hogjob>
+  <jobdescription.hogjob>A mutated member of the Constabulary.</jobdescription.hogjob>
+  <jobname.hunterjob>Hunter</jobname.hunterjob>
+  <jobdescription.hunterjob>A mutated member of the Hunter's Guild.</jobdescription.hunterjob>
+  <!-- Traveller Job -->
+  <jobname.traveller>Traveller</jobname.traveller>
+  <jobdescription.traveller>An outsider trapped in a hostile environment.</jobdescription.traveller>
   
   <!-- Visual Flag Afflictions -->
   <afflictionname.luabotomyclientside>Clientside Luabotomy</afflictionname.luabotomyclientside>
@@ -158,9 +167,19 @@
   <!--<entitydescription.replaceme></entitydescription.replaceme>-->
   </Override>
   
+  <!-- Huntsman -->
+  <entityname.capotainwoodsman>Capotain</entityname.capotainwoodsman>
+  <entitydescription.capotainwoodsman>A capotain commonly found in the employ of woodsmen.</entitydescription.capotainwoodsman>
+  <entityname.capotainhuntsman>Capotain</entityname.capotainhuntsman>
+  <entitydescription.capotainhuntsman>A capotain commonly found in the employ of huntsmen.</entitydescription.capotainhuntsman>
+  <entityname.huntsmanarmor>Iron Breastplate</entityname.huntsmanarmor>
+  <entitydescription.huntsmanarmor>An iron breastplate. Whilst its protection extends to the neck and head, its weight slows the wearer down.</entitydescription.huntsmanarmor>
   <!-- Revolver Carbine -->
   <entityname.revolvercarbine>Revolver Carbine</entityname.revolvercarbine>
   <entitydescription.revolvercarbine>A revolver with a stock, scope and a longer barrel, improving accuracy.</entitydescription.revolvercarbine>
+  <!-- Huntsman's Rifle -->
+  <entityname.huntsmanrifle>Huntsman's Rifle</entityname.huntsmanrifle>
+  <entitydescription.huntsmanrifle>A makeshift, shoddy .38 caliber hunting rifle.</entitydescription.huntsmanrifle>
   <!-- attack bot -->
   <entityname.attackbotspawner>Attack Bot</entityname.attackbotspawner>
   <entitydescription.attackbotspawner>Build a deadly machine to kill with you.</entitydescription.attackbotspawner>
@@ -369,6 +388,9 @@
   <!-- Foldable Shotgun -->
   <entityname.foldableshotgun>Foldable Shotgun</entityname.foldableshotgun>
   <entitydescription.foldableshotgun>An antique shotgun that manages to have both power and portability by being foldable.</entitydescription.foldableshotgun>
+  <!-- Hog Shotgun -->
+  <entityname.constablehogshotgun>Hog Shotgun</entityname.constablehogshotgun>
+  <entitydescription.constablehogshotgun>A pump-action shotgun used by the Constabulary.</entitydescription.constablehogshotgun>
   <!-- 40mm Rubber Round -->
   <entityname.40mmrubberround>40mm Rubber Round</entityname.40mmrubberround>
   <entitydescription.40mmrubberround>Ammunition for grenade launcher. Less-lethal rubber round, does not explode.</entitydescription.40mmrubberround>
@@ -428,9 +450,24 @@
   <!-- Water Cannon -->
   <entityname.watercannon>Water Cannon</entityname.watercannon>
   <entitydescription.watercannon>Pumps in water, stores it and then fires it at a high pressure. Useful for crowd control, cleaning, extinguishing fires or for propulsion in the air or water. Requires a battery to fire and to refill.</entitydescription.watercannon>
+  <!-- Wood Axe -->
+  <entityname.woodaxe>Wood Axe</entityname.woodaxe>
+  <entitydescription.woodaxe>Not many trees you could use this to cut with around these parts.</entitydescription.woodaxe>
+  <!-- Saber -->
+  <entityname.saber>Saber</entityname.saber>
+  <entitydescription.saber>A saber employed by elite members of the Constabulary.</entitydescription.saber>
+  <!-- Baton -->
+  <entityname.baton>Baton</entityname.baton>
+  <entitydescription.baton>A heavy baton used by the Constabulary.</entitydescription.baton>
+  <!-- Cane Sword (Ornate Cane) -->
+  <entityname.canesword>Ornate Cane</entityname.canesword>
+  <entitydescription.canesword>A durable walking cane with an ivory handle.</entitydescription.canesword>
   <!-- Baseball Bat -->
   <entityname.baseballbat>Baseball Bat</entityname.baseballbat>
   <entitydescription.baseballbat>Hard to stab a guy in the back when he's beating your head in.</entitydescription.baseballbat>
+  <!-- Top Hat -->
+  <entityname.tophat>Top Hat</entityname.tophat>
+  <entitydescription.tophat>A hat for a distinguished gentleman. Might save your life in a duel.</entitydescription.tophat>
   <!-- Cowboy Hat -->
   <entityname.cowboyhat>Cowboy Hat</entityname.cowboyhat>
   <entitydescription.cowboyhat>A nameless hat for a nameless stranger. Might save your life in a duel.</entitydescription.cowboyhat>

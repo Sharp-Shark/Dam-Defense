@@ -892,6 +892,11 @@
     </ItemContainer>
   </Item>
   </Override>
+  
+  <!-- carriage (dampwood)  -->
+  <Item name="Carriage" identifier="carriage" tags="dd_dampwood_show" category="Decorative" width="196" height="126" scale="0.56" linkable="true" allowedlinks="dd_location" HiddenInGame="true" noninteractable="true" subcategory="victorian">
+    <sprite texture="%ModDir%/Items/carriage.png" sourcerect="0,0,736,400" origin="0.5,0.5" depth="0.7" />
+  </Item>
 
   <!-- Location -->
   <Item name="DD Location" identifier="dd_location" spritecolor="255,255,255" tags="dd_location" category="Miscellaneous" scale="1" linkable="true" allowedlinks="dd_location" HiddenInGame="true" noninteractable="true">

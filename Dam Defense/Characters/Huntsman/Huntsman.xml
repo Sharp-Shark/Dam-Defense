@@ -1,0 +1,73 @@
+﻿<Character specifiertags="true" skincolors="(#ffffff, 100)" haircolors="(#000000, 0)" facialhaircolors="(#000000, 0)" SpeciesName="Huntsman" Tags="" SpeciesTranslationOverride="" DisplayName="" Group="huntsman" Humanoid="True" HasInfo="True" CanInteract="True" CanClimb="True" ForceSlowClimbing="False" Husk="False" HuskedSpecies="" NonHuskedSpecies="" UseHuskAppendage="True" NeedsAir="True" NeedsWater="False" UseHumanAI="True" IsMachine="False" CanSpeak="True" ShowHealthBar="True" UseBossHealthBar="False" Noise="150" Visibility="150" BloodDecal="blood" BleedParticleAir="blooddrop" BleedParticleWater="waterblood" BleedParticleMultiplier="1" CanEat="True" EatingSpeed="10" UsePathFinding="True" PathFinderPriority="1" HideInSonar="False" HideInThermalGoggles="False" SonarDisruption="0" DistantSonarRange="0" DisableDistance="25000" SoundInterval="10" DrawLast="False" AITurretPriority="1" AISlowTurretPriority="1" DespawnContainer="" MusicType="monster" MusicCommonness="1" MusicRangeMultiplier="1" UnlockKillAchievementForWholeCrew="False">
+  <names path="Content/Characters/Human/names.xml" />
+  <ragdolls folder="default" />
+  <animations folder="default" />
+  <damageemitter drawontop="True" Particle="gib" AngleMin="0" AngleMax="360" ScaleMin="0.25" ScaleMax="0.5" VelocityMin="50" VelocityMax="300" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="10" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+  <bloodemitter Particle="blood" AngleMin="0" AngleMax="0" ScaleMin="1" ScaleMax="1" VelocityMin="0" VelocityMax="0" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="10" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+  <bloodemitter Particle="waterblood" AngleMin="0" AngleMax="0" ScaleMin="1" ScaleMax="1" VelocityMin="0" VelocityMax="0" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="1" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+  <gibemitter Particle="gib" AngleMin="0" AngleMax="360" ScaleMin="1" ScaleMax="1" VelocityMin="200" VelocityMax="700" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="20" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+  <gibemitter Particle="heavygib" AngleMin="0" AngleMax="360" ScaleMin="1" ScaleMax="1" VelocityMin="50" VelocityMax="500" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="10" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+  <sound File="%ModDir%/Characters/Huntsman/damage1.ogg" State="Damage" Range="500" Volume="2" Tags="Male" />
+  <sound File="%ModDir%/Characters/Huntsman/damage2.ogg" State="Damage" Range="500" Volume="2" Tags="Male" />
+  <sound File="%ModDir%/Characters/Huntsman/damage3.ogg" State="Damage" Range="500" Volume="2" Tags="Male" />
+  <health Vitality="100" DoesBleed="True" CrushDepth="6000" UseHealthWindow="True" BleedingReduction="0" BurnReduction="0" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="False" PoisonVulnerability="1" EmpVulnerability="0" ApplyMovementPenalties="True" DieFromBeheading="True" AllowSeveringLegs="False" ApplyAfflictionColors="True" Immunities="">
+    <MedUISilhouette texture="Content/UI/Health/MedUI_Silhouette.png" columns="8" rows="2" sourcerect="0,0,1008,748" />
+    <MedUIExtra texture="Content/UI/Health/MedUIExtra.png" columns="4" rows="4" sourcerect="0,0,1024,1024" />
+    <Limb name="Head">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="1,0,126,374" highlightarea="41,0,45,54" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="1,515,126,374" />
+      <VitalityMultiplier type="damage" multiplier="2.0" />
+    </Limb>
+    <Limb name="Torso">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="631,0,126,374" highlightarea="29,56,70,134" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="631,515,126,374" />
+      <VitalityMultiplier type="bleeding" multiplier="2.0" />
+    </Limb>
+    <Limb name="LeftArm">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="379,0,126,374" highlightarea="1,69,27,140" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="379,515,126,374" />
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+    <Limb name="RightArm">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="127,0,126,374" highlightarea="100,69,27,140" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="127,515,126,374" />
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+    <Limb name="LeftLeg">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="505,0,126,374" highlightarea="3,180,57,194" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="505,515,126,374" />
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+    <Limb name="RightLeg">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="253,0,126,374" highlightarea="68,180,57,194" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="253,515,126,374" />
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+  </health>
+  <inventory arrowslot="9" accessiblebyowner="True" Slots="Card, Head, OuterClothes, LeftHand, RightHand, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface" AccessibleWhenAlive="False" Commonness="1" />
+  <Heads>
+    <Head tags="head1,male" sheetindex="3,1" />
+  </Heads>
+  <Vars>
+    <Var var="GENDER" tags="male" />
+  </Vars>
+  <MenuCategory var="GENDER" />
+  <Pronouns var="GENDER" />
+  <HeadAttachments>
+    <Wearable type="Husk">
+      <sprite name="Husk" texture="Content/Characters/Human/Human_husk.png" hidewearablesoftype="Beard" sheetindex="0,0" />
+    </Wearable>
+    <Wearable type="Herpes">
+      <sprite name="Herpes" texture="Content/Characters/Human/Human_karma.png" sheetindex="0,0" />
+    </Wearable>
+  </HeadAttachments>
+  <StatusEffect type="Always" target="This" disabledeltatime="true">
+    <Conditional vitality="lt 0" />
+    <Affliction identifier="internaldamage" strength="999" />
+  </StatusEffect>
+  <StatusEffect type="OnDeath" target="This">
+    <sound File="%ModDir%/Characters/Huntsman/death1.ogg" Range="1000" Volume="3" selectionmode="Random" />
+    <sound File="%ModDir%/Characters/Huntsman/death2.ogg" Range="1000" Volume="3" />
+    <sound File="%ModDir%/Characters/Huntsman/death3.ogg" Range="1000" Volume="3" />
+  </StatusEffect>
+</Character>
