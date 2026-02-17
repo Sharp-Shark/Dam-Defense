@@ -1281,14 +1281,26 @@ Hook.Add("character.created", 'DD.giveHogItems', function(createdCharacter)
 		return
 	end
 	
+	if createdCharacter.SpeciesName == 'huntsman' then
+		if DD.isCharacterGender(createdCharacter, 'wood') then
+			if createdCharacter.info.Job.Variant % 2 == 1 then
+				createdCharacter.info.Job.Variant = createdCharacter.info.Job.Variant - 1
+			end
+			createdCharacter.GiveTalent('axewieldingmaniac', true)
+		elseif DD.isCharacterGender(createdCharacter, 'hunt') then
+			if createdCharacter.info.Job.Variant % 2 == 0 then
+				createdCharacter.info.Job.Variant = createdCharacter.info.Job.Variant + 1
+			end
+		end
+	end
+	
 	createdCharacter.GiveJobItems(false, nil)
 	Timer.NextFrame(function ()
 		createdCharacter.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team2, true)
 		createdCharacter.UpdateTeam()
 		
-		if createdCharacter.SpeciesName == 'humanHog' then
-			createdCharacter.GiveTalent('deliberateshooter', true)
-		end
+		-- slower firing rate (does not affect melee)
+		createdCharacter.GiveTalent('deliberateshooter', true)
 		
 		-- is shotgunner
 		local shotgunner = false
@@ -1349,20 +1361,30 @@ DD.characterDeathFunctions.hogDeath = function (character)
 		huntsmanrifle = true,
 		divingknife = true,
 		woodaxe = true,
+		capotainhuntsman = true,
+		capotainwoodsman = true,
+	}
+	local lootAmount = {
+		revolverround = 6,
+		riflebullet = 6,
+		shotgunshell = 6,
 	}
 	local lockSet = {
 		securityuniform1 = true,
 		securityuniform2 = true,
 		constablearmor = true,
-		capotainhuntsman = true,
-		capotainwoodsman = true,
 		huntsmanarmor = true,
 	}
 	
 	Timer.NextFrame(function ()
 		for item in character.Inventory.AllItems do
 			local identifier = tostring(item.Prefab.Identifier)
-			if not lootableSet[identifier] then
+			if lootableSet[identifier] or (lootAmount[identifier] and lootAmount[identifier] > 0) then
+				if lootAmount[identifier] then
+					lootAmount[identifier] = lootAmount[identifier] - 1
+				end
+				DD.setItemInteractable(item, true)
+			else
 				if lockSet[identifier] then
 					DD.setItemInteractable(item, false)
 				else
@@ -1372,6 +1394,14 @@ DD.characterDeathFunctions.hogDeath = function (character)
 		end
 	end)
 end
+Hook.Add("DD.idlesoundfx.huntsman", 'DD.idlesoundfx.huntsman', function(effect, deltaTime, character, targets, worldPosition)
+	if character == nil then return end
+	if DD.isCharacterGender(character, 'wood') then
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('woodsmanfx'), character.WorldPosition, nil, nil, function (spawnedItem) end)
+	elseif DD.isCharacterGender(character, 'hunt') then
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('huntsmanfx'), character.WorldPosition, nil, nil, function (spawnedItem) end)
+	end
+end)
 
 -- Reset spitcharge affliction
 Hook.Add("DD.crowmen.resetspitcharge", 'DD.crowmen.resetspitcharge', function(effect, deltaTime, character, targets, worldPosition)

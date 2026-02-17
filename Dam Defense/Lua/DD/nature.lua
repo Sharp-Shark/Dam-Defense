@@ -33,7 +33,7 @@ DD.plantData = {
 	fiberplant = {itemIdentifier = 'fiberplant', weight = 1.5},
 	elastinplant = {itemIdentifier = 'elastinplant', weight = 0.5},
 	aquaticpoppy = {itemIdentifier = 'aquaticpoppy', weight = 1},
-	yeastshroom = {itemIdentifier = 'yeastshroom', weight = 0.5},
+	yeastshroom = {itemIdentifier = 'yeastshroom', weight = 1},
 	slimebacteria = {itemIdentifier = 'slimebacteria', weight = 1},
 }
 

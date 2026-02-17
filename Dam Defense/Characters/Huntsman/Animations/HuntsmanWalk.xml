@@ -27,7 +27,7 @@
   ClimbBodyMoveForce="10.5"
   ClimbHandMoveForce="5.2"
   ClimbFootMoveForce="10"
-  ClimbStepHeight="80"
+  ClimbStepHeight="50"
   AnimationType="Walk"
   MovementSpeed="1.7448974"
   CycleSpeed="3"

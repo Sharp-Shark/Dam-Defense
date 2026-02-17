@@ -733,6 +733,15 @@ DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 	return true
 end
 
+DD.isCharacterGender = function (character, tag)
+	DD.expectTypes('isCharacterGender', {character, tag}, {'userdata', 'string'})
+	if (character.Info == nil) or (character.Info.Head == nil) then return false end
+	for tagOther in character.Info.Head.Preset.TagSet do
+		if tag == tagOther then return true end
+	end
+	return false
+end
+
 DD.isCharacterAntagSafe = function (character)
 	DD.expectTypes('isCharacterAntagSafe', {character}, {'userdata'})
 	return DD.antagSafeJobs[tostring(character.JobIdentifier)]

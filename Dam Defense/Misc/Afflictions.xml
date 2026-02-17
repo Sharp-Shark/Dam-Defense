@@ -144,7 +144,7 @@
       </StatusEffect>
       <StatusEffect target="Character">
 	    <Conditional speciesname="eq Huntsman" />
-	    <SpawnItem identifier="huntsmanfx" spawnposition="This" />
+		<LuaHook name="DD.idlesoundfx.huntsman" />
       </StatusEffect>
       <StatusEffect target="Character" disabledeltatime="true">
 	    <ReduceAffliction identifier="idlesoundfx" amount="999" />

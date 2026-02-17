@@ -40,6 +40,7 @@ DD.eventDirector.eventPool = {
 	DD.eventQuarantine,
 	-- Side events
 	DD.eventFish,
+	DD.eventFishCrowmen,
 	DD.eventAirdrop,
 	DD.eventAirdropMedical,
 	DD.eventAirdropSecurity,
@@ -55,6 +56,7 @@ DD.eventDirector.eventPool = {
 	DD.eventWizard,
 	DD.eventGang,
 	DD.eventChimera,
+	DD.eventChimeraGoatman,
 	DD.eventAttackbot,
 	DD.eventTerrorist,
 	DD.eventSpy,

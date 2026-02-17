@@ -66,5 +66,6 @@
   </StatusEffect>
   <inventory Slots="RightHand, LeftHand, Any, Any, Any, Any, Any" AccessibleWhenAlive="False" Commonness="1">
     <Item identifier="sulphuricacid" />
+    <Item identifier="hydroxyapatite" />
   </inventory>
 </Character>

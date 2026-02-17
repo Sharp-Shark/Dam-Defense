@@ -2305,32 +2305,7 @@
     <ItemSet>
       <Item identifier="securityuniform2" equip="true" outfit="true" />
       <Item identifier="constablehoghelmet" equip="true" />
-      <Item identifier="constablearmor" equip="true">
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-	  </Item>
+      <Item identifier="constablearmor" equip="true" />
       <Item identifier="idcard" equip="true" />
       <Item identifier="rifle" equip="true">
         <Item identifier="riflebullet" />
@@ -2340,6 +2315,30 @@
         <Item identifier="riflebullet" />
         <Item identifier="riflebullet" />
       </Item>
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
       <Item identifier="baton" />
       <Item identifier="antibloodloss1"/>
       <Item identifier="antibloodloss1"/>
@@ -2360,32 +2359,7 @@
     <ItemSet>
       <Item identifier="securityuniform2" equip="true" outfit="true" />
       <Item identifier="constablehoghelmet" equip="true" />
-      <Item identifier="constablearmor" equip="true">
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-        <Item identifier="riflebullet" />
-	  </Item>
+      <Item identifier="constablearmor" equip="true" />
       <Item identifier="idcard" equip="true" />
       <Item identifier="rifle" equip="true">
         <Item identifier="riflebullet" />
@@ -2395,6 +2369,30 @@
         <Item identifier="riflebullet" />
         <Item identifier="riflebullet" />
       </Item>
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
+      <Item identifier="riflebullet" />
       <Item identifier="saber" />
       <Item identifier="antibloodloss1"/>
       <Item identifier="antibloodloss1"/>
@@ -2415,32 +2413,7 @@
     <ItemSet>
       <Item identifier="securityuniform1" equip="true" outfit="true" />
       <Item identifier="constablehoghelmet" equip="true" />
-      <Item identifier="constablearmor" equip="true">
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-	  </Item>
+      <Item identifier="constablearmor" equip="true" />
       <Item identifier="idcard" equip="true" />
       <Item identifier="constablehogshotgun" equip="true">
         <Item identifier="shotgunshell" />
@@ -2450,6 +2423,30 @@
         <Item identifier="shotgunshell" />
         <Item identifier="shotgunshell" />
       </Item>
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
+      <Item identifier="shotgunshell" />
       <Item identifier="baton" />
       <Item identifier="antibloodloss1"/>
       <Item identifier="antibloodloss1"/>
@@ -2491,7 +2488,7 @@
       <Skill identifier="electrical" level="60,60" />
       <Skill identifier="medical" level="60,60" />
     </Skills>
-	<!-- wood axe -->
+	<!-- woodsman - wood axe -->
     <ItemSet>
       <Item identifier="capotainwoodsman" equip="true" />
       <Item identifier="idcard" equip="true" />
@@ -2504,10 +2501,70 @@
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>
     </ItemSet>
-	<!-- rifle + knife -->
+	<!-- huntsman - rifle + knife -->
+    <ItemSet>
+      <Item identifier="capotainhuntsman" equip="true" />
+      <Item identifier="idcard" equip="true" />
+      <Item identifier="huntsmanrifle" equip="true">
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+      </Item>
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="divingknife" />
+      <Item identifier="antibloodloss1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+    </ItemSet>
+	<!-- woodsman - armor + wood axe -->
     <ItemSet>
       <Item identifier="capotainwoodsman" equip="true" />
       <Item identifier="idcard" equip="true" />
+      <Item identifier="huntsmanarmor" equip="true" />
+      <Item identifier="woodaxe" />
+      <Item identifier="antibloodloss1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+    </ItemSet>
+	<!-- huntsman - armor + rifle + knife -->
+    <ItemSet>
+      <Item identifier="capotainhuntsman" equip="true" />
+      <Item identifier="idcard" equip="true" />
+      <Item identifier="huntsmanarmor" equip="true" />
       <Item identifier="huntsmanrifle" equip="true">
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
@@ -2591,7 +2648,14 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
       </Item>
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
+      <Item identifier="revolverround" />
       <Item identifier="canesword"/>
+      <Item identifier="cigar"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>
       <Item identifier="antibleeding1"/>

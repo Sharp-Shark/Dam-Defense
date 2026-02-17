@@ -125,6 +125,7 @@ return {
 	electionEndFail = 'The election has ended because the captain has died or some other failure in the process.',
 	-- events/fish.lua
 	fishMessage = 'A total of {fishCount} {fishName} have been spotted in the {locationName}! It is adviced to kill them before they grow in numbers.',
+	fishMessageShort = 'A total of {fishCount} {fishName} have been spotted in the {locationName}!',
 	fishMessageBoss = 'A {fishName} has been spotted in the {locationName}!',
 	-- events/gang.lua
 	gangEnd = 'Don {bossName} of the {gangName} has just died! God bless his soul.',
@@ -183,7 +184,7 @@ return {
 	-- events/wizard.lua
 	wizardEnd = 'The wizard has been slain!',
 	-- events/chimera.lua
-	chimeraEnd = 'The chimera has been slain!',
+	chimeraEnd = 'The {fishName} has been slain!',
 	-- console commands
 	jobbanNoticeSingular = 'You have been banned from the {jobName} job because: {reason}.',
 	jobbanNoticePlural = 'You have been banned from {jobName} jobs because: {reason}.',

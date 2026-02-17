@@ -15,6 +15,13 @@ end, {
 	minimunDeadPercentage = 0.01,
 	minimunTimeElapsed = 10 * 60,
 	
+	locationTag = 'dd_wetsewer',
+	locationName = nil,
+	fishIdentifier = 'Husk_chimera',
+	fishName = 'husk chimera',
+	messageKey = 'fishMessageBoss',
+	
+	
 	onStart = function (self)
 		-- pick client to be chimera
 		if self.chimera == nil then
@@ -32,17 +39,18 @@ end, {
 			return
 		else
 			-- Spawn chimera
-			local location = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end)
+			local location = DD.getLocation(function (item) return item.HasTag(self.locationTag) end)
 			local locationName = tostring(location.CurrentHull.RoomName)
 			if TextManager.Get(locationName) ~= nil then locationName = tostring(TextManager.Get(locationName)) end
+			if self.locationName ~= nil then locationName = self.locationName end
 			
-			Entity.Spawner.AddCharacterToSpawnQueue('Husk_chimera', location.WorldPosition, function (character)
+			Entity.Spawner.AddCharacterToSpawnQueue(self.fishIdentifier, location.WorldPosition, function (character)
 				self.chimeraCharacter = character
 				self.chimera.SetClientCharacter(character)
 				DD.chatMessageFunctions.jobinfo('', self.chimera, true)
 			end)
 			
-			DD.messageAllClients(DD.stringLocalize('fishMessageBoss', {fishName = 'husk chimera', locationName = locationName}), {preset = 'badinfo'})
+			DD.messageAllClients(DD.stringLocalize('fishMessageBoss', {fishName = self.fishName, locationName = locationName}), {preset = 'badinfo'})
 			for client in Client.ClientList do
 				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 			end
@@ -80,7 +88,7 @@ end, {
 	end,
 	
 	onFinish = function (self)
-		DD.messageAllClients(DD.stringLocalize('chimeraEnd'), {preset = 'goodinfo'})
+		DD.messageAllClients(DD.stringLocalize('chimeraEnd', {fishName = self.fishName}), {preset = 'goodinfo'})
 	end,
 	
 	onFinishAlways = function (self)
@@ -88,4 +96,16 @@ end, {
 			self.chimeraCharacter.Kill(CauseOfDeathType.Disconnected, nil, true, true)
 		end
 	end,
+})
+
+-- Like eventChimera but with a goatman instead
+DD.eventChimeraGoatman = DD.class(DD.eventChimera, nil, {
+	name = 'chimeraGoatman',
+	weight = 1,
+	minimunTimeElapsed = 20 * 60,
+
+	locationTag = 'dd_wetsewer',
+	locationName = nil,
+	fishIdentifier = 'goatmen',
+	fishName = 'goatman',
 })

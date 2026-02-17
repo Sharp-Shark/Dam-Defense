@@ -7,10 +7,19 @@
   <bloodemitter Particle="waterblood" AngleMin="0" AngleMax="0" ScaleMin="1" ScaleMax="1" VelocityMin="0" VelocityMax="0" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="1" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
   <gibemitter Particle="gib" AngleMin="0" AngleMax="360" ScaleMin="1" ScaleMax="1" VelocityMin="200" VelocityMax="700" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="20" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
   <gibemitter Particle="heavygib" AngleMin="0" AngleMax="360" ScaleMin="1" ScaleMax="1" VelocityMin="50" VelocityMax="500" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="10" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
-  <sound File="%ModDir%/Characters/Huntsman/damage1.ogg" State="Damage" Range="500" Volume="2" Tags="Male" />
-  <sound File="%ModDir%/Characters/Huntsman/damage2.ogg" State="Damage" Range="500" Volume="2" Tags="Male" />
-  <sound File="%ModDir%/Characters/Huntsman/damage3.ogg" State="Damage" Range="500" Volume="2" Tags="Male" />
-  <health Vitality="100" DoesBleed="True" CrushDepth="6000" UseHealthWindow="True" BleedingReduction="0" BurnReduction="0" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="False" PoisonVulnerability="1" EmpVulnerability="0" ApplyMovementPenalties="True" DieFromBeheading="True" AllowSeveringLegs="False" ApplyAfflictionColors="True" Immunities="">
+  <sound File="%ModDir%/Characters/Huntsman/damage1_wood.ogg" State="Damage" Range="500" Volume="2" Tags="Wood" />
+  <sound File="%ModDir%/Characters/Huntsman/damage2_wood.ogg" State="Damage" Range="500" Volume="2" Tags="Wood" />
+  <sound File="%ModDir%/Characters/Huntsman/damage3_wood.ogg" State="Damage" Range="500" Volume="2" Tags="Wood" />
+  <sound File="%ModDir%/Characters/Huntsman/damage1_hunt.ogg" State="Damage" Range="500" Volume="2" Tags="Hunt" />
+  <sound File="%ModDir%/Characters/Huntsman/damage2_hunt.ogg" State="Damage" Range="500" Volume="2" Tags="Hunt" />
+  <sound File="%ModDir%/Characters/Huntsman/damage3_hunt.ogg" State="Damage" Range="500" Volume="2" Tags="Hunt" />
+  <sound File="%ModDir%/Characters/Huntsman/death1_wood.ogg" State="Die" Range="1000" Volume="3" Tags="Wood"/>
+  <sound File="%ModDir%/Characters/Huntsman/death2_wood.ogg" State="Die" Range="1000" Volume="3" Tags="Wood" />
+  <sound File="%ModDir%/Characters/Huntsman/death3_wood.ogg" State="Die" Range="1000" Volume="3" Tags="Wood" />
+  <sound File="%ModDir%/Characters/Huntsman/death1_hunt.ogg" State="Die" Range="1000" Volume="3" Tags="Hunt" />
+  <sound File="%ModDir%/Characters/Huntsman/death2_hunt.ogg" State="Die" Range="1000" Volume="3" Tags="Hunt" />
+  <sound File="%ModDir%/Characters/Huntsman/death3_hunt.ogg" State="Die" Range="1000" Volume="3" Tags="Hunt"/>
+  <health Vitality="100" DoesBleed="True" CrushDepth="6000" UseHealthWindow="True" BleedingReduction="0" BurnReduction="0" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="False" PoisonVulnerability="1" EmpVulnerability="0" ApplyMovementPenalties="True" DieFromBeheading="True" AllowSeveringLegs="False" ApplyAfflictionColors="False" Immunities="">
     <MedUISilhouette texture="Content/UI/Health/MedUI_Silhouette.png" columns="8" rows="2" sourcerect="0,0,1008,748" />
     <MedUIExtra texture="Content/UI/Health/MedUIExtra.png" columns="4" rows="4" sourcerect="0,0,1024,1024" />
     <Limb name="Head">
@@ -46,10 +55,11 @@
   </health>
   <inventory arrowslot="9" accessiblebyowner="True" Slots="Card, Head, OuterClothes, LeftHand, RightHand, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface" AccessibleWhenAlive="False" Commonness="1" />
   <Heads>
-    <Head tags="head1,male" sheetindex="3,1" />
+    <Head tags="head1,wood" sheetindex="3,1" />
+    <Head tags="head1,hunt" sheetindex="3,2" />
   </Heads>
   <Vars>
-    <Var var="GENDER" tags="male" />
+    <Var var="GENDER" tags="hunt,wood" />
   </Vars>
   <MenuCategory var="GENDER" />
   <Pronouns var="GENDER" />
@@ -64,10 +74,5 @@
   <StatusEffect type="Always" target="This" disabledeltatime="true">
     <Conditional vitality="lt 0" />
     <Affliction identifier="internaldamage" strength="999" />
-  </StatusEffect>
-  <StatusEffect type="OnDeath" target="This">
-    <sound File="%ModDir%/Characters/Huntsman/death1.ogg" Range="1000" Volume="3" selectionmode="Random" />
-    <sound File="%ModDir%/Characters/Huntsman/death2.ogg" Range="1000" Volume="3" />
-    <sound File="%ModDir%/Characters/Huntsman/death3.ogg" Range="1000" Volume="3" />
   </StatusEffect>
 </Character>

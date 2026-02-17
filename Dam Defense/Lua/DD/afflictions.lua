@@ -413,9 +413,8 @@ DD.thinkFunctions.afflictions = function ()
 					-- humans (or previously human humanoids) have their items put in a duffelbag when they despawn
 					if character.IsHumanoid and (string.lower(string.sub(tostring(character.SpeciesName), 1, 5)) == 'human') then
 						Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('duffelbag'), character.WorldPosition, nil, nil, function (spawnedItem)
-							for itemCount = 0, character.Inventory.Capacity do
-								local item = character.Inventory.GetItemAt(itemCount)
-								if item ~= nil then
+							for item in character.Inventory.FindAllItems(nil, false, nil) do
+								if not item.NonInteractable then
 									item.Drop()
 									spawnedItem.OwnInventory.TryPutItem(item, character, nil, true, true)
 								end
@@ -423,9 +422,10 @@ DD.thinkFunctions.afflictions = function ()
 						end)
 					-- creatures just have their items dropped on the floor
 					else
-						for itemCount = 0, character.Inventory.Capacity do
-							local item = character.Inventory.GetItemAt(itemCount)
-							if item ~= nil then item.Drop() end
+						for item in character.Inventory.FindAllItems(nil, false, nil) do
+							if not item.NonInteractable then
+								item.Drop()
+							end
 						end
 					end
 				end

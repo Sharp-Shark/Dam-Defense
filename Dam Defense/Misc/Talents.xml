@@ -230,13 +230,24 @@
 	
   </Talent>
   
-  <!-- deliberate shooter -->
+  <!-- deliberate shooter (for enemy NPCs) -->
   <Talent identifier="deliberateshooter">
     <Icon texture="Content/UI/TalentsIcons1.png" sheetindex="1,0" sheetelementsize="128,128"/>
 
     <AbilityGroupEffect abilityeffecttype="None">
       <Abilities>
         <CharacterAbilityGiveStat stattype="RangedAttackSpeed" value="-0.5"/>
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  
+  <!-- for woodsmen -->
+  <Talent identifier="axewieldingmaniac">
+    <Icon texture="Content/UI/TalentsIcons1.png" sheetindex="1,0" sheetelementsize="128,128"/>
+
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="WalkingSpeed" value="0.5"/>
       </Abilities>
     </AbilityGroupEffect>
   </Talent>

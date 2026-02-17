@@ -37,8 +37,9 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			[DD.invSlots.innerclothes] = {securityuniform1 = true, securityuniform2 = true},
 		},
 		hunterjob = {
-			[DD.invSlots.head] = {capotainhuntsman = true, capotainwoodsman = true},
-			[DD.invSlots.outerclothes] = {huntsmanarmor = true},
+			-- huntsman have missing slots so their slot numbers are different
+			[1] = {capotainhuntsman = true, capotainwoodsman = true}, -- 1: head
+			[2] = {huntsmanarmor = true}, -- 2: outerclothes
 		},
 	}
 	local lockedItems = lockedJobItems[tostring(character.JobIdentifier)]

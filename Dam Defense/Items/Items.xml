@@ -1834,8 +1834,8 @@
       <ElectricalDischarger duration="0.15" reload="1.0" ignoreuser="true" characterusable="true" raycastrange="500" range="150" rangemultiplierinwalls="1.25" outdoorsonly="false" powerconsumption="100" pickkey="Select">
         <Attack targetimpulse="50">
           <Affliction identifier="stun" strength="0.1"/>
-          <Affliction identifier="burn" strength="25"/>
-          <Affliction identifier="electricshock" strength="30"/>
+          <Affliction identifier="burn" strength="15"/>
+          <Affliction identifier="electricshock" strength="20"/>
         </Attack>
         <StatusEffect target="This" type="OnUse" forceplaysounds="true">
           <sound file="Content/Items/Weapons/WEAPONS_electricalDischarge1.ogg" range="20000" selectionmode="random"/>
@@ -2673,11 +2673,6 @@
         <sprite name="Assistant's Uniform Left Leg" texture="Content/Items/Jobgear/Assistant/Assistant.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
         <sprite name="Assistant's Uniform Right Shoe" texture="Content/Items/Jobgear/Assistant/Assistant.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
         <sprite name="Assistant's Uniform Left Shoe" texture="Content/Items/Jobgear/Assistant/Assistant.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-        <SkillModifier skillidentifier="electrical" skillvalue="5" />
-        <SkillModifier skillidentifier="helm" skillvalue="5" />
-        <SkillModifier skillidentifier="mechanical" skillvalue="5" />
-        <SkillModifier skillidentifier="medical" skillvalue="5" />
-        <SkillModifier skillidentifier="weapons" skillvalue="5" />
         <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="lacerations,bitewounds" damagemultiplier="0.95" />
       </Wearable>
       <ItemContainer capacity="3">
@@ -4265,7 +4260,7 @@
       <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
         <sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,233,223,34" canbehiddenbyotherwearables="false" rotation="85" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,1.2" />
       </Wearable>
-      <RangedWeapon barrelpos="80,8" spread="0.1" weapondamagemodifier="1.2" penetration="0.2" unskilledspread="6" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.7" >
+      <RangedWeapon barrelpos="80,8" spread="0.1" weapondamagemodifier="1.2" penetration="0.2" unskilledspread="6" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.5" >
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
         <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
         <Sound file="Content/Items/Weapons/Revolver1.ogg" type="OnUse" range="3000" selectionmode="Random" />
@@ -6736,10 +6731,6 @@
       <Price storeidentifier="merchantmine" multiplier="1.25" />
       <Price storeidentifier="merchantarmory" sold="true" multiplier="0.9" minavailable="4" />
     </Price>
-    <Deconstruct time="5">
-      <Item identifier="carbon" />
-      <Item identifier="phosphorus" />
-    </Deconstruct>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1" amount="12">
       <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="1" />
@@ -7066,7 +7057,7 @@
     <InventoryIcon texture="%ModDir%/Items/melee.png" sourcerect="180,128,64,64" />
     <Sprite texture="%ModDir%/Items/melee.png" sourcerect="0,134,180,40" origin="0.5,0.5" depth="0.55" />
     <Body width="180" height="20" density="30" />
-    <MeleeWeapon slots="RightHand,Any" aimpos="70,-5" holdpos="-60,-45" handle1="32,9" holdangle="90" aimangle="70" reload="0.6" range="75" combatPriority="10" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon slots="RightHand,Any" aimpos="70,-20" holdpos="-60,-45" handle1="32,9" holdangle="90" aimangle="45" reload="0.6" range="75" combatPriority="10" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnActive" target="Character" SpeedMultiplier="1.1" setvalue="true" />
       <Attack targetimpulse="5" itemdamage="4" structuredamage="1">
         <Affliction identifier="blunttrauma" strength="5" />
@@ -7077,6 +7068,11 @@
           <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
           <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
       </StatusEffect>
+      <StatusEffect type="OnSecondaryUse" target="This" handle1="45,0" condition="99" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="Always" target="This" handle1="32,9" setvalue="true" disabledeltatime="true">
+		<Conditional condition="gte 100" />
+	  </StatusEffect>
+      <StatusEffect type="Always" target="This" condition="100" setvalue="true" disabledeltatime="true" />
       <RequiredSkill identifier="weapons" level="15" />
     </MeleeWeapon>
     <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
@@ -8248,7 +8244,7 @@
     <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
     <ItemComponent>
       <StatusEffect target="This" type="OnSpawn">
-        <Sound file="%ModDir%/Sounds/whistlealarm.ogg" volume="4.0" range="1200" selectionmode="random" />
+        <Sound file="%ModDir%/Sounds/whistlealarm.ogg" volume="4.0" range="1500" selectionmode="random" />
       </StatusEffect>
       <StatusEffect target="This" type="OnSpawn" delay="3">
         <Remove />
@@ -8301,16 +8297,33 @@
     </ItemComponent>
   </Item>
   <!-- plays sound effect and despawns -->
+  <Item identifier="woodsmanfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <ItemComponent>
+      <StatusEffect target="This" type="OnSpawn">
+        <Sound file="%ModDir%/Characters/Huntsman/idle1_wood.ogg" loop="false" volume="1.0" range="1000" selectionmode="Random" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle2_wood.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle3_wood.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle4_wood.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle5_wood.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle6_wood.ogg" loop="false" volume="1.0" range="1000" />
+      </StatusEffect>
+      <StatusEffect target="This" type="OnSpawn" delay="3">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+  <!-- plays sound effect and despawns -->
   <Item identifier="huntsmanfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
     <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
     <ItemComponent>
       <StatusEffect target="This" type="OnSpawn">
-        <Sound file="%ModDir%/Characters/Huntsman/idle1.ogg" loop="false" volume="1.0" range="1000" selectionmode="Random" />
-        <Sound file="%ModDir%/Characters/Huntsman/idle2.ogg" loop="false" volume="1.0" range="1000" />
-        <Sound file="%ModDir%/Characters/Huntsman/idle3.ogg" loop="false" volume="1.0" range="1000" />
-        <Sound file="%ModDir%/Characters/Huntsman/idle4.ogg" loop="false" volume="1.0" range="1000" />
-        <Sound file="%ModDir%/Characters/Huntsman/idle5.ogg" loop="false" volume="1.0" range="1000" />
-        <Sound file="%ModDir%/Characters/Huntsman/idle6.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle1_hunt.ogg" loop="false" volume="1.0" range="1000" selectionmode="Random" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle2_hunt.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle3_hunt.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle4_hunt.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle5_hunt.ogg" loop="false" volume="1.0" range="1000" />
+        <Sound file="%ModDir%/Characters/Huntsman/idle6_hunt.ogg" loop="false" volume="1.0" range="1000" />
       </StatusEffect>
       <StatusEffect target="This" type="OnSpawn" delay="3">
         <Remove />

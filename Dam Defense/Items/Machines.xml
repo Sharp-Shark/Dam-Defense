@@ -479,10 +479,7 @@
       <SlotIcon slotindex="1" texture="%ModDir%/Misc/Icons.png" sourcerect="512,256,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="2" texture="%ModDir%/Misc/Icons.png" sourcerect="512,256,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="3" texture="%ModDir%/Misc/Icons.png" sourcerect="512,256,64,64" origin="0.5,0.5" />
-      <Containable items="rum,ethanol">
-        <StatusEffect type="OnContaining" target="This" AvailableFuel="20.0" disabledeltatime="true" />
-      </Containable>
-      <Containable items="fertilizer">
+      <Containable items="rum,ethanol,fertilizer">
         <StatusEffect type="OnContaining" target="This" AvailableFuel="80.0" disabledeltatime="true" />
       </Containable>
       <Containable items="combustionfuel">

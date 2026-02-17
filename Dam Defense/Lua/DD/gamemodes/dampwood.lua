@@ -24,7 +24,18 @@ DD.eventDampwood = DD.class(DD.eventBase, nil, {
 		return true
 	end,
 	
-	onThink = function (self) return end,
+	onThink = function (self)
+		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+		local timesPerSecond = 2
+		
+		-- Instant respawn as soon as any player is eligible for respawning
+		for client in Client.ClientList do
+			if DD.isClientRespawnable(client) and client.InGame then
+				Game.DispatchRespawnSub()
+				break
+			end
+		end
+	end,
 })
 DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 	name = 'dampwood',
@@ -53,7 +64,7 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 			goatmen = {
 				maximun = 4,
 				locationTag = 'dd_wetsewer',
-				spawnInterval = 4 * 60,
+				spawnInterval = 6 * 60,
 			},
 			huntsman = {
 				maximun = 10,
@@ -63,12 +74,10 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 				delay = 4,
 				itemfx = 'whistlealarmfx',
 				spawnAmount = 2,
-				spawnInterval = 2 * 60,
-				maximunTime = 30 * 60,
 			},
 		},
 	},
-	artifactSpawnInterval = 10 * 60, -- in seconds
+	artifactSpawnInterval = 20 * 60, -- in seconds
 	
 	resetNextSpawnTime = function (self, populationName)
 		local spawnInterval = self.populationData.populations[populationName].spawnInterval or self.populationData.spawnInterval
@@ -95,11 +104,12 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 		end)
 		
 		Timer.NextFrame(function ()
-			for item in DD.reactors do
-				DD.setItemInteractable(item, false)
-			end
 			for item in Item.ItemList do
-				if item.HasTag('nexshop') or item.HasTag('secnexshop') or item.HasTag('nukieshop') then
+				if item.HasTag('secnexshop') or item.HasTag('nukieshop') then
+					DD.setItemInteractable(item, false)
+					DD.setLightState(item, false)
+				end
+				if item.HasTag('nexshop') and (math.random() > 0.5) then
 					DD.setItemInteractable(item, false)
 					DD.setLightState(item, false)
 				end
@@ -136,7 +146,10 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 			-- spawn hogs to guard places full of loot
 			for waypoint in DD.findWaypointsByJob('hogjob') do
 				local pos = waypoint.WorldPosition
-				DD.spawnHuman(nil, 'hogjob', pos, nil, nil, 'humanhog')
+				local character = DD.spawnHuman(nil, 'hogjob', pos, nil, nil, 'humanhog')
+				Timer.Wait(function ()
+					character.SetOrder(Order(OrderPrefab.Prefabs['wait'], Identifier.Empty, nil, nil).WithManualPriority(CharacterInfo.HighestManualOrderPriority), true, false, true)
+				end, 1000)
 			end
 		end)
 	end,
@@ -197,16 +210,12 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 
 --[[
 
--> MAYBE the shop could be somehow functional so people can spend nexcredits (enable the shop sec nexshops?) (maybe add a green regular nexshop to the shop because a sec nexshop would be OP and this is despawned outside dampwood gamemode)
-
 NOT URGENT
 -> add crowking
 -> add batbarber
 -> add barbed wire (like NML, ask squall?)
 
 EXPERIMENTAL
--> EXPERIMENT with having constables be given a IDLE order so they won't leave their posts even if the door breaks
--> EXPERIMENT with having a big goatmen who breaks buildings to kill people inside
 -> EXPERIMENT adding valuables you can sell for cash (gems, gold cups, rings)
 -> EXPERIMENT with having players respawn with additional loot as round goes on
 
