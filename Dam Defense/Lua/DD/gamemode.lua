@@ -21,8 +21,6 @@ DD.roundStartFunctions.gamemode = function ()
 	if not Game.RoundStarted then return end
 	DD.gamemode = DD.gamemodeClass.new()
 	DD.gamemode.onRoundStart()
-	
-	DD.gamemodeAllowPoll = true
 end
 
 DD.thinkFunctions.gamemode = function ()
@@ -34,19 +32,10 @@ end
 DD.roundEndFunctions.gamemode = function ()
 	DD.gamemode.onRoundEnd()
 	DD.gamemode.dispose()
+	
+	DD.gamemodeClass = DD.gamemodeBase
 end
 
-local callback = function (winner, optionVoteCount)
-	DD.gamemodeAllowPoll = false
-	
-	for gamemodeClass in DD.gamemodePool do
-		if gamemodeClass.tbl.votable and (gamemodeClass.tbl.displayName == winner) then
-			DD.gamemodeClass = gamemodeClass
-		end
-	end
-	
-	DD.democracy.announceResult(winner, optionVoteCount)
-end
 DD.chatMessageFunctions.pollGamemode = function (message, sender)
 	if message ~= '/gamemode' then return end
 	
@@ -62,7 +51,17 @@ DD.chatMessageFunctions.pollGamemode = function (message, sender)
 		end
 	end
 	
-	local result = DD.democracy.start(options, callback)
+	local result = DD.democracy.start(options, function (winner, optionVoteCount)
+		DD.gamemodeAllowPoll = false
+		
+		for gamemodeClass in DD.gamemodePool do
+			if gamemodeClass.tbl.votable and (gamemodeClass.tbl.displayName == winner) then
+				DD.gamemodeClass = gamemodeClass
+			end
+		end
+		
+		DD.democracy.announceResult(winner, optionVoteCount)
+	end)
 	
 	if not result then
 		DD.messageClient(sender, DD.stringLocalize('commandStartVoteError'), {preset = 'commandError'})

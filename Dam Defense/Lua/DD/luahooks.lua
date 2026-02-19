@@ -1365,9 +1365,9 @@ DD.characterDeathFunctions.hogDeath = function (character)
 		capotainwoodsman = true,
 	}
 	local lootAmount = {
-		revolverround = 6,
-		riflebullet = 6,
-		shotgunshell = 6,
+		revolverround = 9,
+		riflebullet = 9,
+		shotgunshell = 9,
 	}
 	local lockSet = {
 		securityuniform1 = true,

@@ -64,9 +64,9 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 			goatmen = {
 				maximun = 4,
 				locationTag = 'dd_wetsewer',
-				spawnInterval = 6 * 60,
+				spawnInterval = 5 * 60,
 			},
-			huntsman = {
+			huntsmen = {
 				maximun = 10,
 				locationTag = 'dd_carriage',
 				speciesName = 'huntsman',
@@ -77,7 +77,8 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 			},
 		},
 	},
-	artifactSpawnInterval = 20 * 60, -- in seconds
+	artifactSpawnInterval = 20 * 60,
+	airdropSpawnInterval = 12 * 60,
 	
 	resetNextSpawnTime = function (self, populationName)
 		local spawnInterval = self.populationData.populations[populationName].spawnInterval or self.populationData.spawnInterval
@@ -104,7 +105,14 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 		end)
 		
 		Timer.NextFrame(function ()
+			for item in DD.reactors do
+				DD.setItemInteractable(item, false)
+			end
 			for item in Item.ItemList do
+				if item.Prefab.Identifier == 'fuelrod' then
+					DD.setItemInteractable(item, false)
+					DD.setItemVulnerableToDamage(item, false)
+				end
 				if item.HasTag('secnexshop') or item.HasTag('nukieshop') then
 					DD.setItemInteractable(item, false)
 					DD.setLightState(item, false)
@@ -168,6 +176,9 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 					if data.locationTag ~= nil then
 						pos = DD.getLocation(function (item) return item.HasTag(data.locationTag) end).WorldPosition
 					end
+					if data.waypointJob ~= nil then
+						pos = DD.findRandomWaypointByJob(data.waypointJob).WorldPosition
+					end
 					if pos ~= nil then
 						if data.itemfx ~= nil then
 							Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(data.itemfx), pos, nil, nil, function (spawnedItem) end)
@@ -200,6 +211,28 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 			self.artifactNextSpawnTime = DD.roundTimer + self.artifactSpawnInterval
 			
 			DD.eventDirector.startNewEvent(DD.eventAirdropArtifact)
+		end
+		if self.airdropNextSpawnTime == nil then
+			self.airdropNextSpawnTime = DD.roundTimer + self.airdropSpawnInterval
+		end
+		if DD.roundTimer >= self.airdropNextSpawnTime then
+			self.airdropNextSpawnTime = DD.roundTimer + self.airdropSpawnInterval
+			
+			DD.eventDirector.startNewEvent(DD.eventAirdrop)
+		end
+		
+		if (DD.roundTimer > 30 * 60) and (self.populationData.populations.constable == nil) then
+			self.populationData.populations.constable = {
+				maximun = 10,
+				waypointJob = 'hogjob',
+				speciesName = 'humanhog',
+				job = 'hogjob',
+				delay = 4,
+				itemfx = 'whistlealarmfx',
+				spawnAmount = 1,
+				spawnInterval = 1 * 60,
+			}
+			self.populationData.populations.huntsmen.spawnInterval = 1 * 60
 		end
 	end,
 	

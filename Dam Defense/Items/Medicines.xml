@@ -1197,7 +1197,7 @@
     <Sprite texture="bloodsampler.png" sourcerect="88,0,113,39" depth="0.55" origin="0.5,0.5" />
     <Body width="65" height="15" density="25" />
     <MeleeWeapon slots="Any,RightHand" aimpos="30,-50" aimangle="-75" handle1="-24,0" reload="1.0" range="50" combatPriority="30" msg="ItemMsgPickUpSelect">
-      <Attack penetration="0.6" targetimpulse="2" severlimbsprobability="1.0" itemdamage="12" structuredamage="8" structuresoundtype="StructureSlash">
+      <Attack targetimpulse="2" severlimbsprobability="1.0" itemdamage="12" structuredamage="8" structuresoundtype="StructureSlash">
         <Affliction identifier="lacerations" strength="10" />
 		<Affliction identifier="bloodloss" strength="10" />
         <Affliction identifier="stun" strength="0.2" />

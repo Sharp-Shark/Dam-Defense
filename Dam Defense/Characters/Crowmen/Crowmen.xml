@@ -67,5 +67,6 @@
   <inventory Slots="RightHand, LeftHand, Any, Any, Any, Any, Any" AccessibleWhenAlive="False" Commonness="1">
     <Item identifier="sulphuricacid" />
     <Item identifier="hydroxyapatite" />
+    <Item identifier="scrap" amount="2" />
   </inventory>
 </Character>

@@ -4,7 +4,7 @@ if SERVER then return end
 DD.wikiData = {
 	-- main
 	main = {
-		related = {'events', 'jobs', 'items', 'medicalSystem', 'creatures', 'dams', 'credits'},
+		related = {'events', 'jobs', 'items', 'medicalSystem', 'creatures', 'dams', 'gamemodes', 'credits'},
 		unforcedReciprocalRelations = true,
 		hidden = true,
 	},
@@ -34,6 +34,10 @@ DD.wikiData = {
 		isCategory = true,
 	},
 	dams = {
+		related = {'main'},
+		isCategory = true,
+	},
+	gamemodes = {
 		related = {'main'},
 		isCategory = true,
 	},
@@ -275,6 +279,13 @@ DD.wikiData = {
 	metrolineDam = {
 		related = {'main', 'dams'},
 	},
+	-- gamemodes
+	regularGamemode = {
+		related = {'main', 'gamemodes'},
+	},
+	dampwoodGamemode = {
+		related = {'main', 'gamemodes'},
+	},
 }
 
 -- automatically add in pages for items in Dam Defense which don't have a manually created page
@@ -506,6 +517,9 @@ for key, value in pairs(DD.wikiData) do
 	elseif string.sub(key, #key - 2, #key) == 'Dam' then
 		table.insert(DD.wikiData.dams.related, key)
 		table.insert(DD.wikiData[key].parents, 'dams')
+	elseif string.sub(key, #key - 7, #key) == 'Gamemode' then
+		table.insert(DD.wikiData.gamemodes.related, key)
+		table.insert(DD.wikiData[key].parents, 'gamemodes')
 	elseif string.sub(key, #key - 7, #key) == 'Creature' then
 		table.insert(DD.wikiData.creatures.related, key)
 		table.insert(DD.wikiData[key].parents, 'creatures')

@@ -650,7 +650,7 @@
        pricemultiplier="1"
        idlebehavior="Active">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="896,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="768,0,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,640,28,28" origin="0.5,0.5"/>
@@ -790,7 +790,7 @@
        pricemultiplier="1"
        idlebehavior="Active">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="768,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="896,0,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,727,28,28" origin="0.5,0.5"/>
@@ -1094,7 +1094,7 @@
        pricemultiplier="1.15"
        idlebehavior="Active">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="512,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="512,0,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,698,28,28" origin="0.5,0.5"/>
@@ -1231,7 +1231,7 @@
        pricemultiplier="0.8"
        idlebehavior="Active">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="896,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="128,128,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,640,28,28" origin="0.5,0.5"/>
@@ -1421,7 +1421,7 @@
        pricemultiplier="0.8"
        idlebehavior="Active">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="640,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="384,128,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,669,28,28" origin="0.5,0.5"/>
@@ -1455,7 +1455,7 @@
        pricemultiplier="0.8"
        idlebehavior="Active">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="640,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="0,0,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,669,28,28" origin="0.5,0.5"/>
@@ -1489,7 +1489,7 @@
        pricemultiplier="0.8"
        idlebehavior="Active">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="640,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="768,128,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,669,28,28" origin="0.5,0.5"/>
@@ -1603,7 +1603,7 @@
        pricemultiplier="1.15"
        idlebehavior="Patrol">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="640,128,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5"/>
@@ -1808,7 +1808,7 @@
        pricemultiplier="1.15"
        idlebehavior="Patrol">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="896,256,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="640,128,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="641,640,28,28" origin="0.5,0.5"/>
@@ -1998,7 +1998,7 @@
   </Job>
   <Job identifier="jet" uicolor="1.0,0.0,0.0" vitalitymodifier="10" maxnumber="0" pricemultiplier="1.0" idlebehavior="Active">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5" />
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="0,128,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5" />
@@ -2289,7 +2289,7 @@
   <!-- Hog Constable -->
   <Job identifier="hogjob" uicolor="0.3,0.3,0.7" vitalitymodifier="0" maxnumber="0" pricemultiplier="1.0" idlebehavior="Patrol">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5" />
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="512,128,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5" />
@@ -2476,7 +2476,7 @@
   <!-- Huntsmen -->
   <Job identifier="hunterjob" uicolor="0.7,0.3,0.3" vitalitymodifier="0" maxnumber="0" pricemultiplier="1.0" idlebehavior="Patrol">
     <Jobicon>
-      <sprite texture="Content/UI/MainIconsAtlas.png" sourcerect="256,256,128,128" origin="0.5,0.5" />
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="640,0,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5" />
@@ -2624,7 +2624,7 @@
        pricemultiplier="1.15"
        idlebehavior="Patrol">
     <Jobicon>
-      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="256,0,128,128" origin="0.5,0.5"/>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="384,0,128,128" origin="0.5,0.5"/>
     </Jobicon>
     <JobiconSmall>
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5"/>

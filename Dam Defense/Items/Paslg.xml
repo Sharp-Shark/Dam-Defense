@@ -4,13 +4,14 @@
   <Item name="Iron Breastplate" fallbacknameidentifier="bodyarmor" identifier="huntsmanarmor" category="Equipment" tags="smallitem,clothing,huntitem,bodyarmor" scale="0.5" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_soft">
     <Deconstruct time="20">
       <RequiredItem identifier="organicfiber"/>
-      <RequiredItem identifier="steel"/>
+      <RequiredItem identifier="iron" amount="3"/>
+      <RequiredItem identifier="titanium" amount="1"/>
     </Deconstruct>
     <!--
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="weapons" level="30" />
       <RequiredItem identifier="organicfiber" amount="3" />
-      <RequiredItem identifier="steel" amount="4" />
+      <RequiredItem identifier="iron" amount="4" />
       <RequiredItem identifier="titanium" amount="2" />
     </Fabricate>
 	-->

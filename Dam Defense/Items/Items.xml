@@ -4195,6 +4195,50 @@
         </StatusEffect>
       </Holdable>
     </Item>
+	<!-- changed scrap deconstruct yield -->
+    <Item name="" identifier="scrap" sonarsize="2" category="Material" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,scrapcannonammo,scrap" canbepicked="true" description="" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" aliases="scrap1,scrap2,scrap3,scrap4,scrap5,scrap6,scrap7,scrap8">
+      <PreferredContainer primary="storagecab" />
+      <PreferredContainer secondary="wreckstoragecab,wreckreactorcab,abandonedstoragecab,piratestoragecab" minamount="1" maxamount="2" spawnprobability="0.5" />
+      <Price baseprice="5" sold="false" />
+      <Deconstruct time="10" chooserandom="true" amount="2">
+        <Item identifier="uranium" commonness="0.2" />
+        <Item identifier="steel" commonness="0.8" />
+        <Item identifier="aluminium" commonness="0.4" />
+        <Item identifier="titaniumaluminiumalloy" commonness="0.4" />
+        <Item identifier="copper" commonness="0.8" />
+        <Item identifier="rubber" commonness="0.2" />
+        <Item identifier="lead" commonness="0.6" />
+        <Item identifier="plastic" commonness="0.7" />
+        <Item identifier="tin" commonness="0.4" />
+        <Item identifier="zinc" commonness="0.5" />
+      </Deconstruct>
+      <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="448,384,64,64" />
+      <Sprite texture="Content/Items/Materials/minerals.png" sourcerect="175,220,50,33" depth="0.55" origin="0.5,0.5" />
+      <Body width="45" height="20" density="25" />
+      <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect">
+        <!-- Remove the item when fully used -->
+        <StatusEffect type="OnBroken" target="This">
+          <Remove />
+        </StatusEffect>
+      </Holdable>
+      <!-- for scrap cannon -->
+      <Projectile characterusable="false" hitscan="true" hitscancount="16" removeonhit="true" spread="25">
+        <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,100" scalemultiplier="1,0.5" />
+        <Attack structuredamage="2" targetforce="4" itemdamage="2" severlimbsprobability="0.15" penetration="0.3">
+          <Affliction identifier="lacerations" strength="7.5" />
+          <Affliction identifier="bleeding" strength="7.5" />
+          <Affliction identifier="stun" strength="0.3" />
+        </Attack>
+        <StatusEffect type="OnImpact" target="UseTarget">
+          <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
+        </StatusEffect>
+        <StatusEffect type="OnImpact" target="UseTarget">
+          <Conditional entitytype="eq Structure" />
+          <Conditional hastag="eq door" />
+          <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+        </StatusEffect>
+      </Projectile>
+    </Item>
   </Override>
   <!-- end of overrides -->
 
@@ -4260,7 +4304,7 @@
       <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
         <sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,233,223,34" canbehiddenbyotherwearables="false" rotation="85" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,1.2" />
       </Wearable>
-      <RangedWeapon barrelpos="80,8" spread="0.1" weapondamagemodifier="1.2" penetration="0.2" unskilledspread="6" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.5" >
+      <RangedWeapon barrelpos="80,8" spread="0.1" weapondamagemodifier="1.1" penetration="0.1" unskilledspread="6" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.5" >
         <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
         <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
         <Sound file="Content/Items/Weapons/Revolver1.ogg" type="OnUse" range="3000" selectionmode="Random" />
@@ -7198,7 +7242,7 @@
 	    <RequiredItem items="mobilebattery" type="Contained" msg="ItemMsgBatteryCellRequired" />
 	    <Affliction identifier="invisible" amount="2" />
 	  </StatusEffect>
-	  <StatusEffect type="OnSecondaryUse" target="Contained" condition="-5">
+	  <StatusEffect type="OnSecondaryUse" target="Contained" condition="-1">
 	    <RequiredItem items="mobilebattery" type="Contained" msg="ItemMsgBatteryCellRequired" />
 	  </StatusEffect>
 	</Holdable>

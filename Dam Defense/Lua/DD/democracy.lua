@@ -87,7 +87,7 @@ DD.democracy = {
 		for option, voteCount in pairs(DD.democracy.optionVoteCount) do
 			if voteCount > winnerVoteCount then
 				winner = option
-				winnerVoteCount = winnerVoteCount
+				winnerVoteCount = voteCount
 			end
 		end
 		

@@ -25,7 +25,7 @@ DD.speciesData = {
 	
 	crowmen = {populationName = 'crowmen'},
 	goatmen = {populationName = 'goatmen'},
-	huntsman = {populationName = 'huntsman'},
+	huntsman = {populationName = 'huntsmen'},
 	humanhog = {populationName = 'constable'},
 }
 

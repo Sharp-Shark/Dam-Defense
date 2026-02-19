@@ -247,7 +247,7 @@
 
     <AbilityGroupEffect abilityeffecttype="None">
       <Abilities>
-        <CharacterAbilityGiveStat stattype="WalkingSpeed" value="0.5"/>
+        <CharacterAbilityGiveStat stattype="WalkingSpeed" value="0.35"/>
       </Abilities>
     </AbilityGroupEffect>
   </Talent>

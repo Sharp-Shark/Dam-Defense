@@ -266,7 +266,9 @@ DD.roundStartFunctions.main = function ()
 			-- other jobs
 			mercs = 'id_captain,id_security,id_medic,id_engineer,id_janitor',
 			mercsevil = 'id_jet',
-			jet = 'id_jet'
+			jet = 'id_jet',
+			-- dampwood
+			hogjob = 'id_captain,id_security,id_medic,id_engineer,id_janitor',
 		}
 		for waypoint in  Submarine.MainSub.GetWaypoints(false) do
 			if (waypoint.AssignedJob ~= nil) and (jobTags[tostring(waypoint.AssignedJob.Identifier)] ~= nil) then
@@ -535,7 +537,7 @@ DD.serverSettings = {
     MinRespawnRatio = 0, --Minimun players to respawn
     ModeSelectionMode = 0, --Manual
     MonsterEnabled = {},
-    PlayStyle = 2, --Roleplay
+    PlayStyle = 4, --Something Different
     RespawnInterval = 1.5 * 60,
     ShowEnemyHealthBars = 2, -- Hide all
     UseRespawnShuttle = false,
