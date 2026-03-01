@@ -21,6 +21,8 @@ DD.roundStartFunctions.gamemode = function ()
 	if not Game.RoundStarted then return end
 	DD.gamemode = DD.gamemodeClass.new()
 	DD.gamemode.onRoundStart()
+	
+	DD.gamemodeAllowPoll = true
 end
 
 DD.thinkFunctions.gamemode = function ()
@@ -53,6 +55,17 @@ DD.chatMessageFunctions.pollGamemode = function (message, sender)
 	
 	local result = DD.democracy.start(options, function (winner, optionVoteCount)
 		DD.gamemodeAllowPoll = false
+		
+		-- winner must have over half of the voters, otherwise it'll use the regular gamemode
+		local eligibleVoterCount = 0
+		for client in Client.ClientList do
+			if not client.SpectateOnly then
+				eligibleVoterCount = eligibleVoterCount + 1
+			end
+		end
+		if (optionVoteCount[winner] or 0) <= eligibleVoterCount / 2 then
+			winner = DD.gamemodeBase.displayName
+		end
 		
 		for gamemodeClass in DD.gamemodePool do
 			if gamemodeClass.tbl.votable and (gamemodeClass.tbl.displayName == winner) then

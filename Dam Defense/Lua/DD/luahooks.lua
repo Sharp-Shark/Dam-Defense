@@ -510,6 +510,9 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
 	-- flag affliction
 	DD.giveAfflictionCharacter(character, 'recentlyattacked', 999)
 	
+	-- huntsmen do not have armor decay
+	if character.SpeciesName == 'huntsman' then return end
+	
 	if hitLimb == nil then return end
 	local afflictions = ptable['attack'].Afflictions
 	local penetration = ptable['penetration']
@@ -527,6 +530,7 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
 	local set = {
 		ironhelmet = true,
 		makeshiftarmor = true,
+		huntsmanarmor = true,
 	}
 	if not set[tostring(armor.Prefab.Identifier)] then return end
 
@@ -1202,7 +1206,7 @@ Hook.Add("character.created", 'DD.giveUndeadItems', function(createdCharacter)
 		-- Give undead weapons
 		local weapons = {
 			{identifier = 'cultistmace', offhand = 'cultistshield'},
-			{identifier = 'boardingaxe'},
+			{identifier = 'woodaxe'},
 			{identifier = 'cultistpitchfork'},
 		}
 		local weapon = weapons[math.random(#weapons)]
@@ -1363,6 +1367,7 @@ DD.characterDeathFunctions.hogDeath = function (character)
 		woodaxe = true,
 		capotainhuntsman = true,
 		capotainwoodsman = true,
+		huntsmanarmor = true,
 	}
 	local lootAmount = {
 		revolverround = 9,
@@ -1373,7 +1378,6 @@ DD.characterDeathFunctions.hogDeath = function (character)
 		securityuniform1 = true,
 		securityuniform2 = true,
 		constablearmor = true,
-		huntsmanarmor = true,
 	}
 	
 	Timer.NextFrame(function ()
@@ -1430,7 +1434,7 @@ Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, 
 	end
 	
 	-- head goes kaboom
-	DD.decapitateCharacter(character)
+	DD.beheadCharacter(character)
 end)
 Hook.Add("DD.timepressure.gib", "DD.timepressure.gib", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]

@@ -3,31 +3,28 @@
 <Items>
   <Item name="Iron Breastplate" fallbacknameidentifier="bodyarmor" identifier="huntsmanarmor" category="Equipment" tags="smallitem,clothing,huntitem,bodyarmor" scale="0.5" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_soft">
     <Deconstruct time="20">
-      <RequiredItem identifier="organicfiber"/>
-      <RequiredItem identifier="iron" amount="3"/>
-      <RequiredItem identifier="titanium" amount="1"/>
+      <Item identifier="organicfiber" amount="1" />
+      <Item identifier="iron" amount="4" />
     </Deconstruct>
-    <!--
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
-      <RequiredSkill identifier="weapons" level="30" />
-      <RequiredItem identifier="organicfiber" amount="3" />
-      <RequiredItem identifier="iron" amount="4" />
-      <RequiredItem identifier="titanium" amount="2" />
+      <RequiredSkill identifier="weapons" level="30"/>
+      <RequiredItem identifier="organicfiber" amount="2"/>
+      <RequiredItem identifier="iron" amount="5"/>
     </Fabricate>
-	-->
-    <InventoryIcon texture="Content/Items/Diving/MakeshiftArmor.png" sourcerect="448,0,64,64" origin="0.5,0.5"/>
+    <InventoryIcon texture="%ModDir%/Items/huntarmor.png" sourcerect="117,160,96,96" origin="0.5,0.5"/>
     <Sprite texture="%ModDir%/Items/huntarmor.png" sourcerect="158,0,103,158" depth="0.6" origin="0.5,0.5" scale="1.3"/>
-    <Body radius="45" height="35" density="30"/>
+    <Body radius="45" height="25" density="30"/>
     <Wearable slots="OuterClothes" msg="ItemMsgPickUpSelect">
-      <damagemodifier afflictiontypes="burn" armorsector="0.0,360.0" damagemultiplier="0.9"/>
-      <damagemodifier afflictionidentifiers="gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true"/>
-      <damagemodifier afflictionidentifiers="bitewounds,blunttrauma,lacerations," armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true"/>
-      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true"/>
-      <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.5"/>
-      <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="0.87" setvalue="true">
-      </StatusEffect>
-      <sprite name="Hunt Armor Wearable" texture="%ModDir%/Items/huntarmor.png" limb="Torso" hidelimb="false" inheritscale="true" inheritorigin="false" ignorelimbscale="true" scale="1.05" inheritsourcerect="false" sourcerect="172,0,76,156" origin="0.535,0.55" depth="0.001"/>
-      <sprite name="Hunt Armorneck Wearable" texture="%ModDir%/Items/huntarmor.png" limb="Head" hidelimb="false" inherittexturescale="true" inheritorigin="false" ignorelimbscale="true" scale="0.7" inheritsourcerect="false" sourcerect="390,246,10,10" origin="0.5,0.5" depth="0.001"/>
+      <damagemodifier afflictionidentifiers="gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds,lacerations,blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.5" damagesound="LimbArmor" deflectprojectiles="true" />
+      <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="0.87" setvalue="true"/>
+      <sprite name="Hunt Armor Wearable" texture="%ModDir%/Items/huntarmor.png" limb="Torso" hidelimb="false" inheritscale="true" inheritorigin="false" ignorelimbscale="true" scale="1.05" inheritsourcerect="false" sourcerect="172,0,76,156" origin="0.535,0.55" depthlimb="head"/>
+      <sprite name="Hunt Armorneck Wearable" texture="%ModDir%/Items/huntarmor.png" limb="Head" hidelimb="false" inherittexturescale="true" inheritorigin="false" inheritlimbdepth="true" ignorelimbscale="true" scale="1.05" inheritsourcerect="false" sourcerect="384,192,16,16" origin="0.5,0.5" depthlimb="head"/>
+    </Wearable>
+    <Wearable slots="OuterClothes" msg="ItemMsgPickUpSelect">
+      <sprite name="Hunt Armor Bevor" texture="%ModDir%/Items/huntarmor.png" limb="torso" hidelimb="false" inheritscale="true" inheritorigin="false" ignorelimbscale="true" scale="1.05" inheritsourcerect="false" sourcerect="275,0,76,156" origin="0.535,0.55" depthlimb="jaw"/>
     </Wearable>
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use"/>
   </Item>

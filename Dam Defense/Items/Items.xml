@@ -2928,7 +2928,7 @@
       <Wearable slots="OuterClothes" msg="ItemMsgPickUpSelect">
         <StatusEffect type="OnWearing" target="Character" setvalue="true" disabledeltatime="true" />
         <damagemodifier afflictionidentifiers="gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="LimbArmor" deflectprojectiles="true" />
-        <damagemodifier afflictionidentifiers="bitewounds, lacerations" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
+        <damagemodifier afflictionidentifiers="bitewounds,lacerations,blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
         <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
         <damagemodifier afflictiontypes="stun" armorsector="0.0,360.0" damagemultiplier="0.5" damagesound="LimbArmor" deflectprojectiles="true" />
         <sprite name="Makeshift Armor Torso" texture="Content/Items/Diving/MakeshiftArmor.png" limb="Torso" hidelimb="false" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
@@ -2977,8 +2977,9 @@
       <Wearable slots="Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
         <StatusEffect type="OnWearing" target="Character" HideFace="true" ObstructVision="true" setvalue="true" disabledeltatime="true" />
         <damagemodifier afflictionidentifiers="gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="LimbArmor" deflectprojectiles="true" />
-        <damagemodifier afflictionidentifiers="lacerations, bitewounds" armorsector="0.0,360.0" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" />
+        <damagemodifier afflictionidentifiers="lacerations,bitewounds,blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" />
         <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+        <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
         <sprite name="Iron Helmet" texture="Content/Items/Jobgear/headgears.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.65" hidewearablesoftype="Hair" sourcerect="249,529,90,102" origin="0.5,0.5" />
       </Wearable>
       <Holdable slots="RightHand,LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
@@ -6407,7 +6408,7 @@
       <RequiredItem tag="money" amount="16" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
-      <RequiredSkill identifier="weapons" level="65" />
+      <RequiredSkill identifier="weapons" level="55" />
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
       <RequiredItem identifier="tin" />

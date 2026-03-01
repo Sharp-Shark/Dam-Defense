@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Dam Defense" modversion="1.4.2" corepackage="False" steamworkshopid="3146664815" gameversion="1.11.5.0">
+<contentpackage name="Dam Defense" modversion="1.4.3" corepackage="False" steamworkshopid="3146664815" gameversion="1.11.5.0">
   <Other file="%ModDir%/CSharp/Client/DamDefense.cs" />
   <Text file="%ModDir%/Localizations/english.xml" />
   <Item file="%ModDir%/Items/Jerry.xml" />
@@ -15,6 +15,7 @@
   <Particles file="%ModDir%/Misc/Particles.xml" />
   <Character file="%ModDir%/Characters/Humanhog/Humanhog.xml" />
   <Character file="%ModDir%/Characters/Humanundead/Humanundead.xml" />
+  <Character file="%ModDir%/Characters/Humantrioxin/Humantrioxin.xml" />
   <Character file="%ModDir%/Characters/Humanhusk/Humanhusk.xml" />
   <Character file="%ModDir%/Characters/Husk/Husk.xml" />
   <Character file="%ModDir%/Characters/Husk_prowler/Husk_prowler.xml" />
@@ -37,9 +38,9 @@
   <Afflictions file="%ModDir%/Misc/Afflictions.xml" />
   <Submarine file="%ModDir%/Submarines/DD Demo.sub" />
   <Submarine file="%ModDir%/Submarines/DD Metroline Tram.sub" />
-  <Submarine file="%ModDir%/Submarines/DD Metroline.sub" />
   <Submarine file="%ModDir%/Submarines/DD Pioneer Point.sub" />
   <Submarine file="%ModDir%/Submarines/DD Rising Tide.sub" />
   <Submarine file="%ModDir%/Submarines/DD Cliffhanger.sub" />
   <Submarine file="%ModDir%/Submarines/DD Olde Towne.sub" />
+  <Submarine file="%ModDir%/Submarines/DD Metroline.sub" />
 </contentpackage>

@@ -15,7 +15,7 @@ end
 DD.chatMessageFunctions.help = function (message, sender)
 	if (string.sub(message, 1, 1) ~= '/') and (string.sub(message, 1, 1) ~= '!') then return end
 	
-	local specialCommands = {'help', 'ahelp', 'thanks', 'info', 'neverantag', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'w ', 'gang', 'announce', 'fire', 'vote'}
+	local specialCommands = {'help', 'ahelp', 'thanks', 'info', 'neverantag', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'w ', 'gang', 'announce', 'fire', 'vote', 'gamemode'}
 	local commandText = {
 		help = 'Gives a list of commands. List of commands given will only include commands relevant for the current context.',
 		ahelp = 'Send a private message to the admins currently in the server.',

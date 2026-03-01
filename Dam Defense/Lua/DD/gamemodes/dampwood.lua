@@ -24,18 +24,7 @@ DD.eventDampwood = DD.class(DD.eventBase, nil, {
 		return true
 	end,
 	
-	onThink = function (self)
-		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
-		local timesPerSecond = 2
-		
-		-- Instant respawn as soon as any player is eligible for respawning
-		for client in Client.ClientList do
-			if DD.isClientRespawnable(client) and client.InGame then
-				Game.DispatchRespawnSub()
-				break
-			end
-		end
-	end,
+	onThink = function (self) return end,
 })
 DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 	name = 'dampwood',
@@ -78,7 +67,6 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 		},
 	},
 	artifactSpawnInterval = 20 * 60,
-	airdropSpawnInterval = 12 * 60,
 	
 	resetNextSpawnTime = function (self, populationName)
 		local spawnInterval = self.populationData.populations[populationName].spawnInterval or self.populationData.spawnInterval
@@ -107,6 +95,7 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 		Timer.NextFrame(function ()
 			for item in DD.reactors do
 				DD.setItemInteractable(item, false)
+				DD.setItemVulnerableToDamage(item, false)
 			end
 			for item in Item.ItemList do
 				if item.Prefab.Identifier == 'fuelrod' then
@@ -160,6 +149,8 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 				end, 1000)
 			end
 		end)
+		
+		DD.roundTimer = 0
 	end,
 	
 	onThink = function (self)
@@ -212,16 +203,8 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 			
 			DD.eventDirector.startNewEvent(DD.eventAirdropArtifact)
 		end
-		if self.airdropNextSpawnTime == nil then
-			self.airdropNextSpawnTime = DD.roundTimer + self.airdropSpawnInterval
-		end
-		if DD.roundTimer >= self.airdropNextSpawnTime then
-			self.airdropNextSpawnTime = DD.roundTimer + self.airdropSpawnInterval
-			
-			DD.eventDirector.startNewEvent(DD.eventAirdrop)
-		end
 		
-		if (DD.roundTimer > 30 * 60) and (self.populationData.populations.constable == nil) then
+		if (DD.roundTimer > 40 * 60) and (self.populationData.populations.constable == nil) then
 			self.populationData.populations.constable = {
 				maximun = 10,
 				waypointJob = 'hogjob',

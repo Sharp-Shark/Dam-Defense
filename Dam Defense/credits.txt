@@ -8,4 +8,5 @@ Quarmellion2.0 (paslg) helped with the hog cops, crowmen, huntsmen/woodsmen and 
 Squall (sonksquall) gave the base XML for the pitchfork (cultistpitchfork). Barricade item inspired by the Sandbags from Squall's No Man's Land.
 Lualess (Luabotomy) affliction was taken from the Neurotrauma mod by Mannatu for the "Clientside Luabotomy" affliction.
 Base sprite for the toolkit was taken from BTE by Chiko Eduardo.
+Crawling (prone) animations taken from Neurotrauma by Mannatu.
 Everything else by Sharp-Shark.

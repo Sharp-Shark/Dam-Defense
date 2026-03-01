@@ -1161,12 +1161,12 @@ DD.gibCharacter = function (character)
 	end
 end
 
--- Severs head limb
-DD.decapitateCharacter = function (character)
-	DD.expectTypes('gibCharacter', {character}, {'userdata'})
-	local head = character.AnimController.GetLimb(LimbType.Head, true, false, false)
-	if head == nil then return end
-	for joint in head.GetConnectedJoints() do
+-- Severs a limb
+DD.severLimb = function (limb)
+	DD.expectTypes('severLimb', {limb}, {'userdata'})
+	local character = limb.character
+	if (character == nil) or character.Removed then return end
+	for joint in limb.GetConnectedJoints() do
 		if (not joint.IsSevered) and joint.CanBeSevered then
 			Timer.NextFrame(function ()
 				if (not joint.IsSevered) then
@@ -1175,6 +1175,14 @@ DD.decapitateCharacter = function (character)
 			end)
 		end
 	end
+end
+
+-- Decapitate
+DD.beheadCharacter = function (character)
+	DD.expectTypes('beheadCharacter', {character}, {'userdata'})
+	local limb = character.AnimController.GetLimb(LimbType.Head, true, false, false)
+	if limb == nil then return end
+	DD.severLimb(limb)
 end
 
 -- Opens or closes a door
