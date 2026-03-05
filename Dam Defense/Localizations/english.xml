@@ -451,6 +451,9 @@
   <!-- Water Cannon -->
   <entityname.watercannon>Water Cannon</entityname.watercannon>
   <entitydescription.watercannon>Pumps in water, stores it and then fires it at a high pressure. Useful for crowd control, cleaning, extinguishing fires or for propulsion in the air or water. Requires a battery to fire and to refill.</entitydescription.watercannon>
+  <!-- Lantern -->
+  <entityname.lantern>Lantern</entityname.lantern>
+  <entitydescription.lantern>A flame to light the way. Somehow works underwater.</entitydescription.lantern>
   <!-- Wood Axe -->
   <entityname.woodaxe>Wood Axe</entityname.woodaxe>
   <entitydescription.woodaxe>Not many trees you could use this to cut with around these parts.</entitydescription.woodaxe>

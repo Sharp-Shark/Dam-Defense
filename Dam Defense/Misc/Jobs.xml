@@ -1250,23 +1250,53 @@
       <Item identifier="divingmask" equip="true" />
       <Item identifier="commonerclothes1" equip="true" outfit="true" />
       <Item identifier="toolbelt" equip="true">
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
+        <Item identifier="pistolmagazine" />
+        <Item identifier="pistolmagazine" />
 	  </Item>
-      <Item identifier="foldableshotgun" equip="false">
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
-        <Item identifier="shotgunshell" />
+      <Item identifier="pistol" equip="false">
+        <Item identifier="pistolmagazine" />
+      </Item>
+      <Item identifier="weldingtool" >
+		<Item identifier="weldingfueltank"/>
+	  </Item>
+      <Item identifier="wrench"/>
+      <Item identifier="flashlight" >
+		<Item identifier="batterycell"/>
+	  </Item>
+      <Item identifier="antidama1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="oxygentank"/>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Mechanic/mechanic_torso_[GENDER]_1.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <ItemSet>
+      <Item identifier="idcard" equip="true">
+	    <!-- 3 nexcredits --><Item identifier="money" /><Item identifier="money" /><Item identifier="money" />
+	  </Item>
+      <Item identifier="divingmask" equip="true" />
+      <Item identifier="commonerclothes1" equip="true" outfit="true" />
+      <Item identifier="toolbelt" equip="true">
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+	  </Item>
+      <Item identifier="revolver" equip="false">
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
+        <Item identifier="revolverround" />
       </Item>
       <Item identifier="weldingtool" >
 		<Item identifier="weldingfueltank"/>
@@ -2655,6 +2685,7 @@
       <Item identifier="revolverround" />
       <Item identifier="revolverround" />
       <Item identifier="canesword"/>
+      <Item identifier="lantern"/>
       <Item identifier="cigar"/>
       <Item identifier="antidama1"/>
       <Item identifier="antibleeding1"/>

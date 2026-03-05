@@ -31,38 +31,38 @@
   <sound file="%ModDir%/Characters/Humanundead/undead_idle1.ogg" state="Idle" range="1000" volume="3" />
   <sound file="%ModDir%/Characters/Humanundead/undead_idle2.ogg" state="Idle" range="1000" volume="3" />
   <sound file="%ModDir%/Characters/Humanundead/undead_idle3.ogg" state="Idle" range="1000" volume="3" />
-  <health Vitality="200" DoesBleed="False" CrushDepth="6000" UseHealthWindow="True" BleedingReduction="0" BurnReduction="0" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="True" ApplyAfflictionColors="False" DieFromBeheading="false" AllowSeveringLegs="true" Immunities="damage,bleeding,bloodloss,oxygenlow">
+  <health Vitality="200" minvitality="0" DoesBleed="False" CrushDepth="6000" UseHealthWindow="True" BleedingReduction="0" BurnReduction="0" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="True" ApplyAfflictionColors="False" DieFromBeheading="true" AllowSeveringLegs="true" Immunities="damage,bleeding,bloodloss,oxygenlow">
     <MedUISilhouette texture="Content/UI/Health/MedUI_Silhouette.png" columns="8" rows="2" sourcerect="0,0,1008,748" />
     <MedUIExtra texture="Content/UI/Health/MedUIExtra.png" columns="4" rows="4" sourcerect="0,0,1024,1024" />
     <Limb name="Head">
       <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="1,0,126,374" highlightarea="41,0,45,54" />
       <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="1,515,126,374" />
-      <VitalityMultiplier type="damage" multiplier="2.0" />
+      <VitalityMultiplier type="burn" multiplier="2.0" />
     </Limb>
     <Limb name="Torso">
       <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="631,0,126,374" highlightarea="29,56,70,134" />
       <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="631,515,126,374" />
-      <VitalityMultiplier type="bleeding" multiplier="2.0" />
+      <VitalityMultiplier type="burn" multiplier="2.0" />
     </Limb>
     <Limb name="LeftArm">
       <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="379,0,126,374" highlightarea="1,69,27,140" />
       <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="379,515,126,374" />
-      <VitalityMultiplier type="damage" multiplier="0.5" />
+      <VitalityMultiplier type="burn" multiplier="2.0" />
     </Limb>
     <Limb name="RightArm">
       <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="127,0,126,374" highlightarea="100,69,27,140" />
       <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="127,515,126,374" />
-      <VitalityMultiplier type="damage" multiplier="0.5" />
+      <VitalityMultiplier type="burn" multiplier="2.0" />
     </Limb>
     <Limb name="LeftLeg">
       <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="505,0,126,374" highlightarea="3,180,57,194" />
       <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="505,515,126,374" />
-      <VitalityMultiplier type="damage" multiplier="0.5" />
+      <VitalityMultiplier type="burn" multiplier="2.0" />
     </Limb>
     <Limb name="RightLeg">
       <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="253,0,126,374" highlightarea="68,180,57,194" />
       <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="253,515,126,374" />
-      <VitalityMultiplier type="damage" multiplier="0.5" />
+      <VitalityMultiplier type="burn" multiplier="2.0" />
     </Limb>
   </health>
   <inventory arrowslot="9" Slots="Card, Headset, Head, InnerClothes, OuterClothes, LeftHand, RightHand, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface" AccessibleWhenAlive="False" Commonness="1" />
@@ -107,7 +107,7 @@
   <Pronouns var="GENDER" />
   <HeadAttachments>
   </HeadAttachments>
-  <ai combatstrength="90" sight="0.5" hearing="1" aggressiveboarding="True" attackwhenprovoked="True" aggressiongreed="5" aggressionhurt="150" canopendoors="True" usepathfindingtogetinside="True" targetouterwalls="False" fleehealththreshold="0" avoidgunfire="False" avoidtime="3" minfleetime="20" enforceaggressivebehaviorformissions="True" randomattack="False" avoidabyss="True" stayinabyss="True" startaggression="0" maxaggression="100" aggressioncumulation="0">
+  <ai combatstrength="90" sight="0.5" hearing="1" aggressiveboarding="True" attackwhenprovoked="True" aggressiongreed="5" aggressionhurt="150" canopendoors="True" usepathfindingtogetinside="True" targetouterwalls="False" fleehealththreshold="0" avoidgunfire="False" avoidtime="3" minfleetime="20" enforceaggressivebehaviorformissions="True" randomattack="True" avoidabyss="True" stayinabyss="True" startaggression="0" maxaggression="100" aggressioncumulation="0">
     <target tag="decoy" state="Attack" priority="100" ignoreifnotinsamesub="True" />
     <target tag="provocative" state="Attack" priority="100" ignoreifnotinsamesub="True"/>
     <target tag="weapon" state="Attack" priority="100" ignoreifnotinsamesub="True"/>
@@ -121,4 +121,8 @@
     <target tag="swarmfeeder" state="Idle" priority="0" ignoreinside="True" ignoreoutside="True" ignoreifnotinsamesub="True" ignoreincapacitated="True" />
     <target tag="huskinfected" state="Idle" priority="0" ignoreinside="True" ignoreoutside="True" ignoreifnotinsamesub="True" ignoreincapacitated="True" threshold="1"/>
   </ai>
+  <StatusEffect type="Always" target="This" disabledeltatime="true" >
+     <Conditional vitality="lt 0" />
+     <Affliction identifier="internaldamage" strength="999" />
+  </StatusEffect>
 </Character>

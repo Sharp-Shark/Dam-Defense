@@ -9,20 +9,18 @@
   </Affliction>
   
   <!-- affliction from Neurotrauma -->
-  <!--
-  <Affliction name="" identifier="forceprone" type="gaze" isbuff="false" limbspecific="false" indicatorlimb="Torso" activationthreshold="0" maxstrength="2" showinhealthscannerthreshold="10000" showiconthreshold="10000" healableinmedicalclinic="false">
-    <Effect minstrength="0" maxstrength="2">
+  <Affliction name="" identifier="forceprone" type="slow" isbuff="false" limbspecific="false" indicatorlimb="Torso" activationthreshold="0" maxstrength="1" showinhealthscannerthreshold="10000" showiconthreshold="10000" healableinmedicalclinic="false">
+    <Effect minstrength="0" maxstrength="1">
       <StatusEffect target="Character">
-        <TriggerAnimation Type="Crouch" path="%ModDir%\Characters\Human\Animations\HumanProneCrouch.xml" priority="10" ExpectedSpecies="Human" />
-        <TriggerAnimation Type="Walk" path="%ModDir%\Characters\Human\Animations\HumanProneWalkProperBowthWays.xml" priority="10" ExpectedSpecies="Human" />
-        <TriggerAnimation Type="Run" path="%ModDir%\Characters\Human\Animations\HumanProneRunProperBowthWays.xml" priority="10" ExpectedSpecies="Human" />
-        <TriggerAnimation Type="SwimSlow" path="%ModDir%\Characters\Human\Animations\HumanProneSwimSlow.xml" priority="10" ExpectedSpecies="Human" />
-        <TriggerAnimation Type="SwimFast" path="%ModDir%\Characters\Human\Animations\HumanProneSwimFast.xml" priority="10" ExpectedSpecies="Human" />
+        <TriggerAnimation Type="Crouch" path="%ModDir%\Characters\ProneAnimations\HumanProneCrouch.xml" priority="10" ExpectedSpecies="Humantrioxin" />
+        <TriggerAnimation Type="Walk" path="%ModDir%\Characters\ProneAnimations\HumanProneWalkProperBowthWays.xml" priority="10" ExpectedSpecies="Humantrioxin" />
+        <TriggerAnimation Type="Run" path="%ModDir%\Characters\ProneAnimations\HumanProneRunProperBowthWays.xml" priority="10" ExpectedSpecies="Humantrioxin" />
+        <TriggerAnimation Type="SwimSlow" path="%ModDir%\Characters\ProneAnimations\HumanProneSwimSlow.xml" priority="10" ExpectedSpecies="Humantrioxin" />
+        <TriggerAnimation Type="SwimFast" path="%ModDir%\Characters\ProneAnimations\HumanProneSwimFast.xml" priority="10" ExpectedSpecies="Humantrioxin" />
       </StatusEffect>
     </Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="128,640,128,128" color="195,177,60,255" origin="0,0" />
   </Affliction>
-  -->
   
   <!-- indicate to player they are an antagonist -->
   <Affliction

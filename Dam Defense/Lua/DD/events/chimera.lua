@@ -101,7 +101,7 @@ end, {
 -- Like eventChimera but with a goatman instead
 DD.eventChimeraGoatman = DD.class(DD.eventChimera, nil, {
 	name = 'chimeraGoatman',
-	weight = 1,
+	weight = 1.5,
 	minimunTimeElapsed = 20 * 60,
 
 	locationTag = 'dd_wetsewer',

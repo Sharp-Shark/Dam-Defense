@@ -337,6 +337,39 @@ DD.thinkFunctions.afflictions = function ()
 				character.CharacterHealth.ReduceAfflictionOnLimb(limb, 'magentapaint', 10 * timesPerSecond)
 			end
 		end
+		-- Prone animation
+		if (character.SpeciesName == 'humantrioxin') and (not character.IsDead) then
+			local afflictionName = 'forceprone'
+			local affliction = character.CharacterHealth.GetAffliction(afflictionName, true)
+			local forceProne = false
+			local limbTypes = {
+				LimbType.Waist,
+				LimbType.RightThigh,
+				LimbType.RightLeg,
+				LimbType.RightFoot,
+				LimbType.LeftThigh,
+				LimbType.LeftLeg,
+				LimbType.LeftFoot,
+			}
+			for limbType in limbTypes do
+				local limb = character.AnimController.GetLimb(limbType, true, false, false)
+				if (limb == nil) or (limb.IsSevered) then
+					forceProne = true
+					break
+				end
+			end
+			if forceProne then	
+				if affliction ~= nil then
+					affliction.SetStrength(1)
+				else
+					DD.giveAfflictionCharacter(character, afflictionName, 1)
+				end
+			else
+				if affliction ~= nil then
+					affliction.SetStrength(0)
+				end
+			end
+		end
 		-- Husk regen
 		if (DD.isCharacterHusk(character) or character.SpeciesName == 'humanundead') and (not character.IsDead) then
 			local damage = 0

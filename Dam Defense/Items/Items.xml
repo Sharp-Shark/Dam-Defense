@@ -2926,7 +2926,7 @@
       <Sprite name="Makeshift Armor Item" texture="Content/Items/Diving/MakeshiftArmor.png" sourcerect="167,25,86,126" depth="0.55" origin="0.5,0.5" />
       <Body width="62" height="120" density="30" />
       <Wearable slots="OuterClothes" msg="ItemMsgPickUpSelect">
-        <StatusEffect type="OnWearing" target="Character" setvalue="true" disabledeltatime="true" />
+        <!--<StatusEffect type="OnWearing" target="Character" setvalue="true" disabledeltatime="true" /> this statuseffect currently does nothing -->
         <damagemodifier afflictionidentifiers="gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="LimbArmor" deflectprojectiles="true" />
         <damagemodifier afflictionidentifiers="bitewounds,lacerations,blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
         <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
@@ -4988,7 +4988,7 @@
       <!-- wizard regen -->
       <StatusEffect type="OnWearing" target="Character" conditionalComparison="or">
         <Conditional wizard="gt 0" />
-        <Conditional speciesname="eq humanundead" />
+        <ReduceAffliction identifier="oxygenlow" strength="10" />
         <ReduceAffliction identifier="huskstun" strength="10" />
         <ReduceAffliction identifier="huskinfection" strength="10" />
         <ReduceAffliction type="infection" strength="10" />
@@ -5032,7 +5032,7 @@
       <!-- santa regen -->
       <StatusEffect type="OnWearing" target="Character" conditionalComparison="or">
         <Conditional wizard="gt 0" />
-        <Conditional speciesname="eq humanundead" />
+        <ReduceAffliction identifier="oxygenlow" strength="10" />
         <ReduceAffliction identifier="huskstun" strength="10" />
         <ReduceAffliction identifier="huskinfection" strength="10" />
         <ReduceAffliction type="infection" strength="10" />
@@ -6986,6 +6986,18 @@
     <Propulsion force="-29" usablein="air" particles="bubbles" />
     <aitarget sightrange="1000" soundrange="1000" fadeouttime="1" />
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
+  <!-- light up the way -->
+  <Item name="Lantern" identifier="lantern" category="Equipment,Weapon" maxstacksize="1" cargocontaineridentifier="metalcrate" Scale="0.45" tags="smallitem,light,provocative" impactsoundtag="impact_metal_light" damagedbymonsters="true" health="20" impacttolerance="5" aimable="false">
+    <Deconstruct time="10">
+      <Item identifier="copper" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/Items/lantern.png" sourcerect="51,0,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/lantern.png" sourcerect="0,0,51,96" depth="0.55" origin="0.5,0.5" />
+    <Body width="50" height="92" density="12" />
+    <Holdable slots="Any,RightHand,LeftHand" holdpos="50,-30" handle1="-2,48" holdangle="0" msg="ItemMsgPickUpSelect" />
+    <LightComponent LightColor="255,155,55,96" Flicker="0.2" flickerSpeed="0.1" pulsefrequency="0.2" pulseamount="0.2" range="600" IsOn="true" />
+    <AiTarget sightrange="4000" />
   </Item>
   <!-- axe goes in, blood comes out -->
   <Item name="Wood Axe" identifier="woodaxe" category="Weapon" Tags="mediumitem,weapon,gunsmith,mountableweapon" scale="0.5" allowasextracargo="true" requireaimtouse="true" impactsoundtag="impact_metal_light">

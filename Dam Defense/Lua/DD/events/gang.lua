@@ -259,7 +259,7 @@ end, {
 		local pos = self.boss.Character.WorldPosition
 		local subclass = 0
 		local subclass = self.gangColorIndex - 1
-		local character = DD.spawnHuman(self.boss, job, pos, nil, subclass)
+		local character = DD.spawnHuman(client, job, pos, nil, subclass)
 		character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 		character.UpdateTeam()
 		

@@ -149,7 +149,7 @@ end, {
 				if DD.isClientCharacterAlive(client) and DD.isClientAntagExempt(client) then
 					chance = -1
 				end
-				if self.rebelsSet[rebel] then chance = -1 end -- avoid adding a player to the rebel list twice
+				if self.rebelsSet[client] then chance = -1 end -- avoid adding a player to the rebel list twice
 				if (0 < chance) and pickRebels then
 					table.insert(self.rebels, client)
 					self.rebelsSet[client] = true

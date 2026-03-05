@@ -61,7 +61,7 @@ DD.eventFish = DD.class(DD.eventBase, nil, {
 -- Spawns Dampwood (Gloomwood) creatures
 DD.eventFishCrowmen = DD.class(DD.eventFish, nil, {
 	name = 'fishCrowmen',
-	weight = 1,
+	weight = 2.0,
 	goodness = -4,
 	minimunTimeElapsed = 20 * 60,
 	
@@ -70,7 +70,7 @@ DD.eventFishCrowmen = DD.class(DD.eventFish, nil, {
 	fishNames = {
 		crowmen = TextManager.Get('character.crowmen'),
 	},
-	minAmount = 4,
-	maxAmount = 6,
+	minAmount = 6,
+	maxAmount = 9,
 	messageKey = 'fishMessageShort',
 })

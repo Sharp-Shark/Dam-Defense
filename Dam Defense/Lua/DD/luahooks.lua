@@ -568,6 +568,17 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
 		end
 	end
 end, Hook.HookMethodType.Before)
+Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
+    local character = instance
+	local hitLimb = ptable['targetLimb']
+	
+	-- sever for humantrioxin
+	if (character.SpeciesName == 'humantrioxin') and (hitLimb ~= nil) and (hitLimb ~= character.AnimController.MainLimb) then
+		if character.CharacterHealth.GetLimbDamage(hitLimb, 'damage') >= (35 / character.MaxHealth) then
+			DD.severLimb(hitLimb)
+		end
+	end
+end, Hook.HookMethodType.After)
 
 -- code provided as a courtesy of SONK Squall, see: https://github.com/SONKSquall/WarfaremodGeneralContent/
 Hook.add("character.applyDamage", "DD.cowboyhat.deflect", function(charHealth, attackResult, hitLimb)
@@ -1434,6 +1445,8 @@ Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, 
 	end
 	
 	-- head goes kaboom
+	local limb = character.AnimController.GetLimb(LimbType.Head, true, false, false)
+	DD.giveAfflictionCharacter(character, 'internaldamage', 999, limb)
 	DD.beheadCharacter(character)
 end)
 Hook.Add("DD.timepressure.gib", "DD.timepressure.gib", function(effect, deltaTime, item, targets, worldPosition)
@@ -1445,6 +1458,7 @@ Hook.Add("DD.timepressure.gib", "DD.timepressure.gib", function(effect, deltaTim
 	end
 	
 	-- murderized
+	DD.giveAfflictionCharacter(character, 'internaldamage', 999)
 	DD.gibCharacter(character)
 end)
 
