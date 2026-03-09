@@ -733,6 +733,25 @@ Hook.Add("DD.spyknife.stab", "DD.spyknife.stab", function(effect, deltaTime, ite
 	end
 end)
 
+-- claymore
+Hook.Add("DD.claymore.behead", "DD.claymore.behead", function(effect, deltaTime, item, targets, worldPosition)
+	local user = effect.user
+	local limb = targets[1]
+	if user.JobIdentifier ~= 'knight' then item.Drop(user, true, true) end
+	if (limb == nil) or (LuaUserData.TypeOf(limb) ~= 'Barotrauma.Limb') then return end
+	local character = limb.character
+	if (limb.type == LimbType.Head) and (character.Vitality <= 0) and (not character.IsDead) then
+		DD.giveAfflictionCharacter(character, 'internaldamage', 999, limb)
+		DD.severLimb(limb)
+		-- heal damage after kill
+		DD.giveAfflictionCharacter(user, 'lifeessence', 999)
+		-- reset stun
+		user.SetStun(0, true)
+		-- sound effect
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('beheadfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+	end
+end)
+
 -- barricade
 Hook.Patch("Barotrauma.Items.Components.Holdable", "OnPicked", {'Barotrauma.Character'}, function(instance, ptable)
 	local item = instance.Item

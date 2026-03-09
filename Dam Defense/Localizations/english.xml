@@ -100,6 +100,9 @@
   <!-- Spy Job -->
   <jobname.spy>Spy</jobname.spy>
   <jobdescription.spy>A professional assassin, your main objective is to sow distrust and paranoia, thus sabotaging Nexpharma activity in the region. You are free to be good or evil.</jobdescription.spy>
+  <!-- Knight Job -->
+  <jobname.knight>Knight</jobname.knight>
+  <jobdescription.knight>A noble knight or a sword wielding maniac. You are free to be good or evil.</jobdescription.knight>
   <!-- MERCS Job -->
   <jobname.mercs>MERCS Member</jobname.mercs>
   <jobdescription.mercs>Mobile Emergency Rescue and Combat Squad. A highly trained paramilitary working for Nexpharma. Restore order in the dam and protect it. Mission failure will result in subject termination.</jobdescription.mercs>
@@ -451,6 +454,9 @@
   <!-- Water Cannon -->
   <entityname.watercannon>Water Cannon</entityname.watercannon>
   <entitydescription.watercannon>Pumps in water, stores it and then fires it at a high pressure. Useful for crowd control, cleaning, extinguishing fires or for propulsion in the air or water. Requires a battery to fire and to refill.</entitydescription.watercannon>
+  <!-- Claymore -->
+  <entityname.claymore>Claymore</entityname.claymore>
+  <entitydescription.claymore>You don’t kill a man by mucking about with rifles, arrows, rocks, or other long-distance rubbish. You kill him by grabbing the biggest bloody sword you can find, running up nice and close to him, and chopping the dumb bastard’s head off.</entitydescription.claymore>
   <!-- Lantern -->
   <entityname.lantern>Lantern</entityname.lantern>
   <entitydescription.lantern>A flame to light the way. Somehow works underwater.</entitydescription.lantern>

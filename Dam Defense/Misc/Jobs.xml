@@ -2026,6 +2026,62 @@
       <Order identifier="fightintruders"/>
     </AppropriateOrders>
   </Job>
+  <Job identifier="knight"
+       minkarma="0" maxnumber="0"
+       uicolor="0.5,0.5,0.5"
+       vitalitymodifier="20"
+       pricemultiplier="1.15"
+       idlebehavior="Patrol">
+    <Jobicon>
+      <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="896,128,128,128" origin="0.5,0.5"/>
+    </Jobicon>
+    <JobiconSmall>
+      <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5"/>
+    </JobiconSmall>
+    <Skills>
+      <Skill identifier="helm" level="55,65" primary="true"/>
+      <Skill identifier="weapons" level="65,75"/>
+      <Skill identifier="mechanical" level="55,65"/>
+      <Skill identifier="electrical" level="55,65"/>
+      <Skill identifier="medical" level="55,65"/>
+    </Skills>
+    <ItemSet>
+      <Item identifier="ironhelmet" equip="true"/>
+      <Item identifier="makeshiftarmor" equip="true" outfit="true"/>
+      <Item identifier="headset" equip="true"/>
+      <Item identifier="idcard" equip="true" />
+      <Item identifier="claymore" />
+      <Item identifier="cultistmace" />
+      <Item identifier="cultistshield" />
+      <Item identifier="lantern" />
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="antibleeding1"/>
+      <Item identifier="captainspipe">
+	    <Item identifier="pipetobacco"/>
+	  </Item>
+      <PreviewSprites dims="120,109">
+        <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="2,38,120,109" offset="0,0" />
+        <sprite texture="Content/Items/Jobgear/Security/securityofficer_torso_[GENDER]_2.png" sourcerect="121,0,76,80" offset="-20,15" />
+      </PreviewSprites>
+    </ItemSet>
+    <AutonomousObjectives>
+      <Order identifier="fightintruders" prioritymodifier="1"/>
+      <Order identifier="rescue" prioritymodifier="1"/>
+      <Order identifier="extinguishfires" prioritymodifier ="0.75"/>
+      <Order identifier="operatereactor" option="powerup" prioritymodifier="0.2"/>
+      <Order identifier="fixleaks" prioritymodifier="0.1"/>
+    </AutonomousObjectives>
+    <AppropriateOrders>
+      <Order identifier="operateweapons"/>
+      <Order identifier="fightintruders"/>
+    </AppropriateOrders>
+  </Job>
   <Job identifier="jet" uicolor="1.0,0.0,0.0" vitalitymodifier="10" maxnumber="0" pricemultiplier="1.0" idlebehavior="Active">
     <Jobicon>
       <sprite texture="%ModDir%/Misc/jobicons.png" sourcerect="0,128,128,128" origin="0.5,0.5"/>

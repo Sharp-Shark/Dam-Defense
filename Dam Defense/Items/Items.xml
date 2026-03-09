@@ -5977,7 +5977,7 @@
     <Sprite texture="%ModDir%/Items/foldableshotgun.png" sourcerect="0,0,220,56" depth="0.55" origin="0.5,0.25" />
     <Body width="220" height="56" density="25" />
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="40,-10" aimpos="55,-8" handle1="-40,-18" handle2="25,0" holdangle="-40" msg="ItemMsgPickUpSelect" />
-    <RangedWeapon barrelpos="80,-15" spread="0.1" unskilledspread="3" combatPriority="80" weapondamagemodifier="1.15" reload="1" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon barrelpos="80,-15" spread="0.1" unskilledspread="3" combatPriority="80" weapondamagemodifier="1.1" reload="1" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
@@ -6987,8 +6987,45 @@
     <aitarget sightrange="1000" soundrange="1000" fadeouttime="1" />
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
+  <!-- heads -->
+  <Item name="Claymore" identifier="claymore" category="Weapon" Tags="mediumitem,weapon,gunsmith,mountableweapon,sharptool" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Deconstruct time="10">
+      <Item identifier="titaniumaluminiumalloy" amount="2" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/Items/melee.png" sourcerect="179,320,65,65" />
+    <Sprite texture="%ModDir%/Items/melee.png" sourcerect="0,264,244,56" origin="0.5,0.5" depth="0.55" />
+    <Body width="240" height="8" density="30" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="%ModDir%/Items/melee.png" canbehiddenbyotherwearables="false" rotation="270" inheritlimbdepth="false" depth="0.6" sourcerect="0,264,244,56" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,-0.05" />
+    </Wearable>
+    <MeleeWeapon slots="RightHand+LeftHand" aimpos="30,15" handle1="-50,1" handle2="-40,5" holdangle="70" aimangle="-15" reload="0.8" range="75" combatPriority="30" msg="ItemMsgPickUpSelect">
+      <Attack targetimpulse="4" severlimbsprobability="1" itemdamage="20" structuredamage="5" structuresoundtype="StructureSlash" penetration="0.65">
+        <Affliction identifier="lacerations" strength="40" />
+        <Affliction identifier="bleeding" strength="20" />
+        <Affliction identifier="stun" strength="0.5" />
+      </Attack>
+      <StatusEffect type="OnUse" target="Limb">
+	    <LuaHook name="DD.claymore.behead" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="UseTarget">
+        <Conditional entitytype="eq Character"/>
+        <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
+        <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
+        <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
+        <Sound file="Content/Sounds/Damage/LimbSlash4.ogg" range="500" />
+        <Sound file="Content/Sounds/Damage/LimbSlash5.ogg" range="500" />
+        <Sound file="Content/Sounds/Damage/LimbSlash6.ogg" range="500" />
+      </StatusEffect>
+      <RequiredSkill identifier="weapons" level="45" />
+    </MeleeWeapon>
+    <aitarget sightrange="500" soundrange="250" fadeouttime="1" />
+    <Quality>
+      <QualityStat stattype="StrikingPowerMultiplier" value="0.15"/>
+    </Quality>
+    <SkillRequirementHint identifier="weapons" level="45" />
+  </Item>
   <!-- light up the way -->
-  <Item name="Lantern" identifier="lantern" category="Equipment,Weapon" maxstacksize="1" cargocontaineridentifier="metalcrate" Scale="0.45" tags="smallitem,light,provocative" impactsoundtag="impact_metal_light" damagedbymonsters="true" health="20" impacttolerance="5" aimable="false">
+  <Item name="Lantern" identifier="lantern" category="Equipment,Weapon" maxstacksize="1" cargocontaineridentifier="metalcrate" Scale="0.45" tags="smallitem,light,provocative" impactsoundtag="impact_metal_light" aimable="false">
     <Deconstruct time="10">
       <Item identifier="copper" />
     </Deconstruct>
@@ -7036,7 +7073,7 @@
     <InventoryIcon texture="%ModDir%/Items/melee.png" sourcerect="180,0,64,64" />
     <Sprite texture="%ModDir%/Items/melee.png" sourcerect="0,88,180,25" origin="0.5,0.5" depth="0.55" />
     <Body width="180" height="25" density="30" />
-    <MeleeWeapon slots="RightHand,Any" aimpos="60,10" handle1="-33,7" holdangle="70" aimangle="-40" reload="0.75" range="75" combatPriority="30" msg="ItemMsgPickUpSelect">
+    <MeleeWeapon slots="RightHand,Any" aimpos="45,0" handle1="-33,7" holdangle="70" aimangle="-40" reload="0.75" range="75" combatPriority="30" msg="ItemMsgPickUpSelect">
       <Attack targetimpulse="2" severlimbsprobability="0.55" itemdamage="6" structuredamage="1" structuresoundtype="StructureSlash">
         <Affliction identifier="lacerations" strength="19" />
         <Affliction identifier="bleeding" strength="14" />
@@ -8216,6 +8253,22 @@
   </Item>
   
   <!-- special effect -->
+  <Item identifier="beheadfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
+    <ItemComponent>
+      <StatusEffect target="This" type="OnSpawn">
+        <Sound file="%ModDir%/Sounds/behead1.ogg" selectionmode="random" range="500" volume="2.5" />
+        <Sound file="%ModDir%/Sounds/behead2.ogg" range="500" volume="2.5" />
+        <Sound file="%ModDir%/Sounds/behead3.ogg" range="500" volume="2.5" />
+        <Sound file="%ModDir%/Sounds/behead4.ogg" range="500" volume="2.5" />
+        <Sound file="%ModDir%/Sounds/behead5.ogg" range="500" volume="2.5" />
+        <Sound file="%ModDir%/Sounds/behead6.ogg" range="500" volume="2.5" />
+      </StatusEffect>
+      <StatusEffect target="This" type="OnSpawn" delay="3">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
   <Item identifier="bloodcultfx" tags="fx" scale="0.5" hideinmenus="true" HiddenInGame="true" noninteractable="true">
     <Sprite texture="%ModDir%/Items/foldablechairempty.png" depth="0.54" sourcerect="0,0,1,1" />
     <ItemComponent>

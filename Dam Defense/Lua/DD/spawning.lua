@@ -31,6 +31,10 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			[DD.invSlots.head] = {cyanbosshat = true, yellowbosshat = true, magentabosshat = true},
 			[DD.invSlots.innerclothes] = {bossclothes = true},
 		},
+		knight = {
+			[DD.invSlots.head] = {ironhelmet = true},
+			[DD.invSlots.outerclothes] = {makeshiftarmor = true},
+		},
 		-- dampwood jobs
 		hogjob = {
 			[DD.invSlots.head] = {constablehoghelmet = true},
@@ -54,6 +58,18 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	-- Special code for certain jobs
 	if character.JobIdentifier == 'wizard' then
 		DD.giveAfflictionCharacter(character, 'wizard', 1)
+	elseif character.JobIdentifier == 'knight' then
+		local set = {
+			ironhelmet = true,
+			makeshiftarmor = true,
+			cultistshield = true,
+		}
+		for item in character.Inventory.AllItems do
+			if set[tostring(item.Prefab.Identifier)] then
+				DD.setItemVulnerableToDamage(item, false)
+			end
+		end
+		DD.giveAfflictionCharacter(character, 'decreasedoxygenconsumption', 999)
 	elseif character.JobIdentifier == 'assistant' then
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcuffs'), character.Inventory, nil, nil, function (spawnedItem)
 			spawnedItem.Condition = spawnedItem.Condition / 10
@@ -80,6 +96,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 		gangster = {'drunkensailor', 'gangknowledge'},
 		goon = {'unlockallrecipes', 'gangknowledge'},
 		spy = {'skedaddle'},
+		knight = {'drunkensailor', 'deliberateshooter'},
 		jet = {'daringdolphin', 'ballastdenizen', 'rebelknowledge'},
 		mercs = {'daringdolphin', 'ballastdenizen'},
 		mercsevil = {'daringdolphin', 'ballastdenizen'},
@@ -120,6 +137,7 @@ DD.autoJob = function ()
 	local antagSafeCap = math.ceil(#Client.ClientList * 1 / 2)
 	local antagSafeSecCap = math.ceil(#Client.ClientList * 1 / 4)
 	local antagSafeNonSecCap = math.ceil(#Client.ClientList * 1 / 4)
+	local engineerQuota = math.ceil(#Client.ClientList * 1 / 10)
 	
 	-- ordered list of job prefabs
 	local jobPrefabsOrdered = {
@@ -212,6 +230,7 @@ DD.autoJob = function ()
 		if DD.antagSafeJobs[job] and (antagSafeCap <= 0) and (not ignore) then return end
 		if (DD.antagSafeJobs[job] and DD.securityJobs[job]) and (antagSafeSecCap <= 0) and (not ignore) then return end
 		if (DD.antagSafeJobs[job] and (not DD.securityJobs[job])) and (antagSafeNonSecCap <= 0) and (not ignore) then return end
+		
 		DD.clientJob[client] = job
 		if jobsLeft[job] ~= nil then
 			jobsLeft[job] = jobsLeft[job] - 1
@@ -223,6 +242,9 @@ DD.autoJob = function ()
 			else
 				antagSafeNonSecCap = antagSafeNonSecCap - 1
 			end
+		end
+		if job == 'engineer' then
+			engineerQuota = engineerQuota - 1
 		end
 	end
 	
@@ -270,9 +292,11 @@ DD.autoJob = function ()
 		end
 	end
 	-- worst case scenario
-	for client in Client.ClientList do
+	for client in DD.arrShuffle(Client.ClientList) do
 		if DD.clientJob[client] == nil then
-			if not DD.isClientBannedFromJob(client, 'mechanic') then
+			if (engineerQuota > 0) and not DD.isClientBannedFromJob(client, 'engineer') then
+				assignClientJob(client, 'engineer', true)
+			elseif not DD.isClientBannedFromJob(client, 'mechanic') then
 				assignClientJob(client, 'mechanic', true)
 			else
 				assignClientJob(client, 'assistant', true)

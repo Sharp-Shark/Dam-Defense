@@ -32,7 +32,7 @@
   ClimbFootMoveForce="10"
   ClimbStepHeight="55"
   AnimationType="Crouch"
-  MovementSpeed="3.8"
+  MovementSpeed="3.6"
   CycleSpeed="2.5"
   HeadAngle="20"
   TorsoAngle="-20"

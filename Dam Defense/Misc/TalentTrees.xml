@@ -71,9 +71,18 @@
   </TalentTree>
   
   <TalentTree jobidentifier="spy">
-    <SubTree identifier="gangster_primary" nameidentifier="talenttree.primary" type="primary">
+    <SubTree identifier="spy_primary" nameidentifier="talenttree.primary" type="primary">
       <TalentOptions requiredtalents="1" maxchosentalents="1">
         <TalentOption identifier="skedaddle"/>
+      </TalentOptions>
+    </SubTree>
+  </TalentTree>
+  
+  <TalentTree jobidentifier="knight">
+    <SubTree identifier="knight_primary" nameidentifier="talenttree.primary" type="primary">
+      <TalentOptions requiredtalents="1" maxchosentalents="1">
+        <TalentOption identifier="drunkensailor"/>
+        <TalentOption identifier="deliberateshooter"/>
       </TalentOptions>
     </SubTree>
   </TalentTree>

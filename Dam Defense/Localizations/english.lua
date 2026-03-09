@@ -183,6 +183,8 @@ return {
 	vipEndNoReward = 'The VIP is dead! No one has been rewarded for their death.',
 	-- events/wizard.lua
 	wizardEnd = 'The wizard has been slain!',
+	-- events/knight.lua
+	knightEnd = 'The knight has been slain!',
 	-- events/chimera.lua
 	chimeraEnd = 'The {fishName} has been slain!',
 	-- console commands
