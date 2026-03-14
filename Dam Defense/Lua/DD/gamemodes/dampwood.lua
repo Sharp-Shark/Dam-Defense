@@ -221,6 +221,12 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 	
 	onRoundEnd = function (self)
 		Hook.Remove('item.created', 'DD.dampwood.removecorpse')
+		
+		local data = {hourSymbol = 'hour', minuteSymbol = 'minute', secondSymbol = 'second'}
+		if DD.roundTimer / 3600 >= 2 then data.hourSymbol = 'hours' end
+		if (DD.roundTimer % 3600) / 60 >= 2 then data.minuteSymbol = 'minutes' end
+		if DD.roundTimer % 60 >= 2 then data.secondSymbol = 'seconds' end
+		DD.messageAllClients(DD.stringLocalize('dampwoodRoundEnd', {timer = DD.numberToTime(DD.roundTimer, data)}), {preset = 'crit'})
 	end,
 })
 

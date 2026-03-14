@@ -3,6 +3,42 @@
   <!-- override: plants grow way faster and also made level resource plants spawn attached -->
   <Override>
   
+  <!-- mutated pomegrenade no longer starts fires -->
+  <Item name="" identifier="badcreepingorange" descriptionidentifier="creepingorange" category="Material" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,plantitem,petfood1,petfood2,petfood3" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft" impacttolerance="5.5" allowasextracargo="true">
+    <Sprite texture="Content/Items/Gardening/GrowablePlants_Temp.png" depth="0.2" sourcerect="971,835,43,55" origin="0.5,0.5" />
+    <Body radius="30" density="9" />
+    <Deconstruct time="35">
+      <Item identifier="carbon" mincondition="0.5" />
+      <Item identifier="creepingorangevineseed" mincondition="0.5" />
+    </Deconstruct>
+    <Throwable characterusable="true" canBeCombined="false" slots="Any,RightHand,LeftHand" throwforce="3.5" aimpos="35,-10" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnNotContained" target="This" Scale="0.05">
+        <sound file="Content/Sounds/Damage/Gore1.ogg" selectionmode="Random" range="500" volume="0.5" />
+        <sound file="Content/Sounds/Damage/Gore2.ogg" selectionmode="Random" range="500" volume="0.5" />
+        <sound file="Content/Sounds/Damage/Gore3.ogg" selectionmode="Random" range="500" volume="0.5" />
+        <sound file="Content/Sounds/Damage/Gore4.ogg" selectionmode="Random" range="500" volume="0.5" />
+        <ParticleEmitter particle="spark" particlespersecond="5" anglemin="0" anglemax="360" velocitymin="100" velocitymax="500" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="This" Condition="0.0" setvalue="true">
+        <Conditional Scale="gte 0.75" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="This" Condition="0.0" setvalue="true" />
+      <StatusEffect type="OnFire" target="This" Condition="0.0" setvalue="true" delay="0.5" />
+      <StatusEffect type="OnBroken" target="This" Condition="-100.0">
+        <sound file="Content/Sounds/Damage/Limbslash2.ogg" range="750" volume="0.75"/>
+        <ParticleEmitter particle="whitegoosplash" anglemin="0" anglemax="360" particleamount="2" velocitymin="0" velocitymax="0" scalemin="1.5" scalemax="2" />
+        <ParticleEmitter particle="fruitchunks" anglemin="0" anglemax="360" particleamount="10" velocitymin="200" velocitymax="300" scalemin="0.4" scalemax="0.8" />
+        <Explosion range="50.0" force="3.0">
+          <Affliction identifier="burn" strength="50" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+    </Throwable>
+    <AiTarget sightrange="1000" static="true" />
+    <PreferredContainer primary="plantcontainer"/>
+    <PreferredContainer secondary="storagecab"/>
+  </Item>
+  
   <Item name="" identifier="fiberplant" category="Material" Tags="smallitem,plant" maxstacksize="32" maxstacksizecharacterinventory="8" canbepicked="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft">
     <PreferredContainer primary="medfabcab" secondary="medcontainer" />
     <PreferredContainer secondary="wreckstoragecab" minamount="1" maxamount="2" spawnprobability="0.05" />

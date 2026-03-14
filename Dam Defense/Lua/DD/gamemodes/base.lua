@@ -27,5 +27,10 @@ DD.gamemodeBase = DD.class(nil, nil, {
 	end,
 	
 	onRoundEnd = function (self)
+		local data = {hourSymbol = 'hour', minuteSymbol = 'minute', secondSymbol = 'second'}
+		if DD.roundTimer / 3600 >= 2 then data.hourSymbol = 'hours' end
+		if (DD.roundTimer % 3600) / 60 >= 2 then data.minuteSymbol = 'minutes' end
+		if DD.roundTimer % 60 >= 2 then data.secondSymbol = 'seconds' end
+		DD.messageAllClients(DD.stringLocalize('baseRoundEnd', {timer = DD.numberToTime(DD.roundTimer, data)}), {preset = 'crit'})
 	end,
 })

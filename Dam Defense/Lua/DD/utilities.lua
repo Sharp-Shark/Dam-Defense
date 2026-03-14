@@ -897,17 +897,21 @@ DD.numberToTime = function (n, data)
 	minutes = minutes - hours * 60
 	seconds = math.floor(seconds + 0.5)
 	
+	local hourSymbol = data.hourSymbol or 'h'
+	local minuteSymbol = data.minuteSymbol or 'min'
+	local secondSymbol = data.secondSymbol or 's'
+	
 	if hours > 0 then
-		text = text .. tostring(hours) .. string.rep(' ', unitSpacing) .. 'h' .. string.rep(' ', spacing)
+		text = text .. tostring(hours) .. string.rep(' ', unitSpacing) .. hourSymbol .. string.rep(' ', spacing)
 	end
 	if minutes + hours * showNonRelevant > 0 then
-		text = text .. tostring(minutes) .. string.rep(' ', unitSpacing) .. 'min' .. string.rep(' ', spacing)
+		text = text .. tostring(minutes) .. string.rep(' ', unitSpacing) .. minuteSymbol .. string.rep(' ', spacing)
 	end
 	if seconds + (minutes + hours) * showNonRelevant > 0 then
-		text = text .. tostring(seconds) .. string.rep(' ', unitSpacing) .. 's'
+		text = text .. tostring(seconds) .. string.rep(' ', unitSpacing) .. secondSymbol
 	end
 	
-	if text == '' then text = '0' .. string.rep(' ', unitSpacing) .. 's' end
+	if text == '' then text = '0' .. string.rep(' ', unitSpacing) .. secondSymbol end
 	
 	return text
 end
@@ -1189,6 +1193,7 @@ end
 DD.setDoorState = function (item, state)
 	if (state == false) and (item.Condition <= 0) then return end
 	item.GetComponentString('Door').isOpen = state
+	--item.GetComponentString('Door').LinkedGap.Open = item.GetComponentString('Door').isBroken and 1 or (state and 1 or 0) -- need to sync this
 	if SERVER then
 		local prop = item.GetComponentString('Door').SerializableProperties[Identifier("IsOpen")]
 		Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(prop, item.GetComponentString('Door')))

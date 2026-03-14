@@ -4240,6 +4240,38 @@
         </StatusEffect>
       </Projectile>
     </Item>
+	<!-- made defense bot ammo box actually contain ammo for compatibility with turret and rangedweapon -->
+    <Item name="" identifier="defensebotammobox" maxstacksize="1" scale="0.3" category="Weapons,Machine" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,defensebotammo" impactsoundtag="impact_metal_light">
+      <PreferredContainer primary="defensebot,secarmcab" secondary="armcab"/>
+      <Price baseprice="200" displaynonempty="true" sold="false" mindifficulty="60">
+        <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.9" minavailable="0" maxavailable="2"/>
+        <Price storeidentifier="merchantarmory" sold="true" multiplier="0.9" minavailable="0" maxavailable="2"/>
+      </Price>
+      <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="true">
+        <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
+        <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
+        <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
+        <RequiredItem identifier="aluminium"/>
+      </Fabricate>
+      <Fabricate suitablefabricators="fabricator" requiredtime="15" requiresrecipe="true" displayname="recycleitem">
+        <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
+        <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
+        <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
+        <RequiredItem tag="defensebotammo" mincondition="0.0" maxcondition="0.1" usecondition="false" description="entitydescription.defensebotammobox" header="fabricationheader.ammoboxrecycle" defaultitem="defensebotammobox" />
+      </Fabricate>
+      <Deconstruct time="10">
+        <Item identifier="aluminium"/>
+      </Deconstruct>
+      <Sprite texture="Content/Characters/Defensebot/Defensebot.png" depth="0.54" sourcerect="135,189,115,58" origin="0.5,0.5" />
+      <Body width="90" height="60" density="25" />
+      <Holdable slots="LeftHand,RightHand,Any" holdpos="0,-80" handle1="-40,30" handle2="40,30" aimable="false" msg="ItemMsgPickUpSelect"/>
+      <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="defensebotround" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
+        <Containable items="defensebotround" />
+        <StatusEffect type="OnUse" target="This" condition="-0.5" disabledeltatime="true">
+          <SpawnItem identifiers="defensebotround" spawnposition="ThisInventory" />
+        </StatusEffect>
+      </ItemContainer>
+  </Item>
   </Override>
   <!-- end of overrides -->
 
@@ -7639,6 +7671,7 @@
         <Sound file="Content/Sounds/Damage/HitArmor1.ogg" range="800" forcePlaySounds="true" />
         <!-- an invisible explosion to make the user "flinch" -->
         <Explosion range="100.0" force="1" showeffects="false" camerashake="1.0" />
+		<LuaHook name="DD.cultistshield.ondamaged" />
       </StatusEffect>
     </Holdable>
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">

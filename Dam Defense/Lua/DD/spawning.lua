@@ -59,16 +59,6 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	if character.JobIdentifier == 'wizard' then
 		DD.giveAfflictionCharacter(character, 'wizard', 1)
 	elseif character.JobIdentifier == 'knight' then
-		local set = {
-			ironhelmet = true,
-			makeshiftarmor = true,
-			cultistshield = true,
-		}
-		for item in character.Inventory.AllItems do
-			if set[tostring(item.Prefab.Identifier)] then
-				DD.setItemVulnerableToDamage(item, false)
-			end
-		end
 		DD.giveAfflictionCharacter(character, 'decreasedoxygenconsumption', 999)
 	elseif character.JobIdentifier == 'assistant' then
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcuffs'), character.Inventory, nil, nil, function (spawnedItem)
@@ -96,7 +86,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 		gangster = {'drunkensailor', 'gangknowledge'},
 		goon = {'unlockallrecipes', 'gangknowledge'},
 		spy = {'skedaddle'},
-		knight = {'drunkensailor', 'deliberateshooter'},
+		knight = {'drunkensailor'},
 		jet = {'daringdolphin', 'ballastdenizen', 'rebelknowledge'},
 		mercs = {'daringdolphin', 'ballastdenizen'},
 		mercsevil = {'daringdolphin', 'ballastdenizen'},

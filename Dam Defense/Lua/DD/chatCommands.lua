@@ -15,13 +15,14 @@ end
 DD.chatMessageFunctions.help = function (message, sender)
 	if (string.sub(message, 1, 1) ~= '/') and (string.sub(message, 1, 1) ~= '!') then return end
 	
-	local specialCommands = {'help', 'ahelp', 'thanks', 'info', 'neverantag', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'w ', 'gang', 'announce', 'fire', 'vote', 'gamemode'}
+	local specialCommands = {'help', 'ahelp', 'thanks', 'info', 'neverantag', 'timer', 'events', 'credits', 'withdraw', 'possess', 'freecam', 'election', 'rebels', 'cultists', 'whisper', 'w ', 'gang', 'announce', 'fire', 'vote', 'gamemode'}
 	local commandText = {
 		help = 'Gives a list of commands. List of commands given will only include commands relevant for the current context.',
 		ahelp = 'Send a private message to the admins currently in the server.',
 		thanks = 'Credit where it is due. Without the work these people did, Dam Defense would not be where it stands.',
 		info = 'Gives relevant job and role information.',
 		neverantag = 'Toggles between being antag exempt and being antag eligible. Being dead or having an antag safe job may make you exempt/eligible despite of whatever you set this to.',
+		timer = 'Tells how long the current round has been going on for.',
 		events = 'Gives a list of public and personal events. Some events are secret and will not be listed here.',
 		credits = 'Informs the amount of credits currently in the bank account. Do /withdraw to withdraw credits. There is no /deposit command, so withdrawing cannot be undone.',
 		withdraw = 'Withdraws an amount of credits from the bank account. If no amount of credits is specified, all the credits will be withdrawn. Credits cannot be deposited.',
@@ -55,6 +56,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 		if sender.HasPermission(ClientPermissions.ConsoleCommands) then
 			specialCommands['fire'] = true
 		end
+		specialCommands['timer'] = true
 		specialCommands['events'] = true
 		specialCommands['credits'] = true
 		if DD.isClientCharacterAlive(sender) then
@@ -210,6 +212,14 @@ DD.chatMessageFunctions.neverantag = function (message, sender)
 		DD.antagExemptClients[sender.AccountId.StringRepresentation] = true
 	end
 	DD.saving.autoSave({'antagExemptClients'})
+	
+	return true
+end
+
+DD.chatMessageFunctions.timer = function (message, sender)
+	if message ~= '/timer' then return end
+	
+	DD.messageClient(sender, DD.numberToTime(DD.roundTimer), {preset = 'command'})
 	
 	return true
 end

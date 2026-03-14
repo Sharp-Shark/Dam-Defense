@@ -927,6 +927,105 @@
     </Holdable>
   </Item>
   
+  <Item name="Defense Bot Turret" 
+        description=""
+        identifier="smgturret" Tags="turret,barricade" category="Machine,Weapon" subcategory="subweapons" interactthroughwalls="true" Scale="0.5" interactdistance="80" spritecolor="1.0,1.0,1.0,1.0" focusonselected="true" offsetonselected="750" canflipx="false" linkable="true" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" explosiondamagemultiplier="0.5" ondamagedthreshold="2">
+    <InventoryIcon texture="%ModDir%/Items/turret.png" sourcerect="113,0,64,64" origin="0.5,0.5" />
+	<Sprite texture="%ModDir%/Items/turret.png" depth="0.512" sourcerect="0,28,50,49" origin="0.5,0.5" canflipy="false" />
+    <MinimapIcon name="Command_Weapons_Coilgun" texture="Content/UI/CommandUIAtlas.png" sourcerect="768,0,128,128" />
+    <Deconstruct requiredtime="10">
+      <RequiredItem identifier="fpgacircuit" />
+      <RequiredItem identifier="smg" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="40" requiresrecipe="false">
+      <RequiredSkill identifier="electrical" level="30" />
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem identifier="fpgacircuit" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
+      <RequiredItem identifier="smg" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" displayname="recycleitem">
+      <RequiredSkill identifier="mechanical" level="15" />
+      <RequiredItem identifier="smgturret" amount="1" mincondition="0.0" maxcondition="0.9" usecondition="false" />
+      <RequiredItem identifier="aluminium" />
+    </Fabricate>
+    <Body height="35" width="35" density="30" />
+    <Turret launchimpulse="80.0" canbeselected="false" characterusable="false" linkable="true" barrelpos="25,25" firingoffset="0,-75"  rotationlimits="-90,270" powerconsumption="0.0" showchargeindicator="true" showprojectileindicator="true" recoildistance="20" reload="0.1" springstiffnesslowskill="2" springstiffnesshighskill="50" springdampinglowskill="0.5" springdampinghighskill="10" rotationspeedlowskill="1" rotationspeedhighskill="8" MaxAngleOffset="10" AICurrentTargetPriorityMultiplier="1.1" AutoOperate="false" AllowAutoOperateWithWiring="true">
+      <Sound file="Content/Items/Weapons/SMGsingleShot1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/SMGsingleShot2.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/Weapons/SMGsingleShot3.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/Weapons/SMGsingleShot4.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/Weapons/SMGsingleShot5.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/Weapons/SMGsingleShot6.ogg" type="OnUse" range="3000" />
+      <WeaponIndicator texture="Content/UI/WeaponUI.png" sourcerect="425,913,66,36" origin="0.24, 0.472" />
+      <RailSprite texture="%ModDir%/Items/turret.png" depth="0.51" sourcerect="50,0,39,77" origin="0.55, 0.65" />
+      <BarrelSprite texture="%ModDir%/Items/turret.png" depth="0.511" sourcerect="89,36,24,41" origin="0.52, 2.2" />
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,0,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,0,256,256" />
+      <MoveSound file="Content/Items/Weapons/RailgunLoop.ogg" />
+      <StartMoveSound file="Content/Items/Weapons/RailgunStart.ogg" />
+      <EndMoveSound file="Content/Items/Weapons/RailgunStop.ogg" />
+      <RequiredSkill identifier="weapons" level="50" />
+      <LightComponent LightColor="1.0,0.8,0.8,0.5" Flicker="0.0" range="1000" directional="true" IsOn="true" drawbehindsubs="false" ignorecontinuoustoggle="true" InheritParentIsActive="false">
+        <LightTexture texture="Content/Lights/lightcone.png" origin="0.0,0.5" size="1.0,1.0" />
+        <StatusEffect type="OnContained" target="This" IsOn="false" />
+        <StatusEffect type="OnNotContained" target="This" IsOn="true" />
+      </LightComponent>
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" CopyEntityAngle="True" CopyEntityDir="False" />
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="150.0" force="0" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="0" flash="true" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="Contained">
+        <RequiredItem items="defensebotammobox" type="Contained" />
+        <Use />
+      </StatusEffect>
+      <StatusEffect type="OnContained" target="This" AutoOperate="false" />
+    </Turret>
+    <ItemContainer hideitems="true" drawinventory="true" capacity="1" maxstacksize="1" slotsperrow="1" canbeselected="true" msg="ItemMsgInteractSelect" containedstateindicatorstyle="bullet" >
+      <GuiFrame relativesize="0.18,0.23" anchor="Center" minsize="140,170" maxsize="280,280" style="ItemUI" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <Containable items="defensebotammobox" />
+    </ItemContainer>
+    <aitarget maxsightrange="3000" maxsoundrange="8000" fadeouttime="5" />
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem items="screwdriver" type="Equipped" />
+      <!--<input name="power_in" displayname="connection.powerin" />-->
+      <input name="position_in" displayname="connection.turretaimingin" />
+      <input name="trigger_in" displayname="connection.turrettriggerin" />
+      <input name="toggle_light" displayname="connection.togglelight"/>
+      <input name="set_light" displayname="connection.setlight" />
+      <input name="set_auto_operate" displayname="connection.setautooperate" />
+      <input name="toggle_auto_operate" displayname="connection.toggleautooperate" />
+    </ConnectionPanel>
+    <SkillRequirementHint identifier="weapons" level="50" />
+    <Holdable selectkey="Action" pickkey="Use" slots="LeftHand+RightHand" aimpos="60,0" holdpos="45,-15" handle1="0,-15" handle2="0,15" controlpose="false" blocksplayers="false" attachable="true" aimable="true" DisallowAttachingOverTags="turret" msg="ItemMsgDetachWrench" PickingTime="5.0">
+      <RequiredItem items="wrench,deattachtool" excludeditems="multitool" type="Equipped" />
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.8" setvalue="true" />
+      <StatusEffect type="OnBroken" target="This">
+        <particleemitter particle="shrapnel" drawontop="true" particleamount="15" velocitymin="100" velocitymax="500" anglemin="0" anglemax="360" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" />
+        <Sound file="%ModDir%/Sounds/armorbreak.ogg" volume="2.0" range="800" />
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <Item name="Turret Static" identifier="turretstatic" InteractDistance="0.1" category="Equipment,Misc" tags="barricade" linkable="true" allowedlinks="barricade" health="100" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" scale="0.75" allowasextracargo="true" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" explosiondamagemultiplier="0.5" ondamagedthreshold="2">
+    <Sprite texture="%ModDir%/Items/foldablechairempty.png" sourcerect="0,0,50,49" origin="0.5,0.5" depth="0.54" />
+    <Body width="35" height="35" density="30" bodytype="static" />
+    <ItemComponent>
+      <StatusEffect type="OnBroken" target="This">
+        <LuaHook name="DD.barricade.break" />
+        <particleemitter particle="shrapnel" drawontop="true" particleamount="15" velocitymin="100" velocitymax="500" anglemin="0" anglemax="360" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" />
+        <Sound file="%ModDir%/Sounds/armorbreak.ogg" volume="2.0" range="800" />
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnDamaged" target="This">
+        <particleemitter particle="weldspark" drawontop="true" particleamount="10" velocitymin="100" velocitymax="500" anglemin="-45" anglemax="45" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" copyentityangle="true" />
+        <Sound file="Content/Sounds/Damage/HitArmor1.ogg" range="800" forcePlaySounds="true" />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+  
 	<!-- Hatch with Card Reader -->
 	<Item name="Hatch with Card Reader" identifier="hatchwcardreader" allowedlinks="gap,hull,structure,item" linkable="true" tags="door,weldable" scale="0.5" health="150" requirebodyinsidetrigger="false" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" ShowNameInHealthBar="false" explosiondamagemultiplier="0.1" ondamagedthreshold="2" allowrotatingineditor="false">
 		<Sprite texture="Content/Items/Door/hatch.png" sourcerect="0,0,256,98" depth="0.7" origin="0.5,0.5" />

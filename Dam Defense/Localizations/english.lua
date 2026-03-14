@@ -187,6 +187,10 @@ return {
 	knightEnd = 'The knight has been slain!',
 	-- events/chimera.lua
 	chimeraEnd = 'The {fishName} has been slain!',
+	-- gamemodes/base.lua
+	baseRoundEnd = 'Before its fall, the dam stood tall for {timer}.',
+	-- gamemodes/dampwood.lua
+	dampwoodRoundEnd = 'It took {timer} for the darkness to consume all.',
 	-- console commands
 	jobbanNoticeSingular = 'You have been banned from the {jobName} job because: {reason}.',
 	jobbanNoticePlural = 'You have been banned from {jobName} jobs because: {reason}.',

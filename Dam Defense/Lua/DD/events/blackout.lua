@@ -14,7 +14,7 @@ DD.eventBlackout = DD.class(DD.eventWithStartBase, nil, {
 		for item in Item.ItemList do
 			local component
 			component = item.GetComponentString('Door')
-			if (math.random() > 0.0) and (component ~= nil) and (not item.NonInteractable) and (component.HasIntegratedButtons) and (not component.IsJammed) and (not component.IsStuck) then
+			if (math.random() > 0.0) and (component ~= nil) and (not item.NonInteractable) and (component.HasIntegratedButtons) and (not component.IsJammed) and (not component.IsStuck) and (not component.IsBroken) then
 				self.doors[item] = component.isOpen
 				DD.setDoorState(item, false)
 				component.IsJammed = true
@@ -48,7 +48,7 @@ DD.eventBlackout = DD.class(DD.eventWithStartBase, nil, {
 			for item in Item.ItemList do
 				local component
 				component = item.GetComponentString('Door')
-				if (math.random() > 0.0) and (component ~= nil) and (not item.NonInteractable) and (component.HasIntegratedButtons) and ((not component.IsJammed) or (self.parent.doors[item] ~= nil)) and (not component.IsStuck) then
+				if (math.random() > 0.0) and (component ~= nil) and (not item.NonInteractable) and (component.HasIntegratedButtons) and ((not component.IsJammed) or (self.parent.doors[item] ~= nil)) and (not component.IsStuck) and (not component.IsBroken) then
 					if self.parent.doors[item] == nil then
 						self.parent.doors[item] = component.isOpen
 					end

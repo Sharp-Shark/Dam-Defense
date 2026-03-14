@@ -2048,7 +2048,6 @@
     <ItemSet>
       <Item identifier="ironhelmet" equip="true"/>
       <Item identifier="makeshiftarmor" equip="true" outfit="true"/>
-      <Item identifier="headset" equip="true"/>
       <Item identifier="idcard" equip="true" />
       <Item identifier="claymore" />
       <Item identifier="cultistmace" />

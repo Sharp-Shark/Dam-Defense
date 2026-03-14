@@ -510,8 +510,9 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
 	-- flag affliction
 	DD.giveAfflictionCharacter(character, 'recentlyattacked', 999)
 	
-	-- huntsmen do not have armor decay
+	-- huntsmen and knight do not have armor decay
 	if character.SpeciesName == 'huntsman' then return end
+	if (character.SpeciesName == 'human') and (character.JobIdentifier == 'knight') then return end
 	
 	if hitLimb == nil then return end
 	local afflictions = ptable['attack'].Afflictions
@@ -752,10 +753,34 @@ Hook.Add("DD.claymore.behead", "DD.claymore.behead", function(effect, deltaTime,
 	end
 end)
 
+-- prevent knight shield from losing condition
+Hook.Add("DD.cultistshield.ondamaged", "DD.cultistshield.ondamaged", function(effect, deltaTime, item, targets, worldPosition)
+	local character
+	if item.ParentInventory ~= nil then character = item.ParentInventory.Owner end
+	if (character == nil) or (not LuaUserData.IsTargetType(character, 'Barotrauma.Character') and not LuaUserData.IsTargetType(character, 'Barotrauma.AICharacter')) then return end
+	if (character.SpeciesName ~= 'human') or (character.JobIdentifier ~= 'knight') then return end
+	
+	item.Condition = item.MaxCondition
+end)
+
+-- prevent knight from using ranged weapons
+Hook.Patch("Barotrauma.Items.Components.RangedWeapon", "Use", function(instance, ptable)
+	local character = ptable['character']
+	if (character == nil) or (character.SpeciesName ~= 'human') or (character.JobIdentifier ~= 'knight') then return end
+	
+	ptable.PreventExecution = true
+end, Hook.HookMethodType.Before)
+
+
 -- barricade
 Hook.Patch("Barotrauma.Items.Components.Holdable", "OnPicked", {'Barotrauma.Character'}, function(instance, ptable)
 	local item = instance.Item
-	if item.Prefab.Identifier == 'barricade' then
+	local set = {
+		barricade = true,
+		smgturret = true,
+	}
+	local identifier = tostring(item.Prefab.Identifier)
+	if set[identifier] then
 		if item.linkedTo[1] ~= nil then
 			item.Condition = item.linkedTo[1].Condition
 			Entity.Spawner.AddItemToRemoveQueue(item.linkedTo[1])
@@ -765,13 +790,18 @@ end, Hook.HookMethodType.Before)
 Hook.Patch("Barotrauma.Items.Components.Holdable", "AttachToWall", function(instance, ptable)
 	if CLIENT and Game.IsSingleplayer and Game.IsSubEditor then return end
 	local item = instance.Item
-	if item.Prefab.Identifier == 'barricade' then
+	local set = {
+		barricade = 'barricadestatic',
+		smgturret = 'turretstatic',
+	}
+	local identifier = tostring(item.Prefab.Identifier)
+	if set[identifier] then
 		if item.Condition <= 0 then
 			ptable.PreventExecution = true
 			return
 		end
 		if (item.linkedTo[1] == nil) and (Entity.Spawner ~= nil) then
-			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('barricadestatic'), item.WorldPosition, item.Condition, nil, function (spawnedItem)
+			Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab(set[identifier]), item.WorldPosition, item.Condition, nil, function (spawnedItem)
 				spawnedItem.Condition = item.Condition
 				item.AddLinked(spawnedItem)
 				spawnedItem.AddLinked(item)

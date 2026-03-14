@@ -195,7 +195,7 @@ DD.chatMessageFunctions.tellCredits = function (message, sender)
 	if message ~= '/credits' then return end
 	
 	local amount = DD.roundData.bank[sender] or 0
-	if DD.roundData.salaryTimer[sender] == nil then
+	if DD.roundData.salaryTimer[sender] ~= nil then
 		DD.messageClient(sender, DD.stringLocalize('commandCredits', {amount = amount, timer = DD.numberToTime(DD.roundData.salaryTimer[sender])}), {preset = 'command'})
 	else
 		DD.messageClient(sender, DD.stringLocalize('commandCredits', {amount = amount, timer = '-'}), {preset = 'command'})

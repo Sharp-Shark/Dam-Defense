@@ -82,7 +82,6 @@
     <SubTree identifier="knight_primary" nameidentifier="talenttree.primary" type="primary">
       <TalentOptions requiredtalents="1" maxchosentalents="1">
         <TalentOption identifier="drunkensailor"/>
-        <TalentOption identifier="deliberateshooter"/>
       </TalentOptions>
     </SubTree>
   </TalentTree>
