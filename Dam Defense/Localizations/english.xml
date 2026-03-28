@@ -237,6 +237,9 @@
   <!-- Chem Kit -->
   <entityname.chemkit>Chem Kit</entityname.chemkit>
   <entitydescription.chemkit>A portable kit containing the necessary equipment to manufacture chemicals and medicine in case of emergency. Does not require power, but fabricates slightly slower.</entitydescription.chemkit>
+  <!-- Portable Periscope -->
+  <entityname.portableperiscope>Portable Periscope</entityname.portableperiscope>
+  <entitydescription.portableperiscope>A simplified periscope which can be attached to a wall.</entitydescription.portableperiscope>
   <!-- Defense Bot Turret -->
   <entityname.smgturret>Defense Bot Turret</entityname.smgturret>
   <entitydescription.smgturret>The turret of a defense bot which can be attached to a wall. Does not require power.</entitydescription.smgturret>

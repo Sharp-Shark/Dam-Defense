@@ -2047,6 +2047,7 @@
     </Skills>
     <ItemSet>
       <Item identifier="ironhelmet" equip="true"/>
+      <Item identifier="merasmusrobes" equip="true"/>
       <Item identifier="makeshiftarmor" equip="true" outfit="true"/>
       <Item identifier="idcard" equip="true" />
       <Item identifier="claymore" />

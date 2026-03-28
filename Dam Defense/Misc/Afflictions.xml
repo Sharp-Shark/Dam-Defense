@@ -229,7 +229,7 @@
   <Affliction name="Noxious Aerosol" identifier="noxiousspray" description="The face has been exposed to a noxious aerosol that irritates and prevents breathing." type="poison" targets="human" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="0.0" maxstrength="1">
     <Effect minstrength="0" maxstrength="1" strengthchange="-0.1" MinAfflictionOverlayAlphaMultiplier="0.0" MaxAfflictionOverlayAlphaMultiplier="1.0" minfacetint="200,180,255,100" maxfacetint="200,180,255,200" >
 	  <StatusEffect target="Character">
-	    <Conditional vitality="gt 25" />
+	    <Conditional vitality="gt 35" />
 	    <Affliction identifier="oxygenlow" amount="11" />
 	  </StatusEffect>
 	</Effect>

@@ -29,7 +29,7 @@
   ClimbFootMoveForce="10"
   ClimbStepHeight="55"
   AnimationType="Run"
-  MovementSpeed="4.5"
+  MovementSpeed="4.4"
   CycleSpeed="2"
   HeadAngle="20"
   TorsoAngle="-20"

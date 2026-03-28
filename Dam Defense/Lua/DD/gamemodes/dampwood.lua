@@ -46,17 +46,17 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 		spawnInterval = 2 * 60, -- in seconds
 		populations = {
 			crowmen = {
-				maximun = 20,
+				maximun = 16,
 				locationTag = 'dd_wetsewer',
 				spawnInterval = 1 * 60,
 			},
 			goatmen = {
-				maximun = 4,
+				maximun = 2,
 				locationTag = 'dd_wetsewer',
 				spawnInterval = 5 * 60,
 			},
 			huntsmen = {
-				maximun = 10,
+				maximun = 8,
 				locationTag = 'dd_carriage',
 				speciesName = 'huntsman',
 				job = 'hunterjob',
@@ -204,6 +204,7 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 			DD.eventDirector.startNewEvent(DD.eventAirdropArtifact)
 		end
 		
+		-- difficulty bump at 40min
 		if (DD.roundTimer > 40 * 60) and (self.populationData.populations.constable == nil) then
 			self.populationData.populations.constable = {
 				maximun = 10,

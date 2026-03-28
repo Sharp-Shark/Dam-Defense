@@ -1508,14 +1508,13 @@
         <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
         <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2" />
       </Price>
-      <Fabricate suitablefabricators="fabricator" requiredtime="45" requiresrecipe="true">
+      <Fabricate suitablefabricators="fabricator" requiredtime="45" requiresrecipe="false">
         <RequiredSkill identifier="weapons" level="25" />
-        <RequiredItem identifier="plastic" />
         <RequiredItem identifier="titaniumaluminiumalloy" />
-        <RequiredItem identifier="steel" />
+        <RequiredItem identifier="steel" amount="2" />
       </Fabricate>
       <Deconstruct time="10">
-        <Item identifier="plastic" />
+        <Item identifier="steel" />
         <Item identifier="titaniumaluminiumalloy" />
       </Deconstruct>
       <InventoryIcon texture="%ModDir%/Items/jetshotgun.png" sourcerect="56,120,112,52" depth="0.55" origin="0.5,0.5" />
@@ -4201,7 +4200,7 @@
       <PreferredContainer primary="storagecab" />
       <PreferredContainer secondary="wreckstoragecab,wreckreactorcab,abandonedstoragecab,piratestoragecab" minamount="1" maxamount="2" spawnprobability="0.5" />
       <Price baseprice="5" sold="false" />
-      <Deconstruct time="10" chooserandom="true" amount="2">
+      <Deconstruct time="5" chooserandom="true" amount="2">
         <Item identifier="uranium" commonness="0.2" />
         <Item identifier="steel" commonness="0.8" />
         <Item identifier="aluminium" commonness="0.4" />
@@ -4624,9 +4623,17 @@
       <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="money" amount="1" />
     </Fabricate>
-    <Deconstruct time="5">
-      <Item identifier="scrap" />
-      <Item identifier="scrap" />
+    <Deconstruct time="10" chooserandom="true" amount="5">
+      <Item identifier="uranium" commonness="0.2" />
+      <Item identifier="steel" commonness="0.8" />
+      <Item identifier="aluminium" commonness="0.4" />
+      <Item identifier="titaniumaluminiumalloy" commonness="0.4" />
+      <Item identifier="copper" commonness="0.8" />
+      <Item identifier="rubber" commonness="0.2" />
+      <Item identifier="lead" commonness="0.6" />
+      <Item identifier="plastic" commonness="0.7" />
+      <Item identifier="tin" commonness="0.4" />
+      <Item identifier="zinc" commonness="0.5" />
     </Deconstruct>
     <!-- TODO: sprite and inventory icon -->
     <LightComponent lightcolor="150,100,50,155" range="100" powerconsumption="0" flicker="0.0" flickerspeed="0.5" pulsefrequency="0.4" pulseamount="0" ison="true" drawbehindsubs="true">
@@ -7031,10 +7038,10 @@
       <sprite texture="%ModDir%/Items/melee.png" canbehiddenbyotherwearables="false" rotation="270" inheritlimbdepth="false" depth="0.6" sourcerect="0,264,244,56" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,-0.05" />
     </Wearable>
     <MeleeWeapon slots="RightHand+LeftHand" aimpos="30,15" handle1="-50,1" handle2="-40,5" holdangle="70" aimangle="-15" reload="0.8" range="75" combatPriority="30" msg="ItemMsgPickUpSelect">
-      <Attack targetimpulse="4" severlimbsprobability="1" itemdamage="20" structuredamage="5" structuresoundtype="StructureSlash" penetration="0.65">
-        <Affliction identifier="lacerations" strength="40" />
-        <Affliction identifier="bleeding" strength="20" />
-        <Affliction identifier="stun" strength="0.5" />
+      <Attack targetimpulse="4" severlimbsprobability="1" itemdamage="20" structuredamage="5" structuresoundtype="StructureSlash" penetration="0.8">
+        <Affliction identifier="lacerations" strength="50" />
+        <Affliction identifier="bleeding" strength="25" />
+        <Affliction identifier="stun" strength="0.6" />
       </Attack>
       <StatusEffect type="OnUse" target="Limb">
 	    <LuaHook name="DD.claymore.behead" />

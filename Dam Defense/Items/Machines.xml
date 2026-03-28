@@ -927,6 +927,37 @@
     </Holdable>
   </Item>
   
+  <Item name="Portable Periscope" description="" identifier="portableperiscope" tags="periscope,mediumitem" category="Machine,Weapon" subcategory="subweapons" type="Controller" disableitemusagewhenselected="true" scale="0.5" isshootable="true" requireaimtouse="false" requireaimtosecondaryuse="false">
+    <SwappableItem canbebought="false" origin="67,0" interactdistance="80" />
+    <Sprite texture="%ModDir%/Items/turret.png" depth="0.1" sourcerect="0,80,97,89" origin="0.5,0.5" />
+    <Deconstruct requiredtime="10">
+      <Item identifier="fpgacircuit" />
+      <Item identifier="steel" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="false">
+      <RequiredSkill identifier="electrical" level="20" />
+      <RequiredSkill identifier="mechanical" level="45" />
+      <RequiredItem identifier="fpgacircuit" />
+      <RequiredItem identifier="steel" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <Body height="80" width="80" density="30" />
+    <Controller allowingameediting="false" UserPos="-0.0, -0.0" direction="Right" canbeselected="true" AllowSelectingWhenSelectedByBot="true" AllowSelectingWhenSelectedByOther="false" msg="ItemMsgInteractSelect">
+      <limbposition limb="LeftHand" position="8,-36" />
+      <limbposition limb="RightHand" position="8,-36" />
+    </Controller>
+    <Holdable selectkey="Action" pickkey="Use" slots="LeftHand+RightHand" aimpos="60,0" holdpos="45,-15" handle1="0,-15" handle2="0,15" controlpose="false" blocksplayers="false" attachable="true" aimable="true" DisallowAttachingOverTags="barricade" msg="ItemMsgDetachWrench" PickingTime="5.0">
+      <RequiredItem items="wrench,deattachtool" excludeditems="multitool" type="Equipped" />
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.8" setvalue="true" />
+    </Holdable>
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem items="screwdriver" type="Equipped" />
+      <output name="position_out" displayname="connection.turretaimingout" fallbackdisplayname="inputtype.aim" />
+      <output name="trigger_out" displayname="connection.turrettriggerout" fallbackdisplayname="inputtype.shoot" />
+    </ConnectionPanel>
+  </Item>
+  
   <Item name="Defense Bot Turret" 
         description=""
         identifier="smgturret" Tags="turret,barricade" category="Machine,Weapon" subcategory="subweapons" interactthroughwalls="true" Scale="0.5" interactdistance="80" spritecolor="1.0,1.0,1.0,1.0" focusonselected="true" offsetonselected="750" canflipx="false" linkable="true" damagedbyrepairtools="true" damagedbymonsters="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true" explosiondamagemultiplier="0.5" ondamagedthreshold="2">
@@ -934,20 +965,20 @@
 	<Sprite texture="%ModDir%/Items/turret.png" depth="0.512" sourcerect="0,28,50,49" origin="0.5,0.5" canflipy="false" />
     <MinimapIcon name="Command_Weapons_Coilgun" texture="Content/UI/CommandUIAtlas.png" sourcerect="768,0,128,128" />
     <Deconstruct requiredtime="10">
-      <RequiredItem identifier="fpgacircuit" />
-      <RequiredItem identifier="smg" />
+      <Item identifier="fpgacircuit" />
+      <Item identifier="smg" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator" requiredtime="40" requiresrecipe="false">
-      <RequiredSkill identifier="electrical" level="30" />
-      <RequiredSkill identifier="mechanical" level="55" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="30" requiresrecipe="false">
+      <RequiredSkill identifier="electrical" level="20" />
+      <RequiredSkill identifier="mechanical" level="45" />
       <RequiredItem identifier="fpgacircuit" />
-      <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
+      <RequiredItem identifier="steel" />
       <RequiredItem identifier="smg" />
     </Fabricate>
     <Fabricate suitablefabricators="fabricator" requiredtime="10" displayname="recycleitem">
       <RequiredSkill identifier="mechanical" level="15" />
       <RequiredItem identifier="smgturret" amount="1" mincondition="0.0" maxcondition="0.9" usecondition="false" />
-      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="steel" />
     </Fabricate>
     <Body height="35" width="35" density="30" />
     <Turret launchimpulse="80.0" canbeselected="false" characterusable="false" linkable="true" barrelpos="25,25" firingoffset="0,-75"  rotationlimits="-90,270" powerconsumption="0.0" showchargeindicator="true" showprojectileindicator="true" recoildistance="20" reload="0.1" springstiffnesslowskill="2" springstiffnesshighskill="50" springdampinglowskill="0.5" springdampinghighskill="10" rotationspeedlowskill="1" rotationspeedhighskill="8" MaxAngleOffset="10" AICurrentTargetPriorityMultiplier="1.1" AutoOperate="false" AllowAutoOperateWithWiring="true">
@@ -999,7 +1030,7 @@
       <input name="toggle_auto_operate" displayname="connection.toggleautooperate" />
     </ConnectionPanel>
     <SkillRequirementHint identifier="weapons" level="50" />
-    <Holdable selectkey="Action" pickkey="Use" slots="LeftHand+RightHand" aimpos="60,0" holdpos="45,-15" handle1="0,-15" handle2="0,15" controlpose="false" blocksplayers="false" attachable="true" aimable="true" DisallowAttachingOverTags="turret" msg="ItemMsgDetachWrench" PickingTime="5.0">
+    <Holdable selectkey="Action" pickkey="Use" slots="LeftHand+RightHand" aimpos="60,0" holdpos="45,-15" handle1="0,-15" handle2="0,15" controlpose="false" blocksplayers="false" attachable="true" aimable="true" DisallowAttachingOverTags="barricade" msg="ItemMsgDetachWrench" PickingTime="5.0">
       <RequiredItem items="wrench,deattachtool" excludeditems="multitool" type="Equipped" />
       <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.8" setvalue="true" />
       <StatusEffect type="OnBroken" target="This">

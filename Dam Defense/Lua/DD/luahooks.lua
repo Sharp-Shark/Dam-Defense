@@ -1,3 +1,11 @@
+-- prevent knight from using ranged weapons
+Hook.Patch("Barotrauma.Items.Components.RangedWeapon", "Use", function(instance, ptable)
+	local character = ptable['character']
+	if (character == nil) or (character.SpeciesName ~= 'human') or (character.JobIdentifier ~= 'knight') then return end
+	
+	ptable.PreventExecution = true
+end, Hook.HookMethodType.Before)
+
 if CLIENT and Game.IsMultiplayer then return end
 
 -- bonesaw
@@ -741,9 +749,11 @@ Hook.Add("DD.claymore.behead", "DD.claymore.behead", function(effect, deltaTime,
 	if user.JobIdentifier ~= 'knight' then item.Drop(user, true, true) end
 	if (limb == nil) or (LuaUserData.TypeOf(limb) ~= 'Barotrauma.Limb') then return end
 	local character = limb.character
-	if (limb.type == LimbType.Head) and (character.Vitality <= 0) and (not character.IsDead) then
+	--if (limb.type == LimbType.Head) and (character.Vitality <= 0) and (not character.IsDead) then
+	if (character.Vitality <= 0) and (not character.IsDead) then
+		local limb = character.AnimController.GetLimb(LimbType.Head, true, false, false)
 		DD.giveAfflictionCharacter(character, 'internaldamage', 999, limb)
-		DD.severLimb(limb)
+		DD.beheadCharacter(character)
 		-- heal damage after kill
 		DD.giveAfflictionCharacter(user, 'lifeessence', 999)
 		-- reset stun
@@ -762,15 +772,6 @@ Hook.Add("DD.cultistshield.ondamaged", "DD.cultistshield.ondamaged", function(ef
 	
 	item.Condition = item.MaxCondition
 end)
-
--- prevent knight from using ranged weapons
-Hook.Patch("Barotrauma.Items.Components.RangedWeapon", "Use", function(instance, ptable)
-	local character = ptable['character']
-	if (character == nil) or (character.SpeciesName ~= 'human') or (character.JobIdentifier ~= 'knight') then return end
-	
-	ptable.PreventExecution = true
-end, Hook.HookMethodType.Before)
-
 
 -- barricade
 Hook.Patch("Barotrauma.Items.Components.Holdable", "OnPicked", {'Barotrauma.Character'}, function(instance, ptable)
@@ -1517,6 +1518,7 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 	local character = targets[1]
 	if (character == nil) or (character.SpeciesName ~= 'human') then return end
 	
+	--[[
 	-- Reset time pressure for all the trolls and goblins
 	for character in Character.CharacterList do
 		if (character.SpeciesName == 'humanGoblin') or (character.SpeciesName == 'humanTroll') then
@@ -1525,6 +1527,7 @@ Hook.Add("DD.goblinMask.wear", "DD.goblinMask.wear", function (effect, deltaTime
 			end
 		end
 	end
+	--]]
 	
 	-- Is Troll
 	local conversionTrollPercentage = 20

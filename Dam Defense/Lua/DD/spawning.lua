@@ -59,6 +59,7 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	if character.JobIdentifier == 'wizard' then
 		DD.giveAfflictionCharacter(character, 'wizard', 1)
 	elseif character.JobIdentifier == 'knight' then
+		DD.giveAfflictionCharacter(character, 'wizard', 1)
 		DD.giveAfflictionCharacter(character, 'decreasedoxygenconsumption', 999)
 	elseif character.JobIdentifier == 'assistant' then
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcuffs'), character.Inventory, nil, nil, function (spawnedItem)
@@ -122,12 +123,19 @@ DD.roundEndFunctions.spawning = function ()
 end
 
 DD.autoJob = function ()
-	if #Client.ClientList == 0 then return {} end
-
-	local antagSafeCap = math.ceil(#Client.ClientList * 1 / 2)
-	local antagSafeSecCap = math.ceil(#Client.ClientList * 1 / 4)
-	local antagSafeNonSecCap = math.ceil(#Client.ClientList * 1 / 4)
-	local engineerQuota = math.ceil(#Client.ClientList * 1 / 10)
+	local clientCount = 0
+	for client in Client.ClientList do
+		if not client.SpectateOnly then
+			clientCount = clientCount + 1
+		end
+	end
+	
+	if clientCount == 0 then return {} end
+	
+	local antagSafeCap = math.ceil(clientCount * 1 / 2)
+	local antagSafeSecCap = math.ceil(clientCount * 1 / 4)
+	local antagSafeNonSecCap = math.ceil(clientCount * 1 / 4)
+	local engineerQuota = math.ceil(clientCount * 1 / 10)
 	
 	-- ordered list of job prefabs
 	local jobPrefabsOrdered = {
@@ -247,7 +255,7 @@ DD.autoJob = function ()
 		end
 	end
 	-- assign captain
-	if #Client.ClientList > 1 then
+	if clientCount > 1 then
 		for n = 1, 4 do
 			if not (jobsLeft['captain'] > 0) then break end
 			for client in sorted['captain'][n] do
@@ -333,18 +341,20 @@ Hook.Patch("Barotrauma.Networking.RespawnManager", "RespawnCharacters", {"Barotr
 	if DD.respawningState == 'default' then
 		DD.autoJob()
 		DD.autoJobExecutionCount = DD.autoJobExecutionCount + 1
-		
-		for client in Client.ClientList do
-			if DD.isClientRespawnable(client) and client.InGame then
-				-- reset talents (and more) before respawn
-				local info = CharacterInfo('human', client.Name)
-				if client.CharacterInfo ~= nil then
-					info.RecreateHead(client.CharacterInfo.Head)
-				end
-				client.CharacterInfo = info
-				
-				-- if statement condition function does something and returns true if it succeeds (function has side-effects and is not pure)
-				if DD.doRespawnFunctions(client) == nil then
+	end
+	
+	for client in Client.ClientList do
+		if DD.isClientRespawnable(client) then
+			-- reset talents (and more) before respawn
+			local info = CharacterInfo('human', client.Name)
+			if client.CharacterInfo ~= nil then
+				info.RecreateHead(client.CharacterInfo.Head)
+			end
+			client.CharacterInfo = info
+			
+			-- if statement condition function does something and returns true if it succeeds (function has side-effects and is not pure)
+			if DD.doRespawnFunctions(client) == nil then
+				if (DD.respawningState == 'default') and client.InGame then
 					-- get job and job variant
 					local job = DD.clientJob[client]
 					local variant
@@ -360,41 +370,30 @@ Hook.Patch("Barotrauma.Networking.RespawnManager", "RespawnCharacters", {"Barotr
 					local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
 					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
 					character.UpdateTeam()
-				end
-			end
-		end
-	elseif DD.respawningState == 'latejoin' then
-		for client in DD.arrShuffle(Client.ClientList) do
-			if DD.isClientRespawnable(client) then
-				-- reset talents (and more) before respawn
-				local info = CharacterInfo('human', client.Name)
-				if client.CharacterInfo ~= nil then
-					info.RecreateHead(client.CharacterInfo.Head)
-				end
-				client.CharacterInfo = info
-				
-				if (DD.eventDirector.mainEvent ~= nil) and (DD.eventDirector.mainEvent.lateJoinSpawn ~= nil) then
-					-- if statement condition function does something and returns true if it succeeds (function has side-effects and is not pure)
-					if not DD.eventDirector.mainEvent.lateJoinSpawn(client) then
-						DD.messageClient(client, DD.stringLocalize('latejoinMessageNoRespawnCustom'), {preset = 'crit'})
-					end
-				elseif not DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then
-					-- get job and job variant
-					local job = 'mechanic'
-					local variant
-					for jobVariant in client.JobPreferences do
-						if tostring(jobVariant.Prefab.Identifier) == job then
-							variant = jobVariant.Variant
+				elseif (DD.respawningState == 'latejoin') then
+					if (DD.eventDirector.mainEvent ~= nil) and (DD.eventDirector.mainEvent.lateJoinSpawn ~= nil) then
+						-- if statement condition function does something and returns true if it succeeds (function has side-effects and is not pure)
+						if not DD.eventDirector.mainEvent.lateJoinSpawn(client) then
+							DD.messageClient(client, DD.stringLocalize('latejoinMessageNoRespawnCustom'), {preset = 'crit'})
 						end
+					elseif not DD.lateJoinBlacklistSet[client.AccountId.StringRepresentation] then
+						-- get job and job variant
+						local job = 'mechanic'
+						local variant
+						for jobVariant in client.JobPreferences do
+							if tostring(jobVariant.Prefab.Identifier) == job then
+								variant = jobVariant.Variant
+							end
+						end
+						if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
+						
+						local pos = DD.findRandomWaypointByJob(job).WorldPosition
+						local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
+						character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
+						character.UpdateTeam()
+					else
+						DD.messageClient(client, DD.stringLocalize('latejoinMessageNoRespawn'), {preset = 'crit'})
 					end
-					if variant == nil then variant = math.random(JobPrefab.Get(job).Variants) - 1 end
-					
-					local pos = DD.findRandomWaypointByJob(job).WorldPosition
-					local character = DD.spawnHuman(client, job, pos, nil, variant, nil)
-					character.SetOriginalTeamAndChangeTeam(CharacterTeamType.Team1, true)
-					character.UpdateTeam()
-				else
-					DD.messageClient(client, DD.stringLocalize('latejoinMessageNoRespawn'), {preset = 'crit'})
 				end
 			end
 		end
