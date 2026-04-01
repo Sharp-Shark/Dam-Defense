@@ -145,6 +145,10 @@
       <Price storeidentifier="merchantmine"/>
       <Price storeidentifier="merchantmedical" minavailable="2" multiplier="0.9"/>
     </Price>
+    <Fabricate suitablefabricators="nukieshop" requiredtime="1" amount="1">
+      <RequiredSkill identifier="helm" level="0" />
+      <RequiredItem tag="fakemoney" amount="3" />
+	</Fabricate>
     <Fabricate suitablefabricators="secnexshop" requiredtime="1">
       <RequiredSkill identifier="helm" level="0" />
       <RequiredItem tag="realmoney" amount="3" />

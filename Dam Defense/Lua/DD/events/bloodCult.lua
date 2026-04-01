@@ -1,5 +1,5 @@
 -- Enlighten a few initial players whose objective is to convert all players into cultists like them, or kill them
-DD.eventBloodCult = DD.class(DD.eventWithStartBase, function (self, cultists)
+DD.eventBloodCult = DD.class(DD.eventSecretAntag, function (self, cultists)
 	self.cultists = cultists
 	if type(self.cultists) == 'table' then
 		self.cultistsSet = DD.toSet(self.cultists)
@@ -44,7 +44,7 @@ end, {
 		self.lateJoinBlacklistSet[client.AccountId.StringRepresentation] = true
 		
 		local speciesName = 'humanUndead'
-		local undeadInfo = DD.stringLocalize('undeadInfo') .. ' ' .. DD.stringLocalize('undeadInfoBloodCult')
+		local undeadInfo = DD.stringLocalize('undeadInfo') .. ' ' .. DD.stringLocalize('bloodCultMinionInfo')
 		local job = 'undeadjob'
 		local pos = DD.getLocation(function (item) return item.HasTag('dd_wetsewer') end).WorldPosition
 		local character = DD.spawnHuman(client, job, pos, nil, nil, speciesName)
@@ -99,7 +99,7 @@ end, {
 			name = sender.Name .. self.cultistTitles[sender]
 		end
 		for client in Client.ClientList do
-			if self.cultistsSet[client] or (DD.isClientCharacterAlive(client) and client.Character.SpeciesName == 'humanUndead') then
+			if self.cultistsSet[client] or (DD.isClientCharacterAlive(client) and DD.isCharacterBloodCultMinion(client.Character)) then
 				DD.messageClient(client, message, {sender = name, sendMain = false, sendAnother = true, color = Color(255, 55, 55)})
 			end
 		end
@@ -148,7 +148,7 @@ end, {
 		local nonCultistsSet = DD.setSubtract(aliveSet, self.cultistsSet)
 		
 		-- Event requires 2 (or more) cultists and 3 (or more) non-cultist
-		if (DD.tableSize(self.cultists) <= 1) or ((DD.tableSize(nonCultistsSet) <= 2) and not self.manuallyTriggered) then
+		if ((DD.tableSize(self.cultists) <= 1) or (DD.tableSize(nonCultistsSet) <= 2)) and not self.manuallyTriggered then
 			self.fail('conditions to start could not be met')
 			return
 		else
@@ -188,6 +188,16 @@ end, {
 		end,
 		onThink = function (self)
 			if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
+			local timesPerSecond = 2
+			
+			-- inform killer about nearest target location every minute
+			local targets = {}
+			for client in Client.ClientList do
+				if not self.parent.cultistsSet[client] then
+					table.insert(targets, client)
+				end
+			end
+			self.parent.informKillerTargetLocationCountdown(self.parent.cultists, targets, timesPerSecond)
 			
 			if self.parent.getShouldFinish() then
 				self.parent.finish()
@@ -210,7 +220,7 @@ end, {
 	
 	onChatMessage = function (self, message, sender)
 		if (string.sub(message, 1, 8) ~= '/whisper') and (string.sub(message, 1, 3) ~= '/w ') and (message ~= '/cultists') then return end
-		if (not self.cultistsSet[sender]) and not (DD.isClientCharacterAlive(sender) and sender.Character.SpeciesName == 'humanUndead') then return end
+		if (not self.cultistsSet[sender]) and not (DD.isClientCharacterAlive(sender) and DD.isCharacterBloodCultMinion(sender.Character)) then return end
 		
 		if message == '/cultists' then
 			-- Build cultist list
@@ -246,8 +256,15 @@ end, {
 	onFinishAlways = function (self)
 		if not self.cultistsWon then
 			for character in Character.CharacterList do
-				if character.SpeciesName == 'humanUndead' then
-					DD.giveAfflictionCharacter(character, 'timepressure', 999)
+				if DD.isCharacterBloodCultMinion(character) then
+					DD.gibCharacter(character, true)
+				end
+			end
+			for item in Item.ItemList do
+				DD.roundData.lifeEssenceCharacter = nil
+				if (item.Prefab.Identifier == 'canopicjar') and item.NonInteractable then
+					Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+					Entity.Spawner.AddEntityToRemoveQueue(item)
 				end
 			end
 		end

@@ -2046,9 +2046,9 @@
       <Skill identifier="medical" level="55,65"/>
     </Skills>
     <ItemSet>
-      <Item identifier="ironhelmet" equip="true"/>
-      <Item identifier="merasmusrobes" equip="true"/>
-      <Item identifier="makeshiftarmor" equip="true" outfit="true"/>
+      <Item identifier="knighthelmet" equip="true"/>
+      <Item identifier="vipclothes2" equip="true"/>
+      <Item identifier="knightarmor" equip="true" outfit="true"/>
       <Item identifier="idcard" equip="true" />
       <Item identifier="claymore" />
       <Item identifier="cultistmace" />

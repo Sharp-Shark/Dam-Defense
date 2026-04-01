@@ -6,7 +6,20 @@ Hook.Patch("Barotrauma.Items.Components.RangedWeapon", "Use", function(instance,
 	ptable.PreventExecution = true
 end, Hook.HookMethodType.Before)
 
-if CLIENT and Game.IsMultiplayer then return end
+if CLIENT and Game.IsMultiplayer then
+	Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
+		local character = instance
+		local hitLimb = ptable['targetLimb']
+		
+		-- prevent blood cult minions from attacking cultists and eachother
+		if (ptable['attacker'] ~= nil) and DD.isCharacterBloodCultMinion(ptable['attacker']) and
+		((character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) > 99) or DD.isCharacterBloodCultMinion(character)) then
+			ptable.PreventExecution = true
+		end
+	end)
+	
+	return
+end
 
 -- bonesaw
 Hook.Add("DD.bonesaw.use", "DD.bonesaw.use", function(effect, deltaTime, item, targets, worldPosition)
@@ -509,18 +522,17 @@ Hook.Patch("Barotrauma.Character", "ApplyAttack", function(instance, ptable)
     local character = instance
 	local hitLimb = ptable['targetLimb']
 	
-	-- prevent undead from attacking cultists and other undead
-	if (ptable['attacker'] ~= nil) and (ptable['attacker'].SpeciesName == 'humanundead') and
-	((character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) > 99) or (character.SpeciesName == 'humanundead')) then
+	-- prevent blood cult minions from attacking cultists and eachother
+	if (ptable['attacker'] ~= nil) and DD.isCharacterBloodCultMinion(ptable['attacker']) and
+	((character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) > 99) or DD.isCharacterBloodCultMinion(character)) then
 		ptable.PreventExecution = true
 	end
 	
 	-- flag affliction
 	DD.giveAfflictionCharacter(character, 'recentlyattacked', 999)
 	
-	-- huntsmen and knight do not have armor decay
+	-- huntsmen do not have armor decay
 	if character.SpeciesName == 'huntsman' then return end
-	if (character.SpeciesName == 'human') and (character.JobIdentifier == 'knight') then return end
 	
 	if hitLimb == nil then return end
 	local afflictions = ptable['attack'].Afflictions
@@ -726,6 +738,13 @@ Hook.Add("DD.brassknuckle.disarm", "DD.brassknuckle.disarm", function(effect, de
 	if item == nil then return end
 	if item.Prefab.Identifier == 'brassknuckle' then return end
 	item.Drop(character, true, true)
+end)
+
+-- spy watch
+Hook.Add("DD.spywatch.drain", "DD.spywatch.drain", function(effect, deltaTime, item, targets, worldPosition)
+	for item in item.OwnInventory.AllItems do
+		item.Condition = 0
+	end
 end)
 
 -- spy knife
@@ -1130,7 +1149,7 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	-- pop-up
 	local client = DD.findClientByCharacter(character)
 	if client == nil then return end
-	if character.SpeciesName ~= 'humanundead' then
+	if not DD.isCharacterBloodCultMinion(character) then
 		DD.messageClient(client, DD.stringLocalize('bloodCultCultistInfo'), {preset = 'crit'})
 		DD.giveAfflictionCharacter(character, 'antag', 99)
 		
@@ -1163,15 +1182,45 @@ Hook.Add("DD.sacrificialdagger.sacrifice", "DD.sacrificialdagger.sacrifice", fun
 	if SERVER then
 		Networking.CreateEntityEvent(character, Character.CharacterStatusEventData.__new(true))
 	end
-	if inventory.Owner.SpeciesName == 'humanundead' then
-		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory.Owner.WorldPosition, nil, nil, function (spawnedItem) end)
-	else
-		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), inventory, nil, nil, function (spawnedItem) end)
+	
+	local invOrPos = inventory
+	if inventory.Owner.SpeciesName == 'humanundead' then invOrPos = inventory.Owner.WorldPosition end
+	
+	if character.SpeciesName == 'human' then
+		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('lifeessence'), invOrPos, nil, nil, function (spawnedItem)
+			if DD.roundData.lifeEssenceCharacter == nil then DD.roundData.lifeEssenceCharacter = {} end
+			DD.roundData.lifeEssenceCharacter[spawnedItem] = character
+		end)
 	end
+	
+	-- fx
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
 	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
 end)
 
+-- blood cult canopic jar
+Hook.Add("DD.canopicjar.active", "DD.canopicjar.active", function(effect, deltaTime, item, targets, worldPosition)
+	local lifeEssence = item.OwnInventory.GetItemAt(0)
+	if lifeEssence == nil then return end
+	
+	if DD.roundData.lifeEssenceCharacter == nil then return end
+	local character = DD.roundData.lifeEssenceCharacter[lifeEssence]
+	if (character == nil) or (character.Removed) then return end
+	
+	if (#DD.eventDirector.getEventInstances('bloodCult') <= 0) and SERVER then return end -- "and SERVER" to allow for testing in singleplayer
+	
+	DD.roundData.lifeEssenceCharacter[lifeEssence] = nil
+	item.Condition = 100
+	item.Drop()
+	Timer.NextFrame(function () DD.setItemInteractable(item, false) end)
+	
+	character.Revive(true, true)
+	DD.giveAfflictionCharacter(character, 'goatify', 1)
+	
+	-- fx
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('bloodcultfx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+end)
 
 -- blood cult the 1998
 Hook.Add("DD.the1998.use", "DD.the1998.use", function(effect, deltaTime, item, targets, worldPosition)
@@ -1495,9 +1544,7 @@ Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, 
 	end
 	
 	-- head goes kaboom
-	local limb = character.AnimController.GetLimb(LimbType.Head, true, false, false)
-	DD.giveAfflictionCharacter(character, 'internaldamage', 999, limb)
-	DD.beheadCharacter(character)
+	DD.beheadCharacter(character, true)
 end)
 Hook.Add("DD.timepressure.gib", "DD.timepressure.gib", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
@@ -1508,8 +1555,36 @@ Hook.Add("DD.timepressure.gib", "DD.timepressure.gib", function(effect, deltaTim
 	end
 	
 	-- murderized
-	DD.giveAfflictionCharacter(character, 'internaldamage', 999)
-	DD.gibCharacter(character)
+	DD.gibCharacter(character, true)
+end)
+Hook.Add("DD.timepressure.goatify", "DD.timepressure.goatify", function(effect, deltaTime, item, targets, worldPosition)
+    local character = targets[1]
+	if character == nil then return end
+	local client = DD.findClientByCharacter(character)
+	
+	if character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
+		character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
+	end
+	
+	-- murderized
+	DD.gibCharacter(character, true)
+	DD.giveAfflictionCharacter(character, 'cardiacarrest', 999)
+	
+	-- goatify
+	Entity.Spawner.AddCharacterToSpawnQueue('goatmen', character.WorldPosition, function (newCharacter)
+		DD.giveAfflictionCharacter(newCharacter, 'enlightened', 999)
+		
+		if client ~= nil then
+			client.SetClientCharacter(newCharacter)
+			
+			local undeadInfo = DD.stringLocalize('goatmenInfo')
+			if #DD.eventDirector.getEventInstances('bloodCult') >= 1 then
+				undeadInfo = undeadInfo .. ' ' .. DD.stringLocalize('bloodCultMinionInfo')
+			end
+			DD.messageClient(client, undeadInfo, {preset = 'crit'})
+		end
+		if CLIENT and (Character.Controlled == character) then Character.Controlled = newCharacter end
+	end)
 end)
 
 -- Execute when a human puts on a goblin mask

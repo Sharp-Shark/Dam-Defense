@@ -1,5 +1,5 @@
 -- Pick some players to be part of a revolution tasked with killing all of security
-DD.eventRevolution = DD.class(DD.eventWithStartBase, function (self, rebels)
+DD.eventRevolution = DD.class(DD.eventSecretAntag, function (self, rebels)
 	self.rebels = rebels
 end, {
 	paramType = {'clientList'},
@@ -161,7 +161,7 @@ end, {
 		end
 		
 		-- Event requires 2 (or more) rebel leaders and (1 or more) security personnel
-		if (self.rebels == nil) or (self.security == nil) or (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0) then
+		if ((self.rebels == nil) or (self.security == nil) or (DD.tableSize(self.rebels) <= 1) or (DD.tableSize(self.security) <= 0)) and not self.manuallyTriggered then
 			self.rebels = nil
 			self.fail('conditions to start could not be met')
 			return
@@ -258,6 +258,9 @@ end, {
 					end
 				end
 			end
+			
+			-- inform killer about nearest target location every minute
+			self.parent.informKillerTargetLocationCountdown(self.parent.rebels, self.parent.security, timesPerSecond)
 			
 			-- End event if all of security is dead or if all rebel leaders are dead/arrested
 			if not anySecurityIsAlive then

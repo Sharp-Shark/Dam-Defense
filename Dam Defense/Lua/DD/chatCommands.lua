@@ -30,7 +30,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 		freecam = 'Goes into spectating. Can be used whilst controlling a creature. If you turn into a husk, you can use this stop being the husk and become eligible to respawning.',
 		election = 'Starts an election event to replace the current mayor/captain. Insert your money into a ballot box and either choose YES to remove the captain or NO to keep him.',
 		rebels = 'Lists rebel leaders if you are a rebel leader or if enough time has elapsed. This command also informs how much more time needs to elapse.',
-		cultists = 'Lists fellow blood cultists. List will not include undead zombies, but undead zombies are allied to cultists and can also use this command.',
+		cultists = 'Lists fellow blood cultists. List will not include undead zombies or goatmen, but undead zombies and goatmen are allied to cultists and can also use this command.',
 		whisper = 'Globally and secretly send a text message to all blood cultists and undead zombies. Command can be used by both cultists and zombies.',
 		['w '] = 'Equivalent to /whisper command. Shorter for convenience.',
 		gang = 'Lists fellow gang members and the name of your boss. Be cautious with enemy gangs.',
@@ -81,7 +81,7 @@ DD.chatMessageFunctions.help = function (message, sender)
 			specialCommands['rebels'] = true
 		end
 		for event in DD.eventDirector.getEventInstances('bloodCult') do
-			if event.cultistsSet[sender] or (DD.isClientCharacterAlive(sender) and (sender.Character.SpeciesName == 'Humanundead')) then
+			if event.cultistsSet[sender] or (DD.isClientCharacterAlive(sender) and DD.isCharacterBloodCultMinion(sender.Character)) then
 				specialCommands['cultists'] = true
 				specialCommands['whisper'] = true
 				specialCommands['w '] = true
@@ -187,7 +187,13 @@ DD.chatMessageFunctions.jobinfo = function (message, sender, special)
 		elseif sender.Character.SpeciesName == 'humanUndead' then
 			local undeadInfo = DD.stringLocalize('undeadInfo')
 			if #DD.eventDirector.getEventInstances('bloodCult') >= 1 then
-				undeadInfo = undeadInfo .. ' ' .. DD.stringLocalize('undeadInfoBloodCult')
+				undeadInfo = undeadInfo .. ' ' .. DD.stringLocalize('bloodCultMinionInfo')
+			end
+			DD.messageClient(sender, undeadInfo, {preset = preset})
+		elseif sender.Character.SpeciesName == 'goatmen' then
+			local undeadInfo = DD.stringLocalize('goatmenInfo')
+			if #DD.eventDirector.getEventInstances('bloodCult') >= 1 then
+				undeadInfo = undeadInfo .. ' ' .. DD.stringLocalize('bloodCultMinionInfo')
 			end
 			DD.messageClient(sender, undeadInfo, {preset = preset})
 		elseif (sender.Character.SpeciesName == 'humanGoblin') or (sender.Character.SpeciesName == 'humanTroll') then

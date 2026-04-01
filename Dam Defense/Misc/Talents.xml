@@ -64,6 +64,7 @@
     <AddedRecipe itemidentifier="cultistpitchfork"/>
     <AddedRecipe itemidentifier="cultistshield"/>
     <AddedRecipe itemidentifier="cultistmace"/>
+    <AddedRecipe itemidentifier="canopicjar"/>
 	
   </Talent>
   

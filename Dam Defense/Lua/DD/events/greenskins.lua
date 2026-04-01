@@ -1,5 +1,5 @@
 -- Spawn in a few silly masked little goobers in the sewers
-DD.eventGreenskins = DD.class(DD.eventBase, function (self, greenskins)
+DD.eventGreenskins = DD.class(DD.eventSecretAntag, function (self, greenskins)
 	self.greenskins = greenskins
 	if type(self.greenskins) == 'table' then
 		self.greenskinsSet = DD.toSet(self.greenskins)
@@ -100,6 +100,15 @@ end, {
 			DD.giveAfflictionCharacter(client.Character, 'timepressure', 60/timeToExplode/timesPerSecond)
 		end
 		--]]
+		
+		-- inform killer about nearest target location every minute
+		local targets = {}
+		for client in Client.ClientList do
+			if not self.greenskinsSet[client] then
+				table.insert(targets, client)
+			end
+		end
+		self.informKillerTargetLocationCountdown(self.greenskins, targets, timesPerSecond)
 		
 		-- End event if goblins are dead
 		if DD.tableSize(self.greenskins) <= 0 then

@@ -10,7 +10,8 @@ return {
 	huskProwlerInfo = 'You have become a husk prowler! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate. Hold crouch and then ragdoll to leap.',
 	huskChimeraInfo = 'You have become a husk chimera! Try and spread the infection to other players, thusly turning everyone into a husk. You can hold ragdoll to regenerate. Hold crouch and then ragdoll to leap.',
 	undeadInfo = 'You have become an undead! Try and help the antagonist(s). You can do a creature attack and use anything you are holding. You can hold ragdoll to regenerate.',
-	undeadInfoBloodCult = 'Do /cultists to get a list of fellow worshippers and /whisper to message them all.',
+	goatmenInfo = 'You have become a goatmen! Try and help the antagonist(s).',
+	bloodCultMinionInfo = 'Do /cultists to get a list of fellow worshippers and /whisper to message them all.',
 	-- chatCommands.lua
 	commandHelp = 'List of chat commands:\n{list}',
 	commandHelpMisspell = '"{command}" is not a valid chat command. Do "/help" for a list of chat commands.',
@@ -174,7 +175,7 @@ return {
 	serialKillerEndVictory = 'Serial killer has won this round! Round ending in 10 seconds.',
 	serialKillerEndArrested = 'The serial killer has been eliminated.',
 	serialKillerEnd = 'The serial killer has been arrested.',
-	serialKillerNearestTarget = 'The nearest prey is {dx} meters {signx} and {dy} meters {signy}.',
+	serialKillerNearestTarget = 'The nearest target is {dx} meters {signx} and {dy} meters {signy}.',
 	-- events/vip.lua
 	vipMessageBoss = 'You are now a VIP. A body guard, {guardName}, has been assigned to keep you safe from hostiles. Your pay grade has been raised.',
 	vipMessageBodyguard = 'You have been tasked with keeping VIP {vipName} alive at all costs. Failure will result in immediate termination. Your pay grade has been raised.',
@@ -231,6 +232,7 @@ return {
 	gui_prisoner = 'Prisoner',
 	gui_colleague = 'Colleague',
 	gui_spy = 'Spy',
+	gui_knight = 'Knight',
 	
 	-- wiki
 	-- wiki misc

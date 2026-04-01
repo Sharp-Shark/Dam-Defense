@@ -129,6 +129,7 @@ DD.antagExemptJobs = {
 	gangster = true,
 	goon = true,
 	spy = true,
+	knight = true,
 }
 
 -- Set of jobs that do not need to die for antags to win
@@ -140,6 +141,7 @@ DD.antagNonTargetJobs = {
 	goon = true,
 	spy = true,
 	bodyguard = true,
+	knight = true,
 }
 
 -- Set of security jobs
@@ -721,9 +723,9 @@ DD.isCharacterUsingHullOxygen = function (character, ignoreHeadInWater)
 	
 	if character.AnimController.HeadInWater and not ignoreHeadInWater then return false end
 	if not character.UseHullOxygen then return false end
-	if (suitslot ~= nil) and ((suitslot.Prefab.Identifier == 'pucs') or (suitslot.Prefab.Identifier == 'nexsuit')) then return false end
-	if (clothingslot ~= nil) and (clothingslot.Prefab.Identifier == 'hazmatsuit') then return false end
-	if (headslot ~= nil) and (headslot.Prefab.Identifier == 'constablehoghelmet') then return false end
+	if (suitslot ~= nil) and (suitslot.HasTag('hazmat') or (suitslot.Prefab.Identifier == 'pucs')) then return false end
+	if (clothingslot ~= nil) and clothingslot.HasTag('hazmat') then return false end
+	if (headslot ~= nil) and headslot.HasTag('hazmat') then return false end
 	
 	--[[
 	if (headslot ~= nil) and headslot.HasTag('diving') then return false end
@@ -750,6 +752,12 @@ end
 DD.isCharacterHumanoid = function (character)
 	DD.expectTypes('isCharacterHumanoid', {character}, {'userdata'})
 	return character.IsHumanoid and (string.lower(string.sub(tostring(character.SpeciesName), 1, 5)) == 'human')
+end
+
+DD.isCharacterBloodCultMinion = function (character)
+	DD.expectTypes('isCharacterBloodCultMinion', {character}, {'userdata'})
+	local speciesNames = {'humanundead', 'goatmen'}
+	return DD.tableHas(speciesNames, string.lower(tostring(character.SpeciesName)))
 end
 
 DD.isCharacterHusk = function (character)
@@ -1152,7 +1160,7 @@ DD.messageAllClients = function (text, data)
 end
 
 -- Murderize
-DD.gibCharacter = function (character)
+DD.gibCharacter = function (character, damage)
 	DD.expectTypes('gibCharacter', {character}, {'userdata'})
 	for joint in character.AnimController.LimbJoints do
 		if (not joint.IsSevered) and joint.CanBeSevered then
@@ -1163,6 +1171,7 @@ DD.gibCharacter = function (character)
 			end)
 		end
 	end
+	if damage then DD.giveAfflictionCharacter(character, 'internaldamage', 999) end
 end
 
 -- Severs a limb
@@ -1182,9 +1191,10 @@ DD.severLimb = function (limb)
 end
 
 -- Decapitate
-DD.beheadCharacter = function (character)
+DD.beheadCharacter = function (character, damage)
 	DD.expectTypes('beheadCharacter', {character}, {'userdata'})
 	local limb = character.AnimController.GetLimb(LimbType.Head, true, false, false)
+	DD.giveAfflictionCharacter(character, 'internaldamage', 999, limb)
 	if limb == nil then return end
 	DD.severLimb(limb)
 end

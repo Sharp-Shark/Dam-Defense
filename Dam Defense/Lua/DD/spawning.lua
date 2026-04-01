@@ -32,8 +32,8 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 			[DD.invSlots.innerclothes] = {bossclothes = true},
 		},
 		knight = {
-			[DD.invSlots.head] = {ironhelmet = true},
-			[DD.invSlots.outerclothes] = {makeshiftarmor = true},
+			[DD.invSlots.head] = {knighthelmet = true},
+			[DD.invSlots.outerclothes] = {knightarmor = true},
 		},
 		-- dampwood jobs
 		hogjob = {
@@ -59,7 +59,6 @@ Hook.Add("character.giveJobItems", "DD.onGiveJobItems", function (character)
 	if character.JobIdentifier == 'wizard' then
 		DD.giveAfflictionCharacter(character, 'wizard', 1)
 	elseif character.JobIdentifier == 'knight' then
-		DD.giveAfflictionCharacter(character, 'wizard', 1)
 		DD.giveAfflictionCharacter(character, 'decreasedoxygenconsumption', 999)
 	elseif character.JobIdentifier == 'assistant' then
 		Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('handcuffs'), character.Inventory, nil, nil, function (spawnedItem)

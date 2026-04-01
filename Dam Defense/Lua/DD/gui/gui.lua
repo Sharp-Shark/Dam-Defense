@@ -68,6 +68,9 @@ local getInfoText = function (character, pov)
 		if character.JobIdentifier == 'wizard' then
 			assignText('wizard', 3)
 		end
+		if character.JobIdentifier == 'knight' then
+			assignText('knight', 3)
+		end
 		return text
 	end
 	-- for the living
@@ -127,6 +130,9 @@ local getInfoText = function (character, pov)
 	end
 	if character.JobIdentifier == 'wizard' then
 		assignText('wizard', 3)
+	end
+	if character.JobIdentifier == 'knight' then
+		assignText('knight', 3)
 	end
 	if character.JobIdentifier == 'gangster' then
 		assignText('gangleader', 3)
@@ -206,6 +212,7 @@ DD.gui.guiCharacterInfoTextColorTable = {
 	wizard = Color.Lerp(Color.MediumPurple, GUI.GUIStyle.TextColorNormal, 0.35),
 	gangleader = Color.Lerp(Color.MediumPurple, GUI.GUIStyle.TextColorNormal, 0.35),
 	spy = Color.Lerp(Color.MediumPurple, GUI.GUIStyle.TextColorNormal, 0.35),
+	knight = Color.Lerp(Color.MediumPurple, GUI.GUIStyle.TextColorNormal, 0.35),
 	-- job specific title (job colored)
 	security = Color.Lerp(JobPrefab.Get('securityofficer').UIColor, GUI.GUIStyle.TextColorNormal, 0.5),
 	medical = Color.Lerp(JobPrefab.Get('medicaldoctor').UIColor, GUI.GUIStyle.TextColorNormal, 0.5),
@@ -280,7 +287,7 @@ Hook.Patch("Barotrauma.Character", "DrawFront", function (instance, ptable)
 	local viewportSize = Vector2(cam.WorldView.Width, cam.WorldView.Height);
 	if hudInfoHeights[character] == nil then hudInfoHeights[character] = DefaultHudInfoHeight end
 	-- verify text should be rendered
-	if GUI.DisableHUD or (character.InvisibleTimer > 0) or (character.SpeciesName ~= 'human') and (character.SpeciesName ~= 'humanundead') or (cam.Zoom <= 0.4) then return end
+	if GUI.DisableHUD or (character.InvisibleTimer > 0) or (character.SpeciesName ~= 'human') and (not DD.isCharacterBloodCultMinion(character)) or (cam.Zoom <= 0.4) then return end
 	if Character.Controlled ~= nil then
 		if (Character.Controlled.FocusedCharacter == character) or (Character.Controlled == character) then return end
 		if (character.WorldPosition.X > cam.WorldView.X and character.WorldPosition.X < cam.WorldView.Right and

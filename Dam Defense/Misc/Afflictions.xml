@@ -410,7 +410,7 @@
   </Affliction>
   
   <!-- cultist affliction gained from book 1998 by Jerry Peterson (enlightened is affliction, enlightenedmind is talent) -->
-  <Affliction name="Enlightened" identifier="enlightened" description="You have been enlightened by the light of truth. You must enlighten others, so all may know it." type="oneofus" targets="human,humangoblin,humantroll,humanundead" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" showicontoothersthreshold="999" showinhealthscannerthreshold="999" maxstrength="100">
+  <Affliction name="Enlightened" identifier="enlightened" description="You have been enlightened by the light of truth. You must enlighten others, so all may know it." type="oneofus" targets="human,humangoblin,humantroll,humanundead,goatmen" limbspecific="false" indicatorlimb="Head" activationthreshold="1.0" showiconthreshold="99" showicontoothersthreshold="999" showinhealthscannerthreshold="999" maxstrength="100">
     <Effect minstrength="0" maxstrength="99" strengthchange="-5" />
 	<Effect minstrength="99" maxstrength="100" strengthchange="1.0" tag="enlightened">
 	  <StatusEffect target="character" >
@@ -462,6 +462,26 @@
 	  <StatusEffect target="Character" >
 	    <ReduceAffliction identifier="beepingbomb" amount="999" />
 	    <LuaHook name="DD.timepressure.explode" />
+	  </StatusEffect>
+	</Effect>
+    <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>
+  </Affliction>
+  <!-- goatify -->
+  <Affliction name="Goatify" identifier="goatify" description="" type="beepingbomb" limbspecific="false" indicatorlimb="Head" activationthreshold="0.0" showiconthreshold="999" maxstrength="10">
+    <Effect minstrength="0" maxstrength="8.5" strengthchange="9.9" ConvulseAmount="1.0">
+      <StatusEffect target="Character" setvalue="true">
+        <Affliction identifier="stun" amount="1" />
+      </StatusEffect>
+	</Effect>
+    <Effect minstrength="8.5" maxstrength="9.9" strengthchange="0.5" ConvulseAmount="2.0">
+      <StatusEffect target="Character" setvalue="true">
+        <Affliction identifier="stun" amount="1" />
+      </StatusEffect>
+	</Effect>
+    <Effect minstrength="9.9" maxstrength="10" strengthchange="1.0">
+	  <StatusEffect target="Character" >
+	    <ReduceAffliction identifier="beepingbomb" amount="999" />
+	    <LuaHook name="DD.timepressure.goatify" />
 	  </StatusEffect>
 	</Effect>
     <icon texture="%ModDir%/Misc/Icons.png" sourcerect="256,128,128,128" color="114,10,193,255" origin="0,0"/>

@@ -1036,7 +1036,7 @@
       <StatusEffect type="OnBroken" target="This">
         <particleemitter particle="shrapnel" drawontop="true" particleamount="15" velocitymin="100" velocitymax="500" anglemin="0" anglemax="360" distancemin="0" distancemax="30" scalemin="0.35" scalemax="0.5" />
         <Sound file="%ModDir%/Sounds/armorbreak.ogg" volume="2.0" range="800" />
-        <Remove />
+        <!--<Remove />-->
       </StatusEffect>
     </Holdable>
   </Item>

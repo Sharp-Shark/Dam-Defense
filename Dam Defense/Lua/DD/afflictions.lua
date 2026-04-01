@@ -23,7 +23,7 @@ if CLIENT then
 		end
 	end
 	DD.roundStartFunctions.afflictionsClient = function ()
-		local characterSkinColor = {}
+		characterSkinColor = {}
 	end
 end
 

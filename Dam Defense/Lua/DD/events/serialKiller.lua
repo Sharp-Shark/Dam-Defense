@@ -1,5 +1,5 @@
 -- Picks a player to be a serial killer and keeps giving them targets to kill
-DD.eventSerialKiller = DD.class(DD.eventWithStartBase, function (self, killer)
+DD.eventSerialKiller = DD.class(DD.eventSecretAntag, function (self, killer)
 	self.killer = killer
 end, {
 	paramType = {'client'},
@@ -21,48 +21,6 @@ end, {
 		if target == self.killer.Character then return end
 		
 		self.lastAttacked[target] = DD.thinkCounter
-	end,
-	
-	-- messages killer directions towards nearest valid target
-	informKillerTargetLocation = function (self)
-		if self.killer.Character == nil then return end
-		
-		-- get nearest valid target
-		local pos = self.killer.Character.WorldPosition
-		local winner
-		local winnerDistance
-		for client in Client.ClientList do
-			if (client ~= self.killer) and not DD.isClientAntagNonTarget(client) then
-				local distance = Vector2.Distance(pos, client.Character.WorldPosition)
-				if (winnerDistance == nil) or (distance < winnerDistance) then
-					winner = client.Character
-					winnerDistance = distance
-				end
-			end
-		end
-		if winner == nil then return end
-		
-		-- one unit in Barotrauma is 1cm, so 100 units is 1 meter
-		local dy = (winner.WorldPosition.y - pos.y) / 100
-		local dx = (winner.WorldPosition.x - pos.x) / 100
-		
-		-- not actually quite the sign of x nor y
-		local signx
-		if dx > 0 then
-			signx = 'to the right'
-		else
-			signx = 'to the left'
-		end
-		local signy
-		if dy > 0 then
-			signy = 'above'
-		else
-			signy = 'below'
-		end
-		dx = math.round(math.abs(dx), 2)
-		dy = math.round(math.abs(dy), 2)
-		
-		DD.messageClient(self.killer, DD.stringLocalize('serialKillerNearestTarget', {dx = dx, dy = dy, signx = signx, signy = signy}), {type = 'Dead', sender = '???'})
 	end,
 	
 	getShouldFinish = function (self)
@@ -122,7 +80,7 @@ end, {
 			end
 		end
 		
-		if (self.killer == nil) or (not anyoneAlive) or ((#nonSecurity < 3) and not self.manuallyTriggered) then
+		if ((self.killer == nil) or (not anyoneAlive) or (#nonSecurity < 3)) and not self.manuallyTriggered then
 			self.killer = nil
 			self.fail('conditions to start could not be met')
 			return
@@ -191,13 +149,7 @@ end, {
 			end
 			
 			-- inform killer about nearest target location every minute
-			if self.parent.informKillerTargetLocationCooldown == nil then self.parent.informKillerTargetLocationCooldown = 30 * timesPerSecond end
-			if self.parent.informKillerTargetLocationCooldown > 0 then
-				self.parent.informKillerTargetLocationCooldown = self.parent.informKillerTargetLocationCooldown - 1
-			else
-				self.parent.informKillerTargetLocation()
-				self.parent.informKillerTargetLocationCooldown = 60 * timesPerSecond
-			end
+			self.parent.informKillerTargetLocationCountdown({self.parent.killer}, Client.ClientList, timesPerSecond)
 			
 			-- bloodlust when creepy mask is being worn
 			if DD.isClientCharacterAlive(self.parent.killer) and (self.parent.killer.Character.Inventory.GetItemAt(2) ~= nil) and (self.parent.mask.ID == self.parent.killer.Character.Inventory.GetItemAt(2).ID) then

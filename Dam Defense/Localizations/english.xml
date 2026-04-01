@@ -178,6 +178,11 @@
   <entitydescription.capotainhuntsman>A capotain commonly found in the employ of huntsmen.</entitydescription.capotainhuntsman>
   <entityname.huntsmanarmor>Iron Breastplate</entityname.huntsmanarmor>
   <entitydescription.huntsmanarmor>An iron breastplate. Whilst its protection extends to the neck and head, its weight slows the wearer down.</entitydescription.huntsmanarmor>
+  <!-- Knight -->
+  <entityname.knightarmor>Knight Armor</entityname.knightarmor>
+  <entitydescription.knightarmor>A full set of knight armor, made unbreakable by magic.</entitydescription.knightarmor>
+  <entityname.knighthelmet>Knight Helmet</entityname.knighthelmet>
+  <entitydescription.knighthelmet>Menacing unbreakable helmet worn by the beheading knight.</entitydescription.knighthelmet>
   <!-- Revolver Carbine -->
   <entityname.revolvercarbine>Revolver Carbine</entityname.revolvercarbine>
   <entitydescription.revolvercarbine>A revolver with a stock, scope and a longer barrel, improving accuracy.</entitydescription.revolvercarbine>
@@ -504,6 +509,9 @@
   <!-- Blood Cultist Robes -->
   <entityname.bloodcultistrobes>Blood Cultist Robes</entityname.bloodcultistrobes>
   <entitydescription.bloodcultistrobes>Only craftable by cultists. A simple hooded garment that blood cultists regeneration, immunity to disease and revives them if they die. The robe also serves to conceal their identity whilst letting other fellows cultists recognize them as their own.</entitydescription.bloodcultistrobes>
+  <!-- Canopic Jar -->
+  <entityname.canopicjar>Canopic Jar</entityname.canopicjar>
+  <entitydescription.canopicjar>Only craftable by cultists. A vessel for storing and preserving the viscera of the soul for reincarnation. A goat has been sculpted out of the jar's stone head.</entitydescription.canopicjar>
   <!-- Life Essence -->
   <entityname.lifeessence>Life Essence</entityname.lifeessence>
   <entitydescription.lifeessence>A magically forever beating human heart with a red glow. Can be consumed by cultists to reset time pressure and heal..</entitydescription.lifeessence>

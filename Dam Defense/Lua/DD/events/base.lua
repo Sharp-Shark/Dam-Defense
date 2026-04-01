@@ -256,3 +256,61 @@ DD.eventWithStartBase = DD.class(DD.eventSMBase, nil, {
 		onThink = function (self) return end,
 	},
 })
+
+DD.eventSecretAntag = DD.class(DD.eventWithStartBase, nil, {
+	-- messages killer directions towards nearest valid target
+	informKillerTargetLocationInitialCooldown = 60, -- in seconds
+	informKillerTargetLocationCountdown = function (self, killers, targets, timesPerSecond)
+		if self.informKillerTargetLocationCooldown == nil then
+			self.informKillerTargetLocationCooldown = self.informKillerTargetLocationInitialCooldown * timesPerSecond
+		end
+		if self.informKillerTargetLocationCooldown > 0 then
+			self.informKillerTargetLocationCooldown = self.informKillerTargetLocationCooldown - 1
+		else
+			for killer in killers do
+				self.informKillerTargetLocation(killer, targets)
+			end
+			self.informKillerTargetLocationCooldown = self.informKillerTargetLocationInitialCooldown * timesPerSecond
+		end
+	end,
+	informKillerTargetLocation = function (self, killer, targets)
+		if killer.Character == nil then return end
+		
+		-- get nearest valid target
+		local pos = killer.Character.WorldPosition
+		local winner
+		local winnerDistance
+		for client in targets do
+			if (client ~= killer) and not DD.isClientAntagNonTarget(client) then
+				local distance = Vector2.Distance(pos, client.Character.WorldPosition)
+				if (winnerDistance == nil) or (distance < winnerDistance) then
+					winner = client.Character
+					winnerDistance = distance
+				end
+			end
+		end
+		if winner == nil then return end
+		
+		-- one unit in Barotrauma is 1cm, so 100 units is 1 meter
+		local dy = (winner.WorldPosition.y - pos.y) / 100
+		local dx = (winner.WorldPosition.x - pos.x) / 100
+		
+		-- not actually quite the sign of x nor y
+		local signx
+		if dx > 0 then
+			signx = 'to the right'
+		else
+			signx = 'to the left'
+		end
+		local signy
+		if dy > 0 then
+			signy = 'above'
+		else
+			signy = 'below'
+		end
+		dx = math.round(math.abs(dx), 2)
+		dy = math.round(math.abs(dy), 2)
+		
+		DD.messageClient(killer, DD.stringLocalize('serialKillerNearestTarget', {dx = dx, dy = dy, signx = signx, signy = signy}), {type = 'Dead', sender = '???'})
+	end,
+})
