@@ -1020,7 +1020,7 @@ Hook.Patch("Barotrauma.HumanAIController", "StructureDamaged", function (instanc
 	local repairAmount = ptable["damageAmount"] * -1
 	if repairAmount < 0 then repairAmount = repairAmount / 2 end
 	
-	local character = ptable["character"]
+	local character = ptable["attacker"]
 	if character == nil then return end
 	if character.SpeciesName ~= 'human' then return end -- do not punish players for walls they broke as a creature
 	
