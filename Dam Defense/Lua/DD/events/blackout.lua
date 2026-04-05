@@ -90,6 +90,8 @@ DD.eventBlackout = DD.class(DD.eventWithStartBase, nil, {
 	},
 	
 	onFinishAlways = function (self)
+		if self.doors == nil then self.doors = {} end
+		if self.lights == nil then self.lights = {} end
 		for item, state in pairs(self.doors) do
 			DD.setDoorState(item, state)
 			item.GetComponentString('Door').IsJammed = false

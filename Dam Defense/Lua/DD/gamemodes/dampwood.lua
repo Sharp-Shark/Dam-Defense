@@ -53,7 +53,7 @@ DD.gamemodeDampwood = DD.class(DD.gamemodeBase, nil, {
 			goatmen = {
 				maximun = 2,
 				locationTag = 'dd_wetsewer',
-				spawnInterval = 5 * 60,
+				spawnInterval = 4 * 60,
 			},
 			huntsmen = {
 				maximun = 8,

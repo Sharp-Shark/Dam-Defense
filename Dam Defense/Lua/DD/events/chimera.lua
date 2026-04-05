@@ -61,14 +61,14 @@ end, {
 		if (DD.thinkCounter % 30 ~= 0) or (not Game.RoundStarted) then return end
 		local timesPerSecond = 2
 		
-		if (self.chimera ~= nil) and (self.chimera.Character ~= self.chimeraCharacter) then
-			local client = DD.findClientByCharacter(self.chimeraCharacter)
-			if client ~= nil then self.chimera = client end
-		end
-		
 		if self.chimeraCharacter == nil then
 			self.fail('"self.chimeraCharacter" is nil at "onThink"')
 			return
+		end
+		
+		if (self.chimera ~= nil) and (self.chimera.Character ~= self.chimeraCharacter) then
+			local client = DD.findClientByCharacter(self.chimeraCharacter)
+			if client ~= nil then self.chimera = client end
 		end
 		
 		if self.chimeraCharacter.IsDead then

@@ -4246,13 +4246,13 @@
         <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.9" minavailable="0" maxavailable="2" />
         <Price storeidentifier="merchantarmory" sold="true" multiplier="0.9" minavailable="0" maxavailable="2" />
       </Price>
-      <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="true">
+      <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="false">
         <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
         <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
         <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
         <RequiredItem identifier="aluminium" />
       </Fabricate>
-      <Fabricate suitablefabricators="fabricator" requiredtime="15" requiresrecipe="true" displayname="recycleitem">
+      <Fabricate suitablefabricators="fabricator" requiredtime="15" requiresrecipe="false" displayname="recycleitem">
         <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
         <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
         <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />

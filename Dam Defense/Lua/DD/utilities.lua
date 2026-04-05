@@ -638,6 +638,8 @@ end
 -- Gives an affliction to a character
 DD.giveAfflictionCharacter = function (character, identifier, amount, limb)
 	DD.expectTypes('giveAfflictionCharacter', {character, identifier, amount, limb}, {'userdata', 'string', 'number', 'nil,userdata'})
+	if character.Removed then error('removed character at \'giveAfflictionCharacter\' ' .. '\n' .. debug.traceback(), 2) end
+	if character.AnimController == nil then error('character has no \'AnimController\' at \'giveAfflictionCharacter\' ' .. '\n' .. debug.traceback(), 2) end
 	local limb = limb or character.AnimController.MainLimb
 	character.CharacterHealth.ApplyAffliction(limb, AfflictionPrefab.Prefabs[identifier].Instantiate(amount))
 end
