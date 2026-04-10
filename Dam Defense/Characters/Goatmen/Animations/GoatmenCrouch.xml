@@ -14,7 +14,7 @@
   HandMoveAmount="0.5,0.5"
   HandMoveOffset="0,0"
   HandClampY="-1"
-  ArmMoveStrength="3"
+  ArmMoveStrength="4"
   HandMoveStrength="2"
   FixedHeadAngle="True"
   StepSize="1.2,1"
@@ -40,4 +40,4 @@
   TorsoTorque="100"
   FootTorque="15"
   ArmIKStrength="3"
-  HandIKStrength="2" />
+  HandIKStrength="10" />

@@ -66,12 +66,10 @@ DD.eventQuarantine = DD.class(DD.eventBase, nil, {
 	
 	onFinish = function (self)
 		-- This is the end, beautiful friend. This is the end, my only friend. The end of our elaborated plans, the end of everything that stands. The end
-		if not DD.roundEnding then
-			for client in Client.ClientList do
-				if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
-			end
-			DD.messageAllClients(DD.stringLocalize('quarantineEnd'), {preset = 'goodinfo'})
+		for client in Client.ClientList do
+			if client.Character ~= nil then DD.giveAfflictionCharacter(client.Character, 'notificationfx', 999) end
 		end
+		DD.messageAllClients(DD.stringLocalize('quarantineEnd'), {preset = 'goodinfo'})
 	end,
 	
 	onFinishAlways = function (self)

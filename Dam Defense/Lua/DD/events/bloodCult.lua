@@ -254,7 +254,7 @@ end, {
 	end,
 	
 	onFinishAlways = function (self)
-		if not self.cultistsWon then
+		if (not self.cultistsWon) and (not DD.roundEnding) then
 			for character in Character.CharacterList do
 				if DD.isCharacterBloodCultMinion(character) then
 					DD.gibCharacter(character, true)

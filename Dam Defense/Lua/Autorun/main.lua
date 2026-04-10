@@ -289,12 +289,11 @@ end
 -- Functions executed at round end
 DD.roundEndFunctions = {}
 local doRoundEndFunctions = function ()
+	DD.roundEnding = true
+	
 	for name, func in pairs(DD.roundEndFunctions) do
 		func()
 	end
-end
-DD.roundEndFunctions.main = function ()
-	DD.roundEnding = true
 end
 
 -- Functions executed 60 times a second

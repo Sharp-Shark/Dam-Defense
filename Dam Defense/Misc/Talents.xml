@@ -203,6 +203,12 @@
     <AddedRecipe itemidentifier="handheldstatusmonitor"/>
     <AddedRecipe itemidentifier="portablepump"/>
     <AddedRecipe itemidentifier="safetyharness"/>
+	<!-- portable pump -->
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGivePermanentStat statidentifier="portablepump" stattype="MaxAttachableCount" value="2" />
+      </Abilities>
+    </AbilityGroupEffect>
 	
 	<!-- security unlocks -->
     <AddedRecipe itemidentifier="assaultrifle"/>

@@ -639,7 +639,6 @@ end
 DD.giveAfflictionCharacter = function (character, identifier, amount, limb)
 	DD.expectTypes('giveAfflictionCharacter', {character, identifier, amount, limb}, {'userdata', 'string', 'number', 'nil,userdata'})
 	if character.Removed then error('removed character at \'giveAfflictionCharacter\' ' .. '\n' .. debug.traceback(), 2) end
-	if character.AnimController == nil then error('character has no \'AnimController\' at \'giveAfflictionCharacter\' ' .. '\n' .. debug.traceback(), 2) end
 	local limb = limb or character.AnimController.MainLimb
 	character.CharacterHealth.ApplyAffliction(limb, AfflictionPrefab.Prefabs[identifier].Instantiate(amount))
 end
@@ -1163,7 +1162,8 @@ end
 
 -- Murderize
 DD.gibCharacter = function (character, damage)
-	DD.expectTypes('gibCharacter', {character}, {'userdata'})
+	DD.expectTypes('gibCharacter', {character, damage}, {'userdata', 'boolean'})
+	if damage then DD.giveAfflictionCharacter(character, 'internaldamage', 999) end
 	for joint in character.AnimController.LimbJoints do
 		if (not joint.IsSevered) and joint.CanBeSevered then
 			Timer.NextFrame(function ()
@@ -1173,7 +1173,6 @@ DD.gibCharacter = function (character, damage)
 			end)
 		end
 	end
-	if damage then DD.giveAfflictionCharacter(character, 'internaldamage', 999) end
 end
 
 -- Severs a limb
@@ -1194,9 +1193,9 @@ end
 
 -- Decapitate
 DD.beheadCharacter = function (character, damage)
-	DD.expectTypes('beheadCharacter', {character}, {'userdata'})
+	DD.expectTypes('beheadCharacter', {character, damage}, {'userdata', 'boolean'})
 	local limb = character.AnimController.GetLimb(LimbType.Head, true, false, false)
-	DD.giveAfflictionCharacter(character, 'internaldamage', 999, limb)
+	if damage then DD.giveAfflictionCharacter(character, 'internaldamage', 999, limb) end
 	if limb == nil then return end
 	DD.severLimb(limb)
 end

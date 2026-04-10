@@ -770,9 +770,7 @@ Hook.Add("DD.claymore.behead", "DD.claymore.behead", function(effect, deltaTime,
 	local character = limb.character
 	--if (limb.type == LimbType.Head) and (character.Vitality <= 0) and (not character.IsDead) then
 	if (character.Vitality <= 0) and (not character.IsDead) then
-		local limb = character.AnimController.GetLimb(LimbType.Head, true, false, false)
-		DD.giveAfflictionCharacter(character, 'internaldamage', 999, limb)
-		DD.beheadCharacter(character)
+		DD.beheadCharacter(character, true)
 		-- heal damage after kill
 		DD.giveAfflictionCharacter(user, 'lifeessence', 999)
 		-- reset stun
@@ -1114,7 +1112,7 @@ end)
 -- blood cult enlightened
 Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
-	if character == nil then return end
+	if (character == nil) or (character.Removed) then return end
 	
 	-- talent
 	if character.HasTalent('enlightenedmind') then return end
@@ -1132,6 +1130,7 @@ Hook.Add("DD.enlightened.givetalent", "DD.enlightened.givetalent", function(effe
 	
 	-- play tchernobog sfx and flashes a image 1 second after player transforms
 	Timer.Wait(function ()
+		if (character == nil) or (character.Removed) then return end
 		DD.giveAfflictionCharacter(character, 'enlightenedfx', 999)
 	end, 1000)
 	
@@ -1226,13 +1225,14 @@ end)
 Hook.Add("DD.the1998.use", "DD.the1998.use", function(effect, deltaTime, item, targets, worldPosition)
     if CLIENT and Game.IsMultiplayer then return end
 	
-	if item.SpeciesName ~= 'human' then return end
-	if item.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) > 99 then return end
+	local character = item
+	if character.SpeciesName ~= 'human' then return end
+	if character.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) > 99 then return end
 	if effect.user.CharacterHealth.GetAfflictionStrengthByIdentifier('enlightened', true) < 99 then return end
 	
-	DD.giveAfflictionCharacter(item, 'enlighteneddecaypause', 999)
-	DD.giveAfflictionCharacter(item, 'enlightened', 30)
-	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), item.WorldPosition, nil, nil, function (spawnedItem) end)
+	DD.giveAfflictionCharacter(character, 'enlighteneddecaypause', 999)
+	DD.giveAfflictionCharacter(character, 'enlightened', 30)
+	Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab('smokefx'), character.WorldPosition, nil, nil, function (spawnedItem) end)
 end)
 
 -- When a cultist dies, he will come back as a zombie
@@ -1537,7 +1537,7 @@ end)
 -- time pressure
 Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
-	if character == nil then return end
+	if (character == nil) or character.Removed then return end
 	
 	if character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
 		character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
@@ -1548,7 +1548,7 @@ Hook.Add("DD.timepressure.explode", "DD.timepressure.explode", function(effect, 
 end)
 Hook.Add("DD.timepressure.gib", "DD.timepressure.gib", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
-	if character == nil then return end
+	if (character == nil) or character.Removed then return end
 	
 	if character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then
 		character.CharacterHealth.GetAffliction('timepressure', true).SetStrength(0)
@@ -1559,7 +1559,7 @@ Hook.Add("DD.timepressure.gib", "DD.timepressure.gib", function(effect, deltaTim
 end)
 Hook.Add("DD.timepressure.goatify", "DD.timepressure.goatify", function(effect, deltaTime, item, targets, worldPosition)
     local character = targets[1]
-	if character == nil then return end
+	if (character == nil) or character.Removed then return end
 	local client = DD.findClientByCharacter(character)
 	
 	if character.CharacterHealth.GetAffliction('timepressure', true) ~= nil then

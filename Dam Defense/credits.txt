@@ -5,7 +5,7 @@ Special thanks to the Undertow discord, the Luatrauma discord and Evil Factory f
 Some art and audio assets are taken from other games like TF2, Half-Life, Half-Life: Opposing Force, Blood, Gloomwood and Plague Inc: Evolved.
 VIP event was an idea suggested by Jerry Peterson and he also provided the bodyguard outfit sprites and "Jerry.xml".
 Quarmellion2.0 (paslg) helped with the hog cops, crowmen, huntsmen/woodsmen, "Paslg.xml" and suggested the Dampwood gamemode.
-Squall (sonksquall) gave the base XML for the pitchfork (cultistpitchfork). Barricade item inspired by the Sandbags from Squall's No Man's Land.
+Squall (sonksquall) gave the base XML for the pitchfork (cultistpitchfork). Barricade item inspired by the Sandbags from Squall's No Man's Land. Cowboy Hat and Top Hat mechanic provided by Squall.
 Lualess (Luabotomy) affliction was taken from the Neurotrauma mod by Mannatu for the "Clientside Luabotomy" affliction.
 Base sprite for the toolkit was taken from BTE by Chiko Eduardo.
 Crawling (prone) animations taken from Neurotrauma by Mannatu.

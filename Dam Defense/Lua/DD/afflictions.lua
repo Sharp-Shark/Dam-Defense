@@ -321,7 +321,7 @@ DD.thinkFunctions.afflictions = function ()
 			else
 				DD.giveAfflictionCharacter(character, 'firemanscarrytemporary', 1)
 			end
-			character.SelectedCharacter.SetStun(0.5, false)
+			if (not character.SelectedCharacter.IsDead) and character.SelectedCharacter.IsHandcuffed then character.SelectedCharacter.SetStun(1, false) end
 		else
 			if affliction ~= nil then
 				affliction.SetStrength(0)
