@@ -458,9 +458,9 @@ DD.chatMessageFunctions.events = function (message, sender)
 			if ((event.name == 'arrest') or (event.name == 'arrest1984')) and (event.isTargetKnown or (event.target == sender)) then
 				list = list .. ' - ' .. event.name .. DD.stringReplace(' ({target}: {targetName})', {target = DD.stringLocalize('target'), targetName = DD.clientLogName(event.target)}) .. '\n'
 			elseif (event.name == 'vip') and (event.guard ~= nil) and DD.isClientCharacterAlive(event.guard) then
-				if event.vip == sender then
-					list = list .. ' - ' .. event.name .. DD.stringReplace(' ({target}: {name})', {target = DD.stringLocalize('bodyguard'), name = DD.clientLogName(event.guard)}) .. '\n'
-				elseif event.guard == sender then
+				if (event.guard ~= nil) and DD.isClientCharacterAlive(event.guard) then
+					list = list .. ' - ' .. event.name .. DD.stringReplace(' ({target}: {name})', {target = DD.stringLocalize('vip'), name = DD.clientLogName(event.vip)}) .. DD.stringReplace(' ({target}: {name})', {target = DD.stringLocalize('bodyguard'), name = DD.clientLogName(event.guard)}) .. '\n'
+				else
 					list = list .. ' - ' .. event.name .. DD.stringReplace(' ({target}: {name})', {target = DD.stringLocalize('vip'), name = DD.clientLogName(event.vip)}) .. '\n'
 				end
 			elseif event.name == 'nukies' then

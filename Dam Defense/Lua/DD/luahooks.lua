@@ -1263,7 +1263,7 @@ DD.characterDeathFunctions.cultistDeath = function (character)
 	if client ~= nil then
 		local undeadInfo = DD.stringLocalize('undeadInfo')
 		if #DD.eventDirector.getEventInstances('bloodCult') >= 1 then
-			undeadInfo = undeadInfo .. ' ' .. DD.stringLocalize('undeadInfoBloodCult')
+			undeadInfo = undeadInfo .. ' ' .. DD.stringLocalize('bloodCultMinionInfo')
 		end
 		DD.messageClient(client, undeadInfo, {preset = 'crit'})
 	end

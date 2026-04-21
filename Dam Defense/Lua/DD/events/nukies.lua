@@ -148,7 +148,7 @@ end, {
 				end
 			end	
 		elseif character.SpeciesName == 'human' then
-			if (character.LastAttacker ~= nil) and self.nukiesSet[DD.findClientByCharacter(character.LastAttacker)] then
+			if (character.LastAttacker ~= nil) and (character.LastAttacker.TeamID == CharacterTeamType.Team2) then
 				self.respawnTickets = self.respawnTickets + 1
 				DD.messageAllClients(DD.stringLocalize('nukiesTicketGained', {tickets = self.respawnTickets}), {preset = 'info'})
 			end
@@ -173,6 +173,16 @@ end, {
 			end, 10 * 1000)
 		else
 			DD.messageAllClients(DD.stringLocalize('nukiesEnd'), {preset = 'goodinfo'})
+		end
+	end,
+	
+	onFinishAlways = function (self)
+		if not self.nukiesWon then
+			for client in self.nukies do
+				if DD.isClientCharacterAlive(client) then
+					DD.giveAfflictionCharacter(client.Character, 'beepingbomb', 5)
+				end
+			end
 		end
 	end
 })

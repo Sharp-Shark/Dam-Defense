@@ -103,6 +103,7 @@ DD.roundStartFunctions.main = function ()
 					'medicalfabricator',
 					'deconstructor',
 					'fabricator',
+					'chargingdock',
 				}
 				for tag in tags do
 					if item.HasTag(tag) then

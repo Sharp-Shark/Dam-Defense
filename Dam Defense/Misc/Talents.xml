@@ -232,8 +232,10 @@
     <AddedRecipe itemidentifier="hmgmagazine"/>
 	
 	<!-- for some reason dirty bomb is not an unlockable recipe? Now it is! -->
+	<!-- and other misc unlocks -->
     <AddedRecipe itemidentifier="dirtybomb"/>
     <AddedRecipe itemidentifier="nucleardepthdecoycheap"/>
+    <AddedRecipe itemidentifier="alienspear"/>
 	
   </Talent>
   

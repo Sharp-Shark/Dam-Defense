@@ -2716,11 +2716,11 @@
       <sprite texture="Content/UI/CommandUIAtlas.png" sourcerect="612,640,28,28" origin="0.5,0.5"/>
     </JobiconSmall>
     <Skills>
-      <Skill identifier="helm" level="55,65" primary="true"/>
-      <Skill identifier="weapons" level="55,65"/>
-      <Skill identifier="mechanical" level="55,65"/>
-      <Skill identifier="electrical" level="55,65"/>
-      <Skill identifier="medical" level="55,65"/>
+      <Skill identifier="helm" level="100,101" primary="true"/>
+      <Skill identifier="weapons" level="100,101"/>
+      <Skill identifier="mechanical" level="100,101"/>
+      <Skill identifier="electrical" level="100,101"/>
+      <Skill identifier="medical" level="100,101"/>
     </Skills>
     <ItemSet>
       <Item identifier="tophat" equip="true"/>

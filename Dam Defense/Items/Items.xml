@@ -4246,7 +4246,7 @@
         <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.9" minavailable="0" maxavailable="2" />
         <Price storeidentifier="merchantarmory" sold="true" multiplier="0.9" minavailable="0" maxavailable="2" />
       </Price>
-      <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="false">
+      <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="false" >
         <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
         <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
         <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />

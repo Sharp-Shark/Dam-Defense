@@ -14,9 +14,9 @@
       </SubContainer>
     </ItemContainer>
 	<!-- component to let players hide inside -->
-    <Controller UserPos="0,0" direction="Right" canbeselected="true" hidehud="false" AllowSelectingWhenSelectedByOther="true" selectkey="Use" drawuserbehind="true" forceusertostayattached="true" msg="itemmsggoinside" >
-	  <StatusEffect type="OnActive" targettype="Character" delay="0.25" stackable="true" indetectable="true" DisableFocusingOnEntities="true" invisibletimer="0.1" setvalue="true" />
-	</Controller>
+    <Controller msg="itemmsggoinside" kickoutcharactermsg="ItemMsgTakeOut" putothercharactermsg="ItemMsgPutInside" canbeselectedbycharacters="true" HideAllItemComponentHUDs="true" allowputtinginothercharacters="true" selectingkickscharacterout="true" spawnitemonselected="unidentifiedbiologicalmaterial" allowingameediting="false" UserPos="0,0" direction="Right" canbeselected="true" hidehud="false" AllowSelectingWhenSelectedByOther="true" selectkey="Use" drawuserbehind="true" forceusertostayattached="true">
+      <StatusEffect type="OnActive" targettype="Character" delay="0.1" stackable="true" indetectable="true" DisableFocusingOnEntities="true" invisibletimer="0.1" IgnoreMeleeWeapons="false" PressureProtection="6500.0" setvalue="true" />
+    </Controller>
     <!-- backwards compatibility for older versions in which mobile containers like storage containers were containable in any cabinet -->
     <Upgrade gameversion="1.1.0.0" campaignsaveonly="true">
       <ItemContainer>
@@ -36,9 +36,9 @@
       </SubContainer>
     </ItemContainer>
 	<!-- component to let players hide inside -->
-    <Controller UserPos="0,0" direction="Right" canbeselected="true" hidehud="false" AllowSelectingWhenSelectedByOther="true" selectkey="Use" drawuserbehind="false" forceusertostayattached="true" msg="itemmsggoinside" >
-      <StatusEffect type="OnActive" targettype="Character" delay="0.25" stackable="true" indetectable="true" DisableFocusingOnEntities="true" invisibletimer="0.1" setvalue="true" />
-	</Controller>
+    <Controller msg="itemmsggoinside" kickoutcharactermsg="ItemMsgTakeOut" putothercharactermsg="ItemMsgPutInside" canbeselectedbycharacters="true" HideAllItemComponentHUDs="true" allowputtinginothercharacters="true" selectingkickscharacterout="true" spawnitemonselected="unidentifiedbiologicalmaterial" allowingameediting="false" UserPos="0,0" direction="Right" canbeselected="true" hidehud="false" AllowSelectingWhenSelectedByOther="true" selectkey="Use" drawuserbehind="true" forceusertostayattached="true">
+      <StatusEffect type="OnActive" targettype="Character" delay="0.1" stackable="true" indetectable="true" DisableFocusingOnEntities="true" invisibletimer="0.1" IgnoreMeleeWeapons="false" PressureProtection="6500.0" setvalue="true" />
+    </Controller>
     <!-- backwards compatibility for older versions in which mobile containers like storage containers were containable in any cabinet -->
     <Upgrade gameversion="1.1.0.0" campaignsaveonly="true">
       <ItemContainer>

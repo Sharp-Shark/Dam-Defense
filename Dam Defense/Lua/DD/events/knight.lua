@@ -10,9 +10,10 @@ end, {
 	instanceCap = 1,
 	isMainEvent = false,
 	cooldown = 60 * 3,
-	weight = 2,
+	weight = 1.5,
 	goodness = -2,
 	minimunDeadPercentage = 0.01,
+	minimunTimeElapsed = 10 * 60,
 	
 	onStart = function (self)
 		-- pick client to be knight
